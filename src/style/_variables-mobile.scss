@@ -1,0 +1,17 @@
+// Variables for mobile devices
+
+/* ----------- Fractions for font sizes ----------- */
+// device < 480px
+$font-size-fraction-480: 0.7;
+
+// 480px < device < 568px
+$font-size-fraction-568: 0.75;
+
+// 568px < device < 667px
+$font-size-fraction-667: 0.8;
+
+// 667px < device < 732px
+$font-size-fraction-732: 0.85;
+
+// 732px < device
+$font-size-fraction-gt-732: 0.9;
