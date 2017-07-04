@@ -8,11 +8,15 @@ import { routing } from './app.routes';
 
 // Components
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AboutThsComponent } from './about-ths/about-ths.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AboutThsComponent } from './components/about-ths/about-ths.component';
+
+// Services
+import { WordpressApiService } from './services/wordpress/wordpress-api.service';
+import { APP_CONFIG, appConfig } from './app.config';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,10 @@ import { AboutThsComponent } from './about-ths/about-ths.component';
     HttpModule,
     routing
   ],
-  providers: [],
+  providers: [
+      WordpressApiService,
+      {provide: APP_CONFIG, useValue: appConfig}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
