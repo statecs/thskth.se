@@ -1,0 +1,27 @@
+@import "../../../../style/variables";
+@import "../../../../style/mixins";
+
+#navbar-secondary {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  color: $color-white;
+
+  >div{
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  .search i {
+    font-size: $font-size-h2;
+  }
+
+  .payment-btn {
+    background-color: $color-white;
+    border-radius: 5px;
+    color: $text-color-default;
+    padding: 10px;
+  }
+
+}

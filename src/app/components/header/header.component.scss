@@ -1,0 +1,29 @@
+@import "../../../style/mixins";
+@import "../../../style/variables";
+header {
+  background-color: $bg-color-primary;
+  height: 112px;
+  position: absolute;
+  width: 100%;
+
+  .container{
+    @include container-size(85%);
+    position: relative;
+  }
+
+  .logo {
+    @include square(35px);
+    overflow: hidden;
+    margin-top: 20px;
+    margin-left: 40px;
+    position: relative;
+
+    a{
+      text-decoration: none;
+      img{
+        width: auto;
+        height: 200%;
+      }
+    }
+  }
+}

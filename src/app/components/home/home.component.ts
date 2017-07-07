@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-home',

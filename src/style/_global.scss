@@ -1,6 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 @import "variables";
 
-body{
+html {
+  font-family: $font-family-primary;
+  line-height: 2em;
+  color: $text-color-primary;
+  height: 100%;
+}
+
+body {
   background: $bg-color-default;
+  margin: 0;
+  min-height: 100%;
+  line-height: 1;
+  vertical-align: baseline;
+  position: absolute;
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-title;
+  font-weight: $font-weight-title;
+  margin-top: 40px;
+  line-height: .9;
 }

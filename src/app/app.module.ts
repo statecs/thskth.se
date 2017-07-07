@@ -18,6 +18,10 @@ import { AboutThsComponent } from './components/about-ths/about-ths.component';
 import { WordpressApiService } from './services/wordpress/wordpress-api.service';
 import { APP_CONFIG, appConfig } from './app.config';
 
+import { NavbarPrimaryComponent } from './components/header/navbar-primary/navbar-primary.component';
+import { NavbarSecondaryComponent } from './components/header/navbar-secondary/navbar-secondary.component';
+import { NavbarSectionsComponent } from './components/header/navbar-sections/navbar-sections.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +29,10 @@ import { APP_CONFIG, appConfig } from './app.config';
     FooterComponent,
     HomeComponent,
     PageNotFoundComponent,
-    AboutThsComponent
+    AboutThsComponent,
+    NavbarPrimaryComponent,
+    NavbarSecondaryComponent,
+    NavbarSectionsComponent
   ],
   imports: [
     BrowserModule,

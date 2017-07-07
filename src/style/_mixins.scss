@@ -1,0 +1,44 @@
+@mixin square($size){
+  width: $size;
+  height: $size;
+  //border:1px solid red;
+}
+
+@mixin arrow-right($size, $color) {
+  content: " ";
+  position: absolute;
+  top:50%;
+  left:100%;
+  margin-top: -#{$size};
+  border-width: $size;
+  border-style: solid;
+  border-color: transparent transparent transparent $color;
+}
+
+@mixin arrow-left($size, $color) {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -#{$size};
+  border-width: $size;
+  border-style: solid;
+  border-color: transparent $color transparent transparent;
+}
+
+@mixin arrow-up($size, $color, $position) {
+  content: " ";
+  position: absolute;
+  top: -#{$size};
+  left: $position;
+  margin-top: -#{$size};
+  border-width: $size;
+  border-style: solid;
+  border-color: transparent transparent $color transparent;
+}
+
+@mixin container-size($size) {
+  width: $size;
+  margin-left: auto;
+  margin-right: auto;
+}

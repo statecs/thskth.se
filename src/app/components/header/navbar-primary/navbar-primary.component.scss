@@ -1,0 +1,56 @@
+@import "../../../../style/variables";
+@import "../../../../style/mixins";
+
+nav {
+  >div{
+    display:inline-block;
+    //border:1px solid;
+    margin: 20px 20px 0;
+    font-size: $font-size-h4;
+    color: $color-white;
+    a{
+      text-decoration: none;
+      vertical-align: text-top;
+    }
+    & >label a{
+      color: $color-white;
+    }
+    i{
+      margin-left: 10px;
+    }
+    .dropdownList {
+      position: absolute;
+      background-color: $color-white;
+      margin-top: 15px;
+
+      label a{
+        color: $text-color-default;
+      }
+
+      &::before {
+        @include arrow-up(15px, #cadce9, 2%);
+      }
+
+      .nav-section {
+        display: inline-block;
+        vertical-align: top;
+        font-size: $font-size-h7;
+        line-height: 1.6;
+        & >label {
+          display: block;
+          padding: 10px 10px;
+          background-color: #cadce9;
+          font-weight: $font-weight-regular;
+        }
+        .subItems {
+          padding: 10px 10px;
+        }
+        a:hover {
+          //text-decoration: underline;
+          border-bottom: 1px solid;
+          //line-height: 1.5;
+        }
+      }
+    }
+  }
+}

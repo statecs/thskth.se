@@ -1,0 +1,13 @@
+@import "../../../../style/variables";
+@import "../../../../style/mixins";
+
+#navbar-sections {
+  position: absolute;
+  right: 0;
+  top: -15px;
+
+  img {
+    @include square(35px);
+    opacity: 0.4;
+  }
+}
