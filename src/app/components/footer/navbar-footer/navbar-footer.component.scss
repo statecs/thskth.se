@@ -1,0 +1,23 @@
+@import "../../../../style/variables";
+
+nav {
+  line-height: 1.5;
+  margin-top: 50px;
+  position: relative;
+  display: inline-block;
+
+  a {
+    text-decoration: none;
+    color: $color-white;
+  }
+
+  .menu-sections {
+    display: inline-block;
+    text-align: left;
+    padding: 0 15px;
+
+    & >label {
+      font-weight: $font-weight-title;
+    }
+  }
+}

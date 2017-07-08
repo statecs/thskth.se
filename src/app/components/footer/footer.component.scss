@@ -1,0 +1,51 @@
+@import "../../../style/mixins";
+@import "../../../style/variables";
+
+footer {
+  background-color: $bg-color-primary;
+  position: relative;
+  width: 100%;
+  top: 800px;
+  height: 200px;
+  text-align: center;
+  padding-bottom: 40px;
+
+  .container{
+    @include container-size(85%);
+    position: relative;
+
+    .logo {
+      display: inline-block;
+      @include square(100px);
+      overflow: hidden;
+      margin-top: 20px;
+      margin-left: 40px;
+      position: relative;
+
+      a{
+        text-decoration: none;
+        img{
+          width: auto;
+          height: 100%;
+        }
+      }
+    }
+
+    .location {
+      color: $color-white;
+      font-size: $font-size-h8;
+      margin-top: 20px;
+    }
+  }
+}
+
+:host /deep/ {
+  #navbar-sections {
+    top: 15px !important;
+    position: relative !important;
+
+    img {
+      @include square(50px !important);
+    }
+  }
+}

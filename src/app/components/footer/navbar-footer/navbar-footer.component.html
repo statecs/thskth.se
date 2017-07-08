@@ -1,0 +1,10 @@
+<nav role="navigation">
+  <div *ngFor="let item of footer_menu; first as isFirst" class="menu-sections">
+    <label><a routerLink="{{item.url}}">{{item.title}}</a></label>
+    <div class="subItems">
+      <div *ngFor="let child_item of item.children">
+        <label><a routerLink="{{child_item.url}}">{{child_item.title}}</a></label>
+      </div>
+    </div>
+  </div>
+</nav>
