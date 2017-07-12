@@ -21,7 +21,9 @@
       "styles": [
         "style/_global.scss"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/ngx-cookie/bundles/ngx-cookie.umd.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

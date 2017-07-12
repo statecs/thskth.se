@@ -9,7 +9,8 @@ import {MenuItem} from '../../../interfaces/menu';
 })
 export class NavbarPrimaryComponent implements OnInit {
     private menu: MenuItem[];
-    constructor( private wordpressApiService: WordpressApiService) { }
+    public language: string;
+    constructor( private wordpressApiService: WordpressApiService ) { }
 
     ngOnInit() {
         this.wordpressApiService.getMenu('primary')

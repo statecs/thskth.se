@@ -11,5 +11,6 @@ export let appConfig: AppConfig = {
     PRIMARY_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/348',
     SECONDARY_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/348',
     SECTIONS_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/354',
-    FOOTER_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/352'
+    FOOTER_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/352',
+    LANGUAGE: 'en'
 };

@@ -9,6 +9,7 @@ import { routing } from './app.routes';
 // Services
 import { WordpressApiService } from './services/wordpress/wordpress-api.service';
 import { APP_CONFIG, appConfig } from './app.config';
+import { CookieModule } from 'ngx-cookie';
 
 // Components
 import { AppComponent } from './app.component';
@@ -39,7 +40,8 @@ import { NavbarFooterComponent } from './components/footer/navbar-footer/navbar-
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    CookieModule.forRoot()
   ],
   providers: [
       WordpressApiService,

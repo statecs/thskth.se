@@ -18,7 +18,8 @@ const appRoutes: Routes = [
     {
         path: '',
         component: HomeComponent,
-        data: { title: 'Home page' }
+        data: { title: 'Home page' },
+        pathMatch: 'full'
     },
     {
         path: '**',

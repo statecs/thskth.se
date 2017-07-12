@@ -6,15 +6,23 @@ import { APP_CONFIG } from '../../app.config';
 import { Card } from '../../interfaces/card';
 import { AppConfig } from '../../interfaces/appConfig';
 import {MenuItem} from '../../interfaces/menu';
+import { CookieService } from 'ngx-cookie';
 
 @Injectable()
 export class WordpressApiService {
   protected _wpBaseUrl: string;
   protected config: AppConfig;
+  protected language: string;
 
-  constructor(private http: Http, injector: Injector) {
+  constructor(private http: Http, injector: Injector, private _cookieService: CookieService) {
     this.config = injector.get(APP_CONFIG);
     this._wpBaseUrl = this.config.API_URL;
+
+    if (typeof this._cookieService.get('language') === 'undefined') {
+      this.language = 'en';
+    }else {
+      this.language = this._cookieService.get('language');
+    }
   }
 
   // Get cards
@@ -74,7 +82,7 @@ export class WordpressApiService {
   getMenu(param): Observable<MenuItem[]>  {
     let menu_url: string;
     if (param === 'primary') {
-      menu_url = this.config.PRIMARY_MENU_URL;
+      menu_url = 'http://kths.se/api/wp-api-menus/v2/menus/348';
     }else if (param === 'secondary') {
       menu_url = this.config.SECONDARY_MENU_URL;
     }else if (param === 'sections') {
@@ -82,9 +90,9 @@ export class WordpressApiService {
     }else if (param === 'footer') {
       menu_url = this.config.FOOTER_MENU_URL;
     }
-
+console.log(menu_url);
     return this.http
-        .get(menu_url + '?order=desc')
+        .get(menu_url + '?order=desc&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => this.castResDataToMenuType(res));

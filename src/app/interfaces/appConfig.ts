@@ -7,4 +7,5 @@ export interface AppConfig {
     SECONDARY_MENU_URL: string;
     SECTIONS_MENU_URL: string;
     FOOTER_MENU_URL: string;
+    LANGUAGE: string;
 }
