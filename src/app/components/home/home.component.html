@@ -1,2 +1,114 @@
-<app-header></app-header>
+<div id="homePage">
+    <div #main_slider id="main-slider" (mousemove)="mouseMovingOnPlayer()">
+        <div #app_header class="app-header">
+            <app-header></app-header>
+        </div>
+        <div #slides_container class="slides">
+            <div class="slide slide1">
+                <h2>THS-Your Student Union</h2>
+                <p>
+                    Welcome to THS! THS exists for the students and is operated by the students. All student activities during the reception and the opportunities presented to you during the student union day are a part of THS.
+                </p>
+                <button type="button">> Read More</button>
+            </div>
+            <div class="slide slide2" (click)="togglePlay()">
+                <video #video_player>
+                    <source src="../../../assets/One year at KTH.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-controller">
+                    <i #playButton class="material-icons">play_circle_outline</i>
+                </div>
+            </div>
+            <div class="slide slide3">
+                <div class="text-wrapper">
+                    <h2>THS-Your Student</h2>
+                    <p>
+                        Welcome to THS! THS exists for the students and is operated by the students. All student activities during the reception and the opportunities presented to you during the student union day are a part of THS.
+                    </p>
+                    <button type="button">> Read More</button>
+                </div>
+                <div class="img-wrapper">
+                    <img src="../../../assets/images/main_slider/big-banner.jpg">
+                </div>
+            </div>
+            <div class="slide slide4">
+                <div class="img-wrapper">
+                    <img src="../../../assets/images/main_slider/big-banner.jpg">
+                </div>
+                <div class="text-wrapper">
+                    <h2>THS-Your Student</h2>
+                    <p>
+                        Welcome to THS! THS exists for the students and is operated by the students. All student activities during the reception and the opportunities presented to you during the student union day are a part of THS.
+                    </p>
+                    <button type="button">> Read More</button>
+                </div>
+            </div>
+            <div class="slide slide4">
+                <div class="img-wrapper">
+                    <img src="../../../assets/images/main_slider/big-banner.jpg">
+                </div>
+                <div class="text-wrapper">
+                    <h2>Slide 5</h2>
+                    <p>
+                        Welcome to THS! THS exists for the students and is operated by the students. All student activities during the reception and the opportunities presented to you during the student union day are a part of THS.
+                    </p>
+                    <button type="button">> Read More</button>
+                </div>
+            </div>
+        </div>
+        <div class="slider-bar-container" #slider_bar_container>
+            <div class="slider-bar">
+                <div class="item" (click)="showSelectedSlide(1)">
+                    <div class="slider-progress-bar"></div>
+                    <div class="text">
+                        <div class="number">
+                            <span>1</span>
+                        </div>
+                        THS-Your Student Union
+                    </div>
+                </div>
+                <div class="item" (click)="showSelectedSlide(2)">
+                    <div class="slider-progress-bar"></div>
+                    <div class="text">
+                        <div class="number">
+                            <span>2</span>
+                        </div>
+                        One Year At KTH
+                    </div>
+                </div>
+                <div class="item" (click)="showSelectedSlide(3)">
+                    <div class="slider-progress-bar"></div>
+                    <div class="text">
+                        <div class="number">
+                            <span>3</span>
+                        </div>
+                        Slide 3
+                    </div>
+                </div>
+                <div class="item" (click)="showSelectedSlide(4)">
+                    <div class="slider-progress-bar"></div>
+                    <div class="text">
+                        <div class="number">
+                            <span>4</span>
+                        </div>
+                        Slide 4
+                    </div>
+                </div>
+                <div class="item" (click)="showSelectedSlide(5)">
+                    <div class="slider-progress-bar"></div>
+                    <div class="text">
+                        <div class="number">
+                            <span>5</span>
+                        </div>
+                        <div>Slide 5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
 <app-footer></app-footer>

@@ -4,7 +4,7 @@
             <a routerLink="{{item.url}}">{{item.title}}</a>
             <i class="material-icons">keyboard_arrow_down</i>
         </label>
-        <div *ngIf="isFirst" class="dropdownList">
+        <!--<div *ngIf="isFirst" class="dropdownList">
             <div *ngFor="let child_item of item.children; first as ddlIsFirst" class="nav-section">
                 <label><a routerLink="{{child_item.url}}">{{child_item.title}}</a></label>
                 <div class="subItems">
@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
     </div>
 </nav>
