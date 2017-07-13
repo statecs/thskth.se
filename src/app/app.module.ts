@@ -22,6 +22,7 @@ import { NavbarPrimaryComponent } from './components/header/navbar-primary/navba
 import { NavbarSecondaryComponent } from './components/header/navbar-secondary/navbar-secondary.component';
 import { NavbarSectionsComponent } from './components/header/navbar-sections/navbar-sections.component';
 import { NavbarFooterComponent } from './components/footer/navbar-footer/navbar-footer.component';
+import { CardCategorizerComponent } from './components/card-categorizer/card-categorizer.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NavbarFooterComponent } from './components/footer/navbar-footer/navbar-
     NavbarPrimaryComponent,
     NavbarSecondaryComponent,
     NavbarSectionsComponent,
-    NavbarFooterComponent
+    NavbarFooterComponent,
+    CardCategorizerComponent
   ],
   imports: [
     BrowserModule,

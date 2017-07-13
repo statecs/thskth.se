@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { CardCategorizerComponent } from '../card-categorizer/card-categorizer.component';
 
 @Component({
   selector: 'app-home',
@@ -101,10 +102,8 @@ export class HomeComponent implements OnInit {
             self.hideControls();
         };
         if (this.video.paused) {
-            if (this.controlsOpacity !== 1) {
-                clearTimeout( this.mousemove_timer );
-                this.showControls();
-            }
+            clearTimeout( this.mousemove_timer );
+            this.showControls();
         }else {
             if (this.controlsOpacity === 0) {
                 this.showControls();
