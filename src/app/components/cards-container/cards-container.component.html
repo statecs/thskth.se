@@ -1,0 +1,36 @@
+<div id="cards-container" class="masonry-layout">
+  <div *ngFor="let card of cards" class="masonry-layout_panel {{card.flex_layout}}">
+
+    <!-- ---------- Video card ---------- -->
+    <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content">
+      <div class="video-card">
+        <div class="video-wrapper" [innerHTML]="card.content" ></div>
+        <div class="video-controller">
+          <i #playButton class="material-icons">play_circle_outline</i>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- Centered Content card ---------- -->
+    <div *ngIf="card.card_type === 'centered-content-card'" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + card.background_image.sizes.medium_large + ')'">
+      <div class="centered-content-card">
+        <div class="content">
+          <h2>{{card.title}}</h2>
+          <p [innerHTML]="card.content"></p>
+          <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- Standard card ---------- -->
+    <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + card.background_image.sizes.medium_large + ')'">
+      <div class="standard-card">
+        <div class="content">
+          <h2>{{card.title}}</h2>
+          <p [innerHTML]="card.content"></p>
+          <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

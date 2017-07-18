@@ -1,0 +1,78 @@
+@import "../../../style/mixins";
+@import "../../../style/variables";
+
+.masonry-layout {
+  height: auto;
+  @include container-size(87%);
+  //border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .o-third {
+    width: 30%;
+  }
+
+  .two-third {
+    width: 63%;
+  }
+
+  .o-whole {
+    width: 100%;
+  }
+
+  .masonry-layout_panel {
+    display: flex;
+    flex: 1 1 auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    margin-right: 1%;
+    margin-left: 1%;
+    height: 300px;
+    position: relative;
+    box-shadow: 0 3px 5px #888888;
+    overflow: hidden;
+
+    .masonry-layout_panel-content {
+      border-radius: 10px;
+      overflow: hidden;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+// ---------- Video card ---------- //
+:host /deep/ .video-card {
+  @include video-card();
+}
+
+// ---------- Centered Content card ---------- //
+:host /deep/ .centered-content-card {
+  @include standard-card(0 25%, center);
+}
+
+// ---------- Standard card ---------- //
+:host /deep/ .standard-card {
+  @include standard-card(5% 7%, left);
+}
+
+/*.masonry-layout {
+  column-count: 1;
+  column-gap: 0;
+  margin: 0;
+  -webkit-column-break-inside: avoid; !* Chrome, Safari *!
+  page-break-inside: avoid;           !* Theoretically FF 20+ *!
+  break-inside: avoid-column;         !* IE 11 *!
+  display:table;
+}
+.masonry-layout_panel {
+  break-inside: avoid;
+  padding: 5px;
+  display: inline-block;
+}
+.masonry-layout_panel-content {
+  padding: 10px;
+  border-radius: 10px;
+}*/

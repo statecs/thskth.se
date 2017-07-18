@@ -1,16 +1,40 @@
-<div id="card-categorizer">
+<div #card_categorizer id="card-categorizer">
   I am a
-  <div>
-    <span>student</span>
+  <div #profession class="profession"  (click)="companyIsDisabled !== true || toggleDropdown(1)" [attr.disabled]="!companyIsDisabled ? true : null">
+    <span>{{selected_profession}}</span>
     <i class="material-icons">keyboard_arrow_down</i>
+      <div class="dropdown-container">
+          <div class="dropdown-list">
+              <div class="dropdown-item" (click)="updateFiltering('profession', $event)">student</div>
+              <div class="dropdown-item" (click)="updateFiltering('profession', $event)">professor</div>
+              <div class="dropdown-item" (click)="updateFiltering('profession', $event)">other</div>
+          </div>
+      </div>
   </div>
-  <div>
-    <span>company</span>
+  <div (click)="switchPerson()" class="switcher">
+    <div #switch_button class="switch-button"></div>
+  </div>
+  <div #company class="company" (click)="companyIsDisabled === true || toggleDropdown(2)" [attr.disabled]="companyIsDisabled ? true : null">
+    <span>{{selected_company}}</span>
     <i class="material-icons">keyboard_arrow_down</i>
+      <div class="dropdown-container">
+          <div class="dropdown-list">
+              <div class="dropdown-item" (click)="updateFiltering('company', $event)">company</div>
+              <div class="dropdown-item" (click)="updateFiltering('company', $event)">institute</div>
+              <div class="dropdown-item" (click)="updateFiltering('company', $event)">other</div>
+          </div>
+      </div>
   </div>
   and I am interested in
-  <div>
-    <span>student</span>
+  <div class="interest" (click)="toggleDropdown(3)">
+    <span>{{selected_interest}}</span>
     <i class="material-icons">keyboard_arrow_down</i>
+      <div class="dropdown-container">
+          <div class="dropdown-list">
+              <div class="dropdown-item" (click)="updateFiltering('interest', $event)">student</div>
+              <div class="dropdown-item" (click)="updateFiltering('interest', $event)">careers</div>
+              <div class="dropdown-item" (click)="updateFiltering('interest', $event)">education</div>
+          </div>
+      </div>
   </div>
 </div>

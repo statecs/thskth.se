@@ -27,8 +27,9 @@ export class WordpressApiService {
 
   // Get cards
   getCards(): Observable<Card[]> {
+    console.log(this.config.CARDS_URL);
     return this.http
-        .get(this.config.CARDS_URL + '?order=desc')
+        .get(this.config.CARDS_URL + '?order=asc&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => this.castResDataToCardType(res));

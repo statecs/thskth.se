@@ -3,6 +3,7 @@ import { WordpressApiService } from '../../services/wordpress/wordpress-api.serv
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CardCategorizerComponent } from '../card-categorizer/card-categorizer.component';
+import { CardsContainerComponent } from '../cards-container/cards-container.component';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
     public slideIndex: number;
     public slides: any;
 
-  constructor( private wordpressApiService: WordpressApiService) {
+  constructor( private wordpressApiService: WordpressApiService ) {
       this.slides_images = ['Background-image-733x550.jpg', 'none', '35_kth_vlv_6y7b5608-825x550.jpg', 'big-banner.jpg', 'LoggaBild.png'];
       this.slides_img_base = '../../../assets/images/main_slider/';
       this.slideIndex = 1;
@@ -132,10 +133,10 @@ export class HomeComponent implements OnInit {
 
       this.slides = this.slides_container.nativeElement.getElementsByClassName('slide');
 
-    this.wordpressApiService.getCards()
+    /*this.wordpressApiService.getCards()
         .subscribe(res => {
           console.log(res);
-        });
+        });*/
 
     this.startMainSlider();
   }

@@ -13,11 +13,79 @@
 
   & >div {
     display: inline-block;
+    cursor: pointer;
+    position: relative;
+
     & >span {
       text-decoration: underline;
+      margin: 0 10px;
     }
     & >i {
       vertical-align: middle;
+    }
+
+    .dropdown-container {
+      color: #222222;
+      border-radius: 5px;
+      font-size: $font-size-default;
+      width: 300px;
+      position: absolute;
+      margin-top: 10px;
+      right: -10px;
+      box-shadow: 0 0 10px #888888;
+      display: none;
+      z-index: 1;
+
+      &::before {
+        @include arrow-up(10px, white, 89%);
+      }
+
+      .dropdown-list {
+        text-align: left;
+
+        .dropdown-item {
+          list-style: none;
+          padding: 10px 20px;
+          background-color: white;
+          border-bottom: 1px solid lightgray;
+
+          &:hover{background-color: #e7eef3;}
+
+          &:first-child {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-left: 3px solid #1485d2;
+          }
+
+          &:last-child {
+            border-bottom: 0;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .company {
+    opacity: 0.25;
+    cursor: default;
+  }
+
+  .switcher {
+    @include capsule-button(3px, 3px);
+    width: 60px;
+    vertical-align: middle;
+    border:2px solid white;
+    margin: 0 10px;
+    position: relative;
+
+    .switch-button {
+      @include circle(20px);
+      background-color: green;
+      position: inherit;
+      left:0;
+      transition: left 0.5s ease, right 0.5s ease;
     }
   }
 }
