@@ -2,11 +2,26 @@
 @import "../../../../style/mixins";
 
 nav {
+  @include center-vertically(50%);
+  display: inline-block;
+  right: 0;
+
+  .payment-btn {
+    border-radius: 15px;
+    padding: 7px;
+    color: white;
+    border: 1px solid;
+    cursor: pointer;
+  }
+
+  .language {
+    cursor: pointer;
+  }
+
   >div{
     display:inline-block;
-    //border:1px solid;
-    margin: 20px 20px 0 0;
-    font-size: $font-size-h4;
+    margin-left: 30px;
+    font-size: $font-size-default;
     color: $color-white;
     a{
       text-decoration: none;
@@ -14,6 +29,9 @@ nav {
     }
     & >label a{
       color: $color-white;
+      &:hover{
+        text-decoration: underline;
+      }
     }
     i{
       margin-left: 10px;
@@ -46,7 +64,7 @@ nav {
           padding: 10px 10px;
         }
         a:hover {
-          //text-decoration: underline;
+          text-decoration: underline;
           border-bottom: 1px solid;
           //line-height: 1.5;
         }

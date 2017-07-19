@@ -1,8 +1,8 @@
 <nav role="navigation">
-    <div *ngFor="let item of menu; index as i; first as isFirst">
+    <div class="nav-item" *ngFor="let item of menu; index as i; first as isFirst">
         <label>
             <a routerLink="{{item.url}}">{{item.title}}</a>
-            <i class="material-icons">keyboard_arrow_down</i>
+            <!--<i class="material-icons">keyboard_arrow_down</i>-->
         </label>
         <!--<div *ngIf="isFirst" class="dropdownList">
             <div *ngFor="let child_item of item.children; first as ddlIsFirst" class="nav-section">
@@ -15,5 +15,10 @@
             </div>
         </div>-->
 
+    </div>
+    <div class="payment-btn">Sign in</div>
+    <div class="language" (click)="changeLanguage()">
+        <!--<span>{{language_text}}</span>-->
+        <img width="25" height="17" src="{{language_img}}">
     </div>
 </nav>

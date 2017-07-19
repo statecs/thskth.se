@@ -8,8 +8,8 @@
   margin: 10px auto;
   text-align: center;
   font-size: $font-size-h3;
-  background-color: $bg-color-primary;
-  color: $color-white;
+  //background-color: $bg-color-primary;
+  color: $bg-color-primary;
 
   & >div {
     display: inline-block;
@@ -76,13 +76,13 @@
     @include capsule-button(3px, 3px);
     width: 60px;
     vertical-align: middle;
-    border:2px solid white;
+    border:2px solid $bg-color-primary;
     margin: 0 10px;
     position: relative;
 
     .switch-button {
       @include circle(20px);
-      background-color: green;
+      background-color: $bg-color-primary;
       position: inherit;
       left:0;
       transition: left 0.5s ease, right 0.5s ease;

@@ -2,34 +2,45 @@
 @import "../../../style/variables";
 
 header {
-  //background-color: $bg-color-primary;
-  height: 150px;
   position: absolute;
   width: 100%;
-  //border: 1px solid orangered;
   @include bg-linear-grad-to-top(rgba(0,0,0,0), rgba(0,0,0,0.6));
   z-index: 1;
+  text-align: center;
 
   .container{
     @include container-size(85%);
     position: relative;
     border-bottom: 1px solid lightgray;
-    padding-bottom: 20px;
-    min-height: 80px;
-  }
+    padding: 15px 0;
+    text-align: inherit;
 
-  .logo {
-    @include square(35px);
-    overflow: hidden;
-    margin-top: 20px;
-    margin-left: 20px;
-    position: relative;
+    >div {
+      display: inline-block;
+      vertical-align: middle;
+    }
 
-    a{
-      text-decoration: none;
-      img{
-        width: auto;
-        height: 200%;
+    .search {
+      @include center-vertically(50%);
+      left: 0;
+      i {
+        font-size: $font-size-h2;
+        vertical-align: middle;
+      }
+    }
+
+    .logo {
+      @include square(45px);
+      overflow: hidden;
+      position: relative;
+      display: inline-block;
+
+      a{
+        text-decoration: none;
+        img{
+          width: auto;
+          height: 200%;
+        }
       }
     }
   }

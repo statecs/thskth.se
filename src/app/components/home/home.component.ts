@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
               self.slideIndex = 1;
           }
           self.showSlide();
-      }, 5000);
+      }, 7000);
   }
 
   hideAllSlides(): void {

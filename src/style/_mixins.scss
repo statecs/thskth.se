@@ -112,7 +112,7 @@
       font-size: $font-size-default;
       text-align: justify;
     }
-    a{
+    >a{
       @include capsule-button(50px, 20px);
       text-decoration: none;
     }
@@ -141,4 +141,10 @@
       transition: opacity 0.5s ease;
     }
   }
+}
+
+@mixin center-vertically($position){
+  top: $position;
+  transform: translateY(-$position);
+  position: absolute;
 }
