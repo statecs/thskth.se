@@ -5,6 +5,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { CardCategorizerComponent } from '../card-categorizer/card-categorizer.component';
 import { CardsContainerComponent } from '../cards-container/cards-container.component';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

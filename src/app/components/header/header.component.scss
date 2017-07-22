@@ -9,7 +9,7 @@ header {
   text-align: center;
 
   .container{
-    @include container-size(85%);
+    @include container-size($main-container);
     position: relative;
     border-bottom: 1px solid lightgray;
     padding: 15px 0;

@@ -25,6 +25,7 @@ import { NavbarFooterComponent } from './components/footer/navbar-footer/navbar-
 import { CardCategorizerComponent } from './components/card-categorizer/card-categorizer.component';
 import { CardsContainerComponent } from './components/cards-container/cards-container.component';
 import { TextSliderComponent } from './components/text-slider/text-slider.component';
+import { ImageSliderComponent } from './components/image-slider/image-slider.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { TextSliderComponent } from './components/text-slider/text-slider.compon
     NavbarFooterComponent,
     CardCategorizerComponent,
     CardsContainerComponent,
-    TextSliderComponent
+    TextSliderComponent,
+    ImageSliderComponent
   ],
   imports: [
     BrowserModule,

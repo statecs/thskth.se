@@ -3,7 +3,7 @@
 
 .masonry-layout {
   height: auto;
-  @include container-size(87%);
+  @include container-size($main-container + 2%);
   //border: 1px solid red;
   display: flex;
   flex-direction: row;
