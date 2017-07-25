@@ -94,6 +94,7 @@
   @include standard-card(5% 7%, left);
   height: 270px;
   padding: 20px;
+  width: auto;
 }
 
 // ---------- Event Calendar card ---------- //
@@ -116,7 +117,7 @@
     }
   }
   .right-content{
-    width: 43%;
+    width: 42%;
     vertical-align: top;
     background-color: lightgray;
     position: relative;
