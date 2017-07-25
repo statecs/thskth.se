@@ -26,6 +26,7 @@ import { CardCategorizerComponent } from './components/card-categorizer/card-cat
 import { CardsContainerComponent } from './components/cards-container/cards-container.component';
 import { TextSliderComponent } from './components/text-slider/text-slider.component';
 import { ImageSliderComponent } from './components/image-slider/image-slider.component';
+import { CardsSocialContainerComponent } from './components/cards-social-container/cards-social-container.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ImageSliderComponent } from './components/image-slider/image-slider.com
     CardCategorizerComponent,
     CardsContainerComponent,
     TextSliderComponent,
-    ImageSliderComponent
+    ImageSliderComponent,
+    CardsSocialContainerComponent
   ],
   imports: [
     BrowserModule,
