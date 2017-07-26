@@ -20,13 +20,15 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AboutThsComponent } from './components/about-ths/about-ths.component';
 import { NavbarPrimaryComponent } from './components/header/navbar-primary/navbar-primary.component';
 import { NavbarSecondaryComponent } from './components/header/navbar-secondary/navbar-secondary.component';
-import { NavbarSectionsComponent } from './components/header/navbar-sections/navbar-sections.component';
+import { NavbarSectionsComponent } from './components/footer/navbar-sections/navbar-sections.component';
 import { NavbarFooterComponent } from './components/footer/navbar-footer/navbar-footer.component';
 import { CardCategorizerComponent } from './components/card-categorizer/card-categorizer.component';
 import { CardsContainerComponent } from './components/cards-container/cards-container.component';
 import { TextSliderComponent } from './components/text-slider/text-slider.component';
 import { ImageSliderComponent } from './components/image-slider/image-slider.component';
 import { CardsSocialContainerComponent } from './components/cards-social-container/cards-social-container.component';
+import { GoogleMapsComponent } from './components/google-maps/google-maps.component';
+import { ContactInfoComponent } from './components/contact-info/contact-info.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { CardsSocialContainerComponent } from './components/cards-social-contain
     CardsContainerComponent,
     TextSliderComponent,
     ImageSliderComponent,
-    CardsSocialContainerComponent
+    CardsSocialContainerComponent,
+    GoogleMapsComponent,
+    ContactInfoComponent
   ],
   imports: [
     BrowserModule,

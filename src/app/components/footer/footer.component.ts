@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WordpressApiService} from '../../services/wordpress/wordpress-api.service';
 import {MenuItem} from '../../interfaces/menu';
-import { NavbarSectionsComponent } from '../header/navbar-sections/navbar-sections.component';
+import { NavbarSectionsComponent } from './navbar-sections/navbar-sections.component';
 import { NavbarFooterComponent } from './navbar-footer/navbar-footer.component';
 
 @Component({

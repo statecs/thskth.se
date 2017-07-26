@@ -3,13 +3,13 @@
 
 .title{
   font-size:$font-size-h2;
-  @include container-size($main-container + 2%);
+  @include container-size($main-container);
   margin-bottom: 10px;
 }
 
 .masonry-layout {
   //height: auto;
-  @include container-size($main-container + 2%);
+  @include container-size($main-container);
   //border: 1px solid red;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@
   height: 7px;
   background-color: gray;
   text-align: center;
-  @include container-size($main-container + 2%);
+  @include container-size($main-container);
   position: relative;
   .plus-button{
     @include circle(50px);

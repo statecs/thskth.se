@@ -204,4 +204,24 @@
       }
     }
   }
+
+  .contact{
+    @include container-size(80%);
+    height: 400px;
+    margin-top: 50px;
+    margin-bottom: 2px;
+    & >div{
+      display: inline-block;
+    }
+    .contact-info{
+      width: 34%;
+      height: 100%;
+      float: left;
+    }
+    .maps{
+      width: 64.65%;
+      height: 100%;
+      float: right;
+    }
+  }
 }
