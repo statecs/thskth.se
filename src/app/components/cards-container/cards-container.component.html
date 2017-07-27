@@ -1,36 +1,102 @@
 <div id="cards-container" class="masonry-layout">
-  <div *ngFor="let card of cards" class="masonry-layout_panel {{card.flex_layout}}">
-
-    <!-- ---------- Video card ---------- -->
-    <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content">
-      <div class="video-card">
-        <div class="video-wrapper" [innerHTML]="card.content" ></div>
-        <div class="video-controller">
-          <i #playButton class="material-icons">play_circle_outline</i>
+  <div *ngFor="let card of arranged_cards" class="masonry-layout_panel {{card.flex_layout === 'one-sixth'? 'o-third': card.flex_layout}}">
+    <div *ngIf="card.flex_layout !== 'one-sixth'">
+      <!-- ---------- Video card ---------- -->
+      <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content">
+        <div class="video-card">
+          <div class="video-wrapper" [innerHTML]="card.content" ></div>
+          <div class="video-controller">
+            <i #playButton class="material-icons">play_circle_outline</i>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- ---------- Centered Content card ---------- -->
-    <div *ngIf="card.card_type === 'centered-content-card'" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + card.background_image.sizes.medium_large + ')'">
-      <div class="centered-content-card">
-        <div class="content">
-          <h2>{{card.title}}</h2>
-          <p [innerHTML]="card.content"></p>
-          <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+      <!-- ---------- Centered Content card ---------- -->
+      <div *ngIf="card.card_type === 'centered-content-card'" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+        <div class="centered-content-card" [ngStyle]="changeBGColor(card)">
+          <div class="content">
+            <h2>{{card.title}}</h2>
+            <p [innerHTML]="card.content | cardText:120"></p>
+            <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- ---------- Standard card ---------- -->
-    <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + card.background_image.sizes.medium_large + ')'">
-      <div class="standard-card">
-        <div class="content">
-          <h2>{{card.title}}</h2>
-          <p [innerHTML]="card.content"></p>
-          <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+      <!-- ---------- Standard card ---------- -->
+      <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+        <div class="standard-card" [ngStyle]="changeBGColor(card)">
+          <div class="content">
+            <h2>{{card.title}}</h2>
+            <p [innerHTML]="card.content | cardText:120"></p>
+            <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+          </div>
         </div>
       </div>
+
+        <!-- ---------- Membership card ---------- -->
+        <div *ngIf="card.card_type === 'membership-card'" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+            <div class="membership-card" [ngStyle]="changeBGColor(card)">
+                <div class="content">
+                    <h2>{{card.title}}</h2>
+                    <p [innerHTML]="card.content | cardText:200"></p>
+                    <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!--<div *ngIf="card.flex_layout === 'one-sixth'" class="one-sixth-container">
+      &lt;!&ndash; &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Standard card &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
+      <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content {{card.flex_layout}}" [style.backgroundImage]="'url(' + card.background_image.sizes.medium_large + ')'">
+        <div class="standard-card">
+          <div class="content">
+            <h2>{{card.title}}</h2>
+            <p [innerHTML]="card.content"></p>
+            <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+          </div>
+        </div>
+      </div>
+    </div>-->
   </div>
+
+    <div *ngFor="let cards of one_third_half_array" class="masonry-layout_panel o-third box-shadow-none">
+        <div class="masonry-layout-sub">
+            <div *ngFor="let card of cards" class="one-third-half">
+                <div class="one-sixth-container">
+                    <!-- ---------- Standard card ---------- -->
+                    <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content {{card.flex_layout}}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+                        <div class="standard-card" [ngStyle]="changeBGColor(card)">
+                            <div class="content">
+                                <h2>{{card.title}}</h2>
+                                <p [innerHTML]="card.content | cardText:100"></p>
+                                <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div *ngFor="let cards of one_sixth_cards_array" class="masonry-layout_panel o-third box-shadow-none">
+            <div class="masonry-layout-sub">
+                <div *ngFor="let card of cards" class="one-sixth">
+                    <div class="one-sixth-container">
+                        <!-- ---------- Standard card ---------- -->
+                        <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content {{card.flex_layout}}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+                            <div class="standard-card" [ngStyle]="changeBGColor(card)">
+                                <div class="content">
+                                    <h2>{{card.title}}</h2>
+                                    <p [innerHTML]="card.content | cardText:50"></p>
+                                    <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 </div>

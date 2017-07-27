@@ -29,6 +29,7 @@ import { ImageSliderComponent } from './components/image-slider/image-slider.com
 import { CardsSocialContainerComponent } from './components/cards-social-container/cards-social-container.component';
 import { GoogleMapsComponent } from './components/google-maps/google-maps.component';
 import { ContactInfoComponent } from './components/contact-info/contact-info.component';
+import { CardTextPipe } from './pipes/card-text.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ContactInfoComponent } from './components/contact-info/contact-info.com
     ImageSliderComponent,
     CardsSocialContainerComponent,
     GoogleMapsComponent,
-    ContactInfoComponent
+    ContactInfoComponent,
+    CardTextPipe
   ],
   imports: [
     BrowserModule,
