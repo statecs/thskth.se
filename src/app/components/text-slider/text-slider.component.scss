@@ -2,23 +2,20 @@
 @import "../../../style/variables";
 
 #text-slider {
-  @include container-size($main-container);
+  //@include container-size($main-container);
   text-align: center;
   position: relative;
-  //background-color: #ededf1;
-  //box-shadow: 0 1px 10px #b7b7b7;
-  margin-top: 50px;
+  margin-top: 10px;
   overflow: hidden;
   height: 280px;
-  //border: 1px solid blue;
 
   .slide-wrapper {
     position: absolute;
     left: -101%;
-    //border: 1px solid green;
     display: inline-block;
     width: 100%;
     transition: left 0.5s ease;
+    height: 100%;
 
     .slide {
       width: 60%;
@@ -39,7 +36,9 @@
     .category {
       display: inline-block;
       position: absolute;
+      bottom: 30px;
       left: 0;
+      z-index: 1;
     }
   }
 

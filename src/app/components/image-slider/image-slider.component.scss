@@ -2,12 +2,12 @@
 @import "../../../style/variables";
 
 #img-slider {
-  @include container-size($main-container);
+  //@include container-size($main-container);
   text-align: center;
   position: relative;
   //background-color: #ededf1;
   //box-shadow: 0 1px 10px #b7b7b7;
-  margin-top: 50px;
+  margin-top: 10px;
   overflow: hidden;
   height: 420px;
   //border: 1px solid blue;

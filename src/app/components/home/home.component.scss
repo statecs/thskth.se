@@ -233,4 +233,13 @@
       float: right;
     }
   }
+
+  .faq-slider, .image-slider {
+    @include container-size($main-container);
+    & >div{
+      margin-bottom: 0;
+      margin-top: 50px;
+      font-size: $font-size-h2;
+    }
+  }
 }
