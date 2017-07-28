@@ -29,11 +29,13 @@ export class HomeComponent implements OnInit {
     public mainSlide_timer: any;
     public slideIndex: number;
     public slides: any;
+    public slideshow_play_btn: string;
 
   constructor( private wordpressApiService: WordpressApiService ) {
       this.slides_images = ['Background-image-733x550.jpg', 'none', '35_kth_vlv_6y7b5608-825x550.jpg', 'big-banner.jpg', 'LoggaBild.png'];
       this.slides_img_base = '../../../assets/images/main_slider/';
       this.slideIndex = 1;
+      this.slideshow_play_btn = 'pause';
   }
 
   startMainSlider(): void {
@@ -48,6 +50,16 @@ export class HomeComponent implements OnInit {
           self.showSlide();
       }, 7000);
   }
+
+    toggleMainSlider(): void {
+        if (this.slideshow_play_btn === 'pause') {
+            this.slideshow_play_btn = 'play_arrow';
+            clearInterval(this.mainSlide_timer);
+        }else {
+            this.slideshow_play_btn = 'pause';
+            this.startMainSlider();
+        }
+    }
 
   hideAllSlides(): void {
       this.slides[this.slideIndex - 1].style.right = 0;

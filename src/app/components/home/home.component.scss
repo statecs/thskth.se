@@ -167,8 +167,9 @@
 
       .slider-bar {
         @include container-size($main-container);
-        //border: 1px solid red;
         z-index: 1;
+        display: inline-block;
+        margin-left: 10%;
 
         .item {
           width: (100%)/5 - 0.3%;
@@ -180,7 +181,7 @@
             background-color: #636161;
             border-radius: 2px;
             height:4px;
-            @include container-size(70%);
+            @include container-size(100%);
             margin-bottom: 15px;
           }
           .text {
@@ -201,6 +202,14 @@
             }
           }
         }
+      }
+
+      .slideshow-play-button{
+        padding:15px;
+        border: 1px solid white;
+        display: inline-block;
+        border-radius: 3px;
+        cursor: pointer;
       }
     }
   }
