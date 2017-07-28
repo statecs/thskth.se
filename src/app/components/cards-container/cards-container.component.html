@@ -4,6 +4,10 @@
       <!-- ---------- Video card ---------- -->
       <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content">
         <div class="video-card">
+            <div class="text">
+                <h2>{{card.title}}</h2>
+                <p [innerHTML]="card.excerpt | cardText:50"></p>
+            </div>
           <div class="video-wrapper" [innerHTML]="card.content" ></div>
           <div class="video-controller">
             <i #playButton class="material-icons">play_circle_outline</i>
