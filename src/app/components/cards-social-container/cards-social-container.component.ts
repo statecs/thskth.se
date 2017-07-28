@@ -17,11 +17,11 @@ export class CardsSocialContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.wordpressApiService.getCards()
+    /*this.wordpressApiService.getCards()
         .subscribe(res => {
           console.log(res);
           this.cards = res;
-        });
+        });*/
   }
 
 }

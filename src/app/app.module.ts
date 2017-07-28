@@ -10,6 +10,7 @@ import { routing } from './app.routes';
 import { WordpressApiService } from './services/wordpress/wordpress-api.service';
 import { APP_CONFIG, appConfig } from './app.config';
 import { CookieModule } from 'ngx-cookie';
+import { CardCategorizerCardContainerService } from './services/component-communicators/card-categorizer-card-container.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -61,6 +62,7 @@ import { CardTextPipe } from './pipes/card-text.pipe';
   ],
   providers: [
       WordpressApiService,
+      CardCategorizerCardContainerService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

@@ -8,4 +8,7 @@ export interface AppConfig {
     SECTIONS_MENU_URL: string;
     FOOTER_MENU_URL: string;
     LANGUAGE: string;
+    PROFESSION: any;
+    ORGANIZATION_TYPE: any;
+    USER_INTEREST: any;
 }

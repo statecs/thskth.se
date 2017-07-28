@@ -14,7 +14,7 @@ export class WordpressApiService {
   protected config: AppConfig;
   protected language: string;
 
-  constructor(private http: Http, injector: Injector, private _cookieService: CookieService) {
+  constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
     this.config = injector.get(APP_CONFIG);
     this._wpBaseUrl = this.config.API_URL;
 
@@ -26,9 +26,16 @@ export class WordpressApiService {
   }
 
   // Get cards
-  getCards(): Observable<Card[]> {
+  getCards(arg): Observable<Card[]> {
+    let filter: string = '';
+    if (!arg.profession) {
+      filter = '&organization_type=' + arg.organization_type + '&user_interest=' + arg.interest;
+    }else {
+      filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
+    }
+    console.log(this.config.CARDS_URL + '?order=asc&lang=' + this.language + filter);
     return this.http
-        .get(this.config.CARDS_URL + '?order=asc&lang=' + this.language)
+        .get(this.config.CARDS_URL + '?order=asc&lang=' + this.language + filter)
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => this.castResDataToCardType(res));

@@ -1,4 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, Injector } from '@angular/core';
+import { CardCategorizerCardContainerService } from '../../services/component-communicators/card-categorizer-card-container.service';
+import { APP_CONFIG } from '../../app.config';
+import { AppConfig } from '../../interfaces/appConfig';
 
 @Component({
   selector: 'app-card-categorizer',
@@ -18,16 +21,26 @@ export class CardCategorizerComponent implements OnInit {
   public displayedDropdownID: number;
   public dropdowns: any;
 
-  public selected_profession: string;
-  public selected_company: string;
-  public selected_interest: string;
+  public selected_profession: number;
+  public selected_company: number;
+  public selected_interest: number;
 
-  constructor() {
+  public selected_profession_name: string;
+  public selected_company_name: string;
+  public selected_interest_name: string;
+
+  protected config: AppConfig;
+
+  constructor(private cardCategorizerCardContainerService: CardCategorizerCardContainerService, private injector: Injector) {
+    this.config = injector.get(APP_CONFIG);
     this.activated_person = 0;
     this.companyIsDisabled = true;
-    this.selected_profession = 'student';
-    this.selected_company = 'company';
-    this.selected_interest = 'student';
+    this.selected_profession = this.config.PROFESSION.student;
+    this.selected_company = this.config.ORGANIZATION_TYPE.company;
+    this.selected_interest = this.config.USER_INTEREST.student;
+    this.selected_profession_name = 'student';
+    this.selected_company_name = 'company';
+    this.selected_interest_name = 'student';
     this.displayedDropdownID = 0;
   }
 
@@ -55,12 +68,29 @@ export class CardCategorizerComponent implements OnInit {
       company_el.style.cursor = 'default';
       this.companyIsDisabled = true;
     }
+    this.updateCardsContainer();
+  }
+
+  updateCardsContainer(): void {
+    let profession: number;
+    let organization_type: number;
+    if (!this.companyIsDisabled) {
+      organization_type = this.selected_company;
+      profession = 0;
+    }else {
+      organization_type = 0;
+      profession = this.selected_profession;
+    }
+    this.cardCategorizerCardContainerService.updateCards({profession: profession, organization_type: organization_type, interest: this.selected_interest});
   }
 
   toggleDropdown(param): void {
     if (this.displayedDropdown) {
       this.hideAllDropdown();
       this.displayedDropdown = false;
+    }else {
+      this.dropdowns[param - 1].style.display = 'block';
+      this.displayedDropdown = true;
     }
     if (this.displayedDropdownID !== param) {
       this.dropdowns[param - 1].style.display = 'block';
@@ -75,16 +105,19 @@ export class CardCategorizerComponent implements OnInit {
     }
   }
 
-  updateFiltering(type, e): void {
+  updateFiltering(type, e, id): void {
     const el = e.target;
-    console.log(el.innerHTML);
     if (type === 'profession') {
-      this.selected_profession = el.innerHTML;
+      this.selected_profession = id;
+      this.selected_profession_name = el.innerHTML;
     }else if (type === 'company') {
-      this.selected_company = el.innerHTML;
+      this.selected_company = id;
+      this.selected_company_name = el.innerHTML;
     }else if (type === 'interest') {
-      this.selected_interest = el.innerHTML;
+      this.selected_interest = id;
+      this.selected_interest_name = el.innerHTML;
     }
+    this.updateCardsContainer();
   }
 
   ngOnInit() {
