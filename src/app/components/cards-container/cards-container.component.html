@@ -1,5 +1,5 @@
 <div id="cards-container" class="masonry-layout">
-  <div *ngFor="let card of arranged_cards" class="masonry-layout_panel {{card.flex_layout === 'one-sixth'? 'o-third': card.flex_layout}}">
+  <div *ngFor="let card of arranged_cards" (click)="showPage(card.slug_to_page, card.window_type)" class="masonry-layout_panel {{card.flex_layout === 'one-sixth'? 'o-third': card.flex_layout}}">
     <div *ngIf="card.flex_layout !== 'one-sixth'">
       <!-- ---------- Video card ---------- -->
       <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content">
@@ -63,7 +63,7 @@
     </div>-->
   </div>
 
-    <div *ngFor="let cards of one_third_half_array" class="masonry-layout_panel o-third box-shadow-none">
+    <div *ngFor="let cards of one_third_half_array" (click)="showPage(card.slug_to_page, card.window_type)" class="masonry-layout_panel o-third box-shadow-none">
         <div class="masonry-layout-sub">
             <div *ngFor="let card of cards" class="one-third-half">
                 <div class="one-sixth-container">
@@ -82,7 +82,7 @@
         </div>
     </div>
 
-        <div *ngFor="let cards of one_sixth_cards_array" class="masonry-layout_panel o-third box-shadow-none">
+        <div *ngFor="let cards of one_sixth_cards_array" (click)="showPage(card.slug_to_page, card.window_type)" class="masonry-layout_panel o-third box-shadow-none">
             <div class="masonry-layout-sub">
                 <div *ngFor="let card of cards" class="one-sixth">
                     <div class="one-sixth-container">

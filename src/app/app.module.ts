@@ -11,6 +11,7 @@ import { WordpressApiService } from './services/wordpress/wordpress-api.service'
 import { APP_CONFIG, appConfig } from './app.config';
 import { CookieModule } from 'ngx-cookie';
 import { CardCategorizerCardContainerService } from './services/component-communicators/card-categorizer-card-container.service';
+import { PopupWindowCommunicationService } from './services/component-communicators/popup-window-communication.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -31,6 +32,7 @@ import { CardsSocialContainerComponent } from './components/cards-social-contain
 import { GoogleMapsComponent } from './components/google-maps/google-maps.component';
 import { ContactInfoComponent } from './components/contact-info/contact-info.component';
 import { CardTextPipe } from './pipes/card-text.pipe';
+import { PopupWindowComponent } from './components/popup-window/popup-window.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { CardTextPipe } from './pipes/card-text.pipe';
     CardsSocialContainerComponent,
     GoogleMapsComponent,
     ContactInfoComponent,
-    CardTextPipe
+    CardTextPipe,
+    PopupWindowComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ import { CardTextPipe } from './pipes/card-text.pipe';
   providers: [
       WordpressApiService,
       CardCategorizerCardContainerService,
+      PopupWindowCommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

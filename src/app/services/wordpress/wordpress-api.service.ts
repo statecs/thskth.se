@@ -25,6 +25,15 @@ export class WordpressApiService {
     }
   }
 
+  // Get Page
+  getPage(slug): Observable<any[]> {
+    return this.http
+        .get(this.config.PAGES_URL + '?slug=' + slug + '&lang=' + this.language)
+        .map((res: Response) => res.json())
+        // Cast response data to card type
+        .map((res: Array<any>) => { return res; });
+  }
+
   // Get cards
   getCards(arg): Observable<Card[]> {
     let filter: string = '';
@@ -67,6 +76,8 @@ export class WordpressApiService {
           c.id,
           c.date,
           c.slug,
+          c.acf.slug_to_page,
+          c.acf.window_type,
           c.title.rendered,
           c.content.rendered,
           c.excerpt.rendered,

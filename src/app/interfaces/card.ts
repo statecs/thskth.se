@@ -12,6 +12,8 @@ export interface Card {
     id: number;
     date: string;
     slug: string;
+    slug_to_page: string;
+    window_type: string;
     title: string;
     content: string;
     excerpt: string;
@@ -31,6 +33,8 @@ export class Card implements Card {
         public id: number,
         public date: string,
         public slug: string,
+        public slug_to_page: string,
+        public window_type: string,
         public title: string,
         public content: string,
         public excerpt: string,

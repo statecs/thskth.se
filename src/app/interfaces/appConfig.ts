@@ -3,6 +3,7 @@ export interface AppConfig {
     API_URL: string;
     CARDS_URL: string;
     POSTS_PAGE: string;
+    PAGES_URL: string;
     PRIMARY_MENU_URL: string;
     SECONDARY_MENU_URL: string;
     SECTIONS_MENU_URL: string;

@@ -5,6 +5,8 @@ import { CardCategorizerCardContainerService } from '../../services/component-co
 import {Subscription} from 'rxjs/Subscription';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
+import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-cards-container',
@@ -21,8 +23,20 @@ export class CardsContainerComponent implements OnInit {
 
   constructor(  private wordpressApiService: WordpressApiService,
                 private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
-                private injector: Injector) {
+                private injector: Injector,
+                private popupWindowCommunicationService: PopupWindowCommunicationService,
+                private router: Router) {
       this.config = injector.get(APP_CONFIG);
+  }
+
+  showPage(slug, window_type): void {
+      if (window_type == 'popup-window') {
+          this.popupWindowCommunicationService.update_PopupWindow(slug);
+      }else if (window_type == 'new-tab') {
+          window.open('/' + slug, '_blank');
+      }else if (window_type == 'same-page') {
+          this.router.navigate(['/' + slug]);
+      }
   }
 
     getBgUrl(card: any): string {
@@ -86,6 +100,8 @@ export class CardsContainerComponent implements OnInit {
           this.displayCards(arg);
       });
       this.displayCards({profession: this.config.PROFESSION.student, organization_type: 0, interest: this.config.USER_INTEREST.student});
+
+      console.log("hello");
   }
 
 }

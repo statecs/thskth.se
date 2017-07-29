@@ -8,6 +8,7 @@ export let appConfig: AppConfig = {
     API_URL: 'http://kths.se/api/wp/v2/',
     CARDS_URL: 'http://kths.se/api/wp/v2/cards',
     POSTS_PAGE: 'http://kths.se/api/wp/v2/posts',
+    PAGES_URL: 'http://kths.se/api/wp/v2/pages',
     PRIMARY_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/348',
     SECONDARY_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/348',
     SECTIONS_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/354',
