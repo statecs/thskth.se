@@ -1,0 +1,62 @@
+@import "../../../../style/mixins";
+@import "../../../../style/variables";
+
+#calendar-header{
+  position: relative;
+  text-align: center;
+  .view{
+    width: 100%;
+    color: white;
+    .btn{
+      display: inline-block;
+      background-color: $bg-color-primary;
+      padding: 5px 10px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      cursor: pointer;
+
+      &:hover{
+        background-color: #1880c9;
+      }
+    }
+    .active{
+      background-color: #1880c9;
+    }
+  }
+  .date{
+    display: inline-block;
+    h3{
+      margin: 0;
+    }
+  }
+  .previous-btn, .next-btn{
+    color: black;
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    cursor: pointer;
+    .btn{
+      @include circle(40px);
+      border: 1px solid black;
+      display: inline-block;
+      text-align: center;
+      i{
+        @include center-vertically(50%);
+        position: relative;
+      }
+    }
+  }
+
+  .previous-btn{
+    left: 15px;
+  }
+
+  .next-btn{
+    right: 15px;
+  }
+
+  .date-control{
+    height: 50px;
+    margin-top: 20px;
+  }
+}

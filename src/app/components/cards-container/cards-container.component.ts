@@ -100,8 +100,6 @@ export class CardsContainerComponent implements OnInit {
           this.displayCards(arg);
       });
       this.displayCards({profession: this.config.PROFESSION.student, organization_type: 0, interest: this.config.USER_INTEREST.student});
-
-      console.log("hello");
   }
 
 }

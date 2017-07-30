@@ -1,0 +1,51 @@
+<div id="calendar-header" class="row text-center">
+  <div class="col-md-4 view">
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        (click)="viewChange.emit('month')"
+        [class.active]="view === 'month'">
+        Month
+      </div>
+      <div
+        class="btn btn-primary"
+        (click)="viewChange.emit('week')"
+        [class.active]="view === 'week'">
+        Week
+      </div>
+      <div
+        class="btn btn-primary"
+        (click)="viewChange.emit('day')"
+        [class.active]="view === 'day'">
+        Day
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 date-control">
+    <div class="btn-group">
+      <div
+        class="previous-btn"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="viewDateChange.next(viewDate)"
+        (click)="triggerEventUpdater()">
+        <div class="btn"><i class="material-icons">keyboard_arrow_left</i></div>
+        <span>Previous</span>
+      </div>
+      <div class="date">
+        <h3>{{ viewDate | calendarDate:view}}</h3>
+      </div>
+      <div
+        class="next-btn"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="viewDateChange.next(viewDate)"
+        (click)="triggerEventUpdater()">
+        <span>Next</span>
+        <div class="btn"><i class="material-icons">keyboard_arrow_right</i></div>
+      </div>
+    </div>
+  </div>
+</div>

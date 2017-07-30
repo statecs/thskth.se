@@ -12,4 +12,7 @@ export interface AppConfig {
     PROFESSION: any;
     ORGANIZATION_TYPE: any;
     USER_INTEREST: any;
+    GOOGLE_CALENDAR_URL: string;
+    GOOGLE_CALENDAR_KEY: string;
+    EVENT_IMAGE_BASE_URL: string;
 }

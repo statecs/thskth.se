@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { CalendarModule } from 'angular-calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Routes import
 import { routing } from './app.routes';
@@ -12,6 +14,8 @@ import { APP_CONFIG, appConfig } from './app.config';
 import { CookieModule } from 'ngx-cookie';
 import { CardCategorizerCardContainerService } from './services/component-communicators/card-categorizer-card-container.service';
 import { PopupWindowCommunicationService } from './services/component-communicators/popup-window-communication.service';
+import { GoogleCalendarService } from './services/google-calendar/google-calendar.service';
+import { CalendarCommunicationService } from './services/component-communicators/calendar-communication.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -33,6 +37,10 @@ import { GoogleMapsComponent } from './components/google-maps/google-maps.compon
 import { ContactInfoComponent } from './components/contact-info/contact-info.component';
 import { CardTextPipe } from './pipes/card-text.pipe';
 import { PopupWindowComponent } from './components/popup-window/popup-window.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { EventsCalendarComponent } from './components/events-calendar/events-calendar.component';
+import { CalendarHeaderComponent } from './components/calendar/calendar-header/calendar-header.component';
+import { CalendarDatePipe } from './pipes/calendar-date.pipe';
 
 @NgModule({
   declarations: [
@@ -54,19 +62,27 @@ import { PopupWindowComponent } from './components/popup-window/popup-window.com
     GoogleMapsComponent,
     ContactInfoComponent,
     CardTextPipe,
-    PopupWindowComponent
+    PopupWindowComponent,
+    CalendarComponent,
+    EventsCalendarComponent,
+    CalendarHeaderComponent,
+    CalendarDatePipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    BrowserAnimationsModule,
+    CalendarModule.forRoot()
   ],
   providers: [
       WordpressApiService,
       CardCategorizerCardContainerService,
       PopupWindowCommunicationService,
+      GoogleCalendarService,
+      CalendarCommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

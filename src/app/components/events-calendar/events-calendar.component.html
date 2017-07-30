@@ -1,0 +1,34 @@
+<app-header></app-header>
+
+<div id="events-calendar">
+  <div class="calendar-wrapper">
+    <div class="title">
+      <h2>Events calendar</h2>
+    </div>
+    <div></div>
+    <app-calendar></app-calendar>
+  </div>
+  <div class="events-wrapper">
+    <div class="events-header">
+      <h3>Events on {{actualDate}}</h3>
+      <div class="filter-icon">
+        Filter <i class="material-icons">filter_list</i>
+      </div>
+    </div>
+    <div class="events">
+      <div *ngFor="let e of events" class="item">
+        <div class="img-wrapper" [ngStyle]="{'background-image': 'url(' + e.imageUrl + ')'}">
+          <span>
+            {{formatTime(e.start, e.end)}}
+          </span>
+        </div>
+        <div class="info">
+          <h5>{{e.title}}</h5>
+          <span>{{formatDate(e.start, e.end)}}</span>
+          <p>{{e.description | cardText:100}}</p>
+        </div>
+      </div>
+      <span *ngIf="events.length === 0">There are no events.</span>
+    </div>
+  </div>
+</div>
