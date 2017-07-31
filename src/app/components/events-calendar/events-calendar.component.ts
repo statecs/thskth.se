@@ -5,6 +5,7 @@ import { CalendarEvent } from 'angular-calendar';
 import { CalendarCommunicationService } from '../../services/component-communicators/calendar-communication.service';
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import format from 'date-fns/format/index';
+import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
 
 @Component({
   selector: 'app-events-calendar',
@@ -17,9 +18,14 @@ export class EventsCalendarComponent implements OnInit {
   actualDate: string;
 
   constructor(private calendarCommunicationService: CalendarCommunicationService,
-              private googleCalendarService: GoogleCalendarService) {
+              private googleCalendarService: GoogleCalendarService,
+              private popupWindowCommunicationService: PopupWindowCommunicationService) {
     this.events = [];
     this.actualDate = format(new Date(), 'DD MMM YYYY');
+  }
+
+  showInPopup(event: Event): void {
+    this.popupWindowCommunicationService.showEventInPopup(event);
   }
 
   formatTime(start, end) {
@@ -47,6 +53,7 @@ export class EventsCalendarComponent implements OnInit {
       }else {
         this.getEventsPerDay(arg.viewDate);
       }
+      console.log('actualDate');
     });
 
     this.getEventsPerDay(new Date());

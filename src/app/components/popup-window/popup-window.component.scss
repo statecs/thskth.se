@@ -8,7 +8,8 @@
   background-color: rgba(0,0,0,0.8);
   top: 0;
   z-index: 1;
-  .default-layout{
+
+  .layouts-container{
     @include container-size(70%);
     background-color: $bg-color-default;
     //height: 500px;
@@ -39,67 +40,125 @@
       }
     }
 
-    .header-image{
-      max-height: 450px;
-      overflow: hidden;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-      img{
-        min-width: 100%;
-        max-width: 100%;
-        height: auto;
-      }
-      .header-color{
-        width: 100%;
-        height: 450px;
-      }
-      .default-header{
-        width: 100%;
-        height: 450px;
-        background-color: $bg-color-primary;
-      }
-    }
-
-    .content-container{
-      @include container-size(70%);
-      padding: 50px;
-      background-color: $bg-color-default;
-      position: relative;
-      top: -150px;
-      border-radius: 10px;
-      box-shadow: 0 3px 5px #888888;
-      h2{
-        margin-top:0;
-      }
-      p{
-        line-height: 1.3;
-      }
-    }
-
-    .previous-post, .next-post{
-      color: black;
-      display: inline-block;
-      position: absolute;
-      bottom: 25px;
-      cursor: pointer;
-      .btn{
-        @include circle(40px);
-        border: 1px solid black;
-        display: inline-block;
-        text-align: center;
-        i{
-          @include center-vertically(50%);
-          position: relative;
+    .default-layout{
+      .header-image{
+        max-height: 450px;
+        overflow: hidden;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        img{
+          min-width: 100%;
+          max-width: 100%;
+          height: auto;
+        }
+        .header-color{
+          width: 100%;
+          height: 450px;
+        }
+        .default-header{
+          width: 100%;
+          height: 450px;
+          background-color: $bg-color-primary;
         }
       }
+
+      .content-container{
+        @include container-size(70%);
+        padding: 50px;
+        background-color: $bg-color-default;
+        position: relative;
+        top: -150px;
+        border-radius: 10px;
+        box-shadow: 0 3px 5px #888888;
+        h2{
+          margin-top:0;
+        }
+        p{
+          line-height: 1.3;
+        }
+      }
+
+      .previous-post, .next-post{
+        color: black;
+        display: inline-block;
+        position: absolute;
+        bottom: 25px;
+        cursor: pointer;
+        .btn{
+          @include circle(40px);
+          border: 1px solid black;
+          display: inline-block;
+          text-align: center;
+          i{
+            @include center-vertically(50%);
+            position: relative;
+          }
+        }
+      }
+
+      .previous-post{
+        left: 15px;
+      }
+
+      .next-post{
+        right: 15px;
+      }
     }
 
-    .previous-post{
-      left: 15px;
-    }
+    .event-layout{
+      .header-image{
+        max-height: 430px;
+        overflow: hidden;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        img{
+          min-width: 100%;
+          max-width: 100%;
+          height: auto;
+        }
+        .default-header{
+          width: 100%;
+          height: 450px;
+          background-color: $bg-color-primary;
+        }
+      }
 
-    .next-post{
-      right: 15px;
+      .content-container{
+        @include container-size(70%);
+        padding: 50px;
+        background-color: $bg-color-default;
+        position: relative;
+        border-radius: 10px;
+        & >div{display: inline-block;}
+        .date{
+          width: 20%;
+          font-size: $font-size-extraLarge;
+          vertical-align: top;
+          color: $bg-color-primary;
+        }
+        .description{
+          width: 70%;
+          margin-left: 50px;
+          h2{
+            margin-top:0;
+          }
+          p{
+            line-height: 1.3;
+          }
+          .time, .location{
+            font-size: $font-size-h5;
+            color: gray;
+          }
+          .location{
+            span{
+              font-weight: 800;
+            }
+          }
+          .creator{
+            font-weight: 600;
+          }
+        }
+      }
     }
   }
 }

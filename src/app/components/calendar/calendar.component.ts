@@ -18,6 +18,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import { CalendarCommunicationService } from '../../services/component-communicators/calendar-communication.service';
+import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
+import { Event } from '../../interfaces/event';
 
 @Component({
   selector: 'app-calendar',
@@ -32,7 +34,8 @@ export class CalendarComponent implements OnInit {
   activeDayIsOpen: boolean;
 
   constructor(private googleCalendarService: GoogleCalendarService,
-              private calendarCommunicationService: CalendarCommunicationService) {
+              private calendarCommunicationService: CalendarCommunicationService,
+              private popupWindowCommunicationService: PopupWindowCommunicationService) {
     this.view = 'month';
     this.activeDayIsOpen = false;
     this.viewDate = new Date();
@@ -40,6 +43,7 @@ export class CalendarComponent implements OnInit {
 
   fetchEvents(): void {
     this.events$ = this.googleCalendarService.fetchEvents(this.viewDate, this.view);
+    this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: this.viewDate});
   }
 
   dayClicked({date, events}: {
@@ -57,13 +61,22 @@ export class CalendarComponent implements OnInit {
         this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: date});
       }
     }
+    this.viewDate = date;
   }
 
-  eventClicked(event: CalendarEvent<{ event: Event }>): void {
-    window.open(
-        `https://www.themoviedb.org/movie/${event.title}`,
-        '_blank'
-    );
+  eventClicked(event: Event ): void {
+    console.log(event);
+    /*const e: Event;
+    e.title = event.title;
+    e.start = event.start;
+    e.end = event.end;
+    e.description = event.description;
+    e.imageUrl = event.imageUrl;
+    e.color = event.color;
+    e.location = event.location;
+    e.creator = event.creator;
+    e.meta = event.meta;*/
+    this.popupWindowCommunicationService.showEventInPopup(event);
   }
 
   ngOnInit(): void {
