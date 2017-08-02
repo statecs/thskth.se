@@ -70,44 +70,22 @@
         <!-- ---------- Event calendar card ---------- -->
         <div *ngIf="i !== 0 && i === 2" class="masonry-layout_panel-content">
           <div class="event-calendar-card">
-            <div class="left-content">
-              <h3>Title</h3>
-              <p>let b of card.card_primary_buttons let b of card.card_primary_buttons let b of card.card_primary_buttons</p>
-              <a type="button">Read more</a>
+            <div class="left-content" [ngClass]="{'event-arrow-index1': event_arrow_index === 0, 'event-arrow-index2': event_arrow_index === 1, 'event-arrow-index3': event_arrow_index === 2}">
+              <h3>{{selected_event_title}}</h3>
+              <p>{{selected_event_text | cardText:100}}</p>
+              <a [routerLink]="['/events-calendar']" [queryParams]="{id:selected_event_id}" type="button">Read more</a>
             </div>
             <div class="right-content">
                 <div class="event-wrapper">
-                    <div class="event">
-                        <h6>Jan</h6>
-                        <div class="date">
-                            <span>3</span>
+                    <h4>THS's Upcoming events</h4>
+                    <div *ngFor="let e of events, let i = index" class="event">
+                        <h6>{{getMonth(e.start)}}</h6>
+                        <div class="date" (click)="selectEvent(i)">
+                            <span>{{getDay(e.start)}}</span>
                         </div>
-
                         <div class="excerpt">
-                            <h4>Title</h4>
-                            <p>Excerpt text Excerpt text Excerpt text Excerpt text Excerpt text</p>
-                        </div>
-                    </div>
-                    <div class="event">
-                        <h6>Jan</h6>
-                        <div class="date">
-                            <span>3</span>
-                        </div>
-
-                        <div class="excerpt">
-                            <h4>Title</h4>
-                            <p>Excerpt text Excerpt text Excerpt text Excerpt text Excerpt text</p>
-                        </div>
-                    </div>
-                    <div class="event">
-                        <h6>Jan</h6>
-                        <div class="date">
-                            <span>3</span>
-                        </div>
-
-                        <div class="excerpt">
-                            <h4>Title</h4>
-                            <p>Excerpt text Excerpt text Excerpt text Excerpt text Excerpt text</p>
+                            <a [routerLink]="['/events-calendar']" [queryParams]="{id:e.id}">{{e.title}}</a>
+                            <!--<p>{{e.description | cardText:50}}</p>-->
                         </div>
                     </div>
                 </div>

@@ -79,33 +79,57 @@ export class GoogleCalendarService {
         .map((res: Response) => res.json())
         // Cast response data to event type
         .map((res: any) => {
-        console.log(params);
-        console.log(res);
-          const result: Array<Event> = [];
-          res.items.forEach((event) => {
-            let imageUrl: string;
-            if (event.attachments) {
-              imageUrl = this.config.EVENT_IMAGE_BASE_URL + event.attachments[0].fileId;
-            }else {
-              imageUrl = '';
-            }
-            console.log(imageUrl);
-            result.push({
-              title: event.summary,
-              start: new Date(event.start.dateTime),
-              end: new Date(event.end.dateTime),
-              description: event.description,
-              imageUrl: imageUrl,
-              color: colors.yellow,
-              location: event.location,
-              creator: event.creator,
-              meta: {
-                event
-              }
-            });
-          });
-          return result;
+          return this.castResToEventType(res);
         });
+  }
+
+  getUpcomingEvents(amount): Observable<Event[]> {
+    const startDate = new Date();
+    this.search.set(
+        'timeMin',
+        format(startDate, 'YYYY-MM-DDTHH:mm:ss.SSSz')
+    );
+    this.search.set('key', this.config.GOOGLE_CALENDAR_KEY);
+    this.search.set('singleEvents', 'true');
+    this.search.set('orderBy', 'startTime');
+    this.search.set('maxResults', amount);
+    const params = this.search;
+    return this.http
+        .get(this.config.GOOGLE_CALENDAR_URL, { params })
+        .map((res: Response) => res.json())
+        // Cast response data to event type
+        .map((res: any) => {
+          return this.castResToEventType(res);
+        });
+  }
+
+  castResToEventType(res) {
+    console.log(res);
+    const result: Array<Event> = [];
+    res.items.forEach((event) => {
+      let imageUrl: string;
+      if (event.attachments) {
+        imageUrl = this.config.EVENT_IMAGE_BASE_URL + event.attachments[0].fileId;
+      }else {
+        imageUrl = '';
+      }
+      console.log(imageUrl);
+      result.push({
+        id: event.id,
+        title: event.summary,
+        start: new Date(event.start.dateTime),
+        end: new Date(event.end.dateTime),
+        description: event.description,
+        imageUrl: imageUrl,
+        color: colors.yellow,
+        location: event.location,
+        creator: event.creator,
+        meta: {
+          event
+        }
+      });
+    });
+    return result;
   }
 
 }

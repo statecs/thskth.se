@@ -111,6 +111,7 @@
       vertical-align: middle;
       cursor: pointer;
       display: inline-block;
+      border: 1px solid lightgray;
     }
     & >div{
       width: 80%;
@@ -165,6 +166,7 @@
         vertical-align: middle;
         cursor: pointer;
         display: inline-block;
+        border: 1px solid lightgray;
       }
       & >div{
         width: 80%;
@@ -225,6 +227,23 @@
     //border: 1px solid;
     display: inline-block;
   }
+
+  .event-arrow-index1{
+    &::after{
+      top: 33% !important;
+    }
+  }
+  .event-arrow-index2{
+    &::after{
+      top: 61% !important;
+    }
+  }
+  .event-arrow-index3{
+    &::after{
+      top: 87% !important;
+    }
+  }
+
   .left-content{
     width: 43%;
     vertical-align: top;
@@ -240,6 +259,7 @@
     }
     a{
       @include capsule-button(10px, 5px);
+      text-decoration: none;
     }
   }
   .right-content{
@@ -248,36 +268,37 @@
     float: right;
       .event-wrapper{
         @include center-vertically(50%);
-        .event{
-          //border: 1px solid green;
-          margin-bottom: 10px;
 
+        & >h4{
+          margin: 15px 0;
+        }
+        .event{
+          margin-bottom: 7px;
           h6{
             margin: 0 0 5px 15px;
           }
-
           .date{
             @include circle(50px);
             display: inline-block;
             position: relative;
-            vertical-align: top;
             background-color: lightgray;
+            vertical-align: middle;
+            cursor: pointer;
             span{
               @include center-content(50%, 50%);
             }
           }
-
           .excerpt{
-            //border:1px solid blue;
             display: inline-block;
             width: 70%;
             right:0;
             margin-left: 10px;
-            h4, p{
-              margin: 0;
-            }
-            h4{
+            vertical-align: middle;
+            a{
               font-size: $font-size-h6;
+              font-weight: 600;
+              color: $color-link;
+              text-decoration: none;
             }
           }
       }
@@ -358,6 +379,7 @@
       vertical-align: middle;
       cursor: pointer;
       display: inline-block;
+      border: 1px solid lightgray;
     }
     & >div{
       width: 80%;
