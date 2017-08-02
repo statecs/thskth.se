@@ -20,4 +20,8 @@ export let appConfig: AppConfig = {
     GOOGLE_CALENDAR_URL: 'https://www.googleapis.com/calendar/v3/calendars/armada.nu_3evd63ebtffpqkhkivr8d76usk@group.calendar.google.com/events',
     GOOGLE_CALENDAR_KEY: 'AIzaSyDI9VA5xCt8FMDZV1eZuyuf2ODimyI4kfQ',
     EVENT_IMAGE_BASE_URL: 'https://drive.google.com/uc?export=view&id=',
+    FACEBOOK_POST_URL: 'http://ths.kth.se/api/wp/v2/social/facebook',
+    INSTAGRAM_POST_URL: 'http://ths.kth.se/api/wp/v2/social/instagram',
+    THS_FACEBOOK_USER_ID: '121470594571005',
+    ARMADA_FACEBOOK_USER_ID: '148731426526',
 };

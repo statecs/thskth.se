@@ -1,98 +1,124 @@
 <div class="title">Social Media</div>
 <div id="cards-container" class="masonry-layout">
 
-    <div class="masonry-layout_panel two-fourth">
-        <div class="masonry-layout_panel-content">
+    <div *ngFor="let post of socialMediaPosts, let i = index" class="masonry-layout_panel two-fourth">
+
+        <!-- ---------- Featured card ---------- -->
+        <div *ngIf="i === 0" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
             <div class="featured-card">
-                <div class="type">Facebook</div>
-                <h3>Title</h3>
-                <p>let b of card.card_primary_buttons let b of card.card_primary_buttons let b of card.card_primary_buttons</p>
-                <a type="button">Read more</a>
+                <div class="host" [ngSwitch]="post.host">
+                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
+                    <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+                </div>
+                <div class="user">
+                    <img src="{{post.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
+                    <div>
+                        <h3 (click)="goToUserProfile(post.user.link)">{{post.user.name}}</h3>
+                        <span>{{formatDate(post.created_time)}}</span>
+                    </div>
+                </div>
+                <p>{{post.message}}</p>
+                <a href="{{post.link}}" target="_blank" type="button">Read more</a>
             </div>
         </div>
-    </div>
 
-    <div class="masonry-layout_panel two-fourth">
-        <div class="masonry-layout_panel-content">
+        <!-- ---------- Only text card ---------- -->
+        <div *ngIf="i !== 0 && !(post.full_picture)" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
             <div class="standard-card">
-                <div class="type">Facebook</div>
-                <h3>Title</h3>
-                <p>let b of card.card_primary_buttons let b of card.card_primary_buttons let b of card.card_primary_buttons</p>
-                <a type="button">Read more</a>
+                <div class="host" [ngSwitch]="post.host">
+                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
+                    <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+                </div>
+                <div class="user">
+                    <img src="{{post.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
+                    <div>
+                        <h3 (click)="goToUserProfile(post.user.link)">{{post.user.name}}</h3>
+                        <span>{{formatDate(post.created_time)}}</span>
+                    </div>
+                </div>
+                <p>{{post.message}}</p>
+                <a href="{{post.link}}" target="_blank" type="button">Read more</a>
             </div>
         </div>
-    </div>
 
-    <div class="masonry-layout_panel two-fourth">
-
-        <!-- ---------- Single Event card ---------- -->
-        <div class="masonry-layout_panel-content">
+        <!-- ---------- Text with image card ---------- -->
+        <div *ngIf="i !== 0 && post.full_picture" class="masonry-layout_panel-content" >
             <div class="single-event-card">
                 <div class="left-content">
-                    <h3>Title</h3>
-                    <p>let b of card.card_primary_buttons let b of card.card_primary_buttons let b of card.card_primary_buttons</p>
+                    <div class="user">
+                        <img src="{{post.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
+                        <div>
+                            <h3 (click)="goToUserProfile(post.user.link)">{{post.user.name}}</h3>
+                            <span>{{formatDate(post.created_time)}}</span>
+                        </div>
+                    </div>
+                    <p>{{post.message}}</p>
                 </div>
-                <div class="right-content">
-                    <a type="button">Read more</a>
+                <div class="right-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
+                    <div>
+                        <div class="host" [ngSwitch]="post.host">
+                            <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
+                            <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+                        </div>
+                        <a href="{{post.link}}" target="_blank" type="button">Read more</a>
+                    </div>
                 </div>
+
             </div>
         </div>
-    </div>
 
-  <div class="masonry-layout_panel two-fourth">
+        <!-- ---------- Event calendar card ---------- -->
+        <div *ngIf="i !== 0 && i === 2" class="masonry-layout_panel-content">
+          <div class="event-calendar-card">
+            <div class="left-content">
+              <h3>Title</h3>
+              <p>let b of card.card_primary_buttons let b of card.card_primary_buttons let b of card.card_primary_buttons</p>
+              <a type="button">Read more</a>
+            </div>
+            <div class="right-content">
+                <div class="event-wrapper">
+                    <div class="event">
+                        <h6>Jan</h6>
+                        <div class="date">
+                            <span>3</span>
+                        </div>
 
-    <!-- ---------- Event calendar card ---------- -->
-    <div class="masonry-layout_panel-content">
-      <div class="event-calendar-card">
-        <div class="left-content">
-          <h3>Title</h3>
-          <p>let b of card.card_primary_buttons let b of card.card_primary_buttons let b of card.card_primary_buttons</p>
-          <a type="button">Read more</a>
-        </div>
-        <div class="right-content">
-            <div class="event-wrapper">
-                <div class="event">
-                    <h6>Jan</h6>
-                    <div class="date">
-                        <span>3</span>
+                        <div class="excerpt">
+                            <h4>Title</h4>
+                            <p>Excerpt text Excerpt text Excerpt text Excerpt text Excerpt text</p>
+                        </div>
                     </div>
+                    <div class="event">
+                        <h6>Jan</h6>
+                        <div class="date">
+                            <span>3</span>
+                        </div>
 
-                    <div class="excerpt">
-                        <h4>Title</h4>
-                        <p>Excerpt text Excerpt text Excerpt text Excerpt text Excerpt text</p>
+                        <div class="excerpt">
+                            <h4>Title</h4>
+                            <p>Excerpt text Excerpt text Excerpt text Excerpt text Excerpt text</p>
+                        </div>
                     </div>
-                </div>
-                <div class="event">
-                    <h6>Jan</h6>
-                    <div class="date">
-                        <span>3</span>
-                    </div>
+                    <div class="event">
+                        <h6>Jan</h6>
+                        <div class="date">
+                            <span>3</span>
+                        </div>
 
-                    <div class="excerpt">
-                        <h4>Title</h4>
-                        <p>Excerpt text Excerpt text Excerpt text Excerpt text Excerpt text</p>
-                    </div>
-                </div>
-                <div class="event">
-                    <h6>Jan</h6>
-                    <div class="date">
-                        <span>3</span>
-                    </div>
-
-                    <div class="excerpt">
-                        <h4>Title</h4>
-                        <p>Excerpt text Excerpt text Excerpt text Excerpt text Excerpt text</p>
+                        <div class="excerpt">
+                            <h4>Title</h4>
+                            <p>Excerpt text Excerpt text Excerpt text Excerpt text Excerpt text</p>
+                        </div>
                     </div>
                 </div>
             </div>
+          </div>
         </div>
-      </div>
-    </div>
   </div>
 
 
-        <!-- ---------- Single Event card ---------- -->
-        <div class="sub-masonry-layout-row two-fourth">
+        <!-- ---------- Small card ---------- -->
+        <!--<div class="sub-masonry-layout-row two-fourth">
             <div class="sub-masonry-layout_penal two-fourth">
                 <div class="sub-masonry-layout_panel-content">
                     <div class="standard-card">
@@ -111,10 +137,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 </div>
 <div class="fetcher">
-    <div class="plus-button">
-        <span>+</span>
-    </div>
+    <a routerLink="/news" class="plus-button"><span>+</span></a>
 </div>

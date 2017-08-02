@@ -42,7 +42,7 @@ export class WordpressApiService {
     }else {
       filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
     }
-    console.log(this.config.CARDS_URL + '?order=asc&lang=' + this.language + filter);
+    //console.log(this.config.CARDS_URL + '?order=asc&lang=' + this.language + filter);
     return this.http
         .get(this.config.CARDS_URL + '?order=asc&lang=' + this.language + filter)
         .map((res: Response) => res.json())
@@ -52,7 +52,7 @@ export class WordpressApiService {
 
   // Cast response data to Card type
   castResDataToCardType(res) {
-    console.log(res);
+    //console.log(res);
     const result: Array<Card> = [];
     if (res) {
       res.forEach((c) => {
@@ -109,7 +109,7 @@ export class WordpressApiService {
     }else if (param === 'footer') {
       menu_url = this.config.FOOTER_MENU_URL;
     }
-console.log(menu_url);
+//console.log(menu_url);
     return this.http
         .get(menu_url + '?order=desc&lang=' + this.language)
         .map((res: Response) => res.json())

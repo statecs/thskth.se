@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
     public slides: any;
     public slideshow_play_btn: string;
 
-  constructor( private wordpressApiService: WordpressApiService ) {
+  constructor(  private wordpressApiService: WordpressApiService ) {
       this.slides_images = ['Background-image-733x550.jpg', 'none', '35_kth_vlv_6y7b5608-825x550.jpg', 'big-banner.jpg', 'LoggaBild.png'];
       this.slides_img_base = '../../../assets/images/main_slider/';
       this.slideIndex = 1;
@@ -39,7 +39,6 @@ export class HomeComponent implements OnInit {
   }
 
   startMainSlider(): void {
-      console.log('startMainSlider');
       const self = this;
       this.mainSlide_timer = setInterval(function () {
           self.hideAllSlides();
@@ -129,9 +128,7 @@ export class HomeComponent implements OnInit {
     }
 
     showSelectedSlide(slideNumber): void {
-      console.log( this.slideIndex);
       this.slideIndex = slideNumber;
-      console.log(slideNumber);
       clearInterval(this.mainSlide_timer);
       this.hideAllSlides();
       this.showSlide();
@@ -152,6 +149,7 @@ export class HomeComponent implements OnInit {
         });*/
 
     this.startMainSlider();
+
   }
 
 }

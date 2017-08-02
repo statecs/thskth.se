@@ -16,6 +16,7 @@ import { CardCategorizerCardContainerService } from './services/component-commun
 import { PopupWindowCommunicationService } from './services/component-communicators/popup-window-communication.service';
 import { GoogleCalendarService } from './services/google-calendar/google-calendar.service';
 import { CalendarCommunicationService } from './services/component-communicators/calendar-communication.service';
+import { SocialMediaPostService } from './services/social-media-post/social-media-post.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -83,6 +84,7 @@ import { CalendarDatePipe } from './pipes/calendar-date.pipe';
       PopupWindowCommunicationService,
       GoogleCalendarService,
       CalendarCommunicationService,
+      SocialMediaPostService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

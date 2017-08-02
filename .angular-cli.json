@@ -20,6 +20,7 @@
       "prefix": "app",
       "styles": [
         "../node_modules/angular-calendar/dist/css/angular-calendar.css",
+        "../node_modules/font-awesome/scss/font-awesome.scss",
         "style/_global.scss"
       ],
       "scripts": [
