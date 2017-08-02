@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import {Subscription} from 'rxjs/Subscription';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
@@ -18,10 +18,26 @@ export class PopupWindowComponent implements OnInit {
   public page_data: any;
   public showEvent: boolean;
   public event: Event;
+  public top_position: number;
 
   constructor( private wordpressApiService: WordpressApiService,
                 private popupWindowCommunicationService: PopupWindowCommunicationService) {
     this.showEvent = false;
+    this.top_position = 0;
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollTop = (window.pageYOffset || document.body.scrollTop) + 100;
+    console.log(scrollTop);
+    console.log(this.top_position);
+    if (scrollTop < this.top_position) {
+      this.top_position = scrollTop;
+    }
+  }
+
+  setPosition() {
+    this.top_position = (window.pageYOffset || document.body.scrollTop) + 100;
   }
 
   getDate(start) {
@@ -41,6 +57,7 @@ export class PopupWindowComponent implements OnInit {
   }
 
   update_popup_window(slug): void {
+    this.setPosition();
     this.showEvent = false;
     this.wordpressApiService.getPage(slug)
         .subscribe(res => {
@@ -51,6 +68,7 @@ export class PopupWindowComponent implements OnInit {
   }
 
   show_event_in_popup(event): void {
+    this.setPosition();
     this.showEvent = true;
     this.event = event;
     this.show_popup_window();

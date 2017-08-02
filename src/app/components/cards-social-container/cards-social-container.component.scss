@@ -257,9 +257,9 @@
     h3{
       font-size: $font-size-h3;
     }
-    a{
+    span{
       @include capsule-button(10px, 5px);
-      text-decoration: none;
+      cursor: pointer;
     }
   }
   .right-content{
@@ -305,11 +305,12 @@
             right:0;
             margin-left: 10px;
             vertical-align: middle;
-            a{
+            span{
               font-size: $font-size-h6;
               font-weight: 600;
               color: $color-link;
               text-decoration: none;
+              cursor: pointer;
             }
           }
       }

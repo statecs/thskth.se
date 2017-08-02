@@ -1,23 +1,26 @@
 @import "../../../style/mixins";
 @import "../../../style/variables";
 
-#popup-window{
+.background_layer{
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.8);
   top: 0;
   z-index: 1;
+}
+
+#popup-window{
+  @include container-size(70%);
+  position: absolute;
+  margin-left: 15% !important;
+  z-index: 1;
+  background-color: $bg-color-default;
+  border-radius: 5px;
+  overflow: hidden;
 
   .layouts-container{
-    @include container-size(70%);
-    background-color: $bg-color-default;
-    //height: 500px;
-    top: 100px;
     position: relative;
-    border-radius: 5px;
-    overflow: hidden;
-
     .exit-popup-btn{
       background-color: black;
       color: white;

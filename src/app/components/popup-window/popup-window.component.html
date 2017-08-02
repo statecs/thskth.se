@@ -1,4 +1,5 @@
-<div *ngIf="showPopupWindow" id="popup-window">
+<div *ngIf="showPopupWindow" class="background_layer" (click)="hide_popup_window()"></div>
+<div *ngIf="showPopupWindow" [ngStyle]="{top: top_position+'px'}" id="popup-window">
   <div class="layouts-container">
     <div class="exit-popup-btn" (click)="hide_popup_window()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
     <div *ngIf="!showEvent" class="default-layout">
