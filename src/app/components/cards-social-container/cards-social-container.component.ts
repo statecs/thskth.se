@@ -51,7 +51,7 @@ export class CardsSocialContainerComponent implements OnInit {
 
   formatDate(created_time): string {
     const date = new Date(created_time * 1000);
-    return format(date, 'DD MMM YYYY');
+    return format(date, 'DD MMM YYYY') + ' at ' + format(date, 'hh:mma');
   }
 
   goToUserProfile(url): void {
@@ -69,7 +69,6 @@ export class CardsSocialContainerComponent implements OnInit {
     this.selected_event_text = '';
     this.selected_event_index = 0;
     this.socialMediaPostService.fetchAllPosts().subscribe(res => {
-      console.log(res);
       this.socialMediaPosts = res.slice(0, this.displayedCards_amount);
       console.log(this.socialMediaPosts);
     });
