@@ -84,10 +84,10 @@
                             <span>{{getDay(e.start)}}</span>
                         </div>
                         <div class="excerpt">
-                            <a [routerLink]="['/events-calendar']" [queryParams]="{id:e.id}">{{e.title}}</a>
-                            <!--<p>{{e.description | cardText:50}}</p>-->
+                            <a [routerLink]="['/events-calendar']" [queryParams]="{id:e.id}">{{e.title | cardText:25}}</a>
                         </div>
                     </div>
+                    <a routerLink="events-calendar">More >></a>
                 </div>
             </div>
           </div>

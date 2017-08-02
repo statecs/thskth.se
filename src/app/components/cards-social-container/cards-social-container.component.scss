@@ -263,14 +263,25 @@
     }
   }
   .right-content{
-    width: 45%;
+    width: 50%;
     position: relative;
     float: right;
       .event-wrapper{
         @include center-vertically(50%);
-
+        width: 95%;
         & >h4{
           margin: 15px 0;
+        }
+        & >a{
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          cursor: pointer;
+          text-decoration: none;
+          color: $color-link;
+          &:hover{
+            color: $color-link-hover;
+          }
         }
         .event{
           margin-bottom: 7px;
