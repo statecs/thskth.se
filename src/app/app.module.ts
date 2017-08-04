@@ -18,6 +18,7 @@ import { GoogleCalendarService } from './services/google-calendar/google-calenda
 import { CalendarCommunicationService } from './services/component-communicators/calendar-communication.service';
 import { SocialMediaPostService } from './services/social-media-post/social-media-post.service';
 import { FaqsService } from './services/wordpress/faqs.service';
+import { TextSliderCommunicationService } from './services/component-communicators/text-slider-communication.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -91,6 +92,7 @@ import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
       CalendarCommunicationService,
       SocialMediaPostService,
       FaqsService,
+      TextSliderCommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

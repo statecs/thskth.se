@@ -23,12 +23,31 @@ export class FaqsService {
     }
   }
 
+  getFAQs_OfEachCategories(amount): Observable<FAQ[]> {
+    return this.getFAQParentCategories().flatMap(categories => {
+          return Observable.forkJoin(categories.map((category) => {
+            return this.http.get(this.config.FAQs_URL + '?order=asc&per_page=' + amount + '&faq_category=' + category.id)
+            .map(res => res.json())
+                .map((res) => {
+                  const faq: FAQ = {
+                      question: res[0].title.rendered,
+                      answer: res[0].content.rendered,
+                      slug: res[0].slug,
+                      category_name: category.name,
+                      faq_category: res[0].faq_category,
+                  };
+                  return faq;
+              });
+          }));
+        });
+  }
+
   searchFAQs(search_term): Observable<FAQ[]> {
     return this.http
         .get(this.config.FAQs_URL + '?order=asc&per_page=100&search=' + search_term)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
-        .map((res: Array<any>) => { return this.castSearchResultsToFAQType(res); });
+        .map((res: Array<any>) => { return this.castSearchResultsToFAQType(res, ''); });
   }
 
   // Get FAQs by categories ID
@@ -37,7 +56,7 @@ export class FaqsService {
         .get(this.config.FAQs_URL + '?order=asc&per_page=100&faq_category=' + catID)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
-        .map((res: Array<any>) => { return this.castResFAQType(res); });
+        .map((res: Array<any>) => { return this.castResFAQType(res, ''); });
   }
 
   // Get FAQs by parent categories
@@ -48,7 +67,7 @@ export class FaqsService {
             .get(this.config.FAQs_URL + '?order=asc&per_page=100&faq_category=' + catID)
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
-            .map((res: Array<any>) => { return this.castFAQsToChildCategories(res, child_categories); });
+            .map((res: Array<any>) => { return this.castFAQsToChildCategories(res, child_categories, ''); });
       }else {
         return Observable.of([]);
       }
@@ -104,7 +123,7 @@ export class FaqsService {
     return categories;
   }
 
-  castResFAQType(res) {
+  castResFAQType(res, category_name) {
     const faqs: FAQ[] = [];
     if (res) {
       res.forEach((item) => {
@@ -113,6 +132,7 @@ export class FaqsService {
             question: item.title.rendered,
             answer: item.content.rendered,
             slug: item.slug,
+            category_name: category_name,
             faq_category: item.faq_category,
           });
         }
@@ -121,7 +141,7 @@ export class FaqsService {
     return faqs;
   }
 
-  castFAQsToChildCategories(res, child_categories) {
+  castFAQsToChildCategories(res, child_categories, category_name) {
     const subMenus: FAQSubMenu[] = child_categories;
     res.forEach((item) => {
       for (let i = 0; i < child_categories.length; i++) {
@@ -130,6 +150,7 @@ export class FaqsService {
             question: item.title.rendered,
             answer: item.content.rendered,
             slug: item.slug,
+            category_name: category_name,
             faq_category: item.faq_category,
           });
         }
@@ -138,7 +159,7 @@ export class FaqsService {
     return subMenus;
   }
 
-  castSearchResultsToFAQType(res) {
+  castSearchResultsToFAQType(res, category_name) {
     const faqs: FAQ[] = [];
     if (res) {
       res.forEach((item) => {
@@ -146,6 +167,7 @@ export class FaqsService {
           question: item.title.rendered,
           answer: item.content.rendered,
           slug: item.slug,
+          category_name: category_name,
           faq_category: item.faq_category,
         });
       });

@@ -70,11 +70,9 @@ export class CardsSocialContainerComponent implements OnInit {
     this.selected_event_index = 0;
     this.socialMediaPostService.fetchAllPosts().subscribe(res => {
       this.socialMediaPosts = res.slice(0, this.displayedCards_amount);
-      console.log(this.socialMediaPosts);
     });
 
     this.googleCalendarService.getUpcomingEvents(3).subscribe(res => {
-      console.log(res);
       this.events = res;
       if (res) {
         this.selected_event_title = res[0].title;
@@ -82,5 +80,4 @@ export class CardsSocialContainerComponent implements OnInit {
       }
     });
   }
-
 }

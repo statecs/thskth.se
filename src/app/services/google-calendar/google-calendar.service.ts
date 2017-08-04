@@ -104,7 +104,6 @@ export class GoogleCalendarService {
   }
 
   castResToEventType(res) {
-    console.log(res);
     const result: Array<Event> = [];
     res.items.forEach((event) => {
       let imageUrl: string;
@@ -113,7 +112,6 @@ export class GoogleCalendarService {
       }else {
         imageUrl = '';
       }
-      console.log(imageUrl);
       result.push({
         id: event.id,
         title: event.summary,

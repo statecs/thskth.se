@@ -11,11 +11,15 @@
 
   .slide-wrapper {
     position: absolute;
-    left: -101%;
+    left: 0;
     display: inline-block;
     width: 100%;
     transition: left 0.5s ease;
     height: 100%;
+
+    & ~ .slide-wrapper {
+      left: -101%;
+    }
 
     .slide {
       width: 60%;
@@ -39,6 +43,11 @@
       bottom: 30px;
       left: 0;
       z-index: 1;
+      text-decoration: none;
+      color: $color-link-secondary;
+      &:hover {
+        color: $color-link-secondary-hover;
+      }
     }
   }
 
@@ -71,7 +80,10 @@
       //border: 1px solid blue;
       display: inline-block;
       margin:0 20px;
-      background-color: lightgray;
+      background-color: gray;
+      & ~ .bar-item {
+        background-color: lightgray;
+      }
     }
   }
 }

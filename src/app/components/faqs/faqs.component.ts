@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
+import { ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-faqs',
@@ -21,8 +22,10 @@ export class FaqsComponent implements OnInit {
   public searchTerm: string;
   public noInput: boolean;
   public searchOnActive: boolean;
+  public selected_cat_ID: string;
 
-  constructor(private faqsService: FaqsService) {
+  constructor(private faqsService: FaqsService,
+              private activatedRoute: ActivatedRoute) {
     this.selected_cat_index = 0;
     this.showFaqs = true;
     this.loading = true;
@@ -33,6 +36,7 @@ export class FaqsComponent implements OnInit {
     this.searchTerm = '';
     this.noInput = false;
   }
+
   onFocus(): void {
       this.noInput = false;
       this.noResult = false;
@@ -120,11 +124,24 @@ export class FaqsComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.activatedRoute.queryParams.subscribe((params: Params) => {
+          this.selected_cat_ID = params['category_id'];
+      });
+
     this.faqsService.getFAQParentCategories().subscribe((categories) => {
       this.parent_categories = categories;
-      this.selected_category = categories[0];
 
-      this.getFAQs_ByParentCategory(categories[0].id);
+      if (this.selected_cat_ID) {
+          for (let i = 0; i < categories.length; i++) {
+              if (categories[i].id.toString() === this.selected_cat_ID) {
+                  this.selected_category = categories[i];
+                  this.selected_cat_index = i;
+              }
+          }
+      }else {
+          this.selected_category = categories[0];
+      }
+      this.getFAQs_ByParentCategory(this.selected_category.id);
     });
   }
 

@@ -1,66 +1,14 @@
 <div #slides_container id="text-slider">
-  <div class="slide-wrapper">
+  <div *ngFor="let item of slides_items" class="slide-wrapper">
     <div class="slide">
-      <h2>What is THS? 1</h2>
-      <p>THS, which stands for Tekniska Högskolans Studentkår, is the student union at KTH and was founded in 1902.
-        Back then the learning conditions for the students were quite harsh and there was no platform for the students to express their views towards KTH.
-        Now, more than a 100 years later, THS and KTH have a close collaboration and a common goal to keep improving the quality of our education and our study environment.
-        We are students who work for students and their best interests. THS consists of 21 chapters (THS Lokalt), which roughly correspond to each of the programmes at KTH.
-        These chapters focus on each of the programmes associated to them, whereas THS Centralt often deals with issues that affect students as a whole.</p>
+      <h2 [innerHTML]="item.question"></h2>
+      <p [innerHTML]="item.answer"></p>
     </div>
-    <div class="category">FAQ New Student 1</div>
-  </div>
-  <div class="slide-wrapper">
-    <div class="slide">
-      <h2>What is THS? 2</h2>
-      <p>THS, which stands for Tekniska Högskolans Studentkår, is the student union at KTH and was founded in 1902.
-        Back then the learning conditions for the students were quite harsh and there was no platform for the students to express their views towards KTH.
-        Now, more than a 100 years later, THS and KTH have a close collaboration and a common goal to keep improving the quality of our education and our study environment.
-        We are students who work for students and their best interests. THS consists of 21 chapters (THS Lokalt), which roughly correspond to each of the programmes at KTH.
-        These chapters focus on each of the programmes associated to them, whereas THS Centralt often deals with issues that affect students as a whole.</p>
-    </div>
-    <div class="category">FAQ New Student 2</div>
-  </div>
-  <div class="slide-wrapper">
-    <div class="slide">
-      <h2>What is THS? 3</h2>
-      <p>THS, which stands for Tekniska Högskolans Studentkår, is the student union at KTH and was founded in 1902.
-        Back then the learning conditions for the students were quite harsh and there was no platform for the students to express their views towards KTH.
-        Now, more than a 100 years later, THS and KTH have a close collaboration and a common goal to keep improving the quality of our education and our study environment.
-        We are students who work for students and their best interests. THS consists of 21 chapters (THS Lokalt), which roughly correspond to each of the programmes at KTH.
-        These chapters focus on each of the programmes associated to them, whereas THS Centralt often deals with issues that affect students as a whole.</p>
-    </div>
-    <div class="category">FAQ New Student 3</div>
-  </div>
-  <div class="slide-wrapper">
-    <div class="slide">
-      <h2>What is THS? 4</h2>
-      <p>THS, which stands for Tekniska Högskolans Studentkår, is the student union at KTH and was founded in 1902.
-        Back then the learning conditions for the students were quite harsh and there was no platform for the students to express their views towards KTH.
-        Now, more than a 100 years later, THS and KTH have a close collaboration and a common goal to keep improving the quality of our education and our study environment.
-        We are students who work for students and their best interests. THS consists of 21 chapters (THS Lokalt), which roughly correspond to each of the programmes at KTH.
-        These chapters focus on each of the programmes associated to them, whereas THS Centralt often deals with issues that affect students as a whole.</p>
-    </div>
-    <div class="category">FAQ New Student 4</div>
-  </div>
-  <div class="slide-wrapper">
-    <div class="slide">
-      <h2>What is THS? 5</h2>
-      <p>THS, which stands for Tekniska Högskolans Studentkår, is the student union at KTH and was founded in 1902.
-        Back then the learning conditions for the students were quite harsh and there was no platform for the students to express their views towards KTH.
-        Now, more than a 100 years later, THS and KTH have a close collaboration and a common goal to keep improving the quality of our education and our study environment.
-        We are students who work for students and their best interests. THS consists of 21 chapters (THS Lokalt), which roughly correspond to each of the programmes at KTH.
-        These chapters focus on each of the programmes associated to them, whereas THS Centralt often deals with issues that affect students as a whole.</p>
-    </div>
-    <div class="category">FAQ New Student 5</div>
+    <a class="category" [innerHTML]="item.category_name" [routerLink]="['faqs']" [queryParams]="{category_id:item.faq_category[0]}"></a>
   </div>
   <div class="text-slider-navBefore"><i class="material-icons" (click)="navBefore()">navigate_before</i></div>
   <div class="text-slider-navNext"><i class="material-icons" (click)="navNext()">navigate_next</i></div>
   <div #slider_progress_bar class="slider-progress-bar">
-    <div class="bar-item"></div>
-    <div class="bar-item"></div>
-    <div class="bar-item"></div>
-    <div class="bar-item"></div>
-    <div class="bar-item"></div>
+    <div *ngFor="let item of slides_items" class="bar-item"></div>
   </div>
 </div>
