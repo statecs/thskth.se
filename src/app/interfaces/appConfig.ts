@@ -19,4 +19,6 @@ export interface AppConfig {
     INSTAGRAM_POST_URL: string;
     THS_FACEBOOK_USER_ID: string;
     ARMADA_FACEBOOK_USER_ID: string;
+    FAQ_CATEGORIES_URL: string;
+    FAQs_URL: string;
 }

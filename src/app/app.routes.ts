@@ -4,12 +4,18 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { HomeComponent } from './components/home/home.component';
 import { AboutThsComponent } from './components/about-ths/about-ths.component';
 import { EventsCalendarComponent } from './components/events-calendar/events-calendar.component';
+import { FaqsComponent } from './components/faqs/faqs.component';
 
 const appRoutes: Routes = [
     {
         path: 'events-calendar',
         component: EventsCalendarComponent,
         data: { title: 'Events Calendar' }
+    },
+    {
+        path: 'faqs',
+        component: FaqsComponent,
+        data: { title: 'FAQs' }
     },
     {
         path: 'about-ths',

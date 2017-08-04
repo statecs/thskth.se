@@ -24,4 +24,6 @@ export let appConfig: AppConfig = {
     INSTAGRAM_POST_URL: 'http://ths.kth.se/api/wp/v2/social/instagram',
     THS_FACEBOOK_USER_ID: '121470594571005',
     ARMADA_FACEBOOK_USER_ID: '148731426526',
+    FAQ_CATEGORIES_URL: 'http://kths.se/api/wp/v2/faq_category',
+    FAQs_URL: 'http://kths.se/api/wp/v2/ths-faqs',
 };

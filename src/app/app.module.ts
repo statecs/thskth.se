@@ -17,6 +17,7 @@ import { PopupWindowCommunicationService } from './services/component-communicat
 import { GoogleCalendarService } from './services/google-calendar/google-calendar.service';
 import { CalendarCommunicationService } from './services/component-communicators/calendar-communication.service';
 import { SocialMediaPostService } from './services/social-media-post/social-media-post.service';
+import { FaqsService } from './services/wordpress/faqs.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -42,6 +43,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { EventsCalendarComponent } from './components/events-calendar/events-calendar.component';
 import { CalendarHeaderComponent } from './components/calendar/calendar-header/calendar-header.component';
 import { CalendarDatePipe } from './pipes/calendar-date.pipe';
+import { FaqsComponent } from './components/faqs/faqs.component';
+import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
 
 @NgModule({
   declarations: [
@@ -67,7 +70,9 @@ import { CalendarDatePipe } from './pipes/calendar-date.pipe';
     CalendarComponent,
     EventsCalendarComponent,
     CalendarHeaderComponent,
-    CalendarDatePipe
+    CalendarDatePipe,
+    FaqsComponent,
+    MarkMatchedWordsPipe
   ],
   imports: [
     BrowserModule,
@@ -85,6 +90,7 @@ import { CalendarDatePipe } from './pipes/calendar-date.pipe';
       GoogleCalendarService,
       CalendarCommunicationService,
       SocialMediaPostService,
+      FaqsService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]
