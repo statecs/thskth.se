@@ -1,0 +1,41 @@
+<form #contact_form >
+  <h1>Send your question</h1>
+  <p>We respond as quickly as we can.</p>
+
+  <div class="divider"></div>
+
+  <label>Your Question Subject *</label>
+  <select id="subject" name="subject">
+    <option *ngFor="let s of subjects" value="{{s.email}}">{{s.name}}</option>
+  </select>
+
+  <label>Message *</label>
+  <textarea [(ngModel)]="message" name="message" rows="6" id="message" required></textarea>
+
+  <div class="divider"></div>
+
+  <div class="standard-grid">
+    <div class="row">
+      <div class="o-half">
+        <label>Name *</label>
+        <input type="text" id="name" [(ngModel)]="full_name" name="full name" required>
+      </div>
+      <div class="o-half">
+        <label>Personal identity number (YYMMDD-XXXX)</label>
+        <input [(ngModel)]="id_number" name="id_number" type="text" id="id_number">
+      </div>
+    </div>
+  </div>
+
+  <label>E-mail *</label>
+  <input type="email" id="email" ng-model="vm.email" required>
+
+  <div class="cb-simple mt20" id="termsAccepted">
+    <div class="cb-simple-box"></div><br />
+    <div class="cb-simple-text">I accept that my personal data is saved in THS records. The data are treated according to the Personal Data Act. <a href="http://www.datainspektionen.se/in-english/legislation/the-personal-data-act/" target="_blank">Read more about the Personal Data Act</a></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <button ng-disabled="vm.success" type="submit" class="btn btn-default core-button">Send</button>
+</form>

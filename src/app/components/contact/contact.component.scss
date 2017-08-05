@@ -1,0 +1,89 @@
+@import "../../../style/mixins";
+@import "../../../style/variables";
+
+:host /deep/ header{
+  background: none !important;
+  background-color: $bg-color-primary !important;
+  color: white !important;
+  .container{
+    border-bottom: 0 !important;
+  }
+}
+
+#contact-page{
+  @include container-size($main-container);
+  margin-top: 70px;
+  position: relative;
+  margin-bottom: 50px;
+  line-height: 1;
+  //border:1px solid blue;
+
+  .heading {
+    position: relative;
+    margin-bottom: 30px;
+    & > div {
+      display: inline-block;
+    }
+    .title {
+      width: 65%;
+      h2 {
+        font-size: $font-size-h2;
+        margin: 0 0 10px;
+      }
+      span {
+        color: gray;
+        font-size: $font-size-h4;
+      }
+    }
+  }
+
+  .side-bar{
+    width: 30%;
+    display: inline-block;
+    //border:1px solid green;
+    .submenu{
+      label{
+        border-bottom:1px solid lightgrey;
+        margin-bottom: 10px;
+        display: block;
+        font-weight: 600;
+        padding-bottom: 5px;
+      }
+      .submenu-item{
+        padding: 12px 15px;
+        position: relative;
+        font-weight: 500;
+        cursor: pointer;
+        &:hover{
+          box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+      }
+      .selected{
+        background-color: $bg-color-secondary;
+        color: white;
+        cursor: default;
+        &:hover{
+          box-shadow: 0 0 0 rgba(0,0,0,0.3);
+        }
+        &::after{
+          @include arrow-right(20px, $bg-color-secondary);
+        }
+      }
+    }
+  }
+}
+
+:host /deep/ .content-container{
+  width: 66%;
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  left: 4%;
+  line-height: 1.2;
+  //border:1px solid red;
+  .content{
+    h2{
+      margin-top: 0;
+    }
+  }
+}

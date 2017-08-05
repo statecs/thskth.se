@@ -19,6 +19,7 @@ import { CalendarCommunicationService } from './services/component-communicators
 import { SocialMediaPostService } from './services/social-media-post/social-media-post.service';
 import { FaqsService } from './services/wordpress/faqs.service';
 import { TextSliderCommunicationService } from './services/component-communicators/text-slider-communication.service';
+import { PagesService } from './services/wordpress/pages.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -46,6 +47,8 @@ import { CalendarHeaderComponent } from './components/calendar/calendar-header/c
 import { CalendarDatePipe } from './pipes/calendar-date.pipe';
 import { FaqsComponent } from './components/faqs/faqs.component';
 import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
+import { ContactComponent } from './components/contact/contact.component';
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,9 @@ import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
     CalendarHeaderComponent,
     CalendarDatePipe,
     FaqsComponent,
-    MarkMatchedWordsPipe
+    MarkMatchedWordsPipe,
+    ContactComponent,
+    ContactFormComponent
   ],
   imports: [
     BrowserModule,
@@ -93,6 +98,7 @@ import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
       SocialMediaPostService,
       FaqsService,
       TextSliderCommunicationService,
+      PagesService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

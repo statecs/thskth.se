@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutThsComponent } from './components/about-ths/about-ths.component';
 import { EventsCalendarComponent } from './components/events-calendar/events-calendar.component';
 import { FaqsComponent } from './components/faqs/faqs.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 const appRoutes: Routes = [
     {
@@ -21,6 +22,11 @@ const appRoutes: Routes = [
         path: 'about-ths',
         component: AboutThsComponent,
         data: { title: 'About THS' }
+    },
+    {
+        path: 'contact',
+        component: ContactComponent,
+        data: { title: 'Contact' }
     },
     {
         path: 'home',

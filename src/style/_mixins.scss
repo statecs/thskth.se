@@ -169,3 +169,46 @@
   transform: translateY(-$position);
   position: absolute;
 }
+
+@mixin divider($width, $height){
+  width: $width;
+  height: $height;
+  border-bottom: 1px solid lightgrey;
+}
+
+@mixin standard-grid($col_gap){
+  & {
+    .row{
+    }
+    .o-half, .o-third, .o-fourth{
+      display: inline-block;
+      float: left;
+    }
+    .o-whole{
+      width: 100%;
+    }
+    .o-half{
+      width: (100% - $col_gap*2) / 2;
+      margin-left: $col_gap / 2;
+      margin-right: $col_gap / 2;
+    }
+    .o-third{
+      width: (100% - $col_gap*2) / 3;
+      margin-left: $col_gap / 3;
+      margin-right: $col_gap / 3;
+    }
+    .o-fourth{
+      width: (100% - $col_gap*2) / 4;
+      margin-left: $col_gap / 3;
+      margin-right: $col_gap / 4;
+    }
+  }
+}
+
+@mixin standard-button($padding){
+  padding: $padding;
+  background-color: $bg-color-primary;
+  color: white;
+  border-radius: 5px;
+  border: 0;
+}

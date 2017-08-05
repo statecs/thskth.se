@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<p>
+  contact works!
+</p>
+<div id="contact-page">
+  <div class="heading">
+    <div class="title">
+      <h2>Contact</h2>
+      <span>You'll find many ways to contact us right here.</span>
+    </div>
+  </div>
+  <div class="side-bar">
+    <div class="submenu">
+      <label>Contacts</label>
+      <div *ngFor="let c of parent_categories, let i = index" class="submenu-item" [ngClass]="{selected: i === selected_cat_index}" (click)="displayCategory(i)">{{c.name}}</div>
+      <div class="submenu-item selected">KårX/Student Union Office</div>
+      <div class="submenu-item">Student Union Management Team</div>
+    </div>
+    <br/><br/><br/><br/>
+    <div class="submenu">
+      <label>FAQs</label>
+      <div *ngFor="let c of parent_categories, let i = index" class="submenu-item" [ngClass]="{selected: i === selected_cat_index}" (click)="displayCategory(i)">{{c.name}}</div>
+      <div class="submenu-item">FAQ Education and Studysocial</div>
+      <div class="submenu-item">FAQ New Student</div>
+    </div>
+  </div>
+  <div *ngIf="page" class="content-container">
+    <div class="content" [innerHTML]="page.content"></div>
+    <app-contact-form></app-contact-form>
+  </div>
+</div>
