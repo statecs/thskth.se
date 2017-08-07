@@ -12,7 +12,7 @@ export const ths_chapters: any = [
     {
         title: 'Sektionen för Medieteknik',
         link: 'http://www.medieteknik.com/',
-        image: 'http://ths.kth.se/wp-content/uploads/2016/08/4.png'
+        image: 'http://ths.kth.se/wp-content/uploads/2016/08/2.png'
     },
     {
         title: 'Maskinsektionen (M)',

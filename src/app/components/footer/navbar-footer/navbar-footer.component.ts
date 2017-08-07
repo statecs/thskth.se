@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from '../../../interfaces/menu';
-import {WordpressApiService} from '../../../services/wordpress/wordpress-api.service';
+import {MenusService} from '../../../services/wordpress/menus.service';
 
 @Component({
   selector: 'app-navbar-footer',
@@ -10,14 +10,15 @@ import {WordpressApiService} from '../../../services/wordpress/wordpress-api.ser
 export class NavbarFooterComponent implements OnInit {
 
   private footer_menu: MenuItem[];
-  constructor( private wordpressApiService: WordpressApiService) { }
+
+  constructor( private menusService: MenusService) { }
 
   ngOnInit() {
-    /*this.wordpressApiService.getMenu('footer')
+    this.menusService.getMenu('footer')
         .subscribe(res => {
           this.footer_menu = res;
           console.log(res);
-        });*/
+        });
   }
 
 }

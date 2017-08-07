@@ -6,12 +6,16 @@
   right: 0;
   top: -15px;
 
-  img {
-    @include square(35px);
-    opacity: 0.5;
+  a{
+    display: inline-block;
+    margin: 0 5px;
+    img {
+      @include square(35px);
+      opacity: 0.5;
 
-    &:hover{
-      opacity: 1;
+      &:hover{
+        opacity: 1;
+      }
     }
   }
 }

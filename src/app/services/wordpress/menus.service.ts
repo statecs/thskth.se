@@ -79,7 +79,6 @@ export class MenusService {
     }else if (param === 'footer') {
       menu_url = this.config.FOOTER_MENU_URL;
     }
-    //console.log(menu_url);
     return this.http
         .get(menu_url + '?order=desc&lang=' + this.language)
         .map((res: Response) => res.json())
