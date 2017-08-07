@@ -11,7 +11,6 @@
     color: $color-white;
     background-size: cover;
     transition: background-image 0.5s ease-in-out;
-    overflow: hidden;
 
     &:before {
       content: '';
@@ -152,7 +151,6 @@
       bottom: 0;
       width: 100%;
       transition: bottom 0.5s ease;
-      z-index: 1;
 
       &::after {
         content: " ";

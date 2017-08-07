@@ -1,3 +1,9 @@
+export interface MenuItem2 {
+    id: number;
+    title: string;
+    slug: string;
+}
+
 interface MenuItemGrandchild {
     title: string;
     url: string;

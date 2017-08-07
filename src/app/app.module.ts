@@ -20,6 +20,7 @@ import { SocialMediaPostService } from './services/social-media-post/social-medi
 import { FaqsService } from './services/wordpress/faqs.service';
 import { TextSliderCommunicationService } from './services/component-communicators/text-slider-communication.service';
 import { PagesService } from './services/wordpress/pages.service';
+import { MenusService } from './services/wordpress/menus.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -99,6 +100,7 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
       FaqsService,
       TextSliderCommunicationService,
       PagesService,
+      MenusService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

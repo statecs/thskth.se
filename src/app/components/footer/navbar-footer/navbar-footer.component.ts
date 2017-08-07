@@ -13,11 +13,11 @@ export class NavbarFooterComponent implements OnInit {
   constructor( private wordpressApiService: WordpressApiService) { }
 
   ngOnInit() {
-    this.wordpressApiService.getMenu('footer')
+    /*this.wordpressApiService.getMenu('footer')
         .subscribe(res => {
           this.footer_menu = res;
           console.log(res);
-        });
+        });*/
   }
 
 }

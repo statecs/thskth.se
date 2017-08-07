@@ -14,8 +14,15 @@ nav {
     cursor: pointer;
   }
 
-  .language {
+  .ths-icon, .language {
     cursor: pointer;
+    margin-left: 12px !important;
+    vertical-align: middle;
+  }
+  .ths-icon{
+    .icon{
+      display: inline-block;
+    }
   }
 
   >div{
@@ -23,11 +30,12 @@ nav {
     margin-left: 30px;
     font-size: $font-size-default;
     color: $color-white;
+    position: relative;
     a{
       text-decoration: none;
       vertical-align: text-top;
     }
-    & >label a{
+    .label a{
       color: $color-white;
       &:hover{
         text-decoration: underline;
@@ -39,35 +47,72 @@ nav {
     .dropdownList {
       position: absolute;
       background-color: $color-white;
-      margin-top: 15px;
+      margin-top: 20px;
+      font-size: $font-size-h5;
+      width: 300px;
+      z-index: 1;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      text-align: left;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
 
-      label a{
-        color: $text-color-default;
+      .d-header-bg{
+        height: 90px;
+        background-color: #00a5ce;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+      .d-header{
+        height: 20px;
+        background-color: white;
+        position: relative;
+        & >div{
+          position: absolute;
+          bottom: 5px;
+          padding-left: 20px;
+          img{
+            width: 100px;
+            height: 70px;
+            vertical-align: middle;
+            margin-right: 10px;
+          }
+        }
       }
 
       &::before {
-        @include arrow-up(15px, #cadce9, 2%);
+        @include arrow-up(15px, #00a5ce, 48%);
       }
 
       .nav-section {
-        display: inline-block;
         vertical-align: top;
         font-size: $font-size-h7;
         line-height: 1.6;
+        border-bottom: 1px solid lightgrey;
+        padding: 0 15px;
+        &:hover {
+          background-color: #d7ecf1;
+        }
         & >label {
           display: block;
           padding: 10px 10px;
-          background-color: #cadce9;
           font-weight: $font-weight-regular;
+          width: auto;
+          a{
+            color: $text-color-default;
+          }
+          a:hover {
+            text-decoration: none !important;
+          }
         }
-        .subItems {
-          padding: 10px 10px;
+        &:last-child{
+          border: none;
+          margin-bottom: 30px;
         }
-        a:hover {
-          text-decoration: underline;
-          border-bottom: 1px solid;
-          //line-height: 1.5;
-        }
+      }
+      .browse-more{
+        background-color: #00a5ce;
+        text-align: center;
+        padding: 15px 0;
       }
     }
   }

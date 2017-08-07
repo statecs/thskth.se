@@ -1,22 +1,43 @@
-<nav role="navigation">
-    <div class="nav-item" *ngFor="let item of menu; index as i; first as isFirst">
-        <label>
-            <a routerLink="{{item.url}}">{{item.title}}</a>
-            <!--<i class="material-icons">keyboard_arrow_down</i>-->
-        </label>
-        <!--<div *ngIf="isFirst" class="dropdownList">
-            <div *ngFor="let child_item of item.children; first as ddlIsFirst" class="nav-section">
-                <label><a routerLink="{{child_item.url}}">{{child_item.title}}</a></label>
-                <div class="subItems">
-                    <div *ngFor="let grandchild_item of child_item.children">
-                        <label><a routerLink="{{grandchild_item.url}}">{{grandchild_item.title}}</a></label>
-                    </div>
+<nav role="navigation" (mouseleave)="hideSubMenu()">
+    <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
+        <div class="label" (mouseover)="showSubMenu(item.id, i, submenu_item)">
+            <a routerLink="{{item.slug}}">{{item.title}}</a>
+        </div>
+        <div [hidden]="!(showSubmenuIndex === i)" class="dropdownList" (mouseleave)="hideSubMenu()">
+            <div class="d-header-bg"></div>
+            <div class="d-header">
+                <div>
+                    <img *ngIf="item.title == 'Student Life'" src="http://kths.se/wp/wp-content/uploads/2017/08/Student-Life_small.jpg">
+                    <img *ngIf="item.title == 'About THS'" src="http://kths.se/wp/wp-content/uploads/2017/08/About-THS_small.jpg">
+                    <img *ngIf="item.title == 'Connect'" src="http://kths.se/wp/wp-content/uploads/2017/08/Connect_small.jpg">
+                    <img *ngIf="item.title == 'Contact'" src="http://www.ths.kth.se/wp/wp-content/uploads/2010/01/Nymble-gr%C3%B6nt-300x200.jpg">
+                    <span>{{item.title}}</span>
                 </div>
             </div>
-        </div>-->
-
+            <div *ngFor="let sub_item of subMenu" class="nav-section">
+                <label><a routerLink="{{sub_item.slug}}">{{sub_item.title}}</a></label>
+            </div>
+        </div>
     </div>
     <div class="payment-btn">Sign in</div>
+    <div #submenu_chapter class="ths-icon">
+        <div class="icon" (mouseover)="showSubMenu('chapters', -1, submenu_chapter)">
+            <img width="25" height="25" src="http://www.armada.nu/app/images/footer/ths-logo.png">
+        </div>
+        <div [hidden]="!(showSubmenuIndex === -1)" class="dropdownList" (mouseleave)="hideSubMenu()">
+            <div class="d-header-bg"></div>
+            <div class="d-header">
+                <div>
+                    <img src="http://ths.kth.se/wp/wp-content/uploads/2014/11/379676_10151394288791160_1414982083_n.jpg">
+                    <span>THS Chapters</span>
+                </div>
+            </div>
+            <div *ngFor="let chapter of ths_chapters" class="nav-section">
+                <label><a href="{{chapter.link}}" target="_blank">{{chapter.title}}</a></label>
+            </div>
+            <a routerLink="/ths-chapters" class="browse-more">See more chapters >></a>
+        </div>
+    </div>
     <div class="language" (click)="changeLanguage()">
         <!--<span>{{language_text}}</span>-->
         <img width="25" height="17" src="{{language_img}}">
