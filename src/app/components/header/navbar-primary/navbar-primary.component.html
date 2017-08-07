@@ -33,6 +33,7 @@
                 </div>
             </div>
             <div *ngFor="let chapter of ths_chapters" class="nav-section">
+                <a class="logo" title="{{chapter.title}}" href="{{chapter.link}}" target="_blank"><img src="{{chapter.image}}"></a>
                 <label><a href="{{chapter.link}}" target="_blank">{{chapter.title}}</a></label>
             </div>
             <a routerLink="/ths-chapters" class="browse-more">See more chapters >></a>
