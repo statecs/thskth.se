@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
-import { ActivatedRoute, Params} from '@angular/router';
+import { Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-faqs',
@@ -22,10 +22,11 @@ export class FaqsComponent implements OnInit {
   public searchTerm: string;
   public noInput: boolean;
   public searchOnActive: boolean;
-  public selected_cat_ID: string;
+  public selected_cat_slug: string;
 
   constructor(private faqsService: FaqsService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
     this.selected_cat_index = 0;
     this.showFaqs = true;
     this.loading = true;
@@ -92,7 +93,10 @@ export class FaqsComponent implements OnInit {
   }
 
   displayCategory(index): void {
-      this.search_results = [];
+      this.selected_cat_index = index;
+      this.selected_category = this.parent_categories[index];
+      this.router.navigate(['contact/faq'], { queryParams: { category: this.parent_categories[index].slug } });
+      /*this.search_results = [];
       this.searchOnActive = false;
       if (!this.selected_category || this.selected_category.id !== this.parent_categories[index].id) {
           this.faqs = [];
@@ -102,7 +106,7 @@ export class FaqsComponent implements OnInit {
           this.selected_cat_index = index;
           this.selected_category = this.parent_categories[index];
           this.getFAQs_ByParentCategory(this.selected_category.id);
-      }
+      }*/
   }
 
     getFAQs_ByCategoryID(catID): void {
@@ -123,26 +127,50 @@ export class FaqsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-      this.activatedRoute.queryParams.subscribe((params: Params) => {
-          this.selected_cat_ID = params['category_id'];
-      });
-
-    this.faqsService.getFAQParentCategories().subscribe((categories) => {
-      this.parent_categories = categories;
-
-      if (this.selected_cat_ID) {
-          for (let i = 0; i < categories.length; i++) {
-              if (categories[i].id.toString() === this.selected_cat_ID) {
-                  this.selected_category = categories[i];
-                  this.selected_cat_index = i;
-              }
+  loadFAQs(): void {
+      /*if (this.parent_categories) {
+          console.log(this.parent_categories);
+          this.search_results = [];
+          this.searchOnActive = false;
+          if (!this.selected_category || this.selected_category.id !== this.parent_categories[this.selected_cat_index].id) {
+              this.faqs = [];
+              this.faq_subMenus = [];
+              this.showFaqs = false;
+              this.loading = true;
+              this.selected_category = this.parent_categories[this.selected_cat_index];
+              this.getFAQs_ByParentCategory(this.selected_category.id);
           }
-      }else {
-          this.selected_category = categories[0];
-      }
-      this.getFAQs_ByParentCategory(this.selected_category.id);
-    });
+      }else {*/
+          this.faqs = [];
+          this.faq_subMenus = [];
+          this.showFaqs = false;
+          this.loading = true;
+          this.faqsService.getFAQParentCategories().subscribe((categories) => {
+              this.parent_categories = categories;
+              console.log(categories);
+
+              if (this.selected_cat_slug) {
+                  for (let i = 0; i < categories.length; i++) {
+                      if (categories[i].slug === this.selected_cat_slug) {
+                          this.selected_category = categories[i];
+                          this.selected_cat_index = i;
+                      }
+                  }
+              }else {
+                  this.selected_category = categories[0];
+              }
+              this.getFAQs_ByParentCategory(this.selected_category.id);
+          });
+      //}
+  }
+
+  ngOnInit() {
+      this.activatedRoute.params.subscribe((params: Params) => {
+          this.selected_cat_slug = params['category'];
+          console.log(this.selected_cat_slug);
+          // console.log(params['returnUrl']);
+          this.loadFAQs();
+      });
   }
 
 }

@@ -6,6 +6,7 @@ import { AppConfig } from '../../../interfaces/appConfig';
 import { APP_CONFIG } from '../../../app.config';
 import { CookieService } from 'ngx-cookie';
 import { ths_chapters } from '../../../utils/ths-chapters';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar-primary',
@@ -26,9 +27,18 @@ export class NavbarPrimaryComponent implements OnInit {
     constructor( private wordpressApiService: WordpressApiService,
                  injector: Injector,
                  private _cookieService: CookieService,
+                 private router: Router,
                  private menusService: MenusService) {
         this.config = injector.get(APP_CONFIG);
         this.ths_chapters = ths_chapters.slice(0, 5);
+    }
+
+    openInNewTab(link): void {
+        window.open(link, '_blank');
+    }
+
+    goToPage(slug): void {
+        this.router.navigate([slug]);
     }
 
     showSubMenu(id, index, submenu_item) {

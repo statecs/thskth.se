@@ -28,7 +28,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { AboutThsComponent } from './components/about-ths/about-ths.component';
 import { NavbarPrimaryComponent } from './components/header/navbar-primary/navbar-primary.component';
 import { NavbarSecondaryComponent } from './components/header/navbar-secondary/navbar-secondary.component';
 import { NavbarSectionsComponent } from './components/footer/navbar-sections/navbar-sections.component';
@@ -50,6 +49,17 @@ import { FaqsComponent } from './components/faqs/faqs.component';
 import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
+import { OneColumnTemplateComponent } from './components/single-view-templates/one-column-template/one-column-template.component';
+import { TwoColumnsTemplateComponent } from './components/single-view-templates/two-columns-template/two-columns-template.component';
+import { ThreeColumnsTemplateComponent } from './components/single-view-templates/three-columns-template/three-columns-template.component';
+import { SingleViewComponent } from './components/single-view/single-view.component';
+import { TextGalleryComponent } from './components/text-gallery/text-gallery.component';
+import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
+import { StudentLifeComponent } from './components/student-life/student-life.component';
+import { AboutComponent } from './components/about/about.component';
+import { LiveComponent } from './components/live/live.component';
+import { NewsComponent } from './components/news/news.component';
+import { OffersComponent } from './components/offers/offers.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +68,6 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
     FooterComponent,
     HomeComponent,
     PageNotFoundComponent,
-    AboutThsComponent,
     NavbarPrimaryComponent,
     NavbarSecondaryComponent,
     NavbarSectionsComponent,
@@ -79,7 +88,18 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
     FaqsComponent,
     MarkMatchedWordsPipe,
     ContactComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    OneColumnTemplateComponent,
+    TwoColumnsTemplateComponent,
+    ThreeColumnsTemplateComponent,
+    SingleViewComponent,
+    TextGalleryComponent,
+    ImageGalleryComponent,
+    StudentLifeComponent,
+    AboutComponent,
+    LiveComponent,
+    NewsComponent,
+    OffersComponent
   ],
   imports: [
     BrowserModule,

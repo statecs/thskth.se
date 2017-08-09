@@ -1,13 +1,11 @@
 <app-header></app-header>
 
-<app-faqs *ngIf="slug === 'faq'"></app-faqs>
-
 <div id="content-container">
   <div *ngIf="page" id="page">
     <div class="heading">
       <div class="title">
         <h2>{{page.name}}</h2>
-        <span *ngIf="page.name === 'contact'">You'll find many ways to contact us right here.</span>
+        <span *ngIf="page.name === 'Student Life'">The student life is a balance of learning, exploring, having fun and getting serious.</span>
       </div>
     </div>
     <div class="side-bar">
@@ -19,7 +17,6 @@
     </div>
     <div class="content-container">
       <div class="content" [innerHTML]="page.content"></div>
-      <app-contact-form *ngIf="page.name === 'contact'"></app-contact-form>
     </div>
   </div>
 </div>

@@ -5,11 +5,11 @@ import {Page} from '../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
-  selector: 'app-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  selector: 'app-student-life',
+  templateUrl: './student-life.component.html',
+  styleUrls: ['./student-life.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class StudentLifeComponent implements OnInit {
 
   public page: Page;
   public subMenu: any;
@@ -22,6 +22,7 @@ export class ContactComponent implements OnInit {
               private menusService: MenusService) { }
 
   goToPage(slug): void {
+    console.log(slug);
     if (slug.indexOf('http://') === 0 || slug.indexOf('https://') === 0 || slug.indexOf('www.') === 0) {
       window.open(slug, '_black');
     }else {
@@ -30,14 +31,16 @@ export class ContactComponent implements OnInit {
   }
 
   getSecondarySubMenu() {
-    //this._baseSlug = 'contact/' + this.slug + '/';
-    this.menusService.get_secondarySubMenu('contact', this.slug).subscribe((submenu) => {
+    //this._baseSlug = 'student-life/' + this.slug + '/';
+    console.log(this.slug);
+    this.menusService.get_secondarySubMenu('student-life', this.slug).subscribe((submenu) => {
       this.subMenu = submenu;
+      console.log(this.subMenu);
     });
   }
 
   getSubmenu() {
-    //this._baseSlug = 'contact/';
+    //this._baseSlug = 'student-life/';
     this.menusService.get_mainSubMenu(this.slug).subscribe((submenu) => {
       this.subMenu = submenu;
     });
@@ -53,15 +56,14 @@ export class ContactComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
-        this.slug = 'contact';
+        this.slug = 'student-life';
       }
       this.getPageBySlug(this.slug);
-      if (this.slug !== 'contact' && this.slug !== 'faq') {
+      if (this.slug !== 'student-life') {
         this.getSecondarySubMenu();
       }else {
         this.getSubmenu();
       }
     });
   }
-
 }

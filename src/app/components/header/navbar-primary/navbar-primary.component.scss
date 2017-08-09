@@ -5,6 +5,7 @@ nav {
   @include center-vertically(50%);
   display: inline-block;
   right: 0;
+  padding: 20px 0;
 
   .payment-btn {
     border-radius: 15px;
@@ -18,6 +19,9 @@ nav {
     cursor: pointer;
     margin-left: 12px !important;
     vertical-align: middle;
+    img{
+      vertical-align: middle;
+    }
   }
   .ths-icon{
     .icon{
@@ -31,6 +35,7 @@ nav {
     font-size: $font-size-default;
     color: $color-white;
     position: relative;
+    vertical-align: middle;
     a{
       text-decoration: none;
       vertical-align: text-top;
@@ -89,6 +94,7 @@ nav {
         line-height: 1.6;
         border-bottom: 1px solid lightgrey;
         padding: 0 15px;
+        cursor: pointer;
         &:hover {
           background-color: #d7ecf1;
         }
@@ -98,22 +104,18 @@ nav {
           font-weight: $font-weight-regular;
           width: 80%;
           vertical-align: middle;
-          a{
-            color: $text-color-default;
-          }
-          a:hover {
-            text-decoration: none !important;
-          }
+          color: $text-color-default;
+          cursor: pointer;
         }
         &:last-child{
           border: none;
           margin-bottom: 30px;
         }
         .logo{
-          text-decoration: none;
           background-color: rgba(0,0,0,0.25);
           display: inline-block;
           vertical-align: middle;
+          cursor: pointer;
           & img{
             width: 30px;
             height: 30px;

@@ -5,11 +5,11 @@ import {Page} from '../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
-  selector: 'app-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  selector: 'app-about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class AboutComponent implements OnInit {
 
   public page: Page;
   public subMenu: any;
@@ -30,14 +30,15 @@ export class ContactComponent implements OnInit {
   }
 
   getSecondarySubMenu() {
-    //this._baseSlug = 'contact/' + this.slug + '/';
-    this.menusService.get_secondarySubMenu('contact', this.slug).subscribe((submenu) => {
+    //this._baseSlug = 'student-life/' + this.slug + '/';
+    this.menusService.get_secondarySubMenu('about-ths', this.slug).subscribe((submenu) => {
       this.subMenu = submenu;
+      console.log(this.subMenu);
     });
   }
 
   getSubmenu() {
-    //this._baseSlug = 'contact/';
+    //this._baseSlug = 'student-life/';
     this.menusService.get_mainSubMenu(this.slug).subscribe((submenu) => {
       this.subMenu = submenu;
     });
@@ -53,10 +54,11 @@ export class ContactComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
-        this.slug = 'contact';
+        this.slug = 'about-ths';
       }
       this.getPageBySlug(this.slug);
-      if (this.slug !== 'contact' && this.slug !== 'faq') {
+      console.log(this.slug);
+      if (this.slug !== 'about-ths') {
         this.getSecondarySubMenu();
       }else {
         this.getSubmenu();

@@ -24,24 +24,66 @@ export class MenusService {
     }
   }
 
-  get_mainSubMenu(id: number): Observable<MenuItem2[]> {
-    const sub_menu: MenuItem2[] = [];
+  get_secondarySubMenu(subMenu_slug: string, secondary_subMenu_slug: string): Observable<MenuItem2[]> {
+    if (typeof this.menus_meta === 'undefined') {
+      return this.getTopLevel_mainMenu().map((res) => {
+        return this.castResToSecondarySubMenu(subMenu_slug, secondary_subMenu_slug);
+      });
+    }else {
+      return Observable.of(this.castResToSecondarySubMenu(subMenu_slug, secondary_subMenu_slug));
+    }
+  }
+
+  castResToSecondarySubMenu(subMenu_slug, secondary_subMenu_slug) {
+    const secondary_sub_menu: MenuItem2[] = [];
     if (this.menus_meta.items) {
-      console.log(this.menus_meta);
       for (const item of this.menus_meta.items) {
-        if (item.id === id) {
+        if (item.object_slug === subMenu_slug) {
           item.children.forEach(i_child => {
-              sub_menu.push({
-                id : i_child.id,
-                title : i_child.title,
-                slug : i_child.url
+            if (i_child.object_slug === secondary_subMenu_slug) {
+              i_child.children.forEach(i_grandchild => {
+                secondary_sub_menu.push({
+                  object_slug : i_grandchild.object_slug,
+                  title : i_grandchild.title,
+                  slug : i_grandchild.url
+                });
               });
+            }
           });
-          return Observable.of(sub_menu);
+          return secondary_sub_menu;
         }
       }
     }
-    return Observable.of(sub_menu);
+    return secondary_sub_menu;
+  }
+
+  get_mainSubMenu(object_slug: string): Observable<MenuItem2[]> {
+    if (typeof this.menus_meta === 'undefined') {
+      return this.getTopLevel_mainMenu().map((res) => {
+        return this.castResToMainSubMenu(object_slug);
+      });
+    }else {
+      return Observable.of(this.castResToMainSubMenu(object_slug));
+    }
+  }
+
+  castResToMainSubMenu(object_slug) {
+    const sub_menu: MenuItem2[] = [];
+    if (this.menus_meta.items) {
+      for (const item of this.menus_meta.items) {
+        if (item.object_slug === object_slug) {
+          item.children.forEach(i_child => {
+            sub_menu.push({
+              object_slug : i_child.object_slug,
+              title : i_child.title,
+              slug : i_child.url
+            });
+          });
+          return sub_menu;
+        }
+      }
+    }
+    return sub_menu;
   }
 
   getTopLevel_mainMenu(): Observable<MenuItem2[]>  {
@@ -58,7 +100,7 @@ export class MenusService {
     if (res.items) {
       for (const item of res.items) {
         topLevel_menu.push({
-          id : item.id,
+          object_slug : item.object_slug,
           title : item.title,
           slug : item.url
         });

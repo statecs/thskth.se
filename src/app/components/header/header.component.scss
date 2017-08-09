@@ -23,6 +23,7 @@ header {
     .search {
       @include center-vertically(50%);
       left: 0;
+      color: white;
       i {
         font-size: $font-size-h2;
         vertical-align: middle;

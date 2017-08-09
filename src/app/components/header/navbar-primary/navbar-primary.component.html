@@ -1,6 +1,6 @@
 <nav role="navigation" (mouseleave)="hideSubMenu()">
     <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
-        <div class="label" (mouseover)="showSubMenu(item.id, i, submenu_item)">
+        <div class="label" (mouseover)="showSubMenu(item.object_slug, i, submenu_item)">
             <a routerLink="{{item.slug}}">{{item.title}}</a>
         </div>
         <div [hidden]="!(showSubmenuIndex === i)" class="dropdownList" (mouseleave)="hideSubMenu()">
@@ -9,13 +9,13 @@
                 <div>
                     <img *ngIf="item.title == 'Student Life'" src="http://kths.se/wp/wp-content/uploads/2017/08/Student-Life_small.jpg">
                     <img *ngIf="item.title == 'About THS'" src="http://kths.se/wp/wp-content/uploads/2017/08/About-THS_small.jpg">
-                    <img *ngIf="item.title == 'Connect'" src="http://kths.se/wp/wp-content/uploads/2017/08/Connect_small.jpg">
-                    <img *ngIf="item.title == 'Contact'" src="http://www.ths.kth.se/wp/wp-content/uploads/2010/01/Nymble-gr%C3%B6nt-300x200.jpg">
+                    <img *ngIf="item.title == 'Live'" src="http://kths.se/wp/wp-content/uploads/2017/08/Connect_small.jpg">
+                    <img *ngIf="item.title == 'Questions'" src="http://www.ths.kth.se/wp/wp-content/uploads/2010/01/Nymble-gr%C3%B6nt-300x200.jpg">
                     <span>{{item.title}}</span>
                 </div>
             </div>
-            <div *ngFor="let sub_item of subMenu" class="nav-section">
-                <label><a routerLink="{{sub_item.slug}}">{{sub_item.title}}</a></label>
+            <div *ngFor="let sub_item of subMenu" (click)="goToPage(sub_item.slug)" class="nav-section">
+                <label>{{sub_item.title}}</label>
             </div>
         </div>
     </div>
@@ -32,9 +32,9 @@
                     <span>THS Chapters</span>
                 </div>
             </div>
-            <div *ngFor="let chapter of ths_chapters" class="nav-section">
-                <a class="logo" title="{{chapter.title}}" href="{{chapter.link}}" target="_blank"><img src="{{chapter.image}}"></a>
-                <label><a href="{{chapter.link}}" target="_blank">{{chapter.title}}</a></label>
+            <div *ngFor="let chapter of ths_chapters" class="nav-section" (click)="openInNewTab(chapter.link)">
+                <div class="logo"><img src="{{chapter.image}}"></div>
+                <label>{{chapter.title}}</label>
             </div>
             <a routerLink="/ths-chapters" class="browse-more">See more chapters >></a>
         </div>
