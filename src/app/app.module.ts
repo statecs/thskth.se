@@ -60,6 +60,7 @@ import { AboutComponent } from './components/about/about.component';
 import { LiveComponent } from './components/live/live.component';
 import { NewsComponent } from './components/news/news.component';
 import { OffersComponent } from './components/offers/offers.component';
+import { NotificationBarComponent } from './components/notification-bar/notification-bar.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { OffersComponent } from './components/offers/offers.component';
     AboutComponent,
     LiveComponent,
     NewsComponent,
-    OffersComponent
+    OffersComponent,
+    NotificationBarComponent
   ],
   imports: [
     BrowserModule,

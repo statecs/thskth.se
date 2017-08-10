@@ -5,6 +5,7 @@
   background: none !important;
   background-color: $bg-color-primary !important;
   color: white !important;
+  position: relative !important;
   .container{
     border-bottom: 0 !important;
   }
@@ -12,7 +13,7 @@
 
 #faqs {
   @include container-size($main-container);
-  margin-top: 100px;
+  margin-top: 80px;
   position: relative;
   margin-bottom: 50px;
   line-height: 1;

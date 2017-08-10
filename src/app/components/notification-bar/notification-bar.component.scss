@@ -1,0 +1,54 @@
+@import "../../../style/mixins";
+@import "../../../style/variables";
+
+#notification-bar{
+  @include container-size($main-container);
+  background-color: #45b8da;
+  color: white;
+  padding: 0 20px;
+  border-radius: 10px;
+  margin-top: 5px;
+  text-align: left;
+  z-index: 1;
+  top: 75px;
+  position: absolute;
+  margin-left: 10%;
+
+  & >span{
+    display: inline-block;
+  }
+
+  & >p{
+    display: inline-block;
+  }
+
+  .icon{
+    @include circle(25px);
+    background-color: white;
+    text-align: center;
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    color: #45b8da;
+
+    .warning {
+      color: #f7941d !important;
+    }
+
+    span{
+      line-height: 1.5;
+    }
+  }
+
+  .close-btn{
+    right: 20px;
+    @include center-vertically(50%);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .warning {
+    background-color: #f7941d !important;
+  }
+}
