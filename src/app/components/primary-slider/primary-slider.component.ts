@@ -127,20 +127,22 @@ export class PrimarySliderComponent implements OnInit {
   }
 
   mouseMovingOnPlayer() {
-    this.video = this.video_player.nativeElement;
-    const self = this;
-    const mouseStopped = function(){
-      self.hideControls();
-    };
-    if (this.video.paused) {
-      clearTimeout( this.mousemove_timer );
-      this.showControls();
-    }else {
-      if (this.controlsOpacity === 0) {
+    if (typeof this.video_player !== 'undefined') {
+      this.video = this.video_player.nativeElement;
+      const self = this;
+      const mouseStopped = function(){
+        self.hideControls();
+      };
+      if (this.video.paused) {
+        clearTimeout( this.mousemove_timer );
         this.showControls();
       }else {
-        clearTimeout(this.mousemove_timer);
-        this.mousemove_timer = setTimeout(mouseStopped, 1500);
+        if (this.controlsOpacity === 0) {
+          this.showControls();
+        }else {
+          clearTimeout(this.mousemove_timer);
+          this.mousemove_timer = setTimeout(mouseStopped, 1500);
+        }
       }
     }
   }
