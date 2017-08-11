@@ -68,7 +68,7 @@
         </div>
 
         <!-- ---------- Event calendar card ---------- -->
-        <div *ngIf="i !== 0 && i === 2" class="masonry-layout_panel-content">
+        <div *ngIf="i !== 0 && i === 1" class="masonry-layout_panel-content">
           <div class="event-calendar-card">
             <div class="left-content" [ngClass]="{'event-arrow-index1': selected_event_index === 0, 'event-arrow-index2': selected_event_index === 1, 'event-arrow-index3': selected_event_index === 2}">
               <h3>{{selected_event_title}}</h3>
@@ -118,5 +118,5 @@
         </div>-->
 </div>
 <div class="fetcher">
-    <a routerLink="/news" class="plus-button"><span>+</span></a>
+    <span class="plus-button" (click)="fetchMorePosts()"><span>+</span></span>
 </div>

@@ -16,6 +16,7 @@ import { PopupWindowCommunicationService } from '../../services/component-commun
 export class CardsSocialContainerComponent implements OnInit {
   public cards: Card[];
   public socialMediaPosts: SocialMediaPost[];
+  private meta_data: SocialMediaPost[];
   public displayedCards_amount: number;
   public showEventCalendar: boolean;
   public events: Event[];
@@ -29,6 +30,11 @@ export class CardsSocialContainerComponent implements OnInit {
                private popupWindowCommunicationService: PopupWindowCommunicationService) {
     this.displayedCards_amount = 4;
     this.showEventCalendar = false;
+  }
+
+  fetchMorePosts(): void {
+    this.socialMediaPosts = this.meta_data.slice(0, this.displayedCards_amount + 4);
+    this.displayedCards_amount += 4;
   }
 
   displayEventInPopup() {
@@ -69,6 +75,7 @@ export class CardsSocialContainerComponent implements OnInit {
     this.selected_event_text = '';
     this.selected_event_index = 0;
     this.socialMediaPostService.fetchAllPosts().subscribe(res => {
+      this.meta_data = res;
       this.socialMediaPosts = res.slice(0, this.displayedCards_amount);
     });
 

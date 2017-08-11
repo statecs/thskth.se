@@ -10,12 +10,13 @@
 .masonry-layout {
   @include container-size($main-container);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: stretch;
   align-content: flex-start;
-  height: 900px;
+  height: auto;
+  margin-bottom: 20px;
   line-height: 1.15;
 
   .one-fourth {
@@ -32,19 +33,11 @@
 
   .masonry-layout_panel {
     display: flex;
-    flex: 0 1 auto;
-    //margin-bottom: 10px;
+    flex: 1 1 auto;
     border-radius: 10px;
-    margin-right: 2%;
-    //height: 300px;
     position: relative;
-    //overflow: hidden;
     flex-direction: column;
-
-    /*&:first-child {
-      width: 49% !important;
-      height: 60% !important;
-    }*/
+    padding: 2px 7px;
 
     .masonry-layout_panel-content {
       border-radius: 10px;
@@ -80,6 +73,7 @@
     position: relative;
     display: inline-block;
     margin-top: -25px;
+    cursor: pointer;
     span{
       @include center-content(50%, 50%);
       margin-top: -3px;
