@@ -1,0 +1,61 @@
+<div #primary_slider id="primary-slider" (mousemove)="mouseMovingOnPlayer()">
+  <div #slides_container class="slides">
+    <div *ngFor="let slide of slides" class="slide">
+      <!-- ----- Text center template ----->
+      <div *ngIf="slide.template === 'text-center-template'" class="text-center-template">
+        <h2>{{slide.title}}</h2>
+        <p [innerHTML]="slide.description"></p>
+        <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> Read More</button>
+      </div>
+
+      <!-- ----- Video template ----->
+      <div *ngIf="slide.template === 'video-template'" class="video-template" (click)="togglePlay()">
+        <video #video_player [src]="slide.video">
+          Your browser does not support HTML5 video player.
+        </video>
+        <div class="video-controller">
+          <i #playButton class="material-icons">play_circle_outline</i>
+        </div>
+      </div>
+
+      <!-- ----- Image on right template ----->
+      <div *ngIf="slide.template === 'image-on-right-template'" class="image-on-right-template">
+        <div class="text-wrapper">
+          <h2>{{slide.title}}</h2>
+          <p [innerHTML]="slide.description"></p>
+          <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> Read More</button>
+        </div>
+        <div class="img-wrapper">
+          <img src="{{slide.image}}">
+        </div>
+      </div>
+
+      <!-- ----- Image on left template ----->
+      <div *ngIf="slide.template === 'image-on-left-template'" class="image-on-left-template">
+        <div class="img-wrapper">
+          <img src="{{slide.image}}">
+        </div>
+        <div class="text-wrapper">
+          <h2>{{slide.title}}</h2>
+          <p [innerHTML]="slide.description"></p>
+          <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> Read More</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="slider-bar-container" #slider_bar_container>
+    <div class="slider-bar">
+      <div *ngFor="let slide of slides, let i = index" class="item" (click)="showSelectedSlide(i+1)">
+        <div class="slider-progress-bar"></div>
+        <div class="text">
+          <div class="number">
+            <span>{{i+1}}</span>
+          </div>
+          {{slide.title}}
+        </div>
+      </div>
+    </div>
+    <div class="slideshow-play-button" (click)="toggleMainSlider()"><i class="material-icons">{{slideshow_play_btn}}</i></div>
+  </div>
+</div>

@@ -21,6 +21,8 @@ import { FaqsService } from './services/wordpress/faqs.service';
 import { TextSliderCommunicationService } from './services/component-communicators/text-slider-communication.service';
 import { PagesService } from './services/wordpress/pages.service';
 import { MenusService } from './services/wordpress/menus.service';
+import { HeaderCommunicationService } from './services/component-communicators/header-communication.service';
+import { PrimarySlidesService } from './services/wordpress/primary-slides.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -61,6 +63,7 @@ import { LiveComponent } from './components/live/live.component';
 import { NewsComponent } from './components/news/news.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { NotificationBarComponent } from './components/notification-bar/notification-bar.component';
+import { PrimarySliderComponent } from './components/primary-slider/primary-slider.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +104,8 @@ import { NotificationBarComponent } from './components/notification-bar/notifica
     LiveComponent,
     NewsComponent,
     OffersComponent,
-    NotificationBarComponent
+    NotificationBarComponent,
+    PrimarySliderComponent
   ],
   imports: [
     BrowserModule,
@@ -123,6 +127,8 @@ import { NotificationBarComponent } from './components/notification-bar/notifica
       TextSliderCommunicationService,
       PagesService,
       MenusService,
+      HeaderCommunicationService,
+      PrimarySlidesService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

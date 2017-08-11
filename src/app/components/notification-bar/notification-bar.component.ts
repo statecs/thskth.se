@@ -11,7 +11,7 @@ export class NotificationBarComponent implements OnInit {
   public showBar: boolean;
 
   constructor() {
-    this.warning = true;
+    this.warning = false;
     this.showBar = true;
   }
 

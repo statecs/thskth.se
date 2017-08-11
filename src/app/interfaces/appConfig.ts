@@ -21,4 +21,5 @@ export interface AppConfig {
     ARMADA_FACEBOOK_USER_ID: string;
     FAQ_CATEGORIES_URL: string;
     FAQs_URL: string;
+    PRIMARY_SLIDES_URL: string;
 }

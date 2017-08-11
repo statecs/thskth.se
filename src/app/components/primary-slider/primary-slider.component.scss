@@ -1,0 +1,214 @@
+@import "../../../style/mixins";
+@import "../../../style/variables";
+
+#primary-slider {
+  position: relative;
+  height: 88vh;
+  //border: 1px solid red;
+  background-color: #777777;
+  background-image: url("../../../assets/images/main_slider/Background-image-733x550.jpg");
+  color: $color-white;
+  background-size: cover;
+  transition: background-image 0.5s ease-in-out;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.35);
+  }
+
+  .slides {
+    height: 100%;
+    position: relative;
+    //border: 1px solid yellow;
+    text-align: center;
+
+    .slide {
+      height:100%;
+      width: 100%;
+      //border: 1px solid blue;
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+
+      &:first-child {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+
+    .text-center-template {
+      @include center-content(60%, 50%);
+      transition: visibility 0.5s ease-in-out, opacity 0.5s ease-in-out;
+
+      h2{
+        font-size: $font-size-h2;
+      }
+      p{
+        font-size: $font-size-h3;
+      }
+      button{
+        @include capsule-button(50px, 20px);
+      }
+    }
+    .video-template {
+      height: 100%;
+      overflow: hidden;
+
+      video {
+        position: absolute;
+        min-width: 100%;
+        min-height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: fill;
+        left: 0;
+        right: 0;
+        top:0;
+        bottom:0;
+      }
+      .video-controller {
+        position: absolute;
+        @include center-content(50%, 50%);
+        i {
+          font-size: $font-size-extraLarge;
+          cursor: pointer;
+          transition: opacity 0.5s ease;
+        }
+      }
+    }
+    .image-on-right-template {
+      //@include center-content(60%, 0%);
+      margin-top: 13%;
+      .text-wrapper {
+        display: inline-block;
+        width: 40%;
+        margin-right: 5%;
+        text-align: left;
+        h2{
+          font-size: $font-size-h2;
+        }
+        p{
+          //padding: 0 25%;
+          font-size: $font-size-h3;
+        }
+        button{
+          @include capsule-button(50px, 20px);
+        }
+      }
+      .img-wrapper {
+        display: inline-block;
+        vertical-align: bottom;
+        img {
+          box-shadow: 0 0 7px rgba(0,0,0,0.5);
+          width: auto;
+          max-height: 300px;
+        }
+      }
+    }
+    .image-on-left-template {
+      margin-top: 13%;
+      .text-wrapper {
+        display: inline-block;
+        width: 40%;
+        text-align: left;
+        h2{
+          font-size: $font-size-h2;
+        }
+        p{
+          font-size: $font-size-h3;
+        }
+        button{
+          @include capsule-button(50px, 20px);
+        }
+      }
+      .img-wrapper {
+        display: inline-block;
+        vertical-align: bottom;
+        margin-right: 5%;
+        img {
+          width: auto;
+          max-height: 300px;
+          box-shadow: 0 0 7px rgba(0,0,0,0.5);
+        }
+      }
+    }
+  }
+
+  .slider-bar-container {
+    position: absolute;
+    //border: 1px solid blue;
+    height: 70px;
+    bottom: 0;
+    width: 100%;
+    transition: bottom 0.5s ease;
+    z-index: 1;
+
+    &::after {
+      content: " ";
+      width: 100%;
+      height: 100px;
+      //border:1px solid green;
+      position: absolute;
+      bottom: 0;
+      @include bg-linear-grad-to-bottom(rgba(0,0,0,0), rgba(0,0,0,0.6));
+      z-index: -1;
+      left: 0;
+    }
+
+    .slider-bar {
+      @include container-size($main-container);
+      z-index: 1;
+      display: inline-block;
+      margin-left: 10%;
+
+      .item {
+        width: (100%)/5 - 0.3%;
+        display: inline-block;
+        text-align: center;
+        cursor: pointer;
+
+        .slider-progress-bar {
+          background-color: #636161;
+          border-radius: 2px;
+          height:4px;
+          @include container-size(100%);
+          margin-bottom: 15px;
+        }
+        .text {
+          & div {
+            display: inline-block;
+          }
+
+          .number {
+            border: 1px solid lightgray;
+            @include circle(30px);
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+
+            span {
+              @include center-content(50%, 50%);
+            }
+          }
+        }
+        &:first-child {
+          .slider-progress-bar {
+            background-color: white;
+          }
+        }
+      }
+    }
+
+    .slideshow-play-button{
+      padding:15px;
+      border: 1px solid white;
+      display: inline-block;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  }
+}
