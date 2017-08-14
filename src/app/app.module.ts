@@ -23,6 +23,7 @@ import { PagesService } from './services/wordpress/pages.service';
 import { MenusService } from './services/wordpress/menus.service';
 import { HeaderCommunicationService } from './services/component-communicators/header-communication.service';
 import { PrimarySlidesService } from './services/wordpress/primary-slides.service';
+import { AppCommunicationService } from './services/component-communicators/app-communication.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -129,6 +130,7 @@ import { PrimarySliderComponent } from './components/primary-slider/primary-slid
       MenusService,
       HeaderCommunicationService,
       PrimarySlidesService,
+      AppCommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

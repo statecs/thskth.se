@@ -12,12 +12,13 @@
 
 #popup-window{
   @include container-size(70%);
-  position: absolute;
+  position: relative;
   margin-left: 15% !important;
   z-index: 1;
   background-color: $bg-color-default;
   border-radius: 5px;
   overflow: hidden;
+  margin-bottom: 100px;
 
   .layouts-container{
     position: relative;

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import { AppCommunicationService } from './services/component-communicators/app-communication.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app works!';
+  @ViewChild('page') page: ElementRef;
+
+  constructor( private appCommunicationService: AppCommunicationService) {
+    this.appCommunicationService.notifyObservable$.subscribe((arg) => {
+      if (arg === 'collapse') {
+        this.page.nativeElement.style.position = 'fixed';
+      }else if (arg === 'show') {
+        this.page.nativeElement.style.position = 'absolute';
+      }
+    });
+  }
 }

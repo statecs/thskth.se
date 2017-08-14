@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import { Event } from '../../interfaces/event';
 import format from 'date-fns/format/index';
+import { AppCommunicationService } from '../../services/component-communicators/app-communication.service';
 
 @Component({
   selector: 'app-popup-window',
@@ -21,7 +22,8 @@ export class PopupWindowComponent implements OnInit {
   public top_position: number;
 
   constructor( private wordpressApiService: WordpressApiService,
-                private popupWindowCommunicationService: PopupWindowCommunicationService) {
+                private popupWindowCommunicationService: PopupWindowCommunicationService,
+                private appCommunicationService: AppCommunicationService) {
     this.showEvent = false;
     this.top_position = 0;
   }
@@ -48,10 +50,12 @@ export class PopupWindowComponent implements OnInit {
 
   show_popup_window(): void {
     this.showPopupWindow = true;
+    this.appCommunicationService.collapseScrollOnPage('collapse');
   }
 
   hide_popup_window(): void {
     this.showPopupWindow = false;
+    this.appCommunicationService.collapseScrollOnPage('show');
   }
 
   update_popup_window(slug): void {
