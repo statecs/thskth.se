@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
-import { Card } from '../../interfaces/card';
+import { Card, SubCard } from '../../interfaces/card';
 import { AppConfig } from '../../interfaces/appConfig';
 import {MenuItem} from '../../interfaces/menu';
 import { CookieService } from 'ngx-cookie';
@@ -47,7 +47,8 @@ export class WordpressApiService {
         .get(this.config.CARDS_URL + '?order=asc&lang=' + this.language + filter)
         .map((res: Response) => res.json())
         // Cast response data to card type
-        .map((res: Array<any>) => this.castResDataToCardType(res));
+        .map((res: Array<any>) => this.castResDataToCardType(res))
+        .map((cards: Array<Card>) => cards.sort(this.sortArrayByCardNumber));
   }
 
   // Cast response data to Card type
@@ -62,6 +63,8 @@ export class WordpressApiService {
         };
 
         const cardPrimaryButtons = [];
+        let oneSixthSubCards: SubCard[] = [];
+        let oneThirdHalfSubCard: SubCard;
 
         if (c.acf.card_primary_buttons) {
           c.acf.card_primary_buttons.forEach(b => {
@@ -72,6 +75,12 @@ export class WordpressApiService {
           });
         }
 
+        if (c.acf.one_sixth_sub_cards) {
+          oneSixthSubCards = this.castDataToSubCardType(c.acf.one_sixth_sub_cards);
+        }
+        if (c.acf.one_third_half_sub_card) {
+          oneThirdHalfSubCard = this.castDataToSubCardType(c.acf.one_third_half_sub_card)[0];
+        }
         const cardData = new Card(
           c.id,
           c.date,
@@ -80,7 +89,6 @@ export class WordpressApiService {
           c.acf.window_type,
           c.title.rendered,
           c.content.rendered,
-          c.excerpt.rendered,
           c.link,
           c.acf.item_id,
           c.acf.background_color,
@@ -89,12 +97,40 @@ export class WordpressApiService {
           c.acf.card_number,
           c.acf.flex_layout,
           cardOrder,
-          cardPrimaryButtons
+          cardPrimaryButtons,
+          oneSixthSubCards,
+          oneThirdHalfSubCard
         );
         result.push(cardData);
       });
     }
     return result;
   }
+
+  castDataToSubCardType(data) {
+    const subCards: SubCard[] = [];
+    data.forEach(c => {
+      let bg_image = '';
+      if (c.background_image) {
+        bg_image = c.background_image.sizes.medium_large;
+      }
+      subCards.push({
+        title: c.title,
+        background_color: c.background_color,
+        background_image: bg_image,
+        slug_to_page: c.slug_to_page,
+        window_type: c.window_type,
+        card_type: c.card_type,
+        content: c.content
+      });
+    });
+    return subCards;
+  }
+
+  sortArrayByCardNumber(a, b) {
+    a = a.card_number;
+    b = b.card_number;
+    return a > b ? 1 : a < b ? -1 : 0;
+  };
 
 }

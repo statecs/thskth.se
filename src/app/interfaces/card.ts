@@ -8,6 +8,16 @@ interface CardOrder {
     template: string;
 }
 
+export interface SubCard {
+    title: string;
+    background_color: string;
+    background_image: string | boolean;
+    slug_to_page: string;
+    window_type: string;
+    card_type: string;
+    content: string;
+}
+
 export interface Card {
     id: number;
     date: string;
@@ -16,7 +26,6 @@ export interface Card {
     window_type: string;
     title: string;
     content: string;
-    excerpt: string;
     link: string;
     item_id: string;
     background_color: string;
@@ -25,7 +34,9 @@ export interface Card {
     card_number: number;
     flex_layout: string;
     card_order: CardOrder;
-    card_primary_buttons: CardPrimaryButton[] | boolean;
+    card_primary_buttons: CardPrimaryButton[];
+    one_sixth_sub_cards: SubCard[];
+    one_third_half_sub_card: SubCard;
 }
 
 export class Card implements Card {
@@ -37,7 +48,6 @@ export class Card implements Card {
         public window_type: string,
         public title: string,
         public content: string,
-        public excerpt: string,
         public link: string,
         public item_id: string,
         public background_color: string,
@@ -46,6 +56,8 @@ export class Card implements Card {
         public card_number: number,
         public flex_layout: string,
         public card_order: CardOrder,
-        public card_primary_buttons: CardPrimaryButton[] | boolean
+        public card_primary_buttons: CardPrimaryButton[],
+        public one_sixth_sub_cards: SubCard[],
+        public one_third_half_sub_card: SubCard
     ) {}
 }

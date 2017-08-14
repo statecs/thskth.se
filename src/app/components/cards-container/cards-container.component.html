@@ -1,12 +1,11 @@
 <div id="cards-container" class="masonry-layout">
-  <div *ngFor="let card of arranged_cards" (click)="showPage(card.slug_to_page, card.window_type)" class="masonry-layout_panel {{card.flex_layout === 'one-sixth'? 'o-third': card.flex_layout}}">
-    <div *ngIf="card.flex_layout !== 'one-sixth'">
+  <div *ngFor="let card of cards" class="masonry-layout_panel {{(card.flex_layout === 'one-sixth' || card.flex_layout === 'one-third-half')? 'o-third box-shadow-none': card.flex_layout}}">
+    <div *ngIf="(card.flex_layout !== 'one-sixth' && card.flex_layout !== 'one-third-half')" (click)="showPage(card.slug_to_page, card.window_type)">
       <!-- ---------- Video card ---------- -->
       <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content">
         <div class="video-card">
             <div class="text">
                 <h2>{{card.title}}</h2>
-                <p [innerHTML]="card.excerpt | cardText:50"></p>
             </div>
           <div class="video-wrapper" [innerHTML]="card.content" ></div>
           <div class="video-controller">
@@ -49,6 +48,90 @@
         </div>
     </div>
 
+    <div *ngIf="card.flex_layout === 'one-sixth'" class="masonry-layout-sub">
+        <div class="one-sixth" (click)="showPage(card.slug_to_page, card.window_type)">
+            <!-- ---------- Standard card ---------- -->
+            <div *ngIf="card.card_type !== 'video-card'" class="masonry-layout_panel-content one-sixth" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+                <div class="standard-card" [ngStyle]="changeBGColor(card)">
+                    <div class="content">
+                        <h2>{{card.title}}</h2>
+                        <p [innerHTML]="card.content | cardText:50"></p>
+                    </div>
+                </div>
+            </div>
+            <!-- ---------- Video card ---------- -->
+            <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content one-sixth">
+                <div class="video-card">
+                    <div class="text">
+                        <h2>{{card.title}}</h2>
+                    </div>
+                    <div class="video-wrapper" [innerHTML]="card.content" ></div>
+                    <div class="video-controller">
+                        <i #playButton class="material-icons">play_circle_outline</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let sub_c of card.one_sixth_sub_cards" (click)="showPage(sub_c.slug_to_page, sub_c.window_type)" class="one-sixth">
+            <!-- ---------- Standard card ---------- -->
+            <div *ngIf="sub_c.card_type !== 'video-card'" class="masonry-layout_panel-content one-sixth" [style.backgroundImage]="'url(' + getBgUrl(sub_c) + ')'">
+                <div class="standard-card" [ngStyle]="changeBGColor(sub_c)">
+                    <div class="content">
+                        <h2>{{sub_c.title}}</h2>
+                        <p [innerHTML]="sub_c.content | cardText:50"></p>
+                    </div>
+                </div>
+            </div>
+            <!-- ---------- Video card ---------- -->
+            <div *ngIf="sub_c.card_type === 'video-card'" class="masonry-layout_panel-content one-sixth">
+                <div class="video-card">
+                    <div class="text">
+                        <h2>{{sub_c.title | cardText:25}}</h2>
+                    </div>
+                    <div class="video-wrapper" [innerHTML]="sub_c.content" ></div>
+                    <div class="video-controller">
+                        <i #playButton class="material-icons">play_circle_outline</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="card.flex_layout === 'one-third-half'" class="masonry-layout-sub">
+      <div class="one-third-half">
+          <!-- ---------- Standard card ---------- -->
+          <div *ngIf="card.card_type !== 'video-card'" (click)="showPage(card.slug_to_page, card.window_type)" class="masonry-layout_panel-content one-third-half" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+              <div class="standard-card" [ngStyle]="changeBGColor(card)">
+                  <div class="content">
+                      <h2>{{card.title}}</h2>
+                      <p [innerHTML]="card.content | cardText:100"></p>
+                  </div>
+              </div>
+          </div>
+          <!-- ---------- Standard sub card ---------- -->
+          <div *ngIf="card.one_third_half_sub_card.card_type !== 'video-card' && card.one_third_half_sub_card" (click)="showPage(card.one_third_half_sub_card.slug_to_page, card.one_third_half_sub_card.window_type)" class="masonry-layout_panel-content one-third-half" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+              <div class="standard-card" [ngStyle]="changeBGColor(card)">
+                  <div class="content">
+                      <h2>{{card.one_third_half_sub_card.title}}</h2>
+                      <p [innerHTML]="card.one_third_half_sub_card.content | cardText:100"></p>
+                  </div>
+              </div>
+          </div>
+          <!-- ---------- Video sub card ---------- -->
+          <div *ngIf="card.one_third_half_sub_card.card_type === 'video-card' && card.one_third_half_sub_card" (click)="showPage(card.one_third_half_sub_card.slug_to_page, card.one_third_half_sub_card.window_type)" class="masonry-layout_panel-content one-sixth">
+              <div class="video-card">
+                  <div class="text">
+                      <h2>{{card.one_third_half_sub_card.title | cardText:25}}</h2>
+                  </div>
+                  <div class="video-wrapper" [innerHTML]="card.one_third_half_sub_card.content" ></div>
+                  <div class="video-controller">
+                      <i #playButton class="material-icons">play_circle_outline</i>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
     <!--<div *ngIf="card.flex_layout === 'one-sixth'" class="one-sixth-container">
       &lt;!&ndash; &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Standard card &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
       <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content {{card.flex_layout}}" [style.backgroundImage]="'url(' + card.background_image.sizes.medium_large + ')'">
@@ -63,11 +146,11 @@
     </div>-->
   </div>
 
-    <div *ngFor="let cards of one_third_half_array" (click)="showPage(card.slug_to_page, card.window_type)" class="masonry-layout_panel o-third box-shadow-none">
+    <!--<div *ngFor="let cards of one_third_half_array" (click)="showPage(card.slug_to_page, card.window_type)" class="masonry-layout_panel o-third box-shadow-none">
         <div class="masonry-layout-sub">
             <div *ngFor="let card of cards" class="one-third-half">
                 <div class="one-sixth-container">
-                    <!-- ---------- Standard card ---------- -->
+                    &lt;!&ndash; &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Standard card &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
                     <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content {{card.flex_layout}}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
                         <div class="standard-card" [ngStyle]="changeBGColor(card)">
                             <div class="content">
@@ -80,13 +163,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
-        <div *ngFor="let cards of one_sixth_cards_array" (click)="showPage(card.slug_to_page, card.window_type)" class="masonry-layout_panel o-third box-shadow-none">
+<!--        <div *ngFor="let cards of one_sixth_cards_array" (click)="showPage(card.slug_to_page, card.window_type)" class="masonry-layout_panel o-third box-shadow-none">
             <div class="masonry-layout-sub">
                 <div *ngFor="let card of cards" class="one-sixth">
                     <div class="one-sixth-container">
-                        <!-- ---------- Standard card ---------- -->
+                        &lt;!&ndash; &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Standard card &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
                         <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content {{card.flex_layout}}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
                             <div class="standard-card" [ngStyle]="changeBGColor(card)">
                                 <div class="content">
@@ -99,7 +182,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
 
 

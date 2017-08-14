@@ -61,14 +61,15 @@ export class CardsContainerComponent implements OnInit {
         self.one_sixth_cards_array = [];
         self.one_third_half_array = [];
         this.wordpressApiService.getCards(arg)
-            .subscribe(res => {
-                this.cards = res;
-                let one_sixth_array_no = 0;
+            .subscribe(cards => {
+                console.log(cards);
+                this.cards = cards;
+                /*let one_sixth_array_no = 0;
                 let o_third_half_array_no = 0;
                 this.one_sixth_cards_array[one_sixth_array_no] = [];
                 this.one_third_half_array[o_third_half_array_no] = [];
                 for (let i = 0; i < res.length; i++) {
-                    if (res[i].flex_layout == 'one-sixth') {
+                    if (res[i].flex_layout === 'one-sixth') {
                         if (this.one_sixth_cards_array[one_sixth_array_no].length === 4) {
                             one_sixth_array_no++;
                             this.one_sixth_cards_array[one_sixth_array_no] = [];
@@ -76,7 +77,7 @@ export class CardsContainerComponent implements OnInit {
                         }else {
                             this.one_sixth_cards_array[one_sixth_array_no].push(res[i]);
                         }
-                    }else if (res[i].flex_layout == 'one-third-half') {
+                    }else if (res[i].flex_layout === 'one-third-half') {
                         if (this.one_third_half_array[o_third_half_array_no].length === 2) {
                             o_third_half_array_no++;
                             this.one_third_half_array[o_third_half_array_no] = [];
@@ -87,7 +88,7 @@ export class CardsContainerComponent implements OnInit {
                     }else {
                         self.arranged_cards.push(res[i]);
                     }
-                }
+                }*/
             });
     }
 

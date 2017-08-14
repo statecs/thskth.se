@@ -87,7 +87,7 @@ export class NavbarPrimaryComponent implements OnInit {
         this.menusService.getTopLevel_mainMenu()
             .subscribe(res => {
                 this.topLevelMainMenu = res;
-                console.log(res);
+                //console.log(res);
             });
 
         this.displayActualLanguage();

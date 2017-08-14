@@ -39,6 +39,17 @@
       font-weight: 300;
       text-align: left;
     }
+    .video-card{
+      h2{
+        font-size: $font-size-default !important;
+        margin: 0 !important;
+      }
+      .video-controller{
+        i{
+          font-size: $font-size-h1 !important;
+        }
+      }
+    }
   }
 
   .one-third-half {
@@ -113,7 +124,7 @@
   position: relative !important;
 }
 
-// ---------- Standard card ---------- //
+// ---------- Membership card ---------- //
 :host /deep/ .membership-card {
   @include standard-card(5% 7%, left);
   position: relative !important;
@@ -125,6 +136,12 @@
       margin-bottom: 5px;
     }
     p{font-weight: 300;}
+  }
+}
+
+:host /deep/ .one-sixth{
+  video{
+    max-height: 180px !important;
   }
 }
 

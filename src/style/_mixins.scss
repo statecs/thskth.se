@@ -113,7 +113,7 @@
       text-align: justify;
     }
     >a{
-      @include capsule-button(50px, 20px);
+      @include capsule-button(40px, 12px);
       text-decoration: none;
     }
   }
