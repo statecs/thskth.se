@@ -24,10 +24,11 @@ export class PrimarySlidesService {
 
   getAllPrimarySlides(): Observable<Slide[]> {
     return this.http
-        .get(this.config.PRIMARY_SLIDES_URL + '?order=asc')
+        .get(this.config.PRIMARY_SLIDES_URL + '?per_page=5&order=desc')
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
-        .map((res: any) => { return this.castResTo_SlideType(res); });
+        .map((res: any) => { return this.castResTo_SlideType(res); })
+        .map((cards: Array<Slide>) => cards.sort(this.sortArrayBySlideOrder));
   }
 
   castResTo_SlideType(res) {
@@ -40,10 +41,16 @@ export class PrimarySlidesService {
         link_to_page: slide.acf.link_to_page,
         image: slide.acf.image.url,
         video: slide.acf.video,
-        slide_number: slide.acf.slide_number,
+        slide_order: slide.acf.slide_order,
       });
     });
     return slides;
   }
+
+  sortArrayBySlideOrder(a, b) {
+    a = a.slide_order;
+    b = b.slide_order;
+    return a > b ? 1 : a < b ? -1 : 0;
+  };
 
 }

@@ -5,5 +5,5 @@ export interface Slide {
     link_to_page: string;
     image: string;
     video: string;
-    slide_number: number;
+    slide_order: number;
 }
