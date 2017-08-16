@@ -145,6 +145,127 @@
   }
 }
 
+// ---------- Event Calendar card ---------- //
+:host /deep/ .event-calendar-card {
+  height: 300px;
+  cursor: default;
+  & >div{
+    height: 100%;
+    //border: 1px solid;
+    display: inline-block;
+  }
+
+  .event-arrow-index1{
+    &::after{
+      top: 33% !important;
+    }
+  }
+  .event-arrow-index2{
+    &::after{
+      top: 61% !important;
+    }
+  }
+  .event-arrow-index3{
+    &::after{
+      top: 87% !important;
+    }
+  }
+  .categories{
+    background: $bg-color-primary;
+    height: 30px;
+    display: block;
+    color: lightgrey;
+    .item{
+      display: inline-block;
+      padding:5px 20px;
+      height: 100%;
+      float: left;
+      cursor: pointer;
+      &:hover{
+        border-bottom:2px solid white;
+      }
+    }
+    .selected{
+      color: #fff;
+      border-bottom:2px solid white;
+    }
+  }
+
+  .left-content{
+    width: 43%;
+    vertical-align: top;
+    background-color: lightgray;
+    position: relative;
+    padding: 0 20px;
+
+    &::after{
+      @include arrow-right(15px, #d3d3d3);
+    }
+    h3{
+      font-size: $font-size-h3;
+    }
+    span{
+      @include capsule-button(10px, 5px);
+      cursor: pointer;
+    }
+  }
+  .right-content{
+    width: 50%;
+    position: relative;
+    float: right;
+    .event-wrapper{
+      //@include center-vertically(50%);
+      position: absolute;
+      width: 95%;
+      & >h4{
+        margin: 15px 0;
+      }
+      & >a{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+        text-decoration: none;
+        color: $color-link;
+        &:hover{
+          color: $color-link-hover;
+        }
+      }
+      .event{
+        margin-bottom: 7px;
+        h6{
+          margin: 0 0 5px 15px;
+        }
+        .date{
+          @include circle(50px);
+          display: inline-block;
+          position: relative;
+          background-color: lightgray;
+          vertical-align: middle;
+          cursor: pointer;
+          span{
+            @include center-content(50%, 50%);
+          }
+        }
+        .excerpt{
+          display: inline-block;
+          width: 70%;
+          right:0;
+          margin-left: 10px;
+          vertical-align: middle;
+          span{
+            font-size: $font-size-h6;
+            font-weight: 600;
+            color: $color-link;
+            text-decoration: none;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
 /*.masonry-layout {
   column-count: 1;
   column-gap: 0;

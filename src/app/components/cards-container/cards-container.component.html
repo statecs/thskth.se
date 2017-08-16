@@ -46,6 +46,37 @@
                 </div>
             </div>
         </div>
+
+        <!-- ---------- Event calendar card ---------- -->
+        <div *ngIf="card.card_type === 'events-card'" class="masonry-layout_panel-content">
+            <div class="event-calendar-card">
+                <div class="categories">
+                    <div class="item" (click)="switchCalendar('Events')" [ngClass]="{'selected': selected_event_category === 1}">Events</div>
+                    <div class="item" (click)="switchCalendar('Reception')" [ngClass]="{'selected': selected_event_category === 2}">Reception</div>
+                    <div class="item" (click)="switchCalendar('International')" [ngClass]="{'selected': selected_event_category === 3}">International</div>
+                </div>
+                <div class="left-content" [ngClass]="{'event-arrow-index1': selected_event_index === 0, 'event-arrow-index2': selected_event_index === 1, 'event-arrow-index3': selected_event_index === 2}">
+                    <h3>{{selected_event_title}}</h3>
+                    <p>{{selected_event_text | cardText:100}}</p>
+                    <span (click)="displayEventInPopup()">Read more</span>
+                </div>
+                <div class="right-content">
+                    <div class="event-wrapper">
+                        <h4>THS's Upcoming events</h4>
+                        <div *ngFor="let e of events, let i = index" class="event">
+                            <h6>{{getMonth(e.start)}}</h6>
+                            <div class="date" (click)="selectEvent(i)">
+                                <span>{{getDay(e.start)}}</span>
+                            </div>
+                            <div class="excerpt">
+                                <span (click)="displayEventInPopup()">{{e.title | cardText:25}}</span>
+                            </div>
+                        </div>
+                        <a routerLink="events-calendar">More >></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div *ngIf="card.flex_layout === 'one-sixth'" class="masonry-layout-sub">

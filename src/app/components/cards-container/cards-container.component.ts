@@ -7,6 +7,9 @@ import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
 import { Router} from '@angular/router';
+import format from 'date-fns/format/index';
+import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
+import { Event } from '../../interfaces/event';
 
 @Component({
   selector: 'app-cards-container',
@@ -21,12 +24,21 @@ export class CardsContainerComponent implements OnInit {
     private cardsUpdater: Subscription;
     protected config: AppConfig;
 
+    public events: Event[];
+
+    public selected_event_title: string;
+    public selected_event_text: string;
+    public selected_event_index: number;
+    public selected_event_category: number;
+
   constructor(  private cardsService: CardsService,
                 private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
                 private injector: Injector,
                 private popupWindowCommunicationService: PopupWindowCommunicationService,
+                private googleCalendarService: GoogleCalendarService,
                 private router: Router) {
       this.config = injector.get(APP_CONFIG);
+      this.selected_event_category = 1;
   }
 
   showPage(slug, window_type): void {
@@ -92,9 +104,53 @@ export class CardsContainerComponent implements OnInit {
             });
     }
 
+    displayEventInPopup() {
+        this.popupWindowCommunicationService.showEventInPopup(this.events[this.selected_event_index]);
+    }
+
+    selectEvent(i) {
+        this.selected_event_title = this.events[i].title;
+        this.selected_event_text = this.events[i].description;
+        this.selected_event_index = i;
+    }
+
+    getMonth(date): string {
+        return format(date, 'MMM');
+    }
+
+    getDay(date): string {
+        return format(date, 'DD');
+    }
+
+    formatDate(created_time): string {
+        const date = new Date(created_time * 1000);
+        return format(date, 'DD MMM YYYY') + ' at ' + format(date, 'hh:mma');
+    }
+
+    switchCalendar(cal) {
+      if (cal === 'Events') {
+          this.selected_event_category = 1;
+      }else if (cal === 'Reception') {
+          this.selected_event_category = 2;
+      }else if (cal === 'International') {
+          this.selected_event_category = 3;
+      }
+    }
+
   ngOnInit() {
+      this.selected_event_title = '';
+      this.selected_event_text = '';
+      this.selected_event_index = 0;
       this.cardsUpdater = this.cardCategorizerCardContainerService.notifyObservable$.subscribe((arg) => {
           this.displayCards(arg);
+      });
+
+      this.googleCalendarService.getUpcomingEvents(3).subscribe(res => {
+          this.events = res;
+          if (res) {
+              this.selected_event_title = res[0].title;
+              this.selected_event_text = res[0].description;
+          }
       });
   }
 
