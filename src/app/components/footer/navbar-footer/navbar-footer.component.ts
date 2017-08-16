@@ -17,7 +17,7 @@ export class NavbarFooterComponent implements OnInit {
     this.menusService.getMenu('footer')
         .subscribe(res => {
           this.footer_menu = res;
-          console.log(res);
+          //console.log(res);
         });
   }
 

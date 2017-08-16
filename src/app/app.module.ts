@@ -24,6 +24,7 @@ import { MenusService } from './services/wordpress/menus.service';
 import { HeaderCommunicationService } from './services/component-communicators/header-communication.service';
 import { PrimarySlidesService } from './services/wordpress/primary-slides.service';
 import { AppCommunicationService } from './services/component-communicators/app-communication.service';
+import { CardsService } from './services/wordpress/cards.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -131,6 +132,7 @@ import { PrimarySliderComponent } from './components/primary-slider/primary-slid
       HeaderCommunicationService,
       PrimarySlidesService,
       AppCommunicationService,
+      CardsService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

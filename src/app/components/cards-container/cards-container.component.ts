@@ -1,5 +1,5 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
+import { CardsService } from '../../services/wordpress/cards.service';
 import { Card } from '../../interfaces/card';
 import { CardCategorizerCardContainerService } from '../../services/component-communicators/card-categorizer-card-container.service';
 import {Subscription} from 'rxjs/Subscription';
@@ -21,7 +21,7 @@ export class CardsContainerComponent implements OnInit {
     private cardsUpdater: Subscription;
     protected config: AppConfig;
 
-  constructor(  private wordpressApiService: WordpressApiService,
+  constructor(  private cardsService: CardsService,
                 private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
                 private injector: Injector,
                 private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -30,11 +30,11 @@ export class CardsContainerComponent implements OnInit {
   }
 
   showPage(slug, window_type): void {
-      if (window_type == 'popup-window') {
+      if (window_type === 'popup-window') {
           this.popupWindowCommunicationService.update_PopupWindow(slug);
-      }else if (window_type == 'new-tab') {
+      }else if (window_type === 'new-tab') {
           window.open('/' + slug, '_blank');
-      }else if (window_type == 'same-page') {
+      }else if (window_type === 'same-page') {
           this.router.navigate(['/' + slug]);
       }
   }
@@ -60,9 +60,9 @@ export class CardsContainerComponent implements OnInit {
         self.arranged_cards = [];
         self.one_sixth_cards_array = [];
         self.one_third_half_array = [];
-        this.wordpressApiService.getCards(arg)
+        this.cardsService.getCards(arg)
             .subscribe(cards => {
-                console.log(cards);
+                // console.log(cards);
                 this.cards = cards;
                 /*let one_sixth_array_no = 0;
                 let o_third_half_array_no = 0;
@@ -96,7 +96,6 @@ export class CardsContainerComponent implements OnInit {
       this.cardsUpdater = this.cardCategorizerCardContainerService.notifyObservable$.subscribe((arg) => {
           this.displayCards(arg);
       });
-      this.displayCards({profession: this.config.PROFESSION.student, organization_type: 0, interest: this.config.USER_INTEREST.student});
   }
 
 }

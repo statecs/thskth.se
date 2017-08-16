@@ -8,6 +8,12 @@ interface CardOrder {
     template: string;
 }
 
+export interface CardCategory {
+    id: number;
+    name: string;
+    order: number;
+}
+
 export interface SubCard {
     title: string;
     background_color: string;

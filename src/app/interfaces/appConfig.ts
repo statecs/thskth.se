@@ -2,6 +2,9 @@ export interface AppConfig {
     BASE_URL: string;
     API_URL: string;
     CARDS_URL: string;
+    CARD_CATEGORY_ORG: string;
+    CARD_CATEGORY_PRO: string;
+    CARD_CATEGORY_INT: string;
     POSTS_PAGE: string;
     PAGES_URL: string;
     PRIMARY_MENU_URL: string;
@@ -9,9 +12,9 @@ export interface AppConfig {
     SECTIONS_MENU_URL: string;
     FOOTER_MENU_URL: string;
     LANGUAGE: string;
-    PROFESSION: any;
+/*    PROFESSION: any;
     ORGANIZATION_TYPE: any;
-    USER_INTEREST: any;
+    USER_INTEREST: any;*/
     GOOGLE_CALENDAR_URL: string;
     GOOGLE_CALENDAR_KEY: string;
     EVENT_IMAGE_BASE_URL: string;

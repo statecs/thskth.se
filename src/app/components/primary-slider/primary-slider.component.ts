@@ -163,7 +163,7 @@ export class PrimarySliderComponent implements OnInit {
   ngOnInit() {
     this.primarySlidesService.getAllPrimarySlides().subscribe((slides) => {
       this.slides = slides;
-      console.log(slides); 
+      // console.log(slides);
       this.startMainSlider();
     });
   }

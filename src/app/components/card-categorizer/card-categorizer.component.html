@@ -1,27 +1,23 @@
 <div #card_categorizer id="card-categorizer">
   I am a
-  <div #profession class="profession"  (click)="companyIsDisabled !== true || toggleDropdown(1)" [attr.disabled]="!companyIsDisabled ? true : null">
+  <div #profession class="profession"  (click)="companyIsDisabled !== true || toggleDropdown(1)" [attr.disabled]="!companyIsDisabled">
     <span>{{selected_profession_name}}</span>
     <i class="material-icons">keyboard_arrow_down</i>
       <div class="dropdown-container">
           <div class="dropdown-list">
-              <div class="dropdown-item" (click)="updateFiltering('profession', $event, config.PROFESSION.student)">student</div>
-              <div class="dropdown-item" (click)="updateFiltering('profession', $event, config.PROFESSION.professor)">professor</div>
-              <div class="dropdown-item" (click)="updateFiltering('profession', $event, config.PROFESSION.other)">other</div>
+              <div *ngFor="let c of pro_cats" class="dropdown-item" (click)="updateFiltering('profession', $event, c.id)">{{c.name}}</div>
           </div>
       </div>
   </div>
   <div (click)="switchPerson()" class="switcher">
     <div #switch_button class="switch-button"></div>
   </div>
-  <div #company class="company" (click)="companyIsDisabled === true || toggleDropdown(2)" [attr.disabled]="companyIsDisabled ? true : null">
+  <div #company class="company" (click)="companyIsDisabled === true || toggleDropdown(2)" [attr.disabled]="companyIsDisabled">
     <span>{{selected_company_name}}</span>
     <i class="material-icons">keyboard_arrow_down</i>
       <div class="dropdown-container">
           <div class="dropdown-list">
-              <div class="dropdown-item" (click)="updateFiltering('company', $event, config.ORGANIZATION_TYPE.company)">company</div>
-              <div class="dropdown-item" (click)="updateFiltering('company', $event, config.ORGANIZATION_TYPE.institute)">institute</div>
-              <div class="dropdown-item" (click)="updateFiltering('company', $event, config.ORGANIZATION_TYPE.other)">other</div>
+              <div *ngFor="let c of org_cats" class="dropdown-item" (click)="updateFiltering('company', $event, c.id)">{{c.name}}</div>
           </div>
       </div>
   </div>
@@ -31,9 +27,7 @@
     <i class="material-icons">keyboard_arrow_down</i>
       <div class="dropdown-container">
           <div class="dropdown-list">
-              <div class="dropdown-item" (click)="updateFiltering('interest', $event, config.USER_INTEREST.student)">student</div>
-              <div class="dropdown-item" (click)="updateFiltering('interest', $event, config.USER_INTEREST.careers)">careers</div>
-              <div class="dropdown-item" (click)="updateFiltering('interest', $event, config.USER_INTEREST.education)">education</div>
+              <div *ngFor="let c of int_cats" class="dropdown-item" (click)="updateFiltering('interest', $event, c.id)">{{c.name}}</div>
           </div>
       </div>
   </div>

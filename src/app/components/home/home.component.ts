@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-
       this.faqsService.getFAQs_OfEachCategories(1).subscribe((faqs) => {
           this.textSliderCommunicationService.send_data_to_textSlider(faqs);
       });
