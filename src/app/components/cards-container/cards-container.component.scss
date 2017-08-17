@@ -157,27 +157,29 @@
 
   .event-arrow-index1{
     &::after{
-      top: 33% !important;
+      top: 28% !important;
     }
   }
   .event-arrow-index2{
     &::after{
-      top: 61% !important;
+      top: 56% !important;
     }
   }
   .event-arrow-index3{
     &::after{
-      top: 87% !important;
+      top: 82% !important;
     }
   }
   .categories{
     background: $bg-color-primary;
-    height: 30px;
+    height: auto;
     display: block;
-    color: lightgrey;
+    color: darkgray;
+    font-size: $font-size-h6;
+    overflow: hidden;
     .item{
       display: inline-block;
-      padding:5px 20px;
+      padding:5px 7px;
       height: 100%;
       float: left;
       cursor: pointer;
@@ -230,6 +232,9 @@
         &:hover{
           color: $color-link-hover;
         }
+      }
+      .no-events{
+        color: $text-color-brown;
       }
       .event{
         margin-bottom: 7px;

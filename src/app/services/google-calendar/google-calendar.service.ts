@@ -60,7 +60,7 @@ export class GoogleCalendarService {
     }
   }
 
-  fetchEvents(viewDate, view): Observable<Event[]> {
+  fetchEvents(calendarId, viewDate, view): Observable<Event[]> {
     this.view = view;
     this.search.set(
         'timeMin',
@@ -75,7 +75,7 @@ export class GoogleCalendarService {
     this.search.set('orderBy', 'startTime');
     const params = this.search;
     return this.http
-        .get(this.config.GOOGLE_CALENDAR_URL, { params })
+        .get(this.config.GOOGLE_CALENDAR_BASE_URL + calendarId + '/events', { params })
         .map((res: Response) => res.json())
         // Cast response data to event type
         .map((res: any) => {
@@ -83,7 +83,7 @@ export class GoogleCalendarService {
         });
   }
 
-  getUpcomingEvents(amount): Observable<Event[]> {
+  getUpcomingEvents(calendarId, amount): Observable<Event[]> {
     const startDate = new Date();
     this.search.set(
         'timeMin',
@@ -95,7 +95,7 @@ export class GoogleCalendarService {
     this.search.set('maxResults', amount);
     const params = this.search;
     return this.http
-        .get(this.config.GOOGLE_CALENDAR_URL, { params })
+        .get(this.config.GOOGLE_CALENDAR_BASE_URL + calendarId + '/events', { params })
         .map((res: Response) => res.json())
         // Cast response data to event type
         .map((res: any) => {

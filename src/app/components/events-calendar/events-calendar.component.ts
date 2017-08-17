@@ -6,6 +6,7 @@ import { CalendarCommunicationService } from '../../services/component-communica
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import format from 'date-fns/format/index';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
+import { ths_calendars } from '../../utils/ths-calendars';
 
 @Component({
   selector: 'app-events-calendar',
@@ -16,12 +17,14 @@ export class EventsCalendarComponent implements OnInit {
 
   events: Event[];
   actualDate: string;
+  public ths_calendars: any[];
 
   constructor(private calendarCommunicationService: CalendarCommunicationService,
               private googleCalendarService: GoogleCalendarService,
               private popupWindowCommunicationService: PopupWindowCommunicationService) {
     this.events = [];
     this.actualDate = format(new Date(), 'DD MMM YYYY');
+    this.ths_calendars = ths_calendars;
   }
 
   showInPopup(event: Event): void {
@@ -36,8 +39,8 @@ export class EventsCalendarComponent implements OnInit {
     return format(start, 'dddd, MMM DD') + ' at ' + format(start, 'hh:mm a') + ' - ' + format(end, 'hh:mm a');
   }
 
-  getEventsPerDay(viewDate: Date): void {
-    this.googleCalendarService.fetchEvents(viewDate, 'day')
+  getEventsPerDay(calendarId, viewDate: Date): void {
+    this.googleCalendarService.fetchEvents(calendarId, viewDate, 'day')
         .subscribe(res => {
           console.log(res);
           this.events = res;
@@ -51,12 +54,12 @@ export class EventsCalendarComponent implements OnInit {
         this.events = [];
         console.log('no activity');
       }else {
-        this.getEventsPerDay(arg.viewDate);
+        this.getEventsPerDay(this.ths_calendars[0].calendarId, arg.viewDate);
       }
       console.log('actualDate');
     });
 
-    this.getEventsPerDay(new Date());
+    this.getEventsPerDay(this.ths_calendars[0].calendarId, new Date());
   }
 
 }

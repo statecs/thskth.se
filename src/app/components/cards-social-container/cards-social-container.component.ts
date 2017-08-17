@@ -7,6 +7,7 @@ import format from 'date-fns/format/index';
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import { Event } from '../../interfaces/event';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
+import { ths_calendars } from '../../utils/ths-calendars';
 
 @Component({
   selector: 'app-cards-social-container',
@@ -24,12 +25,14 @@ export class CardsSocialContainerComponent implements OnInit {
   public selected_event_title: string;
   public selected_event_text: string;
   public selected_event_index: number;
+  public ths_calendars: any[];
 
   constructor( private socialMediaPostService: SocialMediaPostService,
                private googleCalendarService: GoogleCalendarService,
                private popupWindowCommunicationService: PopupWindowCommunicationService) {
     this.displayedCards_amount = 4;
     this.showEventCalendar = false;
+    this.ths_calendars = ths_calendars;
   }
 
   fetchMorePosts(): void {
@@ -79,9 +82,9 @@ export class CardsSocialContainerComponent implements OnInit {
       this.socialMediaPosts = res.slice(0, this.displayedCards_amount);
     });
 
-    this.googleCalendarService.getUpcomingEvents(3).subscribe(res => {
+    this.googleCalendarService.getUpcomingEvents(this.ths_calendars[0].calendarId, 3).subscribe(res => {
       this.events = res;
-      if (res) {
+      if (res.length !== 0) {
         this.selected_event_title = res[0].title;
         this.selected_event_text = res[0].description;
       }

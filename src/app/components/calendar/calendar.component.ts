@@ -20,6 +20,7 @@ import { GoogleCalendarService } from '../../services/google-calendar/google-cal
 import { CalendarCommunicationService } from '../../services/component-communicators/calendar-communication.service';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
 import { Event } from '../../interfaces/event';
+import { ths_calendars } from '../../utils/ths-calendars';
 
 @Component({
   selector: 'app-calendar',
@@ -32,6 +33,7 @@ export class CalendarComponent implements OnInit {
   viewDate: Date;
   events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
   activeDayIsOpen: boolean;
+  public ths_calendars: any[];
 
   constructor(private googleCalendarService: GoogleCalendarService,
               private calendarCommunicationService: CalendarCommunicationService,
@@ -39,10 +41,11 @@ export class CalendarComponent implements OnInit {
     this.view = 'month';
     this.activeDayIsOpen = false;
     this.viewDate = new Date();
+    this.ths_calendars = ths_calendars;
   }
 
   fetchEvents(): void {
-    this.events$ = this.googleCalendarService.fetchEvents(this.viewDate, this.view);
+    this.events$ = this.googleCalendarService.fetchEvents(this.ths_calendars[0].calendarId, this.viewDate, this.view);
     this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: this.viewDate});
   }
 

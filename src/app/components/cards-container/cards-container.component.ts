@@ -10,6 +10,7 @@ import { Router} from '@angular/router';
 import format from 'date-fns/format/index';
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import { Event } from '../../interfaces/event';
+import { ths_calendars } from '../../utils/ths-calendars';
 
 @Component({
   selector: 'app-cards-container',
@@ -30,6 +31,7 @@ export class CardsContainerComponent implements OnInit {
     public selected_event_text: string;
     public selected_event_index: number;
     public selected_event_category: number;
+    public ths_calendars: any[];
 
   constructor(  private cardsService: CardsService,
                 private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
@@ -38,7 +40,8 @@ export class CardsContainerComponent implements OnInit {
                 private googleCalendarService: GoogleCalendarService,
                 private router: Router) {
       this.config = injector.get(APP_CONFIG);
-      this.selected_event_category = 1;
+      this.selected_event_category = 0;
+      this.ths_calendars = ths_calendars;
   }
 
   showPage(slug, window_type): void {
@@ -127,14 +130,20 @@ export class CardsContainerComponent implements OnInit {
         return format(date, 'DD MMM YYYY') + ' at ' + format(date, 'hh:mma');
     }
 
-    switchCalendar(cal) {
-      if (cal === 'Events') {
-          this.selected_event_category = 1;
-      }else if (cal === 'Reception') {
-          this.selected_event_category = 2;
-      }else if (cal === 'International') {
-          this.selected_event_category = 3;
-      }
+    switchCalendar(calendarId, index) {
+      this.getCalendar(calendarId);
+      this.selected_event_category = index;
+    }
+
+    getCalendar(calendarId): void {
+        this.googleCalendarService.getUpcomingEvents(calendarId, 3).subscribe(res => {
+            this.events = res;
+            console.log(res);
+            if (res.length !== 0) {
+                this.selected_event_title = res[0].title;
+                this.selected_event_text = res[0].description;
+            }
+        });
     }
 
   ngOnInit() {
@@ -145,13 +154,7 @@ export class CardsContainerComponent implements OnInit {
           this.displayCards(arg);
       });
 
-      this.googleCalendarService.getUpcomingEvents(3).subscribe(res => {
-          this.events = res;
-          if (res) {
-              this.selected_event_title = res[0].title;
-              this.selected_event_text = res[0].description;
-          }
-      });
+      this.getCalendar(this.ths_calendars[0].calendarId);
   }
 
 }
