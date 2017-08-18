@@ -12,7 +12,7 @@ export class NotificationBarComponent implements OnInit {
 
   constructor() {
     this.warning = false;
-    this.showBar = true;
+    this.showBar = false;
   }
 
   closeBar(): void {
