@@ -22,6 +22,7 @@ export class MenusService {
     }else {
       this.language = this._cookieService.get('language');
     }
+    console.log(this.language);
   }
 
   get_secondarySubMenu(subMenu_slug: string, secondary_subMenu_slug: string): Observable<MenuItem2[]> {

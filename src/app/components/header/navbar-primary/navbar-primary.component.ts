@@ -60,14 +60,20 @@ export class NavbarPrimaryComponent implements OnInit {
         this.showSubmenuIndex = null;
     }
 
-    changeLanguage() {
-        if (this._cookieService.get('language') !== 'undefined') {
-            this.config.LANGUAGE = this._cookieService.get('language');
-        }
+    switchLanguage() {
         if (this.config.LANGUAGE === 'en') {
             this.config.LANGUAGE = 'sv';
         }else if (this.config.LANGUAGE === 'sv') {
             this.config.LANGUAGE = 'en';
+        }
+    }
+
+    changeLanguage() {
+        if (typeof this._cookieService.get('language') !== 'undefined') {
+            this.config.LANGUAGE = this._cookieService.get('language');
+            this.switchLanguage();
+        }else {
+            this.switchLanguage();
         }
         this._cookieService.put('language', this.config.LANGUAGE);
         location.reload();
@@ -87,12 +93,9 @@ export class NavbarPrimaryComponent implements OnInit {
         this.menusService.getTopLevel_mainMenu()
             .subscribe(res => {
                 this.topLevelMainMenu = res;
-                //console.log(res);
             });
 
         this.displayActualLanguage();
-        console.log(this.config.LANGUAGE);
-        console.log(this._cookieService.get('language'));
     }
 
 }
