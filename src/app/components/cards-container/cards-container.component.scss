@@ -8,6 +8,10 @@
   flex-direction: row;
   flex-wrap: wrap;
 
+  .loader{
+    color: $text-color-brown;
+  }
+
   .o-third {
     width: 31%;
   }

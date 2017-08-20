@@ -1,4 +1,5 @@
 <div id="cards-container" class="masonry-layout">
+    <div *ngIf="!cardsLoaded" class="loader">Loading cards...</div>
     <div *ngFor="let card of cards" class="masonry-layout_panel {{(card.flex_layout === 'one-sixth' || card.flex_layout === 'one-third-half')? 'o-third box-shadow-none': card.flex_layout}}">
         <div *ngIf="(card.flex_layout !== 'one-sixth' && card.flex_layout !== 'one-third-half')" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
             <!-- ---------- Video card ---------- -->

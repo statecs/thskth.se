@@ -33,6 +33,7 @@ export class CardsContainerComponent implements OnInit {
     public selected_event_index: number;
     public selected_event_category: number;
     public ths_calendars: any[];
+    public cardsLoaded: boolean;
 
   constructor(  private cardsService: CardsService,
                 private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
@@ -44,6 +45,7 @@ export class CardsContainerComponent implements OnInit {
       this.config = injector.get(APP_CONFIG);
       this.selected_event_category = 0;
       this.ths_calendars = ths_calendars;
+      this.cardsLoaded = false;
   }
 
   showPage(slug, window_type, slug_to_page): void {
@@ -74,14 +76,15 @@ export class CardsContainerComponent implements OnInit {
     }
 
     displayCards(arg: any) {
+        this.cardsLoaded = false;
         const self = this;
         self.arranged_cards = [];
         self.one_sixth_cards_array = [];
         self.one_third_half_array = [];
         this.cardsService.getCards(arg)
             .subscribe(cards => {
-                // console.log(cards);
                 this.cards = cards;
+                this.cardsLoaded = true;
                 /*let one_sixth_array_no = 0;
                 let o_third_half_array_no = 0;
                 this.one_sixth_cards_array[one_sixth_array_no] = [];
@@ -141,7 +144,6 @@ export class CardsContainerComponent implements OnInit {
     getCalendar(calendarId): void {
         this.googleCalendarService.getUpcomingEvents(calendarId, 3).subscribe(res => {
             this.events = res;
-            console.log(res);
             if (res.length !== 0) {
                 this.selected_event_title = res[0].title;
                 this.selected_event_text = res[0].description;
