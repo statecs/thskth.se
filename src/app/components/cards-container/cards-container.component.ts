@@ -11,6 +11,7 @@ import format from 'date-fns/format/index';
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import { Event } from '../../interfaces/event';
 import { ths_calendars } from '../../utils/ths-calendars';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-cards-container',
@@ -38,15 +39,17 @@ export class CardsContainerComponent implements OnInit {
                 private injector: Injector,
                 private popupWindowCommunicationService: PopupWindowCommunicationService,
                 private googleCalendarService: GoogleCalendarService,
-                private router: Router) {
+                private router: Router,
+                private location: Location ) {
       this.config = injector.get(APP_CONFIG);
       this.selected_event_category = 0;
       this.ths_calendars = ths_calendars;
   }
 
-  showPage(slug, window_type): void {
+  showPage(slug, window_type, slug_to_page): void {
       if (window_type === 'popup-window') {
           this.popupWindowCommunicationService.update_PopupWindow(slug);
+          this.location.go(slug_to_page);
       }else if (window_type === 'new-tab') {
           window.open('/' + slug, '_blank');
       }else if (window_type === 'same-page') {

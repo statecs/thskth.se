@@ -5,6 +5,7 @@ import {PopupWindowCommunicationService} from '../../services/component-communic
 import { Event } from '../../interfaces/event';
 import format from 'date-fns/format/index';
 import { AppCommunicationService } from '../../services/component-communicators/app-communication.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-popup-window',
@@ -23,7 +24,8 @@ export class PopupWindowComponent implements OnInit {
 
   constructor( private wordpressApiService: WordpressApiService,
                 private popupWindowCommunicationService: PopupWindowCommunicationService,
-                private appCommunicationService: AppCommunicationService) {
+                private appCommunicationService: AppCommunicationService,
+               private location: Location ) {
     this.showEvent = false;
     this.top_position = 0;
   }
@@ -56,16 +58,17 @@ export class PopupWindowComponent implements OnInit {
   hide_popup_window(): void {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
+    this.location.back();
   }
 
   update_popup_window(slug): void {
     this.setPosition();
     this.showEvent = false;
+    this.show_popup_window();
     this.wordpressApiService.getPage(slug)
         .subscribe(res => {
           console.log(res);
           this.page_data = res[0];
-          this.show_popup_window();
         });
   }
 
@@ -77,7 +80,8 @@ export class PopupWindowComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.hide_popup_window();
+    this.showPopupWindow = false;
+    this.appCommunicationService.collapseScrollOnPage('show');
     this.popup_window_updater = this.popupWindowCommunicationService.notifyObservable$.subscribe((slug) => {
       this.update_popup_window(slug);
     });

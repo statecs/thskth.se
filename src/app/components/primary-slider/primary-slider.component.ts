@@ -72,10 +72,12 @@ export class PrimarySliderComponent implements OnInit {
     this.slider_progress_bars = this.primary_slider.nativeElement.getElementsByClassName('slider-progress-bar');
     this.slideElements = this.slides_container.nativeElement.getElementsByClassName('slide');
     if (typeof this.slider_progress_bars !== 'undefined' && typeof this.slideElements !== 'undefined') {
-      this.slideElements[this.slideIndex - 1].style.right = 0;
+      if (typeof this.slideElements[this.slideIndex - 1] !== 'undefined') {
+        this.slideElements[this.slideIndex - 1].style.right = 0;
+        this.slideElements[this.slideIndex - 1].style.opacity = 0;
+      }
       for (let i = 0; i < this.slideElements.length; i++) {
         this.slideElements[i].style.visibility = 'hidden';
-        this.slideElements[this.slideIndex - 1].style.opacity = 0;
         this.slider_progress_bars[i].style.backgroundColor = 'gray';
       }
     }
