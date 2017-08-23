@@ -5,7 +5,7 @@
     <div *ngIf="!page_data.header.header_image && !page_data.header.header_color" class="default-header"></div>
   </div>
   <div class="content-container">
-    <div class="breadcrumbs"><span>contact</span> > <span>page1</span> > <span>page 2</span></div>
+    <app-breadcrumb></app-breadcrumb>
     <h2 [innerHTML]="page_data.name" class="title"></h2>
     <div [innerHTML]="page_data.content" class="content"></div>
   </div>

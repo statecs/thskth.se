@@ -13,11 +13,11 @@
 
 #content-container{
   @include container-size($main-container);
-  margin-top: 80px;
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
   #page{
+    margin-top: 80px;
     .heading {
       position: relative;
       margin-bottom: 40px;

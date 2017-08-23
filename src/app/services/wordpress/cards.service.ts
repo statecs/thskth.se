@@ -39,7 +39,7 @@ export class CardsService {
           return {
             id: res.id,
             name: res.name,
-            order: res.meta['wpcf-category-order'][0]
+            order: 1
           };
         });
   }
@@ -63,7 +63,7 @@ export class CardsService {
             cats.push({
               id: c.id,
               name: c.name,
-              order: c.meta['wpcf-category-order'][0]
+              order: 1
             });
           });
           return cats; })

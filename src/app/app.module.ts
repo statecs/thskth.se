@@ -67,6 +67,7 @@ import { OffersComponent } from './components/offers/offers.component';
 import { NotificationBarComponent } from './components/notification-bar/notification-bar.component';
 import { PrimarySliderComponent } from './components/primary-slider/primary-slider.component';
 import { ImageSliderSecondaryComponent } from './components/image-slider-secondary/image-slider-secondary.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { ImageSliderSecondaryComponent } from './components/image-slider-seconda
     OffersComponent,
     NotificationBarComponent,
     PrimarySliderComponent,
-    ImageSliderSecondaryComponent
+    ImageSliderSecondaryComponent,
+    BreadcrumbComponent
   ],
   imports: [
     BrowserModule,

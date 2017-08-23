@@ -31,6 +31,10 @@
     top: -150px;
     border-radius: 10px;
     box-shadow: 0 3px 5px #888888;
+    app-breadcrumb{
+      position: absolute;
+      top: -25px;
+    }
     h2{
       margin-top:0;
     }

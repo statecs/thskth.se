@@ -47,6 +47,7 @@ export class StudentLifeComponent implements OnInit {
   }
 
   getPageBySlug(slug) {
+    console.log(slug);
     this.pagesService.getPageBySlug(slug).subscribe((page) => {
       this.page = page;
     });
@@ -54,6 +55,7 @@ export class StudentLifeComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
+      console.log(this.activatedRoute.params);
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
         this.slug = 'student-life';
