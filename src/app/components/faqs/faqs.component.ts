@@ -45,8 +45,9 @@ export class FaqsComponent implements OnInit {
 
   searchFAQs(): void {
       if (this.searchTerm === '') {
-          this.searchTerm = 'Please input a search term';
+          this.searchTerm = '';
           this.noInput = true;
+          this.search_results = [];
       }else {
           this.searchOnActive = true;
           this.selected_cat_index = null;

@@ -9,7 +9,7 @@
         <label>
           <i class="material-icons" (click)="searchFAQs()">search</i>
         </label>
-        <input type="search" placeholder="Search FAQs" [(ngModel)]="searchTerm" [ngClass]="{noInput: noInput}" name="searchInput" (focus)="onFocus()" (keyup)="onFocus()">
+        <input type="search" placeholder="Search FAQs" [(ngModel)]="searchTerm" name="searchInput" (focus)="onFocus()" (keyup)="searchFAQs()">
       </form>
     </div>
   </div>
@@ -60,6 +60,7 @@
       </div>
 
       <div *ngIf="loading">Loading........</div>
+      <div *ngIf="noInput" class="noInput">Please input a search term!</div>
     </div>
   </div>
 </div>
