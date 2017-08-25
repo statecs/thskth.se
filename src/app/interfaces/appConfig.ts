@@ -25,4 +25,5 @@ export interface AppConfig {
     FAQ_CATEGORIES_URL: string;
     FAQs_URL: string;
     PRIMARY_SLIDES_URL: string;
+    NOTIFICATION_URL: string;
 }

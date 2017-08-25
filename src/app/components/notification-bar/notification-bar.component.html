@@ -1,5 +1,5 @@
-<div *ngIf="showBar" id="notification-bar" [ngClass]="{warning: warning}">
+<div *ngIf="notification" id="notification-bar" [ngClass]="{warning: warning}">
   <div class="icon"><span [ngClass]="{warning: warning}">!</span></div>
-  <p>Hello world! This is notification bar.</p>
+  <p [innerHTML]="notification?.content.rendered"></p>
   <span class="close-btn" (click)="closeBar()">X</span>
 </div>

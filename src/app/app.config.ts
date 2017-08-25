@@ -30,4 +30,5 @@ export let appConfig: AppConfig = {
     FAQ_CATEGORIES_URL: 'http://kths.se/api/wp/v2/faq_category',
     FAQs_URL: 'http://kths.se/api/wp/v2/ths-faqs',
     PRIMARY_SLIDES_URL: 'http://kths.se/api/wp/v2/slides',
+    NOTIFICATION_URL: 'http://kths.se/api/wp/v2/notification',
 };

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 
 @Component({
   selector: 'app-notification-bar',
@@ -8,18 +9,20 @@ import { Component, OnInit } from '@angular/core';
 export class NotificationBarComponent implements OnInit {
 
   public warning: boolean;
-  public showBar: boolean;
+  public notification: object;
 
-  constructor() {
+  constructor(private wordpressApiService: WordpressApiService) {
     this.warning = false;
-    this.showBar = false;
   }
 
   closeBar(): void {
-    this.showBar = false;
+    this.notification = null;
   }
 
   ngOnInit() {
+    this.wordpressApiService.getNotification().subscribe((res) => {
+      this.notification = res;
+    });
   }
 
 }
