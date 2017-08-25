@@ -1,0 +1,125 @@
+@import "../../../style/mixins";
+@import "../../../style/variables";
+
+:host /deep/ header{
+  background: none !important;
+  background-color: $bg-color-primary !important;
+  color: white !important;
+  position: relative !important;
+  .container{
+    border-bottom: 0 !important;
+  }
+}
+
+#content-container{
+  @include container-size($main-container);
+  position: relative;
+  margin-bottom: 50px;
+  line-height: 1;
+
+  .search-bar{
+    height: 150px;
+    background-color: #e2e2e2;
+    text-align: center;
+    position: relative;
+    .onFocus{
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.2) !important;
+    }
+    form{
+      width: 720px;
+      box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+      @include center-content(50%, 50%);
+      .search{
+        >input{
+          width: 600px;
+          padding: 0 5px 0 15px;
+          border: 0;
+          display: inline-block;
+          float: left;
+          height: 50px;
+        }
+        .mostSearchTerms{
+          position: absolute;
+          left: 0;
+          bottom: -22px;
+          span{
+            margin-right: 25px;
+            cursor: pointer;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .filter{
+        display: inline-block;
+        float: left;
+        background-color: white;
+        height: 50px;
+        cursor: pointer;
+        color: lightgrey;
+        position: relative;
+        .options-icon{
+          width: 100%;
+          height: 100%;
+          >i{
+            @include center-vertically(50%);
+            position: relative !important;
+            font-size: 2em;
+          }
+          &:hover{
+            color: rgba(0, 108, 170, 0.62);
+          }
+        }
+        .options{
+          position: absolute;
+          background-color: rgba(75, 75, 75, 0.66);
+          padding: 10px 20px;
+          right: 0;
+          text-align: left;
+          width: 200px;
+          top: 40px;
+          box-shadow: 0 0 20px rgba(0,0,0,0.4);
+          .option{
+            margin: 15px 0;
+            &:hover{
+              text-decoration: underline;
+            }
+            .checkbox{
+              display: inline-block;
+              border: 1px solid lightgray;
+              width: 25px;
+              height: 25px;
+              vertical-align: middle;
+              //border-radius: 3px;
+              margin-right: 10px;
+              float: left;
+              i{
+                line-height: 0.9;
+                &:hover{
+                  text-decoration: none;
+                }
+              }
+            }
+          }
+        }
+      }
+      .submit{
+        display: inline-block;
+        float: right;
+        padding: 16px 22px;
+        border: 0;
+        background: none;
+        cursor: pointer;
+        &:hover{
+          box-shadow: 0 0 15px rgba(0, 108, 170, 0.62);
+        }
+      }
+    }
+  }
+
+  .results-container{
+    border: 1px solid green;
+  }
+
+}

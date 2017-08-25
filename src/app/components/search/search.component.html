@@ -1,0 +1,41 @@
+<app-header></app-header>
+
+<div id="content-container">
+  <div class="search-bar">
+    <form #searchForm [ngClass]="{onFocus: searchOnFocus}">
+      <div class="search">
+        <input placeholder="Search THS and beyond" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search">
+        <div class="mostSearchTerms">
+          <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
+        </div>
+      </div>
+
+      <div class="filter">
+        <div #filter_icon class="options-icon" (click)="toggleFilter()">
+          <i class="material-icons">more_vert</i>
+        </div>
+        <div *ngIf="showFilterOptions" class="options">
+          <div class="option" (click)="toggleCheckbox('posts')">
+            <div class="checkbox"><i *ngIf="postsChecked" class="material-icons">check</i></div>
+            <span>Posts</span>
+          </div>
+          <div class="option" (click)="toggleCheckbox('page')">
+            <div class="checkbox"><i *ngIf="pageChecked" class="material-icons">check</i></div>
+            <span>Page</span>
+          </div>
+          <div class="option" (click)="toggleCheckbox('faq')">
+            <div class="checkbox"><i *ngIf="faqChecked" class="material-icons">check</i></div>
+            <span>FAQ</span>
+          </div>
+        </div>
+      </div>
+      <input class="submit" type="submit" value="Search">
+    </form>
+  </div>
+
+  <div class="results-container">
+    <div>
+      search results
+    </div>
+  </div>
+</div>

@@ -11,8 +11,14 @@ import { FaqsComponent } from './components/faqs/faqs.component';
 import { LiveComponent } from './components/live/live.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { NewsComponent } from './components/news/news.component';
+import { SearchComponent } from './components/search/search.component';
 
 const appRoutes: Routes = [
+    {
+        path: 'search',
+        component: SearchComponent,
+        data: { title: 'Search' }
+    },
     {
         path: 'offers',
         component: OffersComponent,

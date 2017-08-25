@@ -68,6 +68,7 @@ import { NotificationBarComponent } from './components/notification-bar/notifica
 import { PrimarySliderComponent } from './components/primary-slider/primary-slider.component';
 import { ImageSliderSecondaryComponent } from './components/image-slider-secondary/image-slider-secondary.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     NotificationBarComponent,
     PrimarySliderComponent,
     ImageSliderSecondaryComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
