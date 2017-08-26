@@ -19,7 +19,9 @@
             </div>
         </div>
     </div>
+
     <div class="payment-btn">Sign in</div>
+
     <div #submenu_chapter class="ths-icon">
         <div class="icon" (mouseover)="showSubMenu('chapters', -1, submenu_chapter)">
             <img width="25" height="25" src="http://www.armada.nu/app/images/footer/ths-logo.png">
@@ -36,9 +38,10 @@
                 <div class="logo"><img src="{{chapter.image}}"></div>
                 <label>{{chapter.title}}</label>
             </div>
-            <a routerLink="/ths-chapters" class="browse-more">See more chapters >></a>
+            <!--<a routerLink="/ths-chapters" class="browse-more">See more chapters >></a>-->
         </div>
     </div>
+
     <div class="language" (click)="changeLanguage()">
         <!--<span>{{language_text}}</span>-->
         <img width="25" height="17" src="{{language_img}}">

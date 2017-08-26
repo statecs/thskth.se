@@ -30,7 +30,7 @@ export class NavbarPrimaryComponent implements OnInit {
                  private router: Router,
                  private menusService: MenusService) {
         this.config = injector.get(APP_CONFIG);
-        this.ths_chapters = ths_chapters.slice(0, 5);
+        this.ths_chapters = ths_chapters;
     }
 
     openInNewTab(link): void {
