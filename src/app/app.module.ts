@@ -25,6 +25,13 @@ import { HeaderCommunicationService } from './services/component-communicators/h
 import { PrimarySlidesService } from './services/wordpress/primary-slides.service';
 import { AppCommunicationService } from './services/component-communicators/app-communication.service';
 import { CardsService } from './services/wordpress/cards.service';
+import { SearchService } from './services/wordpress/search.service';
+
+// Pipes
+import { CardTextPipe } from './pipes/card-text.pipe';
+import { CalendarDatePipe } from './pipes/calendar-date.pipe';
+import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
+import { HrefToSlugPipe } from './pipes/href-to-slug.pipe';
 
 // Components
 import { AppComponent } from './app.component';
@@ -43,14 +50,11 @@ import { ImageSliderComponent } from './components/image-slider/image-slider.com
 import { CardsSocialContainerComponent } from './components/cards-social-container/cards-social-container.component';
 import { GoogleMapsComponent } from './components/google-maps/google-maps.component';
 import { ContactInfoComponent } from './components/contact-info/contact-info.component';
-import { CardTextPipe } from './pipes/card-text.pipe';
 import { PopupWindowComponent } from './components/popup-window/popup-window.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { EventsCalendarComponent } from './components/events-calendar/events-calendar.component';
 import { CalendarHeaderComponent } from './components/calendar/calendar-header/calendar-header.component';
-import { CalendarDatePipe } from './pipes/calendar-date.pipe';
 import { FaqsComponent } from './components/faqs/faqs.component';
-import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { OneColumnTemplateComponent } from './components/single-view-templates/one-column-template/one-column-template.component';
@@ -69,6 +73,7 @@ import { PrimarySliderComponent } from './components/primary-slider/primary-slid
 import { ImageSliderSecondaryComponent } from './components/image-slider-secondary/image-slider-secondary.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { SearchComponent } from './components/search/search.component';
+
 
 @NgModule({
   declarations: [
@@ -113,7 +118,8 @@ import { SearchComponent } from './components/search/search.component';
     PrimarySliderComponent,
     ImageSliderSecondaryComponent,
     BreadcrumbComponent,
-    SearchComponent
+    SearchComponent,
+    HrefToSlugPipe
   ],
   imports: [
     BrowserModule,
@@ -139,6 +145,7 @@ import { SearchComponent } from './components/search/search.component';
       PrimarySlidesService,
       AppCommunicationService,
       CardsService,
+      SearchService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]
