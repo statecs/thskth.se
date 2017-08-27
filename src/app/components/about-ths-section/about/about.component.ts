@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { PagesService } from '../../services/wordpress/pages.service';
-import { MenusService } from '../../services/wordpress/menus.service';
-import {Page} from '../../interfaces/page';
+import { PagesService } from '../../../services/wordpress/pages.service';
+import { MenusService } from '../../../services/wordpress/menus.service';
+import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
-  selector: 'app-student-life',
-  templateUrl: './student-life.component.html',
-  styleUrls: ['./student-life.component.scss']
+  selector: 'app-about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.scss']
 })
-export class StudentLifeComponent implements OnInit {
+export class AboutComponent implements OnInit {
 
   public page: Page;
   public subMenu: any;
@@ -22,7 +22,6 @@ export class StudentLifeComponent implements OnInit {
               private menusService: MenusService) { }
 
   goToPage(slug): void {
-    console.log(slug);
     if (slug.indexOf('http://') === 0 || slug.indexOf('https://') === 0 || slug.indexOf('www.') === 0) {
       window.open(slug, '_black');
     }else {
@@ -32,8 +31,7 @@ export class StudentLifeComponent implements OnInit {
 
   getSecondarySubMenu() {
     //this._baseSlug = 'student-life/' + this.slug + '/';
-    console.log(this.slug);
-    this.menusService.get_secondarySubMenu('student-life', this.slug).subscribe((submenu) => {
+    this.menusService.get_secondarySubMenu('about-ths', this.slug).subscribe((submenu) => {
       this.subMenu = submenu;
       console.log(this.subMenu);
     });
@@ -47,7 +45,6 @@ export class StudentLifeComponent implements OnInit {
   }
 
   getPageBySlug(slug) {
-    console.log(slug);
     this.pagesService.getPageBySlug(slug).subscribe((page) => {
       this.page = page;
     });
@@ -55,17 +52,18 @@ export class StudentLifeComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      console.log(this.activatedRoute.params);
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
-        this.slug = 'student-life';
+        this.slug = 'about-ths';
       }
       this.getPageBySlug(this.slug);
-      if (this.slug !== 'student-life') {
+      console.log(this.slug);
+      if (this.slug !== 'about-ths') {
         this.getSecondarySubMenu();
       }else {
         this.getSubmenu();
       }
     });
   }
+
 }

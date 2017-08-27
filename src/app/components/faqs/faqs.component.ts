@@ -96,7 +96,8 @@ export class FaqsComponent implements OnInit {
   displayCategory(index): void {
       this.selected_cat_index = index;
       this.selected_category = this.parent_categories[index];
-      this.router.navigate(['contact/faq'], { queryParams: { category: this.parent_categories[index].slug } });
+      this.router.navigate(['contact/faq/' + this.parent_categories[index].slug]);
+      //this.router.navigate(['contact-section/faq'], { queryParams: { category: this.parent_categories[index].slug } });
       /*this.search_results = [];
       this.searchOnActive = false;
       if (!this.selected_category || this.selected_category.id !== this.parent_categories[index].id) {

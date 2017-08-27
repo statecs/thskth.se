@@ -1,14 +1,5 @@
-@import "../../../style/mixins";
-@import "../../../style/variables";
-
-:host /deep/ header{
-  background: none !important;
-  background-color: $bg-color-primary !important;
-  color: white !important;
-  .container{
-    border-bottom: 0 !important;
-  }
-}
+@import "../../../../style/mixins";
+@import "../../../../style/variables";
 
 #content-container{
   @include container-size($main-container);

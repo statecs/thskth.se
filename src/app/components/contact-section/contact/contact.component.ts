@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PagesService } from '../../services/wordpress/pages.service';
-import { MenusService } from '../../services/wordpress/menus.service';
-import {Page} from '../../interfaces/page';
+import { PagesService } from '../../../services/wordpress/pages.service';
+import { MenusService } from '../../../services/wordpress/menus.service';
+import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
@@ -30,14 +30,14 @@ export class ContactComponent implements OnInit {
   }
 
   getSecondarySubMenu() {
-    //this._baseSlug = 'contact/' + this.slug + '/';
+    //this._baseSlug = 'contact-section/' + this.slug + '/';
     this.menusService.get_secondarySubMenu('contact', this.slug).subscribe((submenu) => {
       this.subMenu = submenu;
     });
   }
 
   getSubmenu() {
-    //this._baseSlug = 'contact/';
+    //this._baseSlug = 'contact-section/';
     this.menusService.get_mainSubMenu(this.slug).subscribe((submenu) => {
       this.subMenu = submenu;
     });

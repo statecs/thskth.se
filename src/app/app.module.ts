@@ -55,7 +55,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { EventsCalendarComponent } from './components/events-calendar/events-calendar.component';
 import { CalendarHeaderComponent } from './components/calendar/calendar-header/calendar-header.component';
 import { FaqsComponent } from './components/faqs/faqs.component';
-import { ContactComponent } from './components/contact/contact.component';
+import { ContactSectionComponent } from './components/contact-section/contact-section.component';
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { OneColumnTemplateComponent } from './components/single-view-templates/one-column-template/one-column-template.component';
 import { TwoColumnsTemplateComponent } from './components/single-view-templates/two-columns-template/two-columns-template.component';
@@ -63,9 +63,9 @@ import { ThreeColumnsTemplateComponent } from './components/single-view-template
 import { SingleViewComponent } from './components/single-view/single-view.component';
 import { TextGalleryComponent } from './components/text-gallery/text-gallery.component';
 import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
-import { StudentLifeComponent } from './components/student-life/student-life.component';
-import { AboutComponent } from './components/about/about.component';
-import { LiveComponent } from './components/live/live.component';
+import { StudentLifeComponent } from './components/student-life-section/student-life/student-life.component';
+import { AboutComponent } from './components/about-ths-section/about/about.component';
+import { LiveComponent } from './components/live-section/live/live.component';
 import { NewsComponent } from './components/news/news.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { NotificationBarComponent } from './components/notification-bar/notification-bar.component';
@@ -73,6 +73,10 @@ import { PrimarySliderComponent } from './components/primary-slider/primary-slid
 import { ImageSliderSecondaryComponent } from './components/image-slider-secondary/image-slider-secondary.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { SearchComponent } from './components/search/search.component';
+import { ContactComponent } from './components/contact-section/contact/contact.component';
+import { LiveSectionComponent } from './components/live-section/live-section.component';
+import { AboutThsSectionComponent } from './components/about-ths-section/about-ths-section.component';
+import { StudentLifeSectionComponent } from './components/student-life-section/student-life-section.component';
 
 
 @NgModule({
@@ -101,7 +105,7 @@ import { SearchComponent } from './components/search/search.component';
     CalendarDatePipe,
     FaqsComponent,
     MarkMatchedWordsPipe,
-    ContactComponent,
+    ContactSectionComponent,
     ContactFormComponent,
     OneColumnTemplateComponent,
     TwoColumnsTemplateComponent,
@@ -119,7 +123,11 @@ import { SearchComponent } from './components/search/search.component';
     ImageSliderSecondaryComponent,
     BreadcrumbComponent,
     SearchComponent,
-    HrefToSlugPipe
+    HrefToSlugPipe,
+    ContactComponent,
+    LiveSectionComponent,
+    AboutThsSectionComponent,
+    StudentLifeSectionComponent
   ],
   imports: [
     BrowserModule,

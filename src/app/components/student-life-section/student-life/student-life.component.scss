@@ -1,23 +1,13 @@
-@import "../../../style/mixins";
-@import "../../../style/variables";
-
-:host /deep/ header{
-  background: none !important;
-  background-color: $bg-color-primary !important;
-  color: white !important;
-  position: relative !important;
-  .container{
-    border-bottom: 0 !important;
-  }
-}
+@import "../../../../style/mixins";
+@import "../../../../style/variables";
 
 #content-container{
   @include container-size($main-container);
-  margin-top: 80px;
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
   #page{
+    margin-top: 80px;
     .heading {
       position: relative;
       margin-bottom: 40px;
@@ -89,6 +79,10 @@
       & >h2{
         font-weight: 600;
       }
+    }
+    video{
+      width: 100% !important;
+      height: auto !important;
     }
   }
 }

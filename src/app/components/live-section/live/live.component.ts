@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { PagesService } from '../../services/wordpress/pages.service';
-import { MenusService } from '../../services/wordpress/menus.service';
-import {Page} from '../../interfaces/page';
+import { PagesService } from '../../../services/wordpress/pages.service';
+import { MenusService } from '../../../services/wordpress/menus.service';
+import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
-  selector: 'app-about',
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  selector: 'app-live',
+  templateUrl: './live.component.html',
+  styleUrls: ['./live.component.scss']
 })
-export class AboutComponent implements OnInit {
+export class LiveComponent implements OnInit {
 
   public page: Page;
   public subMenu: any;
@@ -22,6 +22,7 @@ export class AboutComponent implements OnInit {
               private menusService: MenusService) { }
 
   goToPage(slug): void {
+    console.log(slug);
     if (slug.indexOf('http://') === 0 || slug.indexOf('https://') === 0 || slug.indexOf('www.') === 0) {
       window.open(slug, '_black');
     }else {
@@ -31,7 +32,7 @@ export class AboutComponent implements OnInit {
 
   getSecondarySubMenu() {
     //this._baseSlug = 'student-life/' + this.slug + '/';
-    this.menusService.get_secondarySubMenu('about-ths', this.slug).subscribe((submenu) => {
+    this.menusService.get_secondarySubMenu('live', this.slug).subscribe((submenu) => {
       this.subMenu = submenu;
       console.log(this.subMenu);
     });
@@ -54,11 +55,10 @@ export class AboutComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
-        this.slug = 'about-ths';
+        this.slug = 'live';
       }
       this.getPageBySlug(this.slug);
-      console.log(this.slug);
-      if (this.slug !== 'about-ths') {
+      if (this.slug !== 'live') {
         this.getSecondarySubMenu();
       }else {
         this.getSubmenu();

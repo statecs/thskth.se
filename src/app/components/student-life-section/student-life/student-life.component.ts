@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { PagesService } from '../../services/wordpress/pages.service';
-import { MenusService } from '../../services/wordpress/menus.service';
-import {Page} from '../../interfaces/page';
+import { PagesService } from '../../../services/wordpress/pages.service';
+import { MenusService } from '../../../services/wordpress/menus.service';
+import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
-  selector: 'app-live',
-  templateUrl: './live.component.html',
-  styleUrls: ['./live.component.scss']
+  selector: 'app-student-life',
+  templateUrl: './student-life.component.html',
+  styleUrls: ['./student-life.component.scss']
 })
-export class LiveComponent implements OnInit {
+export class StudentLifeComponent implements OnInit {
 
   public page: Page;
   public subMenu: any;
@@ -32,7 +32,8 @@ export class LiveComponent implements OnInit {
 
   getSecondarySubMenu() {
     //this._baseSlug = 'student-life/' + this.slug + '/';
-    this.menusService.get_secondarySubMenu('live', this.slug).subscribe((submenu) => {
+    console.log(this.slug);
+    this.menusService.get_secondarySubMenu('student-life', this.slug).subscribe((submenu) => {
       this.subMenu = submenu;
       console.log(this.subMenu);
     });
@@ -46,6 +47,7 @@ export class LiveComponent implements OnInit {
   }
 
   getPageBySlug(slug) {
+    console.log(slug);
     this.pagesService.getPageBySlug(slug).subscribe((page) => {
       this.page = page;
     });
@@ -53,17 +55,17 @@ export class LiveComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
+      console.log(this.activatedRoute.params);
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
-        this.slug = 'live';
+        this.slug = 'student-life';
       }
       this.getPageBySlug(this.slug);
-      if (this.slug !== 'live') {
+      if (this.slug !== 'student-life') {
         this.getSecondarySubMenu();
       }else {
         this.getSubmenu();
       }
     });
   }
-
 }

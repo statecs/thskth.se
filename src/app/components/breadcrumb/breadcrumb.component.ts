@@ -30,14 +30,16 @@ export class BreadcrumbComponent implements OnInit {
     if (children.length === 0) {
       return breadcrumbs;
     }
-console.log("asdf");
-    // add breadcrumb for home page
-    let breadcrumb: IBreadcrumb = {
-      label: 'Home',
-      params: route.snapshot.queryParams,
-      url: '',
-    };
-    breadcrumbs.push(breadcrumb);
+    let breadcrumb: IBreadcrumb;
+    if (breadcrumbs.length === 0) {
+      // add breadcrumb for home page
+      breadcrumb = {
+        label: 'Home',
+        params: route.snapshot.queryParams,
+        url: '',
+      };
+      breadcrumbs.push(breadcrumb);
+    }
 
     // iterate over each children
     for (const child of children) {
@@ -60,7 +62,7 @@ console.log("asdf");
         breadcrumbs.push(breadcrumb);
       }
 
-      return breadcrumbs;
+      return this.getBreadcrumbs(child, url, breadcrumbs);
     }
   }
 
