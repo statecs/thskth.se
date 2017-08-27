@@ -72,7 +72,7 @@ export class SocialMediaPostService {
     post_list.forEach((post) => {
       const user = {
         name: post.from.name,
-        profile_image: 'http://graph.facebook.com/' + post.from.id + '/picture?type=square',
+        profile_image: 'https://graph.facebook.com/' + post.from.id + '/picture?type=square',
         link: 'https://www.facebook.com/' + post.from.id,
       };
       this.facebook_posts.push({
