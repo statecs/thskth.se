@@ -1,8 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { SearchService } from '../../services/wordpress/search.service';
 import { SearchResult } from '../../interfaces/search';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-search',
@@ -31,7 +32,10 @@ export class SearchComponent implements OnInit {
   public faqsLoading: boolean;
   public showResults: boolean;
 
-  constructor(private searchService: SearchService, private router: Router) {
+  constructor(private searchService: SearchService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private location: Location ) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -85,24 +89,25 @@ export class SearchComponent implements OnInit {
     if (this.faqChecked) {
       this.searchFAQs();
     }
+    this.location.go('/search?q=' + this.searchTerm);
   }
 
   searchPosts(): void {
-    this.searchService.searchPosts(this.searchTerm).subscribe((res) => {
+    this.searchService.searchPosts(this.searchTerm, 4).subscribe((res) => {
       this.postsLoading = false;
       this.postsResults = res;
     });
   }
 
   searchPages(): void {
-    this.searchService.searchPages(this.searchTerm).subscribe((res) => {
+    this.searchService.searchPages(this.searchTerm, 4).subscribe((res) => {
       this.pagesLoading = false;
       this.pageResults = res;
     });
   }
 
   searchFAQs(): void {
-    this.searchService.searchFAQs(this.searchTerm).subscribe((res) => {
+    this.searchService.searchFAQs(this.searchTerm, 4).subscribe((res) => {
       this.faqsLoading = false;
       this.faqResults = res;
     });
@@ -140,6 +145,10 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.searchTerm = params['q'];
+      this.submitSearch();
+    });
   }
 
 }

@@ -3,6 +3,7 @@ import { NavbarPrimaryComponent } from './navbar-primary/navbar-primary.componen
 import { NavbarSectionsComponent } from '../footer/navbar-sections/navbar-sections.component';
 import { NavbarSecondaryComponent } from './navbar-secondary/navbar-secondary.component';
 import { HeaderCommunicationService } from '../../services/component-communicators/header-communication.service';
+import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,12 @@ export class HeaderComponent implements OnInit {
 
   @ViewChild('app_header') app_header: ElementRef;
 
-  constructor(private headerCommunicationService: HeaderCommunicationService) { }
+  constructor(private headerCommunicationService: HeaderCommunicationService,
+              private searchMenubarCommunicationService: SearchMenubarCommunicationService) { }
+
+  showSearchMenubar(): void {
+    this.searchMenubarCommunicationService.showSearchMenubar();
+  }
 
   expendHeader() {
     this.app_header.nativeElement.style.top = '0';

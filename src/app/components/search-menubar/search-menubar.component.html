@@ -1,0 +1,56 @@
+<div *ngIf="showSearchBar" class="background_layer"></div>
+<div *ngIf="showSearchBar" id="search-menubar">
+  <div class="exit-btn" (click)="hideBar()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
+  <form autocomplete="off">
+    <div class="search">
+      <i class="material-icons">search</i>
+      <input placeholder="Search THS and beyond" [(ngModel)]="searchTerm" name="searchInput" type="search" (keyup)="liveSearch()" appAutoFocus>
+      <div class="mostSearchTerms">
+        <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
+    <div class="section">
+      <div *ngFor="let p of postsResults" class="item">
+        <div class="left-content">
+          <a *ngFor="let c of p.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
+        </div>
+        <div class="right-content">
+          <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+          <p [innerHTML]="p.content | cardText:100"></p>
+        </div>
+      </div>
+      <p *ngIf="postsLoading">Loading...</p>
+    </div>
+    <div class="section">
+      <div *ngFor="let p of pageResults" class="item">
+        <div class="left-content">
+          <div class="img-wrapper">
+            <img src="{{p.image}}" alt="{{p.title}}" (click)="goToPage(p.link)">
+          </div>
+        </div>
+        <div class="right-content">
+          <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+          <p [innerHTML]="p.content | cardText:100"></p>
+        </div>
+      </div>
+      <p *ngIf="pagesLoading">Loading...</p>
+    </div>
+    <div class="section">
+      <div *ngFor="let p of faqResults" class="item">
+        <div class="left-content">
+          <a *ngFor="let c of p.categories" routerLink="/contact/faq/{{c.slug}}">{{c.name}}</a>
+        </div>
+        <div class="right-content">
+          <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+          <p [innerHTML]="p.content | cardText:100"></p>
+        </div>
+      </div>
+      <p *ngIf="faqsLoading">Loading...</p>
+    </div>
+    <div class="seeAll">
+      <span (click)="goToSearchPage()" class="seeAll">SEE ALL RESULTS >></span>
+    </div>
+  </div>
+</div>

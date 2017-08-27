@@ -22,25 +22,25 @@ export class SearchService {
     }
   }
 
-  searchPosts(searchTerm: string): Observable<SearchResult[]> {
+  searchPosts(searchTerm: string, amount: number): Observable<SearchResult[]> {
     return this.http
-        .get(this.config.POSTS_PAGE + '?per_page=4&search=' + searchTerm)
+        .get(this.config.POSTS_PAGE + '?per_page=' + amount + '&search=' + searchTerm)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
   }
 
-  searchPages(searchTerm: string): Observable<SearchResult[]> {
+  searchPages(searchTerm: string, amount: number): Observable<SearchResult[]> {
     return this.http
-        .get(this.config.PAGES_URL + '?per_page=4&search=' + searchTerm)
+        .get(this.config.PAGES_URL + '?per_page=' + amount + '&search=' + searchTerm)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPagesTo_SearchResultType(res); });
   }
 
-  searchFAQs(searchTerm: string): Observable<SearchResult[]> {
+  searchFAQs(searchTerm: string, amount: number): Observable<SearchResult[]> {
     return this.http
-        .get(this.config.FAQs_URL + '?per_page=4&search=' + searchTerm)
+        .get(this.config.FAQs_URL + '?per_page=' + amount + '&search=' + searchTerm)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castFAQsTo_SearchResultType(res); });

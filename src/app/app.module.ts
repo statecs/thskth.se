@@ -26,12 +26,16 @@ import { PrimarySlidesService } from './services/wordpress/primary-slides.servic
 import { AppCommunicationService } from './services/component-communicators/app-communication.service';
 import { CardsService } from './services/wordpress/cards.service';
 import { SearchService } from './services/wordpress/search.service';
+import { SearchMenubarCommunicationService } from './services/component-communicators/search-menubar-communication.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
 import { CalendarDatePipe } from './pipes/calendar-date.pipe';
 import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
 import { HrefToSlugPipe } from './pipes/href-to-slug.pipe';
+
+// Directives
+import { AutoFocusDirective } from './directives/auto-focus.directive';
 
 // Components
 import { AppComponent } from './app.component';
@@ -77,6 +81,7 @@ import { ContactComponent } from './components/contact-section/contact/contact.c
 import { LiveSectionComponent } from './components/live-section/live-section.component';
 import { AboutThsSectionComponent } from './components/about-ths-section/about-ths-section.component';
 import { StudentLifeSectionComponent } from './components/student-life-section/student-life-section.component';
+import { SearchMenubarComponent } from './components/search-menubar/search-menubar.component';
 
 
 @NgModule({
@@ -127,7 +132,9 @@ import { StudentLifeSectionComponent } from './components/student-life-section/s
     ContactComponent,
     LiveSectionComponent,
     AboutThsSectionComponent,
-    StudentLifeSectionComponent
+    StudentLifeSectionComponent,
+    SearchMenubarComponent,
+    AutoFocusDirective
   ],
   imports: [
     BrowserModule,
@@ -154,6 +161,7 @@ import { StudentLifeSectionComponent } from './components/student-life-section/s
       AppCommunicationService,
       CardsService,
       SearchService,
+      SearchMenubarCommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

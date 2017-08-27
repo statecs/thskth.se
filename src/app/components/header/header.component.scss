@@ -26,6 +26,8 @@ header {
       @include center-vertically(50%);
       left: 0;
       color: white;
+      cursor: pointer;
+      font-size: $font-size-default;
       i {
         font-size: $font-size-h2;
         vertical-align: middle;
