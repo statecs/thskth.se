@@ -99,7 +99,7 @@ export class CardsService {
 
         const cardPrimaryButtons = [];
         let oneSixthSubCards: SubCard[] = [];
-        let oneThirdHalfSubCard: SubCard;
+        let oneThirdHalfSubCards: SubCard[] = [];
 
         if (c.acf.card_primary_buttons) {
           c.acf.card_primary_buttons.forEach(b => {
@@ -114,7 +114,7 @@ export class CardsService {
           oneSixthSubCards = this.castDataToSubCardType(c.acf.one_sixth_sub_cards);
         }
         if (c.acf.one_third_half_sub_card) {
-          oneThirdHalfSubCard = this.castDataToSubCardType(c.acf.one_third_half_sub_card)[0];
+          oneThirdHalfSubCards = this.castDataToSubCardType(c.acf.one_third_half_sub_card);
         }
         const cardData = new Card(
             c.id,
@@ -134,7 +134,7 @@ export class CardsService {
             cardOrder,
             cardPrimaryButtons,
             oneSixthSubCards,
-            oneThirdHalfSubCard
+            oneThirdHalfSubCards
         );
         result.push(cardData);
       });

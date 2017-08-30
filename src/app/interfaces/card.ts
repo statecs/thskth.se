@@ -42,7 +42,7 @@ export interface Card {
     card_order: CardOrder;
     card_primary_buttons: CardPrimaryButton[];
     one_sixth_sub_cards: SubCard[];
-    one_third_half_sub_card: SubCard;
+    one_third_half_sub_cards: SubCard[];
 }
 
 export class Card implements Card {
@@ -64,6 +64,6 @@ export class Card implements Card {
         public card_order: CardOrder,
         public card_primary_buttons: CardPrimaryButton[],
         public one_sixth_sub_cards: SubCard[],
-        public one_third_half_sub_card: SubCard
+        public one_third_half_sub_cards: SubCard[]
     ) {}
 }
