@@ -68,7 +68,6 @@ export class CardsContainerComponent implements OnInit {
     }
 
     changeBGColor(card: any): any {
-        console.log(card.background_image);
       if (typeof card.background_color === 'undefined' || card.background_image !== '') {
           return {};
       }else {
