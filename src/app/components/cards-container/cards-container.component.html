@@ -1,7 +1,7 @@
 <div id="cards-container" class="masonry-layout">
     <div *ngIf="!cardsLoaded" class="loader">Loading cards...</div>
-    <div *ngFor="let card of cards" class="masonry-layout_panel {{(card.flex_layout === 'one-sixth' || card.flex_layout === 'one-third-half')? 'o-third box-shadow-none': card.flex_layout}}">
-        <div *ngIf="(card.flex_layout !== 'one-sixth' && card.flex_layout !== 'one-third-half')">
+    <div *ngFor="let card of cards" class="masonry-layout_panel {{(card.one_sixth_sub_cards?.length !== 0 || card.one_third_half_sub_cards?.length !== 0)? 'o-third box-shadow-none': card.flex_layout}}">
+        <div *ngIf="(card.flex_layout !== 'o-third')">
             <!-- ---------- Video card ---------- -->
             <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
                 <div class="video-card">
@@ -79,61 +79,12 @@
             </div>
         </div>
 
-        <div *ngIf="card.flex_layout === 'one-sixth'" class="masonry-layout-sub">
-            <div *ngFor="let sub_c of card.one_sixth_sub_cards" (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)" class="one-sixth">
-                <!-- ---------- Standard card ---------- -->
-                <div *ngIf="sub_c.card_type !== 'video-card'" class="masonry-layout_panel-content one-sixth" [style.backgroundImage]="'url(' + getBgUrl(sub_c) + ')'">
-                    <div class="standard-card" [ngStyle]="changeBGColor(sub_c)">
-                        <div class="content">
-                            <h2>{{sub_c.title}}</h2>
-                            <p [innerHTML]="sub_c.content | cardText:50"></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- ---------- Video card ---------- -->
-                <div *ngIf="sub_c.card_type === 'video-card'" class="masonry-layout_panel-content one-sixth">
-                    <div class="video-card">
-                        <div class="text">
-                            <h2>{{sub_c.title | cardText:25}}</h2>
-                        </div>
-                        <div class="video-wrapper" [innerHTML]="sub_c.content" ></div>
-                        <div class="video-controller">
-                            <i #playButton class="material-icons">play_circle_outline</i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div *ngIf="card.flex_layout === 'o-third'" class="masonry-layout-sub">
 
-            <div *ngIf="(card.one_sixth_sub_cards?.length === 0)" class="one-sixth" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
-                <!-- ---------- Standard card ---------- -->
-                <div *ngIf="card.card_type !== 'video-card'" class="masonry-layout_panel-content one-sixth" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
-                    <div class="standard-card" [ngStyle]="changeBGColor(card)">
-                        <div class="content">
-                            <h2>{{card.title}}</h2>
-                            <p [innerHTML]="card.content | cardText:50"></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- ---------- Video card ---------- -->
-                <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content one-sixth">
-                    <div class="video-card">
-                        <div class="text">
-                            <h2>{{card.title}}</h2>
-                        </div>
-                        <div class="video-wrapper" [innerHTML]="card.content" ></div>
-                        <div class="video-controller">
-                            <i #playButton class="material-icons">play_circle_outline</i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div *ngIf="card.flex_layout === 'one-third-half'" class="masonry-layout-sub">
             <div *ngFor="let sub_c of card.one_third_half_sub_cards" class="one-third-half">
                 <!-- ---------- Standard sub card ---------- -->
-                <div *ngIf="sub_c.card_type !== 'video-card' && sub_c" (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)" class="masonry-layout_panel-content one-third-half" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
-                    <div class="standard-card" [ngStyle]="changeBGColor(card)">
+                <div *ngIf="sub_c.card_type !== 'video-card' && sub_c" (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)" class="masonry-layout_panel-content one-third-half" [style.backgroundImage]="'url(' + getBgUrl(sub_c) + ')'">
+                    <div class="standard-card" [ngStyle]="changeBGColor(sub_c)">
                         <div class="content">
                             <h2>{{sub_c.title}}</h2>
                             <p [innerHTML]="sub_c.content | cardText:100"></p>
@@ -153,13 +104,50 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="(card.one_third_half_sub_cards?.length === 0)" class="one-third-half">
+
+            <div *ngFor="let sub_c of card.one_sixth_sub_cards" (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)" class="one-sixth">
                 <!-- ---------- Standard card ---------- -->
-                <div *ngIf="card.card_type !== 'video-card'" (click)="showPage(card.slug, card.window_type, card.slug_to_page)" class="masonry-layout_panel-content one-third-half" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+                <div *ngIf="sub_c.card_type !== 'video-card' && card.one_third_half_sub_cards?.length <= 1" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + getBgUrl(sub_c) + ')'">
+                    <div class="standard-card" [ngStyle]="changeBGColor(sub_c)">
+                        <div class="content">
+                            <h2>{{sub_c.title}}</h2>
+                            <p [innerHTML]="sub_c.content | cardText:50"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ---------- Video card ---------- -->
+                <div *ngIf="sub_c.card_type === 'video-card' && card.one_third_half_sub_cards?.length <= 1" class="masonry-layout_panel-content">
+                    <div class="video-card">
+                        <div class="text">
+                            <h2>{{sub_c.title | cardText:25}}</h2>
+                        </div>
+                        <div class="video-wrapper" [innerHTML]="sub_c.content" ></div>
+                        <div class="video-controller">
+                            <i #playButton class="material-icons">play_circle_outline</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="(card.one_sixth_sub_cards?.length === 0 && card.one_third_half_sub_cards?.length === 0)" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
+                <!-- ---------- Standard card ---------- -->
+                <div *ngIf="card.card_type !== 'video-card'" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
                     <div class="standard-card" [ngStyle]="changeBGColor(card)">
                         <div class="content">
                             <h2>{{card.title}}</h2>
-                            <p [innerHTML]="card.content | cardText:100"></p>
+                            <p [innerHTML]="card.content | cardText:50"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ---------- Video card ---------- -->
+                <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content">
+                    <div class="video-card">
+                        <div class="text">
+                            <h2>{{card.title}}</h2>
+                        </div>
+                        <div class="video-wrapper" [innerHTML]="card.content" ></div>
+                        <div class="video-controller">
+                            <i #playButton class="material-icons">play_circle_outline</i>
                         </div>
                     </div>
                 </div>

@@ -116,6 +116,10 @@ export class CardsService {
         if (c.acf.one_third_half_sub_card) {
           oneThirdHalfSubCards = this.castDataToSubCardType(c.acf.one_third_half_sub_card);
         }
+        let bg_img = '';
+        if (c.acf.background_image) {
+            bg_img = c.acf.background_image.sizes.medium_large;
+        }
         const cardData = new Card(
             c.id,
             c.date,
@@ -127,7 +131,7 @@ export class CardsService {
             c.link,
             c.acf.item_id,
             c.acf.background_color,
-            c.acf.background_image,
+            bg_img,
             c.acf.card_type,
             c.acf.card_number,
             c.acf.flex_layout,
@@ -144,9 +148,10 @@ export class CardsService {
 
   castDataToSubCardType(data) {
     const subCards: SubCard[] = [];
+    console.log(data);
     data.forEach(c => {
       let bg_image = '';
-      if (c.background_image) {
+      if (c.background_image !== false ) {
         bg_image = c.background_image.sizes.medium_large;
       }
       subCards.push({

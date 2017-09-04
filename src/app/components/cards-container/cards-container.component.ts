@@ -61,14 +61,15 @@ export class CardsContainerComponent implements OnInit {
 
     getBgUrl(card: any): string {
       let url = '';
-      if (typeof card.background_image.sizes !== 'undefined') {
-          url = card.background_image.sizes.medium_large;
+      if (card.background_image !== '') {
+          url = card.background_image;
       }
       return url;
     }
 
     changeBGColor(card: any): any {
-      if (typeof card.background_color === 'undefined' || typeof card.background_image.sizes !== 'undefined') {
+        console.log(card.background_image);
+      if (typeof card.background_color === 'undefined' || card.background_image !== '') {
           return {};
       }else {
           return { 'background-color': card.background_color };
