@@ -2,19 +2,27 @@
   <div *ngIf="page" id="page">
     <div class="heading">
       <div class="title">
-        <h2>{{page.name}}</h2>
+        <h2>Contact</h2>
         <span *ngIf="page.name === 'Questions'">You'll find many ways to contact us right here.</span>
       </div>
     </div>
-    <div class="side-bar">
+<!--    <div class="side-bar">
       <div class="submenu">
         <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m.slug)" class="submenu-item">
           <span>{{m.title}}</span>
         </div>
       </div>
-    </div>
+    </div>-->
     <div class="content-container">
-      <div class="content" [innerHTML]="page.content"></div>
+      <app-chatbot></app-chatbot>
+<!--      <div class="content" [innerHTML]="page.content"></div>-->
+      <div class="divider"></div>
+      <div class="submenu-bar">
+        <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m.slug)" class="submenu-item">
+          <span>{{m.title}}</span>
+        </div>
+      </div>
+      <div class="divider"></div>
       <app-contact-form *ngIf="page.name === 'Questions'"></app-contact-form>
     </div>
   </div>

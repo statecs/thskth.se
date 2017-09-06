@@ -82,6 +82,7 @@ import { LiveSectionComponent } from './components/live-section/live-section.com
 import { AboutThsSectionComponent } from './components/about-ths-section/about-ths-section.component';
 import { StudentLifeSectionComponent } from './components/student-life-section/student-life-section.component';
 import { SearchMenubarComponent } from './components/search-menubar/search-menubar.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 
 
 @NgModule({
@@ -134,7 +135,8 @@ import { SearchMenubarComponent } from './components/search-menubar/search-menub
     AboutThsSectionComponent,
     StudentLifeSectionComponent,
     SearchMenubarComponent,
-    AutoFocusDirective
+    AutoFocusDirective,
+    ChatbotComponent
   ],
   imports: [
     BrowserModule,

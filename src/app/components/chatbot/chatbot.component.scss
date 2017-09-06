@@ -1,0 +1,61 @@
+#chatbot{
+  position: relative;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 50px;
+  .chat_flow{
+    //min-height: calc(100vh - 80px);
+    min-height: 300px;
+    position: relative;
+    padding: 15px;
+    ol{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li{
+        display: block;
+        overflow: hidden;
+        .response{
+          float: left;
+          padding: 15px;
+          background: #87a1ba;
+          color: white;
+          border-radius: 15px;
+          margin: 0 5px;
+          max-width: 70%;
+          border-bottom-left-radius: 2px;
+          display: inline-block;
+        }
+        .user{
+          float: right;
+          display: inline-block;
+          padding: 10px 15px;
+          background: lightgrey;
+          color: black;
+          border-radius: 20px;
+          margin: 5px 0;
+        }
+      }
+    }
+
+    .responses{
+      position: absolute;
+      padding: 6px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0;
+      max-width: 70%;
+      .res_item{
+        transition: transform 0.5s cubic-bezier(0.68, 0.01, 0.245, 1.13) 0s;
+        transform: translate3d(0px, 0px, 0px);
+        display: inline-block;
+        padding: 10px 15px;
+        background: lightgrey;
+        color: black;
+        border-radius: 20px;
+        margin: 5px 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}

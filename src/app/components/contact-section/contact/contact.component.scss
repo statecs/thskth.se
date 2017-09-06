@@ -3,7 +3,7 @@
 
 #content-container{
   @include container-size($main-container);
-  margin-top: 80px;
+  margin-top: 25px;
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
@@ -52,12 +52,30 @@
       }
     }
     .content-container{
-      width: 66%;
+      width: 100%;
       display: inline-block;
       position: relative;
       vertical-align: top;
-      left: 4%;
       line-height: 1.2;
+      .divider{
+        border-top:1px solid gray;
+      }
+      .submenu-bar{
+        text-align: center;
+        position: relative;
+        padding: 10px 0;
+        .submenu-item{
+          width: 20%;
+          height: 80px;
+          background-color: lightgrey;
+          display: inline-block;
+          margin: 20px 5%;
+          position: relative;
+          span{
+            @include center-content(50%, 50%);
+          }
+        }
+      }
     }
   }
 }

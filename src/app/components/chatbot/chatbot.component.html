@@ -1,0 +1,13 @@
+<div id="chatbot">
+  <div #chatFlowContainer class="chat_flow">
+    <ol #chatFlowList>
+      <li *ngFor="let i of responses">
+        <div class="response" *ngIf="i.type === 'response'">{{i.message}}</div>
+        <div class="user" *ngIf="i.type === 'user'">{{i.message}}</div>
+      </li>
+    </ol>
+    <div #resonsesContainer class="responses">
+      <div *ngFor="let r of user_inputs, let i = index" class="res_item" (click)="addItemToChatFlow($event, i)">{{r.message}}</div>
+    </div>
+  </div>
+</div>
