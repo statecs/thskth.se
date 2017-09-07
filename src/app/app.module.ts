@@ -83,6 +83,7 @@ import { AboutThsSectionComponent } from './components/about-ths-section/about-t
 import { StudentLifeSectionComponent } from './components/student-life-section/student-life-section.component';
 import { SearchMenubarComponent } from './components/search-menubar/search-menubar.component';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { RestaurantComponent } from './components/restaurant/restaurant.component';
 
 
 @NgModule({
@@ -136,7 +137,8 @@ import { ChatbotComponent } from './components/chatbot/chatbot.component';
     StudentLifeSectionComponent,
     SearchMenubarComponent,
     AutoFocusDirective,
-    ChatbotComponent
+    ChatbotComponent,
+    RestaurantComponent
   ],
   imports: [
     BrowserModule,

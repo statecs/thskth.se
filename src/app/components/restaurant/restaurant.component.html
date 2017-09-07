@@ -1,0 +1,118 @@
+<app-header></app-header>
+
+<div id="restaurant">
+  <div #slides_container id="text-slider">
+    <div *ngFor="let item of slides_items" class="slide-wrapper" [style.backgroundImage]="'url(' + item.image + ')'">
+      <div class="slide">
+        <h2 [innerHTML]="item.title"></h2>
+      </div>
+    </div>
+    <div class="text-slider-navBefore"><i class="material-icons" (click)="navBefore()">navigate_before</i></div>
+    <div class="text-slider-navNext"><i class="material-icons" (click)="navNext()">navigate_next</i></div>
+    <div #slider_progress_bar class="slider-progress-bar">
+      <div *ngFor="let item of slides_items" class="bar-item"></div>
+    </div>
+    <div class="opening-hour">
+      <h3>Opening hours</h3>
+      <p>Monday-Friday</p>
+      <p>7:00am - 15:00pm</p>
+    </div>
+  </div>
+
+  <div class="options">
+    <div>Lunch</div>
+    <div>A la carté</div>
+  </div>
+
+  <div class="menu-calendar">
+    <div class="selected">Monday</div>
+    <div>Tuesday</div>
+    <div>Wednesday</div>
+    <div>Thursday</div>
+    <div>Friday</div>
+  </div>
+  <div class="menu-container">
+    <div class="dish">
+      <div>
+        <h4>Dish 1</h4>
+        <p>Tasty dish</p>
+      </div>
+      <span>70 kr</span>
+    </div>
+    <div class="dish">
+      <div>
+        <h4>Dish 1</h4>
+        <p>Tasty dish</p>
+      </div>
+      <span>70 kr</span>
+    </div>
+    <div class="dish">
+      <div>
+        <h4>Dish 1</h4>
+        <p>Tasty dish</p>
+      </div>
+      <span>70 kr</span>
+    </div>
+    <div class="dish">
+      <div>
+        <h4>Dish 1</h4>
+        <p>Tasty dish</p>
+      </div>
+      <span>70 kr</span>
+    </div>
+    <div class="dish">
+      <div>
+        <h4>Dish 1</h4>
+        <p>Tasty dish</p>
+      </div>
+      <span>70 kr</span>
+    </div>
+    <div class="dish">
+      <div>
+        <h4>Dish 1</h4>
+        <p>Tasty dish</p>
+      </div>
+      <span>70 kr</span>
+    </div>
+
+    <h2>A la carté</h2>
+    <div class="dish">
+      <div>
+        <h4>Dish 1</h4>
+        <p>Tasty dish</p>
+      </div>
+      <img src="http://www.croma440.com/upload/4/bb/4bb68e1620e6b5d9.jpg">
+    </div>
+    <div class="dish">
+      <div>
+        <h4>Dish 1</h4>
+        <p>Tasty dish</p>
+      </div>
+      <img src="http://www.croma440.com/upload/4/bb/4bb68e1620e6b5d9.jpg">
+    </div>
+    <div class="dish">
+      <div>
+        <h4>Dish 1</h4>
+        <p>Tasty dish</p>
+      </div>
+      <img src="http://www.croma440.com/upload/4/bb/4bb68e1620e6b5d9.jpg">
+    </div>
+    <div class="dish">
+      <div>
+        <h4>Dish 1</h4>
+        <p>Tasty dish</p>
+      </div>
+      <img src="http://www.croma440.com/upload/4/bb/4bb68e1620e6b5d9.jpg">
+    </div>
+  </div>
+
+  <div class="gallery">
+    <div *ngFor="let item of slides_items" class="g-item" [style.backgroundImage]="'url(' + item.image + ')'">
+      <div class="text">
+        <h2>{{item.title}}</h2>
+        <p>Description text</p>
+      </div>
+    </div>
+  </div>
+</div>
+

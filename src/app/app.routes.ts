@@ -15,12 +15,18 @@ import { LiveComponent } from './components/live-section/live/live.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { NewsComponent } from './components/news/news.component';
 import { SearchComponent } from './components/search/search.component';
+import { RestaurantComponent } from './components/restaurant/restaurant.component';
 import {StudentLifeSectionComponent} from './components/student-life-section/student-life-section.component';
 
 const appRoutes: Routes = [
     {
         path: 'search',
         component: SearchComponent,
+        data: { title: 'Search' }
+    },
+    {
+        path: 'restaurant',
+        component: RestaurantComponent,
         data: { title: 'Search' }
     },
     {
