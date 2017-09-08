@@ -16,9 +16,15 @@ import { OffersComponent } from './components/offers/offers.component';
 import { NewsComponent } from './components/news/news.component';
 import { SearchComponent } from './components/search/search.component';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
+import { ArchiveComponent } from './components/archive/archive.component';
 import {StudentLifeSectionComponent} from './components/student-life-section/student-life-section.component';
 
 const appRoutes: Routes = [
+    {
+        path: 'archive',
+        component: ArchiveComponent,
+        data: { title: 'Archive' }
+    },
     {
         path: 'search',
         component: SearchComponent,
@@ -27,7 +33,7 @@ const appRoutes: Routes = [
     {
         path: 'restaurant',
         component: RestaurantComponent,
-        data: { title: 'Search' }
+        data: { title: 'Restaurant' }
     },
     {
         path: 'offers',
