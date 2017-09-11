@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
-import { SearchResult, Category } from '../../interfaces/search';
+import { Archive, ArchiveCategory, Document } from '../../interfaces/archive';
 import { CookieService } from 'ngx-cookie';
 
 @Injectable()
@@ -22,12 +22,67 @@ export class ArchiveService {
     }
   }
 
-  /*searchDocuments(searchTerm: string, amount: number): Observable<SearchResult[]> {
+  searchDocuments(searchTerm: string): Observable<Archive[]> {
+    console.log(searchTerm);
     return this.http
-        .get(this.config.ARCHIVE_URL + '?per_page=' + amount + '&search=' + searchTerm)
+        .get(this.config.ARCHIVE_URL + '?search=' + searchTerm)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
-  }*/
+  }
+
+  castPostsTo_SearchResultType(data: any) {
+    const archives: Archive[] = [];
+    data.forEach(c => {
+      archives.push({
+        slug: c.slug,
+        title: c.title.rendered,
+        documents: this.castDataToDocumentType(c.acf.documents),
+        categories: this.castDataToArchiveCategoryType(c.pure_taxonomies.categories),
+      });
+    });
+    return archives;
+  }
+
+  castDataToDocumentType(data) {
+    const documents: Document[] = [];
+    console.log(data);
+    data.forEach(d => {
+      documents.push({
+        title: d.documents.title,
+        filename: d.documents.filename,
+        url: d.documents.url,
+        icon: d.documents.icon,
+        mime_type: this.getMimeType(d.documents.title),
+      });
+    });
+    return documents;
+  }
+
+  castDataToArchiveCategoryType(data) {
+    const categories: ArchiveCategory[] = [];
+    console.log(data);
+    data.forEach(c => {
+      categories.push({
+        id: c.term_id,
+        name: c.name,
+        slug: c.slug,
+      });
+    });
+    return categories;
+  }
+
+  getMimeType(filename: string) {
+    let type = '';
+    const term = filename.substring(filename.length - 4, filename.length);
+    if (term === '.zip') {
+      type = 'zip';
+    }else if (term === '.pdf') {
+      type = 'zip';
+    }else if (term === 'docx') {
+      type = 'docx';
+    }
+    return type;
+  }
 
 }

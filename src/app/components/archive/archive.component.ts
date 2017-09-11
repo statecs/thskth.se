@@ -1,9 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { SearchService } from '../../services/wordpress/search.service';
-import { SearchResult } from '../../interfaces/search';
+import { ArchiveService } from '../../services/wordpress/archive.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
+import { Archive } from '../../interfaces/archive';
 
 @Component({
   selector: 'app-archive',
@@ -22,17 +22,13 @@ export class ArchiveComponent implements OnInit {
   public searchOnFocus: boolean;
   public searchTerm: string;
   public mostSearchTerms: string[];
-  public pageResults: SearchResult[];
-  public postsResults: SearchResult[];
-  public faqResults: SearchResult[];
+  public documentResults: Archive[];
   private hrefToSlugPipeFilter: HrefToSlugPipe;
   public showResultsDropdown: boolean;
-  public postsLoading: boolean;
-  public pagesLoading: boolean;
-  public faqsLoading: boolean;
+  public documentsLoading: boolean;
   public showResults: boolean;
 
-  constructor(private searchService: SearchService,
+  constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private location: Location ) {
@@ -44,13 +40,9 @@ export class ArchiveComponent implements OnInit {
     this.searchTerm = '';
     this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
     this.hrefToSlugPipeFilter = new HrefToSlugPipe();
-    this.pageResults = [];
-    this.postsResults = [];
-    this.faqResults = [];
+    this.documentResults = [];
     this.showResultsDropdown = false;
-    this.postsLoading = true;
-    this.pagesLoading = true;
-    this.faqsLoading = true;
+    this.documentsLoading = true;
     this.showResults = false;
   }
 
@@ -67,12 +59,8 @@ export class ArchiveComponent implements OnInit {
 
   liveSearch(event): void {
     if (event.keyCode !== 13) {
-      this.pageResults = [];
-      this.postsResults = [];
-      this.faqResults = [];
-      this.postsLoading = true;
-      this.pagesLoading = true;
-      this.faqsLoading = true;
+      this.documentResults = [];
+      this.documentsLoading = true;
       this.showResultsDropdown = true;
       this.showResults = false;
       this.search();
@@ -81,35 +69,16 @@ export class ArchiveComponent implements OnInit {
 
   search(): void {
     if (this.postsChecked) {
-      this.searchPosts();
-    }
-    if (this.pageChecked) {
-      this.searchPages();
-    }
-    if (this.faqChecked) {
-      this.searchFAQs();
+      this.searchDocuments();
     }
     this.location.go('/archive?q=' + this.searchTerm);
   }
 
-  searchPosts(): void {
-    this.searchService.searchPosts(this.searchTerm, 4).subscribe((res) => {
-      this.postsLoading = false;
-      this.postsResults = res;
-    });
-  }
-
-  searchPages(): void {
-    this.searchService.searchPages(this.searchTerm, 4).subscribe((res) => {
-      this.pagesLoading = false;
-      this.pageResults = res;
-    });
-  }
-
-  searchFAQs(): void {
-    this.searchService.searchFAQs(this.searchTerm, 4).subscribe((res) => {
-      this.faqsLoading = false;
-      this.faqResults = res;
+  searchDocuments(): void {
+    this.archiveService.searchDocuments(this.searchTerm).subscribe((res) => {
+      this.documentsLoading = false;
+      console.log(res);
+      this.documentResults = res;
     });
   }
 

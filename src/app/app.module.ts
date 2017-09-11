@@ -27,6 +27,7 @@ import { AppCommunicationService } from './services/component-communicators/app-
 import { CardsService } from './services/wordpress/cards.service';
 import { SearchService } from './services/wordpress/search.service';
 import { SearchMenubarCommunicationService } from './services/component-communicators/search-menubar-communication.service';
+import { ArchiveService } from './services/wordpress/archive.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -168,6 +169,7 @@ import { ArchiveComponent } from './components/archive/archive.component';
       CardsService,
       SearchService,
       SearchMenubarCommunicationService,
+      ArchiveService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

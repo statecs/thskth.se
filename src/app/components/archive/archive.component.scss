@@ -74,6 +74,15 @@
             padding: 10px 0;
             margin-bottom: 10px;
           }
+          .heading{
+            overflow: hidden;
+            .numberOfResults{
+              float: left;
+            }
+            .sortBy{
+              float: right;
+            }
+          }
           .notResult{
             color: $text-color-brown;
             margin-bottom: 10px;
@@ -211,21 +220,27 @@
   }
 
   .results-container{
-    margin: 20px 0 70px;
+    margin: 30px 0 70px;
     min-height: 300px;
     .section{
-      >h3{
-        border-bottom: 1px solid lightgray;
-        padding: 10px 0;
-        margin-bottom: 10px;
+      .heading{
+        overflow: hidden;
+        .numberOfResults{
+          float: left;
+        }
+        .sortBy{
+          float: right;
+        }
       }
       .notResult{
         color: $text-color-brown;
         margin-bottom: 10px;
       }
       .item{
-        margin-bottom: 35px;
         overflow: hidden;
+        margin: 20px 0;
+        border-top: 1px solid gray;
+        padding: 10px 0;
         .left-content{
           width: 15%;
           height: auto;
@@ -267,6 +282,19 @@
             cursor: pointer;
             &:hover{
               color: $color-link-secondary-hover;
+            }
+          }
+          .files{
+            margin-top: 20px;
+            .download_link{
+              padding: 5px 15px;
+              border: 1px solid gray;
+              border-radius: 20px;
+              display: inline-block;
+              margin-right:10px;
+              i{
+                vertical-align: middle;
+              }
             }
           }
         }
