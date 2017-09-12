@@ -17,9 +17,15 @@ import { NewsComponent } from './components/news/news.component';
 import { SearchComponent } from './components/search/search.component';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
 import { ArchiveComponent } from './components/archive/archive.component';
+import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
 import {StudentLifeSectionComponent} from './components/student-life-section/student-life-section.component';
 
 const appRoutes: Routes = [
+    {
+        path: 'associations-and-chapters',
+        component: ChaptersAssociationsComponent,
+        data: { title: 'Chapters and Associations' }
+    },
     {
         path: 'archive',
         component: ArchiveComponent,

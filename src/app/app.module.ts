@@ -28,6 +28,7 @@ import { CardsService } from './services/wordpress/cards.service';
 import { SearchService } from './services/wordpress/search.service';
 import { SearchMenubarCommunicationService } from './services/component-communicators/search-menubar-communication.service';
 import { ArchiveService } from './services/wordpress/archive.service';
+import { ChaptersAssociationsService } from './services/wordpress/chapters-associations.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -86,6 +87,7 @@ import { SearchMenubarComponent } from './components/search-menubar/search-menub
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
 import { ArchiveComponent } from './components/archive/archive.component';
+import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
 
 
 @NgModule({
@@ -141,7 +143,8 @@ import { ArchiveComponent } from './components/archive/archive.component';
     AutoFocusDirective,
     ChatbotComponent,
     RestaurantComponent,
-    ArchiveComponent
+    ArchiveComponent,
+    ChaptersAssociationsComponent
   ],
   imports: [
     BrowserModule,
@@ -170,6 +173,7 @@ import { ArchiveComponent } from './components/archive/archive.component';
       SearchService,
       SearchMenubarCommunicationService,
       ArchiveService,
+      ChaptersAssociationsService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]
