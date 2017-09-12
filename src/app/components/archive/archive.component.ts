@@ -113,6 +113,10 @@ export class ArchiveComponent implements OnInit {
     this.search();
   }
 
+  downloadFile(url: string) {
+    window.open(url);
+  }
+
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchTerm = params['q'];

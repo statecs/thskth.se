@@ -53,7 +53,7 @@ export class ArchiveService {
         filename: d.documents.filename,
         url: d.documents.url,
         icon: d.documents.icon,
-        mime_type: this.getMimeType(d.documents.title),
+        mime_type: this.getMimeType(d.documents.filename),
       });
     });
     return documents;
@@ -75,10 +75,12 @@ export class ArchiveService {
   getMimeType(filename: string) {
     let type = '';
     const term = filename.substring(filename.length - 4, filename.length);
+    console.log(filename);
+    console.log(term);
     if (term === '.zip') {
       type = 'zip';
     }else if (term === '.pdf') {
-      type = 'zip';
+      type = 'pdf';
     }else if (term === 'docx') {
       type = 'docx';
     }

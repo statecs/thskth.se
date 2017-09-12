@@ -92,16 +92,19 @@
         </div>
         <div *ngFor="let d of documentResults" class="item">
           <div class="left-content">
-            <a *ngFor="let c of d.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
+            <span *ngFor="let c of d.categories">{{c.name}}</span>
           </div>
           <div class="right-content">
-            <h4 (click)="goToPage(d.link)">{{d.title}}</h4>
+            <h4>{{d.title}}</h4>
 <!--            <p [innerHTML]="d.content | cardText:100"></p>-->
             <p>Description Description Description</p>
             <div class="files">
-              <div class="download_link">PDF <i class="material-icons">file_download</i></div>
-              <div class="download_link">DOC <i class="material-icons">file_download</i></div>
-              <div class="download_link">Zip <i class="material-icons">file_download</i></div>
+              <div *ngFor="let f of d.documents" class="download_link" (click)="downloadFile(f.url)">
+                <span *ngIf="f.mime_type ==='pdf'">PDF </span>
+                <span *ngIf="f.mime_type ==='docx'">DOC </span>
+                <span *ngIf="f.mime_type ==='zip'">Zip </span>
+                <i class="material-icons">file_download</i>
+              </div>
             </div>
           </div>
         </div>
