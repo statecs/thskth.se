@@ -53,63 +53,85 @@
   </div>
 
   <div class="filters">
-    <div>
-      <label>Content type</label>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-    </div>
-    <div>
-      <label>Topic</label>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-    </div>
-    <div>
-      <label>Organization</label>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-    </div>
-    <div>
-      <label>Time period</label>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-    </div>
+    <div class="item selected">Associations</div>
+    <div class="item">Chapters</div>
   </div>
 
   <div class="results-container">
-    <div *ngIf="showResults">
+    <div *ngIf="showResults" class="list">
       <div class="section">
-        <div class="heading">
-          <span class="numberOfResults">Showing 1-{{documentResults.length}} of {{documentResults.length}} hits</span>
-          <span class="sortBy">Sort by <strong>Published</strong> Relevance</span>
-        </div>
-        <div *ngFor="let d of documentResults" class="item">
-          <div class="left-content">
-            <span *ngFor="let c of d.categories">{{c.name}}</span>
+        <label>Category 1</label>
+        <div class="items">
+          <div class="item">
+            <h4>Title</h4>
+            <i class="material-icons">forward</i>
           </div>
-          <div class="right-content">
-            <h4>{{d.title}}</h4>
-            <!--            <p [innerHTML]="d.content | cardText:100"></p>-->
-            <p>Description Description Description</p>
-            <div class="files">
-              <div *ngFor="let f of d.documents" class="download_link" (click)="downloadFile(f.url)">
-                <span *ngIf="f.mime_type ==='pdf'">PDF </span>
-                <span *ngIf="f.mime_type ==='docx'">DOC </span>
-                <span *ngIf="f.mime_type ==='zip'">Zip </span>
-                <i class="material-icons">file_download</i>
-              </div>
+          <div class="item">
+            <h4>Title</h4>
+            <i class="material-icons">forward</i>
+          </div>
+          <div class="item">
+            <h4>Title</h4>
+            <i class="material-icons">forward</i>
+          </div>
+          <div class="item">
+            <h4>Title</h4>
+            <i class="material-icons">forward</i>
+          </div>
+        </div>
+<!--        <p *ngIf="documentsLoading">Loading...</p>
+        <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>-->
+      </div>
+    </div>
+    <div *ngIf="showResults" class="grid">
+      <div class="section">
+        <label>Category 2</label>
+        <div class="items">
+          <div class="item">
+            <img src="http://ths.kth.se/wp/wp-content/uploads/assets/og-image.jpg">
+            <div class="text">
+              <h2>Title</h2>
+              <p>Description text</p>
+            </div>
+          </div>
+          <div class="item">
+            <img src="http://ths.kth.se/wp/wp-content/uploads/assets/og-image.jpg">
+            <div class="text">
+              <h2>Title</h2>
+              <p>Description text</p>
+            </div>
+          </div>
+          <div class="item">
+            <img src="http://ths.kth.se/wp/wp-content/uploads/assets/og-image.jpg">
+            <div class="text">
+              <h2>Title</h2>
+              <p>Description text</p>
+            </div>
+          </div>
+          <div class="item">
+            <img src="http://ths.kth.se/wp/wp-content/uploads/assets/og-image.jpg">
+            <div class="text">
+              <h2>Title</h2>
+              <p>Description text</p>
+            </div>
+          </div>
+          <div class="item">
+            <img src="http://ths.kth.se/wp/wp-content/uploads/assets/og-image.jpg">
+            <div class="text">
+              <h2>Title</h2>
+              <p>Description text</p>
+            </div>
+          </div>
+          <div class="item">
+            <img src="http://ths.kth.se/wp/wp-content/uploads/assets/og-image.jpg">
+            <div class="text">
+              <h2>Title</h2>
+              <p>Description text</p>
             </div>
           </div>
         </div>
-        <p *ngIf="documentsLoading">Loading...</p>
-        <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>
+        <!--        <p *ngIf="documentsLoading">Loading...</p>
+                <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>-->
       </div>
     </div>
   </div>

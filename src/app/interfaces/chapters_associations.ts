@@ -1,6 +1,7 @@
 export interface Association {
     title: string;
     description: string;
+    image: string;
 }
 
 export interface Chapter {
