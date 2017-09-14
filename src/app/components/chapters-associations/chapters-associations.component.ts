@@ -1,9 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { ArchiveService } from '../../services/wordpress/archive.service';
+import { ChaptersAssociationsService } from '../../services/wordpress/chapters-associations.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import { Location } from '@angular/common';
 import { Archive } from '../../interfaces/archive';
+import {Association, Chapter} from '../../interfaces/chapters_associations';
 
 @Component({
   selector: 'app-chapters-associations',
@@ -22,13 +23,17 @@ export class ChaptersAssociationsComponent implements OnInit {
   public searchOnFocus: boolean;
   public searchTerm: string;
   public mostSearchTerms: string[];
-  public documentResults: Archive[];
+  public associationResults: Association[];
+  public chapterResults: Chapter[];
   private hrefToSlugPipeFilter: HrefToSlugPipe;
   public showResultsDropdown: boolean;
   public documentsLoading: boolean;
   public showResults: boolean;
 
-  constructor(private archiveService: ArchiveService,
+  public layout_grid: boolean;
+  public layout_list: boolean;
+
+  constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private location: Location ) {
@@ -40,10 +45,13 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.searchTerm = '';
     this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
     this.hrefToSlugPipeFilter = new HrefToSlugPipe();
-    this.documentResults = [];
+    this.associationResults = [];
+    this.chapterResults = [];
     this.showResultsDropdown = false;
     this.documentsLoading = true;
     this.showResults = false;
+    this.layout_grid = true;
+    this.layout_list = false;
   }
 
   goToPage(slug): void {
@@ -59,7 +67,7 @@ export class ChaptersAssociationsComponent implements OnInit {
 
   liveSearch(event): void {
     if (event.keyCode !== 13) {
-      this.documentResults = [];
+      this.associationResults = [];
       this.documentsLoading = true;
       this.showResultsDropdown = true;
       this.showResults = false;
@@ -69,16 +77,24 @@ export class ChaptersAssociationsComponent implements OnInit {
 
   search(): void {
     if (this.postsChecked) {
-      this.searchDocuments();
+      this.getAssociations();
     }
     this.location.go('/associations-and-chapters?q=' + this.searchTerm);
   }
 
-  searchDocuments(): void {
-    this.archiveService.searchDocuments(this.searchTerm).subscribe((res) => {
+  getAssociations(): void {
+    this.chaptersAssociationsService.getAssociations().subscribe((res) => {
       this.documentsLoading = false;
       console.log(res);
-      this.documentResults = res;
+      this.associationResults = res;
+    });
+  }
+
+  getChapters(): void {
+    this.chaptersAssociationsService.getChapters().subscribe((res) => {
+      this.documentsLoading = false;
+      console.log(res);
+      this.chapterResults = res;
     });
   }
 
@@ -117,11 +133,23 @@ export class ChaptersAssociationsComponent implements OnInit {
     window.open(url);
   }
 
+  switchLayout(layout) {
+    if (layout === 'grid') {
+      this.layout_grid = true;
+      this.layout_list = false;
+    }else if (layout === 'list') {
+      this.layout_list = true;
+      this.layout_grid = false;
+    }
+  }
+
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchTerm = params['q'];
       this.submitSearch();
     });
+
+    this.getAssociations();
   }
 
 }

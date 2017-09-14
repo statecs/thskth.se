@@ -222,6 +222,24 @@
   .results-container{
     margin: 30px 0 70px;
     min-height: 300px;
+    .layout{
+      text-align: right;
+      div{
+        display: inline-block;
+        color: lightgray;
+        cursor: pointer;
+        margin-left: 10px;
+        i{
+          vertical-align: middle;
+        }
+        &:hover{
+          color: black;
+        }
+      }
+      .selected{
+        color: black;
+      }
+    }
     .grid{
       .section{
         overflow: hidden;

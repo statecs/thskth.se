@@ -32,4 +32,6 @@ export let appConfig: AppConfig = {
     PRIMARY_SLIDES_URL: 'http://kths.se/api/wp/v2/slides',
     NOTIFICATION_URL: 'http://kths.se/api/wp/v2/notification',
     ARCHIVE_URL: 'http://kths.se/api/wp/v2/documents',
+    ASSOCIATION_URL: 'http://kths.se/api/wp/v2/association',
+    CHAPTER_URL: 'http://kths.se/api/wp/v2/chapter',
 };
