@@ -94,9 +94,13 @@ export class SocialMediaPostService {
           profile_image: post.user.profile_picture,
           link: 'https://www.instagram.com/' + post.user.username,
         };
+        let message = '';
+        if (post.caption) {
+          message = post.caption.text;
+        }
         this.instagram_posts.push({
           created_time: post.created_time,
-          message: post.caption.text,
+          message: message,
           full_picture: post.images.standard_resolution.url,
           link: post.link,
           host: 'Instagram',
