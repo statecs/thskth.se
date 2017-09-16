@@ -67,10 +67,10 @@
         <label>Category 2</label>
         <div class="items">
           <div *ngFor="let item of associationResults" class="item">
-            <img src="{{item.image}}">
+            <div class="image-wrapper" [style.backgroundImage]="'url(' + item.image + ')'"></div>
             <div class="text">
               <h2>{{item.title}}</h2>
-              <p [innerHTML]="item.description"></p>
+              <p [innerHTML]="item.description | cardText:95"></p>
             </div>
           </div>
         </div>

@@ -261,9 +261,11 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
             cursor: pointer;
             padding-bottom: 20px;
-            img{
+            .image-wrapper{
               width: 100%;
               height: 200px;
+              background-size: cover;
+              background-repeat: no-repeat;
             }
             .text{
               bottom: 0;
