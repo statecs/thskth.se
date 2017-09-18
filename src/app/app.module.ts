@@ -29,6 +29,7 @@ import { SearchService } from './services/wordpress/search.service';
 import { SearchMenubarCommunicationService } from './services/component-communicators/search-menubar-communication.service';
 import { ArchiveService } from './services/wordpress/archive.service';
 import { ChaptersAssociationsService } from './services/wordpress/chapters-associations.service';
+import { RestaurantService } from './services/wordpress/restaurant.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -174,6 +175,7 @@ import { ChaptersAssociationsComponent } from './components/chapters-association
       SearchMenubarCommunicationService,
       ArchiveService,
       ChaptersAssociationsService,
+      RestaurantService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

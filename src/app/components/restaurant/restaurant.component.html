@@ -1,8 +1,18 @@
 <app-header></app-header>
 
 <div id="restaurant">
-  <div #slides_container id="text-slider">
-    <div *ngFor="let item of slides_items" class="slide-wrapper" [style.backgroundImage]="'url(' + item.image + ')'">
+  <h1>THS restaurants</h1>
+  <div class="gallery">
+    <div *ngFor="let item of restaurants, let i = index" class="g-item" [ngClass]="{'selected': restaurant_index === i}" (click)="showRestaurant(i)" [style.backgroundImage]="'url(' + item.imageUrl + ')'">
+      <div class="text">
+        <h2>{{item.title}}</h2>
+        <p [innerHTML]="item.description | cardText:50"></p>
+      </div>
+    </div>
+  </div>
+
+  <!--  <div #slides_container id="text-slider">
+    <div *ngFor="let item of restaurants" class="slide-wrapper" [style.backgroundImage]="'url(' + item.image + ')'">
       <div class="slide">
         <h2 [innerHTML]="item.title"></h2>
       </div>
@@ -10,107 +20,46 @@
     <div class="text-slider-navBefore"><i class="material-icons" (click)="navBefore()">navigate_before</i></div>
     <div class="text-slider-navNext"><i class="material-icons" (click)="navNext()">navigate_next</i></div>
     <div #slider_progress_bar class="slider-progress-bar">
-      <div *ngFor="let item of slides_items" class="bar-item"></div>
+      <div *ngFor="let item of restaurants" class="bar-item"></div>
     </div>
     <div class="opening-hour">
       <h3>Opening hours</h3>
       <p>Monday-Friday</p>
       <p>7:00am - 15:00pm</p>
     </div>
-  </div>
-
-  <div class="options">
-    <div>Lunch</div>
-    <div>A la carté</div>
-  </div>
-
-  <div class="menu-calendar">
-    <div class="selected">Monday</div>
-    <div>Tuesday</div>
-    <div>Wednesday</div>
-    <div>Thursday</div>
-    <div>Friday</div>
-  </div>
-  <div class="menu-container">
-    <div class="dish">
-      <div>
-        <h4>Dish 1</h4>
-        <p>Tasty dish</p>
-      </div>
-      <span>70 kr</span>
-    </div>
-    <div class="dish">
-      <div>
-        <h4>Dish 1</h4>
-        <p>Tasty dish</p>
-      </div>
-      <span>70 kr</span>
-    </div>
-    <div class="dish">
-      <div>
-        <h4>Dish 1</h4>
-        <p>Tasty dish</p>
-      </div>
-      <span>70 kr</span>
-    </div>
-    <div class="dish">
-      <div>
-        <h4>Dish 1</h4>
-        <p>Tasty dish</p>
-      </div>
-      <span>70 kr</span>
-    </div>
-    <div class="dish">
-      <div>
-        <h4>Dish 1</h4>
-        <p>Tasty dish</p>
-      </div>
-      <span>70 kr</span>
-    </div>
-    <div class="dish">
-      <div>
-        <h4>Dish 1</h4>
-        <p>Tasty dish</p>
-      </div>
-      <span>70 kr</span>
+  </div>-->
+  <div *ngIf="showSchedule" class="schedule">
+    <div class="options">
+      <div>Lunch {{lunch.serving_time}}</div>
+      <div>A la carté {{a_la_carte.serving_time}}</div>
     </div>
 
-    <h2>A la carté</h2>
-    <div class="dish">
-      <div>
-        <h4>Dish 1</h4>
-        <p>Tasty dish</p>
-      </div>
-      <img src="http://www.croma440.com/upload/4/bb/4bb68e1620e6b5d9.jpg">
+    <div class="menu-calendar">
+      <div [ngClass]="{'selected': selected_day === 'monday'}" (click)="changeDay('monday')">Monday</div>
+      <div [ngClass]="{'selected': selected_day === 'tuesday'}" (click)="changeDay('tuesday')">Tuesday</div>
+      <div [ngClass]="{'selected': selected_day === 'wednesday'}" (click)="changeDay('wednesday')">Wednesday</div>
+      <div [ngClass]="{'selected': selected_day === 'thursday'}" (click)="changeDay('thursday')">Thursday</div>
+      <div [ngClass]="{'selected': selected_day === 'friday'}" (click)="changeDay('friday')">Friday</div>
     </div>
-    <div class="dish">
-      <div>
-        <h4>Dish 1</h4>
-        <p>Tasty dish</p>
+    <div class="menu-container">
+      <h2>Lunch</h2>
+      <div *ngFor="let dish of lunch?.dishes" class="dish">
+        <div>
+          <h4>{{dish.title}}</h4>
+          <p [innerHTML]="dish.description"></p>
+        </div>
+        <span class="fr">{{dish.price}}</span>
       </div>
-      <img src="http://www.croma440.com/upload/4/bb/4bb68e1620e6b5d9.jpg">
-    </div>
-    <div class="dish">
-      <div>
-        <h4>Dish 1</h4>
-        <p>Tasty dish</p>
-      </div>
-      <img src="http://www.croma440.com/upload/4/bb/4bb68e1620e6b5d9.jpg">
-    </div>
-    <div class="dish">
-      <div>
-        <h4>Dish 1</h4>
-        <p>Tasty dish</p>
-      </div>
-      <img src="http://www.croma440.com/upload/4/bb/4bb68e1620e6b5d9.jpg">
-    </div>
-  </div>
-
-  <div class="gallery">
-    <div *ngFor="let item of slides_items" class="g-item" [style.backgroundImage]="'url(' + item.image + ')'">
-      <div class="text">
-        <h2>{{item.title}}</h2>
-        <p>Description text</p>
+      <br/><br/>
+      <h2>A la carté</h2>
+      <div *ngFor="let dish of a_la_carte?.dishes" class="dish">
+        <div>
+          <h4>{{dish.title}}</h4>
+          <p [innerHTML]="dish.description"></p>
+          <br/>
+          <span class="fl">{{dish.price}}</span>
+        </div>
+        <img src="{{dish.image}}">
       </div>
     </div>
   </div>

@@ -29,4 +29,5 @@ export interface AppConfig {
     ARCHIVE_URL: string;
     ASSOCIATION_URL: string;
     CHAPTER_URL: string;
+    RESTAURANT_URL: string;
 }
