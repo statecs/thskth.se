@@ -41,7 +41,15 @@ export class ChaptersAssociationsService {
                 title: c.title.rendered,
                 description: c.content.rendered,
                 image: image,
-                category: c.pure_taxonomies.ths_associations[0].name
+                category: c.pure_taxonomies.ths_associations[0].name,
+                contact: {
+                    name: c.acf.name,
+                    title: c.acf.title,
+                    email: c.acf.email,
+                    phone: c.acf.phone,
+                    website: c.acf.website,
+                    website2: c.acf.website_2,
+                }
             });
         });
         return associations;

@@ -6,6 +6,7 @@ import { Event } from '../../interfaces/event';
 import format from 'date-fns/format/index';
 import { AppCommunicationService } from '../../services/component-communicators/app-communication.service';
 import {Location} from '@angular/common';
+import {Association} from '../../interfaces/chapters_associations';
 
 @Component({
   selector: 'app-popup-window',
@@ -17,10 +18,13 @@ export class PopupWindowComponent implements OnInit {
   public showPopupWindow: boolean;
   public popup_window_updater: Subscription;
   public popup_window_event_updater: Subscription;
+  public popup_window_association_updater: Subscription;
   public page_data: any;
   public showEvent: boolean;
   public event: Event;
   public top_position: number;
+  public showAssociation: boolean;
+  public association: Association;
 
   constructor( private wordpressApiService: WordpressApiService,
                 private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -28,6 +32,7 @@ export class PopupWindowComponent implements OnInit {
                private location: Location ) {
     this.showEvent = false;
     this.top_position = 0;
+    this.showAssociation = false;
   }
 
   @HostListener('window:scroll', [])
@@ -79,6 +84,13 @@ export class PopupWindowComponent implements OnInit {
     this.show_popup_window();
   }
 
+  show_association_in_popup(association): void {
+    this.setPosition();
+    this.showAssociation = true;
+    this.association = association;
+    this.show_popup_window();
+  }
+
   ngOnInit() {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
@@ -87,6 +99,9 @@ export class PopupWindowComponent implements OnInit {
     });
     this.popup_window_event_updater = this.popupWindowCommunicationService.eventNotifyObservable$.subscribe((event) => {
       this.show_event_in_popup(event);
+    });
+    this.popup_window_association_updater = this.popupWindowCommunicationService.associationNotifyObservable$.subscribe((association) => {
+      this.show_association_in_popup(association);
     });
   }
 

@@ -2,7 +2,7 @@
 <div *ngIf="showPopupWindow" [ngStyle]="{marginTop: top_position+'px'}" id="popup-window">
   <div class="layouts-container">
     <div class="exit-popup-btn" (click)="hide_popup_window()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
-    <div *ngIf="!showEvent" class="default-layout">
+    <div *ngIf="!showEvent && !showAssociation" class="default-layout">
       <div class="header-image">
         <img *ngIf="page_data?.acf.header_image" src="{{page_data?.acf.header_image.url}}" alt="Header image">
         <div *ngIf="!page_data?.acf.header_image && page_data?.acf.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data?.acf.header_color}"></div>
@@ -37,6 +37,28 @@
           <p [innerHTML]="event?.description"></p>
           <br/>
           <p>Created by <span class="creator">{{event?.creator.displayName}}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- Associations layout ---------- -->
+    <div *ngIf="showAssociation" class="association-layout">
+      <div class="header-image">
+        <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
+        <div *ngIf="!association?.image" class="default-header"></div>
+      </div>
+      <div class="content-container">
+        <div class="description">
+          <h2 [innerHTML]="association?.title"></h2>
+          <p [innerHTML]="association?.description"></p>
+        </div>
+        <div class="contact">
+          <h2>Contact</h2>
+          <p>{{association.contact.title}} {{association.contact.name}}</p>
+          <p>email: {{association.contact.email}}</p>
+          <p>phone: {{association.contact.phone}}</p>
+          <p>website: {{association.contact.website}}</p>
+          <p>Alternative website: {{association.contact.website2}}</p>
         </div>
       </div>
     </div>

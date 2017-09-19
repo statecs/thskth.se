@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { Archive } from '../../interfaces/archive';
 import {Association, Chapter} from '../../interfaces/chapters_associations';
 import {forEach} from "@angular/router/src/utils/collection";
+import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 
 @Component({
   selector: 'app-chapters-associations',
@@ -42,7 +43,8 @@ export class ChaptersAssociationsComponent implements OnInit {
   constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private location: Location ) {
+              private location: Location,
+              private popupWindowCommunicationService: PopupWindowCommunicationService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -77,6 +79,10 @@ export class ChaptersAssociationsComponent implements OnInit {
         associations: this.social_associations
       },
     ];
+  }
+
+  showAssociationInPopup(item: Association): void {
+    this.popupWindowCommunicationService.showAssociationInPopup(item);
   }
 
   goToPage(slug): void {
