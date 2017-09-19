@@ -24,7 +24,7 @@ export class ChaptersAssociationsService {
 
     getAssociations(): Observable<Association[]> {
         return this.http
-            .get(this.config.ASSOCIATION_URL + '?_embed')
+            .get(this.config.ASSOCIATION_URL + '?per_page=100&_embed')
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: any) => { return this.castPostsTo_AssociationType(res); });
@@ -41,6 +41,7 @@ export class ChaptersAssociationsService {
                 title: c.title.rendered,
                 description: c.content.rendered,
                 image: image,
+                category: c.pure_taxonomies.ths_associations[0].name
             });
         });
         return associations;
@@ -48,7 +49,7 @@ export class ChaptersAssociationsService {
 
     getChapters(): Observable<Chapter[]> {
         return this.http
-            .get(this.config.CHAPTER_URL + '?_embed')
+            .get(this.config.CHAPTER_URL + '?per_page=100&_embed')
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: any) => { return this.castPostsTo_ChapterType(res); });

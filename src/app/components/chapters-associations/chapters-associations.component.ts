@@ -5,6 +5,7 @@ import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import { Location } from '@angular/common';
 import { Archive } from '../../interfaces/archive';
 import {Association, Chapter} from '../../interfaces/chapters_associations';
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-chapters-associations',
@@ -23,7 +24,10 @@ export class ChaptersAssociationsComponent implements OnInit {
   public searchOnFocus: boolean;
   public searchTerm: string;
   public mostSearchTerms: string[];
-  public associationResults: Association[];
+  public associations: any[];
+  public career_associations: Association[];
+  public sport_associations: Association[];
+  public social_associations: Association[];
   public chapterResults: Chapter[];
   private hrefToSlugPipeFilter: HrefToSlugPipe;
   public showResultsDropdown: boolean;
@@ -32,6 +36,8 @@ export class ChaptersAssociationsComponent implements OnInit {
 
   public layout_grid: boolean;
   public layout_list: boolean;
+  public showAssociations: boolean;
+  public showChapters: boolean;
 
   constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,
@@ -45,13 +51,32 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.searchTerm = '';
     this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
     this.hrefToSlugPipeFilter = new HrefToSlugPipe();
-    this.associationResults = [];
+    //this.associationResults = [];
     this.chapterResults = [];
     this.showResultsDropdown = false;
     this.documentsLoading = true;
-    this.showResults = false;
+    this.showResults = true;
     this.layout_grid = true;
     this.layout_list = false;
+    this.career_associations = [];
+    this.sport_associations = [];
+    this.social_associations = [];
+    this.showAssociations = true;
+    this.showChapters = false;
+    this.associations = [
+      {
+        category: 'Career and consulting',
+        associations: this.career_associations
+      },
+      {
+        category: 'Sports associations',
+        associations: this.sport_associations
+      },
+      {
+        category: 'Social activities',
+        associations: this.social_associations
+      },
+    ];
   }
 
   goToPage(slug): void {
@@ -67,7 +92,7 @@ export class ChaptersAssociationsComponent implements OnInit {
 
   liveSearch(event): void {
     if (event.keyCode !== 13) {
-      this.associationResults = [];
+      //this.associationResults = [];
       this.documentsLoading = true;
       this.showResultsDropdown = true;
       this.showResults = false;
@@ -82,12 +107,10 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.location.go('/associations-and-chapters?q=' + this.searchTerm);
   }
 
-  getAssociations(): void {
-    this.chaptersAssociationsService.getAssociations().subscribe((res) => {
-      this.documentsLoading = false;
-      console.log(res);
-      this.associationResults = res;
-    });
+  displayChapters(): void {
+    this.showAssociations = false;
+    this.showChapters = true;
+    this.getChapters();
   }
 
   getChapters(): void {
@@ -95,6 +118,40 @@ export class ChaptersAssociationsComponent implements OnInit {
       this.documentsLoading = false;
       console.log(res);
       this.chapterResults = res;
+      //this.allocateAssociations(res);
+    });
+  }
+
+  displayAssociations(): void {
+    this.showAssociations = true;
+    this.showChapters = false;
+    this.getAssociations();
+  }
+
+  getAssociations(): void {
+    this.career_associations = [];
+    this.sport_associations = [];
+    this.social_associations = [];
+    this.chaptersAssociationsService.getAssociations().subscribe((res) => {
+      this.documentsLoading = false;
+      console.log(res);
+      //this.associationResults = res;
+      this.allocateAssociations(res);
+    });
+  }
+
+  allocateAssociations(data): void {
+    data.forEach(a => {
+      if (a.category === 'Career and consulting') {
+        this.career_associations.push(a);
+        this.associations[0].associations = this.career_associations;
+      }else if (a.category === 'Sports associations') {
+        this.sport_associations.push(a);
+        this.associations[1].associations = this.sport_associations;
+      }else if (a.category === 'Social activities') {
+        this.social_associations.push(a);
+        this.associations[2].associations = this.social_associations;
+      }
     });
   }
 
@@ -146,7 +203,11 @@ export class ChaptersAssociationsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchTerm = params['q'];
-      this.submitSearch();
+      console.log(this.searchTerm);
+      if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
+        console.log('pass');
+        this.submitSearch();
+      }
     });
 
     this.getAssociations();

@@ -2,6 +2,7 @@ export interface Association {
     title: string;
     description: string;
     image: string;
+    category: string;
 }
 
 export interface Chapter {
