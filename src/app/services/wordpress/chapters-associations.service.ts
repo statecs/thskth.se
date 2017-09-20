@@ -30,6 +30,14 @@ export class ChaptersAssociationsService {
             .map((res: any) => { return this.castPostsTo_AssociationType(res); });
     }
 
+    searchAssociations(searchTerm: string): Observable<Association[]> {
+        return this.http
+            .get(this.config.ASSOCIATION_URL + '?per_page=100&_embed&search=' + searchTerm)
+            .map((res: Response) => res.json())
+            // Cast response data to FAQ Category type
+            .map((res: any) => { return this.castPostsTo_AssociationType(res); });
+    }
+
     castPostsTo_AssociationType(data: any) {
         const associations: Association[] = [];
         data.forEach(c => {
@@ -63,15 +71,28 @@ export class ChaptersAssociationsService {
             .map((res: any) => { return this.castPostsTo_ChapterType(res); });
     }
 
+    searchChapters(searchTerm: string): Observable<Chapter[]> {
+        return this.http
+            .get(this.config.CHAPTER_URL + '?per_page=100&_embed&search=' + searchTerm)
+            .map((res: Response) => res.json())
+            // Cast response data to FAQ Category type
+            .map((res: any) => { return this.castPostsTo_ChapterType(res); });
+    }
+
     castPostsTo_ChapterType(data: any) {
         const chapters: Chapter[] = [];
         data.forEach(c => {
+            let image = '';
+            if (c._embedded) {
+                image = c._embedded['wp:featuredmedia'][0].source_url;
+            }
             chapters.push({
                 title: c.title.rendered,
                 description: c.content.rendered,
                 year: c.acf.year,
                 website: c.acf.website_url,
                 section_local: c.acf.section_local,
+                image: image,
             });
         });
         return chapters;

@@ -2,34 +2,34 @@
 
 <div id="content-container">
   <div class="search-bar">
-    <h2>Search THS Documents</h2>
+    <h2>Search THS associations and chapters</h2>
     <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
       <div class="search">
-        <input placeholder="Enter your search term" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        <input #searchField placeholder="Enter your search term" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
         <div class="mostSearchTerms">
           <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
         </div>
       </div>
-      <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
+<!--      <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
         <div class="section">
-          <!--          <div class="heading">
+          &lt;!&ndash;          <div class="heading">
                       <span class="numberOfResults">Showing 1-20 of {{documentResults.length}} hits</span>
                       <span class="sortBy">Sort by <strong>Published</strong> Relevance</span>
-                    </div>-->
+                    </div>&ndash;&gt;
           <div *ngFor="let d of documentResults" class="item">
             <div class="left-content">
               <a *ngFor="let c of d.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
             </div>
             <div class="right-content">
               <h4 (click)="goToPage(d.link)">{{d.title}}</h4>
-              <!--<p [innerHTML]="d.content | cardText:100"></p>-->
+              &lt;!&ndash;<p [innerHTML]="d.content | cardText:100"></p>&ndash;&gt;
             </div>
           </div>
           <p *ngIf="documentsLoading">Loading...</p>
           <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No posts found for "{{searchTerm}}"!</p>
         </div>
-      </div>
-      <div class="filter">
+      </div>-->
+<!--      <div class="filter">
         <div #filter_icon class="options-icon" (click)="toggleFilter()">
           <i class="material-icons">more_vert</i>
         </div>
@@ -47,7 +47,7 @@
             <span>FAQ</span>
           </div>
         </div>
-      </div>
+      </div>-->
       <input class="submit" type="submit" value="Search">
     </form>
   </div>
@@ -58,14 +58,14 @@
   </div>
 
   <div class="results-container">
-    <div *ngIf="showAssociations" class="layout">
+    <div class="layout">
       <div [ngClass]="{'selected': layout_grid}" (click)="switchLayout('grid')"><i class="material-icons">grid_on</i> Grid</div>
       <div [ngClass]="{'selected': layout_list}" (click)="switchLayout('list')"><i class="material-icons">list</i> List</div>
     </div>
     <div *ngIf="showAssociations">
       <div *ngIf="showResults && layout_grid" class="grid">
         <div *ngFor="let s of associations" class="section">
-          <label>{{s.category}}</label>
+          <label *ngIf="s.associations.length !== 0">{{s.category}}</label>
           <div class="items">
             <div *ngFor="let item of s.associations" class="item" (click)="showAssociationInPopup(item)">
               <div class="image-wrapper" [style.backgroundImage]="'url(' + item.image + ')'"></div>
@@ -95,7 +95,22 @@
     </div>
 
     <div *ngIf="showChapters">
-      <div class="list">
+      <div *ngIf="layout_grid" class="grid">
+        <div class="section">
+          <div class="items">
+            <div *ngFor="let item of chapterResults" class="item" (click)="showAssociationInPopup(item)">
+              <div class="image-wrapper" [style.backgroundImage]="'url(' + item.image + ')'"></div>
+              <div class="text">
+                <h3>{{item.title}}</h3>
+                <p [innerHTML]="item.description | cardText:95"></p>
+              </div>
+            </div>
+          </div>
+          <!--        <p *ngIf="documentsLoading">Loading...</p>
+                  <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>-->
+        </div>
+      </div>
+      <div *ngIf="layout_list" class="list">
         <div class="section">
           <div class="items">
             <div *ngFor="let item of chapterResults" class="item">

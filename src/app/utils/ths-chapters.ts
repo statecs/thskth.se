@@ -45,7 +45,7 @@ export const ths_chapters: any = [
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/10.png'
     },
     {
-        title: 'Flysektionen (T)',
+        title: 'Flygsektionen (T)',
         link: 'http://flygsektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/11.png'
     },

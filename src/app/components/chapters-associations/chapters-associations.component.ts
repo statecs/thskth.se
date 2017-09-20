@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, HostListener} from '@angular/core';
 import { ChaptersAssociationsService } from '../../services/wordpress/chapters-associations.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
@@ -17,6 +17,7 @@ export class ChaptersAssociationsComponent implements OnInit {
 
   @ViewChild('searchForm') searchForm: ElementRef;
   @ViewChild('filter_icon') filter_icon: ElementRef;
+    @ViewChild('searchField') searchField: ElementRef;
 
   public postsChecked: boolean;
   public pageChecked: boolean;
@@ -97,6 +98,7 @@ export class ChaptersAssociationsComponent implements OnInit {
   }
 
   liveSearch(event): void {
+      console.log(this.searchTerm);
     if (event.keyCode !== 13) {
       //this.associationResults = [];
       this.documentsLoading = true;
@@ -107,11 +109,33 @@ export class ChaptersAssociationsComponent implements OnInit {
   }
 
   search(): void {
-    if (this.postsChecked) {
-      this.getAssociations();
-    }
+    this.searchAssociations();
+    this.searchChapters();
     this.location.go('/associations-and-chapters?q=' + this.searchTerm);
   }
+
+    searchAssociations(): void {
+        this.career_associations = [];
+        this.sport_associations = [];
+        this.social_associations = [];
+        this.chaptersAssociationsService.searchAssociations(this.searchTerm).subscribe((res) => {
+            this.documentsLoading = false;
+            console.log(res);
+            //this.associationResults = res;
+            this.allocateAssociations(res);
+            this.showAssociations = true;
+        });
+    }
+
+    searchChapters(): void {
+        this.chaptersAssociationsService.searchChapters(this.searchTerm).subscribe((res) => {
+            this.documentsLoading = false;
+            console.log(res);
+            this.chapterResults = res;
+            //this.allocateAssociations(res);
+            this.showChapters = true;
+        });
+    }
 
   displayChapters(): void {
     this.showAssociations = false;

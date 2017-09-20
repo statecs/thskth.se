@@ -21,4 +21,5 @@ export interface Chapter {
     year: string;
     website: string;
     section_local: string;
+    image: string;
 }
