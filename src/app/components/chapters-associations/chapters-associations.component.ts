@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild, HostListener} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, Renderer2} from '@angular/core';
 import { ChaptersAssociationsService } from '../../services/wordpress/chapters-associations.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
@@ -30,6 +30,7 @@ export class ChaptersAssociationsComponent implements OnInit {
   public career_associations: Association[];
   public sport_associations: Association[];
   public social_associations: Association[];
+  public associationResults: Association[];
   public chapterResults: Chapter[];
   private hrefToSlugPipeFilter: HrefToSlugPipe;
   public showResultsDropdown: boolean;
@@ -40,12 +41,14 @@ export class ChaptersAssociationsComponent implements OnInit {
   public layout_list: boolean;
   public showAssociations: boolean;
   public showChapters: boolean;
+  public noResults: boolean;
 
   constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private location: Location,
-              private popupWindowCommunicationService: PopupWindowCommunicationService) {
+              private popupWindowCommunicationService: PopupWindowCommunicationService,
+              private renderer: Renderer2) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -54,7 +57,7 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.searchTerm = '';
     this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
     this.hrefToSlugPipeFilter = new HrefToSlugPipe();
-    //this.associationResults = [];
+    this.associationResults = [];
     this.chapterResults = [];
     this.showResultsDropdown = false;
     this.documentsLoading = true;
@@ -66,6 +69,7 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.social_associations = [];
     this.showAssociations = true;
     this.showChapters = false;
+    this.noResults = false;
     this.associations = [
       {
         category: 'Career and consulting',
@@ -82,6 +86,14 @@ export class ChaptersAssociationsComponent implements OnInit {
     ];
   }
 
+  checkResults(): void {
+    if (this.associationResults.length === 0 && this.chapterResults.length === 0) {
+      this.noResults = true;
+    }else {
+      this.noResults = false;
+    }
+  }
+
   showAssociationInPopup(item: Association): void {
     this.popupWindowCommunicationService.showAssociationInPopup(item);
   }
@@ -92,26 +104,37 @@ export class ChaptersAssociationsComponent implements OnInit {
   }
 
   submitSearch(): void {
-    this.showResultsDropdown = false;
-    this.showResults = true;
-    this.search();
+    console.log(this.searchTerm);
+    if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
+      console.log("pass");
+      this.showResultsDropdown = false;
+      this.showResults = true;
+      this.search();
+    }
   }
 
   liveSearch(event): void {
       console.log(this.searchTerm);
     if (event.keyCode !== 13) {
-      //this.associationResults = [];
-      this.documentsLoading = true;
-      this.showResultsDropdown = true;
-      this.showResults = false;
-      this.search();
+      if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
+        this.documentsLoading = true;
+        this.showResultsDropdown = true;
+        this.showResults = false;
+        this.search();
+      }else {
+        this.showAssociations = true;
+        this.showChapters = false;
+        this.getAssociations();
+      }
     }
   }
 
   search(): void {
-    this.searchAssociations();
-    this.searchChapters();
-    this.location.go('/associations-and-chapters?q=' + this.searchTerm);
+    if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
+      this.searchAssociations();
+      this.searchChapters();
+      this.location.go('/associations-and-chapters?q=' + this.searchTerm);
+    }
   }
 
     searchAssociations(): void {
@@ -121,26 +144,30 @@ export class ChaptersAssociationsComponent implements OnInit {
         this.chaptersAssociationsService.searchAssociations(this.searchTerm).subscribe((res) => {
             this.documentsLoading = false;
             console.log(res);
-            //this.associationResults = res;
+            this.associationResults = res;
             this.allocateAssociations(res);
             this.showAssociations = true;
+            this.checkResults();
         });
     }
 
     searchChapters(): void {
+      this.chapterResults = [];
         this.chaptersAssociationsService.searchChapters(this.searchTerm).subscribe((res) => {
             this.documentsLoading = false;
             console.log(res);
             this.chapterResults = res;
-            //this.allocateAssociations(res);
             this.showChapters = true;
+            this.checkResults();
         });
     }
 
   displayChapters(): void {
     this.showAssociations = false;
     this.showChapters = true;
-    this.getChapters();
+    if (this.searchTerm !== '' && this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
+      this.getChapters();
+    }
   }
 
   getChapters(): void {
@@ -148,14 +175,16 @@ export class ChaptersAssociationsComponent implements OnInit {
       this.documentsLoading = false;
       console.log(res);
       this.chapterResults = res;
-      //this.allocateAssociations(res);
+      this.checkResults();
     });
   }
 
   displayAssociations(): void {
     this.showAssociations = true;
     this.showChapters = false;
-    this.getAssociations();
+    if (this.searchTerm !== '' && this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
+      this.getAssociations();
+    }
   }
 
   getAssociations(): void {
@@ -165,12 +194,19 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.chaptersAssociationsService.getAssociations().subscribe((res) => {
       this.documentsLoading = false;
       console.log(res);
-      //this.associationResults = res;
+      this.associationResults = res;
       this.allocateAssociations(res);
+      this.checkResults();
     });
   }
 
   allocateAssociations(data): void {
+    this.career_associations = [];
+    this.sport_associations = [];
+    this.social_associations = [];
+    this.associations[0].associations = [];
+    this.associations[1].associations = [];
+    this.associations[2].associations = [];
     data.forEach(a => {
       if (a.category === 'Career and consulting') {
         this.career_associations.push(a);
@@ -195,31 +231,6 @@ export class ChaptersAssociationsComponent implements OnInit {
     (this.searchOnFocus ? this.searchOnFocus = false : this.searchOnFocus = true);
   }
 
-  toggleFilter(): void {
-    if (this.showFilterOptions) {
-      this.showFilterOptions = false;
-      this.filter_icon.nativeElement.style.color = 'lightgray';
-    }else {
-      this.showFilterOptions = true;
-      this.filter_icon.nativeElement.style.color = 'rgba(0, 108, 170, 0.62)';
-    }
-  }
-
-  toggleCheckbox(optId): void {
-    if (optId === 'posts') {
-      (this.postsChecked ? this.postsChecked = false : this.postsChecked = true);
-    }else if (optId === 'page') {
-      (this.pageChecked ? this.pageChecked = false : this.pageChecked = true);
-    }else if (optId === 'faq') {
-      (this.faqChecked ? this.faqChecked = false : this.faqChecked = true);
-    }
-    this.search();
-  }
-
-  downloadFile(url: string) {
-    window.open(url);
-  }
-
   switchLayout(layout) {
     if (layout === 'grid') {
       this.layout_grid = true;
@@ -238,9 +249,22 @@ export class ChaptersAssociationsComponent implements OnInit {
         console.log('pass');
         this.submitSearch();
       }
+      if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
+        console.log('pass');
+        this.getAssociations();
+      }
     });
 
-    this.getAssociations();
+    this.renderer.listen(this.searchField.nativeElement, 'search', () => {
+      console.log(this.searchTerm);
+      if (this.searchTerm === '') {
+        console.log('search');
+        this.location.go('/associations-and-chapters');
+        this.showChapters = false;
+        this.showAssociations = true;
+        this.getAssociations();
+      }
+    });
   }
 
 }

@@ -10,44 +10,6 @@
           <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
         </div>
       </div>
-<!--      <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
-        <div class="section">
-          &lt;!&ndash;          <div class="heading">
-                      <span class="numberOfResults">Showing 1-20 of {{documentResults.length}} hits</span>
-                      <span class="sortBy">Sort by <strong>Published</strong> Relevance</span>
-                    </div>&ndash;&gt;
-          <div *ngFor="let d of documentResults" class="item">
-            <div class="left-content">
-              <a *ngFor="let c of d.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
-            </div>
-            <div class="right-content">
-              <h4 (click)="goToPage(d.link)">{{d.title}}</h4>
-              &lt;!&ndash;<p [innerHTML]="d.content | cardText:100"></p>&ndash;&gt;
-            </div>
-          </div>
-          <p *ngIf="documentsLoading">Loading...</p>
-          <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No posts found for "{{searchTerm}}"!</p>
-        </div>
-      </div>-->
-<!--      <div class="filter">
-        <div #filter_icon class="options-icon" (click)="toggleFilter()">
-          <i class="material-icons">more_vert</i>
-        </div>
-        <div *ngIf="showFilterOptions" class="options">
-          <div class="option" (click)="toggleCheckbox('posts')">
-            <div class="checkbox"><i *ngIf="postsChecked" class="material-icons">check</i></div>
-            <span>Posts</span>
-          </div>
-          <div class="option" (click)="toggleCheckbox('page')">
-            <div class="checkbox"><i *ngIf="pageChecked" class="material-icons">check</i></div>
-            <span>Page</span>
-          </div>
-          <div class="option" (click)="toggleCheckbox('faq')">
-            <div class="checkbox"><i *ngIf="faqChecked" class="material-icons">check</i></div>
-            <span>FAQ</span>
-          </div>
-        </div>
-      </div>-->
       <input class="submit" type="submit" value="Search">
     </form>
   </div>
@@ -62,8 +24,10 @@
       <div [ngClass]="{'selected': layout_grid}" (click)="switchLayout('grid')"><i class="material-icons">grid_on</i> Grid</div>
       <div [ngClass]="{'selected': layout_list}" (click)="switchLayout('list')"><i class="material-icons">list</i> List</div>
     </div>
-    <div *ngIf="showAssociations">
-      <div *ngIf="showResults && layout_grid" class="grid">
+      <div *ngIf="noResults" class="noResult">No results found!</div>
+    <div *ngIf="showAssociations && associationResults.length !== 0">
+        <h1 class="section_header">Associations</h1>
+      <div *ngIf="layout_grid" class="grid">
         <div *ngFor="let s of associations" class="section">
           <label *ngIf="s.associations.length !== 0">{{s.category}}</label>
           <div class="items">
@@ -79,7 +43,7 @@
                   <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>-->
         </div>
       </div>
-      <div *ngIf="showResults && layout_list" class="list">
+      <div *ngIf="layout_list" class="list">
         <div *ngFor="let s of associations" class="section">
           <label>{{s.category}}</label>
           <div class="items">
@@ -94,7 +58,8 @@
       </div>
     </div>
 
-    <div *ngIf="showChapters">
+    <div *ngIf="showChapters && chapterResults.length !== 0">
+        <h1 class="section_header">Chapters</h1>
       <div *ngIf="layout_grid" class="grid">
         <div class="section">
           <div class="items">
