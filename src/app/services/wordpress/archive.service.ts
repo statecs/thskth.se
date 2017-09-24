@@ -22,10 +22,14 @@ export class ArchiveService {
     }
   }
 
-  searchDocuments(searchTerm: string): Observable<Archive[]> {
+  searchDocuments(searchTerm: string, categoryID: number, date_filter: string): Observable<Archive[]> {
     console.log(searchTerm);
+    let params = '';
+    if (categoryID !== 0) {
+      params = '&categories=' + categoryID;
+    }
     return this.http
-        .get(this.config.ARCHIVE_URL + '?search=' + searchTerm)
+        .get(this.config.ARCHIVE_URL + '?search=' + searchTerm + params + '&after=' + date_filter + 'T22:26:53')
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });

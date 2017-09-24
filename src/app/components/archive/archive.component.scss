@@ -193,7 +193,7 @@
       .submit{
         display: inline-block;
         float: right;
-        padding: 16px 22px;
+        padding: 17px 38px;
         border: 0;
         background: none;
         cursor: pointer;
@@ -215,6 +215,80 @@
       }
       select{
         padding: 5px 40px;
+      }
+      & >div {
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        background-color: white;
+        padding: 5px 10px;
+        border: 1px solid lightgray;
+
+        & >span {
+          //text-decoration: underline;
+          margin: 0 10px;
+        }
+        & >i {
+          vertical-align: middle;
+        }
+
+        .checkboxs{
+          cursor: default;
+        }
+
+        .dropdown-container {
+          color: #222222;
+          border-radius: 5px;
+          font-size: $font-size-default;
+          width: 300px;
+          position: absolute;
+          margin-top: 10px;
+          right: -10px;
+          box-shadow: 0 0 10px #888888;
+          display: none;
+          z-index: 1;
+          background-color: #efefef;
+          color: black;
+          padding: 10px;
+
+          &::before {
+            @include arrow-up(10px, #efefef, 89%);
+          }
+
+          .dropdown-list {
+            text-align: left;
+
+            .dropdown-item {
+              list-style: none;
+              padding: 10px 20px;
+              background-color: white;
+              border-bottom: 1px solid lightgray;
+              margin: 5px;
+
+              &:hover{background-color: #e7eef3;}
+
+              &:first-child {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                border-left: 3px solid #1485d2;
+              }
+
+              &:last-child {
+                border-bottom: 0;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+              }
+            }
+          }
+        }
+      }
+
+      .date_input{
+        padding: 0;
+        input{
+          padding: 7px 10px;
+          border: 0;
+        }
       }
     }
   }
@@ -279,15 +353,18 @@
           }
           .files{
             margin-top: 20px;
-            .download_link{
-              padding: 5px 15px;
-              border: 1px solid gray;
-              border-radius: 20px;
+            .link_container{
               display: inline-block;
-              margin-right:10px;
-              cursor: pointer;
-              i{
-                vertical-align: middle;
+              .download_link{
+                padding: 5px 15px;
+                border: 1px solid gray;
+                border-radius: 20px;
+                display: inline-block;
+                margin-right:10px;
+                cursor: pointer;
+                i{
+                  vertical-align: middle;
+                }
               }
             }
           }

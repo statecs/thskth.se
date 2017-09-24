@@ -35,4 +35,5 @@ export let appConfig: AppConfig = {
     ASSOCIATION_URL: 'http://kths.se/api/wp/v2/association',
     CHAPTER_URL: 'http://kths.se/api/wp/v2/chapter',
     RESTAURANT_URL: 'http://kths.se/api/wp/v2/restaurant',
+    CATEGORIES_URL: 'http://kths.se/api/wp/v2/categories',
 };

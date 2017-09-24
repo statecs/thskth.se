@@ -30,4 +30,5 @@ export interface AppConfig {
     ASSOCIATION_URL: string;
     CHAPTER_URL: string;
     RESTAURANT_URL: string;
+    CATEGORIES_URL: string;
 }

@@ -17,7 +17,7 @@ export class ChaptersAssociationsComponent implements OnInit {
 
   @ViewChild('searchForm') searchForm: ElementRef;
   @ViewChild('filter_icon') filter_icon: ElementRef;
-    @ViewChild('searchField') searchField: ElementRef;
+  @ViewChild('searchField') searchField: ElementRef;
 
   public postsChecked: boolean;
   public pageChecked: boolean;

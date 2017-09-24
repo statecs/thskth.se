@@ -1,116 +1,137 @@
-<app-header></app-header>
+<div (click)="hideDropdowns($event)">
+  <app-header></app-header>
 
-<div id="content-container">
-  <div class="search-bar">
-    <h2>Search THS Documents</h2>
-    <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
-      <div class="search">
-        <input placeholder="Enter your search term" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
-        <div class="mostSearchTerms">
-          <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
+  <div id="content-container">
+    <div class="search-bar">
+      <h2>Search THS Documents</h2>
+      <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
+        <div class="search">
+          <input #searchField placeholder="Enter your search term" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+          <div class="mostSearchTerms">
+            <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
+          </div>
+        </div>
+        <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
+          <div class="section">
+            <!--          <div class="heading">
+                        <span class="numberOfResults">Showing 1-20 of {{documentResults.length}} hits</span>
+                        <span class="sortBy">Sort by <strong>Published</strong> Relevance</span>
+                      </div>-->
+            <div *ngFor="let d of documentResults" class="item">
+              <div class="left-content">
+                <a *ngFor="let c of d.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
+              </div>
+              <div class="right-content">
+                <h4 (click)="goToPage(d.link)">{{d.title}}</h4>
+                <!--<p [innerHTML]="d.content | cardText:100"></p>-->
+              </div>
+            </div>
+            <p *ngIf="documentsLoading">Loading...</p>
+            <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No posts found for "{{searchTerm}}"!</p>
+          </div>
+        </div>
+<!--        <div class="filter">
+          <div #filter_icon class="options-icon" (click)="toggleFilter()">
+            <i class="material-icons">more_vert</i>
+          </div>
+          <div *ngIf="showFilterOptions" class="options">
+            <div class="option" (click)="toggleCheckbox('posts')">
+              <div class="checkbox"><i *ngIf="postsChecked" class="material-icons">check</i></div>
+              <span>Posts</span>
+            </div>
+            <div class="option" (click)="toggleCheckbox('page')">
+              <div class="checkbox"><i *ngIf="pageChecked" class="material-icons">check</i></div>
+              <span>Page</span>
+            </div>
+            <div class="option" (click)="toggleCheckbox('faq')">
+              <div class="checkbox"><i *ngIf="faqChecked" class="material-icons">check</i></div>
+              <span>FAQ</span>
+            </div>
+          </div>
+        </div>-->
+        <input class="submit" type="submit" value="Search">
+      </form>
+    </div>
+
+    <div #filters class="filters">
+      <div *ngIf="showFilters">
+        <div #content_type class="content-type" (click)="displayedDropdown === true || toggleDropdown(1, $event)">
+          <span>Content type</span>
+          <i class="material-icons">keyboard_arrow_down</i>
+          <div class="dropdown-container checkboxs">
+            <div class="dropdown-list">
+              <input type="checkbox" name="pdf" value="PDF" class="dropdown-item" [(ngModel)]="pdfChecked"> PDF<br>
+              <input type="checkbox" name="zip" value="Zip" class="dropdown-item" [(ngModel)]="zipChecked"> Zip<br>
+              <input type="checkbox" name="doc" value="DOC" class="dropdown-item" [(ngModel)]="docChecked"> DOC<br>
+            </div>
+          </div>
         </div>
       </div>
-      <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
+      <div *ngIf="showFilters">
+        <div #content_type class="content-type" (click)="displayedDropdown === true || toggleDropdown(2, $event)">
+          <span>Topic</span>
+          <i class="material-icons">keyboard_arrow_down</i>
+          <div class="dropdown-container">
+            <div class="dropdown-list">
+              <div class="dropdown-item" (click)="filterTopic($event, 0)">Show all</div>
+              <div class="dropdown-item" (click)="filterTopic($event, 354)">KS documents</div>
+              <div class="dropdown-item" (click)="filterTopic($event, 354)">KF documents</div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--      <div>
+        <label>Organization</label>
+        <select>
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+        </select>
+      </div>-->
+      <div *ngIf="showFilters">
+        <div class="date_input">
+          <input type="date" id="myDate" [(ngModel)]="date_filter" (change)="filterDate()">
+        </div>
+      </div>
+    </div>
+
+    <div class="results-container">
+      <div *ngIf="showResults">
         <div class="section">
-<!--          <div class="heading">
-            <span class="numberOfResults">Showing 1-20 of {{documentResults.length}} hits</span>
+          <div class="heading">
+            <span class="numberOfResults">Showing {{documentResults.length !== 0 ? 1 : 0 }}-{{documentResults.length}} of {{documentResults.length}} hits</span>
             <span class="sortBy">Sort by <strong>Published</strong> Relevance</span>
-          </div>-->
+          </div>
           <div *ngFor="let d of documentResults" class="item">
             <div class="left-content">
-              <a *ngFor="let c of d.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
+              <span *ngFor="let c of d.categories">{{c.name}}</span>
             </div>
             <div class="right-content">
-              <h4 (click)="goToPage(d.link)">{{d.title}}</h4>
-              <!--<p [innerHTML]="d.content | cardText:100"></p>-->
-            </div>
-          </div>
-          <p *ngIf="documentsLoading">Loading...</p>
-          <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No posts found for "{{searchTerm}}"!</p>
-        </div>
-      </div>
-      <div class="filter">
-        <div #filter_icon class="options-icon" (click)="toggleFilter()">
-          <i class="material-icons">more_vert</i>
-        </div>
-        <div *ngIf="showFilterOptions" class="options">
-          <div class="option" (click)="toggleCheckbox('posts')">
-            <div class="checkbox"><i *ngIf="postsChecked" class="material-icons">check</i></div>
-            <span>Posts</span>
-          </div>
-          <div class="option" (click)="toggleCheckbox('page')">
-            <div class="checkbox"><i *ngIf="pageChecked" class="material-icons">check</i></div>
-            <span>Page</span>
-          </div>
-          <div class="option" (click)="toggleCheckbox('faq')">
-            <div class="checkbox"><i *ngIf="faqChecked" class="material-icons">check</i></div>
-            <span>FAQ</span>
-          </div>
-        </div>
-      </div>
-      <input class="submit" type="submit" value="Search">
-    </form>
-  </div>
-
-  <div class="filters">
-    <div>
-      <label>Content type</label>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-    </div>
-    <div>
-      <label>Topic</label>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-    </div>
-    <div>
-      <label>Organization</label>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-    </div>
-    <div>
-      <label>Time period</label>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="results-container">
-    <div *ngIf="showResults">
-      <div class="section">
-        <div class="heading">
-          <span class="numberOfResults">Showing 1-{{documentResults.length}} of {{documentResults.length}} hits</span>
-          <span class="sortBy">Sort by <strong>Published</strong> Relevance</span>
-        </div>
-        <div *ngFor="let d of documentResults" class="item">
-          <div class="left-content">
-            <span *ngFor="let c of d.categories">{{c.name}}</span>
-          </div>
-          <div class="right-content">
-            <h4>{{d.title}}</h4>
-<!--            <p [innerHTML]="d.content | cardText:100"></p>-->
-            <p>Description Description Description</p>
-            <div class="files">
-              <div *ngFor="let f of d.documents" class="download_link" (click)="downloadFile(f.url)">
-                <span *ngIf="f.mime_type ==='pdf'">PDF </span>
-                <span *ngIf="f.mime_type ==='docx'">DOC </span>
-                <span *ngIf="f.mime_type ==='zip'">Zip </span>
-                <i class="material-icons">file_download</i>
+              <h4>{{d.title}}</h4>
+              <!--            <p [innerHTML]="d.content | cardText:100"></p>-->
+              <p>Description Description Description</p>
+              <div class="files">
+                <div *ngFor="let f of d.documents" class="link_container">
+                  <div *ngIf="f.mime_type ==='pdf' && pdfChecked" class="download_link" (click)="downloadFile(f.url)">
+                    <span>PDF </span>
+                    <i class="material-icons">file_download</i>
+                  </div>
+                  <div *ngIf="f.mime_type ==='docx' && docChecked" class="download_link" (click)="downloadFile(f.url)">
+                    <span>DOC </span>
+                    <i class="material-icons">file_download</i>
+                  </div>
+                  <div *ngIf="f.mime_type ==='zip' && zipChecked" class="download_link" (click)="downloadFile(f.url)">
+                    <span>Zip </span>
+                    <i class="material-icons">file_download</i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <p *ngIf="documentsLoading">Loading...</p>
+          <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>
         </div>
-        <p *ngIf="documentsLoading">Loading...</p>
-        <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>
       </div>
     </div>
   </div>
 </div>
+

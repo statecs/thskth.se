@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { ArchiveService } from '../../services/wordpress/archive.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
@@ -14,6 +14,8 @@ export class ArchiveComponent implements OnInit {
 
   @ViewChild('searchForm') searchForm: ElementRef;
   @ViewChild('filter_icon') filter_icon: ElementRef;
+  @ViewChild('filters') filters: ElementRef;
+  @ViewChild('searchField') searchField: ElementRef;
 
   public postsChecked: boolean;
   public pageChecked: boolean;
@@ -27,11 +29,22 @@ export class ArchiveComponent implements OnInit {
   public showResultsDropdown: boolean;
   public documentsLoading: boolean;
   public showResults: boolean;
+  public displayedDropdown: boolean;
+  public dropdowns: any;
+  public displayedDropdownID: number;
+  public content_typeIsDisabled: boolean;
+  public showFilters: boolean;
+  public docChecked: boolean;
+  public zipChecked: boolean;
+  public pdfChecked: boolean;
+  public categoryID: number;
+  public date_filter: string;
 
   constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private location: Location ) {
+              private location: Location,
+              private renderer: Renderer2) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -44,6 +57,66 @@ export class ArchiveComponent implements OnInit {
     this.showResultsDropdown = false;
     this.documentsLoading = true;
     this.showResults = false;
+    this.displayedDropdown = false;
+    this.content_typeIsDisabled = false;
+    this.showFilters = true;
+    this.docChecked = false;
+    this.zipChecked = false;
+    this.pdfChecked = false;
+    this.categoryID = 0;
+    this.date_filter = '2014-09-24';
+  }
+
+  filterTopic(event, categoryID): void {
+    event.stopPropagation();
+    console.log("filterTopic");
+    this.hideAllDropdown();
+    this.categoryID = categoryID;
+    this.searchDocuments();
+  }
+
+  filterDate(): void {
+    console.log("filterDate");
+    this.searchDocuments();
+  }
+
+  toggleDropdown(param, event): void {
+    event.stopPropagation();
+    if (this.displayedDropdown) {
+      console.log("event");
+      this.hideAllDropdown();
+    }else {
+      this.dropdowns[param - 1].style.display = 'block';
+      this.displayedDropdown = true;
+    }
+    if (this.displayedDropdownID !== param) {
+      this.dropdowns[param - 1].style.display = 'block';
+      this.displayedDropdown = true;
+    }
+    this.displayedDropdownID = param;
+  }
+
+  hideAllDropdown(): void {
+    for (let i = 0; i < this.dropdowns.length; i++) {
+      this.dropdowns[i].style.display = 'none';
+      console.log("s");
+    }
+    this.displayedDropdown = false;
+  }
+
+  hideDropdowns(event) {
+    console.log(event.target);
+    console.log(this.displayedDropdownID);
+    console.log(this.dropdowns[this.displayedDropdownID - 1]);
+    console.log(this.displayedDropdown);
+    //console.log(this.dropdowns[this.displayedDropdownID - 1].contains(event.target));
+
+    if (this.dropdowns[this.displayedDropdownID - 1]) {
+      if (!this.dropdowns[this.displayedDropdownID - 1].contains(event.target) && this.displayedDropdown) {
+        console.log("pass");
+        this.hideAllDropdown();
+      }
+    }
   }
 
   goToPage(slug): void {
@@ -54,6 +127,7 @@ export class ArchiveComponent implements OnInit {
   submitSearch(): void {
     this.showResultsDropdown = false;
     this.showResults = true;
+    this.showFilters = true;
     this.search();
   }
 
@@ -62,6 +136,7 @@ export class ArchiveComponent implements OnInit {
       this.documentResults = [];
       this.documentsLoading = true;
       this.showResultsDropdown = true;
+      this.showFilters = false;
       this.showResults = false;
       this.search();
     }
@@ -75,7 +150,7 @@ export class ArchiveComponent implements OnInit {
   }
 
   searchDocuments(): void {
-    this.archiveService.searchDocuments(this.searchTerm).subscribe((res) => {
+    this.archiveService.searchDocuments(this.searchTerm, this.categoryID, this.date_filter).subscribe((res) => {
       this.documentsLoading = false;
       console.log(res);
       this.documentResults = res;
@@ -86,6 +161,7 @@ export class ArchiveComponent implements OnInit {
     this.searchTerm = term;
     this.search();
     this.showResultsDropdown = true;
+    this.showFilters = false;
   }
 
   toggleSearchFocus(): void {
@@ -120,7 +196,21 @@ export class ArchiveComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchTerm = params['q'];
-      this.submitSearch();
+      if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
+        console.log('pass');
+        this.submitSearch();
+      }
+    });
+
+    this.dropdowns = this.filters.nativeElement.getElementsByClassName('dropdown-container');
+
+    this.renderer.listen(this.searchField.nativeElement, 'search', () => {
+      console.log(this.searchTerm);
+      if (this.searchTerm === '') {
+        console.log('search');
+        this.location.go('/archive');
+        this.showFilters = true;
+      }
     });
   }
 
