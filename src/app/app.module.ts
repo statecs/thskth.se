@@ -89,6 +89,7 @@ import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
+import { ContactSubpageComponent } from './components/contact-section/contact-subpage/contact-subpage.component';
 
 
 @NgModule({
@@ -145,7 +146,8 @@ import { ChaptersAssociationsComponent } from './components/chapters-association
     ChatbotComponent,
     RestaurantComponent,
     ArchiveComponent,
-    ChaptersAssociationsComponent
+    ChaptersAssociationsComponent,
+    ContactSubpageComponent
   ],
   imports: [
     BrowserModule,

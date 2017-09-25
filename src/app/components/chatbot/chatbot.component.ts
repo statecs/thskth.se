@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {forEach} from "@angular/router/src/utils/collection";
+import {messages} from '../../utils/chatbot-commonMessages';
 
 @Component({
   selector: 'app-chatbot',
@@ -13,8 +14,10 @@ export class ChatbotComponent implements OnInit {
   chatFlow: any[];
   responses: any[];
   user_inputs: any[];
+  public messages: any;
 
   constructor() {
+      this.messages = messages;
     this.chatFlow = [
       {
         message: 'Hey, Nice to meet you!. What do you want help with?',
@@ -29,20 +32,20 @@ export class ChatbotComponent implements OnInit {
                 type: 'response',
                 user_input: [
                   {
-                    message: 'Yes',
+                    message: this.messages.three,
                     type: 'user',
                     response:
                       {
-                        message: 'Great!',
+                        message: this.messages.one,
                         type: 'response',
                       }
                   },
                   {
-                    message: 'No',
+                    message: this.messages.four,
                     type: 'user',
                     response:
                       {
-                        message: 'Sorry!',
+                        message: this.messages.two,
                         type: 'response',
                       }
                   }
@@ -58,20 +61,20 @@ export class ChatbotComponent implements OnInit {
                 type: 'response',
                 user_input: [
                   {
-                    message: 'Yes',
+                    message: this.messages.three,
                     type: 'user',
                     response:
                       {
-                        message: 'Great!',
+                        message: this.messages.one,
                         type: 'response',
                       }
                   },
                   {
-                    message: 'No',
+                    message: this.messages.four,
                     type: 'user',
                     response:
                       {
-                        message: 'Sorry!',
+                        message: this.messages.two,
                         type: 'response',
                       }
                   }
@@ -87,20 +90,60 @@ export class ChatbotComponent implements OnInit {
                 type: 'response',
                 user_input: [
                   {
-                    message: 'Yes',
+                    message: this.messages.three,
                     type: 'user',
                     response:
                       {
-                        message: 'Great!',
+                        message: 'Have you paid the membership fee? (365kr)?',
                         type: 'response',
+                          user_input: [
+                              {
+                                  message: this.messages.three,
+                                  type: 'user',
+                                  response:
+                                      {
+                                          message: 'Have you checked that you use your kth-adress at SSSB?',
+                                          type: 'response',
+                                          user_input: [
+                                              {
+                                                  message: this.messages.three,
+                                                  type: 'user',
+                                                  response:
+                                                      {
+                                                          message: 'Perfect! It will take between 2-3 weeks until you get your card! Enjoy!',
+                                                          type: 'response',
+                                                      }
+                                              },
+                                              {
+                                                  message: this.messages.four,
+                                                  type: 'user',
+                                                  response:
+                                                      {
+                                                          message: this.messages.two,
+                                                          type: 'response',
+                                                      }
+                                              }
+                                          ]
+                                      }
+                              },
+                              {
+                                  message: this.messages.four,
+                                  type: 'user',
+                                  response:
+                                      {
+                                          message: this.messages.two,
+                                          type: 'response',
+                                      }
+                              }
+                          ]
                       }
                   },
                   {
-                    message: 'No',
+                    message: this.messages.four,
                     type: 'user',
                     response:
                       {
-                        message: 'Sorry!',
+                        message: this.messages.two,
                         type: 'response',
                       }
                   }
@@ -116,20 +159,20 @@ export class ChatbotComponent implements OnInit {
                 type: 'response',
                 user_input: [
                   {
-                    message: 'Yes',
+                    message: this.messages.three,
                     type: 'user',
                     response:
                       {
-                        message: 'Great!',
+                        message: this.messages.one,
                         type: 'response',
                       }
                   },
                   {
-                    message: 'No',
+                    message: this.messages.four,
                     type: 'user',
                     response:
                       {
-                        message: 'Sorry!',
+                        message: this.messages.two,
                         type: 'response',
                       }
                   }

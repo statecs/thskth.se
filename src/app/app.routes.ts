@@ -19,6 +19,7 @@ import { RestaurantComponent } from './components/restaurant/restaurant.componen
 import { ArchiveComponent } from './components/archive/archive.component';
 import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
 import {StudentLifeSectionComponent} from './components/student-life-section/student-life-section.component';
+import { ContactSubpageComponent } from './components/contact-section/contact-subpage/contact-subpage.component';
 
 const appRoutes: Routes = [
     {
@@ -94,7 +95,7 @@ const appRoutes: Routes = [
             {path: '', component: ContactComponent, data: { title: 'Contact' }},
             {path: 'faq', component: FaqsComponent, data: { title: 'FAQ' }},
             {path: 'faq/:category', component: FaqsComponent, data: { title: 'FAQ' }},
-            {path: ':slug', component: ContactComponent, data: { title: 'Contact' }},
+            {path: ':slug', component: ContactSubpageComponent, data: { title: 'Contact Sub Page' }},
             {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Contact' }},
             ]
     },
