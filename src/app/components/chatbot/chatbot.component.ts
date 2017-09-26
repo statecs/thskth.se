@@ -217,14 +217,16 @@ export class ChatbotComponent implements OnInit {
         type: 'user'
       });
       self.addDynamicComponent();
+      const old_user_inputs = self.user_inputs;
+      self.user_inputs = [];
       setTimeout(function () {
           console.log(self.chatFlowList.nativeElement.lastElementChild);
           self.chatFlowList.nativeElement.lastElementChild.remove();
           self.responses.push({
-              message: self.user_inputs[index].response.message,
+              message: old_user_inputs[index].response.message,
               type: 'response'
           });
-          const user_input = self.user_inputs[index].response.user_input;
+          const user_input = old_user_inputs[index].response.user_input;
           self.user_inputs = user_input;
       }, 1500);
     }, 500);
