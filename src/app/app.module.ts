@@ -90,6 +90,7 @@ import { RestaurantComponent } from './components/restaurant/restaurant.componen
 import { ArchiveComponent } from './components/archive/archive.component';
 import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
 import { ContactSubpageComponent } from './components/contact-section/contact-subpage/contact-subpage.component';
+import { LoaderMessageComponent } from './components/loader-message/loader-message.component';
 
 
 @NgModule({
@@ -147,7 +148,8 @@ import { ContactSubpageComponent } from './components/contact-section/contact-su
     RestaurantComponent,
     ArchiveComponent,
     ChaptersAssociationsComponent,
-    ContactSubpageComponent
+    ContactSubpageComponent,
+    LoaderMessageComponent
   ],
   imports: [
     BrowserModule,

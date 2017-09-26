@@ -2,7 +2,9 @@
   <div #chatFlowContainer class="chat_flow">
     <ol #chatFlowList>
       <li *ngFor="let i of responses">
-        <div class="response" *ngIf="i.type === 'response'">{{i.message}}</div>
+        <div class="response" *ngIf="i.type === 'response'">
+          {{i.message}}
+        </div>
         <div class="user" *ngIf="i.type === 'user'">{{i.message}}</div>
       </li>
     </ol>

@@ -1,11 +1,14 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {forEach} from "@angular/router/src/utils/collection";
+import { ApplicationRef, Component, ComponentFactoryResolver, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+//import {forEach} from "@angular/router/src/utils/collection";
 import {messages} from '../../utils/chatbot-commonMessages';
+import {LoaderMessageComponent} from "../loader-message/loader-message.component";
+
 
 @Component({
   selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
-  styleUrls: ['./chatbot.component.scss']
+  styleUrls: ['./chatbot.component.scss'],
+    entryComponents: [LoaderMessageComponent]
 })
 export class ChatbotComponent implements OnInit {
   @ViewChild('chatFlowList') chatFlowList: ElementRef;
@@ -16,7 +19,9 @@ export class ChatbotComponent implements OnInit {
   user_inputs: any[];
   public messages: any;
 
-  constructor() {
+  constructor(private resolver: ComponentFactoryResolver,
+              private injector: Injector,
+              private appRef: ApplicationRef) {
       this.messages = messages;
     this.chatFlow = [
       {
@@ -211,15 +216,28 @@ export class ChatbotComponent implements OnInit {
         message: self.user_inputs[index].message,
         type: 'user'
       });
-      self.responses.push({
-        message: self.user_inputs[index].response.message,
-        type: 'response'
-      });
-      const user_input = self.user_inputs[index].response.user_input;
-      console.log(self.user_inputs[index].response.user_input);
-      self.user_inputs = user_input;
+      self.addDynamicComponent();
+      setTimeout(function () {
+          console.log(self.chatFlowList.nativeElement.lastElementChild);
+          self.chatFlowList.nativeElement.lastElementChild.remove();
+          self.responses.push({
+              message: self.user_inputs[index].response.message,
+              type: 'response'
+          });
+          const user_input = self.user_inputs[index].response.user_input;
+          self.user_inputs = user_input;
+      }, 1500);
     }, 500);
   }
+
+    addDynamicComponent() {
+        const factory = this.resolver.resolveComponentFactory(LoaderMessageComponent);
+        const newNode = document.createElement('div');
+        newNode.id = 'loader-wrapper';
+        this.chatFlowList.nativeElement.appendChild(newNode);
+        const ref = factory.create(this.injector, [], newNode);
+        this.appRef.attachView(ref.hostView);
+    }
 
   ngOnInit() {
   }
