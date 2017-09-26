@@ -26,6 +26,16 @@ nav {
   .ths-icon{
     .icon{
       display: inline-block;
+      width: 25px;
+      height: 25px;
+      overflow: hidden;
+      position: relative;
+      vertical-align: middle;
+      img{
+        position: absolute;
+        width: 100px;
+        margin-left: -13px;
+      }
     }
     .dropdownList{
       height: 350px;
