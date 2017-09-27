@@ -63,7 +63,9 @@ export class PopupWindowComponent implements OnInit {
   hide_popup_window(): void {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
-    this.location.back();
+    if (!this.showEvent) {
+      this.location.back();
+    }
   }
 
   update_popup_window(slug): void {
