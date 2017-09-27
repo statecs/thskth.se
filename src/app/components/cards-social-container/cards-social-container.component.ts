@@ -26,6 +26,7 @@ export class CardsSocialContainerComponent implements OnInit {
   public selected_event_text: string;
   public selected_event_index: number;
   public ths_calendars: any[];
+  public existMorePosts: boolean;
 
   constructor( private socialMediaPostService: SocialMediaPostService,
                private googleCalendarService: GoogleCalendarService,
@@ -33,11 +34,15 @@ export class CardsSocialContainerComponent implements OnInit {
     this.displayedCards_amount = 4;
     this.showEventCalendar = false;
     this.ths_calendars = ths_calendars;
+    this.existMorePosts = true;
   }
 
   fetchMorePosts(): void {
-    this.socialMediaPosts = this.meta_data.slice(0, this.displayedCards_amount + 4);
     this.displayedCards_amount += 4;
+    this.socialMediaPosts = this.meta_data.slice(0, this.displayedCards_amount);
+    if (this.displayedCards_amount >= this.meta_data.length) {
+      this.existMorePosts = false;
+    }
   }
 
   displayEventInPopup() {
@@ -79,6 +84,7 @@ export class CardsSocialContainerComponent implements OnInit {
     this.selected_event_index = 0;
     this.socialMediaPostService.fetchAllPosts().subscribe(res => {
       this.meta_data = res;
+      console.log(res);
       this.socialMediaPosts = res.slice(0, this.displayedCards_amount);
     });
 

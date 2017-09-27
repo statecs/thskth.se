@@ -59,8 +59,8 @@ export class SocialMediaPostService {
   }
 
   sortArrayByTime(a, b) {
-    a = new Date(a.created_time);
-    b = new Date(b.created_time);
+    a = new Date(parseInt(a.created_time, 10));
+    b = new Date(parseInt(b.created_time, 10));
     return a > b ? -1 : a < b ? 1 : 0;
   };
 
@@ -76,7 +76,7 @@ export class SocialMediaPostService {
         link: 'https://www.facebook.com/' + post.from.id,
       };
       this.facebook_posts.push({
-        created_time: post.created_time,
+        created_time: post.created_time.toString(),
         message: post.message,
         full_picture: post.full_picture,
         link: 'https://www.facebook.com/' + post.from.id + this.getPostId(post.id),
@@ -99,7 +99,7 @@ export class SocialMediaPostService {
           message = post.caption.text;
         }
         this.instagram_posts.push({
-          created_time: post.created_time,
+          created_time: post.created_time.toString(),
           message: message,
           full_picture: post.images.standard_resolution.url,
           link: post.link,
