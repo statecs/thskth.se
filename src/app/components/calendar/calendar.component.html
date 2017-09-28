@@ -1,3 +1,7 @@
+<div class="categories">
+    <div *ngFor="let c of ths_calendars, let i = index" class="item" (click)="switchCalendar(i)" [ngClass]="{'selected': selected_event_category === i}">{{c.title}}</div>
+</div>
+
 <app-calendar-header
         [(view)]="view"
         [(viewDate)]="viewDate"

@@ -54,7 +54,7 @@ export class EventsCalendarComponent implements OnInit {
         this.events = [];
         console.log('no activity');
       }else {
-        this.getEventsPerDay(this.ths_calendars[0].calendarId, arg.viewDate);
+        this.getEventsPerDay(arg.calendarId, arg.viewDate);
       }
       console.log('actualDate');
     });

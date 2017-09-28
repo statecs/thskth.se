@@ -34,6 +34,7 @@ export class CalendarComponent implements OnInit {
   events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
   activeDayIsOpen: boolean;
   public ths_calendars: any[];
+  public selected_event_category: number;
 
   constructor(private googleCalendarService: GoogleCalendarService,
               private calendarCommunicationService: CalendarCommunicationService,
@@ -42,11 +43,18 @@ export class CalendarComponent implements OnInit {
     this.activeDayIsOpen = false;
     this.viewDate = new Date();
     this.ths_calendars = ths_calendars;
+    this.selected_event_category = 0;
+  }
+
+  switchCalendar(index) {
+    this.selected_event_category = index;
+    this.fetchEvents();
   }
 
   fetchEvents(): void {
-    this.events$ = this.googleCalendarService.fetchEvents(this.ths_calendars[0].calendarId, this.viewDate, this.view);
-    this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: this.viewDate});
+    console.log(this.selected_event_category);
+    this.events$ = this.googleCalendarService.fetchEvents(this.ths_calendars[this.selected_event_category].calendarId, this.viewDate, this.view);
+    this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: this.viewDate, calendarId: this.ths_calendars[this.selected_event_category].calendarId});
   }
 
   dayClicked({date, events}: {
@@ -58,10 +66,10 @@ export class CalendarComponent implements OnInit {
           (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
           events.length === 0
       ) {
-        this.calendarCommunicationService.updateEventItemsList({noActivity: true, viewDate: date});
+        this.calendarCommunicationService.updateEventItemsList({noActivity: true, viewDate: date, calendarId: this.ths_calendars[this.selected_event_category].calendarId});
       } else {
         this.viewDate = date;
-        this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: date});
+        this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: date, calendarId: this.ths_calendars[this.selected_event_category].calendarId});
       }
     }
     this.viewDate = date;

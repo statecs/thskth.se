@@ -1,0 +1,25 @@
+@import "../../../style/mixins";
+@import "../../../style/variables";
+
+.categories{
+  background: $bg-color-primary;
+  height: auto;
+  display: block;
+  color: darkgray;
+  font-size: $font-size-h6;
+  overflow: hidden;
+  .item{
+    display: inline-block;
+    padding:5px 7px;
+    height: 100%;
+    float: left;
+    cursor: pointer;
+    &:hover{
+      border-bottom:2px solid white;
+    }
+  }
+  .selected{
+    color: #fff;
+    border-bottom:2px solid white;
+  }
+}

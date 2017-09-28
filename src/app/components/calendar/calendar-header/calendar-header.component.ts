@@ -20,11 +20,11 @@ export class CalendarHeaderComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
   triggerEventUpdater() {
     this.updateEvents.emit(null);
+  }
+
+  ngOnInit() {
   }
 
 }
