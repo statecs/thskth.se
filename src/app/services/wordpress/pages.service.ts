@@ -41,7 +41,7 @@ export class PagesService {
       if (res.acf.header_image) {
         header_image = res.acf.header_image.url;
       }
-      if (res.acf.text_gallery) {
+      if (res.acf.ths_text_gallery) {
         text_gallery = this.castResToTextGalleryType(res);
       }
       if (res.acf.ths_image_gallery) {
@@ -83,7 +83,7 @@ export class PagesService {
 
   castResToTextGalleryType(res) {
     const items: TextGalleryItem[] = [];
-    res.acf.text_gallery[0].gallery_items.forEach((item) => {
+    res.acf.ths_text_gallery[0].gallery_items.forEach((item) => {
       items.push({
         title: item.title,
         url: item.url,
@@ -91,7 +91,7 @@ export class PagesService {
       });
     });
     return {
-      number_of_columns: res.acf.text_gallery[0].number_of_columns,
+      number_of_columns: res.acf.ths_text_gallery[0].number_of_columns,
       items: items,
     };
   }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {TextGallery} from '../../interfaces/page';
 
 @Component({
   selector: 'app-text-gallery',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./text-gallery.component.scss']
 })
 export class TextGalleryComponent implements OnInit {
+  @Input() textGallery: TextGallery;
 
   constructor() { }
 

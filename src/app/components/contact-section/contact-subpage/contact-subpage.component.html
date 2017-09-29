@@ -16,6 +16,8 @@
     </div>
     <div class="content-container">
       <div class="content" [innerHTML]="page.content"></div>
+      <app-image-gallery *ngIf="page.image_gallery" [imageGallery]="page.image_gallery"></app-image-gallery>
+      <app-text-gallery *ngIf="page.text_gallery" [textGallery]="page.text_gallery"></app-text-gallery>
     </div>
   </div>
 </div>

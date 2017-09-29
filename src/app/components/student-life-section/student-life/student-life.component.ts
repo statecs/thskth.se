@@ -50,6 +50,7 @@ export class StudentLifeComponent implements OnInit {
     console.log(slug);
     this.pagesService.getPageBySlug(slug).subscribe((page) => {
       this.page = page;
+      console.log(page);
     });
   }
 
