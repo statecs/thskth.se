@@ -6,6 +6,7 @@ nav {
   display: inline-block;
   right: 0;
   padding: 20px 0;
+  font-size: $font-size-h6 + 0.01em;
 
   .payment-btn {
     border-radius: 15px;
@@ -48,7 +49,7 @@ nav {
 
   >div{
     display:inline-block;
-    margin-left: 23px;
+    margin-left: 15px;
     font-size: $font-size-default;
     color: $color-white;
     position: relative;
