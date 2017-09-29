@@ -16,6 +16,13 @@
     </div>
     <div class="content-container">
       <div class="content" [innerHTML]="page.content"></div>
+      <div class="image-gallery">
+        <div *ngFor="let item of page.image_gallery.items" class="item columns-2">
+          <img src="{{item.image}}">
+          <h2>{{item.title}}</h2>
+          <p [innerHTML]="item.description"></p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

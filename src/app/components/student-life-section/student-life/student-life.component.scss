@@ -58,6 +58,22 @@
       vertical-align: top;
       left: 4%;
       line-height: 1.2;
+      .image-gallery{
+        width: 104%;
+        .item{
+          position: relative;
+          display: inline-block;
+          vertical-align: top;
+          margin-right: 4%;
+          margin-bottom: 50px;
+          img{
+            width: 100%;
+          }
+        }
+        .columns-2{
+          width: 46%;
+        }
+      }
     }
   }
 }

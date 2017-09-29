@@ -72,7 +72,7 @@ export class PagesService {
         image: item.image.url,
         title: item.title,
         url: item.url,
-        description: item.url,
+        description: item.description,
       });
     });
     return {
