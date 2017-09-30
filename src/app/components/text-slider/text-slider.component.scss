@@ -1,5 +1,4 @@
-@import "../../../style/mixins";
-@import "../../../style/variables";
+@import "../../../style/utilities";
 
 #text-slider {
   //@include container-size($main-container);
@@ -86,4 +85,33 @@
       }
     }
   }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #text-slider {
+
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #text-slider {
+
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #text-slider {
+
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #text-slider {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
 }

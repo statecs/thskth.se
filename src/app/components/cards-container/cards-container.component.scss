@@ -1,5 +1,4 @@
-@import "../../../style/mixins";
-@import "../../../style/variables";
+@import "../../../style/utilities";
 
 .masonry-layout {
   height: auto;
@@ -297,3 +296,33 @@
   padding: 10px;
   border-radius: 10px;
 }*/
+
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  .masonry-layout {
+
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  .masonry-layout {
+
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  .masonry-layout {
+
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  .masonry-layout {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

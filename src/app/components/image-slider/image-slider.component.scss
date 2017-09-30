@@ -1,5 +1,4 @@
-@import "../../../style/mixins";
-@import "../../../style/variables";
+@import "../../../style/utilities";
 
 #img-slider {
   //@include container-size($main-container);
@@ -147,4 +146,33 @@
       background-color: lightgray;
     }
   }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #img-slider {
+
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #img-slider {
+
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #img-slider {
+
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #img-slider {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
 }

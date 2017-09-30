@@ -1,5 +1,4 @@
-@import "../../../style/mixins";
-@import "../../../style/variables";
+@import "../../../style/utilities";
 
 #homePage {
   .contact{
@@ -30,4 +29,46 @@
       font-size: $font-size-h2;
     }
   }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #homePage {
+    .contact{
+      @include container-size(100%);
+      height: 250px;
+      margin-top: 20px;
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #homePage {
+    .contact{
+      height: 250px;
+      margin-top: 50px;
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #homePage {
+    .contact{
+      height: 300px;
+      margin-top: 50px;
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #homePage {
+    .contact{
+      height: 300px;
+      margin-top: 50px;
+    }
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
 }

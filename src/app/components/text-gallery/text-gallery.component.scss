@@ -1,3 +1,5 @@
+@import "../../../style/utilities";
+
 .image-gallery{
   width: 104%;
   .item{
@@ -19,4 +21,33 @@
   .columns-3{
     width: 29%;
   }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  .image-gallery {
+
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  .image-gallery {
+
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  .image-gallery {
+
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  .image-gallery {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
 }

@@ -1,5 +1,4 @@
-@import "../../../../style/mixins";
-@import "../../../../style/variables";
+@import "../../../../style/utilities";
 
 #calendar-header{
   position: relative;
@@ -59,4 +58,34 @@
     height: 50px;
     margin-top: 20px;
   }
+}
+
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #calendar-header {
+
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #calendar-header {
+
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #calendar-header {
+
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #calendar-header {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
 }

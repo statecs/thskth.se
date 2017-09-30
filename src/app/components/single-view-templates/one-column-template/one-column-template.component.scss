@@ -1,5 +1,4 @@
-@import "../../../../style/mixins";
-@import "../../../../style/variables";
+@import "../../../../style/utilities";
 
 #one-column-template{
   .header-image{
@@ -105,4 +104,33 @@
       height: auto !important;
     }
   }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #one-column-template {
+
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #one-column-template {
+
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #one-column-template {
+
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #one-column-template {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
 }

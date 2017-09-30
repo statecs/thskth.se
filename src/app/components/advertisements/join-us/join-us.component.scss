@@ -1,5 +1,4 @@
-@import "../../../../style/mixins";
-@import "../../../../style/variables";
+@import "../../../../style/utilities";
 
 #join-us{
   color: white;
@@ -17,4 +16,33 @@
     border-radius: 20px;
     margin-top: 10px;
   }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #join-us {
+
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #join-us {
+
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #join-us {
+
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #join-us {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
 }

@@ -1,5 +1,4 @@
-@import "../../../../style/mixins";
-@import "../../../../style/variables";
+@import "../../../../style/utilities";
 
 .event-wrapper{
   //@include center-vertically(50%);
@@ -51,4 +50,33 @@
       }
     }
   }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  .event-wrapper {
+
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  .event-wrapper {
+
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  .event-wrapper {
+
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  .event-wrapper {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
 }
