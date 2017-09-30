@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div id="content-container">
-  <div class="search-bar">
+  <div class="search-bar" [ngClass]="{'center-vertically': !showResults}">
     <h2>Search THS and beyond</h2>
     <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
       <div class="search">
@@ -79,8 +79,8 @@
     </form>
   </div>
 
-  <div class="results-container">
-    <div *ngIf="showResults">
+  <div *ngIf="showResults" class="results-container">
+    <div>
       <h2>Results of "{{searchTerm}}"</h2>
       <div *ngIf="postsChecked" class="section">
         <h3>Posts</h3>

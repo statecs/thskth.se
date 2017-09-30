@@ -89,7 +89,9 @@ export class SearchComponent implements OnInit {
     if (this.faqChecked) {
       this.searchFAQs();
     }
-    this.location.go('/search?q=' + this.searchTerm);
+    if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
+      this.location.go('/search?q=' + this.searchTerm);
+    }
   }
 
   searchPosts(): void {
@@ -147,7 +149,9 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchTerm = params['q'];
-      this.submitSearch();
+      if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
+        this.submitSearch();
+      }
     });
   }
 
