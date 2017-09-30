@@ -91,6 +91,7 @@ import { ArchiveComponent } from './components/archive/archive.component';
 import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
 import { ContactSubpageComponent } from './components/contact-section/contact-subpage/contact-subpage.component';
 import { LoaderMessageComponent } from './components/loader-message/loader-message.component';
+import { JoinUsComponent } from './components/advertisements/join-us/join-us.component';
 
 
 @NgModule({
@@ -149,7 +150,8 @@ import { LoaderMessageComponent } from './components/loader-message/loader-messa
     ArchiveComponent,
     ChaptersAssociationsComponent,
     ContactSubpageComponent,
-    LoaderMessageComponent
+    LoaderMessageComponent,
+    JoinUsComponent
   ],
   imports: [
     BrowserModule,
