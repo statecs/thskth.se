@@ -3,6 +3,7 @@ import format from 'date-fns/format/index';
 import { ths_calendars } from '../../../utils/ths-calendars';
 import { GoogleCalendarService } from '../../../services/google-calendar/google-calendar.service';
 import { Event } from '../../../interfaces/event';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-events-card',
@@ -18,8 +19,13 @@ export class EventsCardComponent implements OnInit {
 
   constructor(
       private googleCalendarService: GoogleCalendarService,
+      private router: Router
   ) {
     this.ths_calendars = ths_calendars;
+  }
+
+  goToPage(slug): void {
+    this.router.navigate(['/' + slug]);
   }
 
   selectEvent(i) {

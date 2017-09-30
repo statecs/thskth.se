@@ -10,9 +10,8 @@
     border-bottom: 1px solid lightgray;
     padding-bottom: 5px;
   }
-  & >a{
+  & >span{
     cursor: pointer;
-    text-decoration: none;
     color: $color-link;
     &:hover{
       color: $color-link-hover;
