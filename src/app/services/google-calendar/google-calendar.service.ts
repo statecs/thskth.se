@@ -6,6 +6,7 @@ import { Event } from '../../interfaces/event';
 import { AppConfig } from '../../interfaces/appConfig';
 import { colors } from '../../utils/colors';
 import { APP_CONFIG } from '../../app.config';
+import { ths_calendars } from '../../utils/ths-calendars';
 
 import isSameMonth from 'date-fns/is_same_month/index';
 import isSameDay from 'date-fns/is_same_day/index';
@@ -28,10 +29,12 @@ export class GoogleCalendarService {
   protected config: AppConfig;
   protected search: URLSearchParams = new URLSearchParams();
   view: string;
+  public ths_calendars: any[];
 
   constructor(private http: Http, private injector: Injector) {
     this.config = injector.get(APP_CONFIG);
     this.view = '';
+    this.ths_calendars = ths_calendars;
   }
 
   getStart(viewDate: any): any {
@@ -58,6 +61,29 @@ export class GoogleCalendarService {
       default:
         console.log('Wrong view');
     }
+  }
+
+  getAllEvents(): Observable<Event[][]> {
+    const startDate = new Date();
+    this.search.set(
+        'timeMin',
+        format(startDate, 'YYYY-MM-DDTHH:mm:ss.SSSz')
+    );
+    this.search.set('key', this.config.GOOGLE_CALENDAR_KEY);
+    this.search.set('singleEvents', 'true');
+    this.search.set('orderBy', 'startTime');
+    this.search.set('maxResults', '4');
+    const params = this.search;
+    const cal1 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[0].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res);});
+    const cal2 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[1].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res);});
+    const cal3 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[2].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res);});
+    const cal4 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[3].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res);});
+    const cal5 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[4].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res);});
+    const cal6 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[5].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res);});
+    const cal7 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[6].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res);});
+    const cal8 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[7].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res);});
+
+    return Observable.forkJoin([cal1, cal2, cal3, cal4, cal5, cal6, cal7, cal8]);
   }
 
   fetchEvents(calendarId, viewDate, view): Observable<Event[]> {

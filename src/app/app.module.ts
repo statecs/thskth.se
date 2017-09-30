@@ -92,6 +92,7 @@ import { ChaptersAssociationsComponent } from './components/chapters-association
 import { ContactSubpageComponent } from './components/contact-section/contact-subpage/contact-subpage.component';
 import { LoaderMessageComponent } from './components/loader-message/loader-message.component';
 import { JoinUsComponent } from './components/advertisements/join-us/join-us.component';
+import { EventsCardComponent } from './components/advertisements/events-card/events-card.component';
 
 
 @NgModule({
@@ -151,7 +152,8 @@ import { JoinUsComponent } from './components/advertisements/join-us/join-us.com
     ChaptersAssociationsComponent,
     ContactSubpageComponent,
     LoaderMessageComponent,
-    JoinUsComponent
+    JoinUsComponent,
+    EventsCardComponent
   ],
   imports: [
     BrowserModule,

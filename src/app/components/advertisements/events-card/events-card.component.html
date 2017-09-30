@@ -1,0 +1,13 @@
+<div class="event-wrapper">
+  <h4>Upcoming events</h4>
+  <div *ngFor="let e of events, let i = index" class="event">
+    <h6>{{getMonth(e.start)}}</h6>
+    <div class="date" (click)="selectEvent(i)">
+      <span>{{getDay(e.start)}}</span>
+    </div>
+    <div class="excerpt">
+      <span (click)="displayEventInPopup()">{{e.title | cardText:25}}</span>
+    </div>
+  </div>
+  <a routerLink="events-calendar">View all events >></a>
+</div>
