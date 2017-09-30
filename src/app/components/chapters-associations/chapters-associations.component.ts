@@ -95,7 +95,15 @@ export class ChaptersAssociationsComponent implements OnInit {
   }
 
   showAssociationInPopup(item: Association): void {
-    this.popupWindowCommunicationService.showAssociationInPopup(item);
+    let relatedAssociations: Association[] = [];
+    if (item.category === 'Career and consulting') {
+      relatedAssociations = this.career_associations;
+    }else if (item.category === 'Sports associations') {
+      relatedAssociations = this.sport_associations;
+    }else if (item.category === 'Social activities') {
+      relatedAssociations = this.social_associations;
+    }
+    this.popupWindowCommunicationService.showAssociationInPopup({association: item, relatedAssociations: relatedAssociations});
   }
 
   goToPage(slug): void {

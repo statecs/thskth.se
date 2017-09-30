@@ -1,4 +1,6 @@
-import {Component, OnInit, Renderer2, HostListener, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, Renderer2, HostListener, ViewChild, ElementRef, Input} from '@angular/core';
+import {Association} from '../../interfaces/chapters_associations';
+import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 
 @Component({
   selector: 'app-image-slider-secondary',
@@ -6,13 +8,18 @@ import {Component, OnInit, Renderer2, HostListener, ViewChild, ElementRef} from 
   styleUrls: ['./image-slider-secondary.component.scss']
 })
 export class ImageSliderSecondaryComponent implements OnInit {
-
+  @Input() data: any;
   @ViewChild('slider') slider: ElementRef;
   public touchStartListener: any;
   public enableScroll: boolean;
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2,
+              private popupWindowCommunicationService: PopupWindowCommunicationService) {
     this.enableScroll = false;
+  }
+
+  showAssociationInPopup(item: Association): void {
+    this.popupWindowCommunicationService.showAssociationInPopup({association: item, relatedAssociations: this.data.items});
   }
 
   showScroll() {
@@ -28,15 +35,17 @@ export class ImageSliderSecondaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.touchStartListener = this.renderer.listen(this.slider.nativeElement, 'touchstart', (event) => {
-      //event.preventDefault();
-      this.showScroll();
-    });
+    if (this.slider) {
+      this.touchStartListener = this.renderer.listen(this.slider.nativeElement, 'touchstart', (event) => {
+        //event.preventDefault();
+        this.showScroll();
+      });
 
-    this.touchStartListener = this.renderer.listen(this.slider.nativeElement, 'touchend', (event) => {
-      //event.preventDefault();
-      this.hideScroll();
-    });
+      this.touchStartListener = this.renderer.listen(this.slider.nativeElement, 'touchend', (event) => {
+        //event.preventDefault();
+        this.hideScroll();
+      });
+    }
   }
 
 }

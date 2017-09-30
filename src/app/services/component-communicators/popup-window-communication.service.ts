@@ -22,8 +22,8 @@ export class PopupWindowCommunicationService {
     this.event_notify.next(event);
   }
 
-  showAssociationInPopup(association: Association) {
-    this.association_notify.next(association);
+  showAssociationInPopup(arg: any) {
+    this.association_notify.next(arg);
   }
 
 }

@@ -25,6 +25,7 @@ export class PopupWindowComponent implements OnInit {
   public top_position: number;
   public showAssociation: boolean;
   public association: Association;
+  public relatedAssociations: object;
 
   constructor( private wordpressApiService: WordpressApiService,
                 private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -63,7 +64,7 @@ export class PopupWindowComponent implements OnInit {
   hide_popup_window(): void {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
-    if (!this.showEvent) {
+    if (!this.showEvent && !this.showAssociation) {
       this.location.back();
     }
   }
@@ -86,10 +87,15 @@ export class PopupWindowComponent implements OnInit {
     this.show_popup_window();
   }
 
-  show_association_in_popup(association): void {
+  show_association_in_popup(arg): void {
     this.setPosition();
     this.showAssociation = true;
-    this.association = association;
+    this.association = arg.association;
+    this.relatedAssociations = {
+      title: 'Related associations',
+      items: arg.relatedAssociations,
+      displayed_item: arg.association
+    };
     this.show_popup_window();
   }
 
@@ -102,8 +108,8 @@ export class PopupWindowComponent implements OnInit {
     this.popup_window_event_updater = this.popupWindowCommunicationService.eventNotifyObservable$.subscribe((event) => {
       this.show_event_in_popup(event);
     });
-    this.popup_window_association_updater = this.popupWindowCommunicationService.associationNotifyObservable$.subscribe((association) => {
-      this.show_association_in_popup(association);
+    this.popup_window_association_updater = this.popupWindowCommunicationService.associationNotifyObservable$.subscribe((arg) => {
+      this.show_association_in_popup(arg);
     });
   }
 
