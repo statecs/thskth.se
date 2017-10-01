@@ -9,7 +9,7 @@
           </div>
       </div>
   </div>
-  <div (click)="switchPerson()" class="switcher">
+<!--  <div (click)="switchPerson()" class="switcher">
     <div #switch_button class="switch-button"></div>
   </div>
   <div #company class="company" (click)="companyIsDisabled === true || toggleDropdown(2)" [attr.disabled]="companyIsDisabled">
@@ -20,9 +20,9 @@
               <div *ngFor="let c of org_cats" class="dropdown-item" (click)="updateFiltering('company', $event, c.id)">{{c.name}}</div>
           </div>
       </div>
-  </div>
+  </div>-->
   and I am interested in
-  <div class="interest" (click)="toggleDropdown(3)">
+  <div class="interest" (click)="toggleDropdown(2)">
     <span>{{selected_interest_name}}</span>
     <i class="material-icons">keyboard_arrow_down</i>
       <div class="dropdown-container">

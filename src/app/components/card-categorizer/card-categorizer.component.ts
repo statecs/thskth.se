@@ -13,9 +13,9 @@ import { CardCategory } from '../../interfaces/card';
 })
 export class CardCategorizerComponent implements AfterViewInit {
 
-  @ViewChild('switch_button') switch_button: ElementRef;
+  //@ViewChild('switch_button') switch_button: ElementRef;
   @ViewChild('profession') profession: ElementRef;
-  @ViewChild('company') company: ElementRef;
+  //@ViewChild('company') company: ElementRef;
   @ViewChild('card_categorizer') card_categorizer: ElementRef;
 
   public activated_person: number;
@@ -65,27 +65,27 @@ export class CardCategorizerComponent implements AfterViewInit {
   }
 
   switchLeft(): void {
-    const el = this.switch_button.nativeElement;
+    //const el = this.switch_button.nativeElement;
     const profession_el = this.profession.nativeElement;
-    const company_el = this.company.nativeElement;
-    el.style.left = '0px';
+    //const company_el = this.company.nativeElement;
+    //el.style.left = '0px';
     profession_el.style.opacity = 1;
     profession_el.style.cursor = 'pointer';
-    company_el.style.opacity = 0.25;
+    /*company_el.style.opacity = 0.25;
     company_el.disabled = true;
-    company_el.style.cursor = 'default';
+    company_el.style.cursor = 'default';*/
   }
 
   switchRight(): void {
-    const el = this.switch_button.nativeElement;
+    //const el = this.switch_button.nativeElement;
     const profession_el = this.profession.nativeElement;
-    const company_el = this.company.nativeElement;
-    el.style.left = '66%';
+    //const company_el = this.company.nativeElement;
+    //el.style.left = '66%';
     profession_el.style.opacity = 0.25;
     profession_el.disabled = true;
     profession_el.style.cursor = 'default';
-    company_el.style.opacity = 1;
-    company_el.style.cursor = 'pointer';
+    /*company_el.style.opacity = 1;
+    company_el.style.cursor = 'pointer';*/
   }
 
   updateCardsContainer(): void {

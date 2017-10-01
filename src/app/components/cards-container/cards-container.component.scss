@@ -7,6 +7,9 @@
   flex-direction: row;
   flex-wrap: wrap;
 
+  app-loader{
+    width: 100%;
+  }
   .loader{
     color: $text-color-brown;
   }
