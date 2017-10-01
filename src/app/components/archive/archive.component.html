@@ -127,7 +127,8 @@
               </div>
             </div>
           </div>
-          <p *ngIf="documentsLoading">Loading...</p>
+          <app-loader *ngIf="documentsLoading"></app-loader>
+          <!--<p *ngIf="documentsLoading">Loading...</p>-->
           <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>
         </div>
       </div>

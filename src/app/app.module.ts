@@ -93,6 +93,7 @@ import { ContactSubpageComponent } from './components/contact-section/contact-su
 import { LoaderMessageComponent } from './components/loader-message/loader-message.component';
 import { JoinUsComponent } from './components/advertisements/join-us/join-us.component';
 import { EventsCardComponent } from './components/advertisements/events-card/events-card.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 
 @NgModule({
@@ -153,7 +154,8 @@ import { EventsCardComponent } from './components/advertisements/events-card/eve
     ContactSubpageComponent,
     LoaderMessageComponent,
     JoinUsComponent,
-    EventsCardComponent
+    EventsCardComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
