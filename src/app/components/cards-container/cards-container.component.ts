@@ -131,6 +131,7 @@ export class CardsContainerComponent implements OnInit {
       this.selected_event_text = '';
       this.selected_event_index = 0;
       this.cardsUpdater = this.cardCategorizerCardContainerService.notifyObservable$.subscribe((arg) => {
+          console.log(arg);
           this.displayCards(arg);
       });
 

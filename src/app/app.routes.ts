@@ -105,9 +105,27 @@ const appRoutes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'international',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'international' },
+        pathMatch: 'full'
+    },
+    {
+        path: 'student',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'student' },
+        pathMatch: 'full'
+    },
+    {
+        path: 'company',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'company' },
+        pathMatch: 'full'
+    },
+    {
         path: '',
         component: HomeComponent,
-        data: { title: 'Home page' },
+        data: { title: 'Home page', profession: 'student' },
         pathMatch: 'full'
     },
     {
