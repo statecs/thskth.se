@@ -1,11 +1,46 @@
 <header #app_header>
-    <div class="container">
+    <div class="container bigger-device">
         <div class="search" role="search" (click)="showSearchMenubar()"><i class="material-icons">search</i> Search THS and beyond</div>
         <div class="logo">
             <a routerLink="/"><img src="../../../assets/images/logo.png"/></a>
         </div>
 
         <app-navbar-primary></app-navbar-primary>
+        <!--<app-navbar-sections></app-navbar-sections>
+        <app-navbar-secondary></app-navbar-secondary>-->
+    </div>
+    <div class="container mobile">
+        <div class="menu-wrapper">
+            <div class="logo">
+                <a routerLink="/"><img src="../../../assets/images/logo.png"/></a>
+            </div>
+
+            <!--        <app-navbar-primary></app-navbar-primary>-->
+            <div class="menu-bar">
+                <div class="chapters">
+                    <div class="icon" (click)="toggleChaptersMobile()">
+                        <img src="../../../assets/images/logo.png">
+                    </div>
+                </div>
+                <div class="menu" (click)="toggleMenuMobile()">
+                    <span>Menu</span>
+                    <i class="material-icons">keyboard_arrow_down</i>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="showMenuMobile" class="menu-items">
+            <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
+                <div class="label">
+                    <a routerLink="{{item.slug}}">{{item.title}}</a>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="showChaptersMobile" class="chapters-items">
+            <div *ngFor="let chapter of ths_chapters" class="nav-item">
+                <div class="logo"><img src="{{chapter.image}}"></div>
+                <label>{{chapter.title}}</label>
+            </div>
+        </div>
         <!--<app-navbar-sections></app-navbar-sections>
         <app-navbar-secondary></app-navbar-secondary>-->
     </div>

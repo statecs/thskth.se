@@ -4,6 +4,9 @@ import { NavbarSectionsComponent } from '../footer/navbar-sections/navbar-sectio
 import { NavbarSecondaryComponent } from './navbar-secondary/navbar-secondary.component';
 import { HeaderCommunicationService } from '../../services/component-communicators/header-communication.service';
 import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
+import {MenusService} from '../../services/wordpress/menus.service';
+import {MenuItem2} from '../../interfaces/menu';
+import { ths_chapters } from '../../utils/ths-chapters';
 
 @Component({
   selector: 'app-header',
@@ -13,9 +16,26 @@ import { SearchMenubarCommunicationService } from '../../services/component-comm
 export class HeaderComponent implements OnInit {
 
   @ViewChild('app_header') app_header: ElementRef;
+  private topLevelMainMenu: MenuItem2[];
+  public showMenuMobile: boolean;
+  public showChaptersMobile: boolean;
+  public ths_chapters: object[];
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
-              private searchMenubarCommunicationService: SearchMenubarCommunicationService) { }
+              private searchMenubarCommunicationService: SearchMenubarCommunicationService,
+              private menusService: MenusService) {
+    this.showMenuMobile = false;
+    this.showChaptersMobile = false;
+    this.ths_chapters = ths_chapters;
+  }
+
+  toggleChaptersMobile(): void {
+    (this.showChaptersMobile === true ? this.showChaptersMobile = false : this.showChaptersMobile = true);
+  }
+
+  toggleMenuMobile(): void {
+    (this.showMenuMobile === true ? this.showMenuMobile = false : this.showMenuMobile = true);
+  }
 
   showSearchMenubar(): void {
     this.searchMenubarCommunicationService.showSearchMenubar();
@@ -37,6 +57,11 @@ export class HeaderComponent implements OnInit {
         this.collapseHeader();
       }
     });
+
+    this.menusService.getTopLevel_mainMenu()
+        .subscribe(res => {
+          this.topLevelMainMenu = res;
+        });
   }
 
 }

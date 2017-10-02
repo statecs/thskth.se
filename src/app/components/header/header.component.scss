@@ -7,7 +7,9 @@ header {
   text-align: center;
   transition: top 0.5s ease;
   z-index: 1;
-
+  .mobile{
+    display: none;
+  }
   .container{
     @include container-size($main-container);
     position: relative;
@@ -54,7 +56,114 @@ header {
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   header {
+    .container {
+      @include container-size(100%);
+      overflow: hidden;
+      .menu-wrapper{
+        width: 100%;
+        margin-bottom: 10px;
+        .logo {
+          float: left;
+          margin-left: 10px;
+        }
+        .menu-bar{
+          color: white;
+          float: right;
+          >div{
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+          }
+          .chapters{
+            .icon{
+              display: inline-block;
+              width: 35px;
+              height: 30px;
+              overflow: hidden;
+              position: relative;
+              vertical-align: middle;
+              img{
+                position: absolute;
+                width: 130px;
+                margin-left: -13px;
+              }
+            }
+          }
+          .menu{
+            font-size: $font-size-h3;
+            i{
+              font-size: $font-size-h3;
+              vertical-align: middle;
+            }
+          }
+        }
+      }
 
+      .menu-items{
+        display: block;
+        background-color: white;
+        padding: 10px 0;
+        .nav-item{
+          padding: 5px 0;
+          a{
+            text-decoration: none;
+            color: black;
+            font-size: $font-size-h3;
+          }
+        }
+      }
+      .chapters-items{
+        display: block;
+        background-color: white;
+        padding: 10px 0;
+        color: black;
+        font-size: $font-size-h4;
+        text-align: left;
+        height: 350px;
+        overflow-y: scroll;
+        .nav-item{
+          padding: 5px 10px;
+          .logo{
+            background-color: rgba(0,0,0,0.25);
+            display: inline-block;
+            vertical-align: middle;
+            img{
+              width: 40px;
+              height: 40px;
+              vertical-align: middle;
+            }
+          }
+        }
+        label{
+          display: inline-block;
+          width: 85%;
+          vertical-align: middle;
+        }
+      }
+    }
+    .bigger-device{
+      display: none !important;
+    }
+    .mobile{
+      display: block;
+    }
+  }
+
+  ::-webkit-scrollbar
+  {
+    width: 10px;  /* for vertical scrollbars */
+    height: 10px; /* for horizontal scrollbars */
+  }
+
+  ::-webkit-scrollbar-track
+  {
+    background: rgba(84, 84, 84, 0.2);
+  }
+
+  ::-webkit-scrollbar-thumb
+  {
+    background: #b2b2b2;
+    border-radius: 10px;
   }
 }
 // Small devices (landscape phones, 576px and up)
