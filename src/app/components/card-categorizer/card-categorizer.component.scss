@@ -92,7 +92,9 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #card-categorizer {
-
+    @include container-size(90%);
+    padding: 0;
+    font-size: $font-size-default;
   }
 }
 // Small devices (landscape phones, 576px and up)

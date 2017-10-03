@@ -215,7 +215,86 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #primary-slider {
-
+    height: 75vh;
+    .slides {
+      .video-template {
+        .video-controller {
+          i {
+            font-size: $font-size-h1 + 0.5em;
+          }
+        }
+      }
+      .text-center-template {
+        @include center-content(60%, 50%);
+        h2{
+          font-size: $font-size-h4;
+        }
+        p{
+          font-size: $font-size-h6;
+        }
+        button{
+          @include capsule-button(20px, 5px);
+        }
+      }
+      .image-on-right-template {
+        margin-top: 20%;
+        .text-wrapper {
+          vertical-align: middle;
+          h2{
+            font-size: $font-size-h4;
+          }
+          p{
+            font-size: $font-size-h6;
+          }
+          button{
+            @include capsule-button(20px, 5px);
+          }
+        }
+        .img-wrapper {
+          display: inline-block;
+          vertical-align: middle;
+          img {
+            max-height: 100px;
+          }
+        }
+      }
+      .image-on-left-template {
+        margin-top: 20%;
+        .text-wrapper {
+          vertical-align: middle;
+          h2{
+            font-size: $font-size-h4;
+          }
+          p{
+            font-size: $font-size-h6;
+          }
+          button{
+            @include capsule-button(20px, 5px);
+          }
+        }
+        .img-wrapper {
+          vertical-align: middle;
+          img {
+            max-height: 100px;
+          }
+        }
+      }
+    }
+    .slider-bar-container {
+      .slider-bar {
+        margin-left: 4%;
+        .item{
+          .text {
+            .title{
+              display: none;
+            }
+          }
+        }
+      }
+      .slideshow-play-button{
+        padding:5px;
+      }
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)

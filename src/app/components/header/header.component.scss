@@ -59,16 +59,19 @@ header {
     .container {
       @include container-size(100%);
       overflow: hidden;
+      padding: 5px 0;
       .menu-wrapper{
         width: 100%;
-        margin-bottom: 10px;
         .logo {
           float: left;
           margin-left: 10px;
         }
         .menu-bar{
           color: white;
-          float: right;
+          vertical-align: middle;
+          top: 10px;
+          position: absolute;
+          right: 0;
           >div{
             display: inline-block;
             margin-right: 10px;
@@ -84,15 +87,15 @@ header {
               vertical-align: middle;
               img{
                 position: absolute;
-                width: 130px;
+                width: 120px;
                 margin-left: -13px;
               }
             }
           }
           .menu{
-            font-size: $font-size-h3;
+            font-size: $font-size-h4;
             i{
-              font-size: $font-size-h3;
+              font-size: $font-size-h4;
               vertical-align: middle;
             }
           }

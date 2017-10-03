@@ -49,7 +49,11 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #notification-bar {
-
+    padding: 10px;
+    & >p{
+      width: 80%;
+      vertical-align: middle;
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
