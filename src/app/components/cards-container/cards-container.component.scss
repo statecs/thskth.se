@@ -309,7 +309,59 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   .masonry-layout {
-
+    width: 90%;
+    .o-third {
+      width: 100%;
+    }
+    .two-third {
+      width: 100%;
+    }
+    .one-sixth {
+      height: 110px !important;
+      .video-card{
+        h2{
+          font-size: $font-size-h6 !important;
+        }
+        .video-controller{
+          i{
+            font-size: $font-size-h1 !important;
+          }
+        }
+      }
+    }
+    .one-third-half {
+      height: 110px !important;
+    }
+    .masonry-layout_panel {
+      height: 230px;
+    }
+  }
+  :host /deep/ .video-card {
+    .text h2{
+      font-size: $font-size-h3;
+    }
+    .video-controller i {
+      font-size: 4em;
+    }
+  }
+  :host /deep/ .centered-content-card {
+    .content {
+      padding: 0 10%;
+      h2 {
+        font-size: $font-size-h3;
+      }
+      > a {
+        padding: 10px 30px;
+        margin-top: 10px;
+      }
+    }
+  }
+  :host /deep/ .standard-card {
+    .content{
+      h2{
+        font-size: $font-size-h3;
+      }
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
