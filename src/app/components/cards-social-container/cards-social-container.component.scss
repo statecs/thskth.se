@@ -46,7 +46,12 @@
       height: 100%;
       box-shadow: 0 1px 5px #888888;
       margin-top: 10px;
-
+      .large-devices{
+        display: block;
+      }
+      .mobile{
+        display: none;
+      }
       .host{
         i{
           float: right;
@@ -139,7 +144,7 @@
   }
 }
 
-// ---------- Event Calendar card ---------- //
+// ---------- Single event card ---------- //
 :host /deep/ .single-event-card {
   height: 270px;
 
@@ -153,6 +158,12 @@
     width: 58%;
     position: relative;
     padding: 20px;
+    .large-devices{
+      display: block;
+    }
+    .mobile{
+      display: none;
+    }
     .user{
       img{
         @include circle(50px);
@@ -208,6 +219,7 @@
       @include capsule-button(10px, 5px);
       @include center-content(50%, 50%);
       text-decoration: none;
+      text-align: center;
     }
   }
 }
@@ -253,6 +265,7 @@
     span{
       @include capsule-button(10px, 5px);
       cursor: pointer;
+      margin-top: 10px;
     }
   }
   .right-content{
@@ -437,11 +450,109 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   .title{
-
+    font-size:$font-size-h3;
+    width: 95%;
   }
-
   .masonry-layout {
+    width: 100%;
+    .one-fourth {
+      width: 100%;
+    }
 
+    .two-fourth {
+      width: 100%;
+    }
+    .masonry-layout_panel {
+      .masonry-layout_panel-content {
+        height: auto;
+        .host {
+          i{
+            font-size: $font-size-h2;
+          }
+        }
+        .large-devices{
+          display: none;
+        }
+        .mobile{
+          display: block;
+        }
+      }
+    }
+  }
+  :host /deep/ .single-event-card {
+    height: 200px;
+    .left-content{
+      padding: 10px;
+      .large-devices{
+        display: none;
+      }
+      .mobile{
+        display: block;
+      }
+      .user{
+        >div{
+          width: 70%;
+          span{
+            font-size: $font-size-h8;
+          }
+        }
+      }
+    }
+  }
+  :host /deep/ .event-calendar-card {
+    height: 200px;
+    .left-content{
+      padding: 0 10px;
+      h3{
+        font-size: $font-size-h4;
+        margin: 15px 0 5px;
+      }
+    }
+    .right-content{
+      .event-wrapper{
+        padding-bottom: 20px;
+        >h4{
+          margin: 5px 0;
+        }
+        .event{
+          .date{
+            width: 40px;
+            height: 40px;
+          }
+          .excerpt{
+            width: 60%;
+          }
+        }
+        .event:nth-child(3){
+          display: none !important;
+        }
+      }
+    }
+  }
+  :host /deep/ .featured-card {
+    height: 400px;
+    .user{
+      margin-top: 60px;
+      >div{
+        width: 70%;
+      }
+    }
+    .host{
+      i{
+        font-size: $font-size-h2 + 0.5em !important;
+      }
+    }
+    a{
+      padding: 10px;
+      margin-top: 20px;
+    }
+  }
+  .fetcher {
+    height: 5px;
+    .plus-button {
+      width: 35px;
+      height: 35px;
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
