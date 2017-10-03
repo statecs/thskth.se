@@ -28,7 +28,11 @@ nav {
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   nav {
-
+    margin-top: 10px;
+    .menu-sections {
+      margin-bottom: 20px;
+      text-align: center;
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
