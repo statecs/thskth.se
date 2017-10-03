@@ -39,6 +39,12 @@
       height: 250px;
       margin-top: 20px;
     }
+    .faq-slider, .image-slider {
+      width: 95%;
+      & >div{
+        font-size: $font-size-h3;
+      }
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)

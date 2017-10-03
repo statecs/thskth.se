@@ -2,7 +2,8 @@
   <div *ngFor="let item of slides_items" class="slide-wrapper">
     <div class="slide">
       <h2 [innerHTML]="item.question"></h2>
-      <p [innerHTML]="item.answer"></p>
+      <p class="large-devices" [innerHTML]="item.answer | cardText:800"></p>
+      <p class="mobile" [innerHTML]="item.answer | cardText:250"></p>
     </div>
     <a class="category" [innerHTML]="item.category_name" [routerLink]="['faqs']" [queryParams]="{category_id:item.faq_category[0]}"></a>
   </div>
