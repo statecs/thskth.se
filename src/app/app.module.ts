@@ -94,6 +94,7 @@ import { LoaderMessageComponent } from './components/loader-message/loader-messa
 import { JoinUsComponent } from './components/advertisements/join-us/join-us.component';
 import { EventsCardComponent } from './components/advertisements/events-card/events-card.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { SelectSliderComponent } from './components/select-slider/select-slider.component';
 
 
 @NgModule({
@@ -155,7 +156,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     LoaderMessageComponent,
     JoinUsComponent,
     EventsCardComponent,
-    LoaderComponent
+    LoaderComponent,
+    SelectSliderComponent
   ],
   imports: [
     BrowserModule,

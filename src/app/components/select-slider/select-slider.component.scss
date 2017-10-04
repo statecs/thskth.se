@@ -1,0 +1,33 @@
+@import "../../../style/utilities";
+
+#select-slider{
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(239, 239, 239, 0.85);
+  position: relative;
+  z-index: 1;
+  .slider{
+    @include center-vertically(50%);
+    //border: 1px solid blue;
+    font-size: $font-size-h2;
+    font-weight: $font-weight-bold;
+    width: 90%;
+    margin: 0 5%;
+    text-align: center;
+    color: #a0a0a0;
+    height: 300px;
+    overflow-y: scroll;
+    padding: 120px 0;
+    position: relative;
+    .item{
+      //border: 1px solid green;
+      padding: 10px;
+      position: relative;
+    }
+    .selected{
+      color: #4a4a4a;
+      text-decoration: underline;
+      position: relative;
+    }
+  }
+}
