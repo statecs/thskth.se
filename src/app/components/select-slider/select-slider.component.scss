@@ -6,6 +6,28 @@
   background-color: rgba(239, 239, 239, 0.85);
   position: relative;
   z-index: 1;
+  .exit-popup-btn{
+    background-color: black;
+    color: white;
+    @include circle(40px);
+    position: absolute;
+    transform: rotate(-45deg);
+    display: inline-block;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    z-index: 1;
+    i{
+      margin: 0;
+      @include center-vertically(50%);
+      position: relative;
+      font-size: 20px;
+    }
+    i:first-child{
+      margin-right: -3px;
+      margin-left: 2px;
+    }
+  }
   .slider{
     @include center-vertically(50%);
     //border: 1px solid blue;
@@ -30,4 +52,21 @@
       position: relative;
     }
   }
+}
+
+::-webkit-scrollbar
+{
+  width: 2px;  /* for vertical scrollbars */
+  height: 2px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(84, 84, 84, 0.2);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: #6f6f6f;
+  border-radius: 10px;
 }

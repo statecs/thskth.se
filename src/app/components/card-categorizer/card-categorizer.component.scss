@@ -87,6 +87,13 @@
       transition: left 0.5s ease, right 0.5s ease;
     }
   }
+
+  .large-devices{
+    display: inline-block;
+  }
+  .mobile{
+    display: none;
+  }
 }
 
 // Extra small devices (portrait phones, less than 576px)
@@ -95,6 +102,12 @@
     @include container-size(90%);
     padding: 0;
     font-size: $font-size-default;
+    .large-devices{
+      display: none;
+    }
+    .mobile{
+      display: inline-block;
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)

@@ -1,4 +1,6 @@
 import {Component, OnInit, AfterViewInit, ElementRef, ViewChild, Renderer2} from '@angular/core';
+import {SelectSliderCommunicationService} from '../../services/component-communicators/select-slider-communication.service';
+import {AppCommunicationService} from '../../services/component-communicators/app-communication.service';
 
 @Component({
   selector: 'app-select-slider',
@@ -12,40 +14,72 @@ export class SelectSliderComponent implements AfterViewInit {
     public item_onfocus_index: number;
     private upper_threshold: number;
     private lower_threshold: number;
+    public showSelectSlider: boolean;
+    public data: any;
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2,
+              private selectSliderCommunicationService: SelectSliderCommunicationService,
+              private appCommunicationService: AppCommunicationService) {
       this.item_onfocus_index = 0;
+      this.showSelectSlider = false;
   }
 
-  ngAfterViewInit() {
-      this.upper_threshold = this.slider.nativeElement.getElementsByClassName('selected')[0].offsetHeight / 2;
-      this.lower_threshold = 0;
-      console.log(this.upper_threshold);
-      this.renderer.listen(this.slider.nativeElement, 'scroll', (event) => {
-          this.item_onfocus = this.slider.nativeElement.getElementsByClassName('selected')[0];
-          console.log(this.item_onfocus.offsetTop);
-          console.log(this.slider.nativeElement.scrollTop);
-          const scrollPos = this.slider.nativeElement.scrollTop;
-          console.log('scrollPos: ' + scrollPos);
-          console.log('upper_threshold: ' + this.upper_threshold);
-          console.log('lower_threshold: ' + this.lower_threshold);
-          if (scrollPos >= this.upper_threshold) {
-              console.log('change');
-              this.item_onfocus_index += 1;
-              this.upper_threshold += this.item_onfocus.offsetHeight;
-              this.lower_threshold += this.item_onfocus.offsetHeight / 2;
-          }else if (scrollPos < this.lower_threshold) {
-              console.log('change back');
-              this.item_onfocus_index -= 1;
-              this.upper_threshold -= this.item_onfocus.offsetHeight;
-              this.lower_threshold -= this.item_onfocus.offsetHeight / 2;
+    hide_select_slider() {
+      this.showSelectSlider = false;
+      const data = {
+          type: this.data.type,
+          item: this.data.items[this.item_onfocus_index]
+      };
+      this.selectSliderCommunicationService.transmitSelectedItem(data);
+      this.appCommunicationService.collapseScrollOnPage('show');
+    }
+
+    show_select_slider(): void {
+      this.item_onfocus_index = 0;
+      this.showSelectSlider = true;
+      this.appCommunicationService.collapseScrollOnPage('collapse');
+    }
+
+    initSelectSlider(): void {
+      const self = this;
+      const timer = setInterval(function(){
+          console.log('timer');
+          if (self.slider.nativeElement.getElementsByClassName('selected')[0]) {
+              console.log('clearInterval');
+              clearInterval(timer);
+              self.upper_threshold = self.slider.nativeElement.getElementsByClassName('selected')[0].offsetHeight / 2;
+              self.lower_threshold = 0;
+              console.log(self.upper_threshold);
+              self.renderer.listen(self.slider.nativeElement, 'scroll', (event) => {
+                  self.item_onfocus = self.slider.nativeElement.getElementsByClassName('selected')[0];
+                  console.log(self.item_onfocus.offsetTop);
+                  console.log(self.slider.nativeElement.scrollTop);
+                  const scrollPos = self.slider.nativeElement.scrollTop;
+                  console.log('scrollPos: ' + scrollPos);
+                  console.log('upper_threshold: ' + self.upper_threshold);
+                  console.log('lower_threshold: ' + self.lower_threshold);
+                  if (scrollPos >= self.upper_threshold) {
+                      console.log('change');
+                      self.item_onfocus_index += 1;
+                      self.upper_threshold += self.item_onfocus.offsetHeight;
+                      self.lower_threshold += self.item_onfocus.offsetHeight / 2;
+                  }else if (scrollPos < self.lower_threshold) {
+                      console.log('change back');
+                      self.item_onfocus_index -= 1;
+                      self.upper_threshold -= self.item_onfocus.offsetHeight;
+                      self.lower_threshold -= self.item_onfocus.offsetHeight / 2;
+                  }
+              });
           }
+      }, 100);
+    }
+
+  ngAfterViewInit() {
+      this.selectSliderCommunicationService.notifyObservable$.subscribe((data) => {
+          this.data = data;
+          this.show_select_slider();
+          this.initSelectSlider();
       });
-      /*for (let i = 0; i < this.slide_items.length; i++) {
-          this.renderer.listen(this.slide_items[i], 'scroll', (event) => {
-              console.log('scroll');
-          });
-      }*/
   }
 
 }

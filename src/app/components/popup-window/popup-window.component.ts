@@ -28,8 +28,8 @@ export class PopupWindowComponent implements OnInit {
   public relatedAssociations: object;
 
   constructor( private wordpressApiService: WordpressApiService,
-                private popupWindowCommunicationService: PopupWindowCommunicationService,
-                private appCommunicationService: AppCommunicationService,
+               private popupWindowCommunicationService: PopupWindowCommunicationService,
+               private appCommunicationService: AppCommunicationService,
                private location: Location ) {
     this.showEvent = false;
     this.top_position = 0;

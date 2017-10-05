@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie';
 import { CardsService } from '../../services/wordpress/cards.service';
 import { CardCategory } from '../../interfaces/card';
 import {ActivatedRoute} from '@angular/router';
+import {SelectSliderCommunicationService} from '../../services/component-communicators/select-slider-communication.service';
 
 @Component({
   selector: 'app-card-categorizer',
@@ -44,7 +45,8 @@ export class CardCategorizerComponent implements AfterViewInit {
               private injector: Injector,
               private _cookieService: CookieService,
               private cardsService: CardsService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private selectSliderCommunicationService: SelectSliderCommunicationService) {
     this.config = injector.get(APP_CONFIG);
     this.displayedDropdownID = 0;
     this.companyIsDisabled = true;
@@ -53,6 +55,14 @@ export class CardCategorizerComponent implements AfterViewInit {
       this.companyIsDisabled = this.cards_filter.companyIsDisabled;
     }
     console.log(this.route.snapshot.data['profession']);
+  }
+
+  showSelectSlider(items, type): void {
+    const data = {
+      type: type,
+      items: items
+    };
+    this.selectSliderCommunicationService.showSelectSlider(data);
   }
 
   switchPerson(): void {
@@ -209,6 +219,17 @@ export class CardCategorizerComponent implements AfterViewInit {
             this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, organization_type: this.selected_company, interest: this.selected_interest});
         });
     }
+
+    this.selectSliderCommunicationService.transmitNotifyObservable$.subscribe((data) => {
+      if (data.type === 'profession') {
+        this.selected_profession_name = data.item.name;
+        this.selected_profession = data.item.id;
+      }else if (data.type === 'interest') {
+        this.selected_interest_name = data.item.name;
+        this.selected_interest = data.item.id;
+      }
+      this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, organization_type: this.selected_company, interest: this.selected_interest});
+    });
   }
 
 }

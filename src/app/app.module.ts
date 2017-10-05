@@ -30,6 +30,7 @@ import { SearchMenubarCommunicationService } from './services/component-communic
 import { ArchiveService } from './services/wordpress/archive.service';
 import { ChaptersAssociationsService } from './services/wordpress/chapters-associations.service';
 import { RestaurantService } from './services/wordpress/restaurant.service';
+import { SelectSliderCommunicationService } from './services/component-communicators/select-slider-communication.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -188,6 +189,7 @@ import { SelectSliderComponent } from './components/select-slider/select-slider.
       ArchiveService,
       ChaptersAssociationsService,
       RestaurantService,
+      SelectSliderCommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

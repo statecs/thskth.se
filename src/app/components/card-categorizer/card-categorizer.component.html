@@ -1,6 +1,6 @@
 <div #card_categorizer id="card-categorizer">
   I am a
-  <div #profession class="profession"  (click)="companyIsDisabled !== true || toggleDropdown(1)" [attr.disabled]="!companyIsDisabled">
+  <div #profession class="profession large-devices"  (click)="companyIsDisabled !== true || toggleDropdown(1)" [attr.disabled]="!companyIsDisabled">
     <span>{{selected_profession_name}}</span>
     <i class="material-icons">keyboard_arrow_down</i>
       <div class="dropdown-container">
@@ -9,6 +9,10 @@
           </div>
       </div>
   </div>
+    <div class="profession mobile" (click)="showSelectSlider(pro_cats, 'profession')">
+        <span>{{selected_profession_name}}</span>
+        <i class="material-icons">keyboard_arrow_down</i>
+    </div>
 <!--  <div (click)="switchPerson()" class="switcher">
     <div #switch_button class="switch-button"></div>
   </div>
@@ -22,7 +26,7 @@
       </div>
   </div>-->
   and I am interested in
-  <div class="interest" (click)="toggleDropdown(2)">
+  <div class="interest large-devices" (click)="toggleDropdown(2)">
     <span>{{selected_interest_name}}</span>
     <i class="material-icons">keyboard_arrow_down</i>
       <div class="dropdown-container">
@@ -31,4 +35,8 @@
           </div>
       </div>
   </div>
+    <div class="interest mobile" (click)="showSelectSlider(int_cats, 'interest')">
+        <span>{{selected_interest_name}}</span>
+        <i class="material-icons">keyboard_arrow_down</i>
+    </div>
 </div>
