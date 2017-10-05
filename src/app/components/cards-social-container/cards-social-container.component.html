@@ -91,7 +91,8 @@
                             </div>
                         </div>
                     </div>
-                    <a routerLink="events-calendar">More >></a>
+                    <a *ngIf="events?.length === 3" routerLink="events-calendar">More >></a>
+                    <span *ngIf="events?.length === 0" class="no-events">There are no upcoming events.</span>
                 </div>
             </div>
           </div>

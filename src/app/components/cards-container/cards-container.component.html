@@ -57,7 +57,8 @@
                     </div>
                     <div class="left-content" [ngClass]="{'event-arrow-index1': selected_event_index === 0, 'event-arrow-index2': selected_event_index === 1, 'event-arrow-index3': selected_event_index === 2}">
                         <h3 *ngIf="events?.length !== 0">{{selected_event_title}}</h3>
-                        <p *ngIf="selected_event_text && events.length !== 0">{{selected_event_text | cardText:100}}</p>
+                        <p *ngIf="selected_event_text && events.length !== 0" class="large-devices">{{selected_event_text | cardText:100}}</p>
+                        <p *ngIf="selected_event_text && events.length !== 0" class="mobile">{{selected_event_text | cardText:50}}</p>
                         <span *ngIf="selected_event_title && events.length !== 0" (click)="displayEventInPopup()">Read more</span>
                     </div>
                     <div class="right-content">
