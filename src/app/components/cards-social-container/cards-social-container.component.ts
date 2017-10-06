@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, Input, HostListener} from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import { Card } from '../../interfaces/card';
 import { SocialMediaPostService } from '../../services/social-media-post/social-media-post.service';
@@ -15,8 +15,10 @@ import { ths_calendars } from '../../utils/ths-calendars';
   styleUrls: ['./cards-social-container.component.scss']
 })
 export class CardsSocialContainerComponent implements OnInit {
+  @Input() showFetchMoreBtn: boolean;
   public cards: Card[];
   public socialMediaPosts: SocialMediaPost[];
+  public thirdCard: SocialMediaPost;
   private meta_data: SocialMediaPost[];
   public displayedCards_amount: number;
   public showEventCalendar: boolean;
@@ -27,22 +29,37 @@ export class CardsSocialContainerComponent implements OnInit {
   public selected_event_index: number;
   public ths_calendars: any[];
   public existMorePosts: boolean;
+  public fetching: boolean;
 
   constructor( private socialMediaPostService: SocialMediaPostService,
                private googleCalendarService: GoogleCalendarService,
                private popupWindowCommunicationService: PopupWindowCommunicationService) {
-    this.displayedCards_amount = 4;
+    this.displayedCards_amount = 6;
     this.showEventCalendar = false;
     this.ths_calendars = ths_calendars;
     this.existMorePosts = true;
+    this.fetching = true;
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    if (!this.showFetchMoreBtn && this.meta_data) {
+      const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+      const max = document.documentElement.scrollHeight;
+      if (pos > max - 300) {
+        this.fetchMorePosts();
+      }
+    }
   }
 
   fetchMorePosts(): void {
-    this.displayedCards_amount += 4;
+    this.fetching = true;
+    this.displayedCards_amount += 6;
     this.socialMediaPosts = this.meta_data.slice(0, this.displayedCards_amount);
     if (this.displayedCards_amount >= this.meta_data.length) {
       this.existMorePosts = false;
     }
+    this.fetching = false;
   }
 
   displayEventInPopup() {
@@ -85,7 +102,14 @@ export class CardsSocialContainerComponent implements OnInit {
     this.socialMediaPostService.fetchAllPosts().subscribe(res => {
       this.meta_data = res;
       console.log(res);
-      this.socialMediaPosts = res.slice(0, this.displayedCards_amount);
+      this.thirdCard = res[2];
+      console.log(this.thirdCard);
+      const first_six_posts = res.slice(0, this.displayedCards_amount + 1);
+      first_six_posts.splice(2, 1);
+      this.socialMediaPosts = first_six_posts;
+      console.log(this.socialMediaPosts);
+
+      this.fetching = false;
     });
 
     this.googleCalendarService.getUpcomingEvents(this.ths_calendars[0].calendarId, 3).subscribe(res => {

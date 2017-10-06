@@ -52,7 +52,7 @@
                             <span>{{formatDate(post.created_time)}}</span>
                         </div>
                     </div>
-                    <p class="large-devices">{{post.message | cardText:300}}</p>
+                    <p class="large-devices">{{post.message | cardText:200}}</p>
                     <p class="mobile">{{post.message | cardText:100}}</p>
                 </div>
                 <div class="right-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
@@ -68,8 +68,48 @@
             </div>
         </div>
 
-        <!-- ---------- Event calendar card ---------- -->
-        <div *ngIf="i !== 0 && i === 1" class="masonry-layout_panel-content">
+        <!-- ---------- The third card ---------- -->
+        <div *ngIf="i === 1" class="masonry-layout_panel-content">
+            <div *ngIf="i !== 0 && !(thirdCard?.full_picture)" class="standard-card">
+                <div class="host" [ngSwitch]="thirdCard?.host">
+                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
+                    <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+                </div>
+                <div class="user">
+                    <img src="{{thirdCard?.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(thirdCard?.user.link)">
+                    <div>
+                        <h3 (click)="goToUserProfile(thirdCard?.user.link)">{{thirdCard?.user.name}}</h3>
+                        <span>{{formatDate(thirdCard?.created_time)}}</span>
+                    </div>
+                </div>
+                <p>{{thirdCard?.message}}</p>
+                <a href="{{thirdCard?.link}}" target="_blank" type="button">Read more</a>
+            </div>
+            <div *ngIf="i !== 0 && thirdCard?.full_picture" class="single-event-card">
+                <div class="left-content">
+                    <div class="user">
+                        <img src="{{thirdCard?.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(thirdCard?.user.link)">
+                        <div>
+                            <h3 (click)="goToUserProfile(thirdCard?.user.link)">{{thirdCard?.user.name}}</h3>
+                            <span>{{formatDate(thirdCard?.created_time)}}</span>
+                        </div>
+                    </div>
+                    <p class="large-devices">{{thirdCard?.message | cardText:200}}</p>
+                    <p class="mobile">{{thirdCard?.message | cardText:100}}</p>
+                </div>
+                <div class="right-content" [style.background-image]="thirdCard?.full_picture? ('url(' + thirdCard?.full_picture + ')'): none">
+                    <div>
+                        <div class="host" [ngSwitch]="thirdCard?.host">
+                            <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
+                            <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+                        </div>
+                        <a href="{{thirdCard?.link}}" target="_blank" type="button">Read more</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--<div *ngIf="i !== 0 && i === 1" class="masonry-layout_panel-content">
           <div class="event-calendar-card">
             <div class="left-content" [ngClass]="{'event-arrow-index1': selected_event_index === 0, 'event-arrow-index2': selected_event_index === 1, 'event-arrow-index3': selected_event_index === 2}">
               <h3>{{selected_event_title}}</h3>
@@ -96,9 +136,8 @@
                 </div>
             </div>
           </div>
-        </div>
+        </div>-->
   </div>
-
 
         <!-- ---------- Small card ---------- -->
         <!--<div class="sub-masonry-layout-row two-fourth">
@@ -122,6 +161,7 @@
             </div>
         </div>-->
 </div>
-<div *ngIf="existMorePosts" class="fetcher">
+<app-loader *ngIf="fetching"></app-loader>
+<div *ngIf="existMorePosts && showFetchMoreBtn" class="fetcher">
     <span class="plus-button" (click)="fetchMorePosts()"><span>+</span></span>
 </div>

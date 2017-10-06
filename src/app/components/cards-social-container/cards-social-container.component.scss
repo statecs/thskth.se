@@ -2,12 +2,10 @@
 
 .title{
   font-size:$font-size-h2;
-  @include container-size($main-container);
   margin-bottom: 10px;
 }
 
 .masonry-layout {
-  @include container-size($main-container);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -383,7 +381,7 @@
 
 // ---------- Sub Masonry Layout Row ---------- //
 :host /deep/ .featured-card {
-  height: 500px;
+  height: 100%;
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.4);
   color: white;
@@ -543,7 +541,7 @@
     }
   }
   :host /deep/ .featured-card {
-    height: 400px;
+    height: 100%;
     .user{
       margin-top: 60px;
       >div{
