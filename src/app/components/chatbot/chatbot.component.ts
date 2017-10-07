@@ -228,7 +228,7 @@ export class ChatbotComponent implements OnInit {
           });
           const user_input = old_user_inputs[index].response.user_input;
           self.user_inputs = user_input;
-      }, 1500);
+      }, 1000);
     }, 500);
   }
 

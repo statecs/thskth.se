@@ -55,7 +55,7 @@ export class PrimarySliderComponent implements OnInit {
         self.slideIndex = 1;
       }
       self.showSlide();
-    }, 7000);
+    }, 10000);
   }
 
   toggleMainSlider(): void {
