@@ -35,17 +35,35 @@ export class ImageSliderSecondaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.slider) {
-      this.touchStartListener = this.renderer.listen(this.slider.nativeElement, 'touchstart', (event) => {
-        //event.preventDefault();
-        this.showScroll();
-      });
+    const self = this;
+    const timmer = setInterval(function () {
+      if (self.slider) {
+        clearInterval(timmer);
+        const timmer2 = setInterval(function () {
+          if (self.slider.nativeElement.getElementsByClassName('item')[0]) {
+            clearInterval(timmer2);
+            const items = self.slider.nativeElement.getElementsByClassName('item');
+            const wrapper_width: number = items.length * items[0].clientWidth + items.length * 10;
+            const timmer3 = setInterval(function () {
+              if (self.slider.nativeElement.getElementsByClassName('items-wrapper')[0]) {
+                clearInterval(timmer3);
+                self.slider.nativeElement.getElementsByClassName('items-wrapper')[0].style.width = wrapper_width + 'px';
+                console.log(self.slider.nativeElement.getElementsByClassName('items-wrapper')[0].style.width);
+              }
+            }, 100);
+          }
+        }, 100);
+        self.touchStartListener = self.renderer.listen(self.slider.nativeElement, 'touchstart', (event) => {
+          //event.preventDefault();
+          self.showScroll();
+        });
 
-      this.touchStartListener = this.renderer.listen(this.slider.nativeElement, 'touchend', (event) => {
-        //event.preventDefault();
-        this.hideScroll();
-      });
-    }
+        self.touchStartListener = self.renderer.listen(self.slider.nativeElement, 'touchend', (event) => {
+          //event.preventDefault();
+          self.hideScroll();
+        });
+      }
+    }, 100);
   }
 
 }
