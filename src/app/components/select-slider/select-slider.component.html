@@ -1,8 +1,13 @@
 <div [hidden]="!showSelectSlider" id="select-slider">
-  <div class="exit-popup-btn" (click)="hide_select_slider()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
-  <div #slider class="slider">
-    <div *ngFor="let item of data?.items, let i = index" class="item" [ngClass]="{'selected': item_onfocus_index === i}">
-      {{item.name}}
+  <div class="slider-wrapper">
+    <div #slider class="slider">
+      <div *ngFor="let item of data?.items, let i = index" class="item" [ngClass]="{'selected': item_onfocus_index === i}">
+        {{item.name}}
+      </div>
+    </div>
+    <div class="btn-wrapper">
+      <div class="exit-popup-btn" (click)="hide_select_slider()">Done</div>
     </div>
   </div>
+
 </div>

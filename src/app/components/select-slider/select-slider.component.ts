@@ -44,6 +44,9 @@ export class SelectSliderComponent implements AfterViewInit {
       const self = this;
       const timer = setInterval(function(){
           console.log('timer');
+          if (self.slider) {
+              self.slider.nativeElement.scrollTop = 0;
+          }
           if (self.slider.nativeElement.getElementsByClassName('selected')[0]) {
               console.log('clearInterval');
               clearInterval(timer);

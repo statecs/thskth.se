@@ -6,50 +6,45 @@
   background-color: rgba(239, 239, 239, 0.85);
   position: relative;
   z-index: 1;
-  .exit-popup-btn{
-    background-color: black;
-    color: white;
-    @include circle(40px);
-    position: absolute;
-    transform: rotate(-45deg);
-    display: inline-block;
-    right: 15px;
-    top: 15px;
-    cursor: pointer;
-    z-index: 1;
-    i{
-      margin: 0;
-      @include center-vertically(50%);
-      position: relative;
-      font-size: 20px;
-    }
-    i:first-child{
-      margin-right: -3px;
-      margin-left: 2px;
-    }
-  }
-  .slider{
+  .slider-wrapper{
     @include center-vertically(50%);
-    //border: 1px solid blue;
-    font-size: $font-size-h2;
-    font-weight: $font-weight-bold;
-    width: 90%;
-    margin: 0 5%;
-    text-align: center;
-    color: #a0a0a0;
-    height: 300px;
-    overflow-y: scroll;
-    padding: 120px 0;
-    position: relative;
-    .item{
-      //border: 1px solid green;
-      padding: 10px;
+    width: 100%;
+    .slider{
+      //border: 1px solid blue;
+      font-size: $font-size-h2;
+      font-weight: $font-weight-bold;
+      width: 90%;
+      margin: 0 5%;
+      text-align: center;
+      color: #a0a0a0;
+      height: 300px;
+      overflow-y: scroll;
+      padding: 120px 0;
       position: relative;
+      .item{
+        //border: 1px solid green;
+        padding: 10px;
+        position: relative;
+      }
+      .selected{
+        color: #4a4a4a;
+        text-decoration: underline;
+        position: relative;
+      }
     }
-    .selected{
-      color: #4a4a4a;
-      text-decoration: underline;
-      position: relative;
+    .btn-wrapper{
+      text-align: center;
+      margin-top: 50px;
+      .exit-popup-btn{
+        background-color: black;
+        color: white;
+        cursor: pointer;
+        z-index: 1;
+        border: 1px solid gray;
+        border-radius: 25px;
+        padding: 10px 35px;
+        display: inline-block;
+      }
     }
   }
 }
