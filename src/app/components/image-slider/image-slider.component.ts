@@ -13,37 +13,85 @@ export class ImageSliderComponent implements OnInit {
   public item_onfocus_index: number;
   public bar_items: any;
   public slide_items: any[];
+  private swipeCoord: [number, number];
+  private swipeTime: number;
 
   constructor(private imageSliderCommunicationService: ImageSliderCommunicationService) {
     this.item_onfocus_index = 1;
     this.slide_items = [];
   }
 
-  switchSlide(index): void {
-    const slides_wrapper = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper')[0];
-    let margin_left = '';
-    if (index > this.item_onfocus_index) {
-      console.log('move left');
-      if (slides_wrapper.style.marginLeft) {
-        margin_left = (parseFloat(slides_wrapper.style.marginLeft) - 29.6) + '%';
-        console.log(margin_left);
-      }else {
-        margin_left = '-61.25%';
-        console.log(margin_left);
+  swipe(e: TouchEvent, when: string): void {
+    console.log(when);
+    const coord: [number, number] = [e.changedTouches[0].pageX, e.changedTouches[0].pageY];
+    const time = new Date().getTime();
+
+    if (when === 'start') {
+      this.swipeCoord = coord;
+      this.swipeTime = time;
+    }else if (when === 'end') {
+      const direction = [coord[0] - this.swipeCoord[0], coord[1] - this.swipeCoord[1]];
+      const duration = time - this.swipeTime;
+
+      if (duration < 1000 // Short enough
+          && Math.abs(direction[1]) < Math.abs(direction[0]) // Horizontal enough
+          && Math.abs(direction[0]) > 30) {  // Long enough
+        if (direction[0] < 0) {
+          if (this.item_onfocus_index < this.slide_items.length - 1) {
+            this.item_onfocus_index += 1;
+            console.log(this.item_onfocus_index);
+            this.previousSlide();
+          }
+        }else {
+          if (this.item_onfocus_index > 0) {
+            this.item_onfocus_index -= 1;
+            this.nextSlide();
+          }
+        }
+        // Do whatever you want with swipe
       }
-      slides_wrapper.style.marginLeft = margin_left;
+    }
+  }
+
+  switchSlide(index): void {
+    if (index > this.item_onfocus_index) {
+      this.previousSlide();
     }else if (index < this.item_onfocus_index) {
-      console.log('move right');
-      if (slides_wrapper.style.marginLeft) {
-        margin_left = (parseFloat(slides_wrapper.style.marginLeft) + 29.6) + '%';
+      this.nextSlide();
+    }
+    this.item_onfocus_index = index;
+  }
+
+  nextSlide(): void {
+    const slides_wrappers = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
+    let margin_left = '';
+    console.log('move right');
+    for (let i = 0; i < slides_wrappers.length; i++) {
+      if (slides_wrappers[i].style.marginLeft) {
+        margin_left = (parseFloat(slides_wrappers[i].style.marginLeft) + 29.6) + '%';
         console.log(margin_left);
       }else {
         margin_left = '-2.05%';
         console.log(margin_left);
       }
-      slides_wrapper.style.marginLeft = margin_left;
+      slides_wrappers[i].style.marginLeft = margin_left;
     }
-    this.item_onfocus_index = index;
+  }
+
+  previousSlide(): void {
+    const slides_wrappers = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
+    let margin_left = '';
+    console.log('move left');
+    for (let i = 0; i < slides_wrappers.length; i++) {
+      if (slides_wrappers[i].style.marginLeft) {
+        margin_left = (parseFloat(slides_wrappers[i].style.marginLeft) - 29.6) + '%';
+        console.log(margin_left);
+      }else {
+        margin_left = '-61.25%';
+        console.log(margin_left);
+      }
+      slides_wrappers[i].style.marginLeft = margin_left;
+    }
   }
 /*
   update_progress_bar(): void {

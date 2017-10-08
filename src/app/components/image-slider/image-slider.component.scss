@@ -7,7 +7,12 @@
   overflow: hidden;
   height: 400px;
   color: white;
-
+  .large-devices{
+    display: block;
+  }
+  .mobile{
+    display: none;
+  }
   .slides-wrapper {
     display: inline-block;
     transition: margin 0.5s ease;
@@ -77,6 +82,7 @@
     }
     .empty{
       opacity: 1;
+      cursor: default;
     }
   }
 
@@ -100,7 +106,12 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #img-slider {
-
+    .large-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
