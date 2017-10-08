@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {ImageSliderCommunicationService} from '../../services/component-communicators/image-slider-communication.service';
 
 @Component({
   selector: 'app-image-slider',
@@ -11,9 +12,11 @@ export class ImageSliderComponent implements OnInit {
   public slides: any;
   public item_onfocus_index: number;
   public bar_items: any;
+  public slide_items: any[];
 
-  constructor() {
+  constructor(private imageSliderCommunicationService: ImageSliderCommunicationService) {
     this.item_onfocus_index = 1;
+    this.slide_items = [];
   }
 
   switchSlide(index): void {
@@ -35,7 +38,7 @@ export class ImageSliderComponent implements OnInit {
         margin_left = (parseFloat(slides_wrapper.style.marginLeft) + 29.6) + '%';
         console.log(margin_left);
       }else {
-        margin_left = '-61.25%';
+        margin_left = '-2.05%';
         console.log(margin_left);
       }
       slides_wrapper.style.marginLeft = margin_left;
@@ -55,6 +58,10 @@ export class ImageSliderComponent implements OnInit {
     this.slides = this.slides_container.nativeElement.getElementsByClassName('slide-wrapper');
 
     // this.update_progress_bar();
+    this.imageSliderCommunicationService.notifyObservable$.subscribe((data) => {
+      console.log(data);
+      this.slide_items = data;
+    });
   }
 
 }

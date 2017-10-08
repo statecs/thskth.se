@@ -48,7 +48,7 @@ export class ArchiveService {
     return archives;
   }
 
-  castDataToDocumentType(data) {
+  castDataToDocumentType(data): Document[] {
     const documents: Document[] = [];
     console.log(data);
     data.forEach(d => {
@@ -63,7 +63,7 @@ export class ArchiveService {
     return documents;
   }
 
-  castDataToArchiveCategoryType(data) {
+  castDataToArchiveCategoryType(data): ArchiveCategory[] {
     const categories: ArchiveCategory[] = [];
     console.log(data);
     data.forEach(c => {

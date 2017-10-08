@@ -31,6 +31,8 @@ import { ArchiveService } from './services/wordpress/archive.service';
 import { ChaptersAssociationsService } from './services/wordpress/chapters-associations.service';
 import { RestaurantService } from './services/wordpress/restaurant.service';
 import { SelectSliderCommunicationService } from './services/component-communicators/select-slider-communication.service';
+import { PostsService } from './services/wordpress/posts.service';
+import { ImageSliderCommunicationService } from './services/component-communicators/image-slider-communication.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -190,6 +192,8 @@ import { SelectSliderComponent } from './components/select-slider/select-slider.
       ChaptersAssociationsService,
       RestaurantService,
       SelectSliderCommunicationService,
+      PostsService,
+      ImageSliderCommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]
