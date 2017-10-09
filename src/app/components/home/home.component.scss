@@ -42,10 +42,17 @@
       @include container-size(100%);
       height: 250px;
     }
-    .faq-slider, .image-slider {
+    .faq-slider {
       width: 95%;
       & >div{
         font-size: $font-size-h3;
+      }
+    }
+    .image-slider {
+      width: 100%;
+      & >div{
+        font-size: $font-size-h3;
+        margin-left: 2.5%;
       }
     }
   }

@@ -21,6 +21,17 @@ export class ImageSliderComponent implements OnInit {
     this.slide_items = [];
   }
 
+    getLastItemIndex(): number {
+      let index = 0;
+      const timer = setInterval(function () {
+          if (this.slide_items) {
+              clearInterval(timer);
+              index = this.slide_items.length + 1;
+          }
+      });
+      return index;
+    }
+
   swipe(e: TouchEvent, when: string): void {
     console.log(when);
     const coord: [number, number] = [e.changedTouches[0].pageX, e.changedTouches[0].pageY];
@@ -37,21 +48,53 @@ export class ImageSliderComponent implements OnInit {
           && Math.abs(direction[1]) < Math.abs(direction[0]) // Horizontal enough
           && Math.abs(direction[0]) > 30) {  // Long enough
         if (direction[0] < 0) {
-          if (this.item_onfocus_index < this.slide_items.length - 1) {
+          if (this.item_onfocus_index <= this.slide_items.length - 1) {
             this.item_onfocus_index += 1;
             console.log(this.item_onfocus_index);
-            this.previousSlide();
+            this.swipeBackward();
           }
         }else {
-          if (this.item_onfocus_index > 0) {
+          if (this.item_onfocus_index >= 0) {
             this.item_onfocus_index -= 1;
-            this.nextSlide();
+            this.swipeForward();
           }
         }
         // Do whatever you want with swipe
       }
     }
   }
+
+    swipeForward(): void {
+        const slides_wrappers = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
+        let margin_left = '';
+        console.log('swipeForward');
+        for (let i = 0; i < slides_wrappers.length; i++) {
+            if (slides_wrappers[i].style.marginLeft) {
+                margin_left = (parseFloat(slides_wrappers[i].style.marginLeft) + 53) + '%';
+                console.log(margin_left);
+            }else {
+                margin_left = '-43.5%';
+                console.log(margin_left);
+            }
+            slides_wrappers[i].style.marginLeft = margin_left;
+        }
+    }
+
+    swipeBackward(): void {
+        const slides_wrappers = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
+        let margin_left = '';
+        console.log('swipeBackward');
+        for (let i = 0; i < slides_wrappers.length; i++) {
+            if (slides_wrappers[i].style.marginLeft) {
+                margin_left = (parseFloat(slides_wrappers[i].style.marginLeft) - 53) + '%';
+                console.log(margin_left);
+            }else {
+                margin_left = '-149.5%';
+                console.log(margin_left);
+            }
+            slides_wrappers[i].style.marginLeft = margin_left;
+        }
+    }
 
   switchSlide(index): void {
     if (index > this.item_onfocus_index) {

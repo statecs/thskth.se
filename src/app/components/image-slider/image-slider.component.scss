@@ -73,7 +73,7 @@
       height: 95%;
       opacity: 1;
       margin-top: 0;
-      transition: width 0.5s ease, height 0.5s ease;
+      transition: width 0.5s ease;
       h2{
         font-size: $font-size-h2;
         margin-top: 0;
@@ -111,6 +111,10 @@
     }
     .mobile{
       display: block;
+    }
+    .slides-wrapper {
+      width: 400%;
+      margin-left: -96.5%;
     }
   }
 }

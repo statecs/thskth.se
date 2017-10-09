@@ -21,7 +21,7 @@
     </div>
   </div>
   <div class="slides-wrapper mobile" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
-    <div class="slide empty">
+    <div class="slide empty" [ngClass]="{'item_onfocus': item_onfocus_index === -1}">
       <div class="content-container">
         <a routerLink="/news" class="more-btn">See more</a>
       </div>
@@ -35,7 +35,7 @@
         <div class="category">THS Nyheter</div>
       </div>
     </div>
-    <div class="slide empty">
+    <div class="slide empty" [ngClass]="{'item_onfocus': item_onfocus_index === 5}">
       <div class="content-container">
         <a routerLink="/news" class="more-btn">See more</a>
       </div>
