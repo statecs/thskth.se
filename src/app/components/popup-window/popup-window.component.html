@@ -54,13 +54,13 @@
         </div>
         <div class="contact">
           <h2>Contact</h2>
-          <p>{{association.contact.title}} {{association.contact.name}}</p>
-          <p>email: {{association.contact.email}}</p>
-          <p>phone: {{association.contact.phone}}</p>
-          <p>website: {{association.contact.website}}</p>
-          <p>Alternative website: {{association.contact.website2}}</p>
+          <p>{{association.contact?.title}} {{association.contact?.name}}</p>
+          <p>email: {{association.contact?.email}}</p>
+          <p>phone: {{association.contact?.phone}}</p>
+          <p>website: {{association.contact?.website}}</p>
+          <p>Alternative website: {{association.contact?.website2}}</p>
         </div>
-        <app-image-slider-secondary [data]="relatedAssociations"></app-image-slider-secondary>
+        <app-image-slider-secondary *ngIf="relatedAssociations?.items.length != 0" [data]="relatedAssociations"></app-image-slider-secondary>
       </div>
     </div>
   </div>
