@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import { Location } from '@angular/common';
 import { Archive } from '../../interfaces/archive';
+import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 
 @Component({
   selector: 'app-archive',
@@ -44,7 +45,8 @@ export class ArchiveComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private location: Location,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private popupWindowCommunicationService: PopupWindowCommunicationService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -65,6 +67,11 @@ export class ArchiveComponent implements OnInit {
     this.pdfChecked = true;
     this.categoryID = 0;
     this.date_filter = '2014-09-24';
+  }
+
+
+  showDocumentInPopup(item): void {
+    this.popupWindowCommunicationService.showArchiveInPopup(item);
   }
 
   filterTopic(event, categoryID): void {

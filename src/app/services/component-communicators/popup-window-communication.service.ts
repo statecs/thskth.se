@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Event } from '../../interfaces/event';
 import {Association} from '../../interfaces/chapters_associations';
+import {Archive} from "../../interfaces/archive";
 
 @Injectable()
 export class PopupWindowCommunicationService {
@@ -11,6 +12,8 @@ export class PopupWindowCommunicationService {
   eventNotifyObservable$ = this.event_notify.asObservable();
   private association_notify = new Subject<any>();
   associationNotifyObservable$ = this.association_notify.asObservable();
+  private archive_notify = new Subject<any>();
+  archiveNotifyObservable$ = this.archive_notify.asObservable();
 
   constructor() { }
 
@@ -24,6 +27,10 @@ export class PopupWindowCommunicationService {
 
   showAssociationInPopup(arg: any) {
     this.association_notify.next(arg);
+  }
+
+  showArchiveInPopup(archive: Archive) {
+    this.archive_notify.next(archive);
   }
 
 }

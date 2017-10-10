@@ -16,6 +16,7 @@ export interface Archive {
     slug: string;
     title: string;
     lastModified: string;
+    description: string;
     documents: Document[];
     categories: ArchiveCategory[];
 }

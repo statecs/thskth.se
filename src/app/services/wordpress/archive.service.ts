@@ -51,6 +51,7 @@ export class ArchiveService {
         slug: c.slug,
         title: c.title.rendered,
         lastModified: this.formatDate(c.modified),
+        description: c.content.redered,
         documents: this.castDataToDocumentType(c.acf.documents),
         categories: this.castDataToArchiveCategoryType(c.pure_taxonomies.categories),
       });

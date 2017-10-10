@@ -184,7 +184,7 @@
 
       .content-container{
         //@include container-size(90%);
-        padding: 50px 0;
+        padding: 70px 0;
         background-color: $bg-color-default;
         position: relative;
         border-radius: 10px;
@@ -204,6 +204,15 @@
           p{
             line-height: 1.3;
           }
+          .categories{
+            >span{
+              display: block;
+              text-decoration: none;
+              color: $color-link;
+              margin-bottom: 10px;
+              line-height: 1;
+            }
+          }
           .time, .location{
             font-size: $font-size-h5;
             color: gray;
@@ -215,6 +224,23 @@
           }
           .creator{
             font-weight: 600;
+          }
+          .files{
+            margin-top: 20px;
+            .link_container{
+              display: inline-block;
+              .download_link{
+                padding: 5px 15px;
+                border: 1px solid gray;
+                border-radius: 20px;
+                display: inline-block;
+                margin-right:10px;
+                cursor: pointer;
+                i{
+                  vertical-align: middle;
+                }
+              }
+            }
           }
         }
         .contact{

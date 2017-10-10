@@ -7,6 +7,7 @@ import format from 'date-fns/format/index';
 import { AppCommunicationService } from '../../services/component-communicators/app-communication.service';
 import {Location} from '@angular/common';
 import {Association} from '../../interfaces/chapters_associations';
+import {Archive} from '../../interfaces/archive';
 
 @Component({
   selector: 'app-popup-window',
@@ -19,6 +20,7 @@ export class PopupWindowComponent implements OnInit {
   public popup_window_updater: Subscription;
   public popup_window_event_updater: Subscription;
   public popup_window_association_updater: Subscription;
+  public popup_window_archive_updater: Subscription;
   public page_data: any;
   public showEvent: boolean;
   public event: Event;
@@ -26,6 +28,8 @@ export class PopupWindowComponent implements OnInit {
   public showAssociation: boolean;
   public association: Association;
   public relatedAssociations: object;
+  public archive: Archive;
+  public showArchive: boolean;
 
   constructor( private wordpressApiService: WordpressApiService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -34,6 +38,11 @@ export class PopupWindowComponent implements OnInit {
     this.showEvent = false;
     this.top_position = 0;
     this.showAssociation = false;
+    this.showArchive = false;
+  }
+
+  downloadFile(url: string) {
+    window.open(url);
   }
 
   @HostListener('window:scroll', [])
@@ -64,7 +73,7 @@ export class PopupWindowComponent implements OnInit {
   hide_popup_window(): void {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
-    if (!this.showEvent && !this.showAssociation) {
+    if (!this.showEvent && !this.showAssociation && !this.showArchive) {
       this.location.back();
     }
     if (this.showAssociation) {
@@ -102,6 +111,15 @@ export class PopupWindowComponent implements OnInit {
     this.show_popup_window();
   }
 
+  show_archive_in_popup(archive): void {
+    console.log(archive);
+    this.archive = archive;
+    this.showArchive = true;
+    console.log("popup");
+    console.log(archive.documents);
+    this.show_popup_window();
+  }
+
   ngOnInit() {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
@@ -113,6 +131,9 @@ export class PopupWindowComponent implements OnInit {
     });
     this.popup_window_association_updater = this.popupWindowCommunicationService.associationNotifyObservable$.subscribe((arg) => {
       this.show_association_in_popup(arg);
+    });
+    this.popup_window_archive_updater = this.popupWindowCommunicationService.archiveNotifyObservable$.subscribe((archive) => {
+      this.show_archive_in_popup(archive);
     });
   }
 

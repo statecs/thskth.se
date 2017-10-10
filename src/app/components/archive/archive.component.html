@@ -107,9 +107,9 @@
               <div class="modified-date">Last modified: {{d.lastModified}}</div>
             </div>
             <div class="right-content">
-              <h4>{{d.title}}</h4>
+              <h4 (click)="showDocumentInPopup(d)">{{d.title}}</h4>
               <!--            <p [innerHTML]="d.content | cardText:100"></p>-->
-              <p>Description Description Description</p>
+              <p [innerHTML]="d.description"></p>
               <div class="files">
                 <div *ngFor="let f of d.documents" class="link_container">
                   <div *ngIf="f.mime_type ==='pdf' && pdfChecked" class="download_link" (click)="downloadFile(f.url)">
