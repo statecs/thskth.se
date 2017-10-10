@@ -21,6 +21,21 @@ export class ChaptersAssociationsService {
       this.language = this._cookieService.get('language');
     }
   }
+    getAssociationBySlug(slug): Observable<Association[]> {
+        return this.http
+            .get(this.config.ASSOCIATION_URL + '?slug=' + slug + '&_embed')
+            .map((res: Response) => res.json())
+            // Cast response data to FAQ Category type
+            .map((res: any) => { return this.castPostsTo_AssociationType(res); });
+    }
+
+    getChapterBySlug(slug): Observable<Chapter[]> {
+        return this.http
+            .get(this.config.CHAPTER_URL + '?slug=' + slug + '&_embed')
+            .map((res: Response) => res.json())
+            // Cast response data to FAQ Category type
+            .map((res: any) => { return this.castPostsTo_ChapterType(res); });
+    }
 
     getAssociations(): Observable<Association[]> {
         return this.http
@@ -57,7 +72,8 @@ export class ChaptersAssociationsService {
                     phone: c.acf.phone,
                     website: c.acf.website,
                     website2: c.acf.website_2,
-                }
+                },
+                slug: c.slug,
             });
         });
         return associations;
@@ -93,6 +109,7 @@ export class ChaptersAssociationsService {
                 website: c.acf.website_url,
                 section_local: c.acf.section_local,
                 image: image,
+                slug: c.slug,
             });
         });
         return chapters;

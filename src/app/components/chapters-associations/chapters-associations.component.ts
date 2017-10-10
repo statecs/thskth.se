@@ -5,7 +5,7 @@ import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import { Location } from '@angular/common';
 import { Archive } from '../../interfaces/archive';
 import {Association, Chapter} from '../../interfaces/chapters_associations';
-import {forEach} from "@angular/router/src/utils/collection";
+import {forEach} from '@angular/router/src/utils/collection';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 
 @Component({
@@ -42,6 +42,8 @@ export class ChaptersAssociationsComponent implements OnInit {
   public showAssociations: boolean;
   public showChapters: boolean;
   public noResults: boolean;
+  public slug: string;
+  public pageNotFound: boolean;
 
   constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,
@@ -70,6 +72,7 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.showAssociations = true;
     this.showChapters = false;
     this.noResults = false;
+    this.pageNotFound = false;
     this.associations = [
       {
         category: 'Career and consulting',
@@ -94,7 +97,7 @@ export class ChaptersAssociationsComponent implements OnInit {
     }
   }
 
-  showAssociationInPopup(item: Association): void {
+  showAssociationInPopup(item: any): void {
     let relatedAssociations: Association[] = [];
     if (item.category === 'Career and consulting') {
       relatedAssociations = this.career_associations;
@@ -104,6 +107,7 @@ export class ChaptersAssociationsComponent implements OnInit {
       relatedAssociations = this.social_associations;
     }
     this.popupWindowCommunicationService.showAssociationInPopup({association: item, relatedAssociations: relatedAssociations});
+    this.location.go('/associations-and-chapters/' + item.slug);
   }
 
   goToPage(slug): void {
@@ -249,30 +253,69 @@ export class ChaptersAssociationsComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.searchTerm = params['q'];
-      console.log(this.searchTerm);
-      if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
-        console.log('pass');
-        this.submitSearch();
+  getPostBySlug() {
+    this.chaptersAssociationsService.getAssociationBySlug(this.slug).subscribe((res) => {
+      if (res.length > 0) {
+        this.showAssociationInPopup(res[0]);
+      }else {
+        this.chaptersAssociationsService.getChapterBySlug(this.slug).subscribe((res2) => {
+          if (res2.length > 0) {
+            this.showAssociationInPopup(res2[0]);
+          }else {
+            this.pageNotFound = true;
+          }
+        });
       }
-      if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
+    });
+  }
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.slug = params['slug'];
+      console.log(this.slug);
+      if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
         console.log('pass');
+        this.getPostBySlug();
         this.getAssociations();
       }
     });
 
-    this.renderer.listen(this.searchField.nativeElement, 'search', () => {
-      console.log(this.searchTerm);
-      if (this.searchTerm === '') {
-        console.log('search');
-        this.location.go('/associations-and-chapters');
-        this.showChapters = false;
-        this.showAssociations = true;
-        this.getAssociations();
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      console.log(params['q']);
+      console.log(this.slug);
+      if (this.slug === 'undefined' || typeof this.slug === 'undefined') {
+        console.log('pass q');
+        this.searchTerm = params['q'];
+        if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
+            console.log('pass');
+            this.submitSearch();
+        }
+        if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
+            console.log('pass');
+            this.getAssociations();
+        }
+      }else {
+        if (params['q']) {
+          this.location.go('/associations-and-chapters/' + this.slug);
+        }
       }
     });
+
+    const timer = setInterval(function () {
+      if (this.searchTerm) {
+        clearInterval(timer);
+        this.renderer.listen(this.searchField.nativeElement, 'search', () => {
+          console.log(this.searchTerm);
+          if (this.searchTerm === '') {
+            console.log('search');
+            this.location.go('/associations-and-chapters');
+            this.showChapters = false;
+            this.showAssociations = true;
+            this.getAssociations();
+          }
+        });
+      }
+    }, 100);
   }
 
 }

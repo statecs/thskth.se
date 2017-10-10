@@ -28,6 +28,11 @@ const appRoutes: Routes = [
         data: { title: 'Chapters and Associations' }
     },
     {
+        path: 'associations-and-chapters/:slug',
+        component: ChaptersAssociationsComponent,
+        data: { title: 'Chapters and Associations' }
+    },
+    {
         path: 'archive',
         component: ArchiveComponent,
         data: { title: 'Archive' }

@@ -13,6 +13,7 @@ export interface Association {
     image: string;
     category: string;
     contact: Contact;
+    slug: string;
 }
 
 export interface Chapter {
@@ -22,4 +23,5 @@ export interface Chapter {
     website: string;
     section_local: string;
     image: string;
+    slug: string;
 }

@@ -1,6 +1,7 @@
-<app-header></app-header>
+<app-page-not-found *ngIf="pageNotFound"></app-page-not-found>
+<app-header  *ngIf="!pageNotFound"></app-header>
 
-<div id="content-container">
+<div *ngIf="!pageNotFound" id="content-container">
   <div class="search-bar">
     <h2>Search THS associations and chapters</h2>
     <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">

@@ -67,6 +67,9 @@ export class PopupWindowComponent implements OnInit {
     if (!this.showEvent && !this.showAssociation) {
       this.location.back();
     }
+    if (this.showAssociation) {
+      this.location.go('/associations-and-chapters');
+    }
   }
 
   update_popup_window(slug): void {
