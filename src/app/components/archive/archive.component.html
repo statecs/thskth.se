@@ -73,9 +73,9 @@
           <i class="material-icons">keyboard_arrow_down</i>
           <div class="dropdown-container">
             <div class="dropdown-list">
-              <div class="dropdown-item" (click)="filterTopic($event, 0)">Show all</div>
-              <div class="dropdown-item" (click)="filterTopic($event, 354)">KS documents</div>
-              <div class="dropdown-item" (click)="filterTopic($event, 354)">KF documents</div>
+              <div class="dropdown-item" (click)="filterTopic($event, 0)" [ngClass]="{'selected': categoryID == 0}">Show all</div>
+              <div class="dropdown-item" (click)="filterTopic($event, 354)" [ngClass]="{'selected': categoryID == 354}">KS documents</div>
+              <div class="dropdown-item" (click)="filterTopic($event, 355)" [ngClass]="{'selected': categoryID == 355}">KF documents</div>
             </div>
           </div>
         </div>
