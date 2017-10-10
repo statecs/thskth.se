@@ -6,6 +6,7 @@ import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
 import { Archive, ArchiveCategory, Document } from '../../interfaces/archive';
 import { CookieService } from 'ngx-cookie';
+import format from 'date-fns/format/index';
 
 @Injectable()
 export class ArchiveService {
@@ -20,6 +21,14 @@ export class ArchiveService {
     }else {
       this.language = this._cookieService.get('language');
     }
+  }
+
+  getDocuments(amount): Observable<Archive[]> {
+    return this.http
+        .get(this.config.ARCHIVE_URL + '?per_page=' + amount)
+        .map((res: Response) => res.json())
+        // Cast response data to FAQ Category type
+        .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
   }
 
   searchDocuments(searchTerm: string, categoryID: number, date_filter: string): Observable<Archive[]> {
@@ -41,11 +50,16 @@ export class ArchiveService {
       archives.push({
         slug: c.slug,
         title: c.title.rendered,
+        lastModified: this.formatDate(c.modified),
         documents: this.castDataToDocumentType(c.acf.documents),
         categories: this.castDataToArchiveCategoryType(c.pure_taxonomies.categories),
       });
     });
     return archives;
+  }
+
+  formatDate(date: any): string {
+    return format(date, 'DD MMM YYYY');
   }
 
   castDataToDocumentType(data): Document[] {

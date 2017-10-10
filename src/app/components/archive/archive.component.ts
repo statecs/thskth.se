@@ -56,13 +56,13 @@ export class ArchiveComponent implements OnInit {
     this.documentResults = [];
     this.showResultsDropdown = false;
     this.documentsLoading = true;
-    this.showResults = false;
+    this.showResults = true;
     this.displayedDropdown = false;
     this.content_typeIsDisabled = false;
     this.showFilters = true;
-    this.docChecked = false;
-    this.zipChecked = false;
-    this.pdfChecked = false;
+    this.docChecked = true;
+    this.zipChecked = true;
+    this.pdfChecked = true;
     this.categoryID = 0;
     this.date_filter = '2014-09-24';
   }
@@ -211,6 +211,12 @@ export class ArchiveComponent implements OnInit {
         this.location.go('/archive');
         this.showFilters = true;
       }
+    });
+
+    this.archiveService.getDocuments(10).subscribe((res) => {
+      this.documentsLoading = false;
+      console.log(res);
+      this.documentResults = res;
     });
   }
 

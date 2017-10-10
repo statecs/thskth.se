@@ -15,6 +15,7 @@ export interface ArchiveCategory {
 export interface Archive {
     slug: string;
     title: string;
+    lastModified: string;
     documents: Document[];
     categories: ArchiveCategory[];
 }

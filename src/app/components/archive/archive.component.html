@@ -104,6 +104,7 @@
           <div *ngFor="let d of documentResults" class="item">
             <div class="left-content">
               <span *ngFor="let c of d.categories">{{c.name}}</span>
+              <div class="modified-date">Last modified: {{d.lastModified}}</div>
             </div>
             <div class="right-content">
               <h4>{{d.title}}</h4>
