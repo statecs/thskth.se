@@ -24,7 +24,7 @@ export class SearchService {
 
   searchPosts(searchTerm: string, amount: number): Observable<SearchResult[]> {
     return this.http
-        .get(this.config.POSTS_PAGE + '?per_page=' + amount + '&search=' + searchTerm)
+        .get(this.config.POSTS_PAGE + '?per_page=' + amount + '&support=' + searchTerm)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
@@ -32,7 +32,7 @@ export class SearchService {
 
   searchPages(searchTerm: string, amount: number): Observable<SearchResult[]> {
     return this.http
-        .get(this.config.PAGES_URL + '?per_page=' + amount + '&search=' + searchTerm)
+        .get(this.config.PAGES_URL + '?per_page=' + amount + '&support=' + searchTerm)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPagesTo_SearchResultType(res); });
@@ -40,7 +40,7 @@ export class SearchService {
 
   searchFAQs(searchTerm: string, amount: number): Observable<SearchResult[]> {
     return this.http
-        .get(this.config.FAQs_URL + '?per_page=' + amount + '&search=' + searchTerm)
+        .get(this.config.FAQs_URL + '?per_page=' + amount + '&support=' + searchTerm)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castFAQsTo_SearchResultType(res); });

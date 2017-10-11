@@ -47,7 +47,7 @@ export class ChaptersAssociationsService {
 
     searchAssociations(searchTerm: string): Observable<Association[]> {
         return this.http
-            .get(this.config.ASSOCIATION_URL + '?per_page=100&_embed&search=' + searchTerm)
+            .get(this.config.ASSOCIATION_URL + '?per_page=100&_embed&support=' + searchTerm)
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: any) => { return this.castPostsTo_AssociationType(res); });
@@ -89,7 +89,7 @@ export class ChaptersAssociationsService {
 
     searchChapters(searchTerm: string): Observable<Chapter[]> {
         return this.http
-            .get(this.config.CHAPTER_URL + '?per_page=100&_embed&search=' + searchTerm)
+            .get(this.config.CHAPTER_URL + '?per_page=100&_embed&support=' + searchTerm)
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: any) => { return this.castPostsTo_ChapterType(res); });

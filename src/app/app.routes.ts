@@ -14,7 +14,7 @@ import { LiveSectionComponent } from './components/live-section/live-section.com
 import { LiveComponent } from './components/live-section/live/live.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { NewsComponent } from './components/news/news.component';
-import { SearchComponent } from './components/search/search.component';
+import { SupportComponent } from './components/support/support.component';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
@@ -38,8 +38,8 @@ const appRoutes: Routes = [
         data: { title: 'Archive' }
     },
     {
-        path: 'search',
-        component: SearchComponent,
+        path: 'support',
+        component: SupportComponent,
         data: { title: 'Search' }
     },
     {

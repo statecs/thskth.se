@@ -38,7 +38,7 @@ export class ArchiveService {
       params = '&categories=' + categoryID;
     }
     return this.http
-        .get(this.config.ARCHIVE_URL + '?search=' + searchTerm + params + '&after=' + date_filter + 'T22:26:53')
+        .get(this.config.ARCHIVE_URL + '?support=' + searchTerm + params + '&after=' + date_filter + 'T22:26:53')
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });

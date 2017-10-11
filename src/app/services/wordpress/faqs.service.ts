@@ -44,7 +44,7 @@ export class FaqsService {
 
   searchFAQs(search_term): Observable<FAQ[]> {
     return this.http
-        .get(this.config.FAQs_URL + '?order=asc&per_page=100&search=' + search_term)
+        .get(this.config.FAQs_URL + '?order=asc&per_page=100&support=' + search_term)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => { return this.castSearchResultsToFAQType(res, ''); });

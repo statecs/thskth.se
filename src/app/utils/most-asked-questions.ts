@@ -1,0 +1,1 @@
+export const most_asked_questions: any = ['how-do-i-become-a-member', 'student-card-id', 'what-happens-if-i-do-not-pay'];

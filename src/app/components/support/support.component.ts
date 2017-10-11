@@ -4,13 +4,16 @@ import { SearchResult } from '../../interfaces/search';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import {Location} from '@angular/common';
+import { FaqsService } from '../../services/wordpress/faqs.service';
+import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
+import { most_asked_questions } from '../../utils/most-asked-questions';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  selector: 'app-support',
+  templateUrl: './support.component.html',
+  styleUrls: ['./support.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SupportComponent implements OnInit {
 
   @ViewChild('searchForm') searchForm: ElementRef;
   @ViewChild('filter_icon') filter_icon: ElementRef;
@@ -32,10 +35,14 @@ export class SearchComponent implements OnInit {
   public faqsLoading: boolean;
   public showResults: boolean;
 
+  public parent_categories: FAQCategory[];
+  public most_asked_questions: string[];
+
   constructor(private searchService: SearchService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private location: Location ) {
+              private location: Location,
+              private faqsService: FaqsService ) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -52,6 +59,7 @@ export class SearchComponent implements OnInit {
     this.pagesLoading = true;
     this.faqsLoading = true;
     this.showResults = false;
+    this.most_asked_questions = most_asked_questions;
   }
 
   goToPage(slug): void {
@@ -90,7 +98,7 @@ export class SearchComponent implements OnInit {
       this.searchFAQs();
     }
     if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
-      this.location.go('/search?q=' + this.searchTerm);
+      this.location.go('/support?q=' + this.searchTerm);
     }
   }
 
@@ -152,6 +160,11 @@ export class SearchComponent implements OnInit {
       if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
         this.submitSearch();
       }
+    });
+
+    this.faqsService.getFAQParentCategories().subscribe((categories) => {
+      this.parent_categories = categories;
+      console.log(categories);
     });
   }
 

@@ -263,6 +263,36 @@
     }
   }
 
+  .faqs{
+    border-top: 1px solid lightgray;
+    .featured-faqs{
+      width: 100%;
+      margin: 20px 0;
+      text-align: center;
+      .item{
+        background-color: lightgray;
+        text-align: center;
+        width: 30%;
+        height: 200px;
+        display: inline-block;
+        padding: 5px 0;
+        margin: 0 1%;
+      }
+    }
+    .faqs-categories{
+      border-top: 1px solid lightgray;
+      text-align: center;
+      .category{
+        width: 30%;
+        padding: 20px 0;
+        background-color: lightgray;
+        display: inline-block;
+        margin: 10px 1%;
+      }
+    }
+  }
+
+
 }
 
 ::-webkit-scrollbar
