@@ -301,17 +301,18 @@ export class ChaptersAssociationsComponent implements OnInit {
       }
     });
 
+    const self = this;
     const timer = setInterval(function () {
-      if (this.searchTerm) {
+      if (self.searchTerm) {
         clearInterval(timer);
-        this.renderer.listen(this.searchField.nativeElement, 'search', () => {
-          console.log(this.searchTerm);
-          if (this.searchTerm === '') {
+        self.renderer.listen(self.searchField.nativeElement, 'search', () => {
+          console.log(self.searchTerm);
+          if (self.searchTerm === '') {
             console.log('search');
-            this.location.go('/associations-and-chapters');
-            this.showChapters = false;
-            this.showAssociations = true;
-            this.getAssociations();
+            self.location.go('/associations-and-chapters');
+            self.showChapters = false;
+            self.showAssociations = true;
+            self.getAssociations();
           }
         });
       }

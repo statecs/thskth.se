@@ -43,6 +43,16 @@ const appRoutes: Routes = [
         data: { title: 'Search' }
     },
     {
+        path: 'support/faq',
+        component: FaqsComponent,
+        data: { title: 'FAQ' }
+    },
+    {
+        path: 'support/faq/:category',
+        component: FaqsComponent,
+        data: { title: 'FAQ' }
+    },
+    {
         path: 'restaurant',
         component: RestaurantComponent,
         data: { title: 'Restaurant' }
@@ -98,8 +108,6 @@ const appRoutes: Routes = [
         data: { title: 'Contact' },
         children: [
             {path: '', component: ContactComponent, data: { title: 'Contact' }},
-            {path: 'faq', component: FaqsComponent, data: { title: 'FAQ' }},
-            {path: 'faq/:category', component: FaqsComponent, data: { title: 'FAQ' }},
             {path: ':slug', component: ContactSubpageComponent, data: { title: 'Contact Sub Page' }},
             {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Contact' }},
             ]

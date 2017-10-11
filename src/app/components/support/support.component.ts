@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { SearchService } from '../../services/wordpress/search.service';
 import { SearchResult } from '../../interfaces/search';
 import { Router, ActivatedRoute, Params} from '@angular/router';
@@ -17,6 +17,7 @@ export class SupportComponent implements OnInit {
 
   @ViewChild('searchForm') searchForm: ElementRef;
   @ViewChild('filter_icon') filter_icon: ElementRef;
+  @ViewChild('searchField') searchField: ElementRef;
 
   public postsChecked: boolean;
   public pageChecked: boolean;
@@ -36,13 +37,15 @@ export class SupportComponent implements OnInit {
   public showResults: boolean;
 
   public parent_categories: FAQCategory[];
-  public most_asked_questions: string[];
+  public most_asked_faqs: FAQ[];
+  public most_asked_questions_slugs: string[];
 
   constructor(private searchService: SearchService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private location: Location,
-              private faqsService: FaqsService ) {
+              private faqsService: FaqsService,
+              private renderer: Renderer2 ) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -59,7 +62,9 @@ export class SupportComponent implements OnInit {
     this.pagesLoading = true;
     this.faqsLoading = true;
     this.showResults = false;
-    this.most_asked_questions = most_asked_questions;
+    this.most_asked_questions_slugs = most_asked_questions;
+    this.parent_categories = [];
+    this.most_asked_faqs = [];
   }
 
   goToPage(slug): void {
@@ -157,6 +162,7 @@ export class SupportComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchTerm = params['q'];
+      console.log(this.searchTerm);
       if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
         this.submitSearch();
       }
@@ -166,6 +172,36 @@ export class SupportComponent implements OnInit {
       this.parent_categories = categories;
       console.log(categories);
     });
+
+    this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0]).subscribe((faq) => {
+      const faqs: FAQ[] = [];
+      faqs.push(faq);
+      this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1]).subscribe((faq2) => {
+        faqs.push(faq2);
+        this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2]).subscribe((faq3) => {
+          faqs.push(faq3);
+
+          this.most_asked_faqs = faqs;
+        });
+      });
+    });
+
+    const self = this;
+    const timer = setInterval(function () {
+      console.log(self.searchTerm);
+      if (self.searchTerm) {
+        console.log('support');
+        clearInterval(timer);
+        self.renderer.listen(self.searchField.nativeElement, 'search', () => {
+          console.log(self.searchTerm);
+          if (self.searchTerm === '') {
+            console.log('support');
+            self.location.go('/support');
+            self.showResults = false;
+          }
+        });
+      }
+    }, 100);
   }
 
 }

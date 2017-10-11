@@ -59,6 +59,24 @@ export class FaqsService {
         .map((res: Array<any>) => { return this.castResFAQType(res, ''); });
   }
 
+  // Get FAQs by slug
+  getFAQs_BySlug(slug): Observable<FAQ> {
+    return this.http
+        .get(this.config.FAQs_URL + '?slug=' + slug)
+        .map((res: Response) => res.json())
+        // Cast response data to FAQ Category type
+        .map((res: Array<any>) => {
+          const faq: FAQ = {
+            question: res[0].title.rendered,
+            answer: res[0].content.rendered,
+            slug: res[0].slug,
+            category_name: '',
+            faq_category: res[0].faq_category,
+          };
+          return faq;
+        });
+  }
+
   // Get FAQs by parent categories
   getSubMenus_ByParentCategory(catID): Observable<FAQSubMenu[]> {
     return this.getFAQChildCategories(catID).flatMap((child_categories) => {

@@ -5,7 +5,7 @@
     <h2>Search THS and beyond</h2>
     <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
       <div class="search">
-        <input placeholder="Enter your search term" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        <input #searchField placeholder="Enter your search term" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
         <div class="mostSearchTerms">
           <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
         </div>
@@ -131,23 +131,17 @@
 
   <div class="faqs">
     <div class="featured-faqs">
-      <div class="item">
-        <h2>Question</h2>
-        <p>Answerrrrrrrrrrrrrrrrrr</p>
+      <div *ngFor="let item of most_asked_faqs" class="item">
+        <h2>{{item.question}}</h2>
+        <p [innerHTML]="item.answer | cardText:100"></p>
       </div>
-      <div class="item">
-        <h2>Question</h2>
-        <p>Answerrrrrrrrrrrrrrrrrr</p>
-      </div>
-      <div class="item">
-        <h2>Question</h2>
-        <p>Answerrrrrrrrrrrrrrrrrr</p>
-      </div>
+      <app-loader *ngIf="most_asked_faqs.length === 0"></app-loader>
     </div>
 
     <div class="faqs-categories">
-      <h2>FAQs categories</h2>
-      <div *ngFor="let c of parent_categories" class="category">{{c.name}}</div>
+      <h2>FAQ categories</h2>
+      <a *ngFor="let c of parent_categories" routerLink="faq/{{c.slug}}" class="category">{{c.name}}</a>
+      <app-loader *ngIf="parent_categories.length === 0"></app-loader>
     </div>
   </div>
 </div>

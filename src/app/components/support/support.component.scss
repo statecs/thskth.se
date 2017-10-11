@@ -16,7 +16,7 @@
   line-height: 1;
 
   .center-vertically{
-    margin: 150px 0;
+    margin: 100px 0;
     background-color: #efefef !important;
   }
 
@@ -265,6 +265,7 @@
 
   .faqs{
     border-top: 1px solid lightgray;
+    margin-bottom: 100px;
     .featured-faqs{
       width: 100%;
       margin: 20px 0;
@@ -275,8 +276,14 @@
         width: 30%;
         height: 200px;
         display: inline-block;
-        padding: 5px 0;
         margin: 0 1%;
+        vertical-align: top;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        >p{
+          text-align: left;
+        }
       }
     }
     .faqs-categories{
@@ -288,6 +295,12 @@
         background-color: lightgray;
         display: inline-block;
         margin: 10px 1%;
+        cursor: pointer;
+        text-decoration: none;
+        color: $color-link-secondary;
+        &:hover{
+          color: $color-link-secondary-hover;
+        }
       }
     }
   }
