@@ -18,6 +18,8 @@ export class EventsCalendarComponent implements OnInit {
   events: Event[];
   actualDate: string;
   public ths_calendars: any[];
+  public showFeaturedEvents: boolean;
+  public earliest_events: Event[];
 
   constructor(private calendarCommunicationService: CalendarCommunicationService,
               private googleCalendarService: GoogleCalendarService,
@@ -25,6 +27,12 @@ export class EventsCalendarComponent implements OnInit {
     this.events = [];
     this.actualDate = format(new Date(), 'DD MMM YYYY');
     this.ths_calendars = ths_calendars;
+    this.showFeaturedEvents = true;
+    this.earliest_events = [];
+  }
+
+  formatDay(start) {
+    return format(start, 'MMM DD');
   }
 
   showInPopup(event: Event): void {
@@ -44,8 +52,28 @@ export class EventsCalendarComponent implements OnInit {
         .subscribe(res => {
           console.log(res);
           this.events = res;
+          if (this.events.length !== 0) {
+            this.showFeaturedEvents = false;
+          }
         });
   }
+
+  mergeArrays(arrays: any): Event[] {
+    let merged: Event[] = [];
+    arrays.forEach((event) => {
+      console.log(event);
+      merged = merged.concat(event);
+      console.log(merged);
+    });
+    return merged;
+  }
+
+  sortArrayByTime(a, b) {
+    a = new Date(a.start);
+    b = new Date(b.start);
+    console.log(a);
+    return a < b ? -1 : a > b ? 1 : 0;
+  };
 
   ngOnInit() {
     this.calendarCommunicationService.notifyObservable$.subscribe((arg) => {
@@ -57,9 +85,22 @@ export class EventsCalendarComponent implements OnInit {
         this.getEventsPerDay(arg.calendarId, arg.viewDate);
       }
       console.log('actualDate');
+      console.log(arg);
     });
 
     this.getEventsPerDay(this.ths_calendars[0].calendarId, new Date());
+
+    this.googleCalendarService.getAllEvents(null).subscribe(res => {
+      console.log(res);
+      const mergedArrays = this.mergeArrays(res);
+      const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+      console.log(sortedArrays);
+      if (sortedArrays.length > 3) {
+        this.earliest_events = sortedArrays.slice(0, 3);
+      }else {
+        this.earliest_events = sortedArrays;
+      }
+    });
   }
 
 }

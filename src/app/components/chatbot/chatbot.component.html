@@ -4,7 +4,7 @@
       <li *ngFor="let i of responses, let index = index">
         <div class="response" *ngIf="i.type === 'response'">
           <div class="text">{{i.message}}</div>
-          <div *ngIf="i.info" class="info">
+          <div *ngIf="i.info && i.info !== ''" class="info">
             <span (click)="showInfo(index)">?</span>
             <div *ngIf="showedInfoIndex == index" class="info-text">
               {{i.info}}

@@ -63,12 +63,23 @@ export class GoogleCalendarService {
     }
   }
 
-  getAllEvents(): Observable<Event[][]> {
-    const startDate = new Date();
-    this.search.set(
-        'timeMin',
-        format(startDate, 'YYYY-MM-DDTHH:mm:ss.SSSz')
-    );
+  getAllEvents(viewDate): Observable<Event[][]> {
+    if (viewDate === null) {
+      const startDate = new Date();
+      this.search.set(
+          'timeMin',
+          format(startDate, 'YYYY-MM-DDTHH:mm:ss.SSSz')
+      );
+    }else {
+      this.search.set(
+          'timeMin',
+          format(this.getStart(viewDate), 'YYYY-MM-DDTHH:mm:ss.SSSz')
+      );
+      this.search.set(
+          'timeMax',
+          format(this.getEnd(viewDate), 'YYYY-MM-DDTHH:mm:ss.SSSz')
+      );
+    }
     this.search.set('key', this.config.GOOGLE_CALENDAR_KEY);
     this.search.set('singleEvents', 'true');
     this.search.set('orderBy', 'startTime');

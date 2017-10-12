@@ -7,12 +7,23 @@
     </div>
     <app-calendar></app-calendar>
   </div>
-  <div class="events-wrapper">
+  <div *ngIf="showFeaturedEvents" class="featured-events">
+    <div *ngFor="let e of earliest_events" class="event">
+      <div class="image-wrapper" [ngStyle]="{'background-image': 'url(' + e.imageUrl + ')'}">
+        <span class="date">formatDay(e.start)</span>
+      </div>
+      <div class="info">
+        <h2>{{e.title}}</h2>
+        <p [innerHTML]="e.description | cardText:100"></p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!showFeaturedEvents" class="events-wrapper">
     <div class="events-header">
       <h3>Events on {{actualDate}}</h3>
-      <div class="filter-icon">
+      <!--<div class="filter-icon">
         Filter <i class="material-icons">filter_list</i>
-      </div>
+      </div>-->
     </div>
     <div class="events">
       <div *ngFor="let e of events" class="item" (click)="showInPopup(e)">

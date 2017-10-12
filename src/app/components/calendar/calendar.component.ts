@@ -31,7 +31,8 @@ import { ths_calendars } from '../../utils/ths-calendars';
 export class CalendarComponent implements OnInit {
   view: string;
   viewDate: Date;
-  events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
+  //events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
+  events$: Event[];
   activeDayIsOpen: boolean;
   public ths_calendars: any[];
   public selected_event_category: number;
@@ -43,18 +44,28 @@ export class CalendarComponent implements OnInit {
     this.activeDayIsOpen = false;
     this.viewDate = new Date();
     this.ths_calendars = ths_calendars;
-    this.selected_event_category = 0;
+    this.selected_event_category = -1;
   }
 
   switchCalendar(index) {
     this.selected_event_category = index;
-    this.fetchEvents();
+    if (index === -1) {
+      this.getAllEvents();
+    }else {
+      this.fetchEvents();
+    }
   }
 
   fetchEvents(): void {
     console.log(this.selected_event_category);
-    this.events$ = this.googleCalendarService.fetchEvents(this.ths_calendars[this.selected_event_category].calendarId, this.viewDate, this.view);
-    this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: this.viewDate, calendarId: this.ths_calendars[this.selected_event_category].calendarId});
+    if (this.selected_event_category === -1) {
+      this.getAllEvents();
+    }else {
+      this.googleCalendarService.fetchEvents(this.ths_calendars[this.selected_event_category].calendarId, this.viewDate, this.view).subscribe((res) => {
+        this.events$ = res;
+      });
+      this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: this.viewDate, calendarId: this.ths_calendars[this.selected_event_category].calendarId});
+    }
   }
 
   dayClicked({date, events}: {
@@ -88,6 +99,32 @@ export class CalendarComponent implements OnInit {
     e.creator = event.creator;
     e.meta = event.meta;*/
     this.popupWindowCommunicationService.showEventInPopup(event);
+  }
+
+  mergeArrays(arrays: any): Event[] {
+    let merged: Event[] = [];
+    arrays.forEach((event) => {
+      console.log(event);
+      merged = merged.concat(event);
+      console.log(merged);
+    });
+    return merged;
+  }
+
+  sortArrayByTime(a, b) {
+    a = new Date(a.start);
+    b = new Date(b.start);
+    console.log(a);
+    return a < b ? -1 : a > b ? 1 : 0;
+  };
+
+  getAllEvents() {
+    this.googleCalendarService.getAllEvents(this.viewDate).subscribe(res => {
+      console.log(res);
+      const mergedArrays = this.mergeArrays(res);
+      this.events$ = mergedArrays.sort(this.sortArrayByTime);
+      console.log(this.events$);
+    });
   }
 
   ngOnInit(): void {

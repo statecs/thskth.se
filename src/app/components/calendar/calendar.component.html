@@ -1,4 +1,5 @@
 <div class="categories">
+    <div class="item" (click)="switchCalendar(-1)" [ngClass]="{'selected': selected_event_category === -1}">All</div>
     <div *ngFor="let c of ths_calendars, let i = index" class="item" (click)="switchCalendar(i)" [ngClass]="{'selected': selected_event_category === i}">{{c.title}}</div>
 </div>
 
@@ -8,7 +9,7 @@
         (updateEvents)="fetchEvents()">
 </app-calendar-header>
 
-<div *ngIf="events$ | async; else loading; let events">
+<div>
     <div [ngSwitch]="view">
         <mwl-calendar-month-view
                 *ngSwitchCase="'month'"

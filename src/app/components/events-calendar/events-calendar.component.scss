@@ -12,9 +12,10 @@
 
 #events-calendar{
   @include container-size($main-container);
-  margin-top: 80px;
+  //margin-top: 80px;
   position: relative;
   margin-bottom: 50px;
+  text-align: center;
 
   .calendar-wrapper{
     width: 55%;
@@ -23,7 +24,7 @@
     display: inline-block;
 
     .title{
-      padding: 30px;
+      padding: 20px;
       background-color: #dddddd;
       border-top-right-radius: 5px;
       border-top-left-radius: 5px;
@@ -31,9 +32,34 @@
     }
   }
 
+  .featured-events{
+    margin-top: 40px;
+    .event{
+      width: 25%;
+      display: inline-block;
+      margin: 0 2%;
+      .image-wrapper{
+        height: 170px;
+        .date{
+          width: 50px;
+          height: 50px;
+          background-color: rgba(255, 255, 255, 0.67);
+          float: left;
+          font-weight: $font-weight-bold;
+          padding-top: 5px;
+        }
+      }
+      .info{
+        text-align: left;
+        h2{
+          font-size: $font-size-h2;
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+
   .events-wrapper{
-    width: 43%;
-    display: inline-block;
     vertical-align: top;
     margin-left: 1%;
     margin-top: 15px;
@@ -63,10 +89,10 @@
         display: block;
       }
       .item{
-        margin: 5px 0;
-        background-color: #eaeaea;
+        margin: 15px 0;
         height: 150px;
         cursor: pointer;
+        text-align: left;
         .img-wrapper{
           display: inline-block;
           width: 40%;
@@ -114,13 +140,19 @@
 :host /deep/ .calendar-wrapper{
   .cal-header{
     font-weight: 400 !important;
+    font-size: $font-size-h7;
   }
 
   .cal-day-cell {
     min-height: 50px !important;
   }
 }
-
+:host /deep/ .cal-month-view .cal-cell-top{
+  min-height: 50px !important;
+}
+:host /deep/ .cal-month-view .cal-day-cell.cal-today .cal-day-number{
+  font-size: 1.2em !important;
+}
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {

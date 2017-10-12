@@ -71,7 +71,7 @@ export class EventsCardComponent implements OnInit {
 
   ngOnInit() {
     //this.getCalendar(this.ths_calendars[0].calendarId);
-    this.googleCalendarService.getAllEvents().subscribe(res => {
+    this.googleCalendarService.getAllEvents(null).subscribe(res => {
       console.log(res);
       const mergedArrays = this.mergeArrays(res);
       const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
