@@ -36,8 +36,9 @@
     margin-bottom: 10px;
 
     h2{
-      margin-top: 10px;
-      margin-bottom: 15px;
+      margin-top: 10px !important;
+      margin-bottom: 15px !important;
+      padding: 0;
       font-size: $font-size-h5;
     }
     p{
@@ -63,8 +64,9 @@
     height: 145px !important;
     margin-bottom: 10px;
     h2{
-      margin-top: 0;
-      margin-bottom: 15px;
+      margin-top: 0 !important;
+      margin-bottom: 15px !important;
+      padding: 0;
       font-size: $font-size-h4;
     }
     p{

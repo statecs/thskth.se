@@ -22,7 +22,7 @@
                     <div class="content">
                         <h2>{{card.title}}</h2>
                         <p [innerHTML]="card.content | cardText:120"></p>
-                        <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+                        <a type="button">> Read more </a>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,8 @@
                     <div class="content">
                         <h2>{{card.title}}</h2>
                         <p [innerHTML]="card.content | cardText:120"></p>
-                        <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
+                        <!--<a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>-->
+                        <a type="button">> Read more </a>
                     </div>
                 </div>
             </div>
@@ -138,6 +139,7 @@
                         <div class="content">
                             <h2>{{card.title}}</h2>
                             <p [innerHTML]="card.content | cardText:50"></p>
+                            <a type="button">> Read more </a>
                         </div>
                     </div>
                 </div>
