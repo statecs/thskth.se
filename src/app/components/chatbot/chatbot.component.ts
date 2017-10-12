@@ -246,7 +246,7 @@ export class ChatbotComponent implements OnInit {
       self.addDynamicComponent();
       const old_user_inputs = self.user_inputs;
       self.user_inputs = [];
-      setTimeout(function () {
+      /*setTimeout(function () {
           console.log(self.chatFlowList.nativeElement.lastElementChild);
           self.chatFlowList.nativeElement.lastElementChild.remove();
           self.responses.push({
@@ -256,7 +256,7 @@ export class ChatbotComponent implements OnInit {
           });
           const user_input = old_user_inputs[index].response.user_input;
           self.user_inputs = user_input;
-      }, 1000);
+      }, 1000);*/
     }, 500);
   }
 
