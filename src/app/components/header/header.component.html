@@ -28,6 +28,14 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="showMenuMobile" class="search-bar-mobile">
+            <form autocomplete="off">
+                <div class="search-bar">
+                    <a routerLink="support" [queryParams]="{ q: searchTerm }"><i class="material-icons">search</i></a>
+                    <input placeholder="Search THS and beyond..." [(ngModel)]="searchTerm" name="searchInput" type="search" appAutoFocus>
+                </div>
+            </form>
+        </div>
         <div *ngIf="showMenuMobile" class="menu-items">
             <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
                 <div class="label">
