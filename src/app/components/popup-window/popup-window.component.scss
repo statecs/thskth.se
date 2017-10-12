@@ -14,13 +14,16 @@
   position: relative;
   margin-left: 15% !important;
   z-index: 1;
-  background-color: $bg-color-default;
+  background-color: rgba(0,0,0,0);
   border-radius: 5px;
   overflow: hidden;
   margin-bottom: 100px;
 
   .layouts-container{
     position: relative;
+    background-color: $bg-color-default;
+    margin-top: 50px;
+    transition: margin 0.5s ease;
     .exit-popup-btn{
       background-color: black;
       color: white;
@@ -73,6 +76,8 @@
         top: -150px;
         border-radius: 10px;
         box-shadow: 0 3px 5px #888888;
+        margin-top: 100px;
+        transition: margin 0.7s ease;
         h2{
           margin-top:0;
         }
@@ -132,6 +137,8 @@
         background-color: $bg-color-default;
         position: relative;
         border-radius: 10px;
+        margin-top: 100px;
+        transition: margin 0.7s ease;
         & >div{display: inline-block;}
         .date{
           width: 20%;
@@ -188,6 +195,8 @@
         background-color: $bg-color-default;
         position: relative;
         border-radius: 10px;
+        margin-top: 100px;
+        transition: margin 0.7s ease;
         & >div{display: inline-block;}
         .date{
           width: 20%;

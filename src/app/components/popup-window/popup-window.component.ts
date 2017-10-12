@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import {Component, OnInit, HostListener, ViewChild, ElementRef} from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import {Subscription} from 'rxjs/Subscription';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
@@ -15,7 +15,7 @@ import {Archive} from '../../interfaces/archive';
   styleUrls: ['./popup-window.component.scss']
 })
 export class PopupWindowComponent implements OnInit {
-
+  @ViewChild('layouts_container') layouts_container: ElementRef;
   public showPopupWindow: boolean;
   public popup_window_updater: Subscription;
   public popup_window_event_updater: Subscription;
@@ -30,6 +30,7 @@ export class PopupWindowComponent implements OnInit {
   public relatedAssociations: object;
   public archive: Archive;
   public showArchive: boolean;
+  public containers: any;
 
   constructor( private wordpressApiService: WordpressApiService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -68,6 +69,18 @@ export class PopupWindowComponent implements OnInit {
   show_popup_window(): void {
     this.showPopupWindow = true;
     this.appCommunicationService.collapseScrollOnPage('collapse');
+    const self = this;
+    const timer = setInterval(function () {
+      console.log(self.layouts_container)
+      if (self.layouts_container) {
+        clearInterval(timer);
+        self.containers = self.layouts_container.nativeElement.getElementsByClassName('content-container');
+        self.layouts_container.nativeElement.style.marginTop = '0';
+        for (let i = 0; i < self.containers.length; i++) {
+          self.containers[i].style.marginTop = '0';
+        }
+      }
+    }, 100);
   }
 
   hide_popup_window(): void {
