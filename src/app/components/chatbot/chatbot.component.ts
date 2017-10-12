@@ -18,6 +18,7 @@ export class ChatbotComponent implements OnInit {
   responses: any[];
   user_inputs: any[];
   public messages: any;
+  public showedInfoIndex: number;
 
   constructor(private resolver: ComponentFactoryResolver,
               private injector: Injector,
@@ -26,6 +27,7 @@ export class ChatbotComponent implements OnInit {
     this.chatFlow = [
       {
         message: 'Hey, Nice to meet you!. What do you want help with?',
+        info: 'This is welcome message info!',
         type: 'response',
         user_input: [
           {
@@ -34,6 +36,7 @@ export class ChatbotComponent implements OnInit {
             response:
               {
                 message: 'Great! Was it helpful?',
+                info: 'We would be appreciated to get feedback from you.',
                 type: 'response',
                 user_input: [
                   {
@@ -42,6 +45,7 @@ export class ChatbotComponent implements OnInit {
                     response:
                       {
                         message: this.messages.one,
+                        info: null,
                         type: 'response',
                       }
                   },
@@ -51,6 +55,7 @@ export class ChatbotComponent implements OnInit {
                     response:
                       {
                         message: this.messages.two,
+                        info: null,
                         type: 'response',
                       }
                   }
@@ -63,6 +68,7 @@ export class ChatbotComponent implements OnInit {
             response:
               {
                 message: 'It is located in Nymble. Was it helpful?',
+                info: null,
                 type: 'response',
                 user_input: [
                   {
@@ -71,6 +77,7 @@ export class ChatbotComponent implements OnInit {
                     response:
                       {
                         message: this.messages.one,
+                        info: null,
                         type: 'response',
                       }
                   },
@@ -80,6 +87,7 @@ export class ChatbotComponent implements OnInit {
                     response:
                       {
                         message: this.messages.two,
+                        info: null,
                         type: 'response',
                       }
                   }
@@ -92,6 +100,7 @@ export class ChatbotComponent implements OnInit {
             response:
               {
                 message: 'Great! Have you semester registered?',
+                info: null,
                 type: 'response',
                 user_input: [
                   {
@@ -100,6 +109,7 @@ export class ChatbotComponent implements OnInit {
                     response:
                       {
                         message: 'Have you paid the membership fee? (365kr)?',
+                        info: null,
                         type: 'response',
                           user_input: [
                               {
@@ -108,6 +118,7 @@ export class ChatbotComponent implements OnInit {
                                   response:
                                       {
                                           message: 'Have you checked that you use your kth-adress at SSSB?',
+                                          info: null,
                                           type: 'response',
                                           user_input: [
                                               {
@@ -116,6 +127,7 @@ export class ChatbotComponent implements OnInit {
                                                   response:
                                                       {
                                                           message: 'Perfect! It will take between 2-3 weeks until you get your card! Enjoy!',
+                                                          info: null,
                                                           type: 'response',
                                                       }
                                               },
@@ -125,6 +137,7 @@ export class ChatbotComponent implements OnInit {
                                                   response:
                                                       {
                                                           message: this.messages.two,
+                                                          info: null,
                                                           type: 'response',
                                                       }
                                               }
@@ -137,6 +150,7 @@ export class ChatbotComponent implements OnInit {
                                   response:
                                       {
                                           message: this.messages.two,
+                                          info: null,
                                           type: 'response',
                                       }
                               }
@@ -149,6 +163,7 @@ export class ChatbotComponent implements OnInit {
                     response:
                       {
                         message: this.messages.two,
+                        info: null,
                         type: 'response',
                       }
                   }
@@ -161,6 +176,7 @@ export class ChatbotComponent implements OnInit {
             response:
               {
                 message: 'THS! Was it helpful?',
+                info: null,
                 type: 'response',
                 user_input: [
                   {
@@ -169,6 +185,7 @@ export class ChatbotComponent implements OnInit {
                     response:
                       {
                         message: this.messages.one,
+                        info: null,
                         type: 'response',
                       }
                   },
@@ -178,6 +195,7 @@ export class ChatbotComponent implements OnInit {
                     response:
                       {
                         message: this.messages.two,
+                        info: null,
                         type: 'response',
                       }
                   }
@@ -190,10 +208,19 @@ export class ChatbotComponent implements OnInit {
 
     this.responses = [{
       message: this.chatFlow[0].message,
+        info: this.chatFlow[0].info,
       type: 'response'
     }];
     this.user_inputs = this.chatFlow[0].user_input;
   }
+
+    showInfo(index) {
+      if (this.showedInfoIndex === index) {
+          this.showedInfoIndex = -1;
+      }else{
+          this.showedInfoIndex = index;
+      }
+    }
 
   addItemToChatFlow(event, index) {
     const rect = this.chatFlowList.nativeElement.lastElementChild;
@@ -224,6 +251,7 @@ export class ChatbotComponent implements OnInit {
           self.chatFlowList.nativeElement.lastElementChild.remove();
           self.responses.push({
               message: old_user_inputs[index].response.message,
+              info: old_user_inputs[index].response.info,
               type: 'response'
           });
           const user_input = old_user_inputs[index].response.user_input;

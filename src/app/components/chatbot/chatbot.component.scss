@@ -15,26 +15,63 @@
       margin: 0 0 110px 0;
       li{
         display: block;
-        overflow: hidden;
+        //overflow: hidden;
         .response{
           float: left;
-          padding: 15px;
-          background: #87a1ba;
-          color: white;
-          border-radius: 15px;
-          margin: 0 5px;
-          max-width: 70%;
-          border-bottom-left-radius: 2px;
           display: inline-block;
+          width: 100%;
+          .text{
+            display: inline-block;
+            max-width: 70%;
+            padding: 15px;
+            background: #87a1ba;
+            color: white;
+            border-radius: 15px;
+            margin: 0 5px;
+            border-bottom-left-radius: 2px;
+            //float: left;
+            vertical-align: middle;
+          }
+          .info{
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            >span{
+              @include circle(20px);
+              background-color: orange;
+              display: inline-block;
+              text-align: center;
+              color: white;
+              cursor: pointer;
+            }
+            .info-text{
+              position: absolute;
+              display: inline-block;
+              background-color: orange;
+              border-radius: 10px;
+              padding: 15px;
+              bottom: 40px;
+              width: 300px;
+              word-wrap: break-word;
+              &::after{
+                content: '';
+                @include arrow-down-tilted(10px, orange, 5%);
+              }
+            }
+          }
         }
         .user{
-          float: right;
-          display: inline-block;
-          padding: 10px 15px;
-          background: lightgrey;
-          color: black;
-          border-radius: 20px;
-          margin: 5px 0;
+          width: 100%;
+          overflow: hidden;
+          .message{
+            float: right;
+            display: inline-block;
+            padding: 10px 15px;
+            background: lightgrey;
+            color: black;
+            border-radius: 20px;
+            margin: 5px 0;
+          }
         }
       }
     }
