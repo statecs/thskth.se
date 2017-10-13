@@ -98,6 +98,7 @@ import { JoinUsComponent } from './components/advertisements/join-us/join-us.com
 import { EventsCardComponent } from './components/advertisements/events-card/events-card.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { SelectSliderComponent } from './components/select-slider/select-slider.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -160,7 +161,8 @@ import { SelectSliderComponent } from './components/select-slider/select-slider.
     JoinUsComponent,
     EventsCardComponent,
     LoaderComponent,
-    SelectSliderComponent
+    SelectSliderComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

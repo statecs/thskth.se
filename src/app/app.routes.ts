@@ -20,6 +20,7 @@ import { ArchiveComponent } from './components/archive/archive.component';
 import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
 import {StudentLifeSectionComponent} from './components/student-life-section/student-life-section.component';
 import { ContactSubpageComponent } from './components/contact-section/contact-subpage/contact-subpage.component';
+import {SearchComponent} from './components/search/search.component';
 
 const appRoutes: Routes = [
     {
@@ -38,9 +39,14 @@ const appRoutes: Routes = [
         data: { title: 'Archive' }
     },
     {
+        path: 'search',
+        component: SearchComponent,
+        data: { title: 'Search' }
+    },
+    {
         path: 'support',
         component: SupportComponent,
-        data: { title: 'Search' }
+        data: { title: 'Support' }
     },
     {
         path: 'support/faq',

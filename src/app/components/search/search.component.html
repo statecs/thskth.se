@@ -1,0 +1,132 @@
+<app-header></app-header>
+
+<div id="content-container">
+  <div class="search-bar" [ngClass]="{'center-vertically': !showResults}">
+    <h2>Search THS and beyond</h2>
+    <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
+      <div class="search">
+        <input #searchField placeholder="Enter your search term" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        <div class="mostSearchTerms">
+          <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
+        </div>
+      </div>
+      <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
+        <div *ngIf="postsChecked" class="section">
+          <h3>Posts</h3>
+          <div *ngFor="let p of postsResults" class="item">
+            <!--<div class="left-content">
+              <a *ngFor="let c of p.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
+            </div>-->
+            <div class="right-content">
+              <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+              <!--<p [innerHTML]="p.content | cardText:100"></p>-->
+            </div>
+          </div>
+          <p *ngIf="postsLoading">Loading...</p>
+          <p *ngIf="!postsLoading && postsResults.length === 0" class="notResult">No posts found for "{{searchTerm}}"!</p>
+        </div>
+        <div *ngIf="pageChecked" class="section">
+          <h3>Pages</h3>
+          <div *ngFor="let p of pageResults" class="item">
+            <!--<div class="left-content">
+              <div class="img-wrapper">
+                <img src="{{p.image}}" alt="{{p.title}}" (click)="goToPage(p.link)">
+              </div>
+            </div>-->
+            <div class="right-content">
+              <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+              <!--<p [innerHTML]="p.content | cardText:100"></p>-->
+            </div>
+          </div>
+          <p *ngIf="pagesLoading">Loading...</p>
+          <p *ngIf="!pagesLoading && pageResults.length === 0" class="notResult">No pages found for "{{searchTerm}}"!</p>
+        </div>
+        <div *ngIf="faqChecked" class="section">
+          <h3>FAQs</h3>
+          <div *ngFor="let p of faqResults" class="item">
+            <!--<div class="left-content">
+              <a *ngFor="let c of p.categories" routerLink="/contact/faq/{{c.slug}}">{{c.name}}</a>
+            </div>-->
+            <div class="right-content">
+              <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+              <!--<p [innerHTML]="p.content | cardText:100"></p>-->
+            </div>
+          </div>
+          <p *ngIf="faqsLoading">Loading...</p>
+          <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">No FAQs found for "{{searchTerm}}"!</p>
+        </div>
+      </div>
+      <div class="filter">
+        <div #filter_icon class="options-icon" (click)="toggleFilter()">
+          <i class="material-icons">more_vert</i>
+        </div>
+        <div *ngIf="showFilterOptions" class="options">
+          <div class="option" (click)="toggleCheckbox('posts')">
+            <div class="checkbox"><i *ngIf="postsChecked" class="material-icons">check</i></div>
+            <span>Posts</span>
+          </div>
+          <div class="option" (click)="toggleCheckbox('page')">
+            <div class="checkbox"><i *ngIf="pageChecked" class="material-icons">check</i></div>
+            <span>Page</span>
+          </div>
+          <div class="option" (click)="toggleCheckbox('faq')">
+            <div class="checkbox"><i *ngIf="faqChecked" class="material-icons">check</i></div>
+            <span>FAQ</span>
+          </div>
+        </div>
+      </div>
+      <input class="submit" type="submit" value="Search">
+    </form>
+  </div>
+
+  <div *ngIf="showResults" class="results-container">
+    <div>
+      <h2>Results of "{{searchTerm}}"</h2>
+      <div *ngIf="postsChecked" class="section">
+        <h3>Posts</h3>
+        <div *ngFor="let p of postsResults" class="item">
+          <div class="left-content">
+            <a *ngFor="let c of p.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
+          </div>
+          <div class="right-content">
+            <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+            <p [innerHTML]="p.content | cardText:300"></p>
+          </div>
+        </div>
+        <p *ngIf="postsLoading">Loading...</p>
+        <p *ngIf="!postsLoading && postsResults.length === 0" class="notResult">No posts found for "{{searchTerm}}"!</p>
+      </div>
+      <div *ngIf="pageChecked" class="section">
+        <h3>Pages</h3>
+        <div *ngFor="let p of pageResults" class="item">
+          <div class="left-content">
+            <div class="img-wrapper">
+              <img src="{{p.image}}" alt="{{p.title}}" (click)="goToPage(p.link)">
+            </div>
+          </div>
+          <div class="right-content">
+            <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+            <p [innerHTML]="p.content | cardText:300"></p>
+          </div>
+        </div>
+        <p *ngIf="pagesLoading">Loading...</p>
+        <p *ngIf="!pagesLoading && pageResults.length === 0" class="notResult">No pages found for "{{searchTerm}}"!</p>
+      </div>
+      <div *ngIf="faqChecked" class="section">
+        <h3>FAQs</h3>
+        <div *ngFor="let p of faqResults" class="item">
+          <div class="left-content">
+            <a *ngFor="let c of p.categories" routerLink="/contact/faq/{{c.slug}}">{{c.name}}</a>
+          </div>
+          <div class="right-content">
+            <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+            <p [innerHTML]="p.content | cardText:300"></p>
+          </div>
+        </div>
+        <p *ngIf="faqsLoading">Loading...</p>
+        <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">No FAQs found for "{{searchTerm}}"!</p>
+      </div>
+    </div>
+  </div>
+
+</div>
