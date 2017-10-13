@@ -426,13 +426,217 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   .masonry-layout {
-
+    width: 90%;
+    .o-third {
+      width: 100%;
+    }
+    .two-third {
+      width: 100%;
+    }
+    .one-sixth {
+      height: 110px !important;
+      .video-card{
+        h2{
+          font-size: $font-size-h6 !important;
+        }
+        .video-controller{
+          i{
+            font-size: $font-size-h1 !important;
+          }
+        }
+      }
+    }
+    .one-third-half {
+      height: 110px !important;
+    }
+    .masonry-layout_panel {
+      height: 230px;
+    }
+  }
+  :host /deep/ .video-card {
+    .text h2{
+      font-size: $font-size-h3;
+    }
+    .video-controller i {
+      font-size: 4em;
+    }
+  }
+  :host /deep/ .centered-content-card {
+    .content {
+      padding: 0 10%;
+      h2 {
+        font-size: $font-size-h3;
+      }
+      > a {
+        padding: 10px 30px;
+        margin-top: 10px;
+      }
+    }
+  }
+  :host /deep/ .standard-card {
+    .content{
+      h2{
+        font-size: $font-size-h3;
+      }
+    }
+  }
+  :host /deep/ .event-calendar-card {
+    .event-arrow-index1{
+      &::after{
+        top: 20% !important;
+      }
+    }
+    .event-arrow-index2{
+      &::after{
+        top: 40% !important;
+      }
+    }
+    .categories{
+      .item{
+        font-size: $font-size-h7;
+      }
+    }
+    .left-content{
+      padding: 0 10px;
+      h3{
+        font-size: $font-size-h4;
+        margin: 15px 0 5px;
+      }
+      .large-devices{
+        display: none;
+      }
+      .mobile{
+        display: block;
+      }
+    }
+    .right-content{
+      .event-wrapper{
+        padding-bottom: 20px;
+        >h4{
+          margin: 5px 0;
+        }
+        .event{
+          .date{
+            width: 40px;
+            height: 40px;
+          }
+          .excerpt{
+            width: 60%;
+          }
+        }
+        .event:nth-child(3){
+          display: none !important;
+        }
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   .masonry-layout {
-
+    width: 90%;
+/*    .o-third {
+      width: 100%;
+    }
+    .two-third {
+      width: 100%;
+    }*/
+    .one-sixth {
+      height: 110px !important;
+      .video-card{
+        h2{
+          font-size: $font-size-h6 !important;
+        }
+        .video-controller{
+          i{
+            font-size: $font-size-h1 !important;
+          }
+        }
+      }
+    }
+    .one-third-half {
+      height: 110px !important;
+    }
+    .masonry-layout_panel {
+      height: 230px;
+    }
+  }
+  :host /deep/ .video-card {
+    .text h2{
+      font-size: $font-size-h3;
+    }
+    .video-controller i {
+      font-size: 4em;
+    }
+  }
+  :host /deep/ .centered-content-card {
+    .content {
+      padding: 0 10%;
+      h2 {
+        font-size: $font-size-h3;
+      }
+      > a {
+        padding: 10px 30px;
+        margin-top: 10px;
+      }
+    }
+  }
+  :host /deep/ .standard-card {
+    .content{
+      h2{
+        font-size: $font-size-h3;
+      }
+    }
+  }
+  :host /deep/ .event-calendar-card {
+    .event-arrow-index1{
+      &::after{
+        top: 20% !important;
+      }
+    }
+    .event-arrow-index2{
+      &::after{
+        top: 40% !important;
+      }
+    }
+    .categories{
+      .item{
+        font-size: $font-size-h7;
+      }
+    }
+    .left-content{
+      padding: 0 10px;
+      h3{
+        font-size: $font-size-h4;
+        margin: 15px 0 5px;
+      }
+      .large-devices{
+        display: none;
+      }
+      .mobile{
+        display: block;
+      }
+    }
+    .right-content{
+      .event-wrapper{
+        padding-bottom: 20px;
+        >h4{
+          margin: 5px 0;
+        }
+        .event{
+          .date{
+            width: 40px;
+            height: 40px;
+          }
+          .excerpt{
+            width: 60%;
+          }
+        }
+        .event:nth-child(3){
+          display: none !important;
+        }
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

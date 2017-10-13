@@ -55,6 +55,10 @@
         margin-left: 2.5%;
       }
     }
+    app-cards-social-container{
+      width: 90%;
+      display: block;
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
@@ -72,6 +76,24 @@
     .contact{
       height: 300px;
       margin-top: 50px;
+      width: 90%;
+    }
+    .faq-slider {
+      width: 90%;
+      & >div{
+        font-size: $font-size-h3;
+      }
+    }
+    .image-slider {
+      width: 90%;
+      & >div{
+        font-size: $font-size-h3;
+        margin-left: 2.5%;
+      }
+    }
+    app-cards-social-container{
+      width: 90%;
+      display: block;
     }
   }
 }
