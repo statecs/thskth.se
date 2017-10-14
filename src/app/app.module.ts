@@ -64,7 +64,7 @@ import { PopupWindowComponent } from './components/popup-window/popup-window.com
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { EventsCalendarComponent } from './components/events-calendar/events-calendar.component';
 import { CalendarHeaderComponent } from './components/calendar/calendar-header/calendar-header.component';
-import { FaqsComponent } from './components/faqs/faqs.component';
+import { SupportComponent } from './components/support/support.component';
 import { ContactSectionComponent } from './components/contact-section/contact-section.component';
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { OneColumnTemplateComponent } from './components/single-view-templates/one-column-template/one-column-template.component';
@@ -82,7 +82,6 @@ import { NotificationBarComponent } from './components/notification-bar/notifica
 import { PrimarySliderComponent } from './components/primary-slider/primary-slider.component';
 import { ImageSliderSecondaryComponent } from './components/image-slider-secondary/image-slider-secondary.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
-import { SupportComponent } from './components/support/support.component';
 import { ContactComponent } from './components/contact-section/contact/contact.component';
 import { LiveSectionComponent } from './components/live-section/live-section.component';
 import { AboutThsSectionComponent } from './components/about-ths-section/about-ths-section.component';
@@ -125,7 +124,6 @@ import { SearchComponent } from './components/search/search.component';
     EventsCalendarComponent,
     CalendarHeaderComponent,
     CalendarDatePipe,
-    FaqsComponent,
     MarkMatchedWordsPipe,
     ContactSectionComponent,
     ContactFormComponent,

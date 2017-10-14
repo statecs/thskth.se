@@ -9,12 +9,11 @@ import { ContactSectionComponent } from './components/contact-section/contact-se
 import { ContactComponent } from './components/contact-section/contact/contact.component';
 import { SingleViewComponent } from './components/single-view/single-view.component';
 import { StudentLifeComponent } from './components/student-life-section/student-life/student-life.component';
-import { FaqsComponent } from './components/faqs/faqs.component';
+import { SupportComponent } from './components/support/support.component';
 import { LiveSectionComponent } from './components/live-section/live-section.component';
 import { LiveComponent } from './components/live-section/live/live.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { NewsComponent } from './components/news/news.component';
-import { SupportComponent } from './components/support/support.component';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
@@ -49,14 +48,9 @@ const appRoutes: Routes = [
         data: { title: 'Support' }
     },
     {
-        path: 'support/faq',
-        component: FaqsComponent,
-        data: { title: 'FAQ' }
-    },
-    {
-        path: 'support/faq/:category',
-        component: FaqsComponent,
-        data: { title: 'FAQ' }
+        path: 'support/:category',
+        component: SupportComponent,
+        data: { title: 'Support' }
     },
     {
         path: 'restaurant',

@@ -1,12 +1,9 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import { SearchService } from '../../services/wordpress/search.service';
-import { SearchResult } from '../../interfaces/search';
-import { Router, ActivatedRoute, Params} from '@angular/router';
-import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
-import {Location} from '@angular/common';
+import {Component, OnInit, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
+import { Router, ActivatedRoute, Params} from '@angular/router';
 import { most_asked_questions } from '../../utils/most-asked-questions';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-support',
@@ -14,194 +11,210 @@ import { most_asked_questions } from '../../utils/most-asked-questions';
   styleUrls: ['./support.component.scss']
 })
 export class SupportComponent implements OnInit {
-
-  @ViewChild('searchForm') searchForm: ElementRef;
-  @ViewChild('filter_icon') filter_icon: ElementRef;
-  @ViewChild('searchField') searchField: ElementRef;
-
-  public postsChecked: boolean;
-  public pageChecked: boolean;
-  public faqChecked: boolean;
-  public showFilterOptions: boolean;
-  public searchOnFocus: boolean;
-  public searchTerm: string;
-  public mostSearchTerms: string[];
-  public pageResults: SearchResult[];
-  public postsResults: SearchResult[];
-  public faqResults: SearchResult[];
-  private hrefToSlugPipeFilter: HrefToSlugPipe;
-  public showResultsDropdown: boolean;
-  public postsLoading: boolean;
-  public pagesLoading: boolean;
-  public faqsLoading: boolean;
-  public showResults: boolean;
+    @ViewChild('searchField') searchField: ElementRef;
 
   public parent_categories: FAQCategory[];
-  public most_asked_faqs: FAQ[];
-  public most_asked_questions_slugs: string[];
+  public selected_category: FAQCategory;
+  public selected_cat_index: number;
+  public faq_subMenus: FAQSubMenu[];
+  public faqs: FAQ[];
+  public search_results: FAQ[];
+  public showFaqs: boolean;
+  public loading: boolean;
+  public noResult: boolean;
+  public searchTerm: string;
+  public noInput: boolean;
+  public searchOnActive: boolean;
+  public selected_cat_slug: string;
+    public most_asked_faqs: FAQ[];
+    public most_asked_questions_slugs: string[];
+    public show_single_view: boolean;
 
-  constructor(private searchService: SearchService,
+  constructor(private faqsService: FaqsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private location: Location,
-              private faqsService: FaqsService,
-              private renderer: Renderer2 ) {
-    this.postsChecked = true;
-    this.pageChecked = true;
-    this.faqChecked = true;
-    this.showFilterOptions = false;
-    this.searchOnFocus = false;
+              private renderer: Renderer2,
+              private location: Location ) {
+    this.selected_cat_index = 0;
+    this.showFaqs = true;
+    this.loading = true;
+    this.faqs = [];
+    this.faq_subMenus = [];
+    this.noResult = false;
+    this.search_results = [];
     this.searchTerm = '';
-    this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
-    this.hrefToSlugPipeFilter = new HrefToSlugPipe();
-    this.pageResults = [];
-    this.postsResults = [];
-    this.faqResults = [];
-    this.showResultsDropdown = false;
-    this.postsLoading = true;
-    this.pagesLoading = true;
-    this.faqsLoading = true;
-    this.showResults = false;
-    this.most_asked_questions_slugs = most_asked_questions;
-    this.parent_categories = [];
-    this.most_asked_faqs = [];
+    this.noInput = false;
+      this.most_asked_questions_slugs = most_asked_questions;
+      this.parent_categories = [];
+      this.most_asked_faqs = [];
+      this.show_single_view = false;
   }
 
-  goToPage(slug): void {
-    slug = this.hrefToSlugPipeFilter.transform(slug);
-    this.router.navigate([slug]);
-  }
-
-  submitSearch(): void {
-    this.showResultsDropdown = false;
-    this.showResults = true;
-    this.search();
-  }
-
-  liveSearch(event): void {
-    if (event.keyCode !== 13) {
-      this.pageResults = [];
-      this.postsResults = [];
-      this.faqResults = [];
-      this.postsLoading = true;
-      this.pagesLoading = true;
-      this.faqsLoading = true;
-      this.showResultsDropdown = true;
-      this.showResults = false;
-      this.search();
-    }
-  }
-
-  search(): void {
-    if (this.postsChecked) {
-      this.searchPosts();
-    }
-    if (this.pageChecked) {
-      this.searchPages();
-    }
-    if (this.faqChecked) {
-      this.searchFAQs();
-    }
-    if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
-      this.location.go('/support?q=' + this.searchTerm);
-    }
-  }
-
-  searchPosts(): void {
-    this.searchService.searchPosts(this.searchTerm, 4).subscribe((res) => {
-      this.postsLoading = false;
-      this.postsResults = res;
-    });
-  }
-
-  searchPages(): void {
-    this.searchService.searchPages(this.searchTerm, 4).subscribe((res) => {
-      this.pagesLoading = false;
-      this.pageResults = res;
-    });
+  onFocus(): void {
+      this.noInput = false;
+      this.noResult = false;
   }
 
   searchFAQs(): void {
-    this.searchService.searchFAQs(this.searchTerm, 4).subscribe((res) => {
-      this.faqsLoading = false;
-      this.faqResults = res;
+      if (this.searchTerm === '') {
+          this.searchTerm = '';
+          this.noInput = true;
+          this.search_results = [];
+      }else {
+          this.searchOnActive = true;
+          this.selected_cat_index = null;
+          this.selected_category = null;
+          this.loading = true;
+          this.faqsService.searchFAQs(this.searchTerm).subscribe((faqs) => {
+              this.search_results = faqs;
+
+              this.loading = false;
+              if (faqs.length === 0 && this.faq_subMenus.length === 0) {
+                  this.noResult = true;
+              }
+          });
+      }
+  }
+
+  toggleAnswer(faq: any): void {
+    const el_answer = faq.lastChild.previousSibling;
+    const el_toggleBtn = faq.firstChild.nextSibling;
+    if (el_answer.getAttribute('data-collapsed') === 'true') {
+      el_toggleBtn.innerHTML = '-';
+      this.expandElement(el_answer);
+    }else {
+      el_toggleBtn.innerHTML = '+';
+      this.collapseElement(el_answer);
+    }
+  }
+
+  expandElement(element) {
+    element.style.display = 'block';
+    // get the height of the element's inner content, regardless of its actual size
+    const sectionHeight = element.scrollHeight;
+    // have the element transition to the height of its inner content
+    element.style.height = sectionHeight + 'px';
+    element.setAttribute('data-collapsed', 'false');
+  }
+
+  collapseElement(element) {
+    element.style.height = '0';
+    element.setAttribute('data-collapsed', 'true');
+    setTimeout(function(){
+      element.style.display = 'none';
+    }, 500);
+  }
+
+  displayCategory(index): void {
+      this.selected_cat_index = index;
+      this.selected_category = this.parent_categories[index];
+      this.router.navigate(['support/' + this.parent_categories[index].slug]);
+      //this.router.navigate(['contact-section/faq'], { queryParams: { category: this.parent_categories[index].slug } });
+      /*this.search_results = [];
+      this.searchOnActive = false;
+      if (!this.selected_category || this.selected_category.id !== this.parent_categories[index].id) {
+          this.support = [];
+          this.faq_subMenus = [];
+          this.showFaqs = false;
+          this.loading = true;
+          this.selected_cat_index = index;
+          this.selected_category = this.parent_categories[index];
+          this.getFAQs_ByParentCategory(this.selected_category.id);
+      }*/
+  }
+
+    getFAQs_ByCategoryID(catID): void {
+        this.faqsService.getFAQs_ByCategoryID(catID).subscribe((faqs) => {
+            this.faqs = faqs;
+            this.showFaqs = true;
+            this.loading = false;
+            if (faqs.length === 0 && this.faq_subMenus.length === 0) {
+                this.noResult = true;
+            }
+        });
+    }
+
+  getFAQs_ByParentCategory(parentId): void {
+    this.faqsService.getSubMenus_ByParentCategory(parentId).subscribe((faq_subMenus) => {
+        this.faq_subMenus = faq_subMenus;
+        this.getFAQs_ByCategoryID(parentId);
     });
   }
 
-  selectTerm(term): void {
-    this.searchTerm = term;
-    this.search();
-    this.showResultsDropdown = true;
-  }
+  loadFAQs(): void {
+      /*if (this.parent_categories) {
+          console.log(this.parent_categories);
+          this.search_results = [];
+          this.searchOnActive = false;
+          if (!this.selected_category || this.selected_category.id !== this.parent_categories[this.selected_cat_index].id) {
+              this.support = [];
+              this.faq_subMenus = [];
+              this.showFaqs = false;
+              this.loading = true;
+              this.selected_category = this.parent_categories[this.selected_cat_index];
+              this.getFAQs_ByParentCategory(this.selected_category.id);
+          }
+      }else {*/
+          this.faqs = [];
+          this.faq_subMenus = [];
+          this.showFaqs = false;
+          this.loading = true;
+          this.faqsService.getFAQParentCategories().subscribe((categories) => {
+              this.parent_categories = categories;
+              console.log(categories);
 
-  toggleSearchFocus(): void {
-    (this.searchOnFocus ? this.searchOnFocus = false : this.searchOnFocus = true);
-  }
-
-  toggleFilter(): void {
-    if (this.showFilterOptions) {
-      this.showFilterOptions = false;
-      this.filter_icon.nativeElement.style.color = 'lightgray';
-    }else {
-      this.showFilterOptions = true;
-      this.filter_icon.nativeElement.style.color = 'rgba(0, 108, 170, 0.62)';
-    }
-  }
-
-  toggleCheckbox(optId): void {
-    if (optId === 'posts') {
-      (this.postsChecked ? this.postsChecked = false : this.postsChecked = true);
-    }else if (optId === 'page') {
-      (this.pageChecked ? this.pageChecked = false : this.pageChecked = true);
-    }else if (optId === 'faq') {
-      (this.faqChecked ? this.faqChecked = false : this.faqChecked = true);
-    }
-    this.search();
+              if (this.selected_cat_slug) {
+                  for (let i = 0; i < categories.length; i++) {
+                      if (categories[i].slug === this.selected_cat_slug) {
+                          this.selected_category = categories[i];
+                          this.selected_cat_index = i;
+                      }
+                  }
+              }else {
+                  this.selected_category = categories[0];
+              }
+              this.getFAQs_ByParentCategory(this.selected_category.id);
+          });
+      //}
   }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.searchTerm = params['q'];
-      console.log(this.searchTerm);
-      if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
-        this.submitSearch();
-      }
-    });
-
-    this.faqsService.getFAQParentCategories().subscribe((categories) => {
-      this.parent_categories = categories;
-      console.log(categories);
-    });
-
-    this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0]).subscribe((faq) => {
-      const faqs: FAQ[] = [];
-      faqs.push(faq);
-      this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1]).subscribe((faq2) => {
-        faqs.push(faq2);
-        this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2]).subscribe((faq3) => {
-          faqs.push(faq3);
-
-          this.most_asked_faqs = faqs;
-        });
+      this.activatedRoute.params.subscribe((params: Params) => {
+          this.selected_cat_slug = params['category'];
+          console.log(this.selected_cat_slug);
+          // console.log(params['returnUrl']);
+          this.loadFAQs();
       });
-    });
 
-    const self = this;
-    const timer = setInterval(function () {
-      console.log(self.searchTerm);
-      if (self.searchTerm) {
-        console.log('support');
-        clearInterval(timer);
-        self.renderer.listen(self.searchField.nativeElement, 'search', () => {
+      this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0]).subscribe((faq) => {
+          const faqs: FAQ[] = [];
+          faqs.push(faq);
+          this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1]).subscribe((faq2) => {
+              faqs.push(faq2);
+              this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2]).subscribe((faq3) => {
+                  faqs.push(faq3);
+
+                  this.most_asked_faqs = faqs;
+              });
+          });
+      });
+
+      const self = this;
+      const timer = setInterval(function () {
           console.log(self.searchTerm);
-          if (self.searchTerm === '') {
-            console.log('support');
-            self.location.go('/support');
-            self.showResults = false;
+          if (self.searchTerm) {
+              console.log('support');
+              clearInterval(timer);
+              self.renderer.listen(self.searchField.nativeElement, 'search', () => {
+                  console.log(self.searchTerm);
+                  if (self.searchTerm === '') {
+                      console.log('support');
+                      self.location.go('/support');
+                      //self.showResults = false;
+                  }
+              });
           }
-        });
-      }
-    }, 100);
+      }, 100);
   }
 
 }
