@@ -8,6 +8,7 @@ import { AppCommunicationService } from '../../services/component-communicators/
 import {Location} from '@angular/common';
 import {Association} from '../../interfaces/chapters_associations';
 import {Archive} from '../../interfaces/archive';
+import {FAQ} from '../../interfaces/faq';
 
 @Component({
   selector: 'app-popup-window',
@@ -21,6 +22,7 @@ export class PopupWindowComponent implements OnInit {
   public popup_window_event_updater: Subscription;
   public popup_window_association_updater: Subscription;
   public popup_window_archive_updater: Subscription;
+  public popup_window_faq_updater: Subscription;
   public page_data: any;
   public showEvent: boolean;
   public event: Event;
@@ -31,6 +33,8 @@ export class PopupWindowComponent implements OnInit {
   public archive: Archive;
   public showArchive: boolean;
   public containers: any;
+  public showFaq: boolean;
+  public faq: FAQ;
 
   constructor( private wordpressApiService: WordpressApiService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -40,6 +44,7 @@ export class PopupWindowComponent implements OnInit {
     this.top_position = 0;
     this.showAssociation = false;
     this.showArchive = false;
+    this.showFaq = false;
   }
 
   downloadFile(url: string) {
@@ -71,7 +76,7 @@ export class PopupWindowComponent implements OnInit {
     this.appCommunicationService.collapseScrollOnPage('collapse');
     const self = this;
     const timer = setInterval(function () {
-      console.log(self.layouts_container)
+      console.log(self.layouts_container);
       if (self.layouts_container) {
         clearInterval(timer);
         self.containers = self.layouts_container.nativeElement.getElementsByClassName('content-container');
@@ -86,7 +91,7 @@ export class PopupWindowComponent implements OnInit {
   hide_popup_window(): void {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
-    if (!this.showEvent && !this.showAssociation && !this.showArchive) {
+    if (!this.showEvent && !this.showAssociation && !this.showArchive && !this.showFaq) {
       this.location.back();
     }
     if (this.showAssociation) {
@@ -133,6 +138,14 @@ export class PopupWindowComponent implements OnInit {
     this.show_popup_window();
   }
 
+    show_faq_in_popup(faq): void {
+        console.log(faq);
+        this.faq = faq;
+        this.showFaq = true;
+        console.log("popup");
+        this.show_popup_window();
+    }
+
   ngOnInit() {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
@@ -147,6 +160,9 @@ export class PopupWindowComponent implements OnInit {
     });
     this.popup_window_archive_updater = this.popupWindowCommunicationService.archiveNotifyObservable$.subscribe((archive) => {
       this.show_archive_in_popup(archive);
+    });
+    this.popup_window_faq_updater = this.popupWindowCommunicationService.faqNotifyObservable$.subscribe((faq) => {
+      this.show_faq_in_popup(faq);
     });
   }
 

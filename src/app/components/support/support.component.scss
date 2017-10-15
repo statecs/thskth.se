@@ -85,6 +85,14 @@
         cursor: pointer;
         >p{
           text-align: left;
+          display: inline;
+        }
+        >span{
+          color: $color-link-secondary;
+          cursor: pointer;
+          &:hover {
+            color: $color-link-secondary-hover;
+          }
         }
       }
     }

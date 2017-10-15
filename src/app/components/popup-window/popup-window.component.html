@@ -103,6 +103,22 @@
         </div>
       </div>
     </div>
+
+      <!-- ---------- Archive layout ---------- -->
+      <div *ngIf="showFaq" class="association-layout">
+          <!--<div class="header-image">
+            <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
+            <div *ngIf="!association?.image" class="default-header"></div>
+          </div>-->
+          <div class="content-container">
+              <div class="description">
+                  <h2 [innerHTML]="faq?.title"></h2>
+                  <p [innerHTML]="faq?.description"></p>
+              </div>
+          </div>
+      </div>
+
+
   </div>
 
 </div>

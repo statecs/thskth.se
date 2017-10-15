@@ -4,6 +4,7 @@ import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { most_asked_questions } from '../../utils/most-asked-questions';
 import {Location} from '@angular/common';
+import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 
 @Component({
   selector: 'app-support',
@@ -34,7 +35,8 @@ export class SupportComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private renderer: Renderer2,
-              private location: Location ) {
+              private location: Location,
+              private popupWindowCommunicationService: PopupWindowCommunicationService ) {
     this.selected_cat_index = 0;
     this.showFaqs = true;
     this.loading = true;
@@ -49,6 +51,10 @@ export class SupportComponent implements OnInit {
       this.most_asked_faqs = [];
       this.show_single_view = false;
   }
+
+    showInPopup(faq: FAQ) {
+        this.popupWindowCommunicationService.showFaqInPopup(faq);
+    }
 
   onFocus(): void {
       this.noInput = false;
