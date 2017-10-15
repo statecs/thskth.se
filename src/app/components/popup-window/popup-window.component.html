@@ -2,7 +2,7 @@
 <div *ngIf="showPopupWindow" [ngStyle]="{marginTop: top_position+'px'}" id="popup-window">
   <div #layouts_container class="layouts-container">
     <div class="exit-popup-btn" (click)="hide_popup_window()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
-    <div *ngIf="!showEvent && !showAssociation && !showArchive" class="default-layout">
+    <div *ngIf="!showEvent && !showAssociation && !showArchive && !showFaq" class="default-layout">
       <div class="header-image">
         <img *ngIf="page_data?.acf.header_image" src="{{page_data?.acf.header_image.url}}" alt="Header image">
         <div *ngIf="!page_data?.acf.header_image && page_data?.acf.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data?.acf.header_color}"></div>
@@ -112,8 +112,8 @@
           </div>-->
           <div class="content-container">
               <div class="description">
-                  <h2 [innerHTML]="faq?.title"></h2>
-                  <p [innerHTML]="faq?.description"></p>
+                  <h2 [innerHTML]="faq?.question"></h2>
+                  <p [innerHTML]="faq?.answer"></p>
               </div>
           </div>
       </div>

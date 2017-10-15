@@ -27,7 +27,7 @@
 
     <div class="faqs-categories">
       <h2>FAQ categories</h2>
-      <a *ngFor="let c of parent_categories" routerLink="support/{{c.slug}}" class="category">{{c.name}}</a>
+      <a *ngFor="let c of parent_categories" routerLink="{{c.slug}}" class="category">{{c.name}}</a>
       <app-loader *ngIf="parent_categories.length === 0"></app-loader>
     </div>
   </div>

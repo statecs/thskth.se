@@ -62,6 +62,8 @@ export class SupportComponent implements OnInit {
   }
 
   searchFAQs(): void {
+      this.show_single_view = true;
+      this.location.go('support?q=' + this.searchTerm);
       if (this.searchTerm === '') {
           this.searchTerm = '';
           this.noInput = true;
@@ -184,12 +186,46 @@ export class SupportComponent implements OnInit {
       //}
   }
 
+  getFAQParentCategories(): void {
+      this.faqs = [];
+      this.faq_subMenus = [];
+      this.showFaqs = false;
+      this.loading = true;
+      this.faqsService.getFAQParentCategories().subscribe((categories) => {
+          this.parent_categories = categories;
+      });
+  }
+
   ngOnInit() {
       this.activatedRoute.params.subscribe((params: Params) => {
           this.selected_cat_slug = params['category'];
           console.log(this.selected_cat_slug);
           // console.log(params['returnUrl']);
-          this.loadFAQs();
+          if (this.selected_cat_slug === 'undefined' || typeof this.selected_cat_slug === 'undefined') {
+              this.getFAQParentCategories();
+          }
+      });
+
+      this.activatedRoute.queryParams.subscribe((params: Params) => {
+          this.searchTerm = params['q'];
+          if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
+              console.log(this.selected_cat_slug);
+              if (this.selected_cat_slug === 'undefined' || typeof this.selected_cat_slug === 'undefined') {
+                  console.log('pass2');
+                  this.show_single_view = true;
+                  this.searchFAQs();
+              }else {
+                  this.show_single_view = true;
+                  this.loadFAQs();
+              }
+          }else {
+              if (this.selected_cat_slug !== 'undefined' && typeof this.selected_cat_slug !== 'undefined') {
+                  this.show_single_view = true;
+                  this.loadFAQs();
+              }else {
+                  this.show_single_view = false;
+              }
+          }
       });
 
       this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0]).subscribe((faq) => {
@@ -207,15 +243,22 @@ export class SupportComponent implements OnInit {
 
       const self = this;
       const timer = setInterval(function () {
-          console.log(self.searchTerm);
-          if (self.searchTerm) {
+          console.log(self.searchField);
+          if (self.searchField) {
               console.log('support');
               clearInterval(timer);
               self.renderer.listen(self.searchField.nativeElement, 'search', () => {
                   console.log(self.searchTerm);
                   if (self.searchTerm === '') {
                       console.log('support');
-                      self.location.go('/support');
+                      if (this.selected_cat_slug !== 'undefined' && typeof this.selected_cat_slug !== 'undefined') {
+                          self.router.navigate(['/support']);
+                      }else {
+                          self.location.go('/support');
+                          self.show_single_view = false;
+                          self.router.navigate(['/support']);
+                      }
+
                       //self.showResults = false;
                   }
               });
