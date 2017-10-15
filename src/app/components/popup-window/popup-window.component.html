@@ -44,8 +44,9 @@
     <!-- ---------- Associations layout ---------- -->
     <div *ngIf="showAssociation" class="association-layout">
       <div class="header-image">
-        <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
-        <div *ngIf="!association?.image" class="default-header"></div>
+        <app-header-slider *ngIf="association?.header_slides.length !== 0" [slides_items]="association.header_slides"></app-header-slider>
+        <!--<img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">-->
+        <div *ngIf="association?.header_slides.length === 0" class="default-header"></div>
       </div>
       <div class="content-container">
         <div class="description">

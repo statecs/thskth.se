@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
-import { Association, Chapter } from '../../interfaces/chapters_associations';
+import {Association, Chapter, HeaderSlide} from '../../interfaces/chapters_associations';
 import { CookieService } from 'ngx-cookie';
 
 @Injectable()
@@ -54,16 +54,16 @@ export class ChaptersAssociationsService {
     }
 
     castPostsTo_AssociationType(data: any) {
+      console.log(data);
         const associations: Association[] = [];
         data.forEach(c => {
-            let image = '';
+            /*let image = '';
             if (c._embedded['wp:featuredmedia']) {
                 image = c._embedded['wp:featuredmedia'][0].source_url;
-            }
+            }*/
             associations.push({
                 title: c.title.rendered,
                 description: c.content.rendered,
-                image: image,
                 category: c.pure_taxonomies.ths_associations[0].name,
                 contact: {
                     name: c.acf.name,
@@ -74,9 +74,22 @@ export class ChaptersAssociationsService {
                     website2: c.acf.website_2,
                 },
                 slug: c.slug,
+                header_slides: this.getHeaderSlides(c.acf.slides)
             });
         });
         return associations;
+    }
+
+    getHeaderSlides(data: any) {
+      const slides: HeaderSlide[] = [];
+      if (data) {
+          data.forEach(s => {
+              slides.push({
+                  imageUrl: s.image.url
+              });
+          });
+      }
+      return slides;
     }
 
     getChapters(): Observable<Chapter[]> {
@@ -98,18 +111,18 @@ export class ChaptersAssociationsService {
     castPostsTo_ChapterType(data: any) {
         const chapters: Chapter[] = [];
         data.forEach(c => {
-            let image = '';
+            /*let image = '';
             if (c._embedded) {
                 image = c._embedded['wp:featuredmedia'][0].source_url;
-            }
+            }*/
             chapters.push({
                 title: c.title.rendered,
                 description: c.content.rendered,
                 year: c.acf.year,
                 website: c.acf.website_url,
                 section_local: c.acf.section_local,
-                image: image,
                 slug: c.slug,
+                header_slides: this.getHeaderSlides(c.acf.slides)
             });
         });
         return chapters;

@@ -1,3 +1,7 @@
+export interface HeaderSlide {
+    imageUrl: string;
+}
+
 export interface Contact {
     name: string;
     title: string;
@@ -10,10 +14,10 @@ export interface Contact {
 export interface Association {
     title: string;
     description: string;
-    image: string;
     category: string;
     contact: Contact;
     slug: string;
+    header_slides: HeaderSlide[];
 }
 
 export interface Chapter {
@@ -22,6 +26,6 @@ export interface Chapter {
     year: string;
     website: string;
     section_local: string;
-    image: string;
     slug: string;
+    header_slides: HeaderSlide[];
 }

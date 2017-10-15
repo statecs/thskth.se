@@ -33,7 +33,7 @@
           <label *ngIf="s.associations.length !== 0">{{s.category}}</label>
           <div class="items">
             <div *ngFor="let item of s.associations" class="item" (click)="showAssociationInPopup(item)">
-              <div class="image-wrapper" [style.backgroundImage]="'url(' + item.image + ')'"></div>
+              <div class="image-wrapper" [style.backgroundImage]="'url(' + item.header_slides[0]?.imageUrl + ')'"></div>
               <div class="text">
                 <h3>{{item.title}}</h3>
                 <p [innerHTML]="item.description | cardText:95"></p>
@@ -67,7 +67,7 @@
         <div class="section">
           <div class="items">
             <div *ngFor="let item of chapterResults" class="item" (click)="showAssociationInPopup(item)">
-              <div class="image-wrapper" [style.backgroundImage]="'url(' + item.image + ')'"></div>
+              <div class="image-wrapper" [style.backgroundImage]="'url(' + item.header_slides[0]?.imageUrl + ')'"></div>
               <div class="text">
                 <h3>{{item.title}}</h3>
                 <p [innerHTML]="item.description | cardText:95"></p>

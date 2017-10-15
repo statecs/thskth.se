@@ -1,0 +1,14 @@
+<div #slides_container id="header-slider">
+  <div *ngFor="let item of slides_items" class="slide-wrapper">
+    <div class="slide" [style.backgroundImage]="'url(' + item.imageUrl + ')'">
+    </div>
+  </div>
+  <div *ngIf="slides_items.length > 1" [attr.disabled]="slideIndex === 0" class="text-slider-navBefore" [ngClass]="{'disabled': slideIndex === 0}"><i class="material-icons" (click)="navBefore()">navigate_before</i></div>
+  <div *ngIf="slides_items.length > 1" [attr.disabled]="slideIndex === slides_items.length - 1" class="text-slider-navNext" [ngClass]="{'disabled': slideIndex === slides_items.length - 1}"><i class="material-icons" (click)="navNext()">navigate_next</i></div>
+  <div #slider_progress_bar class="slider-progress-bar">
+    <div *ngIf="slides_items.length > 1">
+      <div *ngFor="let item of slides_items, let i = index" class="bar-item" [ngClass]="{'selected': slideIndex === i}"></div>
+    </div>
+  </div>
+</div>
+

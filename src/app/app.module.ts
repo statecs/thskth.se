@@ -98,6 +98,7 @@ import { EventsCardComponent } from './components/advertisements/events-card/eve
 import { LoaderComponent } from './components/loader/loader.component';
 import { SelectSliderComponent } from './components/select-slider/select-slider.component';
 import { SearchComponent } from './components/search/search.component';
+import { HeaderSliderComponent } from './components/header-slider/header-slider.component';
 
 
 @NgModule({
@@ -160,7 +161,8 @@ import { SearchComponent } from './components/search/search.component';
     EventsCardComponent,
     LoaderComponent,
     SelectSliderComponent,
-    SearchComponent
+    SearchComponent,
+    HeaderSliderComponent
   ],
   imports: [
     BrowserModule,
