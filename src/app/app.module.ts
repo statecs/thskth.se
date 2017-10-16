@@ -33,6 +33,7 @@ import { RestaurantService } from './services/wordpress/restaurant.service';
 import { SelectSliderCommunicationService } from './services/component-communicators/select-slider-communication.service';
 import { PostsService } from './services/wordpress/posts.service';
 import { ImageSliderCommunicationService } from './services/component-communicators/image-slider-communication.service';
+import {ChatbotCommunicationService} from './services/component-communicators/chatbot-communication.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -196,6 +197,7 @@ import { HeaderSliderComponent } from './components/header-slider/header-slider.
       SelectSliderCommunicationService,
       PostsService,
       ImageSliderCommunicationService,
+      ChatbotCommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

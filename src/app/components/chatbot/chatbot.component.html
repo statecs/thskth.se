@@ -21,5 +21,6 @@
     <div #resonsesContainer class="responses">
       <div *ngFor="let r of user_inputs, let i = index" class="res_item" (click)="addItemToChatFlow($event, i)">{{r.message}}</div>
     </div>
+    <div *ngIf="responses.length > 1" class="reset-btn" (click)="resetChatbot()">Restart</div>
   </div>
 </div>

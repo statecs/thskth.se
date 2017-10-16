@@ -1,10 +1,12 @@
-<app-notification-bar></app-notification-bar>
-<div class="page-wrapper">
-    <div #page class="page">
-        <router-outlet></router-outlet>
-        <app-footer></app-footer>
+<div (click)="hideAllInfoBox()">
+    <app-notification-bar></app-notification-bar>
+    <div class="page-wrapper">
+        <div #page class="page">
+            <router-outlet></router-outlet>
+            <app-footer></app-footer>
+        </div>
+        <app-search-menubar></app-search-menubar>
     </div>
-    <app-search-menubar></app-search-menubar>
+    <app-popup-window></app-popup-window>
+    <app-select-slider></app-select-slider>
 </div>
-<app-popup-window></app-popup-window>
-<app-select-slider></app-select-slider>

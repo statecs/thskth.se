@@ -1,7 +1,7 @@
 import { ApplicationRef, Component, ComponentFactoryResolver, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
-//import {forEach} from "@angular/router/src/utils/collection";
 import {messages} from '../../utils/chatbot-commonMessages';
-import {LoaderMessageComponent} from "../loader-message/loader-message.component";
+import {LoaderMessageComponent} from '../loader-message/loader-message.component';
+import {ChatbotCommunicationService} from '../../services/component-communicators/chatbot-communication.service';
 
 
 @Component({
@@ -19,11 +19,14 @@ export class ChatbotComponent implements OnInit {
   user_inputs: any[];
   public messages: any;
   public showedInfoIndex: number;
+  public infoBoxClickCount: number;
 
   constructor(private resolver: ComponentFactoryResolver,
               private injector: Injector,
-              private appRef: ApplicationRef) {
+              private appRef: ApplicationRef,
+              private chatbotCommunicationService: ChatbotCommunicationService) {
       this.messages = messages;
+      this.infoBoxClickCount = 0;
     this.chatFlow = [
       {
         message: 'Hey, Nice to meet you!. What do you want help with?',
@@ -205,21 +208,24 @@ export class ChatbotComponent implements OnInit {
         ]
       }
     ];
-
-    this.responses = [{
-      message: this.chatFlow[0].message,
-        info: this.chatFlow[0].info,
-      type: 'response'
-    }];
-    this.user_inputs = this.chatFlow[0].user_input;
   }
 
-    showInfo(index) {
-      if (this.showedInfoIndex === index) {
-          this.showedInfoIndex = -1;
-      }else{
-          this.showedInfoIndex = index;
-      }
+    resetChatbot(): void {
+        this.initChatflow();
+    }
+
+    showInfo(index): void {
+        this.infoBoxClickCount += 1;
+        this.showedInfoIndex = index;
+      // if (this.showedInfoIndex === index) {
+      //     this.hideInfoBox();
+      // }else {
+      //
+      // }
+    }
+
+    hideInfoBox(): void {
+      this.showedInfoIndex = -1;
     }
 
   addItemToChatFlow(event, index) {
@@ -269,7 +275,26 @@ export class ChatbotComponent implements OnInit {
         this.appRef.attachView(ref.hostView);
     }
 
+    initChatflow(): void {
+        this.responses = [{
+            message: this.chatFlow[0].message,
+            info: this.chatFlow[0].info,
+            type: 'response'
+        }];
+        this.user_inputs = this.chatFlow[0].user_input;
+    }
+
   ngOnInit() {
+      this.initChatflow();
+    this.chatbotCommunicationService.hideInfoBoxObservable$.subscribe(() => {
+        console.log(this.showedInfoIndex);
+        console.log(this.infoBoxClickCount);
+        if (this.infoBoxClickCount === 0 && this.showedInfoIndex > -1) {
+            this.hideInfoBox();
+        }else {
+            this.infoBoxClickCount = 0;
+        }
+    });
   }
 
 }
