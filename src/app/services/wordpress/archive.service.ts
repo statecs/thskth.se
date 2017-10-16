@@ -25,7 +25,7 @@ export class ArchiveService {
 
   getDocuments(amount): Observable<Archive[]> {
     return this.http
-        .get(this.config.ARCHIVE_URL + '?per_page=' + amount)
+        .get(this.config.ARCHIVE_URL + '?_embed&per_page=' + amount)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
@@ -38,7 +38,7 @@ export class ArchiveService {
       params = '&categories=' + categoryID;
     }
     return this.http
-        .get(this.config.ARCHIVE_URL + '?support=' + searchTerm + params + '&after=' + date_filter + 'T22:26:53')
+        .get(this.config.ARCHIVE_URL + '?_embed&support=' + searchTerm + params + '&after=' + date_filter + 'T22:26:53')
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
@@ -47,13 +47,18 @@ export class ArchiveService {
   castPostsTo_SearchResultType(data: any) {
     const archives: Archive[] = [];
     data.forEach(c => {
+      console.log(c['_embedded']);
       archives.push({
         slug: c.slug,
         title: c.title.rendered,
         lastModified: this.formatDate(c.modified),
-        description: c.content.redered,
+        description: c.content.rendered,
         documents: this.castDataToDocumentType(c.acf.documents),
         categories: this.castDataToArchiveCategoryType(c.pure_taxonomies.categories),
+        author: {
+          name: c['_embedded'].author[0].name,
+          avatar_url: c['_embedded'].author[0].avatar_urls['96']
+        }
       });
     });
     return archives;

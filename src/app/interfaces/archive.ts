@@ -12,6 +12,11 @@ export interface ArchiveCategory {
     slug: number;
 }
 
+export interface Author {
+    name: string;
+    avatar_url: string;
+}
+
 export interface Archive {
     slug: string;
     title: string;
@@ -19,4 +24,5 @@ export interface Archive {
     description: string;
     documents: Document[];
     categories: ArchiveCategory[];
+    author: Author;
 }

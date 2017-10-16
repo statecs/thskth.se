@@ -99,15 +99,14 @@
         </div>
         <div class="contact">
           <h2>Author</h2>
-          <p>name: </p>
-          <p>email: </p>
-          <p>phone: </p>
-          <p>last modified: {{archive.lastModified}}</p>
+          <img src="{{archive?.author.avatar_url}}">
+          <p>name: <span>{{archive?.author.name}}</span></p>
+          <p>last modified: <span>{{archive?.lastModified}}</span></p>
         </div>
       </div>
     </div>
 
-      <!-- ---------- Archive layout ---------- -->
+      <!-- ---------- FAQ layout ---------- -->
       <div *ngIf="showFaq && !loading" class="association-layout">
           <!--<div class="header-image">
             <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">

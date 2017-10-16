@@ -258,10 +258,23 @@
           background-color: lightgray;
           vertical-align: top;
           margin-left: 50px;
-          text-align: left;
+          text-align: center;
           padding: 20px;
           h2{
-            text-align: center;
+            margin: 0 0 10px;
+          }
+          p{
+            text-align: left;
+            span{
+              color: gray;
+              font-weight: $font-weight-normal;
+            }
+          }
+          img{
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            margin-bottom: 10px;
           }
         }
       }
