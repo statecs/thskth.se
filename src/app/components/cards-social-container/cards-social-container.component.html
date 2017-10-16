@@ -23,17 +23,17 @@
         </div>
 
         <!-- ---------- Only text card ---------- -->
-        <div *ngIf="i !== 0 && !(post.full_picture)" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
+        <div *ngIf="i !== 0 && !(post?.full_picture)" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
             <div class="standard-card">
-                <div class="host" [ngSwitch]="post.host">
+                <div class="host" [ngSwitch]="post?.host">
                     <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
                     <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
                 </div>
                 <div class="user">
-                    <img src="{{post.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
+                    <img src="{{post?.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
                     <div>
-                        <h3 (click)="goToUserProfile(post.user.link)">{{post.user.name}}</h3>
-                        <span>{{formatDate(post.created_time)}}</span>
+                        <h3 (click)="goToUserProfile(post?.user.link)">{{post.user.name}}</h3>
+                        <span>{{formatDate(post?.created_time)}}</span>
                     </div>
                 </div>
                 <p>{{post.message}}</p>
@@ -42,18 +42,18 @@
         </div>
 
         <!-- ---------- Text with image card ---------- -->
-        <div *ngIf="i !== 0 && post.full_picture" class="masonry-layout_panel-content" >
+        <div *ngIf="i !== 0 && post?.full_picture" class="masonry-layout_panel-content" >
             <div class="single-event-card">
                 <div class="left-content">
                     <div class="user">
-                        <img src="{{post.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
+                        <img src="{{post?.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
                         <div>
                             <h3 (click)="goToUserProfile(post.user.link)">{{post.user.name}}</h3>
-                            <span>{{formatDate(post.created_time)}}</span>
+                            <span>{{formatDate(post?.created_time)}}</span>
                         </div>
                     </div>
-                    <p class="large-devices">{{post.message | cardText:200}}</p>
-                    <p class="mobile">{{post.message | cardText:100}}</p>
+                    <p class="large-devices">{{post?.message | cardText:200}}</p>
+                    <p class="mobile">{{post?.message | cardText:100}}</p>
                 </div>
                 <div class="right-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
                     <div>

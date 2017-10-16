@@ -7,8 +7,8 @@ import {FAQ} from "../../interfaces/faq";
 
 @Injectable()
 export class PopupWindowCommunicationService {
-  private notify = new Subject<any>();
-  notifyObservable$ = this.notify.asObservable();
+  private page_notify = new Subject<any>();
+  pageNotifyObservable$ = this.page_notify.asObservable();
   private event_notify = new Subject<any>();
   eventNotifyObservable$ = this.event_notify.asObservable();
   private association_notify = new Subject<any>();
@@ -19,11 +19,13 @@ export class PopupWindowCommunicationService {
   faqNotifyObservable$ = this.faq_notify.asObservable();
   private hide_notify = new Subject<any>();
   hideNotifyObservable$ = this.hide_notify.asObservable();
+  private loader_notify = new Subject<any>();
+  loaderNotifyObservable$ = this.loader_notify.asObservable();
 
   constructor() { }
 
-  update_PopupWindow(page_slug: string) {
-    this.notify.next(page_slug);
+  showPageInPopup(page_slug: string) {
+    this.page_notify.next(page_slug);
   }
 
   showEventInPopup(event: Event) {
@@ -42,8 +44,12 @@ export class PopupWindowCommunicationService {
     this.faq_notify.next(faq);
   }
 
-  hidePopup() {
-    this.hide_notify.next();
+  hidePopup(arg: boolean) {
+    this.hide_notify.next(arg);
+  }
+
+  showLoader() {
+    this.loader_notify.next();
   }
 
 }

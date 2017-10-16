@@ -25,8 +25,9 @@
       <div [ngClass]="{'selected': layout_grid}" (click)="switchLayout('grid')"><i class="material-icons">grid_on</i> Grid</div>
       <div [ngClass]="{'selected': layout_list}" (click)="switchLayout('list')"><i class="material-icons">list</i> List</div>
     </div>
-      <div *ngIf="noResults" class="noResult">No results found!</div>
-    <div *ngIf="showAssociations && associationResults.length !== 0">
+    <app-loader *ngIf="documentsLoading"></app-loader>
+    <div *ngIf="noResults && !documentsLoading" class="noResult">No results found!</div>
+    <div *ngIf="showAssociations && associationResults.length !== 0 && !documentsLoading">
         <h1 class="section_header">Associations</h1>
       <div *ngIf="layout_grid" class="grid">
         <div *ngFor="let s of associations" class="section">
@@ -40,7 +41,6 @@
               </div>
             </div>
           </div>
-          <app-loader *ngIf="documentsLoading"></app-loader>
           <!--        <p *ngIf="documentsLoading">Loading...</p>
                   <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>-->
         </div>
@@ -54,14 +54,13 @@
               <i class="material-icons">forward</i>
             </div>
           </div>
-          <app-loader *ngIf="documentsLoading"></app-loader>
           <!--        <p *ngIf="documentsLoading">Loading...</p>
                   <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>-->
         </div>
       </div>
     </div>
 
-    <div *ngIf="showChapters && chapterResults.length !== 0">
+    <div *ngIf="showChapters && chapterResults.length !== 0 && !documentsLoading">
         <h1 class="section_header">Chapters</h1>
       <div *ngIf="layout_grid" class="grid">
         <div class="section">
@@ -74,7 +73,6 @@
               </div>
             </div>
           </div>
-          <app-loader *ngIf="documentsLoading"></app-loader>
           <!--        <p *ngIf="documentsLoading">Loading...</p>
                   <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>-->
         </div>
@@ -87,7 +85,6 @@
               <i class="material-icons">forward</i>
             </div>
           </div>
-          <app-loader *ngIf="documentsLoading"></app-loader>
           <!--        <p *ngIf="documentsLoading">Loading...</p>
                   <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No documents found for "{{searchTerm}}"!</p>-->
         </div>

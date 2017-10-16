@@ -50,7 +50,7 @@ export class CardsContainerComponent implements OnInit {
 
   showPage(slug, window_type, slug_to_page): void {
       if (window_type === 'popup-window') {
-          this.popupWindowCommunicationService.update_PopupWindow(slug);
+          this.popupWindowCommunicationService.showPageInPopup(slug);
           this.location.go(slug_to_page);
       }else if (window_type === 'new-tab') {
           window.open('/' + slug, '_blank');

@@ -2,7 +2,9 @@
 <div *ngIf="showPopupWindow" [ngStyle]="{marginTop: top_position+'px'}" id="popup-window">
   <div #layouts_container class="layouts-container">
     <div class="exit-popup-btn" (click)="hide_popup_window()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
-    <div *ngIf="!showEvent && !showAssociation && !showArchive && !showFaq" class="default-layout">
+    <app-loader *ngIf="loading"></app-loader>
+    <!-- ---------- Page layout ---------- -->
+    <div *ngIf="showPage && !loading" class="default-layout">
       <div class="header-image">
         <img *ngIf="page_data?.acf.header_image" src="{{page_data?.acf.header_image.url}}" alt="Header image">
         <div *ngIf="!page_data?.acf.header_image && page_data?.acf.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data?.acf.header_color}"></div>
@@ -23,7 +25,7 @@
     </div>
 
     <!-- ---------- Event layout ---------- -->
-    <div *ngIf="showEvent" class="event-layout">
+    <div *ngIf="showEvent && !loading" class="event-layout">
       <div class="header-image">
         <img *ngIf="event?.imageUrl" src="{{event?.imageUrl}}" alt="Header image">
         <div *ngIf="!event?.imageUrl" class="default-header"></div>
@@ -42,7 +44,7 @@
     </div>
 
     <!-- ---------- Associations layout ---------- -->
-    <div *ngIf="showAssociation" class="association-layout">
+    <div *ngIf="showAssociation && !loading" class="association-layout">
       <div class="header-image">
         <app-header-slider *ngIf="association?.header_slides.length !== 0" [slides_items]="association.header_slides"></app-header-slider>
         <!--<img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">-->
@@ -66,7 +68,7 @@
     </div>
 
     <!-- ---------- Archive layout ---------- -->
-    <div *ngIf="showArchive" class="association-layout">
+    <div *ngIf="showArchive && !loading" class="association-layout">
       <!--<div class="header-image">
         <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
         <div *ngIf="!association?.image" class="default-header"></div>
@@ -106,7 +108,7 @@
     </div>
 
       <!-- ---------- Archive layout ---------- -->
-      <div *ngIf="showFaq" class="association-layout">
+      <div *ngIf="showFaq && !loading" class="association-layout">
           <!--<div class="header-image">
             <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
             <div *ngIf="!association?.image" class="default-header"></div>

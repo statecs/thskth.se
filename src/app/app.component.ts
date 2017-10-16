@@ -13,8 +13,6 @@ export class AppComponent {
   constructor( private appCommunicationService: AppCommunicationService,
                @Inject(DOCUMENT) private document: Document) {
     this.appCommunicationService.notifyObservable$.subscribe((arg) => {
-      console.log(arg);
-      console.log((window.pageYOffset || document.body.scrollTop));
       if (arg === 'collapse') {
         this.page.nativeElement.style.top = '-' + (document.body.scrollTop || window.pageYOffset) + 'px';
         this.page.nativeElement.style.position = 'fixed';

@@ -95,9 +95,11 @@ export class ChaptersAssociationsComponent implements OnInit {
     }else {
       this.noResults = false;
     }
+    this.documentsLoading = false;
   }
 
   showAssociationInPopup(item: any): void {
+    console.log('show');
     let relatedAssociations: Association[] = [];
     if (item.category === 'Career and consulting') {
       relatedAssociations = this.career_associations;
@@ -154,7 +156,6 @@ export class ChaptersAssociationsComponent implements OnInit {
         this.sport_associations = [];
         this.social_associations = [];
         this.chaptersAssociationsService.searchAssociations(this.searchTerm).subscribe((res) => {
-            this.documentsLoading = false;
             console.log(res);
             this.associationResults = res;
             this.allocateAssociations(res);
@@ -166,7 +167,6 @@ export class ChaptersAssociationsComponent implements OnInit {
     searchChapters(): void {
       this.chapterResults = [];
         this.chaptersAssociationsService.searchChapters(this.searchTerm).subscribe((res) => {
-            this.documentsLoading = false;
             console.log(res);
             this.chapterResults = res;
             this.showChapters = true;
@@ -183,8 +183,8 @@ export class ChaptersAssociationsComponent implements OnInit {
   }
 
   getChapters(): void {
+    this.documentsLoading = true;
     this.chaptersAssociationsService.getChapters().subscribe((res) => {
-      this.documentsLoading = false;
       console.log(res);
       this.chapterResults = res;
       this.checkResults();
@@ -200,12 +200,11 @@ export class ChaptersAssociationsComponent implements OnInit {
   }
 
   getAssociations(): void {
+    this.documentsLoading = true;
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
     this.chaptersAssociationsService.getAssociations().subscribe((res) => {
-      this.documentsLoading = false;
-      console.log(res);
       this.associationResults = res;
       this.allocateAssociations(res);
       this.checkResults();
@@ -272,9 +271,8 @@ export class ChaptersAssociationsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.slug = params['slug'];
-      console.log(this.slug);
+      this.popupWindowCommunicationService.showLoader();
       if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
-        console.log('pass');
         this.getAssociations();
         const self = this;
         const timer = setInterval(function () {
@@ -287,20 +285,17 @@ export class ChaptersAssociationsComponent implements OnInit {
     });
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      console.log(params['q']);
-      console.log(this.slug);
       if (this.slug === 'undefined' || typeof this.slug === 'undefined') {
-        console.log('pass q');
         this.searchTerm = params['q'];
         if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
-            console.log('pass');
             this.submitSearch();
         }
         if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
-            console.log('pass');
+          if (this.associations[0].associations.length === 0) {
             this.getAssociations();
+          }
         }
-        this.popupWindowCommunicationService.hidePopup();
+        this.popupWindowCommunicationService.hidePopup(true);
       }else {
         if (params['q']) {
           this.router.navigate(['/associations-and-chapters/' + this.slug]);
@@ -313,9 +308,7 @@ export class ChaptersAssociationsComponent implements OnInit {
       if (self.searchTerm) {
         clearInterval(timer);
         self.renderer.listen(self.searchField.nativeElement, 'search', () => {
-          console.log(self.searchTerm);
           if (self.searchTerm === '') {
-            console.log('search');
             self.router.navigate(['/associations-and-chapters']);
             self.showChapters = false;
             self.showAssociations = true;

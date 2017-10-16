@@ -9,6 +9,7 @@ import {Location} from '@angular/common';
 import {Association} from '../../interfaces/chapters_associations';
 import {Archive} from '../../interfaces/archive';
 import {FAQ} from '../../interfaces/faq';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-popup-window',
@@ -24,6 +25,7 @@ export class PopupWindowComponent implements OnInit {
   public popup_window_archive_updater: Subscription;
   public popup_window_faq_updater: Subscription;
   public popup_window_hide_updater: Subscription;
+  public popup_window_loader_updater: Subscription;
   public page_data: any;
   public showEvent: boolean;
   public event: Event;
@@ -36,16 +38,21 @@ export class PopupWindowComponent implements OnInit {
   public containers: any;
   public showFaq: boolean;
   public faq: FAQ;
+  public showPage: boolean;
+  public loading: boolean;
 
   constructor( private wordpressApiService: WordpressApiService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
                private appCommunicationService: AppCommunicationService,
-               private location: Location ) {
+               private location: Location,
+               private router: Router) {
     this.showEvent = false;
     this.top_position = 0;
     this.showAssociation = false;
     this.showArchive = false;
     this.showFaq = false;
+    this.showPage = false;
+    this.loading = false;
   }
 
   downloadFile(url: string) {
@@ -77,7 +84,6 @@ export class PopupWindowComponent implements OnInit {
     this.appCommunicationService.collapseScrollOnPage('collapse');
     const self = this;
     const timer = setInterval(function () {
-      console.log(self.layouts_container);
       if (self.layouts_container) {
         clearInterval(timer);
         self.containers = self.layouts_container.nativeElement.getElementsByClassName('content-container');
@@ -89,26 +95,37 @@ export class PopupWindowComponent implements OnInit {
     }, 100);
   }
 
+  hide_all_layouts(): void {
+    this.showEvent = false;
+    this.showAssociation = false;
+    this.showArchive = false;
+    this.showFaq = false;
+    this.showPage = false;
+  }
+
   hide_popup_window(): void {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
-    if (!this.showEvent && !this.showAssociation && !this.showArchive && !this.showFaq) {
+    if (this.showPage) {
       this.location.back();
     }
     if (this.showAssociation) {
-      this.location.go('/associations-and-chapters');
+      this.router.navigate(['/associations-and-chapters']);
     }
+    this.hide_all_layouts();
   }
 
-  update_popup_window(slug): void {
+  show_page_in_popup(slug): void {
+    this.loading = true;
     this.setPosition();
     this.showEvent = false;
+    this.showPage = true;
     this.show_popup_window();
-    this.wordpressApiService.getPage(slug)
-        .subscribe(res => {
-          console.log(res);
-          this.page_data = res[0];
-        });
+    this.wordpressApiService.getPage(slug).subscribe(res => {
+        console.log(res);
+        this.page_data = res[0];
+      this.loading = false;
+    });
   }
 
   show_event_in_popup(event): void {
@@ -150,23 +167,32 @@ export class PopupWindowComponent implements OnInit {
   ngOnInit() {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
-    this.popup_window_updater = this.popupWindowCommunicationService.notifyObservable$.subscribe((slug) => {
-      this.update_popup_window(slug);
+    this.popup_window_updater = this.popupWindowCommunicationService.pageNotifyObservable$.subscribe((slug) => {
+      this.show_page_in_popup(slug);
     });
     this.popup_window_event_updater = this.popupWindowCommunicationService.eventNotifyObservable$.subscribe((event) => {
+      this.loading = false;
       this.show_event_in_popup(event);
     });
     this.popup_window_association_updater = this.popupWindowCommunicationService.associationNotifyObservable$.subscribe((arg) => {
+      this.loading = false;
       this.show_association_in_popup(arg);
     });
     this.popup_window_archive_updater = this.popupWindowCommunicationService.archiveNotifyObservable$.subscribe((archive) => {
+      this.loading = false;
       this.show_archive_in_popup(archive);
     });
     this.popup_window_faq_updater = this.popupWindowCommunicationService.faqNotifyObservable$.subscribe((faq) => {
+      this.loading = false;
       this.show_faq_in_popup(faq);
     });
-    this.popup_window_hide_updater = this.popupWindowCommunicationService.hideNotifyObservable$.subscribe(() => {
-      this.hide_popup_window();
+    this.popup_window_hide_updater = this.popupWindowCommunicationService.hideNotifyObservable$.subscribe((arg) => {
+      if (arg === true) {
+        this.hide_popup_window();
+      }
+    });
+    this.popup_window_loader_updater = this.popupWindowCommunicationService.loaderNotifyObservable$.subscribe(() => {
+      this.loading = true;
     });
   }
 

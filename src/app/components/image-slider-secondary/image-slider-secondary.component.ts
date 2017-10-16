@@ -51,7 +51,6 @@ export class ImageSliderSecondaryComponent implements OnInit {
               if (self.slider.nativeElement.getElementsByClassName('items-wrapper')[0]) {
                 clearInterval(timmer3);
                 self.slider.nativeElement.getElementsByClassName('items-wrapper')[0].style.width = wrapper_width + 'px';
-                console.log(self.slider.nativeElement.getElementsByClassName('items-wrapper')[0].style.width);
               }
             }, 100);
           }
