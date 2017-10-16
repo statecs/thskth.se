@@ -107,7 +107,7 @@ export class ChaptersAssociationsComponent implements OnInit {
       relatedAssociations = this.social_associations;
     }
     this.popupWindowCommunicationService.showAssociationInPopup({association: item, relatedAssociations: relatedAssociations});
-    this.location.go('/associations-and-chapters/' + item.slug);
+    this.router.navigate(['/associations-and-chapters/' + item.slug]);
   }
 
   goToPage(slug): void {
@@ -145,7 +145,7 @@ export class ChaptersAssociationsComponent implements OnInit {
     if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
       this.searchAssociations();
       this.searchChapters();
-      this.location.go('/associations-and-chapters?q=' + this.searchTerm);
+      this.router.navigate(['/associations-and-chapters?q=' + this.searchTerm]);
     }
   }
 
@@ -275,8 +275,14 @@ export class ChaptersAssociationsComponent implements OnInit {
       console.log(this.slug);
       if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
         console.log('pass');
-        this.getPostBySlug();
         this.getAssociations();
+        const self = this;
+        const timer = setInterval(function () {
+          if (self.career_associations.length > 0) {
+            clearInterval(timer);
+            self.getPostBySlug();
+          }
+        }, 100);
       }
     });
 
@@ -294,9 +300,10 @@ export class ChaptersAssociationsComponent implements OnInit {
             console.log('pass');
             this.getAssociations();
         }
+        this.popupWindowCommunicationService.hidePopup();
       }else {
         if (params['q']) {
-          this.location.go('/associations-and-chapters/' + this.slug);
+          this.router.navigate(['/associations-and-chapters/' + this.slug]);
         }
       }
     });
@@ -309,7 +316,7 @@ export class ChaptersAssociationsComponent implements OnInit {
           console.log(self.searchTerm);
           if (self.searchTerm === '') {
             console.log('search');
-            self.location.go('/associations-and-chapters');
+            self.router.navigate(['/associations-and-chapters']);
             self.showChapters = false;
             self.showAssociations = true;
             self.getAssociations();

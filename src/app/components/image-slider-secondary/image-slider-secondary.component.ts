@@ -1,6 +1,7 @@
 import {Component, OnInit, Renderer2, HostListener, ViewChild, ElementRef, Input} from '@angular/core';
 import {Association} from '../../interfaces/chapters_associations';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-image-slider-secondary',
@@ -14,12 +15,14 @@ export class ImageSliderSecondaryComponent implements OnInit {
   public enableScroll: boolean;
 
   constructor(private renderer: Renderer2,
-              private popupWindowCommunicationService: PopupWindowCommunicationService) {
+              private popupWindowCommunicationService: PopupWindowCommunicationService,
+              private router: Router) {
     this.enableScroll = false;
   }
 
   showAssociationInPopup(item: Association): void {
-    this.popupWindowCommunicationService.showAssociationInPopup({association: item, relatedAssociations: this.data.items});
+    //this.popupWindowCommunicationService.showAssociationInPopup({association: item, relatedAssociations: this.data.items});
+    this.router.navigate(['associations-and-chapters/' + item.slug]);
   }
 
   showScroll() {

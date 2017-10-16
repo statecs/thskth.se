@@ -23,6 +23,7 @@ export class PopupWindowComponent implements OnInit {
   public popup_window_association_updater: Subscription;
   public popup_window_archive_updater: Subscription;
   public popup_window_faq_updater: Subscription;
+  public popup_window_hide_updater: Subscription;
   public page_data: any;
   public showEvent: boolean;
   public event: Event;
@@ -163,6 +164,9 @@ export class PopupWindowComponent implements OnInit {
     });
     this.popup_window_faq_updater = this.popupWindowCommunicationService.faqNotifyObservable$.subscribe((faq) => {
       this.show_faq_in_popup(faq);
+    });
+    this.popup_window_hide_updater = this.popupWindowCommunicationService.hideNotifyObservable$.subscribe(() => {
+      this.hide_popup_window();
     });
   }
 

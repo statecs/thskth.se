@@ -17,6 +17,8 @@ export class PopupWindowCommunicationService {
   archiveNotifyObservable$ = this.archive_notify.asObservable();
   private faq_notify = new Subject<any>();
   faqNotifyObservable$ = this.faq_notify.asObservable();
+  private hide_notify = new Subject<any>();
+  hideNotifyObservable$ = this.hide_notify.asObservable();
 
   constructor() { }
 
@@ -38,6 +40,10 @@ export class PopupWindowCommunicationService {
 
   showFaqInPopup(faq: FAQ) {
     this.faq_notify.next(faq);
+  }
+
+  hidePopup() {
+    this.hide_notify.next();
   }
 
 }
