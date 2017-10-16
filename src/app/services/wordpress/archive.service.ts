@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
-import { Archive, ArchiveCategory, Document } from '../../interfaces/archive';
+import {Archive, ArchiveCategory, Document, SearchParams} from '../../interfaces/archive';
 import { CookieService } from 'ngx-cookie';
 import format from 'date-fns/format/index';
 
@@ -31,14 +31,14 @@ export class ArchiveService {
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
   }
 
-  searchDocuments(searchTerm: string, categoryID: number, date_filter: string): Observable<Archive[]> {
-    console.log(searchTerm);
+  searchDocuments(searchParams: SearchParams): Observable<Archive[]> {
+    console.log(searchParams);
     let params = '';
-    if (categoryID !== 0) {
-      params = '&categories=' + categoryID;
+    if (searchParams.categoryID !== 0) {
+      params = '&categories=' + searchParams.categoryID;
     }
     return this.http
-        .get(this.config.ARCHIVE_URL + '?_embed&support=' + searchTerm + params + '&after=' + date_filter + 'T22:26:53')
+        .get(this.config.ARCHIVE_URL + '?_embed&search=' + searchParams.searchTerm + params + '&after=' + searchParams.start_date + 'T00:00:00' + '&before=' + searchParams.end_date + 'T23:59:00')
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
@@ -47,10 +47,10 @@ export class ArchiveService {
   castPostsTo_SearchResultType(data: any) {
     const archives: Archive[] = [];
     data.forEach(c => {
-      console.log(c['_embedded']);
       archives.push({
         slug: c.slug,
         title: c.title.rendered,
+        published: this.formatDate(c.date),
         lastModified: this.formatDate(c.modified),
         description: c.content.rendered,
         documents: this.castDataToDocumentType(c.acf.documents),
@@ -70,7 +70,6 @@ export class ArchiveService {
 
   castDataToDocumentType(data): Document[] {
     const documents: Document[] = [];
-    console.log(data);
     data.forEach(d => {
       documents.push({
         title: d.documents.title,
@@ -85,7 +84,6 @@ export class ArchiveService {
 
   castDataToArchiveCategoryType(data): ArchiveCategory[] {
     const categories: ArchiveCategory[] = [];
-    console.log(data);
     data.forEach(c => {
       categories.push({
         id: c.term_id,
@@ -99,8 +97,6 @@ export class ArchiveService {
   getMimeType(filename: string) {
     let type = '';
     const term = filename.substring(filename.length - 4, filename.length);
-    console.log(filename);
-    console.log(term);
     if (term === '.zip') {
       type = 'zip';
     }else if (term === '.pdf') {

@@ -17,7 +17,7 @@
                         <span class="numberOfResults">Showing 1-20 of {{documentResults.length}} hits</span>
                         <span class="sortBy">Sort by <strong>Published</strong> Relevance</span>
                       </div>-->
-            <div *ngFor="let d of documentResults" class="item">
+            <div *ngFor="let d of searchResults" class="item">
               <div class="left-content">
                 <a *ngFor="let c of d.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
               </div>
@@ -27,7 +27,7 @@
               </div>
             </div>
             <p *ngIf="documentsLoading">Loading...</p>
-            <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">No posts found for "{{searchTerm}}"!</p>
+            <p *ngIf="!documentsLoading && searchResults.length === 0" class="notResult">No posts found for "{{searchTerm}}"!</p>
           </div>
         </div>
 <!--        <div class="filter">
@@ -74,8 +74,9 @@
           <div class="dropdown-container">
             <div class="dropdown-list">
               <div class="dropdown-item" (click)="filterTopic($event, 0)" [ngClass]="{'selected': categoryID == 0}">Show all</div>
-              <div class="dropdown-item" (click)="filterTopic($event, 354)" [ngClass]="{'selected': categoryID == 354}">KS documents</div>
+              <div class="dropdown-item" (click)="filterTopic($event, 354)" [ngClass]="{'selected': categoryID == 354}">Documents Archive</div>
               <div class="dropdown-item" (click)="filterTopic($event, 355)" [ngClass]="{'selected': categoryID == 355}">KF documents</div>
+              <div class="dropdown-item" (click)="filterTopic($event, 356)" [ngClass]="{'selected': categoryID == 356}">KS documents</div>
             </div>
           </div>
         </div>
@@ -89,27 +90,34 @@
       </div>-->
       <div *ngIf="showFilters">
         <div class="date_input">
-          <input type="date" id="myDate" [(ngModel)]="date_filter" (change)="filterDate()">
+          <input type="date" id="startDate" [(ngModel)]="start_date" (change)="filterDate()">
+        </div>
+        <div class="date_input">
+          <input type="date" id="endDate" [(ngModel)]="end_date" (change)="filterDate()">
         </div>
       </div>
     </div>
 
     <div class="results-container">
-      <div *ngIf="showResults">
+      <div>
         <div class="section">
           <div class="heading">
-            <span class="numberOfResults">Showing {{documentResults.length !== 0 ? 1 : 0 }}-{{documentResults.length}} of {{documentResults.length}} hits</span>
-            <span class="sortBy">Sort by <strong>Published</strong> Relevance</span>
+            <h3 *ngIf="showResults" class="numberOfResults">Showing {{documentResults.length !== 0 ? 1 : 0 }}-{{documentResults.length}} of {{documentResults.length}} hits</h3>
+            <!--<span class="sortBy">Sort by <strong>Published</strong> Relevance</span>-->
+            <h3 *ngIf="!showResults">Latest published documents</h3>
           </div>
           <div *ngFor="let d of documentResults" class="item">
             <div class="left-content">
               <span *ngFor="let c of d.categories">{{c.name}}</span>
-              <div class="modified-date">Last modified: {{d.lastModified}}</div>
+              <div class="dates">
+                <div class="date">Published: <span>{{d.published}}</span></div>
+                <div class="date">Last modified: <span>{{d.lastModified}}</span></div>
+              </div>
             </div>
             <div class="right-content">
               <h4 (click)="showDocumentInPopup(d)">{{d.title}}</h4>
               <!--            <p [innerHTML]="d.content | cardText:100"></p>-->
-              <p [innerHTML]="d.description"></p>
+              <p [innerHTML]="d.description | cardText:100"></p>
               <div class="files">
                 <div *ngFor="let f of d.documents" class="link_container">
                   <div *ngIf="f.mime_type ==='pdf' && pdfChecked" class="download_link" (click)="downloadFile(f.url)">

@@ -1,3 +1,10 @@
+export interface SearchParams {
+    searchTerm: string;
+    categoryID: number;
+    start_date: string;
+    end_date: string;
+}
+
 export interface Document {
     title: string;
     filename: string;
@@ -20,6 +27,7 @@ export interface Author {
 export interface Archive {
     slug: string;
     title: string;
+    published: string;
     lastModified: string;
     description: string;
     documents: Document[];

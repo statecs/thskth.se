@@ -3,8 +3,9 @@ import { ArchiveService } from '../../services/wordpress/archive.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import { Location } from '@angular/common';
-import { Archive } from '../../interfaces/archive';
+import {Archive, SearchParams} from '../../interfaces/archive';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
+import format from 'date-fns/format/index';
 
 @Component({
   selector: 'app-archive',
@@ -26,6 +27,8 @@ export class ArchiveComponent implements OnInit {
   public searchTerm: string;
   public mostSearchTerms: string[];
   public documentResults: Archive[];
+  public searchResults: Archive[];
+  public latestDocuments: Archive[];
   private hrefToSlugPipeFilter: HrefToSlugPipe;
   public showResultsDropdown: boolean;
   public documentsLoading: boolean;
@@ -39,7 +42,8 @@ export class ArchiveComponent implements OnInit {
   public zipChecked: boolean;
   public pdfChecked: boolean;
   public categoryID: number;
-  public date_filter: string;
+  public start_date: string;
+  public end_date: string;
 
   constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,
@@ -56,9 +60,11 @@ export class ArchiveComponent implements OnInit {
     this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
     this.hrefToSlugPipeFilter = new HrefToSlugPipe();
     this.documentResults = [];
+    this.searchResults = [];
+    this.latestDocuments = [];
     this.showResultsDropdown = false;
     this.documentsLoading = true;
-    this.showResults = true;
+    this.showResults = false;
     this.displayedDropdown = false;
     this.content_typeIsDisabled = false;
     this.showFilters = true;
@@ -66,7 +72,7 @@ export class ArchiveComponent implements OnInit {
     this.zipChecked = true;
     this.pdfChecked = true;
     this.categoryID = 0;
-    this.date_filter = '2014-09-24';
+    this.start_date = '2014-09-24';
   }
 
 
@@ -80,11 +86,13 @@ export class ArchiveComponent implements OnInit {
     this.hideAllDropdown();
     this.categoryID = categoryID;
     this.searchDocuments();
+    this.showResults = true;
   }
 
   filterDate(): void {
     console.log("filterDate");
     this.searchDocuments();
+    this.showResults = true;
   }
 
   toggleDropdown(param, event): void {
@@ -135,12 +143,12 @@ export class ArchiveComponent implements OnInit {
     this.showResultsDropdown = false;
     this.showResults = true;
     this.showFilters = true;
-    this.search();
+    this.documentResults = this.searchResults;
+    //this.search();
   }
 
   liveSearch(event): void {
     if (event.keyCode !== 13) {
-      this.documentResults = [];
       this.documentsLoading = true;
       this.showResultsDropdown = true;
       this.showFilters = false;
@@ -157,10 +165,16 @@ export class ArchiveComponent implements OnInit {
   }
 
   searchDocuments(): void {
-    this.archiveService.searchDocuments(this.searchTerm, this.categoryID, this.date_filter).subscribe((res) => {
+    const searchParams: SearchParams = {
+      searchTerm: this.searchTerm,
+      categoryID: this.categoryID,
+      start_date: this.start_date,
+      end_date: this.end_date
+    };
+    this.archiveService.searchDocuments(searchParams).subscribe((res) => {
       this.documentsLoading = false;
       console.log(res);
-      this.documentResults = res;
+      this.searchResults = res;
     });
   }
 
@@ -217,6 +231,8 @@ export class ArchiveComponent implements OnInit {
         console.log('search');
         this.location.go('/archive');
         this.showFilters = true;
+        this.showResults = false;
+        this.documentResults = this.latestDocuments;
       }
     });
 
@@ -224,7 +240,11 @@ export class ArchiveComponent implements OnInit {
       this.documentsLoading = false;
       console.log(res);
       this.documentResults = res;
+      this.latestDocuments = res;
     });
+
+    this.end_date = format(new Date(), 'YYYY-MM-DD');
+    console.log(this.end_date);
   }
 
 }
