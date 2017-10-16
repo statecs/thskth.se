@@ -4,6 +4,7 @@ import { ths_calendars } from '../../../utils/ths-calendars';
 import { GoogleCalendarService } from '../../../services/google-calendar/google-calendar.service';
 import { Event } from '../../../interfaces/event';
 import {Router} from '@angular/router';
+import {PopupWindowCommunicationService} from '../../../services/component-communicators/popup-window-communication.service';
 
 @Component({
   selector: 'app-events-card',
@@ -19,9 +20,14 @@ export class EventsCardComponent implements OnInit {
 
   constructor(
       private googleCalendarService: GoogleCalendarService,
-      private router: Router
+      private router: Router,
+      private popupWindowCommunicationService: PopupWindowCommunicationService
   ) {
     this.ths_calendars = ths_calendars;
+  }
+
+  displayEventInPopup(event: Event) {
+    this.popupWindowCommunicationService.showEventInPopup(event);
   }
 
   goToPage(slug): void {

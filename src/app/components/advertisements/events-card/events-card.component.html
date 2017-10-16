@@ -6,7 +6,7 @@
       <span>{{getDay(e.start)}}</span>
     </div>
     <div class="excerpt">
-      <span (click)="displayEventInPopup()">{{e.title | cardText:25}}</span>
+      <span (click)="displayEventInPopup(e)">{{e.title | cardText:25}}</span>
     </div>
   </div>
   <span (click)="goToPage('events')">View all events >></span>
