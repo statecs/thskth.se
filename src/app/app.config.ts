@@ -36,4 +36,6 @@ export let appConfig: AppConfig = {
     CHAPTER_URL: 'http://kths.se/api/wp/v2/chapter',
     RESTAURANT_URL: 'http://kths.se/api/wp/v2/restaurant',
     CATEGORIES_URL: 'http://kths.se/api/wp/v2/categories',
+    RECAPTCHA_PUBLICKEY: '6Lf68iYTAAAAAIFMPKffFO9vYNJ7KRgQVWP9H_ac',
+    XHR_CONTACT_FORM: 'http://kths.se/assets/scripts/xhr-contact-form.php',
 };

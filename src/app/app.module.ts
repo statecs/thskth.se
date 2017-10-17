@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CalendarModule } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReCaptchaModule } from 'angular2-recaptcha';
 
 // Routes import
 import { routing } from './app.routes';
@@ -34,6 +35,7 @@ import { SelectSliderCommunicationService } from './services/component-communica
 import { PostsService } from './services/wordpress/posts.service';
 import { ImageSliderCommunicationService } from './services/component-communicators/image-slider-communication.service';
 import {ChatbotCommunicationService} from './services/component-communicators/chatbot-communication.service';
+import {ContactFormService} from './services/forms/contact-form.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -170,6 +172,7 @@ import { HeaderSliderComponent } from './components/header-slider/header-slider.
     FormsModule,
     HttpModule,
     routing,
+    ReCaptchaModule,
     CookieModule.forRoot(),
     BrowserAnimationsModule,
     CalendarModule.forRoot()
@@ -198,6 +201,7 @@ import { HeaderSliderComponent } from './components/header-slider/header-slider.
       PostsService,
       ImageSliderCommunicationService,
       ChatbotCommunicationService,
+      ContactFormService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

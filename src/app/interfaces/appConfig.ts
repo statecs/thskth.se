@@ -31,4 +31,6 @@ export interface AppConfig {
     CHAPTER_URL: string;
     RESTAURANT_URL: string;
     CATEGORIES_URL: string;
+    RECAPTCHA_PUBLICKEY: string;
+    XHR_CONTACT_FORM: string;
 }

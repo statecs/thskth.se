@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { APP_CONFIG } from '../../app.config';
+import {AppConfig} from '../../interfaces/appConfig';
+import { ReCaptchaComponent } from 'angular2-recaptcha';
+import {ContactFormService} from '../../services/forms/contact-form.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -6,10 +10,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-form.component.scss']
 })
 export class ContactFormComponent implements OnInit {
+  @ViewChild(ReCaptchaComponent) captcha: ReCaptchaComponent;
 
+  protected config: AppConfig;
   public subjects: object[];
+  private full_name: string;
+  private email: string;
+  private message: string;
+  private id_number: string;
+  public error: string;
+  public success: string;
 
-  constructor() {
+  constructor(private injector: Injector,
+              public contactFormService: ContactFormService) {
+    this.config = injector.get(APP_CONFIG);
     this.subjects = [
       {
         name: '---', email: ''
@@ -43,6 +57,47 @@ export class ContactFormComponent implements OnInit {
         name: 'kommunikation@ths.kth.se', email: 'Övrigt/Other'
       },
     ];
+    this.full_name = '';
+    this.email = '';
+    this.message = '';
+    this.id_number = null;
+    this.error = null;
+    this.success = null;
+  }
+
+  submitMessage(): void {
+    this.error = null;
+    this.success = null;
+    console.log(this.full_name);
+    console.log(this.email);
+    console.log(this.message);
+    if (this.full_name === '' || this.email === '' || this.message === '' ) {
+      this.error = 'Please fill in the required fields (*)!';
+    }else if (this.captcha.getResponse() === '') {
+      this.error = 'Please resolve the captcha and submit!';
+    }else {
+      const post_data = {  // prepare payload for request
+        'name': this.full_name,
+        'email': this.email,
+        'message': this.message,
+        'pnumber': this.id_number,
+        'g-recaptcha-response': this.captcha.getResponse()  // send g-captcah-reponse to our server
+      };
+      this.contactFormService.submitMessage(post_data).subscribe(
+          (res) => {
+            console.log(res);
+            this.success = 'Email sent! We will get back to you shortly!';
+          },
+          (err) => {
+            this.error = 'There was an error. Email not sent!';
+            console.log(err);
+          }
+      );
+      console.log(post_data);
+    }
+
+
+    console.log(this.captcha.getResponse());
   }
 
   ngOnInit() {
