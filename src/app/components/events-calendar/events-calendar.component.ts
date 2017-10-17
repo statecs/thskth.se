@@ -48,22 +48,35 @@ export class EventsCalendarComponent implements OnInit {
   }
 
   getEventsPerDay(calendarId, viewDate: Date): void {
-    this.googleCalendarService.fetchEvents(calendarId, viewDate, 'day')
-        .subscribe(res => {
-          console.log(res);
-          this.events = res;
-          if (this.events.length !== 0) {
-            this.showFeaturedEvents = false;
-          }
-        });
+    console.log(calendarId);
+    if (calendarId === 'all') {
+      this.googleCalendarService.getAllEvents(viewDate, 'day').subscribe(res => {
+        console.log(res);
+        const mergedArrays = this.mergeArrays(res);
+        const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+        console.log(sortedArrays);
+        this.events = sortedArrays;
+        if (this.events.length !== 0) {
+          this.showFeaturedEvents = false;
+        }
+      });
+    }else {
+      this.googleCalendarService.fetchEvents(calendarId, viewDate, 'day').subscribe(res => {
+        console.log(res);
+        this.events = res;
+        if (this.events.length !== 0) {
+          this.showFeaturedEvents = false;
+        }
+      });
+    }
   }
 
   mergeArrays(arrays: any): Event[] {
     let merged: Event[] = [];
     arrays.forEach((event) => {
-      console.log(event);
+      //console.log(event);
       merged = merged.concat(event);
-      console.log(merged);
+      //console.log(merged);
     });
     return merged;
   }
@@ -71,7 +84,6 @@ export class EventsCalendarComponent implements OnInit {
   sortArrayByTime(a, b) {
     a = new Date(a.start);
     b = new Date(b.start);
-    console.log(a);
     return a < b ? -1 : a > b ? 1 : 0;
   };
 
@@ -81,16 +93,16 @@ export class EventsCalendarComponent implements OnInit {
       if (arg.noActivity) {
         this.events = [];
         console.log('no activity');
+        this.showFeaturedEvents = false;
       }else {
         this.getEventsPerDay(arg.calendarId, arg.viewDate);
       }
-      console.log('actualDate');
       console.log(arg);
     });
 
     this.getEventsPerDay(this.ths_calendars[0].calendarId, new Date());
 
-    this.googleCalendarService.getAllEvents(null).subscribe(res => {
+    this.googleCalendarService.getAllEvents(null, 'month').subscribe(res => {
       console.log(res);
       const mergedArrays = this.mergeArrays(res);
       const sortedArrays = mergedArrays.sort(this.sortArrayByTime);

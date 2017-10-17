@@ -31,11 +31,12 @@ import { ths_calendars } from '../../utils/ths-calendars';
 export class CalendarComponent implements OnInit {
   view: string;
   viewDate: Date;
-  //events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
-  events$: Event[];
+  events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
+  //events$: Event[];
   activeDayIsOpen: boolean;
   public ths_calendars: any[];
   public selected_event_category: number;
+  public e_loading: boolean;
 
   constructor(private googleCalendarService: GoogleCalendarService,
               private calendarCommunicationService: CalendarCommunicationService,
@@ -45,24 +46,35 @@ export class CalendarComponent implements OnInit {
     this.viewDate = new Date();
     this.ths_calendars = ths_calendars;
     this.selected_event_category = -1;
+    this.e_loading = true;
   }
 
   switchCalendar(index) {
+    this.e_loading = true;
     this.selected_event_category = index;
     if (index === -1) {
       this.getAllEvents();
     }else {
       this.fetchEvents();
     }
+    let cal_Id = '';
+    if (this.selected_event_category === -1) {
+      cal_Id = 'all';
+    }else {
+      cal_Id = this.ths_calendars[this.selected_event_category].calendarId;
+    }
+    this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: this.viewDate, calendarId: cal_Id});
   }
 
   fetchEvents(): void {
+    this.e_loading = true;
     console.log(this.selected_event_category);
     if (this.selected_event_category === -1) {
       this.getAllEvents();
     }else {
-      this.googleCalendarService.fetchEvents(this.ths_calendars[this.selected_event_category].calendarId, this.viewDate, this.view).subscribe((res) => {
-        this.events$ = res;
+      this.events$ = this.googleCalendarService.fetchEvents(this.ths_calendars[this.selected_event_category].calendarId, this.viewDate, this.view).map((res) => {
+        this.e_loading = false;
+        return res;
       });
       this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: this.viewDate, calendarId: this.ths_calendars[this.selected_event_category].calendarId});
     }
@@ -73,14 +85,20 @@ export class CalendarComponent implements OnInit {
     events: Array<CalendarEvent<{ event: Event }>>;
   }): void {
     if (isSameMonth(date, this.viewDate)) {
+      let cal_Id = '';
+      if (this.selected_event_category === -1) {
+        cal_Id = 'all';
+      }else {
+        cal_Id = this.ths_calendars[this.selected_event_category].calendarId;
+      }
       if (
           (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
           events.length === 0
       ) {
-        this.calendarCommunicationService.updateEventItemsList({noActivity: true, viewDate: date, calendarId: this.ths_calendars[this.selected_event_category].calendarId});
+        this.calendarCommunicationService.updateEventItemsList({noActivity: true, viewDate: date, calendarId: cal_Id});
       } else {
         this.viewDate = date;
-        this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: date, calendarId: this.ths_calendars[this.selected_event_category].calendarId});
+        this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: date, calendarId: cal_Id});
       }
     }
     this.viewDate = date;
@@ -104,9 +122,7 @@ export class CalendarComponent implements OnInit {
   mergeArrays(arrays: any): Event[] {
     let merged: Event[] = [];
     arrays.forEach((event) => {
-      console.log(event);
       merged = merged.concat(event);
-      console.log(merged);
     });
     return merged;
   }
@@ -119,11 +135,11 @@ export class CalendarComponent implements OnInit {
   };
 
   getAllEvents() {
-    this.googleCalendarService.getAllEvents(this.viewDate).subscribe(res => {
+    this.events$ = this.googleCalendarService.getAllEvents(this.viewDate, 'month').map(res => {
       console.log(res);
       const mergedArrays = this.mergeArrays(res);
-      this.events$ = mergedArrays.sort(this.sortArrayByTime);
-      console.log(this.events$);
+      this.e_loading = false;
+      return mergedArrays.sort(this.sortArrayByTime);
     });
   }
 

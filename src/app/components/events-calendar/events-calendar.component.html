@@ -7,20 +7,9 @@
     </div>
     <app-calendar></app-calendar>
   </div>
-  <div *ngIf="showFeaturedEvents" class="featured-events">
-    <div *ngFor="let e of earliest_events" class="event">
-      <div class="image-wrapper" [ngStyle]="{'background-image': 'url(' + e.imageUrl + ')'}">
-        <span class="date">formatDay(e.start)</span>
-      </div>
-      <div class="info">
-        <h2>{{e.title}}</h2>
-        <p [innerHTML]="e.description | cardText:100"></p>
-      </div>
-    </div>
-  </div>
   <div *ngIf="!showFeaturedEvents" class="events-wrapper">
     <div class="events-header">
-      <h3>Events on {{actualDate}}</h3>
+      <h2>Events on {{actualDate}}</h2>
       <!--<div class="filter-icon">
         Filter <i class="material-icons">filter_list</i>
       </div>-->
@@ -31,6 +20,7 @@
           <span>
             {{formatTime(e.start, e.end)}}
           </span>
+          <img *ngIf="e.imageUrl === ''" src="../../../assets/images/placeholder-image.png" alt="No image available">
         </div>
         <div class="info">
           <h5>{{e.title}}</h5>
@@ -39,6 +29,22 @@
         </div>
       </div>
       <span *ngIf="events.length === 0">There are no events.</span>
+    </div>
+  </div>
+  <div class="featured-events">
+    <div class="heading">
+      <h2>Upcoming events</h2>
+    </div>
+
+    <div *ngFor="let e of earliest_events" class="event">
+      <div class="image-wrapper" [ngStyle]="{'background-image': 'url(' + e.imageUrl + ')'}">
+        <span class="date">{{formatDay(e.start)}}</span>
+        <img *ngIf="e.imageUrl === ''" src="../../../assets/images/placeholder-image.png" alt="No image available">
+      </div>
+      <div class="info">
+        <h2>{{e.title}}</h2>
+        <p [innerHTML]="e.description | cardText:100"></p>
+      </div>
     </div>
   </div>
 </div>

@@ -8,8 +8,8 @@
         [(viewDate)]="viewDate"
         (updateEvents)="fetchEvents()">
 </app-calendar-header>
-
-<div>
+<app-loader *ngIf="e_loading"></app-loader>
+<div class="scheme" *ngIf="events$ | async; else loading; let events">
     <div [ngSwitch]="view">
         <mwl-calendar-month-view
                 *ngSwitchCase="'month'"
@@ -19,7 +19,7 @@
                 (dayClicked)="dayClicked($event.day)"
                 (eventClicked)="eventClicked($event.event)">
         </mwl-calendar-month-view>
-        <mwl-calendar-week-view
+        <!--<mwl-calendar-week-view
                 *ngSwitchCase="'week'"
                 [viewDate]="viewDate"
                 [events]="events"
@@ -30,6 +30,6 @@
                 [viewDate]="viewDate"
                 [events]="events"
                 (eventClicked)="eventClicked($event.event)">
-        </mwl-calendar-day-view>
+        </mwl-calendar-day-view>-->
     </div>
 </div>

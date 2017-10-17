@@ -14,4 +14,5 @@ export interface Event {
     location: string;
     creator: Creator;
     meta: any;
+    calendarId: string;
 }
