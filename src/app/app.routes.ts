@@ -93,7 +93,7 @@ const appRoutes: Routes = [
         ]
     },
     {
-        path: 'student-life',
+        path: ':lang/student-life',
         component: StudentLifeSectionComponent,
         data: { title: 'Student life' },
         children: [
@@ -114,25 +114,31 @@ const appRoutes: Routes = [
     },
     {
         path: 'home',
-        redirectTo: '',
+        redirectTo: ':lang',
         pathMatch: 'full'
     },
     {
-        path: 'international',
+        path: ':lang/international',
         component: HomeComponent,
         data: { title: 'Home page', profession: 'international' },
         pathMatch: 'full'
     },
     {
-        path: 'student',
+        path: ':lang/student',
         component: HomeComponent,
         data: { title: 'Home page', profession: 'student' },
         pathMatch: 'full'
     },
     {
-        path: 'company',
+        path: ':lang/company',
         component: HomeComponent,
         data: { title: 'Home page', profession: 'company' },
+        pathMatch: 'full'
+    },
+    {
+        path: ':lang',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'student' },
         pathMatch: 'full'
     },
     {

@@ -8,6 +8,8 @@ import { TextSliderCommunicationService } from '../../services/component-communi
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { PostsService } from '../../services/wordpress/posts.service';
 import { ImageSliderCommunicationService } from '../../services/component-communicators/image-slider-communication.service';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie';
 
 @Component({
   selector: 'app-home',
@@ -15,12 +17,27 @@ import { ImageSliderCommunicationService } from '../../services/component-commun
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+    private lang: string;
 
   constructor(  private wordpressApiService: WordpressApiService,
                 private textSliderCommunicationService: TextSliderCommunicationService,
                 private faqsService: FaqsService,
                 private postsService: PostsService,
-                private imageSliderCommunicationService: ImageSliderCommunicationService) {
+                private imageSliderCommunicationService: ImageSliderCommunicationService,
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private _cookieService: CookieService) {
+
+      this.activatedRoute.params.subscribe((params: Params) => {
+          this.lang = params['lang'];
+          if (this.lang === 'en') {
+              console.log('pass: ' + this.lang);
+              this.router.navigate(['']);
+          }else if (typeof this.lang === 'undefined') {
+              this.lang = 'en';
+          }
+          this._cookieService.put('language', this.lang);
+      });
   }
 
   ngOnInit() {

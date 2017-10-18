@@ -18,13 +18,10 @@ export class AppComponent {
     this.appCommunicationService.notifyObservable$.subscribe((arg) => {
       const pageStyle = this.page.nativeElement.style;
       if (arg === 'collapse') {
-        console.log((document.body.scrollTop || window.pageYOffset));
         this.scrollTop = (document.body.scrollTop || window.pageYOffset);
         pageStyle.top = '-' + this.scrollTop + 'px';
         pageStyle.position = 'fixed';
       }else if (arg === 'show') {
-        console.log(this.scrollTop);
-        console.log(document.body.scrollTop);
         window.scrollBy(0, this.scrollTop);
         pageStyle.top = '0';
         pageStyle.position = 'absolute';

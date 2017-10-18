@@ -101,14 +101,10 @@ export class CardsSocialContainerComponent implements OnInit {
     this.selected_event_index = 0;
     this.socialMediaPostService.fetchAllPosts().subscribe(res => {
       this.meta_data = res;
-      console.log(res);
       this.thirdCard = res[2];
-      console.log(this.thirdCard);
       const first_six_posts = res.slice(0, this.displayedCards_amount + 1);
       first_six_posts.splice(2, 1);
       this.socialMediaPosts = first_six_posts;
-      console.log(this.socialMediaPosts);
-
       this.fetching = false;
     });
 

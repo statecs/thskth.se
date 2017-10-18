@@ -22,12 +22,11 @@ export class MenusService {
     }else {
       this.language = this._cookieService.get('language');
     }
-    console.log(this.language);
   }
 
   get_secondarySubMenu(subMenu_slug: string, secondary_subMenu_slug: string): Observable<MenuItem2[]> {
     if (typeof this.menus_meta === 'undefined') {
-      return this.getTopLevel_mainMenu().map((res) => {
+      return this.getTopLevel_mainMenu(this.language).map((res) => {
         return this.castResToSecondarySubMenu(subMenu_slug, secondary_subMenu_slug);
       });
     }else {
@@ -60,7 +59,7 @@ export class MenusService {
 
   get_mainSubMenu(object_slug: string): Observable<MenuItem2[]> {
     if (typeof this.menus_meta === 'undefined') {
-      return this.getTopLevel_mainMenu().map((res) => {
+      return this.getTopLevel_mainMenu(this.language).map((res) => {
         return this.castResToMainSubMenu(object_slug);
       });
     }else {
@@ -87,9 +86,9 @@ export class MenusService {
     return sub_menu;
   }
 
-  getTopLevel_mainMenu(): Observable<MenuItem2[]>  {
+  getTopLevel_mainMenu(lang: string): Observable<MenuItem2[]>  {
     return this.http
-        .get(this.config.PRIMARY_MENU_URL + '?order=desc&lang=' + this.language)
+        .get(this.config.PRIMARY_MENU_URL + '?order=desc&lang=' + lang)
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => this.castToplevelToMenuType(res));

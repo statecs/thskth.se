@@ -7,6 +7,7 @@ import { SearchMenubarCommunicationService } from '../../services/component-comm
 import {MenusService} from '../../services/wordpress/menus.service';
 import {MenuItem2} from '../../interfaces/menu';
 import { ths_chapters } from '../../utils/ths-chapters';
+import {ActivatedRoute, Params, Router, RoutesRecognized} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -20,10 +21,14 @@ export class HeaderComponent implements OnInit {
   public showMenuMobile: boolean;
   public showChaptersMobile: boolean;
   public ths_chapters: object[];
+  public placeholder: string;
+  private lang: string;
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
               private searchMenubarCommunicationService: SearchMenubarCommunicationService,
-              private menusService: MenusService) {
+              private menusService: MenusService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
     this.showMenuMobile = false;
     this.showChaptersMobile = false;
     this.ths_chapters = ths_chapters;
@@ -49,7 +54,27 @@ export class HeaderComponent implements OnInit {
     this.app_header.nativeElement.style.top = '-150px';
   }
 
+  setPlaceholder(): void {
+    console.log(this.lang);
+    if (this.lang === 'sv') {
+      this.placeholder = 'Sök THS';
+    }else {
+      this.placeholder = 'Search THS and beyond';
+    }
+  }
+
   ngOnInit() {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      this.setPlaceholder();
+      this.menusService.getTopLevel_mainMenu(this.lang).subscribe(res => {
+        this.topLevelMainMenu = res;
+      });
+    });
+
     this.headerCommunicationService.notifyObservable$.subscribe((arg) => {
       /*if (arg === 'expend') {
         this.expendHeader();
@@ -57,11 +82,6 @@ export class HeaderComponent implements OnInit {
         this.collapseHeader();
       }*/
     });
-
-    this.menusService.getTopLevel_mainMenu()
-        .subscribe(res => {
-          this.topLevelMainMenu = res;
-        });
   }
 
 }

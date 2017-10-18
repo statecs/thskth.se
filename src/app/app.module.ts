@@ -42,6 +42,7 @@ import { CardTextPipe } from './pipes/card-text.pipe';
 import { CalendarDatePipe } from './pipes/calendar-date.pipe';
 import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
 import { HrefToSlugPipe } from './pipes/href-to-slug.pipe';
+import { RemoveLangParamPipe } from './pipes/remove-lang-param.pipe';
 
 // Directives
 import { AutoFocusDirective } from './directives/auto-focus.directive';
@@ -165,7 +166,8 @@ import { HeaderSliderComponent } from './components/header-slider/header-slider.
     LoaderComponent,
     SelectSliderComponent,
     SearchComponent,
-    HeaderSliderComponent
+    HeaderSliderComponent,
+    RemoveLangParamPipe
   ],
   imports: [
     BrowserModule,

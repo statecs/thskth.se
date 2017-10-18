@@ -54,7 +54,6 @@ export class CardCategorizerComponent implements AfterViewInit {
     if (typeof this.cards_filter !== 'undefined') {
       this.companyIsDisabled = this.cards_filter.companyIsDisabled;
     }
-    console.log(this.route.snapshot.data['profession']);
   }
 
   showSelectSlider(items, type): void {
@@ -173,7 +172,6 @@ export class CardCategorizerComponent implements AfterViewInit {
         this.cardsService.getCardCategory('profession').subscribe((pro_cats) => {
           this.pro_cats = pro_cats;
           const pro = this.getSelectedProfession(pro_cats);
-            console.log(pro);
           this.selected_profession_name = pro.name;
           this.selected_profession = pro.id;
           this.cardsService.getCardCategory('interest').subscribe((int_cats) => {
@@ -213,7 +211,6 @@ export class CardCategorizerComponent implements AfterViewInit {
         this.cardsService.getCardCategory('profession').subscribe((pro_cats) => {
             this.pro_cats = pro_cats;
             const pro = this.getSelectedProfession(pro_cats);
-            console.log(pro);
             this.selected_profession_name = pro.name;
             this.selected_profession = pro.id;
             this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, organization_type: this.selected_company, interest: this.selected_interest});

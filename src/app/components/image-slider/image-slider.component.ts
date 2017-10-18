@@ -150,7 +150,6 @@ export class ImageSliderComponent implements OnInit {
 
     // this.update_progress_bar();
     this.imageSliderCommunicationService.notifyObservable$.subscribe((data) => {
-      console.log(data);
       this.slide_items = data;
     });
   }

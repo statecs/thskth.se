@@ -6,7 +6,7 @@ import { AppConfig } from '../../../interfaces/appConfig';
 import { APP_CONFIG } from '../../../app.config';
 import { CookieService } from 'ngx-cookie';
 import { ths_chapters } from '../../../utils/ths-chapters';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router, Params} from '@angular/router';
 
 @Component({
   selector: 'app-navbar-primary',
@@ -23,12 +23,14 @@ export class NavbarPrimaryComponent implements OnInit {
     protected config: AppConfig;
     private showSubmenuIndex: number;
     public ths_chapters: object[];
+    public signin_text: string;
 
     constructor( private wordpressApiService: WordpressApiService,
                  injector: Injector,
                  private _cookieService: CookieService,
                  private router: Router,
-                 private menusService: MenusService) {
+                 private menusService: MenusService,
+                 private activatedRoute: ActivatedRoute) {
         this.config = injector.get(APP_CONFIG);
         this.ths_chapters = ths_chapters;
     }
@@ -61,40 +63,64 @@ export class NavbarPrimaryComponent implements OnInit {
     }
 
     switchLanguage() {
-        if (this.config.LANGUAGE === 'en') {
-            this.config.LANGUAGE = 'sv';
-        }else if (this.config.LANGUAGE === 'sv') {
-            this.config.LANGUAGE = 'en';
+        if (this.language === 'en') {
+            this.language = 'sv';
+        }else if (this.language === 'sv') {
+            this.language = 'en';
         }
     }
 
     changeLanguage() {
-        if (typeof this._cookieService.get('language') !== 'undefined') {
+        /*if (typeof this._cookieService.get('language') !== 'undefined') {
             this.config.LANGUAGE = this._cookieService.get('language');
             this.switchLanguage();
         }else {
             this.switchLanguage();
+        }*/
+        this.switchLanguage();
+        this._cookieService.put('language', this.language);
+        if (this.language === 'en') {
+            this.router.navigate(['']);
+        }else if (this.language === 'sv') {
+            this.router.navigate(['/sv']);
         }
-        this._cookieService.put('language', this.config.LANGUAGE);
-        location.reload();
+        //location.reload();
+
     }
 
     displayActualLanguage() {
-        if (this._cookieService.get('language') === 'en' || typeof this._cookieService.get('language') === 'undefined') {
+        this.language = this._cookieService.get('language');
+        console.log(this._cookieService.get('language'));
+        if (this.language === 'en' || typeof this.language === 'undefined') {
             this.language_text = 'THS in swedish';
             this.language_img = '../../../../assets/images/sweden_flag.png';
-        }else if (this._cookieService.get('language') === 'sv') {
+            this.signin_text = 'Sign in';
+        }else if (this.language === 'sv') {
             this.language_text = 'THS i engelska';
             this.language_img = '../../../../assets/images/British_flag.png';
+            this.signin_text = 'Logga in';
         }
     }
 
-    ngOnInit() {
-        this.menusService.getTopLevel_mainMenu()
-            .subscribe(res => {
-                this.topLevelMainMenu = res;
-            });
+    getTopLevelMenu(): void {
+        console.log(this.language);
+         this.menusService.getTopLevel_mainMenu(this.language).subscribe(res => {
+             console.log(res);
+            this.topLevelMainMenu = res;
+             console.log(this.topLevelMainMenu);
+         });
+    }
 
+    ngOnInit() {
+        this.activatedRoute.params.subscribe((params: Params) => {
+            this.language = params['lang'];
+            if (typeof this.language === 'undefined') {
+                this.language = 'en';
+            }
+            this.getTopLevelMenu();
+        });
+
+        //this.getTopLevelMenu();
         this.displayActualLanguage();
     }
 

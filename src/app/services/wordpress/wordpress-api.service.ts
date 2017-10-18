@@ -17,17 +17,17 @@ export class WordpressApiService {
   constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
     this.config = injector.get(APP_CONFIG);
     this._wpBaseUrl = this.config.API_URL;
-
+    /*console.log(this._cookieService.get('language'));
     if (typeof this._cookieService.get('language') === 'undefined') {
       this.language = 'en';
     }else {
       this.language = this._cookieService.get('language');
-    }
+    }*/
   }
 
-  getNotification(): Observable<any[]> {
+  getNotification(lang: string): Observable<any[]> {
     return this.http
-        .get(this.config.NOTIFICATION_URL + '?lang=' + this.language)
+        .get(this.config.NOTIFICATION_URL + '?lang=' + lang)
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => { return res[0]; });

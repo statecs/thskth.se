@@ -1,7 +1,8 @@
 <nav role="navigation" (mouseleave)="hideSubMenu()">
     <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
         <div class="label" (mouseover)="showSubMenu(item.object_slug, i, submenu_item)">
-            <a routerLink="{{item.slug}}">{{item.title}}</a>
+            <a *ngIf="language === 'en'" routerLink="{{item.slug}}">{{item.title}}</a>
+            <a *ngIf="language === 'sv'" routerLink="{{item.slug | removeLangParam}}">{{item.title}}</a>
         </div>
         <div [hidden]="!(showSubmenuIndex === i)" class="dropdownList" (mouseleave)="hideSubMenu()">
             <div class="d-header-bg"></div>
@@ -21,7 +22,7 @@
         </div>
     </div>
 
-    <div class="payment-btn">Sign in</div>
+    <div class="payment-btn">{{signin_text}}</div>
 
     <div #submenu_chapter class="ths-icon">
         <div class="icon" (mouseover)="showSubMenu('chapters', -1, submenu_chapter)">

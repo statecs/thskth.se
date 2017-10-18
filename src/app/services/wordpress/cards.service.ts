@@ -148,7 +148,6 @@ export class CardsService {
 
   castDataToSubCardType(data) {
     const subCards: SubCard[] = [];
-    console.log(data);
     data.forEach(c => {
       let bg_image = '';
       if (c.background_image !== false ) {
