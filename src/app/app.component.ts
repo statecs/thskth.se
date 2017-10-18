@@ -10,6 +10,7 @@ import {ChatbotCommunicationService} from './services/component-communicators/ch
 })
 export class AppComponent {
   @ViewChild('page') page: ElementRef;
+  private scrollTop: number;
 
   constructor( private appCommunicationService: AppCommunicationService,
                @Inject(DOCUMENT) private document: Document,
@@ -17,9 +18,14 @@ export class AppComponent {
     this.appCommunicationService.notifyObservable$.subscribe((arg) => {
       const pageStyle = this.page.nativeElement.style;
       if (arg === 'collapse') {
-        pageStyle.top = '-' + (document.body.scrollTop || window.pageYOffset) + 'px';
+        console.log((document.body.scrollTop || window.pageYOffset));
+        this.scrollTop = (document.body.scrollTop || window.pageYOffset);
+        pageStyle.top = '-' + this.scrollTop + 'px';
         pageStyle.position = 'fixed';
       }else if (arg === 'show') {
+        console.log(this.scrollTop);
+        console.log(document.body.scrollTop);
+        window.scrollBy(0, this.scrollTop);
         pageStyle.top = '0';
         pageStyle.position = 'absolute';
       }

@@ -68,7 +68,7 @@ export class PopupWindowComponent implements OnInit {
   }
 
   setPosition() {
-    this.top_position = (window.pageYOffset || document.body.scrollTop) + 100;
+    this.top_position = 100;
   }
 
   getDate(start) {
