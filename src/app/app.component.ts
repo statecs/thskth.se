@@ -15,12 +15,13 @@ export class AppComponent {
                @Inject(DOCUMENT) private document: Document,
                private chatbotCommunicationService: ChatbotCommunicationService) {
     this.appCommunicationService.notifyObservable$.subscribe((arg) => {
+      const pageStyle = this.page.nativeElement.style;
       if (arg === 'collapse') {
-        this.page.nativeElement.style.top = '-' + (document.body.scrollTop || window.pageYOffset) + 'px';
-        this.page.nativeElement.style.position = 'fixed';
+        pageStyle.top = '-' + (document.body.scrollTop || window.pageYOffset) + 'px';
+        pageStyle.position = 'fixed';
       }else if (arg === 'show') {
-        this.page.nativeElement.style.position = 'absolute';
-        this.page.nativeElement.style.top = '0';
+        pageStyle.top = '0';
+        pageStyle.position = 'absolute';
       }
     });
   }

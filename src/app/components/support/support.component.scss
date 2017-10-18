@@ -4,7 +4,6 @@
   background: none !important;
   background-color: $bg-color-primary !important;
   color: white !important;
-  position: relative !important;
   .container{
     border-bottom: 0 !important;
   }
@@ -12,7 +11,7 @@
 
 #support {
   @include container-size($main-container);
-  margin-top: 20px;
+  margin-top: 100px;
   position: relative;
   margin-bottom: 50px;
   line-height: 1;

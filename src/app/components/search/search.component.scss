@@ -4,7 +4,6 @@
   background: none !important;
   background-color: $bg-color-primary !important;
   color: white !important;
-  position: relative !important;
   .container{
     border-bottom: 0 !important;
   }
@@ -14,6 +13,7 @@
   @include container-size($main-container);
   position: relative;
   line-height: 1;
+  margin-top: 100px;
 
   .center-vertically{
     margin: 150px 0 250px;

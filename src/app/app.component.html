@@ -1,11 +1,11 @@
 <div (click)="hideAllInfoBox()">
-    <app-notification-bar></app-notification-bar>
+
     <div class="page-wrapper">
         <div #page class="page">
+            <app-notification-bar></app-notification-bar>
             <router-outlet></router-outlet>
             <app-footer></app-footer>
         </div>
-        <app-search-menubar></app-search-menubar>
     </div>
     <app-popup-window></app-popup-window>
     <app-select-slider></app-select-slider>

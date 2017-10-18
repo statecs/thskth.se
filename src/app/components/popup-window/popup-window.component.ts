@@ -104,7 +104,6 @@ export class PopupWindowComponent implements OnInit {
   }
 
   hide_popup_window(): void {
-    this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
     if (this.showPage) {
       this.location.back();
@@ -113,6 +112,7 @@ export class PopupWindowComponent implements OnInit {
       this.router.navigate(['/associations-and-chapters']);
     }
     this.hide_all_layouts();
+    this.showPopupWindow = false;
   }
 
   show_page_in_popup(slug): void {

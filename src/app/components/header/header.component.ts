@@ -51,11 +51,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.headerCommunicationService.notifyObservable$.subscribe((arg) => {
-      if (arg === 'expend') {
+      /*if (arg === 'expend') {
         this.expendHeader();
       }else if (arg === 'collapse') {
         this.collapseHeader();
-      }
+      }*/
     });
 
     this.menusService.getTopLevel_mainMenu()
