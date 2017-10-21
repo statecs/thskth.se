@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-join-us',
@@ -7,8 +7,17 @@ import {Router} from '@angular/router';
   styleUrls: ['./join-us.component.scss']
 })
 export class JoinUsComponent implements OnInit {
+  private lang: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.parent.params.subscribe((params2: Params) => {
+      this.lang = params2['lang'];
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+    });
+  }
 
   goToPage(slug): void {
     this.router.navigate(['/' + slug]);

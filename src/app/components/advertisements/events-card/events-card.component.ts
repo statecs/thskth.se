@@ -3,7 +3,7 @@ import format from 'date-fns/format/index';
 import { ths_calendars } from '../../../utils/ths-calendars';
 import { GoogleCalendarService } from '../../../services/google-calendar/google-calendar.service';
 import { Event } from '../../../interfaces/event';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PopupWindowCommunicationService} from '../../../services/component-communicators/popup-window-communication.service';
 
 @Component({
@@ -17,13 +17,21 @@ export class EventsCardComponent implements OnInit {
   public selected_event_text: string;
   public ths_calendars: any[];
   public selected_event_index: number;
+  public lang: string;
 
   constructor(
       private googleCalendarService: GoogleCalendarService,
       private router: Router,
-      private popupWindowCommunicationService: PopupWindowCommunicationService
+      private popupWindowCommunicationService: PopupWindowCommunicationService,
+      private activatedRoute: ActivatedRoute
   ) {
     this.ths_calendars = ths_calendars;
+    this.activatedRoute.parent.params.subscribe((params2: Params) => {
+      this.lang = params2['lang'];
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+    });
   }
 
   displayEventInPopup(event: Event) {
