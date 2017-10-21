@@ -46,7 +46,6 @@ export class CardsSocialContainerComponent implements OnInit {
     this.fetching = true;
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
-      console.log(this.lang);
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
       }

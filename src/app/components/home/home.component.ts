@@ -18,6 +18,7 @@ import {CookieService} from 'ngx-cookie';
 })
 export class HomeComponent implements OnInit {
     private lang: string;
+    private pageNotFound: boolean;
 
   constructor(  private wordpressApiService: WordpressApiService,
                 private textSliderCommunicationService: TextSliderCommunicationService,
@@ -27,14 +28,18 @@ export class HomeComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private _cookieService: CookieService) {
-
+      this.pageNotFound = false;
       this.activatedRoute.params.subscribe((params: Params) => {
           this.lang = params['lang'];
+          console.log(this.lang);
           if (this.lang === 'en') {
               console.log('pass: ' + this.lang);
               this.router.navigate(['']);
           }else if (typeof this.lang === 'undefined') {
               this.lang = 'en';
+          }else if (this.lang !== 'sv' && this.lang !== 'international' && this.lang !== 'professor' && this.lang !== 'student' && this.lang !== 'company' && this.lang !== 'other') {
+              console.log('notfound');
+              this.pageNotFound = true;
           }
           this._cookieService.put('language', this.lang);
       });

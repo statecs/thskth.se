@@ -27,7 +27,6 @@ export class ImageSliderComponent implements OnInit {
     this.slide_items = [];
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
-      console.log(this.lang);
       if (typeof this.lang === 'undefined') {
           this.lang = 'en';
       }

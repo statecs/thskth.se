@@ -1,4 +1,4 @@
-<div id="homePage">
+<div *ngIf="!pageNotFound" id="homePage">
     <!--<div #app_header class="app-header">
 
     </div>-->
@@ -27,3 +27,5 @@
         </div>
     </div>
 </div>
+
+<app-page-not-found *ngIf="pageNotFound"></app-page-not-found>

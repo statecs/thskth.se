@@ -140,13 +140,25 @@ const appRoutes: Routes = [
     {
         path: ':lang/international',
         component: HomeComponent,
-        data: { title: 'Home page', profession: 'international' },
+        data: { title: 'Home page', profession: 'internationell' },
         pathMatch: 'full'
     },
     {
         path: 'international',
         component: HomeComponent,
         data: { title: 'Home page', profession: 'international' },
+        pathMatch: 'full'
+    },
+    {
+        path: ':lang/professor',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'professor' },
+        pathMatch: 'full'
+    },
+    {
+        path: 'professor',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'professor' },
         pathMatch: 'full'
     },
     {
@@ -164,13 +176,25 @@ const appRoutes: Routes = [
     {
         path: ':lang/company',
         component: HomeComponent,
-        data: { title: 'Home page', profession: 'company' },
+        data: { title: 'Home page', profession: 'företag' },
         pathMatch: 'full'
     },
     {
         path: 'company',
         component: HomeComponent,
         data: { title: 'Home page', profession: 'company' },
+        pathMatch: 'full'
+    },
+    {
+        path: ':lang/other',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'övrig' },
+        pathMatch: 'full'
+    },
+    {
+        path: 'other',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'other' },
         pathMatch: 'full'
     },
     {

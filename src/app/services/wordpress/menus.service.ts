@@ -112,7 +112,6 @@ export class MenusService {
   // Get Menu
   getMenu(param, lang: string): Observable<MenuItem[]>  {
     this.language = lang;
-    console.log(this.language);
     let menu_url: string;
     if (param === 'primary') {
       menu_url = this.config.PRIMARY_MENU_URL;

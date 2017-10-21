@@ -53,7 +53,6 @@ export class CardsContainerComponent implements OnInit {
           if (typeof this.lang === 'undefined') {
               this.lang = 'en';
           }
-          console.log(this.lang);
       });
   }
 

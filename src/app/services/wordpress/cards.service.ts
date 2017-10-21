@@ -74,7 +74,6 @@ export class CardsService {
 
   // Get cards
   getCards(arg, lang: string): Observable<Card[]> {
-    console.log(lang);
     let filter: string = '';
     if (!arg.profession) {
       filter = '&organization_type=' + arg.organization_type + '&user_interest=' + arg.interest;
