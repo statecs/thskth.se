@@ -4,6 +4,7 @@
       <div class="title">
         <h2>{{page.name}}</h2>
         <span *ngIf="page.name === 'Contact'">You'll find many ways to contact us right here.</span>
+        <span *ngIf="page.name === 'Kontakt'">Du hittar många sätt att kontakta oss här.</span>
       </div>
     </div>
 <!--    <div class="side-bar">
@@ -23,7 +24,7 @@
         </div>
       </div>
       <div class="divider"></div>
-      <app-contact-form *ngIf="page.name === 'Contact'"></app-contact-form>
+      <app-contact-form *ngIf="page.name === 'Contact' || page.name === 'Kontakt'"></app-contact-form>
     </div>
   </div>
 </div>

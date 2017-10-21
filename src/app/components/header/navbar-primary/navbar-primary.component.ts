@@ -90,7 +90,6 @@ export class NavbarPrimaryComponent implements OnInit {
 
     displayActualLanguage() {
         this.language = this._cookieService.get('language');
-        console.log(this._cookieService.get('language'));
         if (this.language === 'en' || typeof this.language === 'undefined') {
             this.language_text = 'THS in swedish';
             this.language_img = '../../../../assets/images/sweden_flag.png';
@@ -107,7 +106,6 @@ export class NavbarPrimaryComponent implements OnInit {
          this.menusService.getTopLevel_mainMenu(this.language).subscribe(res => {
              console.log(res);
             this.topLevelMainMenu = res;
-             console.log(this.topLevelMainMenu);
          });
     }
 

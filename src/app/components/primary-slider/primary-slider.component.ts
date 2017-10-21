@@ -27,10 +27,13 @@ export class PrimarySliderComponent implements OnInit {
   public slides: Slide[];
   public slideshow_play_btn: string;
   public slideElements: any[];
+  private lang: string;
+  public read_more_text: string;
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
               private primarySlidesService: PrimarySlidesService,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
     this.slides_images = ['Background-image-733x550.jpg', 'none', '35_kth_vlv_6y7b5608-825x550.jpg', 'big-banner.jpg', 'LoggaBild.png'];
     this.slides_img_base = '../../../assets/images/main_slider/';
     this.slideIndex = 1;
@@ -163,10 +166,21 @@ export class PrimarySliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.primarySlidesService.getAllPrimarySlides().subscribe((slides) => {
-      this.slides = slides;
-      // console.log(slides);
-      this.startMainSlider();
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      console.log(this.lang);
+      if (this.lang === 'en') {
+        this.read_more_text = 'Read More';
+      }else {
+        this.read_more_text = 'Läs Mer';
+      }
+      this.primarySlidesService.getAllPrimarySlides(this.lang).subscribe((slides) => {
+        this.slides = slides;
+        this.startMainSlider();
+      });
     });
   }
 

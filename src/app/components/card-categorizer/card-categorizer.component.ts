@@ -5,7 +5,7 @@ import { AppConfig } from '../../interfaces/appConfig';
 import { CookieService } from 'ngx-cookie';
 import { CardsService } from '../../services/wordpress/cards.service';
 import { CardCategory } from '../../interfaces/card';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {SelectSliderCommunicationService} from '../../services/component-communicators/select-slider-communication.service';
 
 @Component({
@@ -40,6 +40,7 @@ export class CardCategorizerComponent implements AfterViewInit {
 
   protected config: AppConfig;
   private cards_filter: any;
+  public lang: string;
 
   constructor(private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
               private injector: Injector,
@@ -54,6 +55,13 @@ export class CardCategorizerComponent implements AfterViewInit {
     if (typeof this.cards_filter !== 'undefined') {
       this.companyIsDisabled = this.cards_filter.companyIsDisabled;
     }
+    this.route.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      console.log(this.lang);
+    });
   }
 
   showSelectSlider(items, type): void {
@@ -163,18 +171,17 @@ export class CardCategorizerComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dropdowns = this.card_categorizer.nativeElement.getElementsByClassName('dropdown-container');
 
-
     if (typeof this.cards_filter === 'undefined' || (Object.keys(this.cards_filter).length === 0 && this.cards_filter.constructor === Object)) {
-      this.cardsService.getCardCategory('organization').subscribe((org_cats) => {
+      this.cardsService.getCardCategory('organization', this.lang).subscribe((org_cats) => {
         this.org_cats = org_cats;
         this.selected_company_name = org_cats[0].name;
         this.selected_company = org_cats[0].id;
-        this.cardsService.getCardCategory('profession').subscribe((pro_cats) => {
+        this.cardsService.getCardCategory('profession', this.lang).subscribe((pro_cats) => {
           this.pro_cats = pro_cats;
           const pro = this.getSelectedProfession(pro_cats);
           this.selected_profession_name = pro.name;
           this.selected_profession = pro.id;
-          this.cardsService.getCardCategory('interest').subscribe((int_cats) => {
+          this.cardsService.getCardCategory('interest', this.lang).subscribe((int_cats) => {
             this.int_cats = int_cats;
             this.selected_interest_name = int_cats[0].name;
             this.selected_interest = int_cats[0].id;
@@ -188,13 +195,13 @@ export class CardCategorizerComponent implements AfterViewInit {
 /*      this.selected_profession = this.cards_filter.profession;*/
       this.selected_company = this.cards_filter.organization_type;
       this.selected_interest = this.cards_filter.interest;
-      this.cardsService.getCardCategoryByID(this.selected_company, 'organization').subscribe((cat) => {
+      this.cardsService.getCardCategoryByID(this.selected_company, 'organization', this.lang).subscribe((cat) => {
         this.selected_company_name = cat.name;
       });
 /*      this.cardsService.getCardCategoryByID(this.selected_profession, 'profession').subscribe((cat) => {
         this.selected_profession_name = cat.name;
       });*/
-      this.cardsService.getCardCategoryByID(this.selected_interest, 'interest').subscribe((cat) => {
+      this.cardsService.getCardCategoryByID(this.selected_interest, 'interest', this.lang).subscribe((cat) => {
         this.selected_interest_name = cat.name;
       });
       if (this.companyIsDisabled) {
@@ -202,13 +209,13 @@ export class CardCategorizerComponent implements AfterViewInit {
       }else {
         this.switchRight();
       }
-      this.cardsService.getCardCategory('organization').subscribe((org_cats) => {
+      this.cardsService.getCardCategory('organization', this.lang).subscribe((org_cats) => {
         this.org_cats = org_cats;
       });
-      this.cardsService.getCardCategory('interest').subscribe((int_cats) => {
+      this.cardsService.getCardCategory('interest', this.lang).subscribe((int_cats) => {
         this.int_cats = int_cats;
       });
-        this.cardsService.getCardCategory('profession').subscribe((pro_cats) => {
+        this.cardsService.getCardCategory('profession', this.lang).subscribe((pro_cats) => {
             this.pro_cats = pro_cats;
             const pro = this.getSelectedProfession(pro_cats);
             this.selected_profession_name = pro.name;

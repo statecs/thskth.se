@@ -8,6 +8,7 @@ import { GoogleCalendarService } from '../../services/google-calendar/google-cal
 import { Event } from '../../interfaces/event';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
 import { ths_calendars } from '../../utils/ths-calendars';
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
   selector: 'app-cards-social-container',
@@ -30,15 +31,27 @@ export class CardsSocialContainerComponent implements OnInit {
   public ths_calendars: any[];
   public existMorePosts: boolean;
   public fetching: boolean;
+  public lang: string;
+  public read_more: string;
 
   constructor( private socialMediaPostService: SocialMediaPostService,
                private googleCalendarService: GoogleCalendarService,
-               private popupWindowCommunicationService: PopupWindowCommunicationService) {
+               private popupWindowCommunicationService: PopupWindowCommunicationService,
+               private activatedRoute: ActivatedRoute,
+               private router: Router) {
     this.displayedCards_amount = 6;
     this.showEventCalendar = false;
     this.ths_calendars = ths_calendars;
     this.existMorePosts = true;
     this.fetching = true;
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      console.log(this.lang);
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      (this.lang === 'en' ? this.read_more = 'Read more' : this.read_more = 'Läs Mer');
+    });
   }
 
   @HostListener('window:scroll', ['$event'])

@@ -24,14 +24,14 @@ export class MenusService {
     }
   }
 
-  get_secondarySubMenu(subMenu_slug: string, secondary_subMenu_slug: string): Observable<MenuItem2[]> {
-    if (typeof this.menus_meta === 'undefined') {
-      return this.getTopLevel_mainMenu(this.language).map((res) => {
+  get_secondarySubMenu(subMenu_slug: string, secondary_subMenu_slug: string, lang: string): Observable<MenuItem2[]> {
+    //if (typeof this.menus_meta === 'undefined') {
+      return this.getTopLevel_mainMenu(lang).map((res) => {
         return this.castResToSecondarySubMenu(subMenu_slug, secondary_subMenu_slug);
       });
-    }else {
-      return Observable.of(this.castResToSecondarySubMenu(subMenu_slug, secondary_subMenu_slug));
-    }
+    //}else {
+    //  return Observable.of(this.castResToSecondarySubMenu(subMenu_slug, secondary_subMenu_slug));
+    //}
   }
 
   castResToSecondarySubMenu(subMenu_slug, secondary_subMenu_slug) {
@@ -110,7 +110,9 @@ export class MenusService {
   }
 
   // Get Menu
-  getMenu(param): Observable<MenuItem[]>  {
+  getMenu(param, lang: string): Observable<MenuItem[]>  {
+    this.language = lang;
+    console.log(this.language);
     let menu_url: string;
     if (param === 'primary') {
       menu_url = this.config.PRIMARY_MENU_URL;

@@ -22,17 +22,16 @@ export class PagesService {
     }
   }
 
-  getPageBySlug(slug): Observable<Page> {
-    console.log(slug);
+  getPageBySlug(slug, lang): Observable<Page> {
+    console.log(lang);
     return this.http
-        .get(this.config.PAGES_URL + '?slug=' + slug)
+        .get(this.config.PAGES_URL + '?slug=' + slug + '&lang=' + lang)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castResTo_PageType(res[0]); });
   }
 
   castResTo_PageType(res) {
-    console.log(res);
     let page: Page;
     let header_image = '';
     let text_gallery: TextGallery;
@@ -61,7 +60,6 @@ export class PagesService {
         text_gallery: text_gallery,
       };
     }
-    console.log(page);
     return page;
   }
 

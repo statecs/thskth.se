@@ -23,10 +23,12 @@ export class FaqsService {
     }
   }
 
-  getFAQs_OfEachCategories(amount): Observable<FAQ[]> {
+  getFAQs_OfEachCategories(amount, lang: string): Observable<FAQ[]> {
+    console.log(lang);
+    this.language = lang;
     return this.getFAQParentCategories().flatMap(categories => {
           return Observable.forkJoin(categories.map((category) => {
-            return this.http.get(this.config.FAQs_URL + '?order=asc&per_page=' + amount + '&faq_category=' + category.id)
+            return this.http.get(this.config.FAQs_URL + '?order=asc&per_page=' + amount + '&faq_category=' + category.id + '&lang=' + this.language)
             .map(res => res.json())
                 .map((res) => {
                   const faq: FAQ = {
@@ -53,7 +55,7 @@ export class FaqsService {
   // Get FAQs by categories ID
   getFAQs_ByCategoryID(catID): Observable<FAQ[]> {
     return this.http
-        .get(this.config.FAQs_URL + '?order=asc&per_page=100&faq_category=' + catID)
+        .get(this.config.FAQs_URL + '?order=asc&per_page=100&faq_category=' + catID + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => { return this.castResFAQType(res, ''); });
@@ -62,7 +64,7 @@ export class FaqsService {
   // Get FAQs by slug
   getFAQs_BySlug(slug): Observable<FAQ> {
     return this.http
-        .get(this.config.FAQs_URL + '?slug=' + slug)
+        .get(this.config.FAQs_URL + '?slug=' + slug + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => {
@@ -95,7 +97,7 @@ export class FaqsService {
   // Get FAQ Parent Categories
   getFAQParentCategories(): Observable<FAQCategory[]> {
     return this.http
-        .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=0')
+        .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=0' + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => { return this.castDataToFAQCategory(res); });

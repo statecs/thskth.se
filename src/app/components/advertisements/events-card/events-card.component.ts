@@ -61,9 +61,7 @@ export class EventsCardComponent implements OnInit {
   mergeArrays(arrays: any): Event[] {
     let merged: Event[] = [];
     arrays.forEach((event) => {
-      console.log(event);
       merged = merged.concat(event);
-      console.log(merged);
     });
     return merged;
   }
@@ -71,17 +69,14 @@ export class EventsCardComponent implements OnInit {
   sortArrayByTime(a, b) {
     a = new Date(a.start);
     b = new Date(b.start);
-    console.log(a);
     return a < b ? -1 : a > b ? 1 : 0;
   };
 
   ngOnInit() {
     //this.getCalendar(this.ths_calendars[0].calendarId);
     this.googleCalendarService.getAllEvents(null, '').subscribe(res => {
-      console.log(res);
       const mergedArrays = this.mergeArrays(res);
       const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
-      console.log(sortedArrays);
       if (sortedArrays.length > 4) {
         this.events = sortedArrays.slice(0, 4);
       }else {

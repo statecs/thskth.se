@@ -43,7 +43,7 @@
             <div *ngIf="card.card_type === 'membership-card'" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
                 <div class="membership-card" [ngStyle]="changeBGColor(card)">
                     <div class="content">
-                        <h2>{{card.title}}</h2>
+                        <h2>{{card.title}} membership-card</h2>
                         <p [innerHTML]="card.content | cardText:200"></p>
                         <a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>
                     </div>
@@ -132,14 +132,15 @@
                 </div>
             </div>
 
-            <div *ngIf="(card.one_sixth_sub_cards?.length === 0 && card.one_third_half_sub_cards?.length === 0)" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
+            <div *ngIf="(card.one_sixth_sub_cards?.length === 0 && card.one_third_half_sub_cards?.length === 0)" (click)="card.card_primary_buttons.length != 0 || showPage(card.slug, card.window_type, card.slug_to_page)">
                 <!-- ---------- Standard card ---------- -->
-                <div *ngIf="card.card_type !== 'video-card'" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+                <div *ngIf="card.card_type !== 'video-card'" class="masonry-layout_panel-content" [ngClass]="{'disabled': card.card_primary_buttons.length != 0}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
                     <div class="standard-card" [ngStyle]="changeBGColor(card)">
                         <div class="content">
                             <h2>{{card.title}}</h2>
                             <p [innerHTML]="card.content | cardText:50"></p>
-                            <a type="button">> Read more </a>
+                            <a *ngIf="card.card_primary_buttons.length === 0" type="button">> Read more </a>
+                            <a type="button" *ngFor="let b of card.card_primary_buttons" (click)="goToPage(b.link)">{{b.text}}</a>
                         </div>
                     </div>
                 </div>

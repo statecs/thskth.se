@@ -1,4 +1,4 @@
-<div class="title">Social Media</div>
+<div class="title">{{(lang === 'en' ? 'Social Media' : 'Sociala Media')}}</div>
 <div id="cards-container" class="masonry-layout">
 
     <div *ngFor="let post of socialMediaPosts, let i = index" class="masonry-layout_panel two-fourth">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <p>{{post.message}}</p>
-                <a href="{{post.link}}" target="_blank" type="button">Read more</a>
+                <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <p>{{post.message}}</p>
-                <a href="{{post.link}}" target="_blank" type="button">Read more</a>
+                <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
                             <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
                             <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
                         </div>
-                        <a href="{{post.link}}" target="_blank" type="button">Read more</a>
+                        <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
                     </div>
                 </div>
 
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <p>{{thirdCard?.message}}</p>
-                <a href="{{thirdCard?.link}}" target="_blank" type="button">Read more</a>
+                <a href="{{thirdCard?.link}}" target="_blank" type="button">{{read_more}}</a>
             </div>
             <div *ngIf="i !== 0 && thirdCard?.full_picture" class="single-event-card">
                 <div class="left-content">
@@ -103,7 +103,7 @@
                             <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
                             <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
                         </div>
-                        <a href="{{thirdCard?.link}}" target="_blank" type="button">Read more</a>
+                        <a href="{{thirdCard?.link}}" target="_blank" type="button">{{read_more}}</a>
                     </div>
                 </div>
 
@@ -115,7 +115,7 @@
               <h3>{{selected_event_title}}</h3>
                 <p class="large-devices">{{selected_event_text | cardText:100}}</p>
                 <p class="mobile">{{selected_event_text | cardText:70}}</p>
-              <span (click)="displayEventInPopup()">Read more</span>
+              <span (click)="displayEventInPopup()">{{read_more}}</span>
             </div>
             <div class="right-content">
                 <div class="event-wrapper">
@@ -146,7 +146,7 @@
                     <div class="standard-card">
                         <h3>Title</h3>
                         <p>let b of card.card_primary_buttons let b of card.card_primary_buttons let b of card.card_primary_buttons</p>
-                        <a type="button">Read more</a>
+                        <a type="button">{{read_more}}</a>
                     </div>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                     <div class="standard-card">
                         <h3>Title</h3>
                         <p>let b of card.card_primary_buttons let b of card.card_primary_buttons let b of card.card_primary_buttons</p>
-                        <a type="button">Read more</a>
+                        <a type="button">{{read_more}}</a>
                     </div>
                 </div>
             </div>

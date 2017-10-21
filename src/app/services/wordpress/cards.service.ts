@@ -22,7 +22,8 @@ export class CardsService {
     }
   }
 
-  getCardCategoryByID(id, type): Observable<CardCategory> {
+  getCardCategoryByID(id, type, lang): Observable<CardCategory> {
+    console.log(lang);
     let url = '';
     if (type === 'organization') {
       url = this.config.CARD_CATEGORY_ORG;
@@ -32,7 +33,7 @@ export class CardsService {
       url = this.config.CARD_CATEGORY_INT;
     }
     return this.http
-        .get(url + '/' + id)
+        .get(url + '/' + id + '?lang=' + lang)
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: any) => {
@@ -44,7 +45,8 @@ export class CardsService {
         });
   }
 
-  getCardCategory(type): Observable<CardCategory[]> {
+  getCardCategory(type: string, lang: string): Observable<CardCategory[]> {
+    console.log(lang);
     let url = '';
     if (type === 'organization') {
       url = this.config.CARD_CATEGORY_ORG;
@@ -54,7 +56,7 @@ export class CardsService {
       url = this.config.CARD_CATEGORY_INT;
     }
     return this.http
-        .get(url + '?order=desc')
+        .get(url + '?order=desc&lang=' + lang)
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => {
@@ -71,7 +73,8 @@ export class CardsService {
   }
 
   // Get cards
-  getCards(arg): Observable<Card[]> {
+  getCards(arg, lang: string): Observable<Card[]> {
+    console.log(lang);
     let filter: string = '';
     if (!arg.profession) {
       filter = '&organization_type=' + arg.organization_type + '&user_interest=' + arg.interest;
@@ -79,7 +82,7 @@ export class CardsService {
       filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
     }
     return this.http
-        .get(this.config.CARDS_URL + '?order=asc&lang=' + this.language + filter)
+        .get(this.config.CARDS_URL + '?order=asc&lang=' + lang + filter)
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => this.castResDataToCardType(res))

@@ -9,11 +9,11 @@
     <app-card-categorizer></app-card-categorizer>
     <app-cards-container></app-cards-container>
     <div class="faq-slider">
-        <div>FAQs</div>
+        <div>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</div>
         <app-text-slider></app-text-slider>
     </div>
     <div class="image-slider">
-        <div>News</div>
+        <div>{{(lang === 'en' ? 'News' : 'Nyheter')}}</div>
         <app-image-slider></app-image-slider>
     </div>
     <app-cards-social-container [showFetchMoreBtn]="true"></app-cards-social-container>

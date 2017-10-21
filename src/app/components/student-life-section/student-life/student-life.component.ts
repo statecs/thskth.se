@@ -15,6 +15,7 @@ export class StudentLifeComponent implements OnInit {
   public subMenu: any;
   public slug: string;
   //public _baseSlug: string;
+  private lang: string;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -33,7 +34,7 @@ export class StudentLifeComponent implements OnInit {
   getSecondarySubMenu() {
     //this._baseSlug = 'student-life/' + this.slug + '/';
     console.log(this.slug);
-    this.menusService.get_secondarySubMenu('student-life', this.slug).subscribe((submenu) => {
+    this.menusService.get_secondarySubMenu('student-life', this.slug, this.lang).subscribe((submenu) => {
       this.subMenu = submenu;
       console.log(this.subMenu);
     });
@@ -46,9 +47,9 @@ export class StudentLifeComponent implements OnInit {
     });
   }
 
-  getPageBySlug(slug) {
-    console.log(slug);
-    this.pagesService.getPageBySlug(slug).subscribe((page) => {
+  getPageBySlug() {
+    console.log(this.slug + this.lang);
+    this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
       this.page = page;
       console.log(page);
     });
@@ -56,12 +57,16 @@ export class StudentLifeComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      console.log(this.activatedRoute.params);
+      console.log(params['lang']);
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
         this.slug = 'student-life';
       }
-      this.getPageBySlug(this.slug);
+      this.lang = params['lang'];
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      this.getPageBySlug();
       if (this.slug !== 'student-life') {
         this.getSecondarySubMenu();
       }else {

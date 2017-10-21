@@ -41,10 +41,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.faqsService.getFAQs_OfEachCategories(1).subscribe((faqs) => {
+      this.faqsService.getFAQs_OfEachCategories(1, this.lang).subscribe((faqs) => {
           this.textSliderCommunicationService.send_data_to_textSlider(faqs);
       });
-      this.postsService.getPosts(5).subscribe((posts) => {
+      this.postsService.getPosts(5, this.lang).subscribe((posts) => {
           this.imageSliderCommunicationService.send_data_to_imageSlider(posts);
       });
   }

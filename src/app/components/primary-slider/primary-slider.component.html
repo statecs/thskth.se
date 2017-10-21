@@ -5,7 +5,7 @@
       <div *ngIf="slide.template === 'text-center-template'" class="text-center-template">
         <h2>{{slide.title}}</h2>
         <p [innerHTML]="slide.description"></p>
-        <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> Read More</button>
+        <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> {{read_more_text}}</button>
       </div>
 
       <!-- ----- Video template ----->
@@ -23,7 +23,7 @@
         <div class="text-wrapper">
           <h2>{{slide.title}}</h2>
           <p [innerHTML]="slide.description"></p>
-          <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> Read More</button>
+          <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> {{read_more_text}}</button>
         </div>
         <div class="img-wrapper">
           <img src="{{slide.image}}">
@@ -38,7 +38,7 @@
         <div class="text-wrapper">
           <h2>{{slide.title}}</h2>
           <p [innerHTML]="slide.description"></p>
-          <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> Read More</button>
+          <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> {{read_more_text}}</button>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
           <div class="number">
             <span>{{i+1}}</span>
           </div>
-          <span class="title">{{slide.title}}</span>
+          <span class="title">{{slide.title | cardText:20}}</span>
         </div>
       </div>
     </div>

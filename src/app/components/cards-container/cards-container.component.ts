@@ -6,7 +6,7 @@ import {Subscription} from 'rxjs/Subscription';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
-import { Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import format from 'date-fns/format/index';
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import { Event } from '../../interfaces/event';
@@ -34,6 +34,7 @@ export class CardsContainerComponent implements OnInit {
     public selected_event_category: number;
     public ths_calendars: any[];
     public cardsLoaded: boolean;
+    public lang: string;
 
   constructor(  private cardsService: CardsService,
                 private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
@@ -41,12 +42,29 @@ export class CardsContainerComponent implements OnInit {
                 private popupWindowCommunicationService: PopupWindowCommunicationService,
                 private googleCalendarService: GoogleCalendarService,
                 private router: Router,
-                private location: Location ) {
+                private location: Location,
+                private activatedRoute: ActivatedRoute ) {
       this.config = injector.get(APP_CONFIG);
       this.selected_event_category = 0;
       this.ths_calendars = ths_calendars;
       this.cardsLoaded = false;
+      this.activatedRoute.params.subscribe((params: Params) => {
+          this.lang = params['lang'];
+          if (typeof this.lang === 'undefined') {
+              this.lang = 'en';
+          }
+          console.log(this.lang);
+      });
   }
+
+    goToPage(link): void {
+      console.log(link.substring(0, 7));
+      if (link.substring(0, 7) === 'http://' || link.substring(0, 8) === 'https://') {
+          window.open(link, '_blank');
+      }else {
+          this.router.navigate([link]);
+      }
+    }
 
   showPage(slug, window_type, slug_to_page): void {
       if (window_type === 'popup-window') {
@@ -81,8 +99,9 @@ export class CardsContainerComponent implements OnInit {
         self.arranged_cards = [];
         self.one_sixth_cards_array = [];
         self.one_third_half_array = [];
-        this.cardsService.getCards(arg)
+        this.cardsService.getCards(arg, this.lang)
             .subscribe(cards => {
+                console.log(cards);
                 this.cards = cards;
                 this.cardsLoaded = true;
             });

@@ -1,96 +1,153 @@
 export const ths_chapters: any = [
     {
-        title: 'Open',
+        title: {
+            en: 'Open',
+            sv: 'Open'
+        },
         link: 'http://www.opensektionen.se/',
         image: 'http://ths.kth.se/wp/wp-content/uploads/2016/08/0.png'
     },
     {
-        title: 'Sektionen för Medicinsk Teknik (MiT)',
+        title: {
+            en: 'Medical Engineering Section (MiT)',
+            sv: 'Sektionen för Medicinsk Teknik (MiT)'
+        },
         link: 'http://mit-kth.se/',
         image: 'http://ths.kth.se/wp/wp-content/uploads/2016/08/1.png'
     },
     {
-        title: 'Sektionen för Medieteknik',
+        title: {
+            en: 'Media Technology Section',
+            sv: 'Sektionen för Medieteknik',
+        },
         link: 'http://www.medieteknik.com/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/2.png'
     },
     {
-        title: 'Maskinsektionen (M)',
+        title:  {
+            en: 'Machine section (M)',
+            sv: 'Maskinsektionen (M)',
+        },
         link: 'http://www.maskinsektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/5.png'
     },
     {
-        title: 'Sektionen för Informations- och Nanoteknik (IN)',
+        title:  {
+            en: 'Department of Information and Nanotechnology (IN)',
+            sv: 'Sektionen för Informations- och Nanoteknik (IN)',
+        },
         link: 'http://insektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/6.png'
     },
     {
-        title: 'Samhällsbyggnadssektionen (S) ',
+        title:  {
+            en: 'Civil Engineering Section (S)',
+            sv: 'Samhällsbyggnadssektionen (S)',
+        },
         link: 'http://s-sektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/7.png'
     },
     {
-        title: 'Kemisektionen (K)',
+        title:  {
+            en: 'Chemistry section (K)',
+            sv: 'Kemisektionen (K)',
+        },
         link: 'http://kongligkemi.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/8.png'
     },
     {
-        title: 'Ingenjörsektionen - Haninge (IsH)',
+        title:  {
+            en: 'Engineering Section - Haninge (IsH)',
+            sv: 'Ingenjörsektionen - Haninge (IsH)',
+        },
         link: 'http://ishaninge.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/9.png'
     },
     {
-        title: 'Sektionen för Industriell ekonomi (I)',
+        title:  {
+            en: 'Industrial Economics Section (I)',
+            sv: 'Sektionen för Industriell ekonomi (I)',
+        },
         link: 'http://www.iare.nu/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/10.png'
     },
     {
-        title: 'Flygsektionen (T)',
+        title:  {
+            en: 'Flight section (T)',
+            sv: 'Flygsektionen (T)',
+        },
         link: 'http://flygsektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/11.png'
     },
     {
-        title: 'Fysiksektionen (F)',
+        title:  {
+            en: 'Physics section (F)',
+            sv: 'Fysiksektionen (F)',
+        },
         link: 'https://f.kth.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/12.png'
     },
     {
-        title: 'Energi och Miljö (W)',
+        title:  {
+            en: 'Energy and Environment (W)',
+            sv: 'Energi och Miljö (W)',
+        },
         link: 'http://w-sektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/13.png'
     },
     {
-        title: 'Elektrosektionen (E)',
+        title:  {
+            en: 'Electro section (E)',
+            sv: 'Elektrosektionen (E)',
+        },
         link: 'http://elektrosektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/14.png'
     },
     {
-        title: 'Datasektionen (D)',
+        title:  {
+            en: 'Computer science section (D)',
+            sv: 'Datasektionen (D)',
+        },
         link: 'http://datasektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/15.png'
     },
     {
-        title: 'PhD Chapter (Dr)',
+        title:  {
+            en: 'PhD Chapter (Dr)',
+            sv: 'PhD Section (Dr)',
+        },
         link: 'http://www.kthphdchapter.com/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/16.png'
     },
     {
-        title: 'Sektionen för Civilingenjörer och lärare (CL)',
+        title:  {
+            en: 'Section for M.Sc.Eng. and Teachers (CL)',
+            sv: 'Sektionen för Civilingenjörer och lärare (CL)',
+        },
         link: 'http://cl-sektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/17.png'
     },
     {
-        title: 'Bergsektionen (B)',
+        title:  {
+            en: 'Mountain sections (B)',
+            sv: 'Bergsektionen (B)',
+        },
         link: 'http://bergssektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/18.png'
     },
     {
-        title: 'Arkitektursektionen (A)',
+        title:  {
+            en: 'Architectural section (A)',
+            sv: 'Arkitektursektionen (A)',
+        },
         link: 'http://arkitektursektionen.se/',
         image: 'http://ths.kth.se/wp-content/uploads/2016/08/19.png'
     },
     {
-        title: 'Ingenjörssektionen Flemingsberg (IsF)',
+        title:  {
+            en: 'Engineering Division Flemingsberg (IsF)',
+            sv: 'Ingenjörssektionen Flemingsberg (IsF)',
+        },
         link: 'https://www.facebook.com/isflemingsberg',
         image: 'http://ths.kth.se/wp/wp-content/uploads/2016/08/18.png'
     }

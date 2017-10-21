@@ -85,7 +85,6 @@
     height: 300px;
     position: relative;
     box-shadow: 0 3px 5px #888888;
-    cursor: pointer;
 
     .masonry-layout_panel-content {
       border-radius: 10px;
@@ -96,9 +95,17 @@
       box-shadow: 0 3px 5px #888888;
       background-position: center;
       transition: background-size 0.5s ease-out;
+      cursor: pointer;
       &:hover {
         background-size: 104%;
       }
+      a{
+        cursor: pointer;
+      }
+    }
+
+    .disabled{
+      cursor: default;
     }
 
     .masonry-layout-sub {

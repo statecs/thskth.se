@@ -73,11 +73,9 @@ export class BreadcrumbComponent implements OnInit {
   ngOnInit() {
     // subscribe to the route
     this.activatedRoute.params.subscribe(() => {
-      console.log(this.activatedRoute.root);
       // set breadcrumbs
       const root: ActivatedRoute = this.activatedRoute.root;
       this.breadcrumbs = this.getBreadcrumbs(root);
-      console.log(this.breadcrumbs);
     });
   }
 

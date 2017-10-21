@@ -38,7 +38,7 @@
             </div>
             <div *ngFor="let chapter of ths_chapters" class="nav-section" (click)="openInNewTab(chapter.link)">
                 <div class="logo"><img src="{{chapter.image}}"></div>
-                <label>{{chapter.title}}</label>
+                <label>{{(language === 'en' ? chapter.title.en : chapter.title.sv)}}</label>
             </div>
             <!--<a routerLink="/ths-chapters" class="browse-more">See more chapters >></a>-->
         </div>

@@ -72,7 +72,6 @@ export class GoogleCalendarService {
           'timeMin',
           format(startDate, 'YYYY-MM-DDTHH:mm:ss.SSSz')
       );
-      console.log(format(startDate, 'YYYY-MM-DDTHH:mm:ss.SSSz'));
     }else {
       params.set(
           'timeMin',

@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {ImageSliderCommunicationService} from '../../services/component-communicators/image-slider-communication.service';
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
   selector: 'app-image-slider',
@@ -15,10 +16,24 @@ export class ImageSliderComponent implements OnInit {
   public slide_items: any[];
   private swipeCoord: [number, number];
   private swipeTime: number;
+  private lang: string;
+  public see_more: string;
+  public news_text: string;
 
-  constructor(private imageSliderCommunicationService: ImageSliderCommunicationService) {
+  constructor(private imageSliderCommunicationService: ImageSliderCommunicationService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
     this.item_onfocus_index = 1;
     this.slide_items = [];
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      console.log(this.lang);
+      if (typeof this.lang === 'undefined') {
+          this.lang = 'en';
+      }
+      (this.lang === 'en' ? this.see_more = 'See More' : this.see_more = 'Se Mer');
+      (this.lang === 'en' ? this.news_text = 'THS News' : this.news_text = 'THS Nyheter');
+    });
   }
 
     getLastItemIndex(): number {

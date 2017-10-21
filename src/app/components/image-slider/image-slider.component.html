@@ -2,7 +2,7 @@
   <div class="slides-wrapper large-devices">
     <div class="slide empty">
       <div class="content-container">
-        <a routerLink="/news" class="more-btn">See more</a>
+        <a routerLink="/news" class="more-btn">{{see_more}}</a>
       </div>
     </div>
     <div *ngFor="let item of slide_items, let i = index" class="slide" [style.backgroundImage]="'url(' + item.image + ')'" (click)="switchSlide(i)" [ngClass]="{'item_onfocus': item_onfocus_index === i}">
@@ -11,19 +11,19 @@
           <h2>{{item.title}}</h2>
           <p [innerHTML]="item.content | cardText:100" class="description"></p>
         </div>
-        <div class="category">THS Nyheter</div>
+        <div class="category">{{news_text}}</div>
       </div>
     </div>
     <div class="slide empty">
       <div class="content-container">
-        <a routerLink="/news" class="more-btn">See more</a>
+        <a routerLink="/news" class="more-btn">{{see_more}}</a>
       </div>
     </div>
   </div>
   <div class="slides-wrapper mobile" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
     <div class="slide empty" [ngClass]="{'item_onfocus': item_onfocus_index === -1}">
       <div class="content-container">
-        <a routerLink="/news" class="more-btn">See more</a>
+        <a routerLink="/news" class="more-btn">{{see_more}}</a>
       </div>
     </div>
     <div *ngFor="let item of slide_items, let i = index" class="slide" [style.backgroundImage]="'url(' + item.image + ')'" [ngClass]="{'item_onfocus': item_onfocus_index === i}">
@@ -32,12 +32,12 @@
           <h2>{{item.title}}</h2>
           <p [innerHTML]="item.content | cardText:100" class="description"></p>
         </div>
-        <div class="category">THS Nyheter</div>
+        <div class="category">{{news_text}}</div>
       </div>
     </div>
     <div class="slide empty" [ngClass]="{'item_onfocus': item_onfocus_index === 5}">
       <div class="content-container">
-        <a routerLink="/news" class="more-btn">See more</a>
+        <a routerLink="/news" class="more-btn">{{see_more}}</a>
       </div>
     </div>
   </div>

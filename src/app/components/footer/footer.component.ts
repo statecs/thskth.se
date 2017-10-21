@@ -3,6 +3,7 @@ import {WordpressApiService} from '../../services/wordpress/wordpress-api.servic
 import {MenuItem} from '../../interfaces/menu';
 import { NavbarSectionsComponent } from './navbar-sections/navbar-sections.component';
 import { NavbarFooterComponent } from './navbar-footer/navbar-footer.component';
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-footer',
@@ -10,8 +11,16 @@ import { NavbarFooterComponent } from './navbar-footer/navbar-footer.component';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+  public lang: string;
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+    });
+  }
 
   ngOnInit() {
   }

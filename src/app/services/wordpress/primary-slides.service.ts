@@ -22,9 +22,9 @@ export class PrimarySlidesService {
     }
   }
 
-  getAllPrimarySlides(): Observable<Slide[]> {
+  getAllPrimarySlides(lang: string): Observable<Slide[]> {
     return this.http
-        .get(this.config.PRIMARY_SLIDES_URL + '?per_page=5&order=desc')
+        .get(this.config.PRIMARY_SLIDES_URL + '?per_page=5&order=desc&lang=' + lang)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castResTo_SlideType(res); })

@@ -103,7 +103,17 @@ const appRoutes: Routes = [
         ]
     },
     {
-        path: 'contact',
+        path: 'student-life',
+        component: StudentLifeSectionComponent,
+        data: { title: 'Student life' },
+        children: [
+            {path: '', component: StudentLifeComponent, data: { title: 'Student life' }},
+            {path: ':slug', component: StudentLifeComponent, data: { title: 'Student life' }},
+            {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Student life' }},
+        ]
+    },
+    {
+        path: ':lang/contact',
         component: ContactSectionComponent,
         data: { title: 'Contact' },
         children: [
@@ -111,6 +121,16 @@ const appRoutes: Routes = [
             {path: ':slug', component: ContactSubpageComponent, data: { title: 'Contact Sub Page' }},
             {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Contact' }},
             ]
+    },
+    {
+        path: 'contact',
+        component: ContactSectionComponent,
+        data: { title: 'Contact' },
+        children: [
+            {path: '', component: ContactComponent, data: { title: 'Contact' }},
+            {path: ':slug', component: ContactSubpageComponent, data: { title: 'Contact Sub Page' }},
+            {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Contact' }},
+        ]
     },
     {
         path: 'home',
@@ -124,13 +144,31 @@ const appRoutes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'international',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'international' },
+        pathMatch: 'full'
+    },
+    {
         path: ':lang/student',
         component: HomeComponent,
         data: { title: 'Home page', profession: 'student' },
         pathMatch: 'full'
     },
     {
+        path: 'student',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'student' },
+        pathMatch: 'full'
+    },
+    {
         path: ':lang/company',
+        component: HomeComponent,
+        data: { title: 'Home page', profession: 'company' },
+        pathMatch: 'full'
+    },
+    {
+        path: 'company',
         component: HomeComponent,
         data: { title: 'Home page', profession: 'company' },
         pathMatch: 'full'

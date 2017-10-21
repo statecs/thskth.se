@@ -22,6 +22,9 @@ nav {
     & >label {
       font-weight: $font-weight-title;
     }
+    span {
+      color: $color-white;
+    }
   }
 }
 
