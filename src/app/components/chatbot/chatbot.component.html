@@ -3,24 +3,24 @@
     <ol #chatFlowList>
       <li *ngFor="let i of responses, let index = index">
         <div class="response" *ngIf="i.type === 'response'">
-          <div class="text">{{i.message}}</div>
+          <div class="text">{{(lang === 'en' ? i.message.en : i.message.sv)}}</div>
           <div *ngIf="i.info && i.info !== ''" class="info">
             <span (click)="showInfo(index)">?</span>
             <div *ngIf="showedInfoIndex == index" class="info-text">
-              {{i.info}}
+              {{(lang === 'en' ? i.info.en : i.info.sv)}}
             </div>
           </div>
         </div>
         <div class="user" *ngIf="i.type === 'user'">
           <div class="message">
-            {{i.message}}
+            {{(lang === 'en' ? i.message.en : i.message.sv)}}
           </div>
         </div>
       </li>
     </ol>
     <div #resonsesContainer class="responses">
-      <div *ngFor="let r of user_inputs, let i = index" class="res_item" (click)="addItemToChatFlow($event, i)">{{r.message}}</div>
+      <div *ngFor="let r of user_inputs, let i = index" class="res_item" (click)="addItemToChatFlow($event, i)">{{(lang === 'en' ? r.message.en : r.message.sv)}}</div>
     </div>
-    <div *ngIf="responses.length > 1" class="reset-btn" (click)="resetChatbot()">Restart</div>
+    <div *ngIf="responses.length > 1" class="reset-btn" (click)="resetChatbot()">{{(lang === 'en' ? 'Restart' : 'Starta om')}}</div>
   </div>
 </div>

@@ -1,6 +1,18 @@
 export const messages: any = {
-    one: 'Great!',
-    two: 'Sorry!',
-    three: 'Yes',
-    four: 'No',
+    one: {
+        en: 'Great!',
+        sv: 'Bra!'
+    },
+    two: {
+        en: 'Sorry!',
+        sv: 'Jag är ledsen!'
+    },
+    three: {
+        en: 'Yes',
+        sv: 'Ja'
+    },
+    four: {
+        en: 'No',
+        sv: 'Nej'
+    },
 };

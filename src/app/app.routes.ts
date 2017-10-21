@@ -134,7 +134,7 @@ const appRoutes: Routes = [
     },
     {
         path: 'home',
-        redirectTo: ':lang',
+        redirectTo: '',
         pathMatch: 'full'
     },
     {

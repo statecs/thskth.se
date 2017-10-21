@@ -2,6 +2,7 @@ import { ApplicationRef, Component, ComponentFactoryResolver, ElementRef, Inject
 import {messages} from '../../utils/chatbot-commonMessages';
 import {LoaderMessageComponent} from '../loader-message/loader-message.component';
 import {ChatbotCommunicationService} from '../../services/component-communicators/chatbot-communication.service';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 
 @Component({
@@ -20,44 +21,80 @@ export class ChatbotComponent implements OnInit {
   public messages: any;
   public showedInfoIndex: number;
   public infoBoxClickCount: number;
+  public lang: string;
 
   constructor(private resolver: ComponentFactoryResolver,
               private injector: Injector,
               private appRef: ApplicationRef,
-              private chatbotCommunicationService: ChatbotCommunicationService) {
+              private chatbotCommunicationService: ChatbotCommunicationService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
       this.messages = messages;
       this.infoBoxClickCount = 0;
+      this.activatedRoute.params.subscribe((params: Params) => {
+          this.lang = params['lang'];
+          if (typeof this.lang === 'undefined') {
+              this.lang = 'en';
+          }
+      });
     this.chatFlow = [
       {
-        message: 'Hey, Nice to meet you!. What do you want help with?',
-        info: 'This is welcome message info!',
+        message: {
+            en: 'Hey, Nice to meet you!. What do you want help with?',
+            sv: 'Hej trevligt att träffas!. Vad vill du ha hjälp med?'
+        },
+        info: {
+            en: 'This is welcome message info!',
+            sv: 'Detta är välkommen meddelande information!'
+        },
         type: 'response',
         user_input: [
           {
-            message: 'I would like to get help',
+            message: {
+                en: 'I would like to get help.',
+                sv: 'Jag skulle vilja få hjälp.'
+            },
             type: 'user',
             response:
               {
-                message: 'Great! Was it helpful?',
-                info: 'We would be appreciated to get feedback from you.',
+                message: {
+                    en: 'Great! Was it helpful?',
+                    sv: 'Bra! Var det till hjälp?'
+                },
+                info: {
+                    en: 'We would be appreciated to get feedback from you.',
+                    sv: 'Vi skulle uppskatta att få feedback från dig.'
+                },
                 type: 'response',
                 user_input: [
                   {
-                    message: this.messages.three,
+                    message: {
+                        en: this.messages.three.en,
+                        sv: this.messages.three.sv
+                    },
                     type: 'user',
                     response:
                       {
-                        message: this.messages.one,
+                        message: {
+                            en: this.messages.one.en,
+                            sv: this.messages.one.sv
+                        },
                         info: null,
                         type: 'response',
                       }
                   },
                   {
-                    message: this.messages.four,
+                    message: {
+                        en: this.messages.four.en,
+                        sv: this.messages.four.sv
+                    },
                     type: 'user',
                     response:
                       {
-                        message: this.messages.two,
+                        message: {
+                            en: this.messages.two.en,
+                            sv: this.messages.two.sv
+                        },
                         info: null,
                         type: 'response',
                       }
@@ -66,30 +103,48 @@ export class ChatbotComponent implements OnInit {
               }
           },
           {
-            message: 'Where is KarX located?',
+            message: {
+                en: 'Where is KarX located?',
+                sv: 'Var ligger KarX?'
+            },
             type: 'user',
             response:
               {
-                message: 'It is located in Nymble. Was it helpful?',
+                message: {
+                    en: 'It is located in Nymble. Was it helpful?',
+                    sv: 'Det ligger i Nymble. Var det till hjälp?'
+                },
                 info: null,
                 type: 'response',
                 user_input: [
                   {
-                    message: this.messages.three,
+                    message: {
+                        en: this.messages.three.en,
+                        sv: this.messages.three.sv
+                    },
                     type: 'user',
                     response:
                       {
-                        message: this.messages.one,
+                        message: {
+                            en: this.messages.one.en,
+                            sv: this.messages.one.sv
+                        },
                         info: null,
                         type: 'response',
                       }
                   },
                   {
-                    message: this.messages.four,
+                    message: {
+                        en: this.messages.four.en,
+                        sv: this.messages.four.sv
+                    },
                     type: 'user',
                     response:
                       {
-                        message: this.messages.two,
+                        message: {
+                            en: this.messages.two.en,
+                            sv: this.messages.two.sv
+                        },
                         info: null,
                         type: 'response',
                       }
@@ -98,48 +153,78 @@ export class ChatbotComponent implements OnInit {
               }
           },
           {
-            message: 'I want to become a member',
+            message: {
+                en: 'I want to become a member',
+                sv: 'Jag vill bli medlem'
+            },
             type: 'user',
             response:
               {
-                message: 'Great! Have you semester registered?',
+                message: {
+                    en: 'Great! Have you semester registered?',
+                    sv: 'Bra! Har du registrerat semester?'
+                },
                 info: null,
                 type: 'response',
                 user_input: [
                   {
-                    message: this.messages.three,
+                    message: {
+                        en: this.messages.three.en,
+                        sv: this.messages.three.sv
+                    },
                     type: 'user',
                     response:
                       {
-                        message: 'Have you paid the membership fee? (365kr)?',
+                        message: {
+                            en: 'Have you paid the membership fee? (365kr)?',
+                            sv: 'Har du betalat medlemsavgiften? (365kr)?'
+                        },
                         info: null,
                         type: 'response',
                           user_input: [
                               {
-                                  message: this.messages.three,
+                                  message: {
+                                      en: this.messages.three.en,
+                                      sv: this.messages.three.sv
+                                  },
                                   type: 'user',
                                   response:
                                       {
-                                          message: 'Have you checked that you use your kth-adress at SSSB?',
+                                          message: {
+                                              en: 'Have you checked that you use your kth-adress at SSSB?',
+                                              sv: 'Har du kontrollerat att du använder din kth-adress på SSSB?'
+                                          },
                                           info: null,
                                           type: 'response',
                                           user_input: [
                                               {
-                                                  message: this.messages.three,
+                                                  message: {
+                                                      en: this.messages.three.en,
+                                                      sv: this.messages.three.sv
+                                                  },
                                                   type: 'user',
                                                   response:
                                                       {
-                                                          message: 'Perfect! It will take between 2-3 weeks until you get your card! Enjoy!',
+                                                          message: {
+                                                              en: 'Perfect! It will take between 2-3 weeks until you get your card! Enjoy!',
+                                                              sv: 'Perfekt! Det tar mellan 2-3 veckor tills du får ditt kort! Njut av!'
+                                                          },
                                                           info: null,
                                                           type: 'response',
                                                       }
                                               },
                                               {
-                                                  message: this.messages.four,
+                                                  message: {
+                                                      en: this.messages.four.en,
+                                                      sv: this.messages.four.sv
+                                                  },
                                                   type: 'user',
                                                   response:
                                                       {
-                                                          message: this.messages.two,
+                                                          message: {
+                                                              en: this.messages.two.en,
+                                                              sv: this.messages.two.sv
+                                                          },
                                                           info: null,
                                                           type: 'response',
                                                       }
@@ -148,11 +233,17 @@ export class ChatbotComponent implements OnInit {
                                       }
                               },
                               {
-                                  message: this.messages.four,
+                                  message: {
+                                      en: this.messages.four.en,
+                                      sv: this.messages.four.sv
+                                  },
                                   type: 'user',
                                   response:
                                       {
-                                          message: this.messages.two,
+                                          message: {
+                                              en: this.messages.two.en,
+                                              sv: this.messages.two.sv
+                                          },
                                           info: null,
                                           type: 'response',
                                       }
@@ -161,11 +252,17 @@ export class ChatbotComponent implements OnInit {
                       }
                   },
                   {
-                    message: this.messages.four,
+                    message: {
+                        en: this.messages.four.en,
+                        sv: this.messages.four.sv
+                    },
                     type: 'user',
                     response:
                       {
-                        message: this.messages.two,
+                        message: {
+                            en: this.messages.two.en,
+                            sv: this.messages.two.sv
+                        },
                         info: null,
                         type: 'response',
                       }
@@ -174,30 +271,48 @@ export class ChatbotComponent implements OnInit {
               }
           },
           {
-            message: 'Who should I contact?',
+            message: {
+                en: 'Who should I contact?',
+                sv: 'Vem ska jag kontakta?'
+            },
             type: 'user',
             response:
               {
-                message: 'THS! Was it helpful?',
+                message: {
+                    en: 'THS! Was it helpful?',
+                    sv: 'THS! Var det till hjälp?'
+                },
                 info: null,
                 type: 'response',
                 user_input: [
                   {
-                    message: this.messages.three,
+                    message: {
+                        en: this.messages.three.en,
+                        sv: this.messages.three.sv
+                    },
                     type: 'user',
                     response:
                       {
-                        message: this.messages.one,
+                        message: {
+                            en: this.messages.one.en,
+                            sv: this.messages.one.sv
+                        },
                         info: null,
                         type: 'response',
                       }
                   },
                   {
-                    message: this.messages.four,
+                    message: {
+                        en: this.messages.four.en,
+                        sv: this.messages.four.sv
+                    },
                     type: 'user',
                     response:
                       {
-                        message: this.messages.two,
+                        message: {
+                            en: this.messages.two.en,
+                            sv: this.messages.two.sv
+                        },
                         info: null,
                         type: 'response',
                       }
