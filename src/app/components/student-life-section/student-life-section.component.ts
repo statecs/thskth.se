@@ -10,6 +10,7 @@ import {CookieService} from 'ngx-cookie';
 export class StudentLifeSectionComponent implements OnInit {
 
   private lang: string;
+
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private _cookieService: CookieService) {

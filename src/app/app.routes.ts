@@ -83,6 +83,16 @@ const appRoutes: Routes = [
         ]
     },
     {
+        path: ':lang/about-ths',
+        component: AboutThsSectionComponent,
+        data: { title: 'About THS section' },
+        children: [
+            {path: '', component: AboutComponent, data: { title: 'About THS' }},
+            {path: ':slug', component: AboutComponent, data: { title: 'About THS' }},
+            {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'About THS' }},
+        ]
+    },
+    {
         path: 'about-ths',
         component: AboutThsSectionComponent,
         data: { title: 'About THS section' },

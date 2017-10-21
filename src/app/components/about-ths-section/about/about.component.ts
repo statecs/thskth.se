@@ -3,6 +3,7 @@ import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
+import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 
 @Component({
   selector: 'app-about',
@@ -16,16 +17,22 @@ export class AboutComponent implements OnInit {
   public slug: string;
   //public _baseSlug: string;
   private lang: string;
+  private removeLangParamPipe: any;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private menusService: MenusService) { }
+              private menusService: MenusService) {
+    this.removeLangParamPipe = new RemoveLangParamPipe();
+  }
 
   goToPage(slug): void {
     if (slug.indexOf('http://') === 0 || slug.indexOf('https://') === 0 || slug.indexOf('www.') === 0) {
       window.open(slug, '_black');
     }else {
+      if (this.lang === 'sv') {
+        slug = this.removeLangParamPipe.transform(slug);
+      }
       this.router.navigate([slug]);
     }
   }
@@ -53,20 +60,29 @@ export class AboutComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
+      console.log(params['lang']);
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
         this.slug = 'about-ths';
       }
-      this.lang = params['lang'];
-      if (typeof this.lang === 'undefined') {
-        this.lang = 'en';
-      }
-      this.getPageBySlug();
-      console.log(this.slug);
+
       if (this.slug !== 'about-ths') {
-        this.getSecondarySubMenu();
+        this.activatedRoute.parent.params.subscribe((params2: Params) => {
+          this.lang = params2['lang'];
+          console.log(this.lang);
+          if (typeof this.lang === 'undefined') {
+            this.lang = 'en';
+          }
+          this.getSecondarySubMenu();
+          this.getPageBySlug();
+        });
       }else {
+        this.lang = params['lang'];
+        if (typeof this.lang === 'undefined') {
+          this.lang = 'en';
+        }
         this.getSubmenu();
+        this.getPageBySlug();
       }
     });
   }
