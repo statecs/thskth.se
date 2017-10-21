@@ -57,14 +57,15 @@ export class MenusService {
     return secondary_sub_menu;
   }
 
-  get_mainSubMenu(object_slug: string): Observable<MenuItem2[]> {
-    if (typeof this.menus_meta === 'undefined') {
+  get_mainSubMenu(object_slug: string, lang: string): Observable<MenuItem2[]> {
+    this.language = lang;
+    /*if (typeof this.menus_meta === 'undefined') {*/
       return this.getTopLevel_mainMenu(this.language).map((res) => {
         return this.castResToMainSubMenu(object_slug);
       });
-    }else {
+    /*}else {
       return Observable.of(this.castResToMainSubMenu(object_slug));
-    }
+    }*/
   }
 
   castResToMainSubMenu(object_slug) {

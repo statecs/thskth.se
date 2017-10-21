@@ -46,7 +46,7 @@ export class ContactSubpageComponent implements OnInit {
 
   getSubmenu() {
     //this._baseSlug = 'contact-section/';
-    this.menusService.get_mainSubMenu(this.slug).subscribe((submenu) => {
+    this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
       this.subMenu = submenu;
     });
   }

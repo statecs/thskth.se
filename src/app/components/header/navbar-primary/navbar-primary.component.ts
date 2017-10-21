@@ -50,7 +50,7 @@ export class NavbarPrimaryComponent implements OnInit {
             const dropdown = submenu_item.lastChild.previousSibling;
             dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
         }else {
-            this.menusService.get_mainSubMenu(id).subscribe((subMenu) => {
+            this.menusService.get_mainSubMenu(id, this.language).subscribe((subMenu) => {
                 this.subMenu = subMenu;
                 const dropdown = submenu_item.lastChild.previousSibling;
                 dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
