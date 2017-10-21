@@ -1,6 +1,6 @@
 <form (ngSubmit)="submitMessage()">
-  <h1>Send your question</h1>
-  <p>We respond as quickly as we can.</p>
+  <h1>{{(lang === 'en' ? 'Send your question' : 'Skicka din fråga')}}</h1>
+  <p>{{(lang === 'en' ? 'We respond as quickly as we can.' : 'Vi svarar så fort vi kan.')}}</p>
 
   <div class="divider"></div>
 
@@ -24,36 +24,39 @@
     <option *ngFor="let s of subjects" value="{{s.email}}">{{s.name}}</option>
   </select>-->
 
-  <label>Message *</label>
+  <label>{{(lang === 'en' ? 'Message' : 'Meddelande')}} *</label>
   <textarea [(ngModel)]="message" name="message" rows="6" id="message" required></textarea>
 
-  <label class="heading">Leave your contacts below</label>
+  <label class="heading">{{(lang === 'en' ? 'Leave your contacts below' : 'Lämna dina kontakter nedan')}}</label>
   <div class="divider"></div>
 
   <div class="standard-grid">
     <div class="row">
       <div class="o-half">
-        <label>Name *</label>
+        <label>{{(lang === 'en' ? 'Name' : 'Namn')}} *</label>
         <input type="text" id="name" [(ngModel)]="full_name" name="full name" required>
       </div>
       <div class="o-half">
-        <label>Personal identity number (YYMMDD-XXXX)</label>
+        <label>{{(lang === 'en' ? 'Personal identity number' : 'Personnummer')}} (YYMMDD-XXXX)</label>
         <input [(ngModel)]="id_number" name="id_number" type="text" id="id_number">
       </div>
     </div>
   </div>
 
-  <label>E-mail *</label>
+  <label>{{(lang === 'en' ? 'E-mail' : 'E-post')}} *</label>
   <input type="email" id="email" [(ngModel)]="email" name="email" required>
 
   <div class="cb-simple mt20" id="termsAccepted">
     <div class="cb-simple-box"></div><br />
-    <div class="cb-simple-text">I accept that my personal data is saved in THS records. The data are treated according to the Personal Data Act. <a href="http://www.datainspektionen.se/in-english/legislation/the-personal-data-act/" target="_blank">Read more about the Personal Data Act</a></div>
+    <div class="cb-simple-text">
+      {{(lang === 'en' ? 'I accept that my personal data is saved in THS records. The data are treated according to the Personal Data Act. ' : 'Jag accepterar att mina personuppgifter sparas i THS-poster. Uppgifterna behandlas enligt personuppgiftslagen.')}}
+      <a href="http://www.datainspektionen.se/in-english/legislation/the-personal-data-act/" target="_blank">
+        {{(lang === 'en' ? 'Read more about the Personal Data Act' : 'Läs mer om personuppgiftslagen')}}</a></div>
   </div>
 
   <div class="divider"></div>
   <re-captcha site_key="{{config.RECAPTCHA_PUBLICKEY}}"></re-captcha>
-  <button type="submit">Send</button>
+  <button type="submit">{{(lang === 'en' ? 'Send' : 'Skicka')}}</button>
   <div *ngIf="error" class="error">{{error}}</div>
   <div *ngIf="success" class="success">{{success}}</div>
 </form>

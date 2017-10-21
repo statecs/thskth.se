@@ -27,8 +27,7 @@ export class ChatbotComponent implements OnInit {
               private injector: Injector,
               private appRef: ApplicationRef,
               private chatbotCommunicationService: ChatbotCommunicationService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private activatedRoute: ActivatedRoute) {
       this.messages = messages;
       this.infoBoxClickCount = 0;
       this.activatedRoute.params.subscribe((params: Params) => {
