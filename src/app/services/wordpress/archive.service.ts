@@ -23,22 +23,24 @@ export class ArchiveService {
     }
   }
 
-  getDocuments(amount): Observable<Archive[]> {
+  getDocuments(amount, lang: string): Observable<Archive[]> {
+    this.language = lang;
     return this.http
-        .get(this.config.ARCHIVE_URL + '?_embed&per_page=' + amount)
+        .get(this.config.ARCHIVE_URL + '?_embed&per_page=' + amount + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
   }
 
-  searchDocuments(searchParams: SearchParams): Observable<Archive[]> {
+  searchDocuments(searchParams: SearchParams, lang: string): Observable<Archive[]> {
+    this.language = lang;
     console.log(searchParams);
     let params = '';
     if (searchParams.categoryID !== 0) {
       params = '&categories=' + searchParams.categoryID;
     }
     return this.http
-        .get(this.config.ARCHIVE_URL + '?_embed&search=' + searchParams.searchTerm + params + '&after=' + searchParams.start_date + 'T00:00:00' + '&before=' + searchParams.end_date + 'T23:59:00')
+        .get(this.config.ARCHIVE_URL + '?_embed&search=' + searchParams.searchTerm + params + '&after=' + searchParams.start_date + 'T00:00:00' + '&before=' + searchParams.end_date + 'T23:59:00' + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
@@ -96,13 +98,15 @@ export class ArchiveService {
 
   getMimeType(filename: string) {
     let type = '';
-    const term = filename.substring(filename.length - 4, filename.length);
-    if (term === '.zip') {
-      type = 'zip';
-    }else if (term === '.pdf') {
-      type = 'pdf';
-    }else if (term === 'docx') {
-      type = 'docx';
+    if (filename) {
+      const term = filename.substring(filename.length - 4, filename.length);
+      if (term === '.zip') {
+        type = 'zip';
+      }else if (term === '.pdf') {
+        type = 'pdf';
+      }else if (term === 'docx') {
+        type = 'docx';
+      }
     }
     return type;
   }

@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import {Archive, SearchParams} from '../../interfaces/archive';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import format from 'date-fns/format/index';
+import {CookieService} from 'ngx-cookie';
 
 @Component({
   selector: 'app-archive',
@@ -44,13 +45,15 @@ export class ArchiveComponent implements OnInit {
   public categoryID: number;
   public start_date: string;
   public end_date: string;
+  private lang: string;
 
   constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private location: Location,
               private renderer: Renderer2,
-              private popupWindowCommunicationService: PopupWindowCommunicationService) {
+              private popupWindowCommunicationService: PopupWindowCommunicationService,
+              private _cookieService: CookieService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -73,6 +76,16 @@ export class ArchiveComponent implements OnInit {
     this.pdfChecked = true;
     this.categoryID = 0;
     this.start_date = '2014-09-24';
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      console.log(this.lang);
+      if (this.lang === 'en') {
+        this.router.navigate(['search']);
+      }else if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      this._cookieService.put('language', this.lang);
+    });
   }
 
 
@@ -171,7 +184,7 @@ export class ArchiveComponent implements OnInit {
       start_date: this.start_date,
       end_date: this.end_date
     };
-    this.archiveService.searchDocuments(searchParams).subscribe((res) => {
+    this.archiveService.searchDocuments(searchParams, this.lang).subscribe((res) => {
       this.documentsLoading = false;
       console.log(res);
       this.searchResults = res;
@@ -236,7 +249,7 @@ export class ArchiveComponent implements OnInit {
       }
     });
 
-    this.archiveService.getDocuments(10).subscribe((res) => {
+    this.archiveService.getDocuments(10, this.lang).subscribe((res) => {
       this.documentsLoading = false;
       console.log(res);
       this.documentResults = res;

@@ -33,6 +33,11 @@ const appRoutes: Routes = [
         data: { title: 'Chapters and Associations' }
     },
     {
+        path: ':lang/archive',
+        component: ArchiveComponent,
+        data: { title: 'Archive' }
+    },
+    {
         path: 'archive',
         component: ArchiveComponent,
         data: { title: 'Archive' }
