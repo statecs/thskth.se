@@ -23,7 +23,17 @@ import {SearchComponent} from './components/search/search.component';
 
 const appRoutes: Routes = [
     {
+        path: ':lang/associations-and-chapters',
+        component: ChaptersAssociationsComponent,
+        data: { title: 'Chapters and Associations' }
+    },
+    {
         path: 'associations-and-chapters',
+        component: ChaptersAssociationsComponent,
+        data: { title: 'Chapters and Associations' }
+    },
+    {
+        path: ':lang/associations-and-chapters/:slug',
         component: ChaptersAssociationsComponent,
         data: { title: 'Chapters and Associations' }
     },

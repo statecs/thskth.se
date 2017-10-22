@@ -21,33 +21,33 @@ export class ChaptersAssociationsService {
       this.language = this._cookieService.get('language');
     }
   }
-    getAssociationBySlug(slug): Observable<Association[]> {
+    getAssociationBySlug(slug, lang: string): Observable<Association[]> {
         return this.http
-            .get(this.config.ASSOCIATION_URL + '?slug=' + slug + '&_embed')
+            .get(this.config.ASSOCIATION_URL + '?slug=' + slug + '&_embed' + '&lang=' + lang)
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: any) => { return this.castPostsTo_AssociationType(res); });
     }
 
-    getChapterBySlug(slug): Observable<Chapter[]> {
+    getChapterBySlug(slug, lang: string): Observable<Chapter[]> {
         return this.http
-            .get(this.config.CHAPTER_URL + '?slug=' + slug + '&_embed')
+            .get(this.config.CHAPTER_URL + '?slug=' + slug + '&_embed' + '&lang=' + lang)
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: any) => { return this.castPostsTo_ChapterType(res); });
     }
 
-    getAssociations(): Observable<Association[]> {
+    getAssociations(lang: string): Observable<Association[]> {
         return this.http
-            .get(this.config.ASSOCIATION_URL + '?per_page=100&_embed')
+            .get(this.config.ASSOCIATION_URL + '?per_page=100&_embed' + '&lang=' + lang)
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: any) => { return this.castPostsTo_AssociationType(res); });
     }
 
-    searchAssociations(searchTerm: string): Observable<Association[]> {
+    searchAssociations(searchTerm: string, lang: string): Observable<Association[]> {
         return this.http
-            .get(this.config.ASSOCIATION_URL + '?per_page=100&_embed&support=' + searchTerm)
+            .get(this.config.ASSOCIATION_URL + '?per_page=100&_embed&search=' + searchTerm + '&lang=' + lang)
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: any) => { return this.castPostsTo_AssociationType(res); });
@@ -92,17 +92,17 @@ export class ChaptersAssociationsService {
       return slides;
     }
 
-    getChapters(): Observable<Chapter[]> {
+    getChapters(lang: string): Observable<Chapter[]> {
         return this.http
-            .get(this.config.CHAPTER_URL + '?per_page=100&_embed')
+            .get(this.config.CHAPTER_URL + '?per_page=100&_embed' + '&lang=' + lang)
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: any) => { return this.castPostsTo_ChapterType(res); });
     }
 
-    searchChapters(searchTerm: string): Observable<Chapter[]> {
+    searchChapters(searchTerm: string, lang: string): Observable<Chapter[]> {
         return this.http
-            .get(this.config.CHAPTER_URL + '?per_page=100&_embed&support=' + searchTerm)
+            .get(this.config.CHAPTER_URL + '?per_page=100&_embed&search=' + searchTerm + '&lang=' + lang)
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: any) => { return this.castPostsTo_ChapterType(res); });

@@ -3,35 +3,35 @@
 
 <div *ngIf="!pageNotFound" id="content-container">
   <div class="search-bar">
-    <h2>Search THS associations and chapters</h2>
+    <h2>{{(lang === 'en' ? 'Search THS associations and chapters' : 'Sök THS föreningar och sektioner')}}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
       <div class="search">
-        <input #searchField placeholder="Enter your search term" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        <input #searchField placeholder="{{(lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord')}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
         <div class="mostSearchTerms">
           <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
         </div>
       </div>
-      <input class="submit" type="submit" value="Search">
+      <input class="submit" type="submit" value="{{(lang === 'en' ? 'Search' : 'Sök')}}">
     </form>
   </div>
 
   <div class="filters">
-    <div class="item" [ngClass]="{'selected': showAssociations}" (click)="displayAssociations()">Associations</div>
-    <div class="item" [ngClass]="{'selected': showChapters}" (click)="displayChapters()">Chapters</div>
+    <div class="item" [ngClass]="{'selected': showAssociations}" (click)="displayAssociations()">{{(lang === 'en' ? 'Associations' : 'Föreningar')}}</div>
+    <div class="item" [ngClass]="{'selected': showChapters}" (click)="displayChapters()">{{(lang === 'en' ? 'Chapters' : 'Sektioner')}}</div>
   </div>
 
   <div class="results-container">
     <div class="layout">
-      <div [ngClass]="{'selected': layout_grid}" (click)="switchLayout('grid')"><i class="material-icons">grid_on</i> Grid</div>
-      <div [ngClass]="{'selected': layout_list}" (click)="switchLayout('list')"><i class="material-icons">list</i> List</div>
+      <div [ngClass]="{'selected': layout_grid}" (click)="switchLayout('grid')"><i class="material-icons">grid_on</i> {{(lang === 'en' ? 'Grid' : 'Rutnät')}}</div>
+      <div [ngClass]="{'selected': layout_list}" (click)="switchLayout('list')"><i class="material-icons">list</i> {{(lang === 'en' ? 'List' : 'Lista')}}</div>
     </div>
     <app-loader *ngIf="documentsLoading"></app-loader>
-    <div *ngIf="noResults && !documentsLoading" class="noResult">No results found!</div>
+    <div *ngIf="noResults && !documentsLoading" class="noResult">{{(lang === 'en' ? 'No results found!' : 'Inga resultat hittades!')}}</div>
     <div *ngIf="showAssociations && associationResults.length !== 0 && !documentsLoading">
-        <h1 class="section_header">Associations</h1>
+        <h1 class="section_header">{{(lang === 'en' ? 'Associations' : 'Föreningar')}}</h1>
       <div *ngIf="layout_grid" class="grid">
         <div *ngFor="let s of associations" class="section">
-          <label *ngIf="s.associations.length !== 0">{{s.category}}</label>
+          <label *ngIf="s.associations.length !== 0">{{(lang === 'en' ? s.category.en : s.category.sv)}}</label>
           <div class="items">
             <div *ngFor="let item of s.associations" class="item" (click)="showAssociationInPopup(item)">
               <div class="image-wrapper" [style.backgroundImage]="'url(' + item.header_slides[0]?.imageUrl + ')'"></div>
@@ -47,7 +47,7 @@
       </div>
       <div *ngIf="layout_list" class="list">
         <div *ngFor="let s of associations" class="section">
-          <label>{{s.category}}</label>
+          <label *ngIf="s.associations.length !== 0">{{(lang === 'en' ? s.category.en : s.category.sv)}}</label>
           <div class="items">
             <div *ngFor="let item of s.associations" class="item" (click)="showAssociationInPopup(item)">
               <h4>{{item.title}}</h4>
@@ -61,7 +61,7 @@
     </div>
 
     <div *ngIf="showChapters && chapterResults.length !== 0 && !documentsLoading">
-        <h1 class="section_header">Chapters</h1>
+        <h1 class="section_header">{{(lang === 'en' ? 'Chapters' : 'Sektioner')}}</h1>
       <div *ngIf="layout_grid" class="grid">
         <div class="section">
           <div class="items">

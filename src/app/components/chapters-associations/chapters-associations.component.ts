@@ -7,6 +7,7 @@ import { Archive } from '../../interfaces/archive';
 import {Association, Chapter} from '../../interfaces/chapters_associations';
 import {forEach} from '@angular/router/src/utils/collection';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
+import {CookieService} from 'ngx-cookie';
 
 @Component({
   selector: 'app-chapters-associations',
@@ -44,13 +45,15 @@ export class ChaptersAssociationsComponent implements OnInit {
   public noResults: boolean;
   public slug: string;
   public pageNotFound: boolean;
+  private lang: string;
 
   constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private location: Location,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private _cookieService: CookieService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -75,18 +78,37 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.pageNotFound = false;
     this.associations = [
       {
-        category: 'Career and consulting',
+        category: {
+          en: 'Career and consulting',
+          sv: 'Karriär och rådgivning'
+        },
         associations: this.career_associations
       },
       {
-        category: 'Sports associations',
+        category: {
+          en: 'Sports associations',
+          sv: 'Idrottsföreningar'
+        },
         associations: this.sport_associations
       },
       {
-        category: 'Social activities',
+        category: {
+          en: 'Social activities',
+          sv: 'Sociala aktiviteter'
+        },
         associations: this.social_associations
       },
     ];
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      console.log(this.lang);
+      if (this.lang === 'en') {
+        this.router.navigate(['associations-and-chapters']);
+      }else if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      this._cookieService.put('language', this.lang);
+    });
   }
 
   checkResults(): void {
@@ -101,11 +123,11 @@ export class ChaptersAssociationsComponent implements OnInit {
   showAssociationInPopup(item: any): void {
     console.log('show');
     let relatedAssociations: Association[] = [];
-    if (item.category === 'Career and consulting') {
+    if (item.category === this.associations[0].category.en || item.category === this.associations[0].category.sv) {
       relatedAssociations = this.career_associations;
-    }else if (item.category === 'Sports associations') {
+    }else if (item.category === this.associations[1].category.en || item.category === this.associations[1].category.sv) {
       relatedAssociations = this.sport_associations;
-    }else if (item.category === 'Social activities') {
+    }else if (item.category === this.associations[2].category.en || item.category === this.associations[2].category.sv) {
       relatedAssociations = this.social_associations;
     }
     this.popupWindowCommunicationService.showAssociationInPopup({association: item, relatedAssociations: relatedAssociations});
@@ -147,7 +169,12 @@ export class ChaptersAssociationsComponent implements OnInit {
     if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
       this.searchAssociations();
       this.searchChapters();
-      this.router.navigate(['/associations-and-chapters?q=' + this.searchTerm]);
+      if (this.lang === 'sv') {
+        this.router.navigate(['sv/associations-and-chapters'], {queryParams: { 'q': this.searchTerm }});
+      }else {
+        this.router.navigate(['/associations-and-chapters'], {queryParams: { 'q': this.searchTerm }});
+      }
+
     }
   }
 
@@ -155,7 +182,7 @@ export class ChaptersAssociationsComponent implements OnInit {
         this.career_associations = [];
         this.sport_associations = [];
         this.social_associations = [];
-        this.chaptersAssociationsService.searchAssociations(this.searchTerm).subscribe((res) => {
+        this.chaptersAssociationsService.searchAssociations(this.searchTerm, this.lang).subscribe((res) => {
             console.log(res);
             this.associationResults = res;
             this.allocateAssociations(res);
@@ -166,7 +193,7 @@ export class ChaptersAssociationsComponent implements OnInit {
 
     searchChapters(): void {
       this.chapterResults = [];
-        this.chaptersAssociationsService.searchChapters(this.searchTerm).subscribe((res) => {
+        this.chaptersAssociationsService.searchChapters(this.searchTerm, this.lang).subscribe((res) => {
             console.log(res);
             this.chapterResults = res;
             this.showChapters = true;
@@ -184,7 +211,7 @@ export class ChaptersAssociationsComponent implements OnInit {
 
   getChapters(): void {
     this.documentsLoading = true;
-    this.chaptersAssociationsService.getChapters().subscribe((res) => {
+    this.chaptersAssociationsService.getChapters(this.lang).subscribe((res) => {
       console.log(res);
       this.chapterResults = res;
       this.checkResults();
@@ -204,14 +231,17 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
-    this.chaptersAssociationsService.getAssociations().subscribe((res) => {
+    this.chaptersAssociationsService.getAssociations(this.lang).subscribe((res) => {
       this.associationResults = res;
+      console.log(res);
       this.allocateAssociations(res);
       this.checkResults();
     });
   }
 
   allocateAssociations(data): void {
+    console.log('allocateAssociations');
+    console.log(data);
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
@@ -219,13 +249,13 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.associations[1].associations = [];
     this.associations[2].associations = [];
     data.forEach(a => {
-      if (a.category === 'Career and consulting') {
+      if (a.category === this.associations[0].category.en || a.category === this.associations[0].category.sv) {
         this.career_associations.push(a);
         this.associations[0].associations = this.career_associations;
-      }else if (a.category === 'Sports associations') {
+      }else if (a.category === this.associations[1].category.en || a.category === this.associations[1].category.sv) {
         this.sport_associations.push(a);
         this.associations[1].associations = this.sport_associations;
-      }else if (a.category === 'Social activities') {
+      }else if (a.category === this.associations[2].category.en || a.category === this.associations[2].category.sv) {
         this.social_associations.push(a);
         this.associations[2].associations = this.social_associations;
       }
@@ -253,11 +283,11 @@ export class ChaptersAssociationsComponent implements OnInit {
   }
 
   getPostBySlug() {
-    this.chaptersAssociationsService.getAssociationBySlug(this.slug).subscribe((res) => {
+    this.chaptersAssociationsService.getAssociationBySlug(this.slug, this.lang).subscribe((res) => {
       if (res.length > 0) {
         this.showAssociationInPopup(res[0]);
       }else {
-        this.chaptersAssociationsService.getChapterBySlug(this.slug).subscribe((res2) => {
+        this.chaptersAssociationsService.getChapterBySlug(this.slug, this.lang).subscribe((res2) => {
           if (res2.length > 0) {
             this.showAssociationInPopup(res2[0]);
           }else {
