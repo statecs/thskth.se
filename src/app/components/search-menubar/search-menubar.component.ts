@@ -2,7 +2,7 @@ import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
 import { SearchService } from '../../services/wordpress/search.service';
 import { SearchResult } from '../../interfaces/search';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-search-menubar',
@@ -20,16 +20,27 @@ export class SearchMenubarComponent implements OnInit {
   public faqsLoading: boolean;
   public searchTerm: string;
   public showResultsDropdown: boolean;
+  private lang: string;
 
   constructor(private searchMenubarCommunicationService: SearchMenubarCommunicationService,
               private searchService: SearchService,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
     this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
     this.showSearchBar = false;
     this.showResultsDropdown = false;
     this.pageResults = [];
     this.postsResults = [];
     this.faqResults = [];
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      if (this.lang === 'en') {
+        this.router.navigate(['search']);
+      }else if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      console.log(this.lang);
+    });
   }
 
   goToSearchPage(): void {
@@ -57,21 +68,21 @@ export class SearchMenubarComponent implements OnInit {
   }
 
   searchPosts(): void {
-    this.searchService.searchPosts(this.searchTerm, 2).subscribe((res) => {
+    this.searchService.searchPosts(this.searchTerm, 2, this.lang).subscribe((res) => {
       this.postsLoading = false;
       this.postsResults = res;
     });
   }
 
   searchPages(): void {
-    this.searchService.searchPages(this.searchTerm, 2).subscribe((res) => {
+    this.searchService.searchPages(this.searchTerm, 2, this.lang).subscribe((res) => {
       this.pagesLoading = false;
       this.pageResults = res;
     });
   }
 
   searchFAQs(): void {
-    this.searchService.searchFAQs(this.searchTerm, 2).subscribe((res) => {
+    this.searchService.searchFAQs(this.searchTerm, 2, this.lang).subscribe((res) => {
       this.faqsLoading = false;
       this.faqResults = res;
     });

@@ -72,12 +72,12 @@ export class SearchComponent implements OnInit {
     this.most_asked_faqs = [];
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
+      console.log(this.lang);
       if (this.lang === 'en') {
-        this.router.navigate(['restaurants']);
+        this.router.navigate(['search']);
       }else if (typeof this.lang === 'undefined') {
         this.lang = 'en';
       }
-      console.log(this.lang);
       this._cookieService.put('language', this.lang);
     });
   }
@@ -118,26 +118,30 @@ export class SearchComponent implements OnInit {
       this.searchFAQs();
     }
     if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
-      this.location.go('/search?q=' + this.searchTerm);
+      if (this.lang === 'sv') {
+        this.location.go('sv/search?q=' + this.searchTerm);
+      }else {
+        this.location.go('/search?q=' + this.searchTerm);
+      }
     }
   }
 
   searchPosts(): void {
-    this.searchService.searchPosts(this.searchTerm, 4).subscribe((res) => {
+    this.searchService.searchPosts(this.searchTerm, 4, this.lang).subscribe((res) => {
       this.postsLoading = false;
       this.postsResults = res;
     });
   }
 
   searchPages(): void {
-    this.searchService.searchPages(this.searchTerm, 4).subscribe((res) => {
+    this.searchService.searchPages(this.searchTerm, 4, this.lang).subscribe((res) => {
       this.pagesLoading = false;
       this.pageResults = res;
     });
   }
 
   searchFAQs(): void {
-    this.searchService.searchFAQs(this.searchTerm, 4).subscribe((res) => {
+    this.searchService.searchFAQs(this.searchTerm, 4, this.lang).subscribe((res) => {
       this.faqsLoading = false;
       this.faqResults = res;
     });
@@ -210,8 +214,12 @@ export class SearchComponent implements OnInit {
         self.renderer.listen(self.searchField.nativeElement, 'search', () => {
           console.log(self.searchTerm);
           if (self.searchTerm === '') {
-            console.log('search');
-            self.location.go('/search');
+            console.log(self.lang);
+            if (self.lang === 'sv') {
+              self.location.go('sv/search');
+            }else {
+              self.location.go('/search');
+            }
             self.showResults = false;
           }
         });

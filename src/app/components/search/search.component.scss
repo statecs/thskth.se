@@ -16,7 +16,7 @@
   margin-top: 100px;
 
   .center-vertically{
-    margin: 150px 0 250px;
+    margin: 200px 0;
     background-color: #efefef !important;
   }
 
@@ -193,6 +193,7 @@
         border: 0;
         background: none;
         cursor: pointer;
+        width: 86.25px;
         &:hover{
           box-shadow: 0 0 15px rgba(0, 108, 170, 0.62);
         }

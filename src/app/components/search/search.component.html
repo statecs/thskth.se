@@ -2,17 +2,17 @@
 
 <div id="content-container">
   <div class="search-bar" [ngClass]="{'center-vertically': !showResults}">
-    <h2>Search THS and beyond</h2>
+    <h2>{{(lang === 'en' ? 'Search THS and beyond' : 'Sök THS')}}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
       <div class="search">
-        <input #searchField placeholder="Enter your search term" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        <input #searchField placeholder="{{(lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord')}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
         <div class="mostSearchTerms">
           <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
         </div>
       </div>
       <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
         <div *ngIf="postsChecked" class="section">
-          <h3>Posts</h3>
+          <h3>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</h3>
           <div *ngFor="let p of postsResults" class="item">
             <!--<div class="left-content">
               <a *ngFor="let c of p.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
@@ -22,11 +22,11 @@
               <!--<p [innerHTML]="p.content | cardText:100"></p>-->
             </div>
           </div>
-          <p *ngIf="postsLoading">Loading...</p>
-          <p *ngIf="!postsLoading && postsResults.length === 0" class="notResult">No posts found for "{{searchTerm}}"!</p>
+          <p *ngIf="postsLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
+          <p *ngIf="!postsLoading && postsResults.length === 0" class="notResult">{{(lang === 'en' ? 'No posts found for' : 'Inga inlägg hittades för')}} "{{searchTerm}}"!</p>
         </div>
         <div *ngIf="pageChecked" class="section">
-          <h3>Pages</h3>
+          <h3>{{(lang === 'en' ? 'Pages' : 'Sidor')}}</h3>
           <div *ngFor="let p of pageResults" class="item">
             <!--<div class="left-content">
               <div class="img-wrapper">
@@ -38,11 +38,11 @@
               <!--<p [innerHTML]="p.content | cardText:100"></p>-->
             </div>
           </div>
-          <p *ngIf="pagesLoading">Loading...</p>
-          <p *ngIf="!pagesLoading && pageResults.length === 0" class="notResult">No pages found for "{{searchTerm}}"!</p>
+          <p *ngIf="pagesLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
+          <p *ngIf="!pagesLoading && pageResults.length === 0" class="notResult">{{(lang === 'en' ? 'No pages found for' : 'Inga sidor hittades för')}} "{{searchTerm}}"!</p>
         </div>
         <div *ngIf="faqChecked" class="section">
-          <h3>FAQs</h3>
+          <h3>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</h3>
           <div *ngFor="let p of faqResults" class="item">
             <!--<div class="left-content">
               <a *ngFor="let c of p.categories" routerLink="/contact/faq/{{c.slug}}">{{c.name}}</a>
@@ -52,8 +52,8 @@
               <!--<p [innerHTML]="p.content | cardText:100"></p>-->
             </div>
           </div>
-          <p *ngIf="faqsLoading">Loading...</p>
-          <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">No FAQs found for "{{searchTerm}}"!</p>
+          <p *ngIf="faqsLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
+          <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">{{(lang === 'en' ? 'No FAQs found for' : 'Inga FAQs hittades för')}} "{{searchTerm}}"!</p>
         </div>
       </div>
       <div class="filter">
@@ -63,27 +63,27 @@
         <div *ngIf="showFilterOptions" class="options">
           <div class="option" (click)="toggleCheckbox('posts')">
             <div class="checkbox"><i *ngIf="postsChecked" class="material-icons">check</i></div>
-            <span>Posts</span>
+            <span>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</span>
           </div>
           <div class="option" (click)="toggleCheckbox('page')">
             <div class="checkbox"><i *ngIf="pageChecked" class="material-icons">check</i></div>
-            <span>Page</span>
+            <span>{{(lang === 'en' ? 'Pages' : 'Sidor')}}</span>
           </div>
           <div class="option" (click)="toggleCheckbox('faq')">
             <div class="checkbox"><i *ngIf="faqChecked" class="material-icons">check</i></div>
-            <span>FAQ</span>
+            <span>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</span>
           </div>
         </div>
       </div>
-      <input class="submit" type="submit" value="Search">
+      <input class="submit" type="submit" value="{{(lang === 'en' ? 'Search' : 'Sök')}}">
     </form>
   </div>
 
   <div *ngIf="showResults" class="results-container">
     <div>
-      <h2>Results of "{{searchTerm}}"</h2>
+      <h2>{{(lang === 'en' ? 'Results of' : 'Resultaten av')}} "{{searchTerm}}"</h2>
       <div *ngIf="postsChecked" class="section">
-        <h3>Posts</h3>
+        <h3>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</h3>
         <div *ngFor="let p of postsResults" class="item">
           <div class="left-content">
             <a *ngFor="let c of p.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
@@ -93,11 +93,11 @@
             <p [innerHTML]="p.content | cardText:300"></p>
           </div>
         </div>
-        <p *ngIf="postsLoading">Loading...</p>
-        <p *ngIf="!postsLoading && postsResults.length === 0" class="notResult">No posts found for "{{searchTerm}}"!</p>
+        <p *ngIf="postsLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
+        <p *ngIf="!postsLoading && postsResults.length === 0" class="notResult">{{(lang === 'en' ? 'No posts found for' : 'Inga inlägg hittades för')}} "{{searchTerm}}"!</p>
       </div>
       <div *ngIf="pageChecked" class="section">
-        <h3>Pages</h3>
+        <h3>{{(lang === 'en' ? 'Pages' : 'Sidor')}}</h3>
         <div *ngFor="let p of pageResults" class="item">
           <div class="left-content">
             <div class="img-wrapper">
@@ -109,11 +109,11 @@
             <p [innerHTML]="p.content | cardText:300"></p>
           </div>
         </div>
-        <p *ngIf="pagesLoading">Loading...</p>
-        <p *ngIf="!pagesLoading && pageResults.length === 0" class="notResult">No pages found for "{{searchTerm}}"!</p>
+        <p *ngIf="pagesLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
+        <p *ngIf="!pagesLoading && pageResults.length === 0" class="notResult">{{(lang === 'en' ? 'No pages found for' : 'Inga sidor hittades för')}} "{{searchTerm}}"!</p>
       </div>
       <div *ngIf="faqChecked" class="section">
-        <h3>FAQs</h3>
+        <h3>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</h3>
         <div *ngFor="let p of faqResults" class="item">
           <div class="left-content">
             <a *ngFor="let c of p.categories" routerLink="/contact/faq/{{c.slug}}">{{c.name}}</a>
@@ -123,8 +123,8 @@
             <p [innerHTML]="p.content | cardText:300"></p>
           </div>
         </div>
-        <p *ngIf="faqsLoading">Loading...</p>
-        <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">No FAQs found for "{{searchTerm}}"!</p>
+        <p *ngIf="faqsLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
+        <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">{{(lang === 'en' ? 'No FAQs found for' : 'Inga FAQs hittades för')}} "{{searchTerm}}"!</p>
       </div>
     </div>
   </div>

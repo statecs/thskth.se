@@ -22,25 +22,29 @@ export class SearchService {
     }
   }
 
-  searchPosts(searchTerm: string, amount: number): Observable<SearchResult[]> {
+  searchPosts(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
+    this.language = lang;
     return this.http
-        .get(this.config.POSTS_PAGE + '?per_page=' + amount + '&support=' + searchTerm)
+        .get(this.config.POSTS_PAGE + '?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
   }
 
-  searchPages(searchTerm: string, amount: number): Observable<SearchResult[]> {
+  searchPages(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
+    this.language = lang;
+    console.log(this.language);
     return this.http
-        .get(this.config.PAGES_URL + '?per_page=' + amount + '&support=' + searchTerm)
+        .get(this.config.PAGES_URL + '?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPagesTo_SearchResultType(res); });
   }
 
-  searchFAQs(searchTerm: string, amount: number): Observable<SearchResult[]> {
+  searchFAQs(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
+    this.language = lang;
     return this.http
-        .get(this.config.FAQs_URL + '?per_page=' + amount + '&support=' + searchTerm)
+        .get(this.config.FAQs_URL + '?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castFAQsTo_SearchResultType(res); });
