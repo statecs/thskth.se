@@ -26,7 +26,7 @@ export class FaqsService {
   getFAQs_OfEachCategories(amount, lang: string): Observable<FAQ[]> {
     console.log(lang);
     this.language = lang;
-    return this.getFAQParentCategories().flatMap(categories => {
+    return this.getFAQParentCategories(this.language).flatMap(categories => {
           return Observable.forkJoin(categories.map((category) => {
             return this.http.get(this.config.FAQs_URL + '?order=asc&per_page=' + amount + '&faq_category=' + category.id + '&lang=' + this.language)
             .map(res => res.json())
@@ -44,9 +44,10 @@ export class FaqsService {
         });
   }
 
-  searchFAQs(search_term): Observable<FAQ[]> {
+  searchFAQs(search_term, lang: string): Observable<FAQ[]> {
+    this.language = lang;
     return this.http
-        .get(this.config.FAQs_URL + '?order=asc&per_page=100&support=' + search_term)
+        .get(this.config.FAQs_URL + '?order=asc&per_page=100&support=' + search_term + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => { return this.castSearchResultsToFAQType(res, ''); });
@@ -95,7 +96,8 @@ export class FaqsService {
   }
 
   // Get FAQ Parent Categories
-  getFAQParentCategories(): Observable<FAQCategory[]> {
+  getFAQParentCategories(lang: string): Observable<FAQCategory[]> {
+    this.language = lang;
     return this.http
         .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=0' + '&lang=' + this.language)
         .map((res: Response) => res.json())

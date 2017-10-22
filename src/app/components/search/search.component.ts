@@ -7,6 +7,7 @@ import {Location} from '@angular/common';
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
 import { most_asked_questions } from '../../utils/most-asked-questions';
+import {CookieService} from 'ngx-cookie';
 
 @Component({
   selector: 'app-search',
@@ -41,12 +42,15 @@ export class SearchComponent implements OnInit {
   public most_asked_faqs: FAQ[];
   public most_asked_questions_slugs: string[];
 
+  private lang: string;
+
   constructor(private searchService: SearchService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private location: Location,
               private faqsService: FaqsService,
-              private renderer: Renderer2 ) {
+              private renderer: Renderer2,
+              private _cookieService: CookieService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -66,6 +70,16 @@ export class SearchComponent implements OnInit {
     this.most_asked_questions_slugs = most_asked_questions;
     this.parent_categories = [];
     this.most_asked_faqs = [];
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      if (this.lang === 'en') {
+        this.router.navigate(['restaurants']);
+      }else if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      console.log(this.lang);
+      this._cookieService.put('language', this.lang);
+    });
   }
 
   goToPage(slug): void {
@@ -169,7 +183,7 @@ export class SearchComponent implements OnInit {
       }
     });
 
-    this.faqsService.getFAQParentCategories().subscribe((categories) => {
+    this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
       this.parent_categories = categories;
       console.log(categories);
     });

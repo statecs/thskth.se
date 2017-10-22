@@ -92,7 +92,7 @@ import { AboutThsSectionComponent } from './components/about-ths-section/about-t
 import { StudentLifeSectionComponent } from './components/student-life-section/student-life-section.component';
 import { SearchMenubarComponent } from './components/search-menubar/search-menubar.component';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
-import { RestaurantComponent } from './components/restaurant/restaurant.component';
+import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
 import { ContactSubpageComponent } from './components/contact-section/contact-subpage/contact-subpage.component';
@@ -156,7 +156,7 @@ import { HeaderSliderComponent } from './components/header-slider/header-slider.
     SearchMenubarComponent,
     AutoFocusDirective,
     ChatbotComponent,
-    RestaurantComponent,
+    RestaurantsComponent,
     ArchiveComponent,
     ChaptersAssociationsComponent,
     ContactSubpageComponent,

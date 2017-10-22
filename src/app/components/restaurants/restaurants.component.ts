@@ -2,13 +2,15 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { TextSliderCommunicationService } from '../../services/component-communicators/text-slider-communication.service';
 import { RestaurantService } from '../../services/wordpress/restaurant.service';
 import {Dish, Restaurant, DishesTime} from '../../interfaces/restaurant';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie';
 
 @Component({
-  selector: 'app-restaurant',
-  templateUrl: './restaurant.component.html',
-  styleUrls: ['./restaurant.component.scss']
+  selector: 'app-restaurants',
+  templateUrl: './restaurants.component.html',
+  styleUrls: ['./restaurants.component.scss']
 })
-export class RestaurantComponent implements OnInit {
+export class RestaurantsComponent implements OnInit {
 
   @ViewChild('slides_container') slides_container: ElementRef;
   @ViewChild('slider_progress_bar') slider_progress_bar: ElementRef;
@@ -21,11 +23,25 @@ export class RestaurantComponent implements OnInit {
   public lunch: DishesTime;
   public a_la_carte: DishesTime;
   public selected_day: string;
+  private lang: string;
 
-  constructor(private restaurantService: RestaurantService) {
+  constructor(private restaurantService: RestaurantService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private _cookieService: CookieService) {
     this.slideIndex = 0;
     this.showSchedule = false;
     this.selected_day = 'monday';
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      if (this.lang === 'en') {
+        this.router.navigate(['restaurants']);
+      }else if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      console.log(this.lang);
+      this._cookieService.put('language', this.lang);
+    });
   }
 
   changeDay(day) {
@@ -96,7 +112,7 @@ export class RestaurantComponent implements OnInit {
 
   ngOnInit() {
     //this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName('bar-item');
-    this.restaurantService.getRestaurants().subscribe((res) => {
+    this.restaurantService.getRestaurants(this.lang).subscribe((res) => {
       console.log(res);
       this.restaurants = res;
     });

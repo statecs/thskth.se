@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import { most_asked_questions } from '../../utils/most-asked-questions';
 import {Location} from '@angular/common';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
+import {CookieService} from 'ngx-cookie';
 
 @Component({
   selector: 'app-support',
@@ -30,13 +31,15 @@ export class SupportComponent implements OnInit {
     public most_asked_faqs: FAQ[];
     public most_asked_questions_slugs: string[];
     public show_single_view: boolean;
+    private lang: string;
 
   constructor(private faqsService: FaqsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private renderer: Renderer2,
               private location: Location,
-              private popupWindowCommunicationService: PopupWindowCommunicationService ) {
+              private popupWindowCommunicationService: PopupWindowCommunicationService,
+              private _cookieService: CookieService) {
     this.selected_cat_index = 0;
     this.showFaqs = true;
     this.loading = true;
@@ -46,10 +49,20 @@ export class SupportComponent implements OnInit {
     this.search_results = [];
     this.searchTerm = '';
     this.noInput = false;
-      this.most_asked_questions_slugs = most_asked_questions;
-      this.parent_categories = [];
-      this.most_asked_faqs = [];
-      this.show_single_view = false;
+    this.most_asked_questions_slugs = most_asked_questions;
+    this.parent_categories = [];
+    this.most_asked_faqs = [];
+    this.show_single_view = false;
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      if (this.lang === 'en') {
+          this.router.navigate(['support']);
+      }else if (typeof this.lang === 'undefined') {
+          this.lang = 'en';
+      }
+      console.log(this.lang);
+      this._cookieService.put('language', this.lang);
+    });
   }
 
     showInPopup(faq: FAQ) {
@@ -63,7 +76,12 @@ export class SupportComponent implements OnInit {
 
   searchFAQs(): void {
       this.show_single_view = true;
-      this.location.go('support?q=' + this.searchTerm);
+      if (this.lang === 'sv') {
+          this.location.go('sv/support?q=' + this.searchTerm);
+      }else {
+          this.location.go('support?q=' + this.searchTerm);
+      }
+
       if (this.searchTerm === '') {
           this.searchTerm = '';
           this.noInput = true;
@@ -73,7 +91,7 @@ export class SupportComponent implements OnInit {
           this.selected_cat_index = null;
           this.selected_category = null;
           this.loading = true;
-          this.faqsService.searchFAQs(this.searchTerm).subscribe((faqs) => {
+          this.faqsService.searchFAQs(this.searchTerm, this.lang).subscribe((faqs) => {
               this.search_results = faqs;
 
               this.loading = false;
@@ -116,7 +134,12 @@ export class SupportComponent implements OnInit {
   displayCategory(index): void {
       this.selected_cat_index = index;
       this.selected_category = this.parent_categories[index];
-      this.router.navigate(['support/' + this.parent_categories[index].slug]);
+      if (this.lang === 'sv') {
+          this.router.navigate(['sv/support/' + this.parent_categories[index].slug]);
+      }else {
+          this.router.navigate(['support/' + this.parent_categories[index].slug]);
+      }
+
       //this.router.navigate(['contact-section/faq'], { queryParams: { category: this.parent_categories[index].slug } });
       /*this.search_results = [];
       this.searchOnActive = false;
@@ -167,7 +190,7 @@ export class SupportComponent implements OnInit {
           this.faq_subMenus = [];
           this.showFaqs = false;
           this.loading = true;
-          this.faqsService.getFAQParentCategories().subscribe((categories) => {
+          this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
               this.parent_categories = categories;
               console.log(categories);
 
@@ -191,7 +214,7 @@ export class SupportComponent implements OnInit {
       this.faq_subMenus = [];
       this.showFaqs = false;
       this.loading = true;
-      this.faqsService.getFAQParentCategories().subscribe((categories) => {
+      this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
           this.parent_categories = categories;
       });
   }
@@ -251,12 +274,26 @@ export class SupportComponent implements OnInit {
                   console.log(self.searchTerm);
                   if (self.searchTerm === '') {
                       console.log('support');
+                      console.log(this.lang);
                       if (this.selected_cat_slug !== 'undefined' && typeof this.selected_cat_slug !== 'undefined') {
-                          self.router.navigate(['/support']);
+                          if (self.lang === 'sv') {
+                              self.router.navigate(['/sv/support']);
+                          }else {
+                              self.router.navigate(['/support']);
+                          }
                       }else {
-                          self.location.go('/support');
+                          if (self.lang === 'sv') {
+                              self.location.go('/sv/support');
+                          }else {
+                              self.location.go('/support');
+                          }
                           self.show_single_view = false;
                           self.router.navigate(['/support']);
+                          if (self.lang === 'sv') {
+                              self.router.navigate(['/sv/support']);
+                          }else {
+                              self.router.navigate(['/support']);
+                          }
                       }
 
                       //self.showResults = false;

@@ -14,7 +14,7 @@ import { LiveSectionComponent } from './components/live-section/live-section.com
 import { LiveComponent } from './components/live-section/live/live.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { NewsComponent } from './components/news/news.component';
-import { RestaurantComponent } from './components/restaurant/restaurant.component';
+import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
 import {StudentLifeSectionComponent} from './components/student-life-section/student-life-section.component';
@@ -43,7 +43,17 @@ const appRoutes: Routes = [
         data: { title: 'Search' }
     },
     {
+        path: ':lang/support',
+        component: SupportComponent,
+        data: { title: 'Support' }
+    },
+    {
         path: 'support',
+        component: SupportComponent,
+        data: { title: 'Support' }
+    },
+    {
+        path: ':lang/support/:category',
         component: SupportComponent,
         data: { title: 'Support' }
     },
@@ -53,14 +63,29 @@ const appRoutes: Routes = [
         data: { title: 'Support' }
     },
     {
-        path: 'restaurant',
-        component: RestaurantComponent,
-        data: { title: 'Restaurant' }
+        path: ':lang/restaurants',
+        component: RestaurantsComponent,
+        data: { title: 'Restaurants' }
+    },
+    {
+        path: 'restaurants',
+        component: RestaurantsComponent,
+        data: { title: 'Restaurants' }
+    },
+    {
+        path: ':lang/offers',
+        component: OffersComponent,
+        data: { title: 'Offers' }
     },
     {
         path: 'offers',
         component: OffersComponent,
         data: { title: 'Offers' }
+    },
+    {
+        path: ':lang/news',
+        component: NewsComponent,
+        data: { title: 'News' }
     },
     {
         path: 'news',

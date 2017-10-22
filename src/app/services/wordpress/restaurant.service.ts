@@ -22,9 +22,10 @@ export class RestaurantService {
     }
   }
 
-  getRestaurants(): Observable<Restaurant[]> {
+  getRestaurants(lang: string): Observable<Restaurant[]> {
+    this.language = lang;
     return this.http
-        .get(this.config.RESTAURANT_URL + '?_embed')
+        .get(this.config.RESTAURANT_URL + '?_embed&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });

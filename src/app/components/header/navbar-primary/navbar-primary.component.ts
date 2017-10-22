@@ -79,10 +79,11 @@ export class NavbarPrimaryComponent implements OnInit {
         }*/
         this.switchLanguage();
         this._cookieService.put('language', this.language);
+        console.log(this.router.url);
         if (this.language === 'en') {
-            this.router.navigate(['']);
+            this.router.navigate([this.router.url.substring(3)]);
         }else if (this.language === 'sv') {
-            this.router.navigate(['/sv']);
+            this.router.navigate(['/sv' + this.router.url]);
         }
         //location.reload();
 

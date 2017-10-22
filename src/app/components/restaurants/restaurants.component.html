@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div id="restaurant">
-  <h1>THS restaurants</h1>
+  <h1>{{(lang === 'en' ? 'THS restaurants' : 'THS restauranger')}}</h1>
   <div class="gallery">
     <div *ngFor="let item of restaurants, let i = index" class="g-item" [ngClass]="{'selected': restaurant_index === i}" (click)="showRestaurant(i)" [style.backgroundImage]="'url(' + item.imageUrl + ')'">
       <div class="text">
@@ -35,11 +35,12 @@
     </div>
 
     <div class="menu-calendar">
-      <div [ngClass]="{'selected': selected_day === 'monday'}" (click)="changeDay('monday')">Monday</div>
-      <div [ngClass]="{'selected': selected_day === 'tuesday'}" (click)="changeDay('tuesday')">Tuesday</div>
-      <div [ngClass]="{'selected': selected_day === 'wednesday'}" (click)="changeDay('wednesday')">Wednesday</div>
-      <div [ngClass]="{'selected': selected_day === 'thursday'}" (click)="changeDay('thursday')">Thursday</div>
-      <div [ngClass]="{'selected': selected_day === 'friday'}" (click)="changeDay('friday')">Friday</div>
+      <h2>{{restaurants[restaurant_index].title}}</h2>
+      <div [ngClass]="{'selected': selected_day === 'monday'}" (click)="changeDay('monday')">{{(lang === 'en' ? 'Monday' : 'Måndag')}}</div>
+      <div [ngClass]="{'selected': selected_day === 'tuesday'}" (click)="changeDay('tuesday')">{{(lang === 'en' ? 'Tuesday' : 'Tisdag')}}</div>
+      <div [ngClass]="{'selected': selected_day === 'wednesday'}" (click)="changeDay('wednesday')">{{(lang === 'en' ? 'Wednesday' : 'Onsdag')}}</div>
+      <div [ngClass]="{'selected': selected_day === 'thursday'}" (click)="changeDay('thursday')">{{(lang === 'en' ? 'Thursday' : 'Torsdag')}}</div>
+      <div [ngClass]="{'selected': selected_day === 'friday'}" (click)="changeDay('friday')">{{(lang === 'en' ? 'Friday' : 'Fredag')}}</div>
     </div>
     <div class="menu-container">
       <h2>Lunch</h2>

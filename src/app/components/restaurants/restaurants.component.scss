@@ -133,6 +133,10 @@
     .menu-calendar{
       text-align: center;
       border-bottom:1px solid gray;
+      h2{
+        float: left;
+        position: absolute;
+      }
       div{
         display: inline-block;
         color: black;

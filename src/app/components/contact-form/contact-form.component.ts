@@ -55,7 +55,7 @@ export class ContactFormComponent implements OnInit {
       }, {
         name: 'event@ths.kth.se', email: 'Party related'
       }, {
-        name: 'restaurang@ths.kth.se', email: 'Nymble restaurant'
+        name: 'restaurang@ths.kth.se', email: 'Nymble restaurants'
       }, {
         name: 'roger2@kth.se', email: 'Report a fault in Nymble'
       }, {

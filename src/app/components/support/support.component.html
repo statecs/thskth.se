@@ -3,15 +3,15 @@
 <div id="support">
   <div class="heading">
     <div class="title">
-      <h2>Frequestly Asked Questions</h2>
-      <span>Read our frequestly asked questions for fast answers</span>
+      <h2>{{lang === 'en' ? 'Frequestly Asked Questions' : 'Vanliga frågor'}}</h2>
+      <span>{{lang === 'en' ? 'Read our frequestly asked questions for fast answers' : 'Läs våra vanliga frågor för snabba svar'}}</span>
     </div>
     <div class="search">
       <form (ngSubmit)="searchFAQs()" autocomplete="off">
         <label>
           <i class="material-icons" (click)="searchFAQs()">search</i>
         </label>
-        <input #searchField type="search" placeholder="Search FAQs" [(ngModel)]="searchTerm" name="searchInput" (focus)="onFocus()" (keyup)="searchFAQs()">
+        <input #searchField type="search" placeholder="{{lang === 'en' ? 'Search FAQs' : 'Sök FAQs'}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="onFocus()" (keyup)="searchFAQs()">
       </form>
     </div>
   </div>
@@ -19,21 +19,23 @@
     <div class="featured-faqs">
       <div *ngFor="let item of most_asked_faqs" class="item">
         <h2>{{item.question}}</h2>
-        <p [innerHTML]="item.answer | cardText:100"></p>
-        <span *ngIf="item.answer?.length > 100" (click)="showInPopup(item)">Read more</span>
+        <div>
+          <p [innerHTML]="item.answer | cardText:100"></p>
+          <span *ngIf="item.answer?.length > 100" (click)="showInPopup(item)">{{lang === 'en' ? 'Read more' : 'Läs mer'}}</span>
+        </div>
       </div>
       <app-loader *ngIf="most_asked_faqs?.length === 0"></app-loader>
     </div>
 
     <div class="faqs-categories">
-      <h2>FAQ categories</h2>
+      <h2>{{lang === 'en' ? 'FAQ categories' : 'FAQ kategorier'}}</h2>
       <a *ngFor="let c of parent_categories" routerLink="{{c.slug}}" class="category">{{c.name}}</a>
       <app-loader *ngIf="parent_categories.length === 0"></app-loader>
     </div>
   </div>
   <div *ngIf="show_single_view" class="faqs-single-view">
     <div class="submenu">
-      <label>FAQs</label>
+      <label>{{lang === 'en' ? 'FAQ categories' : 'FAQ kategorier'}}</label>
       <div *ngFor="let c of parent_categories, let i = index" class="submenu-item" [ngClass]="{selected: i === selected_cat_index}" (click)="displayCategory(i)">{{c.name}}</div>
     </div>
     <div class="faqs-container">
@@ -66,7 +68,7 @@
       </div>
 
       <div *ngIf="searchOnActive" class="search-results">
-        <h3>Search results of "{{searchTerm}}"</h3>
+        <h3>{{lang === 'en' ? 'Search results of' : 'Sökresultat av'}} "{{searchTerm}}"</h3>
         <div *ngFor="let faq of search_results">
           <div #faqElement class="faq" (click)="toggleAnswer(faqElement)">
             <span>+</span>

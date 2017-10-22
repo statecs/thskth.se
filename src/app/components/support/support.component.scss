@@ -82,15 +82,18 @@
         padding: 10px 20px;
         border-radius: 5px;
         cursor: pointer;
-        >p{
+        >div{
           text-align: left;
-          display: inline;
-        }
-        >span{
-          color: $color-link-secondary;
-          cursor: pointer;
-          &:hover {
-            color: $color-link-secondary-hover;
+          >p{
+            text-align: left;
+            display: inline;
+          }
+          >span{
+            color: $color-link-secondary;
+            cursor: pointer;
+            &:hover {
+              color: $color-link-secondary-hover;
+            }
           }
         }
       }
@@ -124,7 +127,7 @@
         border-bottom:1px solid lightgrey;
         margin-bottom: 10px;
         display: block;
-        font-weight: 600;
+        font-weight: 800;
         padding-bottom: 5px;
       }
       .submenu-item{
@@ -203,9 +206,6 @@
         .question{
           font-weight: 500;
           margin: 10px 0;
-          strong{
-            font-weight: 800;
-          }
         }
         .answer{
           display: none;
@@ -228,6 +228,16 @@
 :host /deep/ .answer{
   p{
     margin: 0;
+  }
+  strong{
+    font-weight: 800;
+    color: #45b8da;
+  }
+}
+:host /deep/ .question{
+  strong{
+    font-weight: 800;
+    color: #45b8da;
   }
 }
 
