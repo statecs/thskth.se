@@ -7,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CalendarHeaderComponent implements OnInit {
   @Input() view: string;
-
+  @Input() lang: string;
   @Input() viewDate: Date;
 
   @Input() locale: string = 'en';

@@ -3,13 +3,13 @@
 <div id="events-calendar">
   <div class="calendar-wrapper">
     <div class="title">
-      <h2>Events calendar</h2>
+      <h2>{{(lang === 'en' ? 'Events calendar' : 'Evenemangskalender')}}</h2>
     </div>
     <app-calendar></app-calendar>
   </div>
   <div *ngIf="!showFeaturedEvents" class="events-wrapper">
     <div class="events-header">
-      <h2>Events on {{actualDate}}</h2>
+      <h2>{{(lang === 'en' ? 'Events on' : 'Evenemang på')}} {{actualDate}}</h2>
       <!--<div class="filter-icon">
         Filter <i class="material-icons">filter_list</i>
       </div>-->
@@ -28,12 +28,12 @@
           <p>{{e.description | cardText:100}}</p>
         </div>
       </div>
-      <span *ngIf="events.length === 0">There are no events.</span>
+      <span *ngIf="events.length === 0">{{(lang === 'en' ? 'There are no events.' : 'Det finns inga evenemang.')}}</span>
     </div>
   </div>
   <div class="featured-events">
     <div class="heading">
-      <h2>Upcoming events</h2>
+      <h2>{{(lang === 'en' ? 'Upcoming events' : 'Uppkommande evenemang')}}</h2>
     </div>
 
     <div *ngFor="let e of earliest_events" class="event">

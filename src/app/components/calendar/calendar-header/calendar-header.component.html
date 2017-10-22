@@ -31,7 +31,7 @@
         (viewDateChange)="viewDateChange.next(viewDate)"
         (click)="triggerEventUpdater()">
         <div class="btn"><i class="material-icons">keyboard_arrow_left</i></div>
-        <span>Previous</span>
+        <span>{{(lang === 'en' ? 'Previous' : 'Föregående')}}</span>
       </div>
       <div class="date">
         <h3>{{ viewDate | calendarDate:view}}</h3>
@@ -43,7 +43,7 @@
         [(viewDate)]="viewDate"
         (viewDateChange)="viewDateChange.next(viewDate)"
         (click)="triggerEventUpdater()">
-        <span>Next</span>
+        <span>{{(lang === 'en' ? 'Next' : 'Nästa')}}</span>
         <div class="btn"><i class="material-icons">keyboard_arrow_right</i></div>
       </div>
     </div>

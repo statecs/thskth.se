@@ -8,7 +8,7 @@ import { GoogleCalendarService } from '../../services/google-calendar/google-cal
 import { Event } from '../../interfaces/event';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
 import { ths_calendars } from '../../utils/ths-calendars';
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router, RoutesRecognized} from '@angular/router';
 
 @Component({
   selector: 'app-cards-social-container',
@@ -50,6 +50,7 @@ export class CardsSocialContainerComponent implements OnInit {
         this.lang = 'en';
       }
       (this.lang === 'en' ? this.read_more = 'Read more' : this.read_more = 'Läs Mer');
+      console.log(this.lang);
     });
   }
 
@@ -108,6 +109,19 @@ export class CardsSocialContainerComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('con');
+    /*this.router.events.subscribe(val => {
+      console.log(this.lang);
+      if (val instanceof RoutesRecognized) {
+        this.lang = val.state.root.firstChild.params['lang'];
+        if (typeof this.lang === 'undefined') {
+          this.lang = 'en';
+        }
+        console.log(this.lang);
+        (this.lang === 'en' ? this.read_more = 'Read more' : this.read_more = 'Läs Mer');
+      }
+    });*/
+
     this.selected_event_title = '';
     this.selected_event_text = '';
     this.selected_event_index = 0;

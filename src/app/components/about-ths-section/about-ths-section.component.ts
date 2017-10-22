@@ -18,7 +18,7 @@ export class AboutThsSectionComponent implements OnInit {
       this.lang = params['lang'];
       if (this.lang === 'en') {
         console.log('pass: ' + this.lang);
-        this.router.navigate(['student-life']);
+        this.router.navigate(['about-ths']);
       }else if (typeof this.lang === 'undefined') {
         this.lang = 'en';
       }

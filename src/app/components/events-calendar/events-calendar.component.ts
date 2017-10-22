@@ -7,6 +7,8 @@ import { GoogleCalendarService } from '../../services/google-calendar/google-cal
 import format from 'date-fns/format/index';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
 import { ths_calendars } from '../../utils/ths-calendars';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie';
 
 @Component({
   selector: 'app-events-calendar',
@@ -20,15 +22,29 @@ export class EventsCalendarComponent implements OnInit {
   public ths_calendars: any[];
   public showFeaturedEvents: boolean;
   public earliest_events: Event[];
+  private lang: string;
 
   constructor(private calendarCommunicationService: CalendarCommunicationService,
               private googleCalendarService: GoogleCalendarService,
-              private popupWindowCommunicationService: PopupWindowCommunicationService) {
+              private popupWindowCommunicationService: PopupWindowCommunicationService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private _cookieService: CookieService) {
     this.events = [];
     this.actualDate = format(new Date(), 'DD MMM YYYY');
     this.ths_calendars = ths_calendars;
     this.showFeaturedEvents = true;
     this.earliest_events = [];
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      console.log(this.lang);
+      if (this.lang === 'en') {
+        this.router.navigate(['events']);
+      }else if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      this._cookieService.put('language', this.lang);
+    });
   }
 
   formatDay(start) {

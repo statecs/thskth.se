@@ -1,11 +1,12 @@
 <div class="categories">
-    <div class="item" (click)="switchCalendar(-1)" [ngClass]="{'selected': selected_event_category === -1}">All</div>
-    <div *ngFor="let c of ths_calendars, let i = index" class="item" (click)="switchCalendar(i)" [ngClass]="{'selected': selected_event_category === i}">{{c.title}}</div>
+    <div class="item" (click)="switchCalendar(-1)" [ngClass]="{'selected': selected_event_category === -1}">{{(lang === 'en' ? 'All' : 'Alla')}}</div>
+    <div *ngFor="let c of ths_calendars, let i = index" class="item" (click)="switchCalendar(i)" [ngClass]="{'selected': selected_event_category === i}">{{(lang === 'en' ? c.title.en : c.title.sv)}}</div>
 </div>
 
 <app-calendar-header
         [(view)]="view"
         [(viewDate)]="viewDate"
+        [(lang)]="lang"
         (updateEvents)="fetchEvents()">
 </app-calendar-header>
 <app-loader *ngIf="e_loading"></app-loader>

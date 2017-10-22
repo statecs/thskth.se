@@ -54,19 +54,29 @@ export class LiveComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
+      console.log(params['lang']);
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
         this.slug = 'live';
       }
-      this.lang = params['lang'];
-      if (typeof this.lang === 'undefined') {
-        this.lang = 'en';
-      }
-      this.getPageBySlug();
+
       if (this.slug !== 'live') {
-        this.getSecondarySubMenu();
+        this.activatedRoute.parent.params.subscribe((params2: Params) => {
+          this.lang = params2['lang'];
+          console.log(this.lang);
+          if (typeof this.lang === 'undefined') {
+            this.lang = 'en';
+          }
+          this.getSecondarySubMenu();
+          this.getPageBySlug();
+        });
       }else {
+        this.lang = params['lang'];
+        if (typeof this.lang === 'undefined') {
+          this.lang = 'en';
+        }
         this.getSubmenu();
+        this.getPageBySlug();
       }
     });
   }

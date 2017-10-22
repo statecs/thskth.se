@@ -21,6 +21,7 @@ import { CalendarCommunicationService } from '../../services/component-communica
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
 import { Event } from '../../interfaces/event';
 import { ths_calendars } from '../../utils/ths-calendars';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -37,16 +38,25 @@ export class CalendarComponent implements OnInit {
   public ths_calendars: any[];
   public selected_event_category: number;
   public e_loading: boolean;
+  private lang: string;
 
   constructor(private googleCalendarService: GoogleCalendarService,
               private calendarCommunicationService: CalendarCommunicationService,
-              private popupWindowCommunicationService: PopupWindowCommunicationService) {
+              private popupWindowCommunicationService: PopupWindowCommunicationService,
+              private activatedRoute: ActivatedRoute) {
     this.view = 'month';
     this.activeDayIsOpen = false;
     this.viewDate = new Date();
     this.ths_calendars = ths_calendars;
     this.selected_event_category = -1;
     this.e_loading = true;
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      console.log(this.lang);
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+    });
   }
 
   switchCalendar(index) {

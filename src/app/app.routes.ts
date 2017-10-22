@@ -68,18 +68,29 @@ const appRoutes: Routes = [
         data: { title: 'News' }
     },
     {
+        path: ':lang/events',
+        component: EventsCalendarComponent,
+        data: { title: 'Events' }
+    },
+    {
         path: 'events',
         component: EventsCalendarComponent,
         data: { title: 'Events' }
+    },
+    {
+        path: ':lang/live',
+        component: LiveSectionComponent,
+        data: { title: 'Live section' },
+        children: [
+            {path: '', component: LiveComponent, data: { title: 'Live' }}
+        ]
     },
     {
         path: 'live',
         component: LiveSectionComponent,
         data: { title: 'Live section' },
         children: [
-            {path: '', component: LiveComponent, data: { title: 'Live' }},
-            {path: ':slug', component: LiveComponent, data: { title: 'Live' }},
-            {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Live' }},
+            {path: '', component: LiveComponent, data: { title: 'Live' }}
         ]
     },
     {

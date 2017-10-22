@@ -426,6 +426,7 @@
   a{
     @include capsule-button(15px, 15px);
     text-decoration: none;
+    margin-top: 20px;
   }
 }
 
