@@ -102,6 +102,8 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { SelectSliderComponent } from './components/select-slider/select-slider.component';
 import { SearchComponent } from './components/search/search.component';
 import { HeaderSliderComponent } from './components/header-slider/header-slider.component';
+import { AddLangToSlugPipe } from './pipes/add-lang-to-slug.pipe';
+import { PageNotFoundImageComponent } from './components/page-not-found/page-not-found-image/page-not-found-image.component';
 
 
 @NgModule({
@@ -165,7 +167,9 @@ import { HeaderSliderComponent } from './components/header-slider/header-slider.
     SelectSliderComponent,
     SearchComponent,
     HeaderSliderComponent,
-    RemoveLangParamPipe
+    RemoveLangParamPipe,
+    AddLangToSlugPipe,
+    PageNotFoundImageComponent
   ],
   imports: [
     BrowserModule,

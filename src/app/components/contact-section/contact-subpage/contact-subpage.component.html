@@ -1,6 +1,6 @@
 <div id="content-container">
-  <app-breadcrumb></app-breadcrumb>
-  <app-loader *ngIf="!page"></app-loader>
+  <app-breadcrumb *ngIf="page"></app-breadcrumb>
+  <app-loader *ngIf="loading"></app-loader>
   <div *ngIf="page" id="page">
     <div class="heading">
       <div class="title">
@@ -24,3 +24,5 @@
     </div>
   </div>
 </div>
+
+<app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>

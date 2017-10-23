@@ -11,30 +11,53 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 export class SingleViewComponent implements OnInit {
 
   @Input() page: Page;
-  public slug: string;
   private lang: string;
+  public loading: boolean;
+  public pageNotFound: boolean;
+  public parent_slug: string;
+  public slug: string;
 
   constructor(private pagesService: PagesService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute) {
+    this.loading = true;
+    this.pageNotFound = false;
+  }
+
+  getParentPageBySlug() {
+    this.pagesService.getPageBySlug(this.parent_slug, this.lang).subscribe((page) => {
+      console.log(page);
+      if (page) {
+        this.getPageBySlug();
+      }else {
+        this.loading = false;
+        this.pageNotFound = true;
+      }
+    });
+  }
 
   getPageBySlug() {
     this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
+      this.loading = false;
       console.log(page);
-      this.page = page;
+      if (page) {
+        this.page = page;
+      }else {
+        this.pageNotFound = true;
+      }
     });
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
+      this.parent_slug = params['slug'];
       this.slug = params['single_page_slug'];
-      console.log(this.slug);
       this.activatedRoute.parent.params.subscribe((params2: Params) => {
         this.lang = params2['lang'];
         console.log(this.lang);
         if (typeof this.lang === 'undefined') {
           this.lang = 'en';
         }
-        this.getPageBySlug();
+        this.getParentPageBySlug();
       });
 
     });

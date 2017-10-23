@@ -3,7 +3,8 @@ import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
-import {RemoveLangParamPipe} from "../../../pipes/remove-lang-param.pipe";
+import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
+import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 
 @Component({
   selector: 'app-contact-subpage',
@@ -15,15 +16,20 @@ export class ContactSubpageComponent implements OnInit {
   public page: Page;
   public subMenu: any;
   public slug: string;
-  //public _baseSlug: string;
   private lang: string;
   private removeLangParamPipe: any;
+  private addLangToSlugPipe: AddLangToSlugPipe;
+  public loading: boolean;
+  public pageNotFound: boolean;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private menusService: MenusService) {
+    this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
+    this.addLangToSlugPipe = new AddLangToSlugPipe();
+    this.pageNotFound = false;
   }
 
   goToPage(slug): void {
@@ -33,19 +39,18 @@ export class ContactSubpageComponent implements OnInit {
       if (this.lang === 'sv') {
         slug = this.removeLangParamPipe.transform(slug);
       }
+      slug = this.addLangToSlugPipe.transform(slug, this.lang);
       this.router.navigate([slug]);
     }
   }
 
   getSecondarySubMenu() {
-    //this._baseSlug = 'contact-section/' + this.slug + '/';
     this.menusService.get_secondarySubMenu('contact', this.slug, this.lang).subscribe((submenu) => {
       this.subMenu = submenu;
     });
   }
 
   getSubmenu() {
-    //this._baseSlug = 'contact-section/';
     this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
       this.subMenu = submenu;
     });
@@ -55,7 +60,13 @@ export class ContactSubpageComponent implements OnInit {
     console.log(this.lang);
     console.log(this.slug + this.lang);
     this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
-      this.page = page;
+      this.loading = false;
+      console.log(page);
+      if (page) {
+        this.page = page;
+      }else {
+        this.pageNotFound = true;
+      }
     });
   }
 

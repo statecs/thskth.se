@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Pipe} from '@angular/core';
 import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
+import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 
 @Component({
   selector: 'app-contact',
@@ -17,13 +18,15 @@ export class ContactComponent implements OnInit {
   public slug: string;
   //public _baseSlug: string;
   private lang: string;
-  private removeLangParamPipe: any;
+  private removeLangParamPipe: RemoveLangParamPipe;
+  private addLangToSlugPipe: AddLangToSlugPipe;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private menusService: MenusService) {
     this.removeLangParamPipe = new RemoveLangParamPipe();
+    this.addLangToSlugPipe = new AddLangToSlugPipe();
   }
 
   goToPage(slug): void {
@@ -34,6 +37,7 @@ export class ContactComponent implements OnInit {
       if (this.lang === 'sv') {
         slug = this.removeLangParamPipe.transform(slug);
       }
+      slug = this.addLangToSlugPipe.transform(slug, this.lang);
       this.router.navigate([slug]);
     }
   }

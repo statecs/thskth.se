@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class RemoveLangParamPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    return '/sv' + value.substring(0, value.length - 8);
+    return value.substring(0, value.length - 8);
   }
 
 }
