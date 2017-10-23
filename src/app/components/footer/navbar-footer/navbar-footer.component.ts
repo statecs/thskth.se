@@ -22,8 +22,9 @@ export class NavbarFooterComponent implements OnInit {
               this.lang = val.state.root.firstChild.params['lang'];
               if (typeof this.lang === 'undefined') {
                   this.lang = 'en';
+              }else if (this.lang !== 'en' && this.lang !== 'sv') {
+                  this.lang = 'en';
               }
-              console.log(this.lang);
           }
           this.menusService.getMenu('footer', this.lang).subscribe(res => {
               this.footer_menu = res;

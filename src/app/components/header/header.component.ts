@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NavbarPrimaryComponent } from './navbar-primary/navbar-primary.component';
 import { NavbarSectionsComponent } from '../footer/navbar-sections/navbar-sections.component';
-import { NavbarSecondaryComponent } from './navbar-secondary/navbar-secondary.component';
 import { HeaderCommunicationService } from '../../services/component-communicators/header-communication.service';
 import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
 import {MenusService} from '../../services/wordpress/menus.service';
 import {MenuItem2} from '../../interfaces/menu';
 import { ths_chapters } from '../../utils/ths-chapters';
-import {ActivatedRoute, Params, Router, RoutesRecognized} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -67,6 +66,8 @@ export class HeaderComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }else if (this.lang !== 'en' && this.lang !== 'sv') {
         this.lang = 'en';
       }
       this.setPlaceholder();

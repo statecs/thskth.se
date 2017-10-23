@@ -54,7 +54,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NavbarPrimaryComponent } from './components/header/navbar-primary/navbar-primary.component';
-import { NavbarSecondaryComponent } from './components/header/navbar-secondary/navbar-secondary.component';
 import { NavbarSectionsComponent } from './components/footer/navbar-sections/navbar-sections.component';
 import { NavbarFooterComponent } from './components/footer/navbar-footer/navbar-footer.component';
 import { CardCategorizerComponent } from './components/card-categorizer/card-categorizer.component';
@@ -113,7 +112,6 @@ import { HeaderSliderComponent } from './components/header-slider/header-slider.
     HomeComponent,
     PageNotFoundComponent,
     NavbarPrimaryComponent,
-    NavbarSecondaryComponent,
     NavbarSectionsComponent,
     NavbarFooterComponent,
     CardCategorizerComponent,

@@ -161,9 +161,15 @@ export class CardCategorizerComponent implements AfterViewInit {
   getSelectedProfession(obj: CardCategory[]): CardCategory {
       let output: CardCategory = {id: 0, name: '', order: 0};
       obj.forEach((c) => {
-         if (c.name === this.route.snapshot.data['profession']) {
+          let pro = '';
+          if (this.lang === 'sv') {
+            pro = this.route.snapshot.data['profession'].sv;
+          }else {
+            pro = this.route.snapshot.data['profession'].en;
+          }
+          if (c.name === pro) {
              output = c;
-         }
+          }
       });
       return output;
   }
@@ -178,6 +184,7 @@ export class CardCategorizerComponent implements AfterViewInit {
         this.selected_company = org_cats[0].id;
         this.cardsService.getCardCategory('profession', this.lang).subscribe((pro_cats) => {
           this.pro_cats = pro_cats;
+          console.log(pro_cats);
           const pro = this.getSelectedProfession(pro_cats);
           this.selected_profession_name = pro.name;
           this.selected_profession = pro.id;
@@ -217,6 +224,7 @@ export class CardCategorizerComponent implements AfterViewInit {
       });
         this.cardsService.getCardCategory('profession', this.lang).subscribe((pro_cats) => {
             this.pro_cats = pro_cats;
+            console.log(pro_cats);
             const pro = this.getSelectedProfession(pro_cats);
             this.selected_profession_name = pro.name;
             this.selected_profession = pro.id;

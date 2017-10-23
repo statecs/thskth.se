@@ -20,28 +20,20 @@ export class HomeComponent implements OnInit {
     private lang: string;
     private pageNotFound: boolean;
 
-  constructor(  private wordpressApiService: WordpressApiService,
-                private textSliderCommunicationService: TextSliderCommunicationService,
+  constructor(  private textSliderCommunicationService: TextSliderCommunicationService,
                 private faqsService: FaqsService,
                 private postsService: PostsService,
                 private imageSliderCommunicationService: ImageSliderCommunicationService,
-                private activatedRoute: ActivatedRoute,
-                private router: Router,
-                private _cookieService: CookieService) {
+                private activatedRoute: ActivatedRoute) {
       this.pageNotFound = false;
       this.activatedRoute.params.subscribe((params: Params) => {
           this.lang = params['lang'];
-          console.log(this.lang);
-          if (this.lang === 'en') {
-              console.log('pass: ' + this.lang);
-              this.router.navigate(['']);
-          }else if (typeof this.lang === 'undefined') {
+          if (typeof this.lang === 'undefined') {
               this.lang = 'en';
-          }else if (this.lang !== 'sv' && this.lang !== 'international' && this.lang !== 'professor' && this.lang !== 'student' && this.lang !== 'company' && this.lang !== 'other') {
-              console.log('notfound');
+          }else if (this.lang !== 'en' && this.lang !== 'sv') {
               this.pageNotFound = true;
+              this.lang = 'en';
           }
-          this._cookieService.put('language', this.lang);
       });
   }
 

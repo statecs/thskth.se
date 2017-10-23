@@ -78,19 +78,17 @@ export class NavbarPrimaryComponent implements OnInit {
             this.switchLanguage();
         }*/
         this.switchLanguage();
-        this._cookieService.put('language', this.language);
         console.log(this.router.url);
         if (this.language === 'en') {
-            this.router.navigate([this.router.url.substring(3)]);
+            this.router.navigate(['/en' + this.router.url.substring(3)]);
         }else if (this.language === 'sv') {
-            this.router.navigate(['/sv' + this.router.url]);
+            this.router.navigate(['/sv' + this.router.url.substring(3)]);
         }
         //location.reload();
 
     }
 
     displayActualLanguage() {
-        this.language = this._cookieService.get('language');
         if (this.language === 'en' || typeof this.language === 'undefined') {
             this.language_text = 'THS in swedish';
             this.language_img = '../../../../assets/images/sweden_flag.png';
@@ -115,12 +113,12 @@ export class NavbarPrimaryComponent implements OnInit {
             this.language = params['lang'];
             if (typeof this.language === 'undefined') {
                 this.language = 'en';
+            }else if (this.language !== 'en' && this.language !== 'sv') {
+                this.language = 'en';
             }
             this.getTopLevelMenu();
+            this.displayActualLanguage();
         });
-
-        //this.getTopLevelMenu();
-        this.displayActualLanguage();
     }
 
 }
