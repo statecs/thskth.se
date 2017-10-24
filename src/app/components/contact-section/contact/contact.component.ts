@@ -16,7 +16,6 @@ export class ContactComponent implements OnInit {
   public page: Page;
   public subMenu: any;
   public slug: string;
-  //public _baseSlug: string;
   private lang: string;
   private removeLangParamPipe: RemoveLangParamPipe;
   private addLangToSlugPipe: AddLangToSlugPipe;
@@ -43,14 +42,12 @@ export class ContactComponent implements OnInit {
   }
 
   getSecondarySubMenu() {
-    //this._baseSlug = 'contact-section/' + this.slug + '/';
     this.menusService.get_secondarySubMenu('contact', this.slug, this.lang).subscribe((submenu) => {
       this.subMenu = submenu;
     });
   }
 
   getSubmenu() {
-    //this._baseSlug = 'contact-section/';
     this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
       this.subMenu = submenu;
     });
