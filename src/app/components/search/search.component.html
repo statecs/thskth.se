@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div id="content-container">
+<div *ngIf="!pageNotFound" id="content-container">
   <div class="search-bar" [ngClass]="{'center-vertically': !showResults}">
     <h2>{{(lang === 'en' ? 'Search THS and beyond' : 'Sök THS')}}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
@@ -130,3 +130,5 @@
   </div>
 
 </div>
+
+<app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>

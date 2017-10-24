@@ -48,6 +48,8 @@ export class CardsSocialContainerComponent implements OnInit {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
+      }else if (this.lang !== 'en' && this.lang !== 'sv') {
+        this.lang = 'en';
       }
       (this.lang === 'en' ? this.read_more = 'Read more' : this.read_more = 'Läs Mer');
       console.log(this.lang);
@@ -134,12 +136,12 @@ export class CardsSocialContainerComponent implements OnInit {
       this.fetching = false;
     });
 
-    this.googleCalendarService.getUpcomingEvents(this.ths_calendars[0].calendarId, 3).subscribe(res => {
+    /*this.googleCalendarService.getUpcomingEvents(this.ths_calendars[0].calendarId, 3).subscribe(res => {
       this.events = res;
       if (res.length !== 0) {
         this.selected_event_title = res[0].title;
         this.selected_event_text = res[0].description;
       }
-    });
+    });*/
   }
 }

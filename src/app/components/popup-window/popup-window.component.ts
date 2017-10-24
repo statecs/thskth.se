@@ -9,7 +9,7 @@ import {Location} from '@angular/common';
 import {Association} from '../../interfaces/chapters_associations';
 import {Archive} from '../../interfaces/archive';
 import {FAQ} from '../../interfaces/faq';
-import {Router} from '@angular/router';
+import {Router, RoutesRecognized} from '@angular/router';
 
 @Component({
   selector: 'app-popup-window',
@@ -40,6 +40,7 @@ export class PopupWindowComponent implements OnInit {
   public faq: FAQ;
   public showPage: boolean;
   public loading: boolean;
+  public lang: string;
 
   constructor( private wordpressApiService: WordpressApiService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -53,6 +54,16 @@ export class PopupWindowComponent implements OnInit {
     this.showFaq = false;
     this.showPage = false;
     this.loading = false;
+    this.router.events.subscribe(val => {
+      if (val instanceof RoutesRecognized) {
+        this.lang = val.state.root.firstChild.params['lang'];
+        if (typeof this.lang === 'undefined') {
+          this.lang = 'en';
+        }else if (this.lang !== 'en' && this.lang !== 'sv') {
+          this.lang = 'en';
+        }
+      }
+    });
   }
 
   downloadFile(url: string) {
@@ -109,7 +120,11 @@ export class PopupWindowComponent implements OnInit {
       this.location.back();
     }
     if (this.showAssociation) {
-      this.router.navigate(['/associations-and-chapters']);
+      if (this.lang === 'sv') {
+        this.router.navigate(['sv/associations-and-chapters']);
+      }else {
+        this.router.navigate(['en/associations-and-chapters']);
+      }
     }
     this.hide_all_layouts();
     this.showPopupWindow = false;

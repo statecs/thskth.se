@@ -1,7 +1,6 @@
-<app-page-not-found *ngIf="pageNotFound"></app-page-not-found>
-<app-header  *ngIf="!pageNotFound"></app-header>
-
-<div *ngIf="!pageNotFound" id="content-container">
+<app-header></app-header>
+<app-loader *ngIf="!item_exist && !pageNotFound" class="page-loader"></app-loader>
+<div *ngIf="item_exist && !pageNotFound" id="content-container">
   <div class="search-bar">
     <h2>{{(lang === 'en' ? 'Search THS associations and chapters' : 'Sök THS föreningar och sektioner')}}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
@@ -93,3 +92,5 @@
 
   </div>
 </div>
+
+<app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>

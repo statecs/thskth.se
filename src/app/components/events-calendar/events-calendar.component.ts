@@ -23,6 +23,7 @@ export class EventsCalendarComponent implements OnInit {
   public showFeaturedEvents: boolean;
   public earliest_events: Event[];
   private lang: string;
+  private pageNotFound: boolean;
 
   constructor(private calendarCommunicationService: CalendarCommunicationService,
               private googleCalendarService: GoogleCalendarService,
@@ -37,10 +38,10 @@ export class EventsCalendarComponent implements OnInit {
     this.earliest_events = [];
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
-      console.log(this.lang);
-      if (this.lang === 'en') {
-        this.router.navigate(['events']);
-      }else if (typeof this.lang === 'undefined') {
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }else if (this.lang !== 'en' && this.lang !== 'sv') {
+        this.pageNotFound = true;
         this.lang = 'en';
       }
       this._cookieService.put('language', this.lang);

@@ -46,6 +46,7 @@ export class ChaptersAssociationsComponent implements OnInit {
   public slug: string;
   public pageNotFound: boolean;
   private lang: string;
+  private item_exist: boolean;
 
   constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,
@@ -54,6 +55,7 @@ export class ChaptersAssociationsComponent implements OnInit {
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private renderer: Renderer2,
               private _cookieService: CookieService) {
+    this.item_exist = false;
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -101,10 +103,11 @@ export class ChaptersAssociationsComponent implements OnInit {
     ];
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
-      console.log(this.lang);
-      if (this.lang === 'en') {
-        this.router.navigate(['associations-and-chapters']);
-      }else if (typeof this.lang === 'undefined') {
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }else if (this.lang !== 'en' && this.lang !== 'sv') {
+        this.pageNotFound = true;
+        this.item_exist = false;
         this.lang = 'en';
       }
       this._cookieService.put('language', this.lang);
@@ -131,7 +134,12 @@ export class ChaptersAssociationsComponent implements OnInit {
       relatedAssociations = this.social_associations;
     }
     this.popupWindowCommunicationService.showAssociationInPopup({association: item, relatedAssociations: relatedAssociations});
-    this.router.navigate(['/associations-and-chapters/' + item.slug]);
+    if (this.lang === 'sv') {
+      this.router.navigate(['sv/associations-and-chapters/' + item.slug]);
+    }else {
+      this.router.navigate(['en/associations-and-chapters/' + item.slug]);
+    }
+
   }
 
   goToPage(slug): void {
@@ -172,7 +180,7 @@ export class ChaptersAssociationsComponent implements OnInit {
       if (this.lang === 'sv') {
         this.router.navigate(['sv/associations-and-chapters'], {queryParams: { 'q': this.searchTerm }});
       }else {
-        this.router.navigate(['/associations-and-chapters'], {queryParams: { 'q': this.searchTerm }});
+        this.router.navigate(['en/associations-and-chapters'], {queryParams: { 'q': this.searchTerm }});
       }
 
     }
@@ -236,6 +244,8 @@ export class ChaptersAssociationsComponent implements OnInit {
       console.log(res);
       this.allocateAssociations(res);
       this.checkResults();
+
+
     });
   }
 
@@ -286,12 +296,15 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.chaptersAssociationsService.getAssociationBySlug(this.slug, this.lang).subscribe((res) => {
       if (res.length > 0) {
         this.showAssociationInPopup(res[0]);
+        this.item_exist = true;
       }else {
         this.chaptersAssociationsService.getChapterBySlug(this.slug, this.lang).subscribe((res2) => {
           if (res2.length > 0) {
             this.showAssociationInPopup(res2[0]);
+            this.item_exist = true;
           }else {
             this.pageNotFound = true;
+            this.item_exist = false;
           }
         });
       }
@@ -299,54 +312,65 @@ export class ChaptersAssociationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      this.slug = params['slug'];
-      this.popupWindowCommunicationService.showLoader();
-      if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
-        this.getAssociations();
-        const self = this;
-        const timer = setInterval(function () {
-          if (self.career_associations.length > 0) {
-            clearInterval(timer);
-            self.getPostBySlug();
-          }
-        }, 100);
-      }
-    });
+    console.log(this.pageNotFound);
+    if (!this.pageNotFound) {
+      this.activatedRoute.params.subscribe((params: Params) => {
+        this.slug = params['slug'];
+        this.popupWindowCommunicationService.showLoader();
+        if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
+          this.getAssociations();
+          const self = this;
+          const timer = setInterval(function () {
+            if (self.career_associations.length > 0) {
+              clearInterval(timer);
+              self.getPostBySlug();
+            }
+          }, 100);
+        }
+      });
 
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      if (this.slug === 'undefined' || typeof this.slug === 'undefined') {
-        this.searchTerm = params['q'];
-        if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
+      this.activatedRoute.queryParams.subscribe((params: Params) => {
+        if (this.slug === 'undefined' || typeof this.slug === 'undefined') {
+          this.item_exist = true;
+          this.searchTerm = params['q'];
+          if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
             this.submitSearch();
-        }
-        if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
-          if (this.associations[0].associations.length === 0) {
-            this.getAssociations();
+          }else {
+            if (this.associations[0].associations.length === 0) {
+              this.getAssociations();
+            }
+          }
+          this.popupWindowCommunicationService.hidePopup(true);
+        }else {
+          if (params['q'] && !this.pageNotFound) {
+            if (this.lang === 'sv') {
+              this.router.navigate(['sv/associations-and-chapters/' + this.slug]);
+            }else {
+              this.router.navigate(['en/associations-and-chapters/' + this.slug]);
+            }
           }
         }
-        this.popupWindowCommunicationService.hidePopup(true);
-      }else {
-        if (params['q']) {
-          this.router.navigate(['/associations-and-chapters/' + this.slug]);
-        }
-      }
-    });
+      });
 
-    const self = this;
-    const timer = setInterval(function () {
-      if (self.searchTerm) {
-        clearInterval(timer);
-        self.renderer.listen(self.searchField.nativeElement, 'search', () => {
-          if (self.searchTerm === '') {
-            self.router.navigate(['/associations-and-chapters']);
-            self.showChapters = false;
-            self.showAssociations = true;
-            self.getAssociations();
-          }
-        });
-      }
-    }, 100);
+      const self = this;
+      const timer = setInterval(function () {
+        if (self.searchTerm) {
+          clearInterval(timer);
+          self.renderer.listen(self.searchField.nativeElement, 'search', () => {
+            if (self.searchTerm === '') {
+              if (this.lang === 'sv') {
+                self.router.navigate(['sv/associations-and-chapters']);
+              }else {
+                self.router.navigate(['en/associations-and-chapters']);
+              }
+              self.showChapters = false;
+              self.showAssociations = true;
+              self.getAssociations();
+            }
+          });
+        }
+      }, 100);
+    }
   }
 
 }

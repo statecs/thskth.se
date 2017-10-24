@@ -1,7 +1,8 @@
 <app-header></app-header>
 
-<div id="support">
-  <div class="heading">
+<div *ngIf="!pageNotFound" id="support">
+  <app-loader *ngIf="!exist_category"></app-loader>
+  <div *ngIf="exist_category" class="heading">
     <div class="title">
       <h2>{{lang === 'en' ? 'Frequestly Asked Questions' : 'Vanliga frågor'}}</h2>
       <span>{{lang === 'en' ? 'Read our frequestly asked questions for fast answers' : 'Läs våra vanliga frågor för snabba svar'}}</span>
@@ -33,7 +34,7 @@
       <app-loader *ngIf="parent_categories.length === 0"></app-loader>
     </div>
   </div>
-  <div *ngIf="show_single_view" class="faqs-single-view">
+  <div *ngIf="exist_category && show_single_view" class="faqs-single-view">
     <div class="submenu">
       <label>{{lang === 'en' ? 'FAQ categories' : 'FAQ kategorier'}}</label>
       <div *ngFor="let c of parent_categories, let i = index" class="submenu-item" [ngClass]="{selected: i === selected_cat_index}" (click)="displayCategory(i)">{{c.name}}</div>
@@ -84,3 +85,5 @@
     </div>
   </div>
 </div>
+
+<app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>

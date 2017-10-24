@@ -1,7 +1,8 @@
 <app-header></app-header>
 
-<div id="restaurant">
+<div  *ngIf="!pageNotFound" id="restaurant">
   <h1>{{(lang === 'en' ? 'THS restaurants' : 'THS restauranger')}}</h1>
+  <app-loader *ngIf="loading"></app-loader>
   <div class="gallery">
     <div *ngFor="let item of restaurants, let i = index" class="g-item" [ngClass]="{'selected': restaurant_index === i}" (click)="showRestaurant(i)" [style.backgroundImage]="'url(' + item.imageUrl + ')'">
       <div class="text">
@@ -66,3 +67,4 @@
   </div>
 </div>
 
+<app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>

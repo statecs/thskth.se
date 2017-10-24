@@ -85,6 +85,8 @@ export class StudentLifeComponent implements OnInit {
           console.log(this.lang);
           if (typeof this.lang === 'undefined') {
             this.lang = 'en';
+          }else if (this.lang !== 'en' && this.lang !== 'sv') {
+            this.lang = 'en';
           }
           this.getSecondarySubMenu();
           this.getPageBySlug();
@@ -92,6 +94,8 @@ export class StudentLifeComponent implements OnInit {
       }else {
         this.lang = params['lang'];
         if (typeof this.lang === 'undefined') {
+          this.lang = 'en';
+        }else if (this.lang !== 'en' && this.lang !== 'sv') {
           this.lang = 'en';
         }
         this.getSubmenu();

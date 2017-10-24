@@ -32,6 +32,8 @@ export class SupportComponent implements OnInit {
     public most_asked_questions_slugs: string[];
     public show_single_view: boolean;
     private lang: string;
+    private pageNotFound: boolean;
+    private exist_category: boolean;
 
   constructor(private faqsService: FaqsService,
               private activatedRoute: ActivatedRoute,
@@ -40,6 +42,8 @@ export class SupportComponent implements OnInit {
               private location: Location,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private _cookieService: CookieService) {
+      this.exist_category = false;
+      this.pageNotFound = false;
     this.selected_cat_index = 0;
     this.showFaqs = true;
     this.loading = true;
@@ -54,12 +58,13 @@ export class SupportComponent implements OnInit {
     this.most_asked_faqs = [];
     this.show_single_view = false;
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.lang = params['lang'];
-      if (this.lang === 'en') {
-          this.router.navigate(['support']);
-      }else if (typeof this.lang === 'undefined') {
-          this.lang = 'en';
-      }
+        this.lang = params['lang'];
+        if (typeof this.lang === 'undefined') {
+            this.lang = 'en';
+        }else if (this.lang !== 'en' && this.lang !== 'sv') {
+            this.pageNotFound = true;
+            this.lang = 'en';
+        }
       console.log(this.lang);
       this._cookieService.put('language', this.lang);
     });
@@ -79,7 +84,7 @@ export class SupportComponent implements OnInit {
       if (this.lang === 'sv') {
           this.location.go('sv/support?q=' + this.searchTerm);
       }else {
-          this.location.go('support?q=' + this.searchTerm);
+          this.location.go('en/support?q=' + this.searchTerm);
       }
 
       if (this.searchTerm === '') {
@@ -137,7 +142,7 @@ export class SupportComponent implements OnInit {
       if (this.lang === 'sv') {
           this.router.navigate(['sv/support/' + this.parent_categories[index].slug]);
       }else {
-          this.router.navigate(['support/' + this.parent_categories[index].slug]);
+          this.router.navigate(['en/support/' + this.parent_categories[index].slug]);
       }
 
       //this.router.navigate(['contact-section/faq'], { queryParams: { category: this.parent_categories[index].slug } });
@@ -193,18 +198,28 @@ export class SupportComponent implements OnInit {
           this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
               this.parent_categories = categories;
               console.log(categories);
-
+              console.log(this.selected_cat_slug);
               if (this.selected_cat_slug) {
+                  let matched = false;
                   for (let i = 0; i < categories.length; i++) {
                       if (categories[i].slug === this.selected_cat_slug) {
                           this.selected_category = categories[i];
                           this.selected_cat_index = i;
+                          matched = true;
                       }
+                  }
+                  if (matched) {
+                      console.log(matched);
+                      this.getFAQs_ByParentCategory(this.selected_category.id);
+                      this.exist_category = true;
+                  }else {
+                      this.pageNotFound = true;
                   }
               }else {
                   this.selected_category = categories[0];
+                  this.getFAQs_ByParentCategory(this.selected_category.id);
+                  this.exist_category = true;
               }
-              this.getFAQs_ByParentCategory(this.selected_category.id);
           });
       //}
   }
@@ -226,6 +241,7 @@ export class SupportComponent implements OnInit {
           // console.log(params['returnUrl']);
           if (this.selected_cat_slug === 'undefined' || typeof this.selected_cat_slug === 'undefined') {
               this.getFAQParentCategories();
+              this.exist_category = true;
           }
       });
 
@@ -279,26 +295,28 @@ export class SupportComponent implements OnInit {
                           if (self.lang === 'sv') {
                               self.router.navigate(['/sv/support']);
                           }else {
-                              self.router.navigate(['/support']);
+                              self.router.navigate(['/en/support']);
                           }
                       }else {
                           if (self.lang === 'sv') {
                               self.location.go('/sv/support');
                           }else {
-                              self.location.go('/support');
+                              self.location.go('/en/support');
                           }
                           self.show_single_view = false;
-                          self.router.navigate(['/support']);
+                          self.router.navigate(['/en/support']);
                           if (self.lang === 'sv') {
                               self.router.navigate(['/sv/support']);
                           }else {
-                              self.router.navigate(['/support']);
+                              self.router.navigate(['/en/support']);
                           }
                       }
 
                       //self.showResults = false;
                   }
               });
+          }else if (self.pageNotFound) {
+              clearInterval(timer);
           }
       }, 100);
   }

@@ -46,6 +46,7 @@ export class ArchiveComponent implements OnInit {
   public start_date: string;
   public end_date: string;
   private lang: string;
+  private pageNotFound: boolean;
 
   constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,
@@ -78,10 +79,10 @@ export class ArchiveComponent implements OnInit {
     this.start_date = '2014-09-24';
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
-      console.log(this.lang);
-      if (this.lang === 'en') {
-        this.router.navigate(['search']);
-      }else if (typeof this.lang === 'undefined') {
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }else if (this.lang !== 'en' && this.lang !== 'sv') {
+        this.pageNotFound = true;
         this.lang = 'en';
       }
       this._cookieService.put('language', this.lang);
@@ -174,7 +175,12 @@ export class ArchiveComponent implements OnInit {
     if (this.postsChecked) {
       this.searchDocuments();
     }
-    this.location.go('/archive?q=' + this.searchTerm);
+    if (this.lang === 'sv') {
+      this.location.go('sv/archive?q=' + this.searchTerm);
+    }else {
+      this.location.go('en/archive?q=' + this.searchTerm);
+    }
+
   }
 
   searchDocuments(): void {
@@ -242,7 +248,11 @@ export class ArchiveComponent implements OnInit {
       console.log(this.searchTerm);
       if (this.searchTerm === '') {
         console.log('search');
-        this.location.go('/archive');
+        if (this.lang === 'sv') {
+          this.location.go('sv/archive?q=' + this.searchTerm);
+        }else {
+          this.location.go('en/archive?q=' + this.searchTerm);
+        }
         this.showFilters = true;
         this.showResults = false;
         this.documentResults = this.latestDocuments;

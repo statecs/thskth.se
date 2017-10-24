@@ -1,3 +1,7 @@
-<p>
+<app-header></app-header>
+
+<p *ngIf="!pageNotFound">
   news works!
 </p>
+
+<app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>

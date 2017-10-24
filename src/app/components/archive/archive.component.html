@@ -1,7 +1,7 @@
 <!--<div (click)="hideDropdowns($event)">-->
 <app-header></app-header>
 
-<div id="content-container">
+<div *ngIf="!pageNotFound" id="content-container">
   <div class="search-bar">
     <h2>{{lang === 'en'? 'Search THS Documents' : 'Sök THS Dokument'}}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
@@ -145,3 +145,4 @@
 </div>
 <!--</div>-->
 
+<app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>

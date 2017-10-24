@@ -14,7 +14,6 @@ export class LiveComponent implements OnInit {
   public page: Page;
   public subMenu: any;
   public slug: string;
-  //public _baseSlug: string;
   private lang: string;
 
   constructor(private pagesService: PagesService,
@@ -32,7 +31,6 @@ export class LiveComponent implements OnInit {
   }
 
   getSecondarySubMenu() {
-    //this._baseSlug = 'student-life/' + this.slug + '/';
     this.menusService.get_secondarySubMenu('live', this.slug, this.lang).subscribe((submenu) => {
       this.subMenu = submenu;
       console.log(this.subMenu);
@@ -40,7 +38,6 @@ export class LiveComponent implements OnInit {
   }
 
   getSubmenu() {
-    //this._baseSlug = 'student-life/';
     this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
       this.subMenu = submenu;
     });

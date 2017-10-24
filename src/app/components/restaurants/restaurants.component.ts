@@ -24,19 +24,23 @@ export class RestaurantsComponent implements OnInit {
   public a_la_carte: DishesTime;
   public selected_day: string;
   private lang: string;
+  private pageNotFound: boolean;
+  private loading: boolean;
 
   constructor(private restaurantService: RestaurantService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private _cookieService: CookieService) {
+    this.loading = true;
     this.slideIndex = 0;
     this.showSchedule = false;
     this.selected_day = 'monday';
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
-      if (this.lang === 'en') {
-        this.router.navigate(['restaurants']);
-      }else if (typeof this.lang === 'undefined') {
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }else if (this.lang !== 'en' && this.lang !== 'sv') {
+        this.pageNotFound = true;
         this.lang = 'en';
       }
       console.log(this.lang);
@@ -113,6 +117,7 @@ export class RestaurantsComponent implements OnInit {
   ngOnInit() {
     //this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName('bar-item');
     this.restaurantService.getRestaurants(this.lang).subscribe((res) => {
+      this.loading = false;
       console.log(res);
       this.restaurants = res;
     });

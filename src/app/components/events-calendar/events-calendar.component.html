@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div id="events-calendar">
+<div *ngIf="!pageNotFound" id="events-calendar">
   <div class="calendar-wrapper">
     <div class="title">
       <h2>{{(lang === 'en' ? 'Events calendar' : 'Evenemangskalender')}}</h2>
@@ -48,3 +48,5 @@
     </div>
   </div>
 </div>
+
+<app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>

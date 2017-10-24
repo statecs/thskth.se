@@ -43,6 +43,7 @@ export class SearchComponent implements OnInit {
   public most_asked_questions_slugs: string[];
 
   private lang: string;
+  private pageNotFound: boolean;
 
   constructor(private searchService: SearchService,
               private activatedRoute: ActivatedRoute,
@@ -72,10 +73,10 @@ export class SearchComponent implements OnInit {
     this.most_asked_faqs = [];
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
-      console.log(this.lang);
-      if (this.lang === 'en') {
-        this.router.navigate(['search']);
-      }else if (typeof this.lang === 'undefined') {
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }else if (this.lang !== 'en' && this.lang !== 'sv') {
+        this.pageNotFound = true;
         this.lang = 'en';
       }
       this._cookieService.put('language', this.lang);
@@ -121,7 +122,7 @@ export class SearchComponent implements OnInit {
       if (this.lang === 'sv') {
         this.location.go('sv/search?q=' + this.searchTerm);
       }else {
-        this.location.go('/search?q=' + this.searchTerm);
+        this.location.go('en/search?q=' + this.searchTerm);
       }
     }
   }
@@ -218,7 +219,7 @@ export class SearchComponent implements OnInit {
             if (self.lang === 'sv') {
               self.location.go('sv/search');
             }else {
-              self.location.go('/search');
+              self.location.go('en/search');
             }
             self.showResults = false;
           }

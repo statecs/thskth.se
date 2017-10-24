@@ -8,6 +8,11 @@
     border-bottom: 0 !important;
   }
 }
+:host /deep/ .page-loader{
+  .loader{
+    margin-top: 100px;
+  }
+}
 
 #content-container{
   @include container-size($main-container);
