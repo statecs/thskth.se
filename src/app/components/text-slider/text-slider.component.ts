@@ -19,6 +19,22 @@ export class TextSliderComponent implements OnInit {
     this.slideIndex = 0;
   }
 
+  selectSlide(index): void {
+    console.log(index);
+    this.selectSlideElements();
+    if (this.slideIndex !== index) {
+      if (this.slideIndex < index) {
+        this.slides[this.slideIndex].style.left = '-101%';
+        this.slideIndex = index;
+        this.showActualSlide();
+      }else {
+        this.slides[this.slideIndex].style.left = '101%';
+        this.slideIndex = index;
+        this.showActualSlide();
+      }
+    }
+  }
+
   navBefore(): void {
     this.selectSlideElements();
     this.slideIndex--;
