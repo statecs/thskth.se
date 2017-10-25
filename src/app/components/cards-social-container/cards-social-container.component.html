@@ -1,7 +1,7 @@
 <div class="title">{{(lang === 'en' ? 'Social Media' : 'Sociala Media')}}</div>
 <div id="cards-container" class="masonry-layout">
 
-    <div *ngFor="let post of socialMediaPosts, let i = index" class="masonry-layout_panel two-fourth">
+    <div *ngFor="let post of socialMediaPosts, let i = index" class="masonry-layout_panel two-fourth larger-devices">
 
         <!-- ---------- Featured card ---------- -->
         <div *ngIf="i === 0" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
@@ -138,6 +138,46 @@
           </div>
         </div>-->
   </div>
+    <div *ngFor="let post of socialMediaPosts, let i = index" class="masonry-layout_panel two-fourth mobile-devices">
+
+        <!-- ---------- Featured card ---------- -->
+        <div *ngIf="(post?.full_picture)" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
+            <div class="featured-card">
+                <div class="host" [ngSwitch]="post.host">
+                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
+                    <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+                </div>
+                <div class="user">
+                    <img src="{{post.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
+                    <div>
+                        <h3 (click)="goToUserProfile(post.user.link)">{{post.user.name}}</h3>
+                        <span>{{formatDate(post.created_time)}}</span>
+                    </div>
+                </div>
+                <p>{{post.message}}</p>
+                <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
+            </div>
+        </div>
+
+        <!-- ---------- Only text card ---------- -->
+        <div *ngIf="i !== 0 && !(post?.full_picture)" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
+            <div class="featured-card">
+                <div class="host" [ngSwitch]="post?.host">
+                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
+                    <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+                </div>
+                <div class="user">
+                    <img src="{{post?.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
+                    <div>
+                        <h3 (click)="goToUserProfile(post?.user.link)">{{post.user.name}}</h3>
+                        <span>{{formatDate(post?.created_time)}}</span>
+                    </div>
+                </div>
+                <p>{{post.message}}</p>
+                <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
+            </div>
+        </div>
+    </div>
 
         <!-- ---------- Small card ---------- -->
         <!--<div class="sub-masonry-layout-row two-fourth">

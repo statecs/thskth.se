@@ -1,6 +1,12 @@
 @import "../../../style/utilities";
 
 #homePage {
+  .larger-devices{
+    display: block;
+  }
+  .mobile-devices{
+    display: none;
+  }
   .contact{
     height: 400px;
     margin-top: 50px;
@@ -38,9 +44,25 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #homePage {
+    .larger-devices{
+      display: none;
+    }
+    .mobile-devices{
+      display: block;
+    }
     .contact{
-      @include container-size(100%);
-      height: 250px;
+      @include container-size(80%);
+      height: auto;
+      .contact-info{
+        width: 100%;
+        height: 100%;
+        float: none;
+      }
+      .maps{
+        width: 100%;
+        height: 300px;
+        float: none;
+      }
     }
     .faq-slider {
       width: 95%;

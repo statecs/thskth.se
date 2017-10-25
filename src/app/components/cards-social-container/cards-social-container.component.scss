@@ -15,6 +15,12 @@
   height: auto;
   margin-bottom: 20px;
   line-height: 1.15;
+  .larger-devices{
+    display: block;
+  }
+  .mobile-devices{
+    display: none;
+  }
 
   .one-fourth {
     width: 24%;
@@ -78,7 +84,7 @@
     cursor: pointer;
     span{
       @include center-content(50%, 50%);
-      margin-top: -3px;
+      margin-top: -4px;
     }
   }
 }
@@ -457,6 +463,12 @@
   }
   .masonry-layout {
     width: 100%;
+    .larger-devices{
+      display: none;
+    }
+    .mobile-devices{
+      display: block;
+    }
     .one-fourth {
       width: 100%;
     }
@@ -561,6 +573,7 @@
   }
   .fetcher {
     height: 5px;
+    width: 100%;
     .plus-button {
       width: 35px;
       height: 35px;
