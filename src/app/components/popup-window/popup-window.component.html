@@ -1,126 +1,129 @@
-<div *ngIf="showPopupWindow" class="background_layer" (click)="hide_popup_window()"></div>
-<div *ngIf="showPopupWindow" [ngStyle]="{marginTop: top_position+'px'}" id="popup-window">
-  <div #layouts_container class="layouts-container">
-    <div class="exit-popup-btn" (click)="hide_popup_window()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
-    <app-loader *ngIf="loading"></app-loader>
-    <!-- ---------- Page layout ---------- -->
-    <div *ngIf="showPage && !loading" class="default-layout">
-      <div class="header-image">
-        <img *ngIf="page_data?.acf.header_image" src="{{page_data?.acf.header_image.url}}" alt="Header image">
-        <div *ngIf="!page_data?.acf.header_image && page_data?.acf.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data?.acf.header_color}"></div>
-        <div *ngIf="!page_data?.acf.header_image && !page_data?.acf.header_color" class="default-header"></div>
-      </div>
-      <div class="content-container">
-        <h2 [innerHTML]="page_data?.title.rendered"></h2>
-        <p [innerHTML]="page_data?.content.rendered"></p>
-      </div>
-      <div *ngIf="false" class="previous-post">
-        <div class="btn"><i class="material-icons">keyboard_arrow_left</i></div>
-        <span>Previous post</span>
-      </div>
-      <div *ngIf="false" class="next-post">
-        <span>Next post</span>
-        <div class="btn"><i class="material-icons">keyboard_arrow_right</i></div>
-      </div>
-    </div>
-
-    <!-- ---------- Event layout ---------- -->
-    <div *ngIf="showEvent && !loading" class="event-layout">
-      <div class="header-image">
-        <img *ngIf="event?.imageUrl" src="{{event?.imageUrl}}" alt="Header image">
-        <div *ngIf="!event?.imageUrl" class="default-header"></div>
-      </div>
-      <div class="content-container">
-        <div class="date">{{getDate(event?.start)}}</div>
-        <div class="description">
-          <h2 [innerHTML]="event?.title"></h2>
-          <span class="time">{{formatDate(event?.start, event?.end)}}</span>
-          <p class="location"><span>Location:</span> {{event?.location}}</p>
-          <p [innerHTML]="event?.description"></p>
-          <br/>
-          <p>Created by <span class="creator">{{event?.creator.email}}</span></p>
+<div *ngIf="showPopupWindow" class="container">
+  <div class="background_layer" (click)="hide_popup_window()"></div>
+  <div [ngStyle]="{marginTop: top_position+'px'}" id="popup-window">
+    <div #layouts_container class="layouts-container">
+      <div class="exit-popup-btn" (click)="hide_popup_window()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
+      <app-loader *ngIf="loading"></app-loader>
+      <!-- ---------- Page layout ---------- -->
+      <div *ngIf="showPage && !loading" class="default-layout">
+        <div class="header-image">
+          <img *ngIf="page_data?.acf.header_image" src="{{page_data?.acf.header_image.url}}" alt="Header image">
+          <div *ngIf="!page_data?.acf.header_image && page_data?.acf.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data?.acf.header_color}"></div>
+          <div *ngIf="!page_data?.acf.header_image && !page_data?.acf.header_color" class="default-header"></div>
+        </div>
+        <div class="content-container">
+          <h2 [innerHTML]="page_data?.title.rendered"></h2>
+          <p [innerHTML]="page_data?.content.rendered"></p>
+        </div>
+        <div *ngIf="false" class="previous-post">
+          <div class="btn"><i class="material-icons">keyboard_arrow_left</i></div>
+          <span>Previous post</span>
+        </div>
+        <div *ngIf="false" class="next-post">
+          <span>Next post</span>
+          <div class="btn"><i class="material-icons">keyboard_arrow_right</i></div>
         </div>
       </div>
-    </div>
 
-    <!-- ---------- Associations layout ---------- -->
-    <div *ngIf="showAssociation && !loading" class="association-layout">
-      <div class="header-image">
-        <app-header-slider *ngIf="association?.header_slides.length !== 0" [slides_items]="association.header_slides"></app-header-slider>
-        <!--<img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">-->
-        <div *ngIf="association?.header_slides.length === 0" class="default-header"></div>
-      </div>
-      <div class="content-container">
-        <div class="description">
-          <h2 [innerHTML]="association?.title"></h2>
-          <p [innerHTML]="association?.description"></p>
+      <!-- ---------- Event layout ---------- -->
+      <div *ngIf="showEvent && !loading" class="event-layout">
+        <div class="header-image">
+          <img *ngIf="event?.imageUrl" src="{{event?.imageUrl}}" alt="Header image">
+          <div *ngIf="!event?.imageUrl" class="default-header"></div>
         </div>
-        <div class="contact">
-          <h2>Contact</h2>
-          <p>{{association.contact?.title}} {{association.contact?.name}}</p>
-          <p>email: {{association.contact?.email}}</p>
-          <p>phone: {{association.contact?.phone}}</p>
-          <p>website: {{association.contact?.website}}</p>
-          <p>Alternative website: {{association.contact?.website2}}</p>
-        </div>
-        <app-image-slider-secondary *ngIf="relatedAssociations?.items.length != 0" [data]="relatedAssociations"></app-image-slider-secondary>
-      </div>
-    </div>
-
-    <!-- ---------- Archive layout ---------- -->
-    <div *ngIf="showArchive && !loading" class="association-layout">
-      <!--<div class="header-image">
-        <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
-        <div *ngIf="!association?.image" class="default-header"></div>
-      </div>-->
-      <div class="content-container">
-        <div class="description">
-          <h2 [innerHTML]="archive?.title"></h2>
-          <div class="categories">
-            <span *ngFor="let c of archive?.categories">{{c.name}}</span>
+        <div class="content-container">
+          <div class="date">{{getDate(event?.start)}}</div>
+          <div class="description">
+            <h2 [innerHTML]="event?.title"></h2>
+            <span class="time">{{formatDate(event?.start, event?.end)}}</span>
+            <p class="location"><span>Location:</span> {{event?.location}}</p>
+            <p [innerHTML]="event?.description"></p>
+            <br/>
+            <p>Created by <span class="creator">{{event?.creator.email}}</span></p>
           </div>
-          <p [innerHTML]="archive?.description"></p>
-          <div class="files">
-            <div *ngFor="let f of archive?.documents" class="link_container">
-              <div *ngIf="f.mime_type ==='pdf'" class="download_link" (click)="downloadFile(f.url)">
-                <span>PDF </span>
-                <i class="material-icons">file_download</i>
-              </div>
-              <div *ngIf="f.mime_type ==='docx'" class="download_link" (click)="downloadFile(f.url)">
-                <span>DOC </span>
-                <i class="material-icons">file_download</i>
-              </div>
-              <div *ngIf="f.mime_type ==='zip'" class="download_link" (click)="downloadFile(f.url)">
-                <span>Zip </span>
-                <i class="material-icons">file_download</i>
+        </div>
+      </div>
+
+      <!-- ---------- Associations layout ---------- -->
+      <div *ngIf="showAssociation && !loading" class="association-layout">
+        <div class="header-image">
+          <app-header-slider *ngIf="association?.header_slides.length !== 0" [slides_items]="association.header_slides"></app-header-slider>
+          <!--<img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">-->
+          <div *ngIf="association?.header_slides.length === 0" class="default-header"></div>
+        </div>
+        <div class="content-container">
+          <div class="description">
+            <h2 [innerHTML]="association?.title"></h2>
+            <p [innerHTML]="association?.description"></p>
+          </div>
+          <div class="contact">
+            <h2>Contact</h2>
+            <p>{{association.contact?.title}} {{association.contact?.name}}</p>
+            <p>email: {{association.contact?.email}}</p>
+            <p>phone: {{association.contact?.phone}}</p>
+            <p>website: {{association.contact?.website}}</p>
+            <p>Alternative website: {{association.contact?.website2}}</p>
+          </div>
+          <app-image-slider-secondary *ngIf="relatedAssociations?.items.length != 0" [data]="relatedAssociations"></app-image-slider-secondary>
+        </div>
+      </div>
+
+      <!-- ---------- Archive layout ---------- -->
+      <div *ngIf="showArchive && !loading" class="association-layout">
+        <!--<div class="header-image">
+          <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
+          <div *ngIf="!association?.image" class="default-header"></div>
+        </div>-->
+        <div class="content-container">
+          <div class="description">
+            <h2 [innerHTML]="archive?.title"></h2>
+            <div class="categories">
+              <span *ngFor="let c of archive?.categories">{{c.name}}</span>
+            </div>
+            <p [innerHTML]="archive?.description"></p>
+            <div class="files">
+              <div *ngFor="let f of archive?.documents" class="link_container">
+                <div *ngIf="f.mime_type ==='pdf'" class="download_link" (click)="downloadFile(f.url)">
+                  <span>PDF </span>
+                  <i class="material-icons">file_download</i>
+                </div>
+                <div *ngIf="f.mime_type ==='docx'" class="download_link" (click)="downloadFile(f.url)">
+                  <span>DOC </span>
+                  <i class="material-icons">file_download</i>
+                </div>
+                <div *ngIf="f.mime_type ==='zip'" class="download_link" (click)="downloadFile(f.url)">
+                  <span>Zip </span>
+                  <i class="material-icons">file_download</i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="contact">
-          <h2>Author</h2>
-          <img src="{{archive?.author.avatar_url}}">
-          <p>name: <span>{{archive?.author.name}}</span></p>
-          <p>last modified: <span>{{archive?.lastModified}}</span></p>
+          <div class="contact">
+            <h2>Author</h2>
+            <img src="{{archive?.author.avatar_url}}">
+            <p>name: <span>{{archive?.author.name}}</span></p>
+            <p>last modified: <span>{{archive?.lastModified}}</span></p>
+          </div>
         </div>
       </div>
-    </div>
 
       <!-- ---------- FAQ layout ---------- -->
       <div *ngIf="showFaq && !loading" class="association-layout">
-          <!--<div class="header-image">
-            <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
-            <div *ngIf="!association?.image" class="default-header"></div>
-          </div>-->
-          <div class="content-container">
-              <div class="description">
-                  <h2 [innerHTML]="faq?.question"></h2>
-                  <p [innerHTML]="faq?.answer"></p>
-              </div>
+        <!--<div class="header-image">
+          <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
+          <div *ngIf="!association?.image" class="default-header"></div>
+        </div>-->
+        <div class="content-container">
+          <div class="description">
+            <h2 [innerHTML]="faq?.question"></h2>
+            <p [innerHTML]="faq?.answer"></p>
           </div>
+        </div>
       </div>
-
+    </div>
 
   </div>
 
 </div>
+
+<div *ngIf="showPopupWindow" class="exit-popup-btn-mobile" (click)="hide_popup_window()"><i class="fa fa-times-circle"></i> Close</div>
