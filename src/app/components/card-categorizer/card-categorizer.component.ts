@@ -59,6 +59,8 @@ export class CardCategorizerComponent implements AfterViewInit {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
+      }else if (this.lang !== 'en' && this.lang !== 'sv') {
+        this.lang = 'en';
       }
       console.log(this.lang);
     });

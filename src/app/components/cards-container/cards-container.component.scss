@@ -131,6 +131,22 @@
     box-shadow: none !important;
   }
 }
+::-webkit-scrollbar
+{
+  width: 0;  /* for vertical scrollbars */
+  height: 0; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgba(0, 0, 0, 0);
+  border-radius: 10px;
+}
 
 // ---------- Video card ---------- //
 :host /deep/ .video-card {
@@ -392,28 +408,29 @@
       }
     }
     .categories{
+      overflow-x: scroll;
+      font-size: $font-size-default;
       .item{
-        font-size: $font-size-h7;
+        font-size: $font-size-h6;
+      }
+      .selected{
+        color: #000;
+        border-bottom: 2px solid rgba(0,0,0,0) !important;
+        background-color: #efefef;
+        font-weight: 700;
       }
     }
     .left-content{
-      padding: 0 10px;
-      h3{
-        font-size: $font-size-h4;
-        margin: 15px 0 5px;
-      }
-      .large-devices{
-        display: none;
-      }
-      .mobile{
-        display: block;
-      }
+      display: none;
     }
     .right-content{
+      float: left;
+      padding: 20px 10px;
+      width: 100%;
       .event-wrapper{
         padding-bottom: 20px;
         >h4{
-          margin: 5px 0;
+          display: none;
         }
         .event{
           .date{

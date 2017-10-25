@@ -9,18 +9,25 @@
   font-size: $font-size-h3;
   //background-color: $bg-color-primary;
   color: $bg-color-primary;
-
+  .profession {
+    color: green;
+  }
+  .interest {
+    color: blue;
+  }
   & >div {
     display: inline-block;
     cursor: pointer;
     position: relative;
 
     & >span {
-      text-decoration: underline;
+      //text-decoration: underline;
       margin: 0 10px;
+      font-weight: 700;
     }
     & >i {
       vertical-align: middle;
+      font-weight: 700;
     }
 
     .dropdown-container {
