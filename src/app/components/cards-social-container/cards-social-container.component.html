@@ -154,7 +154,7 @@
                         <span>{{formatDate(post.created_time)}}</span>
                     </div>
                 </div>
-                <p>{{post.message}}</p>
+                <p [innerHTML]="post.message | cardText:150"></p>
                 <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
             </div>
         </div>
