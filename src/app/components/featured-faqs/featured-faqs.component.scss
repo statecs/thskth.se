@@ -1,0 +1,85 @@
+@import "../../../style/utilities";
+
+.featured-faqs{
+  width: 100%;
+  margin: 20px 0;
+  text-align: center;
+  overflow: hidden;
+  .larger-devices{
+    display: block;
+  }
+  .mobile{
+    display: none;
+  }
+  .item{
+    background-color: lightgray;
+    text-align: center;
+    width: 30%;
+    height: 200px;
+    display: inline-block;
+    margin: 0 1%;
+    vertical-align: top;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    >div{
+      text-align: left;
+      >p{
+        text-align: left;
+        display: inline;
+      }
+      >span{
+        color: $color-link-secondary;
+        cursor: pointer;
+        &:hover {
+          color: $color-link-secondary-hover;
+        }
+      }
+    }
+  }
+}
+
+::-webkit-scrollbar
+{
+  width: 0;  /* for vertical scrollbars */
+  height: 0; /* for horizontal scrollbars */
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  .featured-faqs {
+    overflow: hidden;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .slides-wrapper{
+      transition: margin 0.5s ease;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  .featured-faqs {
+
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  .featured-faqs {
+
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  .featured-faqs {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

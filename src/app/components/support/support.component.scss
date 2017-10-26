@@ -68,37 +68,6 @@
     border-top: 1px solid lightgray;
     margin-bottom: 100px;
     margin-top: 50px;
-    .featured-faqs{
-      width: 100%;
-      margin: 20px 0;
-      text-align: center;
-      .item{
-        background-color: lightgray;
-        text-align: center;
-        width: 30%;
-        height: 200px;
-        display: inline-block;
-        margin: 0 1%;
-        vertical-align: top;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        >div{
-          text-align: left;
-          >p{
-            text-align: left;
-            display: inline;
-          }
-          >span{
-            color: $color-link-secondary;
-            cursor: pointer;
-            &:hover {
-              color: $color-link-secondary-hover;
-            }
-          }
-        }
-      }
-    }
     .faqs-categories{
       border-top: 1px solid lightgray;
       text-align: center;

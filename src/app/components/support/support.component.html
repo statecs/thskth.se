@@ -17,17 +17,7 @@
     </div>
   </div>
   <div *ngIf="!show_single_view" class="content-container">
-    <div class="featured-faqs">
-      <div *ngFor="let item of most_asked_faqs" class="item">
-        <h2>{{item.question}}</h2>
-        <div>
-          <p [innerHTML]="item.answer | cardText:100"></p>
-          <span *ngIf="item.answer?.length > 100" (click)="showInPopup(item)">{{lang === 'en' ? 'Read more' : 'Läs mer'}}</span>
-        </div>
-      </div>
-      <app-loader *ngIf="most_asked_faqs?.length === 0"></app-loader>
-    </div>
-
+    <app-featured-faqs></app-featured-faqs>
     <div class="faqs-categories">
       <h2>{{lang === 'en' ? 'FAQ categories' : 'FAQ kategorier'}}</h2>
       <a *ngFor="let c of parent_categories" routerLink="{{c.slug}}" class="category">{{c.name}}</a>

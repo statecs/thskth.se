@@ -71,6 +71,7 @@
           margin: 20px 5%;
           position: relative;
           cursor: pointer;
+          border-radius: 5px;
           span{
             @include center-content(50%, 50%);
           }
@@ -104,7 +105,28 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #content-container {
-
+    width: 100%;
+    #page{
+      .heading{
+        margin: 0 20px 10px;
+        .title{
+          width: 100%;
+        }
+      }
+      .content-container{
+        .submenu-bar{
+          .submenu-item{
+            width: 80%;
+            margin: 10px 5%;
+            height: 70px;
+          }
+        }
+        .contact-form{
+          width: 90%;
+          margin-left: 5%;
+        }
+      }
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)

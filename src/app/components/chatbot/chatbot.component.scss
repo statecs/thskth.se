@@ -9,6 +9,12 @@
     min-height: 300px;
     position: relative;
     padding: 15px 15px 50px;
+    .larger-devices{
+      display: block !important;
+    }
+    .mobile{
+      display: none !important;
+    }
     ol{
       list-style: none;
       padding: 0;
@@ -114,7 +120,31 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #chatbot {
-
+    .chat_flow {
+      .larger-devices {
+        display: none !important;
+      }
+      .mobile {
+        display: block !important;
+      }
+      .reset-btn{
+        right: 10px;
+      }
+      ol{
+        li{
+          .response{
+            .text{
+              max-width: 50%;
+            }
+            .info{
+              .info-text{
+                width: 190px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)

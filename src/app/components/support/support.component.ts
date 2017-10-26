@@ -2,7 +2,6 @@ import {Component, OnInit, ElementRef, Renderer2, ViewChild} from '@angular/core
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
 import { Router, ActivatedRoute, Params} from '@angular/router';
-import { most_asked_questions } from '../../utils/most-asked-questions';
 import {Location} from '@angular/common';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {CookieService} from 'ngx-cookie';
@@ -29,7 +28,6 @@ export class SupportComponent implements OnInit {
   public searchOnActive: boolean;
   public selected_cat_slug: string;
     public most_asked_faqs: FAQ[];
-    public most_asked_questions_slugs: string[];
     public show_single_view: boolean;
     private lang: string;
     private pageNotFound: boolean;
@@ -53,7 +51,6 @@ export class SupportComponent implements OnInit {
     this.search_results = [];
     this.searchTerm = '';
     this.noInput = false;
-    this.most_asked_questions_slugs = most_asked_questions;
     this.parent_categories = [];
     this.most_asked_faqs = [];
     this.show_single_view = false;
@@ -265,19 +262,6 @@ export class SupportComponent implements OnInit {
                   this.show_single_view = false;
               }
           }
-      });
-
-      this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0]).subscribe((faq) => {
-          const faqs: FAQ[] = [];
-          faqs.push(faq);
-          this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1]).subscribe((faq2) => {
-              faqs.push(faq2);
-              this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2]).subscribe((faq3) => {
-                  faqs.push(faq3);
-
-                  this.most_asked_faqs = faqs;
-              });
-          });
       });
 
       const self = this;
