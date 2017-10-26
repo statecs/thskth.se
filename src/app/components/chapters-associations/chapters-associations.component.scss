@@ -284,7 +284,67 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #content-container {
-
+    width: 100%;
+    margin-top: 60px;
+    .search-bar{
+      height: 200px;
+      >h2{
+        padding: 15px;
+      }
+      form{
+        width: 90%;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 0 5%;
+        .search{
+          >input{
+            width: 70%;
+          }
+          .mostSearchTerms{
+            bottom: -65px;
+            span{
+              text-align: left;
+              float: left;
+              margin-top: 7px;
+            }
+          }
+        }
+        .submit{
+          width: 30%;
+        }
+      }
+    }
+    .results-container{
+      padding: 0 10px;
+      .grid{
+        .section{
+          .items{
+            .item{
+              width: 45%;
+              .image-wrapper{
+                height: 150px;
+              }
+              .text{
+                height: 190px;
+                h3{
+                  font-size: 1.1em;
+                }
+              }
+            }
+          }
+        }
+      }
+      .list{
+        .section{
+          .items{
+            .item{
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
