@@ -14,6 +14,7 @@ export class RestaurantsComponent implements OnInit {
 
   @ViewChild('slides_container') slides_container: ElementRef;
   @ViewChild('slider_progress_bar') slider_progress_bar: ElementRef;
+  @ViewChild('slides_wrapper') slides_wrapper: ElementRef;
   public slides: any;
   public slideIndex: number;
   public bar_items: any;
@@ -26,6 +27,9 @@ export class RestaurantsComponent implements OnInit {
   private lang: string;
   private pageNotFound: boolean;
   private loading: boolean;
+  private swipeCoord: [number, number];
+  private swipeTime: number;
+  public item_onfocus_index: number;
 
   constructor(private restaurantService: RestaurantService,
               private activatedRoute: ActivatedRoute,
@@ -35,6 +39,7 @@ export class RestaurantsComponent implements OnInit {
     this.slideIndex = 0;
     this.showSchedule = false;
     this.selected_day = 'monday';
+    this.item_onfocus_index = 0;
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
@@ -46,6 +51,70 @@ export class RestaurantsComponent implements OnInit {
       console.log(this.lang);
       this._cookieService.put('language', this.lang);
     });
+  }
+
+  swipe(e: TouchEvent, when: string): void {
+    console.log(when);
+    const coord: [number, number] = [e.changedTouches[0].pageX, e.changedTouches[0].pageY];
+    const time = new Date().getTime();
+
+    if (when === 'start') {
+      this.swipeCoord = coord;
+      this.swipeTime = time;
+    }else if (when === 'end') {
+      const direction = [coord[0] - this.swipeCoord[0], coord[1] - this.swipeCoord[1]];
+      const duration = time - this.swipeTime;
+
+      if (duration < 1000 // Short enough
+          && Math.abs(direction[1]) < Math.abs(direction[0]) // Horizontal enough
+          && Math.abs(direction[0]) > 30) {  // Long enough
+        if (direction[0] < 0) {
+          if (this.item_onfocus_index < this.restaurants.length - 1) {
+            this.item_onfocus_index += 1;
+            console.log(this.item_onfocus_index);
+            this.swipeForward();
+            this.restaurant_index = this.item_onfocus_index;
+            this.updateDishes();
+          }
+        }else {
+          if (this.item_onfocus_index > 0) {
+            this.item_onfocus_index -= 1;
+            this.swipeBackward();
+            console.log(this.item_onfocus_index);
+            this.restaurant_index = this.item_onfocus_index;
+            this.updateDishes();
+          }
+        }
+        // Do whatever you want with swipe
+      }
+    }
+  }
+
+  swipeForward(): void {
+    const slides_wrapper = this.slides_wrapper.nativeElement;
+    let margin_left = '';
+    console.log('swipeForward');
+    if (slides_wrapper.style.marginLeft) {
+      console.log(parseFloat(slides_wrapper.style.marginLeft));
+      margin_left = (parseFloat(slides_wrapper.style.marginLeft) - 85) + '%';
+      console.log(margin_left);
+    }else {
+      margin_left = '-79%';
+      console.log(margin_left);
+    }
+    slides_wrapper.style.marginLeft = margin_left;
+  }
+
+  swipeBackward(): void {
+    const slides_wrapper = this.slides_wrapper.nativeElement;
+    let margin_left = '';
+    console.log('swipeForward');
+    if (slides_wrapper.style.marginLeft) {
+      console.log(parseFloat(slides_wrapper.style.marginLeft));
+      margin_left = (parseFloat(slides_wrapper.style.marginLeft) + 85) + '%';
+      console.log(margin_left);
+    }
+    slides_wrapper.style.marginLeft = margin_left;
   }
 
   changeDay(day) {
@@ -72,8 +141,15 @@ export class RestaurantsComponent implements OnInit {
     }else if (this.selected_day === 'friday') {
       day_index = 4;
     }
-    this.lunch = this.restaurants[this.restaurant_index].menu[day_index].lunch;
-    this.a_la_carte = this.restaurants[this.restaurant_index].menu[day_index].a_la_carte;
+    if (this.restaurant_index) {
+      this.lunch = this.restaurants[this.restaurant_index].menu[day_index].lunch;
+      this.a_la_carte = this.restaurants[this.restaurant_index].menu[day_index].a_la_carte;
+    }else {
+      this.lunch = this.restaurants[this.item_onfocus_index].menu[day_index].lunch;
+      this.a_la_carte = this.restaurants[this.item_onfocus_index].menu[day_index].a_la_carte;
+      console.log('updateDishes');
+    }
+
   }
 
   navBefore(): void {
@@ -120,6 +196,7 @@ export class RestaurantsComponent implements OnInit {
       this.loading = false;
       console.log(res);
       this.restaurants = res;
+      this.updateDishes();
     });
 /*    this.slides_items = [
       {

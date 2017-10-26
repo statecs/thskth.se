@@ -3,7 +3,7 @@
 <div  *ngIf="!pageNotFound" id="restaurant">
   <h1>{{(lang === 'en' ? 'THS restaurants' : 'THS restauranger')}}</h1>
   <app-loader *ngIf="loading"></app-loader>
-  <div class="gallery">
+  <div class="gallery larger-devices">
     <div *ngFor="let item of restaurants, let i = index" class="g-item" [ngClass]="{'selected': restaurant_index === i}" (click)="showRestaurant(i)" [style.backgroundImage]="'url(' + item.imageUrl + ')'">
       <div class="text">
         <h2>{{item.title}}</h2>
@@ -11,7 +11,53 @@
       </div>
     </div>
   </div>
-
+  <div class="gallery mobile">
+    <div #slides_wrapper class="slides-wrapper mobile" [style.width]="restaurants?.length * 86.66 + '%'" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
+      <div *ngFor="let item of restaurants, let i = index" class="g-item" [ngClass]="{'selected': item_onfocus_index === i}" [style.backgroundImage]="'url(' + item.imageUrl + ')'">
+        <div class="text">
+          <h2>{{item.title}}</h2>
+          <p [innerHTML]="item.description | cardText:50"></p>
+        </div>
+      </div>
+    </div>
+    <div class="schedule">
+      <div class="menu-calendar">
+        <h2 class="larger-devices" *ngIf="restaurants">{{restaurants[item_onfocus_index]?.title}}</h2>
+        <div>
+          <div [ngClass]="{'selected': selected_day === 'monday'}" (click)="changeDay('monday')">{{(lang === 'en' ? 'Monday' : 'Måndag')}}</div>
+          <div [ngClass]="{'selected': selected_day === 'tuesday'}" (click)="changeDay('tuesday')">{{(lang === 'en' ? 'Tuesday' : 'Tisdag')}}</div>
+          <div [ngClass]="{'selected': selected_day === 'wednesday'}" (click)="changeDay('wednesday')">{{(lang === 'en' ? 'Wednesday' : 'Onsdag')}}</div>
+          <div [ngClass]="{'selected': selected_day === 'thursday'}" (click)="changeDay('thursday')">{{(lang === 'en' ? 'Thursday' : 'Torsdag')}}</div>
+          <div [ngClass]="{'selected': selected_day === 'friday'}" (click)="changeDay('friday')">{{(lang === 'en' ? 'Friday' : 'Fredag')}}</div>
+        </div>
+      </div>
+      <div class="options">
+        <div>Lunch {{lunch?.serving_time}}</div>
+        <div>A la carté {{a_la_carte?.serving_time}}</div>
+      </div>
+      <div class="menu-container">
+        <h2>Lunch</h2>
+        <div *ngFor="let dish of lunch?.dishes" class="dish">
+          <div>
+            <h4>{{dish.title}}</h4>
+            <p [innerHTML]="dish.description"></p>
+          </div>
+          <span class="fr">{{dish.price}}</span>
+        </div>
+        <br/><br/>
+        <h2>A la carté</h2>
+        <div *ngFor="let dish of a_la_carte?.dishes" class="dish">
+          <div>
+            <h4>{{dish.title}}</h4>
+            <p [innerHTML]="dish.description"></p>
+            <br/>
+            <span class="fl">{{dish.price}}</span>
+          </div>
+          <img src="{{dish.image}}">
+        </div>
+      </div>
+    </div>
+  </div>
   <!--  <div #slides_container id="text-slider">
     <div *ngFor="let item of restaurants" class="slide-wrapper" [style.backgroundImage]="'url(' + item.image + ')'">
       <div class="slide">
@@ -31,12 +77,12 @@
   </div>-->
   <div *ngIf="showSchedule" class="schedule">
     <div class="options">
-      <div>Lunch {{lunch.serving_time}}</div>
-      <div>A la carté {{a_la_carte.serving_time}}</div>
+      <div>Lunch {{lunch?.serving_time}}</div>
+      <div>A la carté {{a_la_carte?.serving_time}}</div>
     </div>
 
     <div class="menu-calendar">
-      <h2>{{restaurants[restaurant_index].title}}</h2>
+      <h2>{{restaurants[restaurant_index]?.title}}</h2>
       <div [ngClass]="{'selected': selected_day === 'monday'}" (click)="changeDay('monday')">{{(lang === 'en' ? 'Monday' : 'Måndag')}}</div>
       <div [ngClass]="{'selected': selected_day === 'tuesday'}" (click)="changeDay('tuesday')">{{(lang === 'en' ? 'Tuesday' : 'Tisdag')}}</div>
       <div [ngClass]="{'selected': selected_day === 'wednesday'}" (click)="changeDay('wednesday')">{{(lang === 'en' ? 'Wednesday' : 'Onsdag')}}</div>
