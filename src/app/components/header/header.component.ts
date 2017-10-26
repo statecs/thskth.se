@@ -42,8 +42,13 @@ export class HeaderComponent implements OnInit {
     this.addLangToSlugPipe = new AddLangToSlugPipe();
   }
 
-  toggleChaptersMobile(): void {
+  toggleChaptersMobile(event): void {
     (this.showChaptersMobile === true ? this.showChaptersMobile = false : this.showChaptersMobile = true);
+    if (this.showChaptersMobile) {
+      event.target.style.transform = 'rotate(90deg)';
+    }else {
+      event.target.style.transform = 'rotate(0deg)';
+    }
   }
 
   toggleMenuMobile(): void {
