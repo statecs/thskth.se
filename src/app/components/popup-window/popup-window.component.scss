@@ -14,7 +14,7 @@
 }
 
 .container{
-  position: absolute;
+  position: relative;
   .background_layer{
     position: absolute;
     width: 100%;
@@ -367,6 +367,7 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   .container{
+    position: absolute;
     .background_layer{
 
     }

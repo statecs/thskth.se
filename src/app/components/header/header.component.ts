@@ -7,6 +7,8 @@ import {MenusService} from '../../services/wordpress/menus.service';
 import {MenuItem2} from '../../interfaces/menu';
 import { ths_chapters } from '../../utils/ths-chapters';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {RemoveLangParamPipe} from '../../pipes/remove-lang-param.pipe';
+import {AddLangToSlugPipe} from '../../pipes/add-lang-to-slug.pipe';
 
 @Component({
   selector: 'app-header',
@@ -22,6 +24,10 @@ export class HeaderComponent implements OnInit {
   public ths_chapters: object[];
   public placeholder: string;
   private lang: string;
+  public subMenu: MenuItem2[];
+  private showSubmenuIndex: number;
+  private removeLangParamPipe: RemoveLangParamPipe;
+  private addLangToSlugPipe: AddLangToSlugPipe;
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
               private searchMenubarCommunicationService: SearchMenubarCommunicationService,
@@ -31,6 +37,9 @@ export class HeaderComponent implements OnInit {
     this.showMenuMobile = false;
     this.showChaptersMobile = false;
     this.ths_chapters = ths_chapters;
+    this.subMenu = [];
+    this.removeLangParamPipe = new RemoveLangParamPipe();
+    this.addLangToSlugPipe = new AddLangToSlugPipe();
   }
 
   toggleChaptersMobile(): void {
@@ -60,6 +69,29 @@ export class HeaderComponent implements OnInit {
     }else {
       this.placeholder = 'Search THS and beyond';
     }
+  }
+
+  showSubMenu(id, index) {
+    this.subMenu = [];
+    this.showSubmenuIndex = index;
+    this.menusService.get_mainSubMenu(id, this.lang).subscribe((subMenu) => {
+      this.subMenu = subMenu;
+      console.log(this.subMenu);
+      //const dropdown = submenu_item.lastChild.previousSibling;
+      //dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
+    });
+  }
+
+  hideSubMenu(i): void {
+    this.showSubmenuIndex = -1;
+  }
+
+  goToPage(slug): void {
+    if (this.lang === 'sv') {
+      slug = this.removeLangParamPipe.transform(slug);
+    }
+    slug = this.addLangToSlugPipe.transform(slug, this.lang);
+    this.router.navigate([slug]);
   }
 
   ngOnInit() {

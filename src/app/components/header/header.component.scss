@@ -62,10 +62,11 @@ header {
           i{
             font-size: $font-size-h1;
             vertical-align: middle;
+            color: #acacac;
           }
         }
         >input{
-          width: 85%;
+          width: 80%;
           height: 50px;
           border: 0;
           font-size: $font-size-h4;
@@ -139,20 +140,50 @@ header {
           }
         }
       }
-
-      .menu-items{
-        display: block;
+      .menu-dropdown{
+        width: 100%;
         background-color: white;
-        padding: 10px 0;
-        .nav-item{
-          padding: 5px 0;
-          a{
-            text-decoration: none;
-            color: black;
-            font-size: $font-size-h3;
+        .menu-items{
+          display: block;
+          background-color: white;
+          padding: 10px 0;
+          .nav-item{
+            padding: 5px 0;
+            overflow: hidden;
+            .item-wrapper{
+              overflow: hidden;
+              padding: 0 10%;
+              .label{
+                display: inline-block;
+                float: left;
+                a{
+                  text-decoration: none;
+                  color: #575757;
+                  font-size: $font-size-h3;
+                  font-weight: 700;
+                }
+              }
+              >i{
+                float: right;
+                font-size: $font-size-h2;
+                margin-top: 5px;
+              }
+            }
+            .sub-menu{
+              background-color: #e3e3e3;
+              text-align: left;
+              padding: 10px 12%;
+              font-size: $font-size-h3;
+              color: #575757;
+              >div{
+                margin: 15px 0;
+                font-weight: 400;
+              }
+            }
           }
         }
       }
+
       .chapters-items{
         display: block;
         background-color: white;

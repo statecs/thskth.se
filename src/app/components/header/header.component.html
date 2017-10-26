@@ -27,26 +27,40 @@
                     </div>&ndash;&gt;
                 </div>-->
                 <div class="menu" (click)="toggleMenuMobile()">
-                    <span>Menu</span>
-                    <i class="fa fa-bars"></i>
+                    <span>{{(lang === 'en' ? 'Menu' : 'Meny')}}</span>
+                    <i *ngIf="!showMenuMobile" class="fa fa-bars"></i>
+                    <i *ngIf="showMenuMobile" class="fa fa-times-circle"></i>
                 </div>
             </div>
         </div>
-        <div *ngIf="showMenuMobile" class="search-bar-mobile">
-            <form autocomplete="off">
-                <div class="search-bar">
-                    <a routerLink="support" [queryParams]="{ q: searchTerm }"><i class="material-icons">search</i></a>
-                    <input placeholder="Search THS and beyond..." [(ngModel)]="searchTerm" name="searchInput" type="search" appAutoFocus>
-                </div>
-            </form>
-        </div>
-        <div *ngIf="showMenuMobile" class="menu-items">
-            <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
-                <div class="label">
-                    <a routerLink="{{item.slug}}">{{item.title}}</a>
+        <div *ngIf="showMenuMobile" class="menu-dropdown">
+            <div *ngIf="showMenuMobile" class="search-bar-mobile">
+                <form autocomplete="off">
+                    <div class="search-bar">
+                        <a routerLink="support" [queryParams]="{ q: searchTerm }"><i class="material-icons">search</i></a>
+                        <input placeholder="{{(lang === 'en' ? 'Search THS and beyond...' : 'Sök THS')}}" [(ngModel)]="searchTerm" name="searchInput" type="search" appAutoFocus>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="showMenuMobile" class="menu-items">
+                <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
+                    <div class="item-wrapper">
+                        <div class="label">
+                            <a routerLink="{{item.slug}}">{{item.title}}</a>
+                        </div>
+                        <i *ngIf="showSubmenuIndex !== i" class="fa fa-plus" (click)="showSubMenu(item.object_slug, i)"></i>
+                        <i *ngIf="showSubmenuIndex === i" class="fa fa-minus" (click)="hideSubMenu(i)"></i>
+                    </div>
+                    <div *ngIf="showSubmenuIndex === i" class="sub-menu">
+                        <app-loader *ngIf="subMenu.length === 0"></app-loader>
+                        <div *ngFor="let subItem of subMenu" (click)="goToPage(subItem.slug)">
+                            {{subItem.title}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div *ngIf="showChaptersMobile" class="chapters-items">
             <div *ngFor="let chapter of ths_chapters" class="nav-item">
                 <div class="logo"><img src="{{chapter.image}}"></div>

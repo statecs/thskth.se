@@ -7,6 +7,8 @@ import { APP_CONFIG } from '../../../app.config';
 import { CookieService } from 'ngx-cookie';
 import { ths_chapters } from '../../../utils/ths-chapters';
 import {ActivatedRoute, Router, Params} from '@angular/router';
+import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
+import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 
 @Component({
   selector: 'app-navbar-primary',
@@ -24,6 +26,8 @@ export class NavbarPrimaryComponent implements OnInit {
     private showSubmenuIndex: number;
     public ths_chapters: object[];
     public signin_text: string;
+    private removeLangParamPipe: RemoveLangParamPipe;
+    private addLangToSlugPipe: AddLangToSlugPipe;
 
     constructor( private wordpressApiService: WordpressApiService,
                  injector: Injector,
@@ -33,6 +37,8 @@ export class NavbarPrimaryComponent implements OnInit {
                  private activatedRoute: ActivatedRoute) {
         this.config = injector.get(APP_CONFIG);
         this.ths_chapters = ths_chapters;
+        this.removeLangParamPipe = new RemoveLangParamPipe();
+        this.addLangToSlugPipe = new AddLangToSlugPipe();
     }
 
     openInNewTab(link): void {
@@ -40,6 +46,10 @@ export class NavbarPrimaryComponent implements OnInit {
     }
 
     goToPage(slug): void {
+        if (this.language === 'sv') {
+            slug = this.removeLangParamPipe.transform(slug);
+        }
+        slug = this.addLangToSlugPipe.transform(slug, this.language);
         this.router.navigate([slug]);
     }
 

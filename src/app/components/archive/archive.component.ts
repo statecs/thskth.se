@@ -234,40 +234,57 @@ export class ArchiveComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.searchTerm = params['q'];
-      if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
-        console.log('pass');
-        this.submitSearch();
-      }
-    });
-
-    this.dropdowns = this.filters.nativeElement.getElementsByClassName('dropdown-container');
-
-    this.renderer.listen(this.searchField.nativeElement, 'search', () => {
-      console.log(this.searchTerm);
-      if (this.searchTerm === '') {
-        console.log('search');
-        if (this.lang === 'sv') {
-          this.location.go('sv/archive?q=' + this.searchTerm);
-        }else {
-          this.location.go('en/archive?q=' + this.searchTerm);
+    if (!this.pageNotFound) {
+      this.activatedRoute.queryParams.subscribe((params: Params) => {
+        this.searchTerm = params['q'];
+        if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
+          console.log('pass');
+          this.submitSearch();
         }
-        this.showFilters = true;
-        this.showResults = false;
-        this.documentResults = this.latestDocuments;
-      }
-    });
+      });
+      const self = this;
+      const timer = setInterval(function () {
+        console.log('timer');
+        if (self.filters) {
+          console.log('ptimer');
+          clearInterval(timer);
+          self.dropdowns = self.filters.nativeElement.getElementsByClassName('dropdown-container');
+        }
+      }, 100);
 
-    this.archiveService.getDocuments(10, this.lang).subscribe((res) => {
-      this.documentsLoading = false;
-      console.log(res);
-      this.documentResults = res;
-      this.latestDocuments = res;
-    });
+      const timer2 = setInterval(function () {
+        console.log('timer2');
+        if (self.searchField) {
+          console.log('ptimer2');
+          clearInterval(timer2);
+          self.renderer.listen(self.searchField.nativeElement, 'search', () => {
+            console.log(self.searchTerm);
+            if (self.searchTerm === '') {
+              console.log('search');
+              if (self.lang === 'sv') {
+                self.location.go('sv/archive?q=' + self.searchTerm);
+              }else {
+                self.location.go('en/archive?q=' + self.searchTerm);
+              }
+              self.showFilters = true;
+              self.showResults = false;
+              self.documentResults = self.latestDocuments;
+            }
+          });
+        }
+      }, 100);
 
-    this.end_date = format(new Date(), 'YYYY-MM-DD');
-    console.log(this.end_date);
+      this.archiveService.getDocuments(10, this.lang).subscribe((res) => {
+        this.documentsLoading = false;
+        console.log(res);
+        this.documentResults = res;
+        this.latestDocuments = res;
+      });
+
+      this.end_date = format(new Date(), 'YYYY-MM-DD');
+      console.log(this.end_date);
+    }
+
   }
 
 }
