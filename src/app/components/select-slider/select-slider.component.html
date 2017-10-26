@@ -2,7 +2,8 @@
   <div class="slider-wrapper">
     <div #slider class="slider">
       <div *ngFor="let item of data?.items, let i = index" class="item" [ngClass]="{'selected': item_onfocus_index === i}">
-        {{item.name}}
+        <span *ngIf="item_onfocus_index !== i">{{item.name}}</span>
+        <span *ngIf="item_onfocus_index === i" (click)="hide_select_slider()">{{item.name}}</span>
       </div>
     </div>
     <div class="btn-wrapper">
