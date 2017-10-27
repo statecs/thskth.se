@@ -134,6 +134,7 @@ export class SupportComponent implements OnInit {
   }
 
   displayCategory(index): void {
+      this.searchTerm = undefined;
       this.selected_cat_index = index;
       this.selected_category = this.parent_categories[index];
       if (this.lang === 'sv') {
@@ -239,6 +240,12 @@ export class SupportComponent implements OnInit {
           if (this.selected_cat_slug === 'undefined' || typeof this.selected_cat_slug === 'undefined') {
               this.getFAQParentCategories();
               this.exist_category = true;
+          }else {
+              if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
+                  console.log('pass3');
+                  this.show_single_view = true;
+                  this.loadFAQs();
+              }
           }
       });
 
@@ -247,7 +254,7 @@ export class SupportComponent implements OnInit {
           if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
               console.log(this.selected_cat_slug);
               if (this.selected_cat_slug === 'undefined' || typeof this.selected_cat_slug === 'undefined') {
-                  console.log('pass2');
+
                   this.show_single_view = true;
                   this.searchFAQs();
               }else {
@@ -256,10 +263,13 @@ export class SupportComponent implements OnInit {
               }
           }else {
               if (this.selected_cat_slug !== 'undefined' && typeof this.selected_cat_slug !== 'undefined') {
+                  console.log('pass2');
                   this.show_single_view = true;
                   this.loadFAQs();
               }else {
                   this.show_single_view = false;
+                  this.loadFAQs();
+                  console.log('test');
               }
           }
       });

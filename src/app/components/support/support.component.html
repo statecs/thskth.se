@@ -27,7 +27,14 @@
   <div *ngIf="exist_category && show_single_view" class="faqs-single-view">
     <div class="submenu">
       <label>{{lang === 'en' ? 'FAQ categories' : 'FAQ kategorier'}}</label>
-      <div *ngFor="let c of parent_categories, let i = index" class="submenu-item" [ngClass]="{selected: i === selected_cat_index}" (click)="displayCategory(i)">{{c.name}}</div>
+      <div class="cat-container">
+        <div class="cat-wrapper larger-devices">
+          <div *ngFor="let c of parent_categories, let i = index" class="submenu-item" [ngClass]="{selected: i === selected_cat_index}" (click)="displayCategory(i)">{{c.name}}</div>
+        </div>
+        <div class="cat-wrapper mobile" [style.width]="parent_categories.length * 50 + '%'">
+          <div *ngFor="let c of parent_categories, let i = index" class="submenu-item" [ngClass]="{selected: i === selected_cat_index}" (click)="displayCategory(i)">{{c.name}}</div>
+        </div>
+      </div>
     </div>
     <div class="faqs-container">
       <div *ngIf="selected_category" class="selected_faqs">
@@ -58,7 +65,7 @@
         </div>
       </div>
 
-      <div *ngIf="searchOnActive" class="search-results">
+      <div *ngIf="searchOnActive && searchTerm" class="search-results">
         <h3>{{lang === 'en' ? 'Search results of' : 'Sökresultat av'}} "{{searchTerm}}"</h3>
         <div *ngFor="let faq of search_results">
           <div #faqElement class="faq" (click)="toggleAnswer(faqElement)">

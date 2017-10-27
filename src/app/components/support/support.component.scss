@@ -16,6 +16,12 @@
   margin-bottom: 50px;
   line-height: 1;
   min-height: 200px;
+  .larger-devices{
+    display: block;
+  }
+  .mobile{
+    display: none;
+  }
   .heading{
     position: relative;
     text-align: center;
@@ -80,6 +86,8 @@
         cursor: pointer;
         text-decoration: none;
         color: $color-link-secondary;
+        border-radius: 5px;
+        box-shadow: 1px 1px 7px rgb(143, 143, 143);
         &:hover{
           color: $color-link-secondary-hover;
         }
@@ -215,9 +223,92 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #support {
-
+    width: 100%;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .heading{
+      .title{
+        h2{
+          line-height: 1.3;
+        }
+        span{
+          text-align: left;
+          margin: 0 5%;
+          display: block;
+        }
+      }
+      .search{
+        input{
+          width: 90%;
+        }
+      }
+    }
+    .content-container{
+      .faqs-categories{
+        .category{
+          width: 80%;
+        }
+      }
+    }
+    .faqs-single-view{
+      margin-top: 30px;
+      .submenu{
+        width: 100%;
+        label{
+          margin-bottom: 0;
+          padding-left: 4%;
+        }
+        .cat-container{
+          overflow-x: scroll;
+          .cat-wrapper{
+            background-color: white;
+            .submenu-item{
+              display: inline-block;
+              color: $color-link-secondary;
+            }
+            .selected{
+              color: white;
+            }
+          }
+        }
+        .selected{
+          &:after{
+            display: none;
+          }
+        }
+      }
+      .faqs-container{
+        width: 92%;
+        left: 0;
+        margin: 0 4%;
+        top: 20px;
+      }
+    }
   }
 }
+
+::-webkit-scrollbar
+{
+  width: 2px;  /* for vertical scrollbars */
+  height: 2px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(84, 84, 84, 0.2);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: #b2b2b2;
+  border-radius: 10px;
+}
+
+
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #support {
