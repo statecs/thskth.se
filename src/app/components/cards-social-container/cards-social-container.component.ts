@@ -61,7 +61,7 @@ export class CardsSocialContainerComponent implements OnInit {
     if (!this.showFetchMoreBtn && this.meta_data) {
       const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
       const max = document.documentElement.scrollHeight;
-      if (pos > max - 300) {
+      if (pos > max - 500) {
         this.fetchMorePosts();
       }
     }
