@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
+import {NotificationBarComponent} from '../../notification-bar/notification-bar.component';
 
 @Component({
   selector: 'app-student-life',
   templateUrl: './student-life.component.html',
-  styleUrls: ['./student-life.component.scss']
+  styleUrls: ['./student-life.component.scss'],
+  providers: [NotificationBarComponent]
 })
-export class StudentLifeComponent implements OnInit {
+export class StudentLifeComponent implements AfterViewInit {
 
+  @ViewChild('submenu_bar') submenu_bar: ElementRef;
   public page: Page;
   public subMenu: any;
   public slug: string;
@@ -21,14 +24,56 @@ export class StudentLifeComponent implements OnInit {
   private addLangToSlugPipe: AddLangToSlugPipe;
   public loading: boolean;
   public pageNotFound: boolean;
+  public showSubmenuBarDropdown: boolean;
+  public freeze_submenu_bar: boolean;
+  private submenu_bar_pos: number;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private menusService: MenusService) {
+              private menusService: MenusService,
+              private notificationBarComponent: NotificationBarComponent) {
     this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
+    this.showSubmenuBarDropdown = false;
+    this.freeze_submenu_bar = false;
+  }
+
+  getOffsetTop(elem): number {
+    let offsetTop = 0;
+    do {
+      if ( !isNaN( elem.offsetTop ) ) {
+        offsetTop += elem.offsetTop;
+      }
+    } while ( elem = elem.offsetParent );
+    return offsetTop;
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    this.toggle_freeze_submenu_bar();
+  }
+
+  toggle_freeze_submenu_bar() {
+    const pos = (document.documentElement.scrollTop || document.body.scrollTop);
+    console.log('pos: ' + pos);
+    console.log('pos_bar: ' + this.submenu_bar_pos);
+    if (pos >= this.submenu_bar_pos) {
+      if (!this.freeze_submenu_bar) {
+        console.log('pass');
+        this.freeze_submenu_bar = true;
+      }
+    } else {
+      if (this.freeze_submenu_bar) {
+        console.log('pass');
+        this.freeze_submenu_bar = false;
+      }
+    }
+  }
+
+  toggleSubmenuBarDropdown(): void {
+    (this.showSubmenuBarDropdown ? this.showSubmenuBarDropdown = false : this.showSubmenuBarDropdown = true);
   }
 
   goToPage(slug): void {
@@ -71,7 +116,13 @@ export class StudentLifeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    const self = this;
+    setTimeout(function () {
+      self.submenu_bar_pos = self.submenu_bar.nativeElement.offsetTop;
+      self.toggle_freeze_submenu_bar();
+    }, 1000);
+
     this.activatedRoute.params.subscribe((params: Params) => {
       console.log(params['lang']);
       this.slug = params['slug'];
