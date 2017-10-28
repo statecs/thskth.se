@@ -8,14 +8,43 @@
     border-bottom: 0 !important;
   }
 }
-
+.cal-popup{
+  position: absolute;
+  border: 1px solid red;
+  height: 100%;
+  z-index: 1;
+  background: rgba(0,0,0,0.90);
+  color: white;
+  top: 0;
+  .calendar-wrapper{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 50px;
+  }
+}
+.exit-popup-btn-mobile{
+  @include exit-popup-btn-mobile;
+  background-color: #5c5c5c !important;
+}
+.mobile{
+  display: none;
+}
 #events-calendar{
   @include container-size($main-container);
   margin-top: 100px;
   position: relative;
   margin-bottom: 50px;
   text-align: center;
-
+  .larger-devices{
+    display: block;
+  }
+  .display-cal-btn{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: $bg-color-primary;
+    color: white;
+    border-radius: 25px;
+  }
   .calendar-wrapper{
     width: 55%;
     border: 1px solid lightgrey;
@@ -190,8 +219,14 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .mobile{
+    display: block;
+  }
   #events-calendar {
-
+    width: 100%;
+    .larger-devices{
+      display: none;
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)

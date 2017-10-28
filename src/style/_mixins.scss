@@ -1,5 +1,18 @@
 @import "variables";
 
+
+@mixin exit-popup-btn-mobile{
+  border-radius: 30px;
+  padding: 15px 30px;
+  color: white;
+  background-color: black;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  bottom: 20px;
+}
+
 @mixin freeze-submenu-bar{
   position: fixed !important;
   margin-top: 0 !important;

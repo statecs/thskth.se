@@ -24,6 +24,7 @@ export class EventsCalendarComponent implements OnInit {
   public earliest_events: Event[];
   private lang: string;
   private pageNotFound: boolean;
+  private showCalendar: boolean;
 
   constructor(private calendarCommunicationService: CalendarCommunicationService,
               private googleCalendarService: GoogleCalendarService,
@@ -36,6 +37,7 @@ export class EventsCalendarComponent implements OnInit {
     this.ths_calendars = ths_calendars;
     this.showFeaturedEvents = true;
     this.earliest_events = [];
+    this.showCalendar = false;
     this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
@@ -46,6 +48,14 @@ export class EventsCalendarComponent implements OnInit {
       }
       this._cookieService.put('language', this.lang);
     });
+  }
+
+  hide_popup_window(): void {
+    this.showCalendar = false;
+  }
+
+  toggleCalendar(): void {
+    (this.showCalendar ? this.showCalendar = false : this.showCalendar = true);
   }
 
   formatDay(start) {

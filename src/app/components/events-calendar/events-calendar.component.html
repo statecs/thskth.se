@@ -1,7 +1,18 @@
 <app-header></app-header>
+<div *ngIf="showCalendar" class="cal-popup mobile">
+  <div class="calendar-wrapper">
+    <div class="title">
+      <h2>{{(lang === 'en' ? 'Events calendar' : 'Evenemangskalender')}}</h2>
+    </div>
+    <app-calendar></app-calendar>
+  </div>
+</div>
+
+<div *ngIf="showCalendar" class="exit-popup-btn-mobile" (click)="hide_popup_window()"><i class="fa fa-times-circle"></i> Done</div>
 
 <div *ngIf="!pageNotFound" id="events-calendar">
-  <div class="calendar-wrapper">
+  <div *ngIf="!showCalendar" class="display-cal-btn mobile" (click)="toggleCalendar()">More events</div>
+  <div class="calendar-wrapper larger-devices">
     <div class="title">
       <h2>{{(lang === 'en' ? 'Events calendar' : 'Evenemangskalender')}}</h2>
     </div>
@@ -35,7 +46,6 @@
     <div class="heading">
       <h2>{{(lang === 'en' ? 'Upcoming events' : 'Uppkommande evenemang')}}</h2>
     </div>
-
     <div *ngFor="let e of earliest_events" class="event">
       <div class="image-wrapper" [ngStyle]="{'background-image': 'url(' + e.imageUrl + ')'}">
         <span class="date">{{formatDay(e.start)}}</span>

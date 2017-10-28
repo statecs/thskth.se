@@ -64,7 +64,18 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #calendar-header {
-
+    .previous-btn, .next-btn{
+      color: white;
+      .btn{
+        border: 1px solid lightgray;
+      }
+    }
+    .previous-btn{
+      left: 0;
+    }
+    .next-btn{
+      right: 0;
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
