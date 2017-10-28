@@ -16,9 +16,10 @@
   background: rgba(0,0,0,0.90);
   color: white;
   top: 0;
+  width: 100%;
   .calendar-wrapper{
-    width: 80%;
-    margin-left: 10%;
+    width: 90%;
+    margin-left: 5%;
     margin-top: 50px;
   }
 }
@@ -27,7 +28,7 @@
   background-color: #5c5c5c !important;
 }
 .mobile{
-  display: none;
+  display: none !important;
 }
 #events-calendar{
   @include container-size($main-container);
@@ -72,40 +73,44 @@
         display: inline-block;
       }
     }
-    .event{
-      width: 25%;
-      display: inline-block;
-      margin: 0 2%;
-      vertical-align: top;
-      box-shadow: 1px 2px 10px rgba(114, 114, 114, 0.35);
-      height: 350px;
-      border-radius: 3px;
-      overflow: hidden;
-      .image-wrapper{
-        height: 170px;
-        background-color: lightblue;
-        position: relative;
-        .date{
-          width: 50px;
-          height: 50px;
-          background-color: rgba(255, 255, 255, 0.67);
-          float: left;
-          font-weight: $font-weight-bold;
-          padding-top: 5px;
-        }
-        img{
-          width: 100%;
-          height: auto;
-          position: absolute;
-          left: 0;
-        }
-      }
-      .info{
-        text-align: left;
-        padding: 0 10px;
-        h2{
-          font-size: $font-size-h3;
-          margin: 10px 0;
+    .events-container{
+      .f_events-wrapper{
+        .event{
+          width: 25%;
+          display: inline-block;
+          margin: 0 2%;
+          vertical-align: top;
+          box-shadow: 1px 2px 10px rgba(114, 114, 114, 0.35);
+          height: 350px;
+          border-radius: 3px;
+          overflow: hidden;
+          .image-wrapper{
+            height: 170px;
+            background-color: lightblue;
+            position: relative;
+            .date{
+              width: 50px;
+              height: 50px;
+              background-color: rgba(255, 255, 255, 0.67);
+              float: left;
+              font-weight: $font-weight-bold;
+              padding-top: 5px;
+            }
+            img{
+              width: 100%;
+              height: auto;
+              position: absolute;
+              left: 0;
+            }
+          }
+          .info{
+            text-align: left;
+            padding: 0 10px;
+            h2{
+              font-size: $font-size-h3;
+              margin: 10px 0;
+            }
+          }
         }
       }
     }
@@ -164,7 +169,7 @@
             background-color: rgba(0,0,0,0.2);
             color: white;
             padding-top: 10px;
-            z-index: 1;
+            //z-index: 1;
             position: absolute;
           }
           img{
@@ -184,6 +189,10 @@
             margin:0;
             font-weight: 600;
             font-size: $font-size-default;
+            color: $color-link-secondary;
+            &:hover{
+              color: $color-link-secondary-hover;
+            }
           }
           span{
             font-weight: 300;
@@ -217,15 +226,59 @@
   font-size: 1.2em !important;
 }
 
+::-webkit-scrollbar
+{
+  width: 2px;  /* for vertical scrollbars */
+  height: 2px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: #a8a8a8;
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgb(102, 101, 101);
+  border-radius: 10px;
+}
+
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   .mobile{
-    display: block;
+    display: inline-block !important;
   }
   #events-calendar {
     width: 100%;
     .larger-devices{
-      display: none;
+      display: none !important;
+    }
+    .events-wrapper{
+      .events{
+        .item{
+          width: 90%;
+          height: auto;
+          max-height: 150px;
+          .img-wrapper{
+            height: 80px;
+          }
+        }
+      }
+    }
+    .featured-events{
+      .events-container {
+        width: 100%;
+        overflow-x: scroll;
+        padding: 15px 0;
+        .f_events-wrapper {
+          width: 150%;
+          .event {
+            width: 29%;
+            margin: 0 1.5%;
+            float: left;
+          }
+        }
+      }
     }
   }
 }
