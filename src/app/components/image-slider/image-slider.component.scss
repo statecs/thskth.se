@@ -125,7 +125,24 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #img-slider {
-
+    .large-devices{
+      display: block;
+    }
+    .mobile{
+      display: none;
+    }
+    .slides-wrapper{
+      .slide{
+        .content-container{
+          .content{
+            h2{
+              margin-top: 0;
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)

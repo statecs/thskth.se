@@ -4,7 +4,8 @@
       <!-- ----- Text center template ----->
       <div *ngIf="slide.template === 'text-center-template'" class="text-center-template">
         <h2>{{slide.title}}</h2>
-        <p [innerHTML]="slide.description"></p>
+        <p class="larger-devices" [innerHTML]="slide.description | cardText:350"></p>
+        <p class="mobile" [innerHTML]="slide.description | cardText:150"></p>
         <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> {{read_more_text}}</button>
       </div>
 
@@ -22,7 +23,8 @@
       <div *ngIf="slide.template === 'image-on-right-template'" class="image-on-right-template">
         <div class="text-wrapper">
           <h2>{{slide.title}}</h2>
-          <p [innerHTML]="slide.description"></p>
+          <p class="larger-devices" [innerHTML]="slide.description | cardText:350"></p>
+          <p class="mobile" [innerHTML]="slide.description | cardText:150"></p>
           <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> {{read_more_text}}</button>
         </div>
         <div class="img-wrapper">
@@ -37,7 +39,8 @@
         </div>
         <div class="text-wrapper">
           <h2>{{slide.title}}</h2>
-          <p [innerHTML]="slide.description"></p>
+          <p class="larger-devices" [innerHTML]="slide.description | cardText:350"></p>
+          <p class="mobile" [innerHTML]="slide.description | cardText:150"></p>
           <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> {{read_more_text}}</button>
         </div>
       </div>

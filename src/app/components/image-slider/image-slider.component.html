@@ -8,7 +8,8 @@
     <div *ngFor="let item of slide_items, let i = index" class="slide" [style.backgroundImage]="'url(' + item.image + ')'" (click)="switchSlide(i)" [ngClass]="{'item_onfocus': item_onfocus_index === i}">
       <div class="content-container">
         <div class="content">
-          <h2>{{item.title}}</h2>
+          <h2 *ngIf="item.title.length <= 70">{{item.title}}</h2>
+          <h2 *ngIf="item.title.length > 70">{{item.title | cardText:70}}</h2>
           <p [innerHTML]="item.content | cardText:100" class="description"></p>
         </div>
         <div class="category">{{news_text}}</div>
@@ -29,7 +30,7 @@
     <div *ngFor="let item of slide_items, let i = index" class="slide" [style.backgroundImage]="'url(' + item.image + ')'" [ngClass]="{'item_onfocus': item_onfocus_index === i}">
       <div class="content-container">
         <div class="content">
-          <h2>{{item.title}}</h2>
+          <h2>{{item.title | cardText:50}}</h2>
           <p [innerHTML]="item.content | cardText:100" class="description"></p>
         </div>
         <div class="category">{{news_text}}</div>

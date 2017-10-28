@@ -86,9 +86,42 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #homePage {
+    .larger-devices{
+      display: none;
+    }
+    .mobile-devices{
+      display: block;
+    }
     .contact{
-      height: 250px;
-      margin-top: 50px;
+      @include container-size(80%);
+      height: auto;
+      .contact-info{
+        width: 100%;
+        height: 100%;
+        float: none;
+      }
+      .maps{
+        width: 100%;
+        height: 300px;
+        float: none;
+      }
+    }
+    .faq-slider {
+      width: 95%;
+      & >div{
+        font-size: $font-size-h3;
+      }
+    }
+    .image-slider {
+      width: 100%;
+      & >div{
+        font-size: $font-size-h3;
+        margin-left: 2.5%;
+      }
+    }
+    app-cards-social-container{
+      width: 90%;
+      display: block;
     }
   }
 }

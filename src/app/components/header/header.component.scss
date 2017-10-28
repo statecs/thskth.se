@@ -242,7 +242,162 @@ header {
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   header {
+    .container {
+      @include container-size(100%);
+      overflow: hidden;
+      padding: 5px 0;
+      .menu-wrapper{
+        width: 100%;
+        padding: 5px 0;
+        .logo {
+          float: left;
+          margin-left: 10px;
+        }
+        .chapters {
+          display: inline-block;
+          color: white;
+          margin-left: 10px;
+          float: left;
+          i{
+            font-size: 2.1em;
+            margin-top: 5px;
+            transition: transform 0.5s ease;
+          }
+        }
+        .menu-bar{
+          color: white;
+          vertical-align: middle;
+          top: 10px;
+          position: absolute;
+          right: 0;
+          >div{
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+          }
+          /*.chapters{
+            .icon{
+              display: inline-block;
+              width: 35px;
+              height: 30px;
+              overflow: hidden;
+              position: relative;
+              vertical-align: middle;
+              img{
+                position: absolute;
+                width: 120px;
+                margin-left: -13px;
+              }
+            }
+          }*/
+          .menu{
+            font-size: $font-size-h4;
+            span{
+              vertical-align: middle;
+            }
+            i{
+              font-size: $font-size-h4;
+              vertical-align: middle;
+            }
+          }
+        }
+      }
+      .menu-dropdown{
+        width: 100%;
+        background-color: white;
+        .menu-items{
+          display: block;
+          background-color: white;
+          padding: 10px 0;
+          .nav-item{
+            padding: 5px 0;
+            overflow: hidden;
+            .item-wrapper{
+              overflow: hidden;
+              padding: 0 10%;
+              .label{
+                display: inline-block;
+                float: left;
+                a{
+                  text-decoration: none;
+                  color: #575757;
+                  font-size: $font-size-h3;
+                  font-weight: 700;
+                }
+              }
+              >i{
+                float: right;
+                font-size: $font-size-h2;
+                margin-top: 5px;
+              }
+            }
+            .sub-menu{
+              background-color: #e3e3e3;
+              text-align: left;
+              padding: 10px 12%;
+              font-size: $font-size-h3;
+              color: #575757;
+              >div{
+                margin: 15px 0;
+                font-weight: 400;
+              }
+            }
+          }
+        }
+      }
 
+      .chapters-items{
+        display: block;
+        background-color: white;
+        padding: 10px 0;
+        color: black;
+        font-size: $font-size-h4;
+        text-align: left;
+        height: 250px;
+        overflow-y: scroll;
+        .nav-item{
+          padding: 5px 10px;
+          .logo{
+            background-color: rgba(0,0,0,0.25);
+            display: inline-block;
+            vertical-align: middle;
+            img{
+              width: 40px;
+              height: 40px;
+              vertical-align: middle;
+            }
+          }
+        }
+        label{
+          display: inline-block;
+          width: 85%;
+          vertical-align: middle;
+        }
+      }
+    }
+    .bigger-device{
+      display: none !important;
+    }
+    .mobile{
+      display: block;
+    }
+  }
+
+  ::-webkit-scrollbar
+  {
+    width: 10px;  /* for vertical scrollbars */
+    height: 10px; /* for horizontal scrollbars */
+  }
+
+  ::-webkit-scrollbar-track
+  {
+    background: rgba(84, 84, 84, 0.2);
+  }
+
+  ::-webkit-scrollbar-thumb
+  {
+    background: #b2b2b2;
+    border-radius: 10px;
   }
 }
 // Medium devices (tablets, 768px and up)

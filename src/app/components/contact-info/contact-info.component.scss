@@ -34,25 +34,29 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
-  #contact-info {
+  .contact-info {
 
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
-  #contact-info {
-
+  .contact-info {
+    font-size: 1.15em;
+    a{
+      width: 50% !important;
+      margin-left: 25%;
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
-  #contact-info {
+  .contact-info {
 
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
-  #contact-info {
+  .contact-info {
 
   }
 }

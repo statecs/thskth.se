@@ -54,7 +54,7 @@
             <div *ngIf="card.card_type === 'events-card'" class="masonry-layout_panel-content">
                 <div class="event-calendar-card">
                     <div class="categories">
-                        <div class="cat-wrapper" [style.width]="ths_calendars.length * 75 + 'px'">
+                        <div class="cat-wrapper" [style.width]="ths_calendars.length * 80 + 'px'">
                             <div *ngFor="let c of ths_calendars, let i = index" class="item" (click)="switchCalendar(c.calendarId, i)" [ngClass]="{'selected': selected_event_category === i}">{{(lang === 'en' ? c.title.en : c.title.sv)}}</div>
                         </div>
                     </div>

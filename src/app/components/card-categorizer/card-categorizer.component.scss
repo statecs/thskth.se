@@ -120,7 +120,15 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #card-categorizer {
-
+    @include container-size(90%);
+    padding: 10px 0;
+    font-size: $font-size-h4;
+    .large-devices{
+      display: none;
+    }
+    .mobile{
+      display: inline-block;
+    }
   }
 }
 // Medium devices (tablets, 768px and up)

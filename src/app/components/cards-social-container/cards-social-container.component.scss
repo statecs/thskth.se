@@ -583,10 +583,132 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   .title{
+    font-size:$font-size-h3;
+    width: 95%;
   }
-
   .masonry-layout {
+    width: 100%;
+    .larger-devices{
+      display: none;
+    }
+    .mobile-devices{
+      display: block;
+    }
+    .one-fourth {
+      width: 100%;
+    }
 
+    .two-fourth {
+      width: 100%;
+    }
+    .masonry-layout_panel {
+      .masonry-layout_panel-content {
+        height: auto;
+        .host {
+          i{
+            font-size: $font-size-h2;
+          }
+        }
+        .large-devices{
+          display: none;
+        }
+        .mobile{
+          display: block;
+        }
+      }
+    }
+  }
+  :host /deep/ .single-event-card {
+    height: 200px;
+    .left-content{
+      padding: 10px;
+      .large-devices{
+        display: none;
+      }
+      .mobile{
+        display: block;
+      }
+      .user{
+        >div{
+          width: 70%;
+          span{
+            font-size: $font-size-h8;
+          }
+        }
+      }
+    }
+  }
+  :host /deep/ .event-calendar-card {
+    height: 200px;
+    .event-arrow-index1{
+      &::after{
+        top: 44% !important;
+      }
+    }
+    .event-arrow-index2{
+      &::after{
+        top: 75% !important;
+      }
+    }
+    .left-content{
+      padding: 0 10px;
+      h3{
+        font-size: $font-size-h4;
+        margin: 15px 0 5px;
+      }
+    }
+    .right-content{
+      .event-wrapper{
+        padding-bottom: 20px;
+        >h4{
+          margin: 5px 0;
+        }
+        .event{
+          .date{
+            width: 40px;
+            height: 40px;
+          }
+          .excerpt{
+            width: 60%;
+          }
+        }
+        .event:nth-child(3){
+          display: none !important;
+        }
+      }
+    }
+  }
+  :host /deep/ .featured-card {
+    height: 350px;
+    .user{
+      margin-top: 60px;
+      >div{
+        width: 70%;
+        span{
+          font-size: $font-size-default;
+        }
+      }
+    }
+    p{
+      font-size: $font-size-h5;
+    }
+    .host{
+      i{
+        font-size: $font-size-h2 + 0.5em !important;
+      }
+    }
+    a{
+      padding: 10px;
+      margin-top: 20px;
+    }
+  }
+  .fetcher {
+    height: 5px;
+    width: 100%;
+    .plus-button {
+      width: 35px;
+      height: 35px;
+    }
   }
 }
 // Medium devices (tablets, 768px and up)

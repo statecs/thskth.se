@@ -59,7 +59,11 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #notification-bar {
-
+    padding: 10px;
+    & >p{
+      width: 80%;
+      vertical-align: middle;
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
