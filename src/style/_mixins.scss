@@ -4,6 +4,7 @@
   position: fixed !important;
   margin-top: 0 !important;
   top: 0 !important;
+  z-index: 1;
 }
 
 @mixin submenu-bar{
@@ -12,7 +13,6 @@
   background-color: white;
   position: relative;
   margin-top: 65px;
-  z-index: 1;
   .selected-item{
     background-color: lightgray;
     padding: 10px 20px;
