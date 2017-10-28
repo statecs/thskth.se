@@ -1,11 +1,12 @@
 <div *ngIf="page_data" id="one-column-template">
+  <app-breadcrumb class="mobile"></app-breadcrumb>
   <div class="header-image">
     <img *ngIf="page_data.header.header_image" src="{{page_data.header.header_image}}" alt="Header image">
     <div *ngIf="!page_data.header.header_image && page_data.header.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data.header.header_color}"></div>
     <div *ngIf="!page_data.header.header_image && !page_data.header.header_color" class="default-header"></div>
   </div>
   <div class="content-container">
-    <app-breadcrumb></app-breadcrumb>
+    <app-breadcrumb class="larger-devices"></app-breadcrumb>
     <h2 [innerHTML]="page_data.name" class="title"></h2>
     <div [innerHTML]="page_data.content" class="content"></div>
   </div>

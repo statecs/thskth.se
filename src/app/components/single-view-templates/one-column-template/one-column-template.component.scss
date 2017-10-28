@@ -1,6 +1,12 @@
 @import "../../../../style/utilities";
 
 #one-column-template{
+  .larger-devices{
+    display: block;
+  }
+  .mobile{
+    display: none;
+  }
   .header-image{
     max-height: 350px;
     overflow: hidden;
@@ -106,10 +112,39 @@
   }
 }
 
+:host /deep/ ::-webkit-scrollbar-thumb {
+  background: #a8a8a8 !important;
+}
+
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #one-column-template {
-
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    >app-breadcrumb{
+      position: absolute;
+      top: 110px;
+      width: 100%;
+    }
+    .header-image{
+      max-height: 300px;
+    }
+    .content-container{
+      width: 90%;
+      padding: 30px;
+      .title{
+        font-size: $font-size-h3;
+      }
+      .content{
+        >h2{
+          font-size: $font-size-h4;
+        }
+      }
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
