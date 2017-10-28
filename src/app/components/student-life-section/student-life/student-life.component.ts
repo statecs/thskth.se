@@ -39,7 +39,7 @@ export class StudentLifeComponent implements AfterViewInit {
     this.showSubmenuBarDropdown = false;
     this.freeze_submenu_bar = false;
   }
-
+/*
   getOffsetTop(elem): number {
     let offsetTop = 0;
     do {
@@ -48,7 +48,7 @@ export class StudentLifeComponent implements AfterViewInit {
       }
     } while ( elem = elem.offsetParent );
     return offsetTop;
-  }
+  }*/
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {

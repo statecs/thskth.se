@@ -219,6 +219,22 @@
   }
 }
 
+::-webkit-scrollbar
+{
+  width: 2px;  /* for vertical scrollbars */
+  height: 2px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(84, 84, 84, 0.2);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: #b2b2b2;
+  border-radius: 10px;
+}
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
@@ -290,24 +306,6 @@
     }
   }
 }
-
-::-webkit-scrollbar
-{
-  width: 2px;  /* for vertical scrollbars */
-  height: 2px; /* for horizontal scrollbars */
-}
-
-::-webkit-scrollbar-track
-{
-  background: rgba(84, 84, 84, 0.2);
-}
-
-::-webkit-scrollbar-thumb
-{
-  background: #b2b2b2;
-  border-radius: 10px;
-}
-
 
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {

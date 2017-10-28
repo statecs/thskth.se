@@ -1,5 +1,53 @@
 @import "variables";
 
+@mixin freeze-submenu-bar{
+  position: fixed !important;
+  margin-top: 0 !important;
+  top: 0 !important;
+}
+
+@mixin submenu-bar{
+  width: 100%;
+  padding: 8px 10px;
+  background-color: white;
+  position: relative;
+  margin-top: 65px;
+  z-index: 1;
+  .selected-item{
+    background-color: lightgray;
+    padding: 10px 20px;
+    display: inline-block;
+    position: relative;
+    width: 210px;
+    span{
+      vertical-align: middle;
+    }
+    i{
+      vertical-align: middle;
+      margin-left: 20px;
+      float: right;
+    }
+  }
+  .submenu-bar-dropdown{
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    top: 45px;
+    box-shadow: 1px 3px 10px #bababa;
+    width: 200px;
+    .submenu-item{
+      //padding: 5px 10px;
+      span{
+        padding: 10px;
+        display: block;
+      }
+      .divider{
+        border-bottom: 1px solid lightgray;
+      }
+    }
+  }
+}
+
 @mixin square($size){
   width: $size;
   height: $size;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute, Params, PRIMARY_OUTLET } from '@angular/router';
 import 'rxjs/add/operator/filter';
 
@@ -14,12 +14,20 @@ interface IBreadcrumb {
 })
 export class BreadcrumbComponent implements OnInit {
 
+  @ViewChild('breadcrumbs_container') breadcrumbs_container: ElementRef;
   public breadcrumbs: IBreadcrumb[];
+  public containerWidth: number;
 
   constructor(
       private activatedRoute: ActivatedRoute,
       private router: Router) {
     this.breadcrumbs = [];
+    // subscribe to the route
+    this.activatedRoute.params.subscribe(() => {
+      // set breadcrumbs
+      const root: ActivatedRoute = this.activatedRoute.root;
+      this.breadcrumbs = this.getBreadcrumbs(root);
+    });
   }
 
   private getBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {
@@ -71,12 +79,22 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   ngOnInit() {
-    // subscribe to the route
-    this.activatedRoute.params.subscribe(() => {
-      // set breadcrumbs
-      const root: ActivatedRoute = this.activatedRoute.root;
-      this.breadcrumbs = this.getBreadcrumbs(root);
-    });
+    const self = this;
+    const timer = setInterval(function () {
+      const items = self.breadcrumbs_container.nativeElement.getElementsByClassName('list-item');
+      if (items) {
+        clearInterval(timer);
+        let containerWidth = 0;
+        for (let i = 0; i < items.length; i++) {
+          console.log(items[i].clientWidth);
+          containerWidth += items[i].clientWidth + 10;
+          if (i === items.length - 1) {
+            self.containerWidth = containerWidth;
+          }
+        }
+      }
+    }, 100);
+
   }
 
 }

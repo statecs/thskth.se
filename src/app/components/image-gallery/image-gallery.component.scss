@@ -26,7 +26,11 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   .image-gallery {
-
+    .item{
+      h2{
+        margin-bottom: 5px;
+      }
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
