@@ -52,7 +52,12 @@ nav {
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   nav {
-
+    margin-top: 10px;
+    .menu-sections {
+      margin-bottom: 20px;
+      text-align: left;
+      float: left;
+    }
   }
 }
 // Large devices (desktops, 992px and up)

@@ -150,6 +150,12 @@
   #img-slider {
     height: 310px;
     text-align: left;
+    .large-devices{
+      display: block;
+    }
+    .mobile{
+      display: none;
+    }
     .slides-wrapper {
       .slide {
         .content-container {

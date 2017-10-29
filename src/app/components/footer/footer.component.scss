@@ -61,13 +61,27 @@ footer {
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   footer {
-
+    .container {
+      .logo {
+        margin-left: 0;
+        width: 60px;
+        height: 60px;
+        margin-bottom: 20px;
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   footer {
-
+    .container {
+      .logo {
+        margin-left: 0;
+        width: 70px;
+        height: 70px;
+        margin-bottom: 20px;
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

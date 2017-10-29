@@ -563,12 +563,12 @@
 @include media-breakpoint-only(md) {
   .masonry-layout {
     width: 90%;
-/*    .o-third {
+    .o-third {
       width: 100%;
     }
     .two-third {
       width: 100%;
-    }*/
+    }
     .one-sixth {
       height: 110px !important;
       .video-card{
@@ -628,28 +628,30 @@
       }
     }
     .categories{
+      overflow-x: scroll;
+      font-size: 1.1em;
       .item{
-        font-size: $font-size-h7;
+        font-size: $font-size-h6;
+        border-bottom: 0 solid rgba(0,0,0,0) !important;
+      }
+      .selected{
+        color: #000;
+        border-bottom: 0 solid rgba(0,0,0,0) !important;
+        background-color: #efefef;
+        font-weight: 700;
       }
     }
     .left-content{
-      padding: 0 10px;
-      h3{
-        font-size: $font-size-h4;
-        margin: 15px 0 5px;
-      }
-      .large-devices{
-        display: none;
-      }
-      .mobile{
-        display: block;
-      }
+      display: none;
     }
     .right-content{
+      float: left;
+      padding: 20px 10px;
+      width: 100%;
       .event-wrapper{
         padding-bottom: 20px;
         >h4{
-          margin: 5px 0;
+          display: none;
         }
         .event{
           .date{

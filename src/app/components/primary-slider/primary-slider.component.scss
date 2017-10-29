@@ -415,7 +415,93 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #primary-slider {
-
+    height: 80vh;
+    .larger-devices{
+      display: none !important;
+    }
+    .mobile{
+      display: block !important;
+    }
+    .slides {
+      .video-template {
+        .video-controller {
+          i {
+            font-size: $font-size-h1 + 0.5em;
+          }
+        }
+      }
+      .text-center-template {
+        margin-top: 13%;
+        @include center-content(60%, 50%);
+        h2{
+          font-size: $font-size-h4;
+        }
+        p{
+          font-size: $font-size-default;
+        }
+        button{
+          @include capsule-button(20px, 5px);
+        }
+      }
+      .image-on-right-template {
+        margin-top: 13%;
+        .text-wrapper {
+          vertical-align: middle;
+          h2{
+            font-size: $font-size-h4;
+          }
+          p{
+            font-size: $font-size-default;
+          }
+          button{
+            @include capsule-button(20px, 5px);
+          }
+        }
+        .img-wrapper {
+          display: inline-block;
+          vertical-align: middle;
+          img {
+            max-height: 150px;
+          }
+        }
+      }
+      .image-on-left-template {
+        margin-top: 13%;
+        .text-wrapper {
+          vertical-align: middle;
+          h2{
+            font-size: $font-size-h4;
+          }
+          p{
+            font-size: $font-size-default;
+          }
+          button{
+            @include capsule-button(20px, 5px);
+          }
+        }
+        .img-wrapper {
+          vertical-align: middle;
+          img {
+            max-height: 150px;
+          }
+        }
+      }
+    }
+    .slider-bar-container {
+      .slider-bar {
+        margin-left: 4%;
+        .item{
+          .text {
+            .title{
+              display: none;
+            }
+          }
+        }
+      }
+      .slideshow-play-button{
+        padding:5px;
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

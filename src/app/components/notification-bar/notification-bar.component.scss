@@ -69,7 +69,11 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #notification-bar {
-
+    padding: 10px;
+    & >p{
+      width: 80%;
+      vertical-align: middle;
+    }
   }
 }
 // Large devices (desktops, 992px and up)
