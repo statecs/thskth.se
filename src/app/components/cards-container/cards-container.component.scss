@@ -351,6 +351,12 @@
     }
     .one-sixth {
       height: 110px !important;
+      h2{
+        margin-bottom: 0 !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
       .video-card{
         h2{
           font-size: $font-size-h6 !important;
@@ -364,6 +370,12 @@
     }
     .one-third-half {
       height: 110px !important;
+      h2{
+        margin-bottom: 5px !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
     }
     .masonry-layout_panel {
       height: 230px;
@@ -387,12 +399,26 @@
         padding: 10px 30px;
         margin-top: 10px;
       }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
     }
   }
   :host /deep/ .standard-card {
     .content{
       h2{
         font-size: $font-size-h3;
+        padding: 15px 0;
+      }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+      >a{
+        padding: 10px 30px !important;
       }
     }
   }
@@ -454,13 +480,19 @@
   .masonry-layout {
     width: 90%;
     .o-third {
-      width: 100%;
+      width: 48%;
     }
     .two-third {
       width: 100%;
     }
     .one-sixth {
       height: 110px !important;
+      h2{
+        margin-bottom: 0 !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
       .video-card{
         h2{
           font-size: $font-size-h6 !important;
@@ -474,6 +506,12 @@
     }
     .one-third-half {
       height: 110px !important;
+      h2{
+        margin-bottom: 5px !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
     }
     .masonry-layout_panel {
       height: 230px;
@@ -497,12 +535,26 @@
         padding: 10px 30px;
         margin-top: 10px;
       }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
     }
   }
   :host /deep/ .standard-card {
     .content{
       h2{
         font-size: $font-size-h3;
+        padding: 15px 0;
+      }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+      >a{
+        padding: 10px 30px !important;
       }
     }
   }
@@ -564,13 +616,19 @@
   .masonry-layout {
     width: 90%;
     .o-third {
-      width: 100%;
+      width: 48%;
     }
     .two-third {
       width: 100%;
     }
     .one-sixth {
       height: 110px !important;
+      h2{
+        margin-bottom: 0 !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
       .video-card{
         h2{
           font-size: $font-size-h6 !important;
@@ -584,6 +642,12 @@
     }
     .one-third-half {
       height: 110px !important;
+      h2{
+        margin-bottom: 5px !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
     }
     .masonry-layout_panel {
       height: 230px;
@@ -607,12 +671,26 @@
         padding: 10px 30px;
         margin-top: 10px;
       }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
     }
   }
   :host /deep/ .standard-card {
     .content{
       h2{
         font-size: $font-size-h3;
+        padding: 15px 0;
+      }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+      >a{
+        padding: 10px 30px !important;
       }
     }
   }

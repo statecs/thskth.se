@@ -57,7 +57,11 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #breadcrumbs {
-
+    display: block;
+    overflow-x: scroll;
+    ul{
+      padding: 10px 5px;
+    }
   }
 }
 // Medium devices (tablets, 768px and up)

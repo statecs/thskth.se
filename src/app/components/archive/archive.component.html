@@ -4,12 +4,10 @@
 <div *ngIf="!pageNotFound" id="content-container">
   <div class="search-bar">
     <h2>{{lang === 'en'? 'Search THS Documents' : 'Sök THS Dokument'}}</h2>
-    <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
-      <div class="search">
-        <input #searchField placeholder="{{lang === 'en'? 'Enter your search term' : 'Ange ditt sökord'}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
-        <div class="mostSearchTerms">
-          <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
-        </div>
+    <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
+      <div class="search" [ngClass]="{onFocus: searchOnFocus}">
+        <input class="searchInput" #searchField placeholder="{{lang === 'en'? 'Enter your search term' : 'Ange ditt sökord'}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        <input class="submit" type="submit" value="{{lang === 'en'? 'Search' : 'Sök'}}">
       </div>
       <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
         <div class="section">
@@ -49,7 +47,9 @@
           </div>
         </div>
       </div>-->
-      <input class="submit" type="submit" value="{{lang === 'en'? 'Search' : 'Sök'}}">
+      <div class="mostSearchTerms">
+        <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
+      </div>
     </form>
   </div>
 

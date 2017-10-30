@@ -16,10 +16,10 @@
   margin-bottom: 20px;
   line-height: 1.15;
   .larger-devices{
-    display: block;
+    display: block !important;
   }
   .mobile-devices{
-    display: none;
+    display: none !important;
   }
 
   .one-fourth {

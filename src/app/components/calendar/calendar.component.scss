@@ -54,19 +54,28 @@
         font-size: $font-size-h5;
       }
     }
-
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   .categories {
-
+    .cat-wrapper{
+      .item{
+        padding:10px 7px;
+        font-size: $font-size-h5;
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   .categories {
-
+    .cat-wrapper{
+      .item{
+        padding:10px 7px;
+        font-size: $font-size-h5;
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

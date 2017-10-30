@@ -81,13 +81,35 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #calendar-header {
-
+    .previous-btn, .next-btn{
+      color: white;
+      .btn{
+        border: 1px solid lightgray;
+      }
+    }
+    .previous-btn{
+      left: 0;
+    }
+    .next-btn{
+      right: 0;
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #calendar-header {
-
+    .previous-btn, .next-btn{
+      //color: white;
+      .btn{
+        border: 1px solid lightgray;
+      }
+    }
+    .previous-btn{
+      left: 0;
+    }
+    .next-btn{
+      right: 0;
+    }
   }
 }
 // Large devices (desktops, 992px and up)

@@ -284,14 +284,80 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
+  .mobile{
+    display: inline-block !important;
+  }
   #events-calendar {
-
+    width: 100%;
+    .larger-devices{
+      display: none !important;
+    }
+    .events-wrapper{
+      .events{
+        .item{
+          width: 90%;
+          height: auto;
+          max-height: 150px;
+          .img-wrapper{
+            height: 80px;
+          }
+        }
+      }
+    }
+    .featured-events{
+      .events-container {
+        width: 100%;
+        overflow-x: scroll;
+        padding: 15px 0;
+        .f_events-wrapper {
+          width: 150%;
+          .event {
+            width: 29%;
+            margin: 0 1.5%;
+            float: left;
+          }
+        }
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
+  .mobile{
+    display: inline-block !important;
+  }
   #events-calendar {
-
+    width: 100%;
+    .larger-devices{
+      display: none !important;
+    }
+    .events-wrapper{
+      .events{
+        .item{
+          width: 90%;
+          height: auto;
+          max-height: 150px;
+          .img-wrapper{
+            height: 80px;
+          }
+        }
+      }
+    }
+    .featured-events{
+      .events-container {
+        width: 100%;
+        overflow-x: scroll;
+        padding: 15px 0;
+        .f_events-wrapper {
+          width: 150%;
+          .event {
+            width: 29%;
+            margin: 0 1.5%;
+            float: left;
+          }
+        }
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

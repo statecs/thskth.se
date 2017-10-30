@@ -564,7 +564,16 @@ header {
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   header {
-
+    .container{
+      width: 90%;
+      .search{
+        font-size: $font-size-h6;
+      }
+      .logo{
+        width: 40px;
+        height: 40px;
+      }
+    }
   }
 }
 // Extra large devices (large desktops, 1200px and up)
