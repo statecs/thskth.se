@@ -34,6 +34,10 @@ export class PrimarySlidesService {
   castResTo_SlideType(res) {
     const slides: Slide[] = [];
     res.forEach((slide) => {
+      let bg_image = '';
+      if (slide.acf.background_image) {
+        bg_image = slide.acf.background_image.url;
+      }
       slides.push({
         title: slide.title.rendered,
         description: slide.content.rendered,
@@ -42,6 +46,7 @@ export class PrimarySlidesService {
         image: slide.acf.image.url,
         video: slide.acf.video,
         slide_order: slide.acf.slide_order,
+        bg_image: bg_image
       });
     });
     return slides;

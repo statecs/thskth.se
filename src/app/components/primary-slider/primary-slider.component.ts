@@ -15,8 +15,7 @@ export class PrimarySliderComponent implements OnInit {
   @ViewChild('video_player') video_player: ElementRef;
   @ViewChild('slider_bar_container') slider_bar_container: ElementRef;
   @ViewChild('playButton') playButton: ElementRef;
-
-  public slides_images: string[];
+  
   public slides_img_base: string;
   public slider_progress_bars: any;
   public video: any;
@@ -34,7 +33,6 @@ export class PrimarySliderComponent implements OnInit {
               private primarySlidesService: PrimarySlidesService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
-    this.slides_images = ['Background-image-733x550.jpg', 'none', '35_kth_vlv_6y7b5608-825x550.jpg', 'big-banner.jpg', 'LoggaBild.png'];
     this.slides_img_base = '../../../assets/images/main_slider/';
     this.slideIndex = 1;
     this.slideshow_play_btn = 'pause';
@@ -92,11 +90,12 @@ export class PrimarySliderComponent implements OnInit {
     if (typeof this.slider_progress_bars !== 'undefined' && typeof this.slideElements !== 'undefined') {
       this.slideElements[this.slideIndex - 1].style.visibility = 'visible';
       this.slideElements[this.slideIndex - 1].style.opacity = 1;
-      if (this.slideIndex === 2) {
+      /*if (this.slideIndex === 2) {
         this.primary_slider.nativeElement.style.backgroundImage = 'none';
       }else {
-        this.primary_slider.nativeElement.style.backgroundImage = 'url("' + this.slides_img_base + this.slides_images[this.slideIndex - 1] + '")';
-      }
+        this.primary_slider.nativeElement.style.backgroundImage = 'url("' + this.slides[this.slideIndex - 1].bg_image + '")';
+      }*/
+      this.primary_slider.nativeElement.style.backgroundImage = 'url("' + this.slides[this.slideIndex - 1].bg_image + '")';
       this.slider_progress_bars[this.slideIndex - 1].style.backgroundColor = 'white';
     }
   }

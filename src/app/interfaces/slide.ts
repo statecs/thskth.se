@@ -6,4 +6,5 @@ export interface Slide {
     image: string;
     video: string;
     slide_order: number;
+    bg_image: string;
 }
