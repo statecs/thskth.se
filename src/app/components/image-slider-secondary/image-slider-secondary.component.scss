@@ -83,19 +83,28 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #image-slider-secondary {
-
+    width: 100%;
+    .slider-title{
+      font-size: $font-size-h3;
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #image-slider-secondary {
-
+    width: 100%;
+    .slider-title{
+      font-size: $font-size-h3;
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #image-slider-secondary {
-
+    width: 100%;
+    .slider-title{
+      font-size: $font-size-h3;
+    }
   }
 }
 // Large devices (desktops, 992px and up)

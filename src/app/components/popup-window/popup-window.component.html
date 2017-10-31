@@ -1,6 +1,6 @@
 <div *ngIf="showPopupWindow" class="container">
   <div class="background_layer" (click)="hide_popup_window()"></div>
-  <div [ngStyle]="{marginTop: top_position+'px'}" id="popup-window">
+  <div id="popup-window">
     <div #layouts_container class="layouts-container">
       <div class="exit-popup-btn" (click)="hide_popup_window()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
       <app-loader *ngIf="loading"></app-loader>
