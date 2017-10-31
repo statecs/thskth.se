@@ -39,6 +39,7 @@
       border: 1px solid black;
       display: inline-block;
       text-align: center;
+      vertical-align: middle;
       i{
         @include center-vertically(50%);
         position: relative;
@@ -65,9 +66,11 @@
 @include media-breakpoint-only(xs) {
   #calendar-header {
     .previous-btn, .next-btn{
-      color: white;
+      color: black;
       .btn{
         border: 1px solid lightgray;
+        width: 30px;
+        height: 30px;
       }
     }
     .previous-btn{
@@ -82,9 +85,11 @@
 @include media-breakpoint-only(sm) {
   #calendar-header {
     .previous-btn, .next-btn{
-      color: white;
+      color: black;
       .btn{
         border: 1px solid lightgray;
+        width: 30px;
+        height: 30px;
       }
     }
     .previous-btn{
@@ -99,9 +104,11 @@
 @include media-breakpoint-only(md) {
   #calendar-header {
     .previous-btn, .next-btn{
-      //color: white;
+      color: black;
       .btn{
         border: 1px solid lightgray;
+        width: 30px;
+        height: 30px;
       }
     }
     .previous-btn{

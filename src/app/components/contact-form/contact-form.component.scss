@@ -84,6 +84,13 @@ form{
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   form {
+    font-size: $font-size-h6;
+    >h1{
+      font-size: $font-size-h3;
+    }
+    .heading{
+      font-size: $font-size-h4;
+    }
     .standard-grid{
       .o-half{
         width: 98%;
@@ -94,13 +101,29 @@ form{
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   form {
-
+    font-size: $font-size-h6;
+    >h1{
+      font-size: $font-size-h3;
+    }
+    .heading{
+      font-size: $font-size-h4;
+    }
+    .standard-grid{
+      .o-half{
+        width: 98%;
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   form {
-
+    >h1{
+      font-size: $font-size-h3;
+    }
+    .heading{
+      font-size: $font-size-h4;
+    }
   }
 }
 // Large devices (desktops, 992px and up)

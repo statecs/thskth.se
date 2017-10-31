@@ -21,7 +21,6 @@
   .mobile-devices{
     display: none !important;
   }
-
   .one-fourth {
     width: 24%;
   }
@@ -47,7 +46,7 @@
       overflow: hidden;
       background-size: cover;
       width: 100%;
-      height: 100%;
+      //height: 100%;
       box-shadow: 0 1px 5px #888888;
       margin-top: 10px;
       .large-devices{
@@ -114,6 +113,7 @@
       cursor: pointer;
       display: inline-block;
       border: 1px solid lightgray;
+      margin-bottom: 5px;
     }
     & >div{
       width: 80%;
@@ -175,6 +175,7 @@
         cursor: pointer;
         display: inline-block;
         border: 1px solid lightgray;
+        margin-bottom: 5px;
       }
       & >div{
         width: 80%;
@@ -224,6 +225,7 @@
       @include center-content(50%, 50%);
       text-decoration: none;
       text-align: center;
+      border-radius: 50px !important;
     }
   }
 }
@@ -387,7 +389,7 @@
 
 // ---------- Sub Masonry Layout Row ---------- //
 :host /deep/ .featured-card {
-  height: 100%;
+  height: 550px;
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.4);
   color: white;
@@ -405,6 +407,7 @@
       cursor: pointer;
       display: inline-block;
       border: 1px solid lightgray;
+      margin-bottom: 5px;
     }
     & >div{
       width: 80%;
@@ -416,6 +419,7 @@
         font-weight: 600;
         cursor: pointer;
         margin:0;
+        text-shadow: 2px 2px rgba(0, 0, 0, 0.22);
         &:hover{
           color: $color-link-secondary-hover;
         }
@@ -433,6 +437,7 @@
     @include capsule-button(15px, 15px);
     text-decoration: none;
     margin-top: 20px;
+    border-radius: 50px !important;
   }
 }
 
@@ -464,10 +469,10 @@
   .masonry-layout {
     width: 100%;
     .larger-devices{
-      display: none;
+      display: none !important;
     }
     .mobile-devices{
-      display: block;
+      display: block !important;
     }
     .one-fourth {
       width: 100%;
@@ -554,21 +559,33 @@
     }
   }
   :host /deep/ .featured-card {
-    height: 350px;
+    height: 320px;
+    padding: 15px;
     .user{
-      margin-top: 60px;
+      margin-top: 40px;
       >div{
         width: 70%;
+        h3{
+          font-size: $font-size-h4;
+        }
       }
+      img{
+        width: 60px;
+        height: 60px;
+      }
+    }
+    p{
+      font-size: $font-size-default;
+      margin-top: 5px;
     }
     .host{
       i{
-        font-size: $font-size-h2 + 0.5em !important;
+        font-size: $font-size-h2 !important;
       }
     }
     a{
-      padding: 10px;
-      margin-top: 20px;
+      padding: 7px;
+      margin-top: 15px;
     }
   }
   .fetcher {
@@ -589,10 +606,10 @@
   .masonry-layout {
     width: 100%;
     .larger-devices{
-      display: none;
+      display: none !important;
     }
     .mobile-devices{
-      display: block;
+      display: block !important;
     }
     .one-fourth {
       width: 100%;
@@ -679,22 +696,31 @@
     }
   }
   :host /deep/ .featured-card {
-    height: 350px;
+    height: 320px;
+    padding: 20px;
     .user{
-      margin-top: 60px;
+      margin-top: 40px;
       >div{
         width: 70%;
         span{
           font-size: $font-size-default;
         }
+        h3{
+          font-size: $font-size-h4;
+        }
+      }
+      img{
+        width: 60px;
+        height: 60px;
       }
     }
     p{
-      font-size: $font-size-h5;
+      font-size: $font-size-default;
+      margin-top: 5px;
     }
     .host{
       i{
-        font-size: $font-size-h2 + 0.5em !important;
+        font-size: $font-size-h2 !important;
       }
     }
     a{
@@ -720,10 +746,10 @@
   .masonry-layout {
     width: 100%;
     .larger-devices{
-      display: none;
+      display: none !important;
     }
     .mobile-devices{
-      display: inline-block;
+      display: inline-block !important;
     }
     .one-fourth {
       width: 50%;
@@ -809,22 +835,31 @@
     }
   }
   :host /deep/ .featured-card {
-    height: 350px;
+    height: 320px;
+    padding: 15px;
     .user{
-      margin-top: 60px;
+      margin-top: 40px;
       >div{
         width: 70%;
         span{
           font-size: $font-size-default;
         }
+        h3{
+          font-size: $font-size-h4;
+        }
+      }
+      img{
+        width: 60px;
+        height: 60px;
       }
     }
     p{
-      font-size: $font-size-h5;
+      font-size: $font-size-default;
+      margin-top: 5px;
     }
     .host{
       i{
-        font-size: $font-size-h2 + 0.5em !important;
+        font-size: $font-size-h2 !important;
       }
     }
     a{

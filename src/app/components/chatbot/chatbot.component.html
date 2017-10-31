@@ -1,24 +1,8 @@
 <div id="chatbot">
   <div #chatFlowContainer class="chat_flow">
     <ol #chatFlowList>
-      <li *ngFor="let i of responses, let index = index" class="larger-devices">
+      <li *ngFor="let i of responses, let index = index">
         <div class="response" *ngIf="i.type === 'response'">
-          <div class="text">{{(lang === 'en' ? i.message.en : i.message.sv)}}</div>
-          <div *ngIf="i.info && i.info !== ''" class="info">
-            <span (click)="showInfo(index)">?</span>
-            <div *ngIf="showedInfoIndex == index" class="info-text">
-              {{(lang === 'en' ? i.info.en : i.info.sv)}}
-            </div>
-          </div>
-        </div>
-        <div class="user" *ngIf="i.type === 'user'">
-          <div class="message">
-            {{(lang === 'en' ? i.message.en : i.message.sv)}}
-          </div>
-        </div>
-      </li>
-      <li *ngFor="let i of responses, let index = index" class="mobile">
-        <div class="response" *ngIf="i.type === 'response' && index !== 0">
           <div class="text">{{(lang === 'en' ? i.message.en : i.message.sv)}}</div>
           <div *ngIf="i.info && i.info !== ''" class="info">
             <span (click)="showInfo(index)">?</span>

@@ -64,13 +64,31 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   .featured-faqs {
-
+    overflow: hidden;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .slides-wrapper{
+      transition: margin 0.5s ease;
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   .featured-faqs {
-
+    overflow: hidden;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .slides-wrapper{
+      transition: margin 0.5s ease;
+    }
   }
 }
 // Large devices (desktops, 992px and up)

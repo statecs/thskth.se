@@ -116,7 +116,7 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #header-slider {
-    height: 370px;
+    height: 200px;
     .slide-wrapper {
       .slide{
         h2{
@@ -135,7 +135,7 @@
     }
     .text-slider-navBefore, .text-slider-navNext {
       i{
-        font-size: $font-size-h1 + 0.5em;
+        font-size: $font-size-h2 + 0.5em;
       }
     }
     .slider-progress-bar {
@@ -155,13 +155,79 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #header-slider {
-
+    height: 250px;
+    .slide-wrapper {
+      .slide{
+        h2{
+          font-size: $font-size-h3;
+        }
+      }
+      .category{
+        bottom: 50px;
+      }
+      .large-devices{
+        display: none !important;
+      }
+      .mobile{
+        display: block !important;
+      }
+    }
+    .text-slider-navBefore, .text-slider-navNext {
+      i{
+        font-size: $font-size-h2 + 0.5em;
+      }
+    }
+    .slider-progress-bar {
+      position: absolute;
+      top: auto;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      .bar-item{
+        width: 15px;
+        height: 15px;
+        margin: 0 10px;
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #header-slider {
-
+    height: 300px;
+    .slide-wrapper {
+      .slide{
+        h2{
+          font-size: $font-size-h3;
+        }
+      }
+      .category{
+        bottom: 50px;
+      }
+      .large-devices{
+        display: none !important;
+      }
+      .mobile{
+        display: block !important;
+      }
+    }
+    .text-slider-navBefore, .text-slider-navNext {
+      i{
+        font-size: $font-size-h2 + 0.5em;
+      }
+    }
+    .slider-progress-bar {
+      position: absolute;
+      top: auto;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      .bar-item{
+        width: 15px;
+        height: 15px;
+        margin: 0 10px;
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

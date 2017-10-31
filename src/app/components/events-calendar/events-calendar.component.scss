@@ -13,8 +13,8 @@
   border: 1px solid red;
   height: 100%;
   z-index: 1;
-  background: rgba(0,0,0,0.90);
-  color: white;
+  background: #efefef;
+  color: black;
   top: 0;
   width: 100%;
   .calendar-wrapper{
@@ -107,7 +107,7 @@
             text-align: left;
             padding: 0 10px;
             h2{
-              font-size: $font-size-h3;
+              font-size: $font-size-h4;
               margin: 10px 0;
             }
           }
@@ -256,30 +256,58 @@
     .events-wrapper{
       .events{
         .item{
-          width: 90%;
+          width: 95%;
           height: auto;
           max-height: 150px;
           .img-wrapper{
             height: 80px;
+            img{
+              z-index: -1;
+            }
           }
         }
       }
     }
     .featured-events{
+      margin-top: 20px;
+      .heading{
+        h2{
+          width: 100%;
+        }
+      }
       .events-container {
         width: 100%;
         overflow-x: scroll;
-        padding: 15px 0;
+        padding: 0 0 15px;
         .f_events-wrapper {
           width: 150%;
           .event {
             width: 29%;
             margin: 0 1.5%;
             float: left;
+            height: 300px;
+            .image-wrapper{
+              height: 110px;
+              .date{
+                width: 40px;
+                height: 40px;
+                font-size: 0.9em;
+                padding-top: 0;
+              }
+            }
+            .info{
+              font-size: $font-size-h6;
+              h2{
+                font-size: $font-size-h5;
+              }
+            }
           }
         }
       }
     }
+  }
+  .exit-popup-btn-mobile{
+    padding: 7px 20px;
   }
 }
 // Small devices (landscape phones, 576px and up)
@@ -295,36 +323,73 @@
     .events-wrapper{
       .events{
         .item{
-          width: 90%;
+          width: 95%;
           height: auto;
           max-height: 150px;
           .img-wrapper{
-            height: 80px;
+            height: 150px;
+            img{
+              z-index: -1;
+            }
           }
         }
       }
     }
     .featured-events{
+      margin-top: 20px;
+      .heading{
+        h2{
+          width: 100%;
+        }
+      }
       .events-container {
         width: 100%;
         overflow-x: scroll;
-        padding: 15px 0;
+        padding: 0 0 15px;
         .f_events-wrapper {
           width: 150%;
           .event {
             width: 29%;
             margin: 0 1.5%;
             float: left;
+            height: 300px;
+            .image-wrapper{
+              height: 150px;
+              .date{
+                width: 40px;
+                height: 40px;
+                font-size: 0.9em;
+                padding-top: 0;
+              }
+              img{
+                top: -10%;
+              }
+            }
+            .info{
+              font-size: $font-size-h6;
+              h2{
+                font-size: $font-size-h5;
+              }
+            }
           }
         }
       }
     }
+  }
+  .exit-popup-btn-mobile{
+    padding: 7px 20px;
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   .mobile{
     display: inline-block !important;
+  }
+  .cal-popup{
+    .calendar-wrapper{
+      width: 80%;
+      margin-left: 10%;
+    }
   }
   #events-calendar {
     width: 100%;
@@ -334,36 +399,86 @@
     .events-wrapper{
       .events{
         .item{
-          width: 90%;
+          width: 95%;
           height: auto;
           max-height: 150px;
           .img-wrapper{
-            height: 80px;
+            height: 150px;
+            img{
+              z-index: -1;
+            }
           }
         }
       }
     }
     .featured-events{
+      margin-top: 20px;
+      .heading{
+        h2{
+          width: 100%;
+        }
+      }
       .events-container {
         width: 100%;
         overflow-x: scroll;
-        padding: 15px 0;
+        padding: 0 0 15px;
         .f_events-wrapper {
           width: 150%;
           .event {
             width: 29%;
             margin: 0 1.5%;
             float: left;
+            height: 300px;
+            .image-wrapper{
+              height: 170px;
+              .date{
+                width: 40px;
+                height: 40px;
+                font-size: 0.9em;
+                padding-top: 0;
+              }
+              img{
+                top: -20%;
+              }
+            }
+            .info{
+              font-size: $font-size-default;
+              h2{
+                font-size: $font-size-h4;
+              }
+            }
           }
         }
       }
     }
   }
+  .exit-popup-btn-mobile{
+    padding: 7px 20px;
+  }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #events-calendar {
-
+    .events-wrapper{
+      .events{
+        .item{
+          .img-wrapper{
+            height: 130px;
+          }
+        }
+      }
+    }
+    .featured-events{
+      .events-container{
+        .f_events-wrapper{
+          .event{
+            .info{
+              font-size: $font-size-h6;
+            }
+          }
+        }
+      }
+    }
   }
 }
 // Extra large devices (large desktops, 1200px and up)

@@ -197,7 +197,13 @@
   }
 
   #search-menubar {
-
+    form{
+      width: 90%;
+      height: 70px;
+      .search{
+        font-size: $font-size-h6;
+      }
+    }
   }
 }
 // Extra large devices (large desktops, 1200px and up)

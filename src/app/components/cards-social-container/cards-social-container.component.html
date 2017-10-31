@@ -17,7 +17,8 @@
                         <span>{{formatDate(post.created_time)}}</span>
                     </div>
                 </div>
-                <p>{{post.message}}</p>
+                <p class="large-devices">{{post?.message | cardText:250}}</p>
+                <p class="mobile">{{post?.message | cardText:100}}</p>
                 <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
             </div>
         </div>
@@ -36,7 +37,8 @@
                         <span>{{formatDate(post?.created_time)}}</span>
                     </div>
                 </div>
-                <p>{{post.message}}</p>
+                <p class="large-devices">{{post?.message | cardText:150}}</p>
+                <p class="mobile">{{post?.message | cardText:70}}</p>
                 <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
             </div>
         </div>
@@ -52,8 +54,8 @@
                             <span>{{formatDate(post?.created_time)}}</span>
                         </div>
                     </div>
-                    <p class="large-devices">{{post?.message | cardText:200}}</p>
-                    <p class="mobile">{{post?.message | cardText:100}}</p>
+                    <p class="large-devices">{{post?.message | cardText:150}}</p>
+                    <p class="mobile">{{post?.message | cardText:70}}</p>
                 </div>
                 <div class="right-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
                     <div>
@@ -82,7 +84,8 @@
                         <span>{{formatDate(thirdCard?.created_time)}}</span>
                     </div>
                 </div>
-                <p>{{thirdCard?.message}}</p>
+                <p class="large-devices">{{thirdCard?.message | cardText:150}}</p>
+                <p class="mobile">{{thirdCard?.message | cardText:70}}</p>
                 <a href="{{thirdCard?.link}}" target="_blank" type="button">{{read_more}}</a>
             </div>
             <div *ngIf="i !== 0 && thirdCard?.full_picture" class="single-event-card">
@@ -94,8 +97,8 @@
                             <span>{{formatDate(thirdCard?.created_time)}}</span>
                         </div>
                     </div>
-                    <p class="large-devices">{{thirdCard?.message | cardText:200}}</p>
-                    <p class="mobile">{{thirdCard?.message | cardText:100}}</p>
+                    <p class="large-devices">{{thirdCard?.message | cardText:150}}</p>
+                    <p class="mobile">{{thirdCard?.message | cardText:70}}</p>
                 </div>
                 <div class="right-content" [style.background-image]="thirdCard?.full_picture? ('url(' + thirdCard?.full_picture + ')'): none">
                     <div>
@@ -154,7 +157,8 @@
                         <span>{{formatDate(post.created_time)}}</span>
                     </div>
                 </div>
-                <p [innerHTML]="post.message | cardText:150"></p>
+                <p class="large-devices">{{post?.message | cardText:150}}</p>
+                <p class="mobile">{{post?.message | cardText:70}}</p>
                 <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
             </div>
         </div>
@@ -173,7 +177,8 @@
                         <span>{{formatDate(post?.created_time)}}</span>
                     </div>
                 </div>
-                <p>{{post.message}}</p>
+                <p class="large-devices">{{post?.message | cardText:150}}</p>
+                <p class="mobile">{{post?.message | cardText:70}}</p>
                 <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
             </div>
         </div>

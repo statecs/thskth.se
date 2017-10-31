@@ -3,14 +3,14 @@
 <div *ngIf="item_exist && !pageNotFound" id="content-container">
   <div class="search-bar">
     <h2>{{(lang === 'en' ? 'Search THS associations and chapters' : 'Sök THS föreningar och sektioner')}}</h2>
-    <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
-      <div class="search">
-        <input #searchField placeholder="{{(lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord')}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
-        <div class="mostSearchTerms">
-          <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
-        </div>
+    <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
+      <div class="search" [ngClass]="{onFocus: searchOnFocus}">
+        <input class="searchInput" #searchField placeholder="{{(lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord')}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        <input class="submit" type="submit" value="{{(lang === 'en' ? 'Search' : 'Sök')}}">
       </div>
-      <input class="submit" type="submit" value="{{(lang === 'en' ? 'Search' : 'Sök')}}">
+      <div class="mostSearchTerms">
+        <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
+      </div>
     </form>
   </div>
 
@@ -36,7 +36,7 @@
               <div class="image-wrapper" [style.backgroundImage]="'url(' + item.header_slides[0]?.imageUrl + ')'"></div>
               <div class="text">
                 <h3>{{item.title}}</h3>
-                <p [innerHTML]="item.description | cardText:95"></p>
+                <p [innerHTML]="item.description | cardText:75"></p>
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@
               <div class="image-wrapper" [style.backgroundImage]="'url(' + item.header_slides[0]?.imageUrl + ')'"></div>
               <div class="text">
                 <h3>{{item.title}}</h3>
-                <p [innerHTML]="item.description | cardText:95"></p>
+                <p [innerHTML]="item.description | cardText:75"></p>
               </div>
             </div>
           </div>

@@ -150,13 +150,63 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #one-column-template {
-
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    >app-breadcrumb{
+      position: absolute;
+      top: 110px;
+      width: 100%;
+    }
+    .header-image{
+      max-height: 300px;
+    }
+    .content-container{
+      width: 90%;
+      padding: 30px;
+      .title{
+        font-size: $font-size-h3;
+      }
+      .content{
+        >h2{
+          font-size: $font-size-h4;
+        }
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #one-column-template {
-
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    >app-breadcrumb{
+      position: absolute;
+      top: 110px;
+      width: 100%;
+    }
+    .header-image{
+      max-height: 300px;
+    }
+    .content-container{
+      width: 90%;
+      padding: 30px;
+      .title{
+        font-size: $font-size-h3;
+      }
+      .content{
+        >h2{
+          font-size: $font-size-h4;
+        }
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

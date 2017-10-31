@@ -130,14 +130,58 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
+  .mobile{
+    display: block;
+  }
   #content-container {
-
+    width: 100%;
+    margin-top: 0;
+    .larger-devices{
+      display: none !important;
+    }
+    #page{
+      width: 90%;
+      margin-left: 5%;
+      .heading{
+        margin-bottom: 20px;
+        .title{
+          width: 100%;
+        }
+      }
+      .content-container{
+        width: 100%;
+        margin-left: 0;
+        left: 0;
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
+  .mobile{
+    display: block;
+  }
   #content-container {
-
+    width: 100%;
+    margin-top: 0;
+    .larger-devices{
+      display: none !important;
+    }
+    #page{
+      width: 90%;
+      margin-left: 5%;
+      .heading{
+        margin-bottom: 20px;
+        .title{
+          width: 100%;
+        }
+      }
+      .content-container{
+        width: 100%;
+        margin-left: 0;
+        left: 0;
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

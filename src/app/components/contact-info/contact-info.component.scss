@@ -8,6 +8,7 @@
   font-weight: 300;
   padding-bottom: 20px;
   border-radius: 5px;
+  font-size: $font-size-h5;
 
   h1{
     margin-top: 0;
@@ -35,26 +36,38 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   .contact-info {
-
+    font-size: $font-size-default;
+    h1{
+      font-size: $font-size-h3;
+    }
+    a{
+      width: 50% !important;
+      margin-left: 25%;
+      padding: 10px 0;
+    }
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   .contact-info {
-    font-size: 1.15em;
+    font-size: $font-size-default;
+    h1{
+      font-size: $font-size-h3;
+    }
     a{
       width: 50% !important;
       margin-left: 25%;
+      padding: 10px 0;
     }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   .contact-info {
-    font-size: 0.9em;
+    font-size: $font-size-h6;
     h1{
       font-size: $font-size-h3;
-      padding-top: 20px;
+      padding-top: 25px;
       margin-bottom: 5px;
     }
     .student{
@@ -63,12 +76,35 @@
     .booking{
       margin: 10px 0;
     }
+    a{
+      width: 50% !important;
+      margin-left: 25%;
+      padding: 10px 0;
+      margin-top: 10px;
+    }
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   .contact-info {
-
+    font-size: $font-size-h6;
+    h1{
+      font-size: $font-size-h3;
+      padding-top: 25px;
+      margin-bottom: 5px;
+    }
+    .student{
+      margin: 10px 0;
+    }
+    .booking{
+      margin: 10px 0;
+    }
+    a{
+      width: 50% !important;
+      margin-left: 25%;
+      padding: 10px 0;
+      margin-top: 10px;
+    }
   }
 }
 // Extra large devices (large desktops, 1200px and up)

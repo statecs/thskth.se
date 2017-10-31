@@ -348,7 +348,7 @@ export class ChatbotComponent implements OnInit {
     let height: number;
     if (rect !== 'undefined') {
       top = rect.offsetTop;
-      height = rect.offsetHeight;
+      height = rect.getElementsByClassName('response')[0].offsetHeight;
     }else {
       top = 15;
       height = 0;

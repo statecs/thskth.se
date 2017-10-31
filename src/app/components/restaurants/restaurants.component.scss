@@ -133,6 +133,7 @@
         border:1px solid gray;
         color: black;
         padding: 15px 20px;
+        margin-bottom: 5px;
       }
     }
 
@@ -223,6 +224,12 @@
   }
 }
 
+::-webkit-scrollbar
+{
+  width: 0;  /* for vertical scrollbars */
+  height: 0; /* for horizontal scrollbars */
+}
+
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #restaurant {
@@ -276,22 +283,108 @@
   }
 }
 
-::-webkit-scrollbar
-{
-  width: 0;  /* for vertical scrollbars */
-  height: 0; /* for horizontal scrollbars */
-}
-
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #restaurant {
-
+    width: 100%;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .gallery{
+      .g-item{
+        width: 31%;
+        margin: 0 1%;
+        .text{
+          p{
+            font-size: $font-size-h4;
+          }
+        }
+      }
+      .slides-wrapper{
+        width: 260%;
+        //border: 1px solid;
+        text-align: left;
+        margin-left: 20px;
+        transition: margin 0.5s ease;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+    .schedule{
+      .menu-container{
+        width: 90%;
+        .dish{
+          width: 90%;
+          h4{
+            margin: 0;
+          }
+        }
+      }
+      .menu-calendar{
+        overflow-x: scroll;
+        >div{
+          width: 600px;
+        }
+        .selected{
+          box-shadow: 0 2px 15px rgba(0,0,0,0);
+        }
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #restaurant {
-
+    width: 100%;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .gallery{
+      .g-item{
+        width: 31%;
+        margin: 0 1%;
+        .text{
+          p{
+            font-size: $font-size-h4;
+          }
+        }
+      }
+      .slides-wrapper{
+        width: 260%;
+        //border: 1px solid;
+        text-align: left;
+        margin-left: 20px;
+        transition: margin 0.5s ease;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+    .schedule{
+      .menu-container{
+        width: 90%;
+        .dish{
+          width: 90%;
+          h4{
+            margin: 0;
+          }
+        }
+      }
+      .menu-calendar{
+        overflow-x: scroll;
+        >div{
+          width: 600px;
+        }
+        .selected{
+          box-shadow: 0 2px 15px rgba(0,0,0,0);
+        }
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

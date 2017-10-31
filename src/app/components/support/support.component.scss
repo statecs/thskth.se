@@ -310,13 +310,141 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #support {
-
+    width: 100%;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .heading{
+      .title{
+        h2{
+          line-height: 1.3;
+        }
+        span{
+          text-align: left;
+          margin: 0 5%;
+          display: block;
+        }
+      }
+      .search{
+        input{
+          width: 90%;
+        }
+      }
+    }
+    .content-container{
+      .faqs-categories{
+        .category{
+          width: 80%;
+        }
+      }
+    }
+    .faqs-single-view{
+      margin-top: 30px;
+      .submenu{
+        width: 100%;
+        label{
+          margin-bottom: 0;
+          padding-left: 4%;
+        }
+        .cat-container{
+          overflow-x: scroll;
+          .cat-wrapper{
+            background-color: white;
+            .submenu-item{
+              display: inline-block;
+              color: $color-link-secondary;
+            }
+            .selected{
+              color: white;
+            }
+          }
+        }
+        .selected{
+          &:after{
+            display: none;
+          }
+        }
+      }
+      .faqs-container{
+        width: 92%;
+        left: 0;
+        margin: 0 4%;
+        top: 20px;
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #support {
-
+    width: 100%;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .heading{
+      .title{
+        h2{
+          line-height: 1.3;
+        }
+        span{
+          text-align: left;
+          margin: 0 5%;
+          display: block;
+        }
+      }
+      .search{
+        input{
+          width: 90%;
+        }
+      }
+    }
+    .content-container{
+      .faqs-categories{
+        .category{
+          width: 80%;
+        }
+      }
+    }
+    .faqs-single-view{
+      margin-top: 30px;
+      .submenu{
+        width: 100%;
+        label{
+          margin-bottom: 0;
+          padding-left: 4%;
+        }
+        .cat-container{
+          overflow-x: scroll;
+          .cat-wrapper{
+            background-color: white;
+            .submenu-item{
+              display: inline-block;
+              color: $color-link-secondary;
+            }
+            .selected{
+              color: white;
+            }
+          }
+        }
+        .selected{
+          &:after{
+            display: none;
+          }
+        }
+      }
+      .faqs-container{
+        width: 92%;
+        left: 0;
+        margin: 0 4%;
+        top: 20px;
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

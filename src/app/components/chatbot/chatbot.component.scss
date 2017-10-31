@@ -9,26 +9,19 @@
     min-height: 300px;
     position: relative;
     padding: 15px 15px 50px;
-    .larger-devices{
-      display: block !important;
-    }
-    .mobile{
-      display: none !important;
-    }
     ol{
       list-style: none;
       padding: 0;
       margin: 0 0 110px 0;
       li{
         display: block;
-        //overflow: hidden;
         .response{
           float: left;
           display: inline-block;
           width: 100%;
           .text{
             display: inline-block;
-            max-width: 70%;
+            max-width: 57%;
             padding: 15px;
             background: #87a1ba;
             color: white;
@@ -42,6 +35,7 @@
             display: inline-block;
             position: relative;
             vertical-align: middle;
+            width: 41%;
             >span{
               @include circle(20px);
               background-color: orange;
@@ -57,11 +51,12 @@
               border-radius: 10px;
               padding: 15px;
               bottom: 40px;
-              width: 300px;
+              max-width: 100%;
               word-wrap: break-word;
+              left: 0;
               &::after{
                 content: '';
-                @include arrow-down-tilted(10px, orange, 5%);
+                @include arrow-down-tilted(10px, orange, 10px);
               }
             }
           }
@@ -121,12 +116,8 @@
 @include media-breakpoint-only(xs) {
   #chatbot {
     .chat_flow {
-      .larger-devices {
-        display: none !important;
-      }
-      .mobile {
-        display: block !important;
-      }
+      min-height: 350px;
+      font-size: $font-size-h6;
       .reset-btn{
         right: 10px;
       }
@@ -135,10 +126,12 @@
           .response{
             .text{
               max-width: 50%;
+              padding: 10px;
             }
             .info{
+              width: 45%;
               .info-text{
-                width: 190px;
+                padding: 10px;
               }
             }
           }
@@ -150,13 +143,57 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #chatbot {
-
+    .chat_flow {
+      min-height: 350px;
+      font-size: $font-size-h6;
+      .reset-btn{
+        right: 10px;
+      }
+      ol{
+        li{
+          .response{
+            .text{
+              max-width: 50%;
+              padding: 10px;
+            }
+            .info{
+              width: 45%;
+              .info-text{
+                padding: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #chatbot {
-
+    .chat_flow {
+      min-height: 300px;
+      font-size: $font-size-h6;
+      .reset-btn{
+        right: 10px;
+      }
+      ol{
+        li{
+          .response{
+            .text{
+              max-width: 50%;
+              padding: 10px;
+            }
+            .info{
+              width: 45%;
+              .info-text{
+                padding: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

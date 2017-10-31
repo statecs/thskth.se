@@ -159,6 +159,23 @@
       height: 300px;
       margin-top: 50px;
     }
+    .faq-slider {
+      width: 90%;
+      & >div{
+        font-size: $font-size-h3;
+      }
+    }
+    .image-slider {
+      width: 90%;
+      & >div{
+        font-size: $font-size-h3;
+        margin-left: 2.5%;
+      }
+    }
+    app-cards-social-container{
+      width: 90%;
+      display: block;
+    }
   }
 }
 // Extra large devices (large desktops, 1200px and up)
