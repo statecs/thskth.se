@@ -21,43 +21,100 @@
   }
 
   .search-bar{
-    height: 150px;
+    height: auto;
+    padding-bottom: 20px;
     background-color: #e2e2e2;
     text-align: center;
     position: relative;
+    padding-top: 5px;
     >h2{
       margin: 0;
       padding-top: 15px;
     }
-    .onFocus{
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.2) !important;
-    }
     form{
       width: 720px;
-      box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
-      @include center-content(50%, 50%);
+      display: inline-block;
+      margin: 10px 0 0;
+      position: relative;
+      .onFocus{
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.2) !important;
+      }
       .search{
-        >input{
-          width: 600px;
+        height: 50px;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+        .searchInput{
+          width: 75%;
           padding: 0 5px 0 15px;
           border: 0;
           display: inline-block;
           float: left;
           height: 50px;
         }
-        .mostSearchTerms{
-          position: absolute;
-          left: 0;
-          bottom: -27px;
-          span{
-            margin-right: 25px;
-            cursor: pointer;
-            border: 1px solid lightgray;
-            border-radius: 10px;
-            padding: 2px 5px;
-            &:hover{
-              text-decoration: underline;
+        .filter{
+          display: inline-block;
+          float: left;
+          background-color: white;
+          height: 50px;
+          cursor: pointer;
+          color: lightgrey;
+          position: relative;
+          width: 5%;
+          .options-icon{
+            width: 100%;
+            height: 100%;
+            >i{
+              @include center-vertically(50%);
+              position: relative !important;
+              font-size: 2em;
             }
+            &:hover{
+              color: rgba(0, 108, 170, 0.62);
+            }
+          }
+          .options{
+            position: absolute;
+            background-color: rgba(75, 75, 75, 0.66);
+            padding: 10px 20px;
+            right: 0;
+            text-align: left;
+            width: 200px;
+            top: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+            z-index: 1;
+            .option{
+              margin: 15px 0;
+              &:hover{
+                text-decoration: underline;
+              }
+              .checkbox{
+                display: inline-block;
+                border: 1px solid lightgray;
+                width: 25px;
+                height: 25px;
+                vertical-align: middle;
+                //border-radius: 3px;
+                margin-right: 10px;
+                float: left;
+                i{
+                  line-height: 0.9;
+                  &:hover{
+                    text-decoration: none;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .submit{
+          display: inline-block;
+          float: right;
+          padding: 17px 38px;
+          border: 0;
+          background: none;
+          cursor: pointer;
+          width: 20%;
+          &:hover{
+            box-shadow: 0 0 15px rgba(0, 108, 170, 0.62);
           }
         }
       }
@@ -72,6 +129,7 @@
         box-shadow: 0 15px 30px rgba(0,0,0,0.25);
         text-align: left;
         padding: 10px 20px;
+        z-index: 1;
         .section{
           >h3{
             border-bottom: 1px solid lightgray;
@@ -133,69 +191,23 @@
           }
         }
       }
-      .filter{
-        display: inline-block;
-        float: left;
-        background-color: white;
-        height: 50px;
-        cursor: pointer;
-        color: lightgrey;
+
+      .mostSearchTerms{
         position: relative;
-        .options-icon{
-          width: 100%;
-          height: 100%;
-          >i{
-            @include center-vertically(50%);
-            position: relative !important;
-            font-size: 2em;
-          }
+        overflow: hidden;
+        width: 75%;
+        text-align: left;
+        margin-top: 5px;
+        span{
+          margin: 2px 25px 5px 0;
+          cursor: pointer;
+          border: 1px solid lightgray;
+          border-radius: 10px;
+          padding: 2px 5px;
+          display: inline-block;
           &:hover{
-            color: rgba(0, 108, 170, 0.62);
+            text-decoration: underline;
           }
-        }
-        .options{
-          position: absolute;
-          background-color: rgba(75, 75, 75, 0.66);
-          padding: 10px 20px;
-          right: 0;
-          text-align: left;
-          width: 200px;
-          top: 40px;
-          box-shadow: 0 0 20px rgba(0,0,0,0.4);
-          .option{
-            margin: 15px 0;
-            &:hover{
-              text-decoration: underline;
-            }
-            .checkbox{
-              display: inline-block;
-              border: 1px solid lightgray;
-              width: 25px;
-              height: 25px;
-              vertical-align: middle;
-              //border-radius: 3px;
-              margin-right: 10px;
-              float: left;
-              i{
-                line-height: 0.9;
-                &:hover{
-                  text-decoration: none;
-                }
-              }
-            }
-          }
-        }
-      }
-      .submit{
-        display: inline-block;
-        float: right;
-        padding: 16px 22px;
-        border: 0;
-        background: none;
-        cursor: pointer;
-        width: 86.25px;
-        &:hover{
-          box-shadow: 0 0 15px rgba(0, 108, 170, 0.62);
         }
       }
     }
@@ -290,41 +302,48 @@
     width: 100%;
     margin-top: 60px;
     .search-bar{
-      height: 200px;
+      height: auto;
+      padding-bottom: 20px;
       >h2{
         padding: 15px;
+        font-size: $font-size-h4;
       }
       form{
         width: 90%;
-        top: auto;
-        left: auto;
-        transform: none;
         margin: 0 5%;
         .search{
-          >input{
+          width: 100%;
+          display: inline-block;
+          .searchInput{
             width: 70%;
           }
-          .mostSearchTerms{
-            bottom: -70px;
-            span{
-              float: left;
-              margin-bottom: 5px;
-            }
+          .submit{
+            width: 20%;
+            padding: 17px 0;
           }
-        }
-        .filter{
-          width: 10%;
-        }
-        .submit{
-          width: 20%;
-          padding: 16px 17px;
+          .filter{
+            width: 10%;
+          }
         }
         .resultsDropdownList{
           height: 220px;
+          padding: 10px;
           .section{
             .item{
               margin-bottom: 15px;
+              .left-content{
+                display: none;
+              }
+              .right-content{
+                padding: 0;
+              }
             }
+          }
+        }
+        .mostSearchTerms{
+          width: 100%;
+          span{
+            margin: 3px 15px 5px 0;
           }
         }
       }
@@ -350,13 +369,143 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #content-container {
-
+    width: 100%;
+    margin-top: 60px;
+    .search-bar{
+      height: auto;
+      padding-bottom: 20px;
+      >h2{
+        padding: 15px;
+        font-size: $font-size-h4;
+      }
+      form{
+        width: 90%;
+        margin: 0 5%;
+        .search{
+          width: 100%;
+          display: inline-block;
+          .searchInput{
+            width: 70%;
+          }
+          .submit{
+            width: 20%;
+            padding: 17px 0;
+          }
+          .filter{
+            width: 10%;
+          }
+        }
+        .resultsDropdownList{
+          height: 220px;
+          padding: 10px;
+          .section{
+            .item{
+              margin-bottom: 15px;
+              .left-content{
+                display: none;
+              }
+              .right-content{
+                padding: 0;
+              }
+            }
+          }
+        }
+        .mostSearchTerms{
+          width: 100%;
+          span{
+            margin: 3px 15px 5px 0;
+          }
+        }
+      }
+    }
+    .results-container{
+      padding: 0 10px;
+      .section{
+        .item{
+          .left-content{
+            width: 25%;
+          }
+          .right-content{
+            width: 72%;
+            h4{
+              margin-top: 0;
+            }
+          }
+        }
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #content-container {
-
+    width: 100%;
+    margin-top: 60px;
+    .search-bar{
+      height: auto;
+      padding-bottom: 20px;
+      >h2{
+        padding: 15px;
+        font-size: $font-size-h4;
+      }
+      form{
+        width: 90%;
+        margin: 0 5%;
+        .search{
+          width: 100%;
+          display: inline-block;
+          .searchInput{
+            width: 70%;
+          }
+          .submit{
+            width: 20%;
+            padding: 17px 0;
+          }
+          .filter{
+            width: 10%;
+          }
+        }
+        .resultsDropdownList{
+          height: 250px;
+          .section{
+            .item{
+              margin-bottom: 15px;
+              .left-content{
+                width: 25%;
+              }
+              .right-content{
+                width: 72%;
+                h4{
+                  margin-top: 0;
+                }
+              }
+            }
+          }
+        }
+        .mostSearchTerms{
+          width: 100%;
+          span{
+            margin: 3px 15px 5px 0;
+          }
+        }
+      }
+    }
+    .results-container{
+      padding: 0 10px;
+      .section{
+        .item{
+          .left-content{
+            width: 25%;
+          }
+          .right-content{
+            width: 72%;
+            h4{
+              margin-top: 0;
+            }
+          }
+        }
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

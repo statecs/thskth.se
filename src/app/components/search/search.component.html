@@ -3,11 +3,28 @@
 <div *ngIf="!pageNotFound" id="content-container">
   <div class="search-bar" [ngClass]="{'center-vertically': !showResults}">
     <h2>{{(lang === 'en' ? 'Search THS and beyond' : 'Sök THS')}}</h2>
-    <form (ngSubmit)="submitSearch()" #searchForm [ngClass]="{onFocus: searchOnFocus}" autocomplete="off">
-      <div class="search">
-        <input #searchField placeholder="{{(lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord')}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
-        <div class="mostSearchTerms">
-          <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
+    <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
+      <div class="search" [ngClass]="{onFocus: searchOnFocus}">
+        <input class="searchInput" #searchField placeholder="{{(lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord')}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        <input class="submit" type="submit" value="{{(lang === 'en' ? 'Search' : 'Sök')}}">
+        <div class="filter">
+          <div #filter_icon class="options-icon" (click)="toggleFilter()">
+            <i class="material-icons">more_vert</i>
+          </div>
+          <div *ngIf="showFilterOptions" class="options">
+            <div class="option" (click)="toggleCheckbox('posts')">
+              <div class="checkbox"><i *ngIf="postsChecked" class="material-icons">check</i></div>
+              <span>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</span>
+            </div>
+            <div class="option" (click)="toggleCheckbox('page')">
+              <div class="checkbox"><i *ngIf="pageChecked" class="material-icons">check</i></div>
+              <span>{{(lang === 'en' ? 'Pages' : 'Sidor')}}</span>
+            </div>
+            <div class="option" (click)="toggleCheckbox('faq')">
+              <div class="checkbox"><i *ngIf="faqChecked" class="material-icons">check</i></div>
+              <span>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</span>
+            </div>
+          </div>
         </div>
       </div>
       <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
@@ -56,26 +73,9 @@
           <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">{{(lang === 'en' ? 'No FAQs found for' : 'Inga FAQs hittades för')}} "{{searchTerm}}"!</p>
         </div>
       </div>
-      <div class="filter">
-        <div #filter_icon class="options-icon" (click)="toggleFilter()">
-          <i class="material-icons">more_vert</i>
-        </div>
-        <div *ngIf="showFilterOptions" class="options">
-          <div class="option" (click)="toggleCheckbox('posts')">
-            <div class="checkbox"><i *ngIf="postsChecked" class="material-icons">check</i></div>
-            <span>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</span>
-          </div>
-          <div class="option" (click)="toggleCheckbox('page')">
-            <div class="checkbox"><i *ngIf="pageChecked" class="material-icons">check</i></div>
-            <span>{{(lang === 'en' ? 'Pages' : 'Sidor')}}</span>
-          </div>
-          <div class="option" (click)="toggleCheckbox('faq')">
-            <div class="checkbox"><i *ngIf="faqChecked" class="material-icons">check</i></div>
-            <span>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</span>
-          </div>
-        </div>
+      <div class="mostSearchTerms">
+        <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
       </div>
-      <input class="submit" type="submit" value="{{(lang === 'en' ? 'Search' : 'Sök')}}">
     </form>
   </div>
 

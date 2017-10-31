@@ -30,11 +30,12 @@
       width: 720px;
       display: inline-block;
       margin: 10px 0 0;
+      position: relative;
       .onFocus{
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.2) !important;
       }
       .search{
-        overflow: hidden;
+        height: 50px;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
         .searchInput{
           width: 75%;
@@ -68,6 +69,7 @@
         box-shadow: 0 15px 30px rgba(0,0,0,0.25);
         text-align: left;
         padding: 10px 20px;
+        z-index: 1;
         .section{
           >h3{
             border-bottom: 1px solid lightgray;
@@ -438,6 +440,21 @@
             padding: 17px 0;
           }
         }
+        .resultsDropdownList{
+          height: 220px;
+          padding: 10px;
+          .section{
+            .item{
+              margin-bottom: 15px;
+              .left-content{
+                display: none;
+              }
+              .right-content{
+                padding: 0;
+              }
+            }
+          }
+        }
         .mostSearchTerms{
           width: 100%;
           span{
@@ -526,6 +543,21 @@
             padding: 17px 0;
           }
         }
+        .resultsDropdownList{
+          height: 220px;
+          padding: 10px;
+          .section{
+            .item{
+              margin-bottom: 15px;
+              .left-content{
+                display: none;
+              }
+              .right-content{
+                padding: 0;
+              }
+            }
+          }
+        }
         .mostSearchTerms{
           width: 100%;
           span{
@@ -612,6 +644,23 @@
           .submit{
             width: 25%;
             padding: 17px 0;
+          }
+        }
+        .resultsDropdownList{
+          height: 250px;
+          .section{
+            .item{
+              margin-bottom: 15px;
+              .left-content{
+                width: 25%;
+              }
+              .right-content{
+                width: 72%;
+                h4{
+                  margin-top: 0;
+                }
+              }
+            }
           }
         }
         .mostSearchTerms{
