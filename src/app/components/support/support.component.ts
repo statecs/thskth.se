@@ -30,7 +30,7 @@ export class SupportComponent implements OnInit {
     public most_asked_faqs: FAQ[];
     public show_single_view: boolean;
     private lang: string;
-    private pageNotFound: boolean;
+    public pageNotFound: boolean;
     private exist_category: boolean;
 
   constructor(private faqsService: FaqsService,

@@ -10,7 +10,7 @@ import {Router, RoutesRecognized} from '@angular/router';
 })
 export class NavbarFooterComponent implements OnInit {
 
-  private footer_menu: MenuItem[];
+  public footer_menu: MenuItem[];
   private lang: string;
 
   constructor( private menusService: MenusService, private router: Router) {

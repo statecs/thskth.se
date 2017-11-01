@@ -46,7 +46,7 @@ export class ChaptersAssociationsComponent implements OnInit {
   public slug: string;
   public pageNotFound: boolean;
   private lang: string;
-  private item_exist: boolean;
+  public item_exist: boolean;
 
   constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,

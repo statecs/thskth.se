@@ -15,7 +15,7 @@ export class PrimarySliderComponent implements OnInit {
   @ViewChild('video_player') video_player: ElementRef;
   @ViewChild('slider_bar_container') slider_bar_container: ElementRef;
   @ViewChild('playButton') playButton: ElementRef;
-  
+
   public slides_img_base: string;
   public slider_progress_bars: any;
   public video: any;

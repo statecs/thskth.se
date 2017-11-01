@@ -25,7 +25,7 @@ export class RestaurantsComponent implements OnInit {
   public a_la_carte: DishesTime;
   public selected_day: string;
   private lang: string;
-  private pageNotFound: boolean;
+  public pageNotFound: boolean;
   private loading: boolean;
   private swipeCoord: [number, number];
   private swipeTime: number;

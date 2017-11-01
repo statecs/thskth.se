@@ -46,7 +46,7 @@ export class ArchiveComponent implements OnInit {
   public start_date: string;
   public end_date: string;
   private lang: string;
-  private pageNotFound: boolean;
+  public pageNotFound: boolean;
 
   constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,

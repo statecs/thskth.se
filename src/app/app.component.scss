@@ -1,4 +1,5 @@
 @import "../style/global";
+@import "../style/utilities";
 
 h1{
   color: green;
@@ -12,4 +13,14 @@ h1{
 
 .page-wrapper{
   position: relative;
+}
+
+.non-internet{
+  width: 100vw;
+  height: 100vh;
+  >div{
+    @include center-content(50%, 50%);
+    text-align: center;
+    color: #6c6b6b;
+  }
 }

@@ -23,8 +23,8 @@ export class EventsCalendarComponent implements OnInit {
   public showFeaturedEvents: boolean;
   public earliest_events: Event[];
   private lang: string;
-  private pageNotFound: boolean;
-  private showCalendar: boolean;
+  public pageNotFound: boolean;
+  public showCalendar: boolean;
 
   constructor(private calendarCommunicationService: CalendarCommunicationService,
               private googleCalendarService: GoogleCalendarService,

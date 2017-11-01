@@ -43,7 +43,7 @@ export class SearchComponent implements OnInit {
   public most_asked_questions_slugs: string[];
 
   private lang: string;
-  private pageNotFound: boolean;
+  public pageNotFound: boolean;
 
   constructor(private searchService: SearchService,
               private activatedRoute: ActivatedRoute,

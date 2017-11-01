@@ -12,7 +12,7 @@
         (updateEvents)="fetchEvents()">
 </app-calendar-header>
 <app-loader *ngIf="e_loading"></app-loader>
-<div class="scheme" *ngIf="events$ | async; else loading; let events">
+<div class="scheme" *ngIf="events$ | async; else e_loading; let events">
     <div [ngSwitch]="view">
         <mwl-calendar-month-view
                 *ngSwitchCase="'month'"

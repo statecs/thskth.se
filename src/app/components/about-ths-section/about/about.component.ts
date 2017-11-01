@@ -37,6 +37,10 @@ export class AboutComponent implements OnInit {
     this.freeze_submenu_bar = false;
   }
 
+  toggleSubmenuBarDropdown(): void {
+    (this.showSubmenuBarDropdown ? this.showSubmenuBarDropdown = false : this.showSubmenuBarDropdown = true);
+  }
+
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     this.toggle_freeze_submenu_bar();
@@ -93,6 +97,8 @@ export class AboutComponent implements OnInit {
       }else {
         this.pageNotFound = true;
       }
+    }, (error) => {
+      console.log(error);
     });
   }
 

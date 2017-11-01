@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   public showChaptersMobile: boolean;
   public ths_chapters: object[];
   public placeholder: string;
-  private lang: string;
+  public lang: string;
   public subMenu: MenuItem2[];
   private showSubmenuIndex: number;
   private removeLangParamPipe: RemoveLangParamPipe;

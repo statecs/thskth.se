@@ -7,7 +7,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./join-us.component.scss']
 })
 export class JoinUsComponent implements OnInit {
-  private lang: string;
+  public lang: string;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute) {

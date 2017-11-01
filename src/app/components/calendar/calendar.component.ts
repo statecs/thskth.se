@@ -38,7 +38,7 @@ export class CalendarComponent implements OnInit {
   public ths_calendars: any[];
   public selected_event_category: number;
   public e_loading: boolean;
-  private lang: string;
+  public lang: string;
 
   constructor(private googleCalendarService: GoogleCalendarService,
               private calendarCommunicationService: CalendarCommunicationService,

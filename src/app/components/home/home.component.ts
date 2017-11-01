@@ -18,7 +18,7 @@ import {CookieService} from 'ngx-cookie';
 })
 export class HomeComponent implements OnInit {
     private lang: string;
-    private pageNotFound: boolean;
+    public pageNotFound: boolean;
 
   constructor(  private textSliderCommunicationService: TextSliderCommunicationService,
                 private faqsService: FaqsService,

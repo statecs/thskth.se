@@ -13,12 +13,12 @@ import {ActivatedRoute, Params} from '@angular/router';
 export class ContactFormComponent implements OnInit {
   @ViewChild(ReCaptchaComponent) captcha: ReCaptchaComponent;
 
-  protected config: AppConfig;
+  public config: AppConfig;
   public subjects: object[];
-  private full_name: string;
-  private email: string;
-  private message: string;
-  private id_number: string;
+  public full_name: string;
+  public email: string;
+  public message: string;
+  public id_number: string;
   public error: string;
   public success: string;
   public lang: string;

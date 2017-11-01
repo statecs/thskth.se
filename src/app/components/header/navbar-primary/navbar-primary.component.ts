@@ -17,13 +17,13 @@ import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 })
 export class NavbarPrimaryComponent implements OnInit {
     private menu: MenuItem[];
-    private topLevelMainMenu: MenuItem2[];
+    public topLevelMainMenu: MenuItem2[];
     public subMenu: MenuItem2[];
     public language: string;
     public language_text: string;
     public language_img: string;
     protected config: AppConfig;
-    private showSubmenuIndex: number;
+    public showSubmenuIndex: number;
     public ths_chapters: object[];
     public signin_text: string;
     private removeLangParamPipe: RemoveLangParamPipe;
