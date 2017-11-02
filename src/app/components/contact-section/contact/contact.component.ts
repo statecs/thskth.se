@@ -48,7 +48,6 @@ export class ContactComponent implements OnInit {
           this.subMenu = submenu;
         },
         (error) => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -58,7 +57,6 @@ export class ContactComponent implements OnInit {
           this.subMenu = submenu;
         },
         (error) => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -69,7 +67,6 @@ export class ContactComponent implements OnInit {
         this.page = page;
       },
       (error) => {
-        console.log(error);
         this.notificationBarCommunicationService.send_data(error);
       });
   }

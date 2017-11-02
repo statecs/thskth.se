@@ -8,6 +8,7 @@ import { FaqsService } from '../../services/wordpress/faqs.service';
 import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
 import { most_asked_questions } from '../../utils/most-asked-questions';
 import {CookieService} from 'ngx-cookie';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-search',
@@ -51,7 +52,8 @@ export class SearchComponent implements OnInit {
               private location: Location,
               private faqsService: FaqsService,
               private renderer: Renderer2,
-              private _cookieService: CookieService) {
+              private _cookieService: CookieService,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -129,23 +131,32 @@ export class SearchComponent implements OnInit {
 
   searchPosts(): void {
     this.searchService.searchPosts(this.searchTerm, 4, this.lang).subscribe((res) => {
-      this.postsLoading = false;
-      this.postsResults = res;
-    });
+          this.postsLoading = false;
+          this.postsResults = res;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   searchPages(): void {
     this.searchService.searchPages(this.searchTerm, 4, this.lang).subscribe((res) => {
-      this.pagesLoading = false;
-      this.pageResults = res;
-    });
+          this.pagesLoading = false;
+          this.pageResults = res;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   searchFAQs(): void {
     this.searchService.searchFAQs(this.searchTerm, 4, this.lang).subscribe((res) => {
-      this.faqsLoading = false;
-      this.faqResults = res;
-    });
+          this.faqsLoading = false;
+          this.faqResults = res;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   selectTerm(term): void {
@@ -189,9 +200,12 @@ export class SearchComponent implements OnInit {
     });
 
     this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
-      this.parent_categories = categories;
-      console.log(categories);
-    });
+          this.parent_categories = categories;
+          console.log(categories);
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
 
     this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0]).subscribe((faq) => {
       const faqs: FAQ[] = [];
@@ -200,10 +214,18 @@ export class SearchComponent implements OnInit {
         faqs.push(faq2);
         this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2]).subscribe((faq3) => {
           faqs.push(faq3);
-
           this.most_asked_faqs = faqs;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
         });
+      },
+      (error) => {
+        this.notificationBarCommunicationService.send_data(error);
       });
+    },
+    (error) => {
+      this.notificationBarCommunicationService.send_data(error);
     });
 
     const self = this;

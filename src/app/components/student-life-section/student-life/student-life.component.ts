@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarComponent} from '../../notification-bar/notification-bar.component';
+import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-student-life',
@@ -32,7 +33,8 @@ export class StudentLifeComponent implements AfterViewInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private menusService: MenusService,
-              private notificationBarComponent: NotificationBarComponent) {
+              private notificationBarComponent: NotificationBarComponent,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
@@ -92,28 +94,37 @@ export class StudentLifeComponent implements AfterViewInit {
   getSecondarySubMenu() {
     console.log(this.slug);
     this.menusService.get_secondarySubMenu('student-life', this.slug, this.lang).subscribe((submenu) => {
-      this.subMenu = submenu;
-      console.log(this.subMenu);
-    });
+          this.subMenu = submenu;
+          console.log(this.subMenu);
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   getSubmenu() {
     this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
-      this.subMenu = submenu;
-    });
+          this.subMenu = submenu;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   getPageBySlug() {
     console.log(this.slug + this.lang);
     this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
-      this.loading = false;
-      console.log(page);
-      if (page) {
-        this.page = page;
-      }else {
-        this.pageNotFound = true;
-      }
-    });
+          this.loading = false;
+          console.log(page);
+          if (page) {
+            this.page = page;
+          }else {
+            this.pageNotFound = true;
+          }
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   ngAfterViewInit() {

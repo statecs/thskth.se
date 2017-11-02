@@ -10,6 +10,7 @@ import {Association} from '../../interfaces/chapters_associations';
 import {Archive} from '../../interfaces/archive';
 import {FAQ} from '../../interfaces/faq';
 import {Router, RoutesRecognized} from '@angular/router';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-popup-window',
@@ -46,7 +47,8 @@ export class PopupWindowComponent implements OnInit {
                private popupWindowCommunicationService: PopupWindowCommunicationService,
                private appCommunicationService: AppCommunicationService,
                private location: Location,
-               private router: Router) {
+               private router: Router,
+               private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.showEvent = false;
     this.top_position = 0;
     this.showAssociation = false;
@@ -137,10 +139,13 @@ export class PopupWindowComponent implements OnInit {
     this.showPage = true;
     this.show_popup_window();
     this.wordpressApiService.getPage(slug).subscribe(res => {
-        console.log(res);
-        this.page_data = res[0];
-      this.loading = false;
-    });
+          console.log(res);
+          this.page_data = res[0];
+          this.loading = false;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   show_event_in_popup(event): void {
@@ -166,7 +171,6 @@ export class PopupWindowComponent implements OnInit {
     console.log(archive);
     this.archive = archive;
     this.showArchive = true;
-    console.log("popup");
     console.log(archive.documents);
     this.show_popup_window();
   }
@@ -175,7 +179,6 @@ export class PopupWindowComponent implements OnInit {
         console.log(faq);
         this.faq = faq;
         this.showFaq = true;
-        console.log("popup");
         this.show_popup_window();
     }
 

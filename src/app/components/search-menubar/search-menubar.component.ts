@@ -3,6 +3,7 @@ import { SearchMenubarCommunicationService } from '../../services/component-comm
 import { SearchService } from '../../services/wordpress/search.service';
 import { SearchResult } from '../../interfaces/search';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-search-menubar',
@@ -25,7 +26,8 @@ export class SearchMenubarComponent implements OnInit {
   constructor(private searchMenubarCommunicationService: SearchMenubarCommunicationService,
               private searchService: SearchService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
     this.showSearchBar = false;
     this.showResultsDropdown = false;
@@ -67,23 +69,32 @@ export class SearchMenubarComponent implements OnInit {
 
   searchPosts(): void {
     this.searchService.searchPosts(this.searchTerm, 2, this.lang).subscribe((res) => {
-      this.postsLoading = false;
-      this.postsResults = res;
-    });
+          this.postsLoading = false;
+          this.postsResults = res;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   searchPages(): void {
     this.searchService.searchPages(this.searchTerm, 2, this.lang).subscribe((res) => {
-      this.pagesLoading = false;
-      this.pageResults = res;
-    });
+          this.pagesLoading = false;
+          this.pageResults = res;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   searchFAQs(): void {
     this.searchService.searchFAQs(this.searchTerm, 2, this.lang).subscribe((res) => {
-      this.faqsLoading = false;
-      this.faqResults = res;
-    });
+          this.faqsLoading = false;
+          this.faqResults = res;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   ngOnInit() {

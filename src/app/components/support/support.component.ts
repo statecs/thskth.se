@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {CookieService} from 'ngx-cookie';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-support',
@@ -39,7 +40,8 @@ export class SupportComponent implements OnInit {
               private renderer: Renderer2,
               private location: Location,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
-              private _cookieService: CookieService) {
+              private _cookieService: CookieService,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
       this.exist_category = false;
       this.pageNotFound = false;
     this.selected_cat_index = 0;
@@ -94,13 +96,16 @@ export class SupportComponent implements OnInit {
           this.selected_category = null;
           this.loading = true;
           this.faqsService.searchFAQs(this.searchTerm, this.lang).subscribe((faqs) => {
-              this.search_results = faqs;
+                  this.search_results = faqs;
 
-              this.loading = false;
-              if (faqs.length === 0 && this.faq_subMenus.length === 0) {
-                  this.noResult = true;
-              }
-          });
+                  this.loading = false;
+                  if (faqs.length === 0 && this.faq_subMenus.length === 0) {
+                      this.noResult = true;
+                  }
+              },
+              (error) => {
+                  this.notificationBarCommunicationService.send_data(error);
+              });
       }
   }
 
@@ -159,20 +164,26 @@ export class SupportComponent implements OnInit {
 
     getFAQs_ByCategoryID(catID): void {
         this.faqsService.getFAQs_ByCategoryID(catID).subscribe((faqs) => {
-            this.faqs = faqs;
-            this.showFaqs = true;
-            this.loading = false;
-            if (faqs.length === 0 && this.faq_subMenus.length === 0) {
-                this.noResult = true;
-            }
-        });
+                this.faqs = faqs;
+                this.showFaqs = true;
+                this.loading = false;
+                if (faqs.length === 0 && this.faq_subMenus.length === 0) {
+                    this.noResult = true;
+                }
+            },
+            (error) => {
+                this.notificationBarCommunicationService.send_data(error);
+            });
     }
 
   getFAQs_ByParentCategory(parentId): void {
     this.faqsService.getSubMenus_ByParentCategory(parentId).subscribe((faq_subMenus) => {
-        this.faq_subMenus = faq_subMenus;
-        this.getFAQs_ByCategoryID(parentId);
-    });
+            this.faq_subMenus = faq_subMenus;
+            this.getFAQs_ByCategoryID(parentId);
+        },
+        (error) => {
+            this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   loadFAQs(): void {
@@ -218,6 +229,9 @@ export class SupportComponent implements OnInit {
                   this.getFAQs_ByParentCategory(this.selected_category.id);
                   this.exist_category = true;
               }
+          },
+          (error) => {
+              this.notificationBarCommunicationService.send_data(error);
           });
       //}
   }
@@ -228,8 +242,11 @@ export class SupportComponent implements OnInit {
       this.showFaqs = false;
       this.loading = true;
       this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
-          this.parent_categories = categories;
-      });
+              this.parent_categories = categories;
+          },
+          (error) => {
+              this.notificationBarCommunicationService.send_data(error);
+          });
   }
 
   ngOnInit() {

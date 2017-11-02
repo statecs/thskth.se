@@ -3,6 +3,7 @@ import { HeaderCommunicationService } from '../../services/component-communicato
 import { PrimarySlidesService } from '../../services/wordpress/primary-slides.service';
 import { Slide } from '../../interfaces/slide';
 import { Router, ActivatedRoute, Params} from '@angular/router';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-primary-slider',
@@ -32,7 +33,8 @@ export class PrimarySliderComponent implements OnInit {
   constructor(private headerCommunicationService: HeaderCommunicationService,
               private primarySlidesService: PrimarySlidesService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.slides_img_base = '../../../assets/images/main_slider/';
     this.slideIndex = 1;
     this.slideshow_play_btn = 'pause';
@@ -177,9 +179,12 @@ export class PrimarySliderComponent implements OnInit {
         this.read_more_text = 'Läs Mer';
       }
       this.primarySlidesService.getAllPrimarySlides(this.lang).subscribe((slides) => {
-        this.slides = slides;
-        this.startMainSlider();
-      });
+            this.slides = slides;
+            this.startMainSlider();
+          },
+          (error) => {
+            this.notificationBarCommunicationService.send_data(error);
+          });
     });
   }
 

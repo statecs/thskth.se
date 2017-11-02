@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { most_asked_questions } from '../../utils/most-asked-questions';
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { FAQ } from '../../interfaces/faq';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-featured-faqs',
@@ -17,7 +18,8 @@ export class FeaturedFaqsComponent implements OnInit {
   private swipeTime: number;
   public item_onfocus_index: number;
 
-  constructor(private faqsService: FaqsService) {
+  constructor(private faqsService: FaqsService,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.most_asked_questions_slugs = most_asked_questions;
     this.most_asked_faqs = [];
     this.item_onfocus_index = 0;
@@ -93,8 +95,17 @@ export class FeaturedFaqsComponent implements OnInit {
           faqs.push(faq3);
 
           this.most_asked_faqs = faqs;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
         });
+      },
+      (error) => {
+        this.notificationBarCommunicationService.send_data(error);
       });
+    },
+    (error) => {
+      this.notificationBarCommunicationService.send_data(error);
     });
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MenuItem} from '../../../interfaces/menu';
 import {MenusService} from '../../../services/wordpress/menus.service';
 import {Router, RoutesRecognized} from '@angular/router';
+import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-navbar-footer',
@@ -13,7 +14,8 @@ export class NavbarFooterComponent implements OnInit {
   public footer_menu: MenuItem[];
   private lang: string;
 
-  constructor( private menusService: MenusService, private router: Router) {
+  constructor( private menusService: MenusService, private router: Router,
+               private notificationBarCommunicationService: NotificationBarCommunicationService) {
   }
 
   ngOnInit() {
@@ -27,8 +29,11 @@ export class NavbarFooterComponent implements OnInit {
               }
           }
           this.menusService.getMenu('footer', this.lang).subscribe(res => {
-              this.footer_menu = res;
-          });
+                  this.footer_menu = res;
+              },
+              (error) => {
+                  this.notificationBarCommunicationService.send_data(error);
+              });
       });
   }
 

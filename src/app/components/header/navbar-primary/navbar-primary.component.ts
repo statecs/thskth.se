@@ -9,6 +9,7 @@ import { ths_chapters } from '../../../utils/ths-chapters';
 import {ActivatedRoute, Router, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
+import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-navbar-primary',
@@ -34,7 +35,8 @@ export class NavbarPrimaryComponent implements OnInit {
                  private _cookieService: CookieService,
                  private router: Router,
                  private menusService: MenusService,
-                 private activatedRoute: ActivatedRoute) {
+                 private activatedRoute: ActivatedRoute,
+                 private notificationBarCommunicationService: NotificationBarCommunicationService) {
         this.config = injector.get(APP_CONFIG);
         this.ths_chapters = ths_chapters;
         this.removeLangParamPipe = new RemoveLangParamPipe();
@@ -61,10 +63,13 @@ export class NavbarPrimaryComponent implements OnInit {
             dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
         }else {
             this.menusService.get_mainSubMenu(id, this.language).subscribe((subMenu) => {
-                this.subMenu = subMenu;
-                const dropdown = submenu_item.lastChild.previousSibling;
-                dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
-            });
+                    this.subMenu = subMenu;
+                    const dropdown = submenu_item.lastChild.previousSibling;
+                    dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
+                },
+                (error) => {
+                    this.notificationBarCommunicationService.send_data(error);
+                });
         }
     }
 
@@ -113,9 +118,12 @@ export class NavbarPrimaryComponent implements OnInit {
     getTopLevelMenu(): void {
         console.log(this.language);
          this.menusService.getTopLevel_mainMenu(this.language).subscribe(res => {
-             console.log(res);
-            this.topLevelMainMenu = res;
-         });
+                 console.log(res);
+                this.topLevelMainMenu = res;
+             },
+             (error) => {
+                 this.notificationBarCommunicationService.send_data(error);
+             });
     }
 
     ngOnInit() {

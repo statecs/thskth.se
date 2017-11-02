@@ -3,6 +3,7 @@ import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
+import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-live',
@@ -19,7 +20,8 @@ export class LiveComponent implements OnInit {
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private menusService: MenusService) { }
+              private menusService: MenusService,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) { }
 
   goToPage(slug): void {
     console.log(slug);
@@ -32,21 +34,30 @@ export class LiveComponent implements OnInit {
 
   getSecondarySubMenu() {
     this.menusService.get_secondarySubMenu('live', this.slug, this.lang).subscribe((submenu) => {
-      this.subMenu = submenu;
-      console.log(this.subMenu);
-    });
+          this.subMenu = submenu;
+          console.log(this.subMenu);
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   getSubmenu() {
     this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
-      this.subMenu = submenu;
-    });
+          this.subMenu = submenu;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   getPageBySlug() {
     this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
-      this.page = page;
-    });
+          this.page = page;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   ngOnInit() {

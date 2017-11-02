@@ -22,6 +22,7 @@ import { PopupWindowCommunicationService } from '../../services/component-commun
 import { Event } from '../../interfaces/event';
 import { ths_calendars } from '../../utils/ths-calendars';
 import {ActivatedRoute, Params} from '@angular/router';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-calendar',
@@ -43,7 +44,8 @@ export class CalendarComponent implements OnInit {
   constructor(private googleCalendarService: GoogleCalendarService,
               private calendarCommunicationService: CalendarCommunicationService,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.view = 'month';
     this.activeDayIsOpen = false;
     this.viewDate = new Date();
@@ -85,6 +87,10 @@ export class CalendarComponent implements OnInit {
       this.events$ = this.googleCalendarService.fetchEvents(this.ths_calendars[this.selected_event_category].calendarId, this.viewDate, this.view).map((res) => {
         this.e_loading = false;
         return res;
+      },
+      (error) => {
+        console.log(error);
+        this.notificationBarCommunicationService.send_data(error);
       });
       this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: this.viewDate, calendarId: this.ths_calendars[this.selected_event_category].calendarId});
     }
@@ -150,6 +156,10 @@ export class CalendarComponent implements OnInit {
       const mergedArrays = this.mergeArrays(res);
       this.e_loading = false;
       return mergedArrays.sort(this.sortArrayByTime);
+    },
+    (error) => {
+      console.log(error);
+      this.notificationBarCommunicationService.send_data(error);
     });
   }
 

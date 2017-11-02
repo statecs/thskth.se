@@ -9,6 +9,7 @@ import { ths_chapters } from '../../utils/ths-chapters';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RemoveLangParamPipe} from '../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../pipes/add-lang-to-slug.pipe';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-header',
@@ -33,7 +34,8 @@ export class HeaderComponent implements OnInit {
               private searchMenubarCommunicationService: SearchMenubarCommunicationService,
               private menusService: MenusService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.showMenuMobile = false;
     this.showChaptersMobile = false;
     this.ths_chapters = ths_chapters;
@@ -84,6 +86,9 @@ export class HeaderComponent implements OnInit {
       console.log(this.subMenu);
       //const dropdown = submenu_item.lastChild.previousSibling;
       //dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
+    },
+    (error) => {
+      this.notificationBarCommunicationService.send_data(error);
     });
   }
 
@@ -110,6 +115,9 @@ export class HeaderComponent implements OnInit {
       this.setPlaceholder();
       this.menusService.getTopLevel_mainMenu(this.lang).subscribe(res => {
         this.topLevelMainMenu = res;
+      },
+      (error) => {
+        this.notificationBarCommunicationService.send_data(error);
       });
     });
 

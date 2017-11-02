@@ -4,6 +4,7 @@ import { RestaurantService } from '../../services/wordpress/restaurant.service';
 import {Dish, Restaurant, DishesTime} from '../../interfaces/restaurant';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-restaurants',
@@ -34,7 +35,8 @@ export class RestaurantsComponent implements OnInit {
   constructor(private restaurantService: RestaurantService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private _cookieService: CookieService) {
+              private _cookieService: CookieService,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.loading = true;
     this.slideIndex = 0;
     this.showSchedule = false;
@@ -193,11 +195,14 @@ export class RestaurantsComponent implements OnInit {
   ngOnInit() {
     //this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName('bar-item');
     this.restaurantService.getRestaurants(this.lang).subscribe((res) => {
-      this.loading = false;
-      console.log(res);
-      this.restaurants = res;
-      this.updateDishes();
-    });
+          this.loading = false;
+          console.log(res);
+          this.restaurants = res;
+          this.updateDishes();
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
 /*    this.slides_items = [
       {
         title: 'THS Café',

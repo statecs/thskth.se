@@ -9,6 +9,7 @@ import { PopupWindowCommunicationService } from '../../services/component-commun
 import { ths_calendars } from '../../utils/ths-calendars';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-events-calendar',
@@ -31,7 +32,8 @@ export class EventsCalendarComponent implements OnInit {
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private _cookieService: CookieService) {
+              private _cookieService: CookieService,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.events = [];
     this.actualDate = format(new Date(), 'DD MMM YYYY');
     this.ths_calendars = ths_calendars;
@@ -86,6 +88,10 @@ export class EventsCalendarComponent implements OnInit {
         if (this.events.length !== 0) {
           this.showFeaturedEvents = false;
         }
+      },
+      (error) => {
+        console.log(error);
+        this.notificationBarCommunicationService.send_data(error);
       });
     }else {
       this.googleCalendarService.fetchEvents(calendarId, viewDate, 'day').subscribe(res => {
@@ -94,6 +100,10 @@ export class EventsCalendarComponent implements OnInit {
         if (this.events.length !== 0) {
           this.showFeaturedEvents = false;
         }
+      },
+      (error) => {
+        console.log(error);
+        this.notificationBarCommunicationService.send_data(error);
       });
     }
   }
@@ -139,6 +149,10 @@ export class EventsCalendarComponent implements OnInit {
       }else {
         this.earliest_events = sortedArrays;
       }
+    },
+    (error) => {
+      console.log(error);
+      this.notificationBarCommunicationService.send_data(error);
     });
   }
 
