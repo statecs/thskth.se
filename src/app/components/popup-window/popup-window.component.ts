@@ -74,7 +74,6 @@ export class PopupWindowComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    console.log((document.body.scrollTop || window.pageYOffset));
     const scrollTop = (window.pageYOffset || document.body.scrollTop) + 100;
     if (scrollTop < this.top_position) {
       this.top_position = scrollTop;

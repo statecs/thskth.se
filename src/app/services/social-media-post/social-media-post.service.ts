@@ -23,6 +23,7 @@ export class SocialMediaPostService {
   }
 
   fetchAllPosts(): Observable<SocialMediaPost[]> {
+    this.all_posts = [];
     return this.fetchFacebookPosts().flatMap(() => {
       return this.fetchInstagramPosts();
     }).map(() => {

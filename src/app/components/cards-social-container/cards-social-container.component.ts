@@ -111,7 +111,6 @@ export class CardsSocialContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('con');
     /*this.router.events.subscribe(val => {
       console.log(this.lang);
       if (val instanceof RoutesRecognized) {
