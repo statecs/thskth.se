@@ -17,6 +17,7 @@ export class BreadcrumbComponent implements OnInit {
   @ViewChild('breadcrumbs_container') breadcrumbs_container: ElementRef;
   public breadcrumbs: IBreadcrumb[];
   public containerWidth: number;
+  public lang: string;
 
   constructor(
       private activatedRoute: ActivatedRoute,
@@ -24,6 +25,17 @@ export class BreadcrumbComponent implements OnInit {
     this.breadcrumbs = [];
     // subscribe to the route
     this.activatedRoute.params.subscribe(() => {
+      // set breadcrumbs
+      const root: ActivatedRoute = this.activatedRoute.root;
+      this.breadcrumbs = this.getBreadcrumbs(root);
+    });
+
+    this.activatedRoute.parent.params.subscribe((params2: Params) => {
+      this.lang = params2['lang'];
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      console.log(this.lang);
       // set breadcrumbs
       const root: ActivatedRoute = this.activatedRoute.root;
       this.breadcrumbs = this.getBreadcrumbs(root);
