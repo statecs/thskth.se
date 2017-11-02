@@ -74,10 +74,15 @@ export class PopupWindowComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
+    console.log((document.body.scrollTop || window.pageYOffset));
     const scrollTop = (window.pageYOffset || document.body.scrollTop) + 100;
     if (scrollTop < this.top_position) {
       this.top_position = scrollTop;
     }
+
+    /*if (!this.showPopupWindow && scrollTop > 200) {
+      this.startPos = (document.body.scrollTop || window.pageYOffset);
+    }*/
   }
 
   setPosition() {
@@ -100,7 +105,7 @@ export class PopupWindowComponent implements OnInit {
       if (self.layouts_container) {
         clearInterval(timer);
         self.containers = self.layouts_container.nativeElement.getElementsByClassName('content-container');
-        self.layouts_container.nativeElement.style.marginTop = '0';
+        self.layouts_container.nativeElement.style.marginTop = '100px';
         for (let i = 0; i < self.containers.length; i++) {
           self.containers[i].style.marginTop = '0';
         }

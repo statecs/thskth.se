@@ -40,6 +40,7 @@ export class CalendarComponent implements OnInit {
   public selected_event_category: number;
   public e_loading: boolean;
   public lang: string;
+  public loading: boolean;
 
   constructor(private googleCalendarService: GoogleCalendarService,
               private calendarCommunicationService: CalendarCommunicationService,

@@ -26,10 +26,14 @@ export class AppComponent {
           this.scrollTop = (document.body.scrollTop || window.pageYOffset);
           pageStyle.top = '-' + this.scrollTop + 'px';
           pageStyle.position = 'fixed';
+          window.scrollTo(0, 0);
         }else if (arg === 'show') {
-          window.scrollBy(0, this.scrollTop);
-          pageStyle.top = '0';
           pageStyle.position = 'absolute';
+          pageStyle.top = '0';
+          const self = this;
+          setTimeout(function () {
+            window.scrollTo(0, self.scrollTop);
+          }, 3);
         }
       }
     });
