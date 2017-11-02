@@ -5,6 +5,7 @@ import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
+import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-contact',
@@ -23,7 +24,8 @@ export class ContactComponent implements OnInit {
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private menusService: MenusService) {
+              private menusService: MenusService,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
   }
@@ -43,21 +45,33 @@ export class ContactComponent implements OnInit {
 
   getSecondarySubMenu() {
     this.menusService.get_secondarySubMenu('contact', this.slug, this.lang).subscribe((submenu) => {
-      this.subMenu = submenu;
-    });
+          this.subMenu = submenu;
+        },
+        (error) => {
+          console.log(error);
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   getSubmenu() {
     this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
-      this.subMenu = submenu;
-    });
+          this.subMenu = submenu;
+        },
+        (error) => {
+          console.log(error);
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   getPageBySlug() {
     console.log(this.slug + this.lang);
     this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
-      this.page = page;
-    });
+        this.page = page;
+      },
+      (error) => {
+        console.log(error);
+        this.notificationBarCommunicationService.send_data(error);
+      });
   }
 
   ngOnInit() {

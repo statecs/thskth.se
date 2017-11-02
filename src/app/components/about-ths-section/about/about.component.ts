@@ -5,6 +5,7 @@ import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
+import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-about',
@@ -29,7 +30,8 @@ export class AboutComponent implements OnInit {
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private menusService: MenusService) {
+              private menusService: MenusService,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
@@ -76,30 +78,46 @@ export class AboutComponent implements OnInit {
   }
 
   getSecondarySubMenu() {
-    this.menusService.get_secondarySubMenu('about-ths', this.slug, this.lang).subscribe((submenu) => {
-      this.subMenu = submenu;
-      console.log(this.subMenu);
-    });
+    this.menusService.get_secondarySubMenu('about-ths', this.slug, this.lang).subscribe(
+        (submenu) => {
+          this.subMenu = submenu;
+          console.log(this.subMenu);
+        },
+        (error) => {
+          console.log(error);
+          this.notificationBarCommunicationService.send_data(error);
+        }
+    );
   }
 
   getSubmenu() {
-    this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
-      this.subMenu = submenu;
-    });
+    this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe(
+        (submenu) => {
+          this.subMenu = submenu;
+        },
+        (error) => {
+          console.log(error);
+          this.notificationBarCommunicationService.send_data(error);
+        }
+    );
   }
 
   getPageBySlug() {
-    this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
-      this.loading = false;
-      console.log(page);
-      if (page) {
-        this.page = page;
-      }else {
-        this.pageNotFound = true;
-      }
-    }, (error) => {
-      console.log(error);
-    });
+    this.pagesService.getPageBySlug(this.slug, this.lang).subscribe(
+        (page) => {
+          this.loading = false;
+          console.log(page);
+          if (page) {
+            this.page = page;
+          }else {
+            this.pageNotFound = true;
+          }
+        },
+        (error) => {
+          console.log(error);
+          this.notificationBarCommunicationService.send_data(error);
+        }
+    );
   }
 
   ngOnInit() {

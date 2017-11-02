@@ -8,6 +8,7 @@ import {Association, Chapter} from '../../interfaces/chapters_associations';
 import {forEach} from '@angular/router/src/utils/collection';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {CookieService} from 'ngx-cookie';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-chapters-associations',
@@ -54,7 +55,8 @@ export class ChaptersAssociationsComponent implements OnInit {
               private location: Location,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private renderer: Renderer2,
-              private _cookieService: CookieService) {
+              private _cookieService: CookieService,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.item_exist = false;
     this.postsChecked = true;
     this.pageChecked = true;
@@ -191,22 +193,30 @@ export class ChaptersAssociationsComponent implements OnInit {
         this.sport_associations = [];
         this.social_associations = [];
         this.chaptersAssociationsService.searchAssociations(this.searchTerm, this.lang).subscribe((res) => {
-            console.log(res);
-            this.associationResults = res;
-            this.allocateAssociations(res);
-            this.showAssociations = true;
-            this.checkResults();
-        });
+                console.log(res);
+                this.associationResults = res;
+                this.allocateAssociations(res);
+                this.showAssociations = true;
+                this.checkResults();
+            },
+            (error) => {
+              console.log(error);
+              this.notificationBarCommunicationService.send_data(error);
+            });
     }
 
     searchChapters(): void {
       this.chapterResults = [];
         this.chaptersAssociationsService.searchChapters(this.searchTerm, this.lang).subscribe((res) => {
-            console.log(res);
-            this.chapterResults = res;
-            this.showChapters = true;
-            this.checkResults();
-        });
+                console.log(res);
+                this.chapterResults = res;
+                this.showChapters = true;
+                this.checkResults();
+            },
+            (error) => {
+              console.log(error);
+              this.notificationBarCommunicationService.send_data(error);
+            });
     }
 
   displayChapters(): void {
@@ -220,10 +230,14 @@ export class ChaptersAssociationsComponent implements OnInit {
   getChapters(): void {
     this.documentsLoading = true;
     this.chaptersAssociationsService.getChapters(this.lang).subscribe((res) => {
-      console.log(res);
-      this.chapterResults = res;
-      this.checkResults();
-    });
+          console.log(res);
+          this.chapterResults = res;
+          this.checkResults();
+        },
+        (error) => {
+          console.log(error);
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   displayAssociations(): void {
@@ -240,13 +254,15 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.sport_associations = [];
     this.social_associations = [];
     this.chaptersAssociationsService.getAssociations(this.lang).subscribe((res) => {
-      this.associationResults = res;
-      console.log(res);
-      this.allocateAssociations(res);
-      this.checkResults();
-
-
-    });
+          this.associationResults = res;
+          console.log(res);
+          this.allocateAssociations(res);
+          this.checkResults();
+        },
+        (error) => {
+          console.log(error);
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   allocateAssociations(data): void {
@@ -306,8 +322,16 @@ export class ChaptersAssociationsComponent implements OnInit {
             this.pageNotFound = true;
             this.item_exist = false;
           }
+        },
+        (error) => {
+          console.log(error);
+          this.notificationBarCommunicationService.send_data(error);
         });
       }
+    },
+    (error) => {
+      console.log(error);
+      this.notificationBarCommunicationService.send_data(error);
     });
   }
 

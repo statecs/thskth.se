@@ -12,6 +12,7 @@ import { GoogleCalendarService } from '../../services/google-calendar/google-cal
 import { Event } from '../../interfaces/event';
 import { ths_calendars } from '../../utils/ths-calendars';
 import {Location} from '@angular/common';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-cards-container',
@@ -43,7 +44,8 @@ export class CardsContainerComponent implements OnInit {
                 private googleCalendarService: GoogleCalendarService,
                 private router: Router,
                 private location: Location,
-                private activatedRoute: ActivatedRoute ) {
+                private activatedRoute: ActivatedRoute,
+                private notificationBarCommunicationService: NotificationBarCommunicationService ) {
       this.config = injector.get(APP_CONFIG);
       this.selected_event_category = 0;
       this.ths_calendars = ths_calendars;
@@ -98,11 +100,15 @@ export class CardsContainerComponent implements OnInit {
         self.arranged_cards = [];
         self.one_sixth_cards_array = [];
         self.one_third_half_array = [];
-        this.cardsService.getCards(arg, this.lang)
-            .subscribe(cards => {
+        this.cardsService.getCards(arg, this.lang).subscribe(
+            cards => {
                 console.log(cards);
                 this.cards = cards;
                 this.cardsLoaded = true;
+            },
+            (error) => {
+                console.log(error);
+                this.notificationBarCommunicationService.send_data(error);
             });
     }
 

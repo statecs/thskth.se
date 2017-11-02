@@ -7,6 +7,7 @@ import { Card, SubCard } from '../../interfaces/card';
 import { AppConfig } from '../../interfaces/appConfig';
 import {MenuItem} from '../../interfaces/menu';
 import { CookieService } from 'ngx-cookie';
+import {Notification} from '../../interfaces/notification';
 
 @Injectable()
 export class WordpressApiService {
@@ -25,12 +26,17 @@ export class WordpressApiService {
     }*/
   }
 
-  getNotification(lang: string): Observable<any[]> {
+  getNotification(lang: string): Observable<Notification> {
     return this.http
         .get(this.config.NOTIFICATION_URL + '?lang=' + lang)
         .map((res: Response) => res.json())
         // Cast response data to card type
-        .map((res: Array<any>) => { return res[0]; });
+        .map((res: Array<any>) => {
+          return {
+            message: res[0].content.rendered,
+            bg_color: res[0].acf['background-color']
+          };
+        });
   }
 
   // Get Page

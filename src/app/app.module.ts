@@ -105,6 +105,7 @@ import { HeaderSliderComponent } from './components/header-slider/header-slider.
 import { AddLangToSlugPipe } from './pipes/add-lang-to-slug.pipe';
 import { PageNotFoundImageComponent } from './components/page-not-found/page-not-found-image/page-not-found-image.component';
 import { FeaturedFaqsComponent } from './components/featured-faqs/featured-faqs.component';
+import {NotificationBarCommunicationService} from './services/component-communicators/notification-bar-communication.service';
 
 
 @NgModule({
@@ -208,6 +209,7 @@ import { FeaturedFaqsComponent } from './components/featured-faqs/featured-faqs.
       ImageSliderCommunicationService,
       ChatbotCommunicationService,
       ContactFormService,
+      NotificationBarCommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

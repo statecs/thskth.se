@@ -7,6 +7,7 @@ import {Archive, SearchParams} from '../../interfaces/archive';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import format from 'date-fns/format/index';
 import {CookieService} from 'ngx-cookie';
+import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 
 @Component({
   selector: 'app-archive',
@@ -54,7 +55,8 @@ export class ArchiveComponent implements OnInit {
               private location: Location,
               private renderer: Renderer2,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
-              private _cookieService: CookieService) {
+              private _cookieService: CookieService,
+              private notificationBarCommunicationService: NotificationBarCommunicationService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -190,11 +192,16 @@ export class ArchiveComponent implements OnInit {
       start_date: this.start_date,
       end_date: this.end_date
     };
-    this.archiveService.searchDocuments(searchParams, this.lang).subscribe((res) => {
-      this.documentsLoading = false;
-      console.log(res);
-      this.searchResults = res;
-    });
+    this.archiveService.searchDocuments(searchParams, this.lang).subscribe(
+        (res) => {
+          this.documentsLoading = false;
+          console.log(res);
+          this.searchResults = res;
+        },
+        (error) => {
+          console.log(error);
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   selectTerm(term): void {
@@ -274,12 +281,17 @@ export class ArchiveComponent implements OnInit {
         }
       }, 100);
 
-      this.archiveService.getDocuments(10, this.lang).subscribe((res) => {
-        this.documentsLoading = false;
-        console.log(res);
-        this.documentResults = res;
-        this.latestDocuments = res;
-      });
+      this.archiveService.getDocuments(10, this.lang).subscribe(
+          (res) => {
+            this.documentsLoading = false;
+            console.log(res);
+            this.documentResults = res;
+            this.latestDocuments = res;
+          },
+          (error) => {
+            console.log(error);
+            this.notificationBarCommunicationService.send_data(error);
+          });
 
       this.end_date = format(new Date(), 'YYYY-MM-DD');
       console.log(this.end_date);
