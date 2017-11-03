@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
@@ -6,13 +6,14 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-contact-subpage',
   templateUrl: './contact-subpage.component.html',
   styleUrls: ['./contact-subpage.component.scss']
 })
-export class ContactSubpageComponent implements OnInit {
+export class ContactSubpageComponent implements OnInit, OnDestroy {
 
   @ViewChild('submenu_bar') submenu_bar: ElementRef;
   public page: Page;
@@ -26,6 +27,11 @@ export class ContactSubpageComponent implements OnInit {
   public showSubmenuBarDropdown: boolean;
   public freeze_submenu_bar: boolean;
   private submenu_bar_pos: number;
+  public paramsSubscription: Subscription;
+  public parentParamsSubscription: Subscription;
+  public secondarySubMenuSubscription: Subscription;
+  public mainMenuSubscription: Subscription;
+  public pageSubscription: Subscription;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -79,7 +85,7 @@ export class ContactSubpageComponent implements OnInit {
   }
 
   getSecondarySubMenu() {
-    this.menusService.get_secondarySubMenu('contact', this.slug, this.lang).subscribe((submenu) => {
+    this.secondarySubMenuSubscription = this.menusService.get_secondarySubMenu('contact', this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
         },
         (error) => {
@@ -89,7 +95,7 @@ export class ContactSubpageComponent implements OnInit {
   }
 
   getSubmenu() {
-    this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
+    this.mainMenuSubscription = this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
         },
         (error) => {
@@ -101,7 +107,7 @@ export class ContactSubpageComponent implements OnInit {
   getPageBySlug() {
     console.log(this.lang);
     console.log(this.slug + this.lang);
-    this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
+    this.pageSubscription = this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
           this.loading = false;
           console.log(page);
           console.log(this.loading);
@@ -124,12 +130,12 @@ export class ContactSubpageComponent implements OnInit {
       self.toggle_freeze_submenu_bar();
     }, 1000);
 
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
         this.slug = 'contact';
       }
-      this.activatedRoute.parent.params.subscribe((params2: Params) => {
+      this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
         this.lang = params2['lang'];
         console.log(this.lang);
         if (typeof this.lang === 'undefined') {
@@ -146,4 +152,11 @@ export class ContactSubpageComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.parentParamsSubscription.unsubscribe();
+    this.secondarySubMenuSubscription.unsubscribe();
+    this.mainMenuSubscription.unsubscribe();
+    this.pageSubscription.unsubscribe();
+  }
 }

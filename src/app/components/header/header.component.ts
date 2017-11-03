@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { NavbarPrimaryComponent } from './navbar-primary/navbar-primary.component';
 import { NavbarSectionsComponent } from '../footer/navbar-sections/navbar-sections.component';
 import { HeaderCommunicationService } from '../../services/component-communicators/header-communication.service';
@@ -10,13 +10,14 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RemoveLangParamPipe} from '../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   @ViewChild('app_header') app_header: ElementRef;
   private topLevelMainMenu: MenuItem2[];
@@ -29,6 +30,10 @@ export class HeaderComponent implements OnInit {
   private showSubmenuIndex: number;
   private removeLangParamPipe: RemoveLangParamPipe;
   private addLangToSlugPipe: AddLangToSlugPipe;
+  public paramsSubscription: Subscription;
+  public mainMenuSubscription: Subscription;
+  public topLevelMenuSubscription: Subscription;
+  public headerSubscription: Subscription;
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
               private searchMenubarCommunicationService: SearchMenubarCommunicationService,
@@ -81,7 +86,7 @@ export class HeaderComponent implements OnInit {
   showSubMenu(id, index) {
     this.subMenu = [];
     this.showSubmenuIndex = index;
-    this.menusService.get_mainSubMenu(id, this.lang).subscribe((subMenu) => {
+    this.mainMenuSubscription = this.menusService.get_mainSubMenu(id, this.lang).subscribe((subMenu) => {
       this.subMenu = subMenu;
       console.log(this.subMenu);
       //const dropdown = submenu_item.lastChild.previousSibling;
@@ -105,7 +110,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -113,7 +118,7 @@ export class HeaderComponent implements OnInit {
         this.lang = 'en';
       }
       this.setPlaceholder();
-      this.menusService.getTopLevel_mainMenu(this.lang).subscribe(res => {
+      this.topLevelMenuSubscription = this.menusService.getTopLevel_mainMenu(this.lang).subscribe(res => {
         this.topLevelMainMenu = res;
       },
       (error) => {
@@ -121,13 +126,20 @@ export class HeaderComponent implements OnInit {
       });
     });
 
-    this.headerCommunicationService.notifyObservable$.subscribe((arg) => {
+    this.headerSubscription = this.headerCommunicationService.notifyObservable$.subscribe((arg) => {
       /*if (arg === 'expend') {
         this.expendHeader();
       }else if (arg === 'collapse') {
         this.collapseHeader();
       }*/
     });
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.mainMenuSubscription.unsubscribe();
+    this.topLevelMenuSubscription.unsubscribe();
+    this.headerSubscription.unsubscribe();
   }
 
 }

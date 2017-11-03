@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
@@ -6,13 +6,14 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit, OnDestroy {
 
   @ViewChild('submenu_bar') submenu_bar: ElementRef;
   public page: Page;
@@ -26,6 +27,11 @@ export class AboutComponent implements OnInit {
   public showSubmenuBarDropdown: boolean;
   public freeze_submenu_bar: boolean;
   private submenu_bar_pos: number;
+  public paramsSubscription: Subscription;
+  public parentParamsSubscription: Subscription;
+  public secondarySubMenuSubscription: Subscription;
+  public mainSubMenuSubscription: Subscription;
+  public pageSubscription: Subscription;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -78,7 +84,7 @@ export class AboutComponent implements OnInit {
   }
 
   getSecondarySubMenu() {
-    this.menusService.get_secondarySubMenu('about-ths', this.slug, this.lang).subscribe(
+    this.secondarySubMenuSubscription = this.menusService.get_secondarySubMenu('about-ths', this.slug, this.lang).subscribe(
         (submenu) => {
           this.subMenu = submenu;
           console.log(this.subMenu);
@@ -91,7 +97,7 @@ export class AboutComponent implements OnInit {
   }
 
   getSubmenu() {
-    this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe(
+    this.mainSubMenuSubscription = this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe(
         (submenu) => {
           this.subMenu = submenu;
         },
@@ -103,7 +109,7 @@ export class AboutComponent implements OnInit {
   }
 
   getPageBySlug() {
-    this.pagesService.getPageBySlug(this.slug, this.lang).subscribe(
+    this.pageSubscription = this.pagesService.getPageBySlug(this.slug, this.lang).subscribe(
         (page) => {
           this.loading = false;
           console.log(page);
@@ -127,7 +133,7 @@ export class AboutComponent implements OnInit {
       self.toggle_freeze_submenu_bar();
     }, 1000);
 
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       console.log(params['lang']);
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
@@ -135,7 +141,7 @@ export class AboutComponent implements OnInit {
       }
 
       if (this.slug !== 'about-ths') {
-        this.activatedRoute.parent.params.subscribe((params2: Params) => {
+        this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
           this.lang = params2['lang'];
           console.log(this.lang);
           if (typeof this.lang === 'undefined') {
@@ -153,6 +159,14 @@ export class AboutComponent implements OnInit {
         this.getPageBySlug();
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.parentParamsSubscription.unsubscribe();
+    this.secondarySubMenuSubscription.unsubscribe();
+    this.mainSubMenuSubscription.unsubscribe();
+    this.pageSubscription.unsubscribe();
   }
 
 }

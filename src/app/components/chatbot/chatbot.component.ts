@@ -1,9 +1,12 @@
-import { ApplicationRef, Component, ComponentFactoryResolver, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import {
+    ApplicationRef, Component, ComponentFactoryResolver, ElementRef, Injector, OnDestroy, OnInit,
+    ViewChild
+} from '@angular/core';
 import {messages} from '../../utils/chatbot-commonMessages';
 import {LoaderMessageComponent} from '../loader-message/loader-message.component';
 import {ChatbotCommunicationService} from '../../services/component-communicators/chatbot-communication.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-chatbot',
@@ -11,7 +14,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./chatbot.component.scss'],
     entryComponents: [LoaderMessageComponent]
 })
-export class ChatbotComponent implements OnInit {
+export class ChatbotComponent implements OnInit, OnDestroy {
   @ViewChild('chatFlowList') chatFlowList: ElementRef;
   @ViewChild('chatFlowContainer') chatFlowContainer: ElementRef;
   @ViewChild('resonsesContainer') resonsesContainer: ElementRef;
@@ -22,6 +25,8 @@ export class ChatbotComponent implements OnInit {
   public showedInfoIndex: number;
   public infoBoxClickCount: number;
   public lang: string;
+    public paramsSubscription: Subscription;
+    public infoBoxSubscription: Subscription;
 
   constructor(private resolver: ComponentFactoryResolver,
               private injector: Injector,
@@ -30,7 +35,7 @@ export class ChatbotComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
       this.messages = messages;
       this.infoBoxClickCount = 0;
-      this.activatedRoute.params.subscribe((params: Params) => {
+      this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
           this.lang = params['lang'];
           if (typeof this.lang === 'undefined') {
               this.lang = 'en';
@@ -400,7 +405,7 @@ export class ChatbotComponent implements OnInit {
 
   ngOnInit() {
       this.initChatflow();
-    this.chatbotCommunicationService.hideInfoBoxObservable$.subscribe(() => {
+    this.infoBoxSubscription = this.chatbotCommunicationService.hideInfoBoxObservable$.subscribe(() => {
         console.log(this.showedInfoIndex);
         console.log(this.infoBoxClickCount);
         if (this.infoBoxClickCount === 0 && this.showedInfoIndex > -1) {
@@ -411,4 +416,8 @@ export class ChatbotComponent implements OnInit {
     });
   }
 
+    ngOnDestroy() {
+        this.paramsSubscription.unsubscribe();
+        this.infoBoxSubscription.unsubscribe();
+    }
 }

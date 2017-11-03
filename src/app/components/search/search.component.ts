@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { SearchService } from '../../services/wordpress/search.service';
 import { SearchResult } from '../../interfaces/search';
 import { Router, ActivatedRoute, Params} from '@angular/router';
@@ -9,13 +9,14 @@ import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
 import { most_asked_questions } from '../../utils/most-asked-questions';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
 
   @ViewChild('searchForm') searchForm: ElementRef;
@@ -45,6 +46,15 @@ export class SearchComponent implements OnInit {
 
   private lang: string;
   public pageNotFound: boolean;
+  public paramsSubscription: Subscription;
+  public postSubscription: Subscription;
+  public pageSubscription: Subscription;
+  public faqsSubscription: Subscription;
+  public queryParamsSubscription: Subscription;
+  public faqCatSubscription: Subscription;
+  public faqsSubscription2: Subscription;
+  public faqsSubscription3: Subscription;
+  public faqsSubscription4: Subscription;
 
   constructor(private searchService: SearchService,
               private activatedRoute: ActivatedRoute,
@@ -73,7 +83,7 @@ export class SearchComponent implements OnInit {
     this.most_asked_questions_slugs = most_asked_questions;
     this.parent_categories = [];
     this.most_asked_faqs = [];
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -130,7 +140,7 @@ export class SearchComponent implements OnInit {
   }
 
   searchPosts(): void {
-    this.searchService.searchPosts(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.postSubscription = this.searchService.searchPosts(this.searchTerm, 4, this.lang).subscribe((res) => {
           this.postsLoading = false;
           this.postsResults = res;
         },
@@ -140,7 +150,7 @@ export class SearchComponent implements OnInit {
   }
 
   searchPages(): void {
-    this.searchService.searchPages(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.pageSubscription = this.searchService.searchPages(this.searchTerm, 4, this.lang).subscribe((res) => {
           this.pagesLoading = false;
           this.pageResults = res;
         },
@@ -150,7 +160,7 @@ export class SearchComponent implements OnInit {
   }
 
   searchFAQs(): void {
-    this.searchService.searchFAQs(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.faqsSubscription = this.searchService.searchFAQs(this.searchTerm, 4, this.lang).subscribe((res) => {
           this.faqsLoading = false;
           this.faqResults = res;
         },
@@ -191,7 +201,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
+    this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchTerm = params['q'];
       console.log(this.searchTerm);
       if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
@@ -199,7 +209,7 @@ export class SearchComponent implements OnInit {
       }
     });
 
-    this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
+    this.faqCatSubscription =this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
           this.parent_categories = categories;
           console.log(categories);
         },
@@ -207,12 +217,12 @@ export class SearchComponent implements OnInit {
           this.notificationBarCommunicationService.send_data(error);
         });
 
-    this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0]).subscribe((faq) => {
+    this.faqsSubscription2 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0]).subscribe((faq) => {
       const faqs: FAQ[] = [];
       faqs.push(faq);
-      this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1]).subscribe((faq2) => {
+      this.faqsSubscription3 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1]).subscribe((faq2) => {
         faqs.push(faq2);
-        this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2]).subscribe((faq3) => {
+        this.faqsSubscription4 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2]).subscribe((faq3) => {
           faqs.push(faq3);
           this.most_asked_faqs = faqs;
         },
@@ -248,5 +258,17 @@ export class SearchComponent implements OnInit {
         });
       }
     }, 100);
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.postSubscription.unsubscribe();
+    this.pageSubscription.unsubscribe();
+    this.faqsSubscription.unsubscribe();
+    this.queryParamsSubscription.unsubscribe();
+    this.faqCatSubscription.unsubscribe();
+    this.faqsSubscription2.unsubscribe();
+    this.faqsSubscription3.unsubscribe();
+    this.faqsSubscription4.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector } from '@angular/core';
+import {Component, OnInit, Injector, OnDestroy} from '@angular/core';
 import { CardsService } from '../../services/wordpress/cards.service';
 import { Card } from '../../interfaces/card';
 import { CardCategorizerCardContainerService } from '../../services/component-communicators/card-categorizer-card-container.service';
@@ -19,7 +19,7 @@ import {NotificationBarCommunicationService} from '../../services/component-comm
   templateUrl: './cards-container.component.html',
   styleUrls: ['./cards-container.component.scss']
 })
-export class CardsContainerComponent implements OnInit {
+export class CardsContainerComponent implements OnInit, OnDestroy {
   public cards: Card[];
   public arranged_cards: Card[];
     public one_sixth_cards_array: Card[][];
@@ -36,6 +36,9 @@ export class CardsContainerComponent implements OnInit {
     public ths_calendars: any[];
     public cardsLoaded: boolean;
     public lang: string;
+    public paramsSubscription: Subscription;
+    public cardsSubscription: Subscription;
+    public eventsSubscription: Subscription;
 
   constructor(  private cardsService: CardsService,
                 private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
@@ -50,7 +53,7 @@ export class CardsContainerComponent implements OnInit {
       this.selected_event_category = 0;
       this.ths_calendars = ths_calendars;
       this.cardsLoaded = false;
-      this.activatedRoute.params.subscribe((params: Params) => {
+      this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
           this.lang = params['lang'];
           if (typeof this.lang === 'undefined') {
               this.lang = 'en';
@@ -100,7 +103,7 @@ export class CardsContainerComponent implements OnInit {
         self.arranged_cards = [];
         self.one_sixth_cards_array = [];
         self.one_third_half_array = [];
-        this.cardsService.getCards(arg, this.lang).subscribe(
+        this.cardsSubscription = this.cardsService.getCards(arg, this.lang).subscribe(
             cards => {
                 console.log(cards);
                 this.cards = cards;
@@ -141,7 +144,7 @@ export class CardsContainerComponent implements OnInit {
     }
 
     getCalendar(calendarId): void {
-        this.googleCalendarService.getUpcomingEvents(calendarId, 3).subscribe(res => {
+        this.eventsSubscription = this.googleCalendarService.getUpcomingEvents(calendarId, 3).subscribe(res => {
             this.events = res;
             if (res.length !== 0) {
                 this.selected_event_title = res[0].title;
@@ -161,4 +164,10 @@ export class CardsContainerComponent implements OnInit {
       this.getCalendar(this.ths_calendars[0].calendarId);
   }
 
+    ngOnDestroy() {
+        this.paramsSubscription.unsubscribe();
+        this.cardsSubscription.unsubscribe();
+        this.eventsSubscription.unsubscribe();
+        this.cardsUpdater.unsubscribe();
+    }
 }

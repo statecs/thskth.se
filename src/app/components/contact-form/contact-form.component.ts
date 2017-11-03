@@ -1,16 +1,17 @@
-import {Component, Injector, OnInit, ViewChild} from '@angular/core';
+import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { APP_CONFIG } from '../../app.config';
 import {AppConfig} from '../../interfaces/appConfig';
 import { ReCaptchaComponent } from 'angular2-recaptcha';
 import {ContactFormService} from '../../services/forms/contact-form.service';
 import {ActivatedRoute, Params} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-contact-form',
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss']
 })
-export class ContactFormComponent implements OnInit {
+export class ContactFormComponent implements OnInit, OnDestroy {
   @ViewChild(ReCaptchaComponent) captcha: ReCaptchaComponent;
 
   public config: AppConfig;
@@ -22,12 +23,14 @@ export class ContactFormComponent implements OnInit {
   public error: string;
   public success: string;
   public lang: string;
+  public paramsSubscription: Subscription;
+  public submitSubscription: Subscription;
 
   constructor(private injector: Injector,
               public contactFormService: ContactFormService,
               private activatedRoute: ActivatedRoute) {
     this.config = injector.get(APP_CONFIG);
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -100,7 +103,7 @@ export class ContactFormComponent implements OnInit {
         'pnumber': this.id_number,
         'g-recaptcha-response': this.captcha.getResponse()  // send g-captcah-reponse to our server
       };
-      this.contactFormService.submitMessage(post_data).subscribe(
+      this.submitSubscription = this.contactFormService.submitMessage(post_data).subscribe(
           (res) => {
             console.log(res);
             if (this.lang === 'en') {
@@ -128,4 +131,8 @@ export class ContactFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.submitSubscription.unsubscribe();
+  }
 }

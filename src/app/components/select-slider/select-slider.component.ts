@@ -1,13 +1,14 @@
-import {Component, OnInit, AfterViewInit, ElementRef, ViewChild, Renderer2} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ElementRef, ViewChild, Renderer2, OnDestroy} from '@angular/core';
 import {SelectSliderCommunicationService} from '../../services/component-communicators/select-slider-communication.service';
 import {AppCommunicationService} from '../../services/component-communicators/app-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-select-slider',
   templateUrl: './select-slider.component.html',
   styleUrls: ['./select-slider.component.scss']
 })
-export class SelectSliderComponent implements AfterViewInit {
+export class SelectSliderComponent implements AfterViewInit, OnDestroy {
     @ViewChild('slider') slider: ElementRef;
     public slide_items: ElementRef[];
     public item_onfocus: any;
@@ -16,6 +17,7 @@ export class SelectSliderComponent implements AfterViewInit {
     private lower_threshold: number;
     public showSelectSlider: boolean;
     public data: any;
+    public sliderSubscription: Subscription;
 
   constructor(private renderer: Renderer2,
               private selectSliderCommunicationService: SelectSliderCommunicationService,
@@ -78,11 +80,15 @@ export class SelectSliderComponent implements AfterViewInit {
     }
 
   ngAfterViewInit() {
-      this.selectSliderCommunicationService.notifyObservable$.subscribe((data) => {
+      this.sliderSubscription = this.selectSliderCommunicationService.notifyObservable$.subscribe((data) => {
           this.data = data;
           this.show_select_slider();
           this.initSelectSlider();
       });
   }
+
+    ngOnDestroy() {
+        this.sliderSubscription.unsubscribe();
+    }
 
 }

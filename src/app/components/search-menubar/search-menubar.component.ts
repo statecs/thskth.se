@@ -1,16 +1,17 @@
-import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild, OnDestroy} from '@angular/core';
 import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
 import { SearchService } from '../../services/wordpress/search.service';
 import { SearchResult } from '../../interfaces/search';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-search-menubar',
   templateUrl: './search-menubar.component.html',
   styleUrls: ['./search-menubar.component.scss']
 })
-export class SearchMenubarComponent implements OnInit {
+export class SearchMenubarComponent implements OnInit, OnDestroy {
   public mostSearchTerms: string[];
   public showSearchBar: boolean;
   public pageResults: SearchResult[];
@@ -22,6 +23,11 @@ export class SearchMenubarComponent implements OnInit {
   public searchTerm: string;
   public showResultsDropdown: boolean;
   private lang: string;
+  public paramsSubscription: Subscription;
+  public postSubscription: Subscription;
+  public pageSubscription: Subscription;
+  public faqsSubscription: Subscription;
+  public menuBarSubscription: Subscription;
 
   constructor(private searchMenubarCommunicationService: SearchMenubarCommunicationService,
               private searchService: SearchService,
@@ -34,7 +40,7 @@ export class SearchMenubarComponent implements OnInit {
     this.pageResults = [];
     this.postsResults = [];
     this.faqResults = [];
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -68,7 +74,7 @@ export class SearchMenubarComponent implements OnInit {
   }
 
   searchPosts(): void {
-    this.searchService.searchPosts(this.searchTerm, 2, this.lang).subscribe((res) => {
+    this.postSubscription = this.searchService.searchPosts(this.searchTerm, 2, this.lang).subscribe((res) => {
           this.postsLoading = false;
           this.postsResults = res;
         },
@@ -78,7 +84,7 @@ export class SearchMenubarComponent implements OnInit {
   }
 
   searchPages(): void {
-    this.searchService.searchPages(this.searchTerm, 2, this.lang).subscribe((res) => {
+    this.pageSubscription = this.searchService.searchPages(this.searchTerm, 2, this.lang).subscribe((res) => {
           this.pagesLoading = false;
           this.pageResults = res;
         },
@@ -88,7 +94,7 @@ export class SearchMenubarComponent implements OnInit {
   }
 
   searchFAQs(): void {
-    this.searchService.searchFAQs(this.searchTerm, 2, this.lang).subscribe((res) => {
+    this.faqsSubscription = this.searchService.searchFAQs(this.searchTerm, 2, this.lang).subscribe((res) => {
           this.faqsLoading = false;
           this.faqResults = res;
         },
@@ -98,9 +104,17 @@ export class SearchMenubarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.searchMenubarCommunicationService.notifyObservable$.subscribe(() => {
+    this.menuBarSubscription = this.searchMenubarCommunicationService.notifyObservable$.subscribe(() => {
       this.showBar();
     });
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.postSubscription.unsubscribe();
+    this.pageSubscription.unsubscribe();
+    this.faqsSubscription.unsubscribe();
+    this.menuBarSubscription.unsubscribe();
   }
 
 }

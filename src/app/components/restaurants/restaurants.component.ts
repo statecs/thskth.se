@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { TextSliderCommunicationService } from '../../services/component-communicators/text-slider-communication.service';
 import { RestaurantService } from '../../services/wordpress/restaurant.service';
 import {Dish, Restaurant, DishesTime} from '../../interfaces/restaurant';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-restaurants',
   templateUrl: './restaurants.component.html',
   styleUrls: ['./restaurants.component.scss']
 })
-export class RestaurantsComponent implements OnInit {
+export class RestaurantsComponent implements OnInit, OnDestroy {
 
   @ViewChild('slides_container') slides_container: ElementRef;
   @ViewChild('slider_progress_bar') slider_progress_bar: ElementRef;
@@ -31,6 +32,8 @@ export class RestaurantsComponent implements OnInit {
   private swipeCoord: [number, number];
   private swipeTime: number;
   public item_onfocus_index: number;
+  public paramsSubscription: Subscription;
+  public restaurantSubscription: Subscription;
 
   constructor(private restaurantService: RestaurantService,
               private activatedRoute: ActivatedRoute,
@@ -42,7 +45,7 @@ export class RestaurantsComponent implements OnInit {
     this.showSchedule = false;
     this.selected_day = 'monday';
     this.item_onfocus_index = 0;
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -194,7 +197,7 @@ export class RestaurantsComponent implements OnInit {
 
   ngOnInit() {
     //this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName('bar-item');
-    this.restaurantService.getRestaurants(this.lang).subscribe((res) => {
+    this.restaurantSubscription = this.restaurantService.getRestaurants(this.lang).subscribe((res) => {
           this.loading = false;
           console.log(res);
           this.restaurants = res;
@@ -217,5 +220,10 @@ export class RestaurantsComponent implements OnInit {
         image: 'https://gastrogate.com/thumbs/620x250/files/28928/nymble_bar_kok_matsal_restaurang_kth_stockholm_003.jpg'
       },
     ];*/
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.restaurantSubscription.unsubscribe();
   }
 }

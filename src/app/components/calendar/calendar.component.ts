@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 import addDays from 'date-fns/add_days/index';
@@ -23,6 +23,7 @@ import { Event } from '../../interfaces/event';
 import { ths_calendars } from '../../utils/ths-calendars';
 import {ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-calendar',
@@ -30,7 +31,7 @@ import {NotificationBarCommunicationService} from '../../services/component-comm
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
   view: string;
   viewDate: Date;
   events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
@@ -41,6 +42,7 @@ export class CalendarComponent implements OnInit {
   public e_loading: boolean;
   public lang: string;
   public loading: boolean;
+  public paramsSubscription: Subscription;
 
   constructor(private googleCalendarService: GoogleCalendarService,
               private calendarCommunicationService: CalendarCommunicationService,
@@ -53,7 +55,7 @@ export class CalendarComponent implements OnInit {
     this.ths_calendars = ths_calendars;
     this.selected_event_category = -1;
     this.e_loading = true;
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       console.log(this.lang);
       if (typeof this.lang === 'undefined') {
@@ -168,4 +170,7 @@ export class CalendarComponent implements OnInit {
     this.fetchEvents();
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+  }
 }

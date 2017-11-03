@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-live',
   templateUrl: './live.component.html',
   styleUrls: ['./live.component.scss']
 })
-export class LiveComponent implements OnInit {
+export class LiveComponent implements OnInit, OnDestroy {
 
   public page: Page;
   public subMenu: any;
   public slug: string;
   private lang: string;
+  public paramsSubscription: Subscription;
+  public parentParamsSubscription: Subscription;
+  public pageSubscription: Subscription;
+  public secondaryMenuSubscription: Subscription;
+  public mainMenuSubscription: Subscription;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -33,7 +39,7 @@ export class LiveComponent implements OnInit {
   }
 
   getSecondarySubMenu() {
-    this.menusService.get_secondarySubMenu('live', this.slug, this.lang).subscribe((submenu) => {
+    this.secondaryMenuSubscription = this.menusService.get_secondarySubMenu('live', this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
           console.log(this.subMenu);
         },
@@ -43,7 +49,7 @@ export class LiveComponent implements OnInit {
   }
 
   getSubmenu() {
-    this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
+    this.mainMenuSubscription = this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
         },
         (error) => {
@@ -52,7 +58,7 @@ export class LiveComponent implements OnInit {
   }
 
   getPageBySlug() {
-    this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
+    this.pageSubscription = this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
           this.page = page;
         },
         (error) => {
@@ -61,7 +67,7 @@ export class LiveComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       console.log(params['lang']);
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
@@ -69,7 +75,7 @@ export class LiveComponent implements OnInit {
       }
 
       if (this.slug !== 'live') {
-        this.activatedRoute.parent.params.subscribe((params2: Params) => {
+        this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
           this.lang = params2['lang'];
           console.log(this.lang);
           if (typeof this.lang === 'undefined') {
@@ -89,4 +95,11 @@ export class LiveComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.parentParamsSubscription.unsubscribe();
+    this.pageSubscription.unsubscribe();
+    this.mainMenuSubscription.unsubscribe();
+    this.secondaryMenuSubscription.unsubscribe();
+  }
 }

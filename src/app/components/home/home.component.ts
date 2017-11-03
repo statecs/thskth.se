@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -11,15 +11,19 @@ import { ImageSliderCommunicationService } from '../../services/component-commun
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
     private lang: string;
     public pageNotFound: boolean;
+    public paramsSubscription: Subscription;
+    public faqCatSubscription: Subscription;
+    public postsSubscription: Subscription;
 
   constructor(  private textSliderCommunicationService: TextSliderCommunicationService,
                 private faqsService: FaqsService,
@@ -28,7 +32,7 @@ export class HomeComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private notificationBarCommunicationService: NotificationBarCommunicationService) {
       this.pageNotFound = false;
-      this.activatedRoute.params.subscribe((params: Params) => {
+      this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
           this.lang = params['lang'];
           if (typeof this.lang === 'undefined') {
               this.lang = 'en';
@@ -40,13 +44,13 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.faqsService.getFAQs_OfEachCategories(1, this.lang).subscribe((faqs) => {
+      this.faqCatSubscription = this.faqsService.getFAQs_OfEachCategories(1, this.lang).subscribe((faqs) => {
               this.textSliderCommunicationService.send_data_to_textSlider(faqs);
           },
           (error) => {
               this.notificationBarCommunicationService.send_data(error);
           });
-      this.postsService.getPosts(5, this.lang).subscribe((posts) => {
+      this.postsSubscription = this.postsService.getPosts(5, this.lang).subscribe((posts) => {
               this.imageSliderCommunicationService.send_data_to_imageSlider(posts);
           },
           (error) => {
@@ -54,4 +58,9 @@ export class HomeComponent implements OnInit {
           });
   }
 
+    ngOnDestroy() {
+        this.paramsSubscription.unsubscribe();
+        this.faqCatSubscription.unsubscribe();
+        this.postsSubscription.unsubscribe();
+    }
 }

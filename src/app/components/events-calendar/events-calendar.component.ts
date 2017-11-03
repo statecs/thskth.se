@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Event } from '../../interfaces/event';
 import { Observable } from 'rxjs/Observable';
 import { CalendarEvent } from 'angular-calendar';
@@ -10,13 +10,14 @@ import { ths_calendars } from '../../utils/ths-calendars';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-events-calendar',
   templateUrl: './events-calendar.component.html',
   styleUrls: ['./events-calendar.component.scss']
 })
-export class EventsCalendarComponent implements OnInit {
+export class EventsCalendarComponent implements OnInit, OnDestroy {
 
   events: Event[];
   actualDate: string;
@@ -26,6 +27,11 @@ export class EventsCalendarComponent implements OnInit {
   private lang: string;
   public pageNotFound: boolean;
   public showCalendar: boolean;
+  public paramsSubscription: Subscription;
+  public allEventsSubscription: Subscription;
+  public eventsSubscription: Subscription;
+  public allEventsSubscription2: Subscription;
+  public calendarSubscription: Subscription;
 
   constructor(private calendarCommunicationService: CalendarCommunicationService,
               private googleCalendarService: GoogleCalendarService,
@@ -40,7 +46,7 @@ export class EventsCalendarComponent implements OnInit {
     this.showFeaturedEvents = true;
     this.earliest_events = [];
     this.showCalendar = false;
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -79,7 +85,7 @@ export class EventsCalendarComponent implements OnInit {
   getEventsPerDay(calendarId, viewDate: Date): void {
     console.log(calendarId);
     if (calendarId === 'all') {
-      this.googleCalendarService.getAllEvents(viewDate, 'day').subscribe(res => {
+      this.allEventsSubscription = this.googleCalendarService.getAllEvents(viewDate, 'day').subscribe(res => {
         console.log(res);
         const mergedArrays = this.mergeArrays(res);
         const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
@@ -94,7 +100,7 @@ export class EventsCalendarComponent implements OnInit {
         this.notificationBarCommunicationService.send_data(error);
       });
     }else {
-      this.googleCalendarService.fetchEvents(calendarId, viewDate, 'day').subscribe(res => {
+      this.eventsSubscription = this.googleCalendarService.fetchEvents(calendarId, viewDate, 'day').subscribe(res => {
         console.log(res);
         this.events = res;
         if (this.events.length !== 0) {
@@ -111,9 +117,7 @@ export class EventsCalendarComponent implements OnInit {
   mergeArrays(arrays: any): Event[] {
     let merged: Event[] = [];
     arrays.forEach((event) => {
-      //console.log(event);
       merged = merged.concat(event);
-      //console.log(merged);
     });
     return merged;
   }
@@ -125,7 +129,7 @@ export class EventsCalendarComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.calendarCommunicationService.notifyObservable$.subscribe((arg) => {
+    this.calendarSubscription = this.calendarCommunicationService.notifyObservable$.subscribe((arg) => {
       this.actualDate = format(arg.viewDate, 'DD MMM YYYY');
       if (arg.noActivity) {
         this.events = [];
@@ -139,7 +143,7 @@ export class EventsCalendarComponent implements OnInit {
 
     this.getEventsPerDay(this.ths_calendars[0].calendarId, new Date());
 
-    this.googleCalendarService.getAllEvents(null, 'month').subscribe(res => {
+    this.allEventsSubscription2 = this.googleCalendarService.getAllEvents(null, 'month').subscribe(res => {
       console.log(res);
       const mergedArrays = this.mergeArrays(res);
       const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
@@ -156,4 +160,11 @@ export class EventsCalendarComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.allEventsSubscription.unsubscribe();
+    this.eventsSubscription.unsubscribe();
+    this.allEventsSubscription2.unsubscribe();
+    this.calendarSubscription.unsubscribe();
+  }
 }

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { ArchiveService } from '../../services/wordpress/archive.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
@@ -8,13 +8,14 @@ import {PopupWindowCommunicationService} from '../../services/component-communic
 import format from 'date-fns/format/index';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-archive',
   templateUrl: './archive.component.html',
   styleUrls: ['./archive.component.scss']
 })
-export class ArchiveComponent implements OnInit {
+export class ArchiveComponent implements OnInit, OnDestroy {
 
   @ViewChild('searchForm') searchForm: ElementRef;
   @ViewChild('filter_icon') filter_icon: ElementRef;
@@ -48,6 +49,10 @@ export class ArchiveComponent implements OnInit {
   public end_date: string;
   private lang: string;
   public pageNotFound: boolean;
+  public paramsSubscription: Subscription;
+  public documentsSubscription: Subscription;
+  public documentsSubscription2: Subscription;
+  public queryParamsSubscription: Subscription;
 
   constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,
@@ -79,7 +84,7 @@ export class ArchiveComponent implements OnInit {
     this.pdfChecked = true;
     this.categoryID = 0;
     this.start_date = '2014-09-24';
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -192,7 +197,7 @@ export class ArchiveComponent implements OnInit {
       start_date: this.start_date,
       end_date: this.end_date
     };
-    this.archiveService.searchDocuments(searchParams, this.lang).subscribe(
+    this.documentsSubscription = this.archiveService.searchDocuments(searchParams, this.lang).subscribe(
         (res) => {
           this.documentsLoading = false;
           console.log(res);
@@ -242,7 +247,7 @@ export class ArchiveComponent implements OnInit {
 
   ngOnInit() {
     if (!this.pageNotFound) {
-      this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
         this.searchTerm = params['q'];
         if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
           console.log('pass');
@@ -281,7 +286,7 @@ export class ArchiveComponent implements OnInit {
         }
       }, 100);
 
-      this.archiveService.getDocuments(10, this.lang).subscribe(
+      this.documentsSubscription2 = this.archiveService.getDocuments(10, this.lang).subscribe(
           (res) => {
             this.documentsLoading = false;
             console.log(res);
@@ -299,4 +304,10 @@ export class ArchiveComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.documentsSubscription.unsubscribe();
+    this.documentsSubscription2.unsubscribe();
+    this.queryParamsSubscription.unsubscribe();
+  }
 }

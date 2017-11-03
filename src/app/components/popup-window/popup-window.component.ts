@@ -1,4 +1,4 @@
-import {Component, OnInit, HostListener, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, HostListener, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import {Subscription} from 'rxjs/Subscription';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
@@ -17,7 +17,7 @@ import {NotificationBarCommunicationService} from '../../services/component-comm
   templateUrl: './popup-window.component.html',
   styleUrls: ['./popup-window.component.scss']
 })
-export class PopupWindowComponent implements OnInit {
+export class PopupWindowComponent implements OnInit, OnDestroy {
   @ViewChild('layouts_container') layouts_container: ElementRef;
   public showPopupWindow: boolean;
   public popup_window_updater: Subscription;
@@ -42,6 +42,8 @@ export class PopupWindowComponent implements OnInit {
   public showPage: boolean;
   public loading: boolean;
   public lang: string;
+  public paramsSubscription: Subscription;
+  public pageSubscription: Subscription;
 
   constructor( private wordpressApiService: WordpressApiService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -56,7 +58,7 @@ export class PopupWindowComponent implements OnInit {
     this.showFaq = false;
     this.showPage = false;
     this.loading = false;
-    this.router.events.subscribe(val => {
+    this.paramsSubscription = this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
         this.lang = val.state.root.firstChild.params['lang'];
         if (typeof this.lang === 'undefined') {
@@ -142,7 +144,7 @@ export class PopupWindowComponent implements OnInit {
     this.showEvent = false;
     this.showPage = true;
     this.show_popup_window();
-    this.wordpressApiService.getPage(slug).subscribe(res => {
+    this.pageSubscription = this.wordpressApiService.getPage(slug).subscribe(res => {
           console.log(res);
           this.page_data = res[0];
           this.loading = false;
@@ -218,4 +220,15 @@ export class PopupWindowComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.pageSubscription.unsubscribe();
+    this.popup_window_updater.unsubscribe();
+    this.popup_window_event_updater.unsubscribe();
+    this.popup_window_association_updater.unsubscribe();
+    this.popup_window_archive_updater.unsubscribe();
+    this.popup_window_faq_updater.unsubscribe();
+    this.popup_window_hide_updater.unsubscribe();
+    this.popup_window_loader_updater.unsubscribe();
+  }
 }

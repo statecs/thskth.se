@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import {Component, OnInit, ElementRef, Renderer2, ViewChild, OnDestroy} from '@angular/core';
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
 import { Router, ActivatedRoute, Params} from '@angular/router';
@@ -6,13 +6,14 @@ import {Location} from '@angular/common';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-support',
   templateUrl: './support.component.html',
   styleUrls: ['./support.component.scss']
 })
-export class SupportComponent implements OnInit {
+export class SupportComponent implements OnInit, OnDestroy {
     @ViewChild('searchField') searchField: ElementRef;
 
   public parent_categories: FAQCategory[];
@@ -33,6 +34,9 @@ export class SupportComponent implements OnInit {
     private lang: string;
     public pageNotFound: boolean;
     private exist_category: boolean;
+    public paramsSubscription: Subscription;
+    public paramsSubscription2: Subscription;
+    public queryParamsSubscription: Subscription;
 
   constructor(private faqsService: FaqsService,
               private activatedRoute: ActivatedRoute,
@@ -56,7 +60,7 @@ export class SupportComponent implements OnInit {
     this.parent_categories = [];
     this.most_asked_faqs = [];
     this.show_single_view = false;
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
         this.lang = params['lang'];
         if (typeof this.lang === 'undefined') {
             this.lang = 'en';
@@ -250,7 +254,7 @@ export class SupportComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.activatedRoute.params.subscribe((params: Params) => {
+      this.paramsSubscription2 = this.activatedRoute.params.subscribe((params: Params) => {
           this.selected_cat_slug = params['category'];
           console.log(this.selected_cat_slug);
           // console.log(params['returnUrl']);
@@ -266,7 +270,7 @@ export class SupportComponent implements OnInit {
           }
       });
 
-      this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
           this.searchTerm = params['q'];
           if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
               console.log(this.selected_cat_slug);
@@ -331,5 +335,12 @@ export class SupportComponent implements OnInit {
           }
       }, 100);
   }
+
+
+    ngOnDestroy() {
+        this.paramsSubscription.unsubscribe();
+        this.paramsSubscription2.unsubscribe();
+        this.queryParamsSubscription.unsubscribe();
+    }
 
 }

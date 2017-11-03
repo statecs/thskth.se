@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable, Injector } from '@angular/core';
+import {Component, OnInit, Injectable, Injector, OnDestroy} from '@angular/core';
 import {WordpressApiService} from '../../../services/wordpress/wordpress-api.service';
 import {MenusService} from '../../../services/wordpress/menus.service';
 import {MenuItem, MenuItem2} from '../../../interfaces/menu';
@@ -10,13 +10,14 @@ import {ActivatedRoute, Router, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-navbar-primary',
   templateUrl: './navbar-primary.component.html',
   styleUrls: ['./navbar-primary.component.scss']
 })
-export class NavbarPrimaryComponent implements OnInit {
+export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     private menu: MenuItem[];
     public topLevelMainMenu: MenuItem2[];
     public subMenu: MenuItem2[];
@@ -29,6 +30,9 @@ export class NavbarPrimaryComponent implements OnInit {
     public signin_text: string;
     private removeLangParamPipe: RemoveLangParamPipe;
     private addLangToSlugPipe: AddLangToSlugPipe;
+    public paramsSubscription: Subscription;
+    public topLevelMenuSubscription: Subscription;
+    public mainMenuSubscription: Subscription;
 
     constructor( private wordpressApiService: WordpressApiService,
                  injector: Injector,
@@ -62,7 +66,7 @@ export class NavbarPrimaryComponent implements OnInit {
             const dropdown = submenu_item.lastChild.previousSibling;
             dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
         }else {
-            this.menusService.get_mainSubMenu(id, this.language).subscribe((subMenu) => {
+            this.mainMenuSubscription = this.menusService.get_mainSubMenu(id, this.language).subscribe((subMenu) => {
                     this.subMenu = subMenu;
                     const dropdown = submenu_item.lastChild.previousSibling;
                     dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
@@ -117,7 +121,7 @@ export class NavbarPrimaryComponent implements OnInit {
 
     getTopLevelMenu(): void {
         console.log(this.language);
-         this.menusService.getTopLevel_mainMenu(this.language).subscribe(res => {
+        this.topLevelMenuSubscription = this.menusService.getTopLevel_mainMenu(this.language).subscribe(res => {
                  console.log(res);
                 this.topLevelMainMenu = res;
              },
@@ -127,7 +131,7 @@ export class NavbarPrimaryComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.activatedRoute.params.subscribe((params: Params) => {
+        this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
             this.language = params['lang'];
             if (typeof this.language === 'undefined') {
                 this.language = 'en';
@@ -137,6 +141,12 @@ export class NavbarPrimaryComponent implements OnInit {
             this.getTopLevelMenu();
             this.displayActualLanguage();
         });
+    }
+
+    ngOnDestroy() {
+        this.paramsSubscription.unsubscribe();
+        this.mainMenuSubscription.unsubscribe();
+        this.topLevelMenuSubscription.unsubscribe();
     }
 
 }

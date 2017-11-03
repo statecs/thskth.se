@@ -1,13 +1,14 @@
-import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import {ImageSliderCommunicationService} from '../../services/component-communicators/image-slider-communication.service';
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-image-slider',
   templateUrl: './image-slider.component.html',
   styleUrls: ['./image-slider.component.scss']
 })
-export class ImageSliderComponent implements OnInit {
+export class ImageSliderComponent implements OnInit, OnDestroy {
   @ViewChild('slides_container') slides_container: ElementRef;
   @ViewChild('slider_progress_bar') slider_progress_bar: ElementRef;
   public slides: any;
@@ -19,13 +20,15 @@ export class ImageSliderComponent implements OnInit {
   private lang: string;
   public see_more: string;
   public news_text: string;
+  public paramsSubscription: Subscription;
+  public imageSliderSubscription: Subscription;
 
   constructor(private imageSliderCommunicationService: ImageSliderCommunicationService,
               private activatedRoute: ActivatedRoute,
               private router: Router) {
     this.item_onfocus_index = 1;
     this.slide_items = [];
-    this.activatedRoute.params.subscribe((params: Params) => {
+      this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
           this.lang = 'en';
@@ -163,9 +166,14 @@ export class ImageSliderComponent implements OnInit {
     this.slides = this.slides_container.nativeElement.getElementsByClassName('slide-wrapper');
 
     // this.update_progress_bar();
-    this.imageSliderCommunicationService.notifyObservable$.subscribe((data) => {
+    this.imageSliderSubscription = this.imageSliderCommunicationService.notifyObservable$.subscribe((data) => {
       this.slide_items = data;
     });
   }
+
+    ngOnDestroy() {
+        this.paramsSubscription.unsubscribe();
+        this.imageSliderSubscription.unsubscribe();
+    }
 
 }

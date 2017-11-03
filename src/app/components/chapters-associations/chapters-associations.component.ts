@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild, Renderer2} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, Renderer2, OnDestroy} from '@angular/core';
 import { ChaptersAssociationsService } from '../../services/wordpress/chapters-associations.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
@@ -9,13 +9,14 @@ import {forEach} from '@angular/router/src/utils/collection';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-chapters-associations',
   templateUrl: './chapters-associations.component.html',
   styleUrls: ['./chapters-associations.component.scss']
 })
-export class ChaptersAssociationsComponent implements OnInit {
+export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
 
   @ViewChild('searchForm') searchForm: ElementRef;
   @ViewChild('filter_icon') filter_icon: ElementRef;
@@ -48,6 +49,15 @@ export class ChaptersAssociationsComponent implements OnInit {
   public pageNotFound: boolean;
   private lang: string;
   public item_exist: boolean;
+  public paramsSubscription: Subscription;
+  public paramsSubscription2: Subscription;
+  public queryParamsSubscription: Subscription;
+  public associationsSubsciption: Subscription;
+  public associationsSubsciption2: Subscription;
+  public associationsSubsciption3: Subscription;
+  public chaptersSubscription: Subscription;
+  public chaptersSubscription2: Subscription;
+  public chaptersSubscription3: Subscription;
 
   constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,
@@ -103,7 +113,7 @@ export class ChaptersAssociationsComponent implements OnInit {
         associations: this.social_associations
       },
     ];
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -192,7 +202,7 @@ export class ChaptersAssociationsComponent implements OnInit {
         this.career_associations = [];
         this.sport_associations = [];
         this.social_associations = [];
-        this.chaptersAssociationsService.searchAssociations(this.searchTerm, this.lang).subscribe((res) => {
+        this.associationsSubsciption = this.chaptersAssociationsService.searchAssociations(this.searchTerm, this.lang).subscribe((res) => {
                 console.log(res);
                 this.associationResults = res;
                 this.allocateAssociations(res);
@@ -207,7 +217,7 @@ export class ChaptersAssociationsComponent implements OnInit {
 
     searchChapters(): void {
       this.chapterResults = [];
-        this.chaptersAssociationsService.searchChapters(this.searchTerm, this.lang).subscribe((res) => {
+        this.chaptersSubscription = this.chaptersAssociationsService.searchChapters(this.searchTerm, this.lang).subscribe((res) => {
                 console.log(res);
                 this.chapterResults = res;
                 this.showChapters = true;
@@ -229,7 +239,7 @@ export class ChaptersAssociationsComponent implements OnInit {
 
   getChapters(): void {
     this.documentsLoading = true;
-    this.chaptersAssociationsService.getChapters(this.lang).subscribe((res) => {
+    this.chaptersSubscription2 = this.chaptersAssociationsService.getChapters(this.lang).subscribe((res) => {
           console.log(res);
           this.chapterResults = res;
           this.checkResults();
@@ -253,7 +263,7 @@ export class ChaptersAssociationsComponent implements OnInit {
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
-    this.chaptersAssociationsService.getAssociations(this.lang).subscribe((res) => {
+    this.associationsSubsciption2 = this.chaptersAssociationsService.getAssociations(this.lang).subscribe((res) => {
           this.associationResults = res;
           console.log(res);
           this.allocateAssociations(res);
@@ -309,12 +319,12 @@ export class ChaptersAssociationsComponent implements OnInit {
   }
 
   getPostBySlug() {
-    this.chaptersAssociationsService.getAssociationBySlug(this.slug, this.lang).subscribe((res) => {
+    this.associationsSubsciption3 = this.chaptersAssociationsService.getAssociationBySlug(this.slug, this.lang).subscribe((res) => {
       if (res.length > 0) {
         this.showAssociationInPopup(res[0]);
         this.item_exist = true;
       }else {
-        this.chaptersAssociationsService.getChapterBySlug(this.slug, this.lang).subscribe((res2) => {
+        this.chaptersSubscription3 = this.chaptersAssociationsService.getChapterBySlug(this.slug, this.lang).subscribe((res2) => {
           if (res2.length > 0) {
             this.showAssociationInPopup(res2[0]);
             this.item_exist = true;
@@ -338,7 +348,7 @@ export class ChaptersAssociationsComponent implements OnInit {
   ngOnInit() {
     console.log(this.pageNotFound);
     if (!this.pageNotFound) {
-      this.activatedRoute.params.subscribe((params: Params) => {
+      this.paramsSubscription2 = this.activatedRoute.params.subscribe((params: Params) => {
         this.slug = params['slug'];
         this.popupWindowCommunicationService.showLoader();
         if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
@@ -353,7 +363,7 @@ export class ChaptersAssociationsComponent implements OnInit {
         }
       });
 
-      this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
         if (this.slug === 'undefined' || typeof this.slug === 'undefined') {
           this.item_exist = true;
           this.searchTerm = params['q'];
@@ -397,4 +407,13 @@ export class ChaptersAssociationsComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.associationsSubsciption.unsubscribe();
+    this.associationsSubsciption2.unsubscribe();
+    this.associationsSubsciption3.unsubscribe();
+    this.chaptersSubscription.unsubscribe();
+    this.chaptersSubscription2.unsubscribe();
+    this.chaptersSubscription3.unsubscribe();
+  }
 }

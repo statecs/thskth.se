@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
@@ -7,6 +7,7 @@ import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarComponent} from '../../notification-bar/notification-bar.component';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-student-life',
@@ -14,7 +15,7 @@ import {NotificationBarCommunicationService} from '../../../services/component-c
   styleUrls: ['./student-life.component.scss'],
   providers: [NotificationBarComponent]
 })
-export class StudentLifeComponent implements AfterViewInit {
+export class StudentLifeComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('submenu_bar') submenu_bar: ElementRef;
   public page: Page;
@@ -28,6 +29,11 @@ export class StudentLifeComponent implements AfterViewInit {
   public showSubmenuBarDropdown: boolean;
   public freeze_submenu_bar: boolean;
   private submenu_bar_pos: number;
+  public paramsSubscription: Subscription;
+  public parentParamsSubscription: Subscription;
+  public secondaryMenuSubscription: Subscription;
+  public mainMenuSubscription: Subscription;
+  public pageSubscription: Subscription;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -93,7 +99,7 @@ export class StudentLifeComponent implements AfterViewInit {
 
   getSecondarySubMenu() {
     console.log(this.slug);
-    this.menusService.get_secondarySubMenu('student-life', this.slug, this.lang).subscribe((submenu) => {
+    this.secondaryMenuSubscription = this.menusService.get_secondarySubMenu('student-life', this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
           console.log(this.subMenu);
         },
@@ -103,7 +109,7 @@ export class StudentLifeComponent implements AfterViewInit {
   }
 
   getSubmenu() {
-    this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
+    this.mainMenuSubscription = this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
         },
         (error) => {
@@ -113,7 +119,7 @@ export class StudentLifeComponent implements AfterViewInit {
 
   getPageBySlug() {
     console.log(this.slug + this.lang);
-    this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
+    this.pageSubscription = this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
           this.loading = false;
           console.log(page);
           if (page) {
@@ -134,7 +140,7 @@ export class StudentLifeComponent implements AfterViewInit {
       self.toggle_freeze_submenu_bar();
     }, 1000);
 
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       console.log(params['lang']);
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
@@ -142,7 +148,7 @@ export class StudentLifeComponent implements AfterViewInit {
       }
 
       if (this.slug !== 'student-life') {
-        this.activatedRoute.parent.params.subscribe((params2: Params) => {
+        this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
           this.lang = params2['lang'];
           console.log(this.lang);
           if (typeof this.lang === 'undefined') {
@@ -164,5 +170,13 @@ export class StudentLifeComponent implements AfterViewInit {
         this.getPageBySlug();
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.parentParamsSubscription.unsubscribe();
+    this.secondaryMenuSubscription.unsubscribe();
+    this.mainMenuSubscription.unsubscribe();
+    this.pageSubscription.unsubscribe();
   }
 }

@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { HeaderCommunicationService } from '../../services/component-communicators/header-communication.service';
 import { PrimarySlidesService } from '../../services/wordpress/primary-slides.service';
 import { Slide } from '../../interfaces/slide';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-primary-slider',
   templateUrl: './primary-slider.component.html',
   styleUrls: ['./primary-slider.component.scss']
 })
-export class PrimarySliderComponent implements OnInit {
+export class PrimarySliderComponent implements OnInit, OnDestroy {
   @ViewChild('primary_slider') primary_slider: ElementRef;
   @ViewChild('slides_container') slides_container: ElementRef;
   @ViewChild('video_player') video_player: ElementRef;
@@ -29,6 +30,8 @@ export class PrimarySliderComponent implements OnInit {
   public slideElements: any[];
   private lang: string;
   public read_more_text: string;
+  public paramsSubscription: Subscription;
+  public slideSubscription: Subscription;
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
               private primarySlidesService: PrimarySlidesService,
@@ -167,7 +170,7 @@ export class PrimarySliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -178,7 +181,8 @@ export class PrimarySliderComponent implements OnInit {
       }else {
         this.read_more_text = 'Läs Mer';
       }
-      this.primarySlidesService.getAllPrimarySlides(this.lang).subscribe((slides) => {
+      this.slideSubscription = this.primarySlidesService.getAllPrimarySlides(this.lang).subscribe((slides) => {
+            clearInterval(this.mainSlide_timer);
             this.slides = slides;
             this.startMainSlider();
           },
@@ -186,6 +190,12 @@ export class PrimarySliderComponent implements OnInit {
             this.notificationBarCommunicationService.send_data(error);
           });
     });
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.mainSlide_timer);
+    this.paramsSubscription.unsubscribe();
+    this.slideSubscription.unsubscribe();
   }
 
 }

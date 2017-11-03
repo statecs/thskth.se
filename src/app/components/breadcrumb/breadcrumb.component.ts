@@ -1,6 +1,7 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute, Params, PRIMARY_OUTLET } from '@angular/router';
 import 'rxjs/add/operator/filter';
+import {Subscription} from 'rxjs/Subscription';
 
 interface IBreadcrumb {
   label: string;
@@ -12,25 +13,27 @@ interface IBreadcrumb {
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss']
 })
-export class BreadcrumbComponent implements OnInit {
+export class BreadcrumbComponent implements OnInit, OnDestroy {
 
   @ViewChild('breadcrumbs_container') breadcrumbs_container: ElementRef;
   public breadcrumbs: IBreadcrumb[];
   public containerWidth: number;
   public lang: string;
+  public paramsSubscription: Subscription;
+  public parentParamsSubscription: Subscription;
 
   constructor(
       private activatedRoute: ActivatedRoute,
       private router: Router) {
     this.breadcrumbs = [];
     // subscribe to the route
-    this.activatedRoute.params.subscribe(() => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe(() => {
       // set breadcrumbs
       const root: ActivatedRoute = this.activatedRoute.root;
       this.breadcrumbs = this.getBreadcrumbs(root);
     });
 
-    this.activatedRoute.parent.params.subscribe((params2: Params) => {
+    this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
       this.lang = params2['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -107,6 +110,11 @@ export class BreadcrumbComponent implements OnInit {
       }
     }, 100);
 
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.parentParamsSubscription.unsubscribe();
   }
 
 }

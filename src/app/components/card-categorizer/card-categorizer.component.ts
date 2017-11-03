@@ -1,4 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild, Injector, AfterViewInit, AfterViewChecked } from '@angular/core';
+import {
+  Component, ElementRef, OnInit, ViewChild, Injector, AfterViewInit, AfterViewChecked,
+  OnDestroy
+} from '@angular/core';
 import { CardCategorizerCardContainerService } from '../../services/component-communicators/card-categorizer-card-container.service';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
@@ -7,13 +10,14 @@ import { CardsService } from '../../services/wordpress/cards.service';
 import { CardCategory } from '../../interfaces/card';
 import {ActivatedRoute, Params} from '@angular/router';
 import {SelectSliderCommunicationService} from '../../services/component-communicators/select-slider-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-card-categorizer',
   templateUrl: './card-categorizer.component.html',
   styleUrls: ['./card-categorizer.component.scss']
 })
-export class CardCategorizerComponent implements AfterViewInit {
+export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
 
   //@ViewChild('switch_button') switch_button: ElementRef;
   @ViewChild('profession') profession: ElementRef;
@@ -41,6 +45,7 @@ export class CardCategorizerComponent implements AfterViewInit {
   protected config: AppConfig;
   private cards_filter: any;
   public lang: string;
+  public paramsSubscription: Subscription;
 
   constructor(private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
               private injector: Injector,
@@ -55,7 +60,7 @@ export class CardCategorizerComponent implements AfterViewInit {
     if (typeof this.cards_filter !== 'undefined') {
       this.companyIsDisabled = this.cards_filter.companyIsDisabled;
     }
-    this.route.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.route.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -246,4 +251,7 @@ export class CardCategorizerComponent implements AfterViewInit {
     });
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+  }
 }

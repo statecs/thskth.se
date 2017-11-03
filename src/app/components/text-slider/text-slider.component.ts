@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { TextSliderCommunicationService } from '../../services/component-communicators/text-slider-communication.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-text-slider',
   templateUrl: './text-slider.component.html',
   styleUrls: ['./text-slider.component.scss']
 })
-export class TextSliderComponent implements OnInit {
+export class TextSliderComponent implements OnInit, OnDestroy {
 
   @ViewChild('slides_container') slides_container: ElementRef;
   @ViewChild('slider_progress_bar') slider_progress_bar: ElementRef;
@@ -14,6 +15,7 @@ export class TextSliderComponent implements OnInit {
   public slideIndex: number;
   public bar_items: any;
   public slides_items: any;
+  public sliderSubscription: Subscription;
 
   constructor(private textSliderCommunicationService: TextSliderCommunicationService) {
     this.slideIndex = 0;
@@ -78,6 +80,10 @@ export class TextSliderComponent implements OnInit {
     this.textSliderCommunicationService.notifyObservable$.subscribe((arg) => {
       this.slides_items = arg;
     });
+  }
+
+  ngOnDestroy() {
+    this.sliderSubscription.unsubscribe();
   }
 
 }

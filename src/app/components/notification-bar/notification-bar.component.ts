@@ -1,21 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import {CookieService} from 'ngx-cookie';
 import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
 import {Notification} from '../../interfaces/notification';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {notificationMessages} from '../../utils/notification-messages';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-notification-bar',
   templateUrl: './notification-bar.component.html',
   styleUrls: ['./notification-bar.component.scss']
 })
-export class NotificationBarComponent implements OnInit {
+export class NotificationBarComponent implements OnInit, OnDestroy {
 
   public notification: Notification;
   private lang: string;
   public notificationMessages: object;
+  public paramsSubscription: Subscription;
+  public notificationSubscription: Subscription;
+  public errorSubscription: Subscription;
+  public closeBarSubscription: Subscription;
 
   constructor(private wordpressApiService: WordpressApiService,
               private router: Router,
@@ -52,7 +57,7 @@ export class NotificationBarComponent implements OnInit {
   }
 
   getNotification() {
-    this.wordpressApiService.getNotification(this.lang).subscribe(
+    this.notificationSubscription = this.wordpressApiService.getNotification(this.lang).subscribe(
         (res) => {
           this.notification = res;
           console.log(this.notification);
@@ -63,7 +68,7 @@ export class NotificationBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router.events.subscribe(val => {
+    this.paramsSubscription = this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
         this.lang = val.state.root.firstChild.params['lang'];
         if (typeof this.lang === 'undefined') {
@@ -75,12 +80,18 @@ export class NotificationBarComponent implements OnInit {
       }
     });
 
-    this.notificationBarCommunicationService.notifyObservable$.subscribe((error) => {
+    this.errorSubscription =  this.notificationBarCommunicationService.notifyObservable$.subscribe((error) => {
       this.notifyError(error);
     });
-    this.notificationBarCommunicationService.closeNotifyObservable$.subscribe(() => {
+    this.closeBarSubscription = this.notificationBarCommunicationService.closeNotifyObservable$.subscribe(() => {
       this.closeBar();
     });
   }
 
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.notificationSubscription.unsubscribe();
+    this.errorSubscription.unsubscribe();
+    this.closeBarSubscription.unsubscribe();
+  }
 }

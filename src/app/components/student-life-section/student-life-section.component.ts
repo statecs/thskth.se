@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-student-life-section',
   templateUrl: './student-life-section.component.html',
   styleUrls: ['./student-life-section.component.scss']
 })
-export class StudentLifeSectionComponent implements OnInit {
+export class StudentLifeSectionComponent implements OnInit, OnDestroy {
 
   private lang: string;
   public pageNotFound: boolean;
+  public paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private _cookieService: CookieService) {
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -27,6 +29,10 @@ export class StudentLifeSectionComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
   }
 
 }
