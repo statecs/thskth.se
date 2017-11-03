@@ -154,6 +154,7 @@ header {
             .item-wrapper{
               overflow: hidden;
               padding: 0 10%;
+              color: #575757;
               .label{
                 display: inline-block;
                 float: left;
@@ -166,7 +167,7 @@ header {
               }
               >i{
                 float: right;
-                font-size: $font-size-h2;
+                font-size: $font-size-h3;
                 margin-top: 5px;
               }
             }
