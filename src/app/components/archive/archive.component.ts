@@ -305,9 +305,17 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.documentsSubscription.unsubscribe();
-    this.documentsSubscription2.unsubscribe();
-    this.queryParamsSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.documentsSubscription) {
+      this.documentsSubscription.unsubscribe();
+    }
+    if (this.documentsSubscription2) {
+      this.documentsSubscription2.unsubscribe();
+    }
+    if (this.queryParamsSubscription) {
+      this.queryParamsSubscription.unsubscribe();
+    }
   }
 }

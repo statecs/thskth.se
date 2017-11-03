@@ -223,7 +223,11 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.restaurantSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.restaurantSubscription) {
+      this.restaurantSubscription.unsubscribe();
+    }
   }
 }

@@ -90,9 +90,17 @@ export class NotificationBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.notificationSubscription.unsubscribe();
-    this.errorSubscription.unsubscribe();
-    this.closeBarSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.notificationSubscription) {
+      this.notificationSubscription.unsubscribe();
+    }
+    if (this.errorSubscription) {
+      this.errorSubscription.unsubscribe();
+    }
+    if (this.closeBarSubscription) {
+      this.closeBarSubscription.unsubscribe();
+    }
   }
 }

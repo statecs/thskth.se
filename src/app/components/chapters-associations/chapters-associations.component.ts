@@ -408,12 +408,26 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.associationsSubsciption.unsubscribe();
-    this.associationsSubsciption2.unsubscribe();
-    this.associationsSubsciption3.unsubscribe();
-    this.chaptersSubscription.unsubscribe();
-    this.chaptersSubscription2.unsubscribe();
-    this.chaptersSubscription3.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.associationsSubsciption) {
+      this.associationsSubsciption.unsubscribe();
+    }
+    if (this.associationsSubsciption2) {
+      this.associationsSubsciption2.unsubscribe();
+    }
+    if (this.associationsSubsciption3) {
+      this.associationsSubsciption3.unsubscribe();
+    }
+    if (this.chaptersSubscription) {
+      this.chaptersSubscription.unsubscribe();
+    }
+    if (this.chaptersSubscription2) {
+      this.chaptersSubscription2.unsubscribe();
+    }
+    if (this.chaptersSubscription3) {
+      this.chaptersSubscription3.unsubscribe();
+    }
   }
 }

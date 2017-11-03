@@ -173,10 +173,20 @@ export class StudentLifeComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.parentParamsSubscription.unsubscribe();
-    this.secondaryMenuSubscription.unsubscribe();
-    this.mainMenuSubscription.unsubscribe();
-    this.pageSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.parentParamsSubscription) {
+      this.parentParamsSubscription.unsubscribe();
+    }
+    if (this.secondaryMenuSubscription) {
+      this.secondaryMenuSubscription.unsubscribe();
+    }
+    if (this.mainMenuSubscription) {
+      this.mainMenuSubscription.unsubscribe();
+    }
+    if (this.pageSubscription) {
+      this.pageSubscription.unsubscribe();
+    }
   }
 }

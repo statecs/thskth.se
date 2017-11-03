@@ -29,6 +29,8 @@ export class JoinUsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.parentParamsSubscription.unsubscribe();
+    if (this.parentParamsSubscription) {
+      this.parentParamsSubscription.unsubscribe();
+    }
   }
 }

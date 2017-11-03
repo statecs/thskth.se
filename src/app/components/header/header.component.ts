@@ -136,10 +136,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.mainMenuSubscription.unsubscribe();
-    this.topLevelMenuSubscription.unsubscribe();
-    this.headerSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.mainMenuSubscription) {
+      this.mainMenuSubscription.unsubscribe();
+    }
+    if (this.topLevelMenuSubscription) {
+      this.topLevelMenuSubscription.unsubscribe();
+    }
+    if (this.headerSubscription) {
+      this.headerSubscription.unsubscribe();
+    }
   }
 
 }

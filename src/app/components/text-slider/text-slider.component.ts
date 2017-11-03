@@ -83,7 +83,9 @@ export class TextSliderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sliderSubscription.unsubscribe();
+    if (this.sliderSubscription) {
+      this.sliderSubscription.unsubscribe();
+    }
   }
 
 }

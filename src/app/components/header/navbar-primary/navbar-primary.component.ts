@@ -144,9 +144,15 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.paramsSubscription.unsubscribe();
-        this.mainMenuSubscription.unsubscribe();
-        this.topLevelMenuSubscription.unsubscribe();
+        if (this.paramsSubscription) {
+            this.paramsSubscription.unsubscribe();
+        }
+        if (this.mainMenuSubscription) {
+            this.mainMenuSubscription.unsubscribe();
+        }
+        if (this.topLevelMenuSubscription) {
+            this.topLevelMenuSubscription.unsubscribe();
+        }
     }
 
 }

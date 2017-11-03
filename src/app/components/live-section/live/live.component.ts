@@ -96,10 +96,20 @@ export class LiveComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.parentParamsSubscription.unsubscribe();
-    this.pageSubscription.unsubscribe();
-    this.mainMenuSubscription.unsubscribe();
-    this.secondaryMenuSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.parentParamsSubscription) {
+      this.parentParamsSubscription.unsubscribe();
+    }
+    if (this.pageSubscription) {
+      this.pageSubscription.unsubscribe();
+    }
+    if (this.mainMenuSubscription) {
+      this.mainMenuSubscription.unsubscribe();
+    }
+    if (this.secondaryMenuSubscription) {
+      this.secondaryMenuSubscription.unsubscribe();
+    }
   }
 }

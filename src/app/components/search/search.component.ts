@@ -261,14 +261,32 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.postSubscription.unsubscribe();
-    this.pageSubscription.unsubscribe();
-    this.faqsSubscription.unsubscribe();
-    this.queryParamsSubscription.unsubscribe();
-    this.faqCatSubscription.unsubscribe();
-    this.faqsSubscription2.unsubscribe();
-    this.faqsSubscription3.unsubscribe();
-    this.faqsSubscription4.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.postSubscription) {
+      this.postSubscription.unsubscribe();
+    }
+    if (this.pageSubscription) {
+      this.pageSubscription.unsubscribe();
+    }
+    if (this.faqsSubscription) {
+      this.faqsSubscription.unsubscribe();
+    }
+    if (this.queryParamsSubscription) {
+      this.queryParamsSubscription.unsubscribe();
+    }
+    if (this.faqCatSubscription) {
+      this.faqCatSubscription.unsubscribe();
+    }
+    if (this.faqsSubscription2) {
+      this.faqsSubscription2.unsubscribe();
+    }
+    if (this.faqsSubscription3) {
+      this.faqsSubscription3.unsubscribe();
+    }
+    if (this.faqsSubscription4) {
+      this.faqsSubscription4.unsubscribe();
+    }
   }
 }

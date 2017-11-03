@@ -194,8 +194,12 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearInterval(this.mainSlide_timer);
-    this.paramsSubscription.unsubscribe();
-    this.slideSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.slideSubscription) {
+      this.slideSubscription.unsubscribe();
+    }
   }
 
 }

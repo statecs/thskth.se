@@ -114,8 +114,14 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.faqsSubscription.unsubscribe();
-    this.faqsSubscription2.unsubscribe();
-    this.faqsSubscription3.unsubscribe();
+    if (this.faqsSubscription) {
+      this.faqsSubscription.unsubscribe();
+    }
+    if (this.faqsSubscription2) {
+      this.faqsSubscription2.unsubscribe();
+    }
+    if (this.faqsSubscription3) {
+      this.faqsSubscription3.unsubscribe();
+    }
   }
 }

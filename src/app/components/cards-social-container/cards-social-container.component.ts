@@ -148,7 +148,11 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.postsSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.postsSubscription) {
+      this.postsSubscription.unsubscribe();
+    }
   }
 }

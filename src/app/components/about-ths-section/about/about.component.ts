@@ -162,11 +162,21 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.parentParamsSubscription.unsubscribe();
-    this.secondarySubMenuSubscription.unsubscribe();
-    this.mainSubMenuSubscription.unsubscribe();
-    this.pageSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.parentParamsSubscription) {
+      this.parentParamsSubscription.unsubscribe();
+    }
+    if (this.secondarySubMenuSubscription) {
+      this.secondarySubMenuSubscription.unsubscribe();
+    }
+    if (this.mainSubMenuSubscription) {
+      this.mainSubMenuSubscription.unsubscribe();
+    }
+    if (this.pageSubscription) {
+      this.pageSubscription.unsubscribe();
+    }
   }
 
 }

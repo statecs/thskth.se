@@ -161,10 +161,20 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.allEventsSubscription.unsubscribe();
-    this.eventsSubscription.unsubscribe();
-    this.allEventsSubscription2.unsubscribe();
-    this.calendarSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.allEventsSubscription) {
+      this.allEventsSubscription.unsubscribe();
+    }
+    if (this.eventsSubscription) {
+      this.eventsSubscription.unsubscribe();
+    }
+    if (this.allEventsSubscription2) {
+      this.allEventsSubscription2.unsubscribe();
+    }
+    if (this.calendarSubscription) {
+      this.calendarSubscription.unsubscribe();
+    }
   }
 }

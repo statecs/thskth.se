@@ -110,11 +110,21 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.postSubscription.unsubscribe();
-    this.pageSubscription.unsubscribe();
-    this.faqsSubscription.unsubscribe();
-    this.menuBarSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.postSubscription) {
+      this.postSubscription.unsubscribe();
+    }
+    if (this.pageSubscription) {
+      this.pageSubscription.unsubscribe();
+    }
+    if (this.faqsSubscription) {
+      this.faqsSubscription.unsubscribe();
+    }
+    if (this.menuBarSubscription) {
+      this.menuBarSubscription.unsubscribe();
+    }
   }
 
 }

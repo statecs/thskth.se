@@ -132,7 +132,11 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.submitSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.submitSubscription) {
+      this.submitSubscription.unsubscribe();
+    }
   }
 }

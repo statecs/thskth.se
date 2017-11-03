@@ -221,14 +221,32 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.pageSubscription.unsubscribe();
-    this.popup_window_updater.unsubscribe();
-    this.popup_window_event_updater.unsubscribe();
-    this.popup_window_association_updater.unsubscribe();
-    this.popup_window_archive_updater.unsubscribe();
-    this.popup_window_faq_updater.unsubscribe();
-    this.popup_window_hide_updater.unsubscribe();
-    this.popup_window_loader_updater.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.pageSubscription) {
+      this.pageSubscription.unsubscribe();
+    }
+    if (this.popup_window_updater) {
+      this.popup_window_updater.unsubscribe();
+    }
+    if (this.popup_window_event_updater) {
+      this.popup_window_event_updater.unsubscribe();
+    }
+    if (this.popup_window_association_updater) {
+      this.popup_window_association_updater.unsubscribe();
+    }
+    if (this.popup_window_archive_updater) {
+      this.popup_window_archive_updater.unsubscribe();
+    }
+    if (this.popup_window_faq_updater) {
+      this.popup_window_faq_updater.unsubscribe();
+    }
+    if (this.popup_window_hide_updater) {
+      this.popup_window_hide_updater.unsubscribe();
+    }
+    if (this.popup_window_loader_updater) {
+      this.popup_window_loader_updater.unsubscribe();
+    }
   }
 }

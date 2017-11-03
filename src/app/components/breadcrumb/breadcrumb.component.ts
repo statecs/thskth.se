@@ -113,8 +113,12 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.parentParamsSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.parentParamsSubscription) {
+      this.parentParamsSubscription.unsubscribe();
+    }
   }
 
 }

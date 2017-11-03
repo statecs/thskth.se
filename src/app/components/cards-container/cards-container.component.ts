@@ -165,9 +165,17 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
     ngOnDestroy() {
-        this.paramsSubscription.unsubscribe();
-        this.cardsSubscription.unsubscribe();
-        this.eventsSubscription.unsubscribe();
-        this.cardsUpdater.unsubscribe();
+        if (this.paramsSubscription) {
+            this.paramsSubscription.unsubscribe();
+        }
+        if (this.cardsSubscription) {
+            this.cardsSubscription.unsubscribe();
+        }
+        if (this.eventsSubscription) {
+            this.eventsSubscription.unsubscribe();
+        }
+        if (this.cardsUpdater) {
+            this.cardsUpdater.unsubscribe();
+        }
     }
 }

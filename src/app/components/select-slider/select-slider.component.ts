@@ -88,7 +88,9 @@ export class SelectSliderComponent implements AfterViewInit, OnDestroy {
   }
 
     ngOnDestroy() {
-        this.sliderSubscription.unsubscribe();
+        if (this.sliderSubscription) {
+            this.sliderSubscription.unsubscribe();
+        }
     }
 
 }

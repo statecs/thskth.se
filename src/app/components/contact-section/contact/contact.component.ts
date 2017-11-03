@@ -96,10 +96,18 @@ export class ContactComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.secondarySubMenuSubscription.unsubscribe();
-    this.mainMenuSubscription.unsubscribe();
-    this.pageSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if (this.secondarySubMenuSubscription) {
+      this.secondarySubMenuSubscription.unsubscribe();
+    }
+    if (this.mainMenuSubscription) {
+      this.mainMenuSubscription.unsubscribe();
+    }
+    if (this.pageSubscription) {
+      this.pageSubscription.unsubscribe();
+    }
   }
 
 }

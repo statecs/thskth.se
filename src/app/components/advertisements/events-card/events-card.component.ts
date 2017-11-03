@@ -98,9 +98,15 @@ export class EventsCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.parentParamsSubscription.unsubscribe();
-    this.calendarSubscription.unsubscribe();
-    this.eventsSubscription.unsubscribe();
+    if (this.parentParamsSubscription) {
+      this.parentParamsSubscription.unsubscribe();
+    }
+    if (this.calendarSubscription) {
+      this.calendarSubscription.unsubscribe();
+    }
+    if (this.eventsSubscription) {
+      this.eventsSubscription.unsubscribe();
+    }
   }
 
 }

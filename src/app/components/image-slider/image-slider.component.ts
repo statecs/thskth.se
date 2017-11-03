@@ -172,8 +172,12 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   }
 
     ngOnDestroy() {
-        this.paramsSubscription.unsubscribe();
-        this.imageSliderSubscription.unsubscribe();
+        if (this.paramsSubscription) {
+            this.paramsSubscription.unsubscribe();
+        }
+        if (this.imageSliderSubscription) {
+            this.imageSliderSubscription.unsubscribe();
+        }
     }
 
 }

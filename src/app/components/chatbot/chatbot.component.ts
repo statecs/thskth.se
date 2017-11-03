@@ -417,7 +417,11 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   }
 
     ngOnDestroy() {
-        this.paramsSubscription.unsubscribe();
-        this.infoBoxSubscription.unsubscribe();
+        if (this.paramsSubscription) {
+            this.paramsSubscription.unsubscribe();
+        }
+        if (this.infoBoxSubscription) {
+            this.infoBoxSubscription.unsubscribe();
+        }
     }
 }

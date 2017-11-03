@@ -338,9 +338,15 @@ export class SupportComponent implements OnInit, OnDestroy {
 
 
     ngOnDestroy() {
-        this.paramsSubscription.unsubscribe();
-        this.paramsSubscription2.unsubscribe();
-        this.queryParamsSubscription.unsubscribe();
+        if (this.paramsSubscription) {
+            this.paramsSubscription.unsubscribe();
+        }
+        if (this.paramsSubscription2) {
+            this.paramsSubscription2.unsubscribe();
+        }
+        if (this.queryParamsSubscription) {
+            this.queryParamsSubscription.unsubscribe();
+        }
     }
 
 }
