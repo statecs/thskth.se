@@ -2,6 +2,7 @@
 
 #primary-slider {
   position: relative;
+  height: 800px;
   height: 88vh;
   //border: 1px solid red;
   background-color: #777777;
@@ -68,7 +69,7 @@
         min-width: 100%;
         min-height: 100%;
         max-width: 100%;
-        max-height: 100%;
+        //max-height: 100%;
         object-fit: fill;
         left: 0;
         right: 0;
@@ -231,6 +232,7 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #primary-slider {
+    height: 400px;
     height: 75vh;
     .larger-devices{
       display: none !important;
@@ -323,6 +325,7 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #primary-slider {
+    height: 400px;
     height: 88vh;
     .larger-devices{
       display: none !important;
@@ -415,6 +418,7 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #primary-slider {
+    height: 500px;
     height: 80vh;
     .larger-devices{
       display: none !important;
@@ -507,6 +511,7 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #primary-slider {
+    height: 700px;
     height: 80vh;
     .larger-devices{
       display: none !important;

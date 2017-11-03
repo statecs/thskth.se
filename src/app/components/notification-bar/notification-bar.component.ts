@@ -63,6 +63,7 @@ export class NotificationBarComponent implements OnInit, OnDestroy {
           console.log(this.notification);
         },
         (error) => {
+          console.log(error);
           this.notifyError(error);
         });
   }

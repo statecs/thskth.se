@@ -96,6 +96,7 @@ export class MenusService {
   }
 
   castToplevelToMenuType(res) {
+    console.log(res);
     this.menus_meta = res;
     const topLevel_menu: Array<MenuItem2> = [];
     if (res.items) {

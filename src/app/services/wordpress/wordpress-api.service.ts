@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response,  } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
@@ -32,6 +32,7 @@ export class WordpressApiService {
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => {
+      console.log(res);
           return {
             message: res[0].content.rendered,
             bg_color: res[0].acf['background-color']
