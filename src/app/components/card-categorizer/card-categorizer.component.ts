@@ -25,20 +25,16 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
   @ViewChild('card_categorizer') card_categorizer: ElementRef;
 
   public activated_person: number;
-  public companyIsDisabled: boolean;
   public displayedDropdown: boolean;
   public displayedDropdownID: number;
   public dropdowns: any;
 
   public selected_profession: number;
-  public selected_company: number;
   public selected_interest: number;
 
   public selected_profession_name: string;
-  public selected_company_name: string;
   public selected_interest_name: string;
 
-  public org_cats: CardCategory[];
   public pro_cats: CardCategory[];
   public int_cats: CardCategory[];
 
@@ -55,11 +51,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
               private selectSliderCommunicationService: SelectSliderCommunicationService) {
     this.config = injector.get(APP_CONFIG);
     this.displayedDropdownID = 0;
-    this.companyIsDisabled = true;
     this.cards_filter = this._cookieService.getObject('cards_filter');
-    if (typeof this.cards_filter !== 'undefined') {
-      this.companyIsDisabled = this.cards_filter.companyIsDisabled;
-    }
     this.paramsSubscription = this.route.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
@@ -79,7 +71,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.selectSliderCommunicationService.showSelectSlider(data);
   }
 
-  switchPerson(): void {
+/*  switchPerson(): void {
     this.hideAllDropdown();
     if (this.companyIsDisabled) {
       this.switchRight();
@@ -89,21 +81,21 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
       this.companyIsDisabled = true;
     }
     this.updateCardsContainer();
-  }
+  }*/
 
-  switchLeft(): void {
+/*  switchLeft(): void {
     //const el = this.switch_button.nativeElement;
     const profession_el = this.profession.nativeElement;
     //const company_el = this.company.nativeElement;
     //el.style.left = '0px';
     profession_el.style.opacity = 1;
     profession_el.style.cursor = 'pointer';
-    /*company_el.style.opacity = 0.25;
+    /!*company_el.style.opacity = 0.25;
     company_el.disabled = true;
-    company_el.style.cursor = 'default';*/
-  }
+    company_el.style.cursor = 'default';*!/
+  }*/
 
-  switchRight(): void {
+/*  switchRight(): void {
     //const el = this.switch_button.nativeElement;
     const profession_el = this.profession.nativeElement;
     //const company_el = this.company.nativeElement;
@@ -111,22 +103,13 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     profession_el.style.opacity = 0.25;
     profession_el.disabled = true;
     profession_el.style.cursor = 'default';
-    /*company_el.style.opacity = 1;
-    company_el.style.cursor = 'pointer';*/
-  }
+    /!*company_el.style.opacity = 1;
+    company_el.style.cursor = 'pointer';*!/
+  }*/
 
   updateCardsContainer(): void {
-    let profession: number;
-    let organization_type: number;
-    if (!this.companyIsDisabled) {
-      organization_type = this.selected_company;
-      profession = this.selected_profession;
-    }else {
-      organization_type = this.selected_company;
-      profession = this.selected_profession;
-    }
-    this.cards_filter = this._cookieService.putObject('cards_filter', {profession: profession, organization_type: organization_type, interest: this.selected_interest, companyIsDisabled: this.companyIsDisabled});
-    this.cardCategorizerCardContainerService.updateCards({profession: profession, organization_type: organization_type, interest: this.selected_interest});
+    this.cards_filter = this._cookieService.putObject('cards_filter', {profession: this.selected_profession, interest: this.selected_interest});
+    this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, interest: this.selected_interest});
   }
 
   toggleDropdown(param): void {
@@ -155,9 +138,6 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     if (type === 'profession') {
       this.selected_profession = id;
       this.selected_profession_name = el.innerHTML;
-    }else if (type === 'company') {
-      this.selected_company = id;
-      this.selected_company_name = el.innerHTML;
     }else if (type === 'interest') {
       this.selected_interest = id;
       this.selected_interest_name = el.innerHTML;
@@ -165,7 +145,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.updateCardsContainer();
   }
 
-  getSelectedProfession(obj: CardCategory[]): CardCategory {
+/*  getSelectedProfession(obj: CardCategory[]): CardCategory {
       let output: CardCategory = {id: 0, name: '', order: 0};
       obj.forEach((c) => {
           let pro = '';
@@ -179,64 +159,45 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
           }
       });
       return output;
-  }
+  }*/
 
   ngAfterViewInit() {
     this.dropdowns = this.card_categorizer.nativeElement.getElementsByClassName('dropdown-container');
 
     if (typeof this.cards_filter === 'undefined' || (Object.keys(this.cards_filter).length === 0 && this.cards_filter.constructor === Object)) {
-      this.cardsService.getCardCategory('organization', this.lang).subscribe((org_cats) => {
-        this.org_cats = org_cats;
-        this.selected_company_name = org_cats[0].name;
-        this.selected_company = org_cats[0].id;
-        this.cardsService.getCardCategory('profession', this.lang).subscribe((pro_cats) => {
-          this.pro_cats = pro_cats;
-          console.log(pro_cats);
-          const pro = this.getSelectedProfession(pro_cats);
-          this.selected_profession_name = pro.name;
-          this.selected_profession = pro.id;
-          this.cardsService.getCardCategory('interest', this.lang).subscribe((int_cats) => {
-            this.int_cats = int_cats;
-            this.selected_interest_name = int_cats[0].name;
-            this.selected_interest = int_cats[0].id;
-            this._cookieService.putObject('cards_filter', {profession: this.selected_profession, organization_type: this.selected_company, interest: this.selected_interest, companyIsDisabled: this.companyIsDisabled});
-            this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, organization_type: this.selected_company, interest: this.selected_interest});
-          });
+      console.log('cards_filter');
+      this.cardsService.getCardCategory('profession', this.lang).subscribe((pro_cats) => {
+        this.pro_cats = pro_cats;
+        console.log(pro_cats);
+        this.selected_profession_name = pro_cats[0].name;
+        this.selected_profession = pro_cats[0].id;
+        this.cardsService.getCardCategory('interest', this.lang).subscribe((int_cats) => {
+          this.int_cats = int_cats;
+          this.selected_interest_name = int_cats[0].name;
+          this.selected_interest = int_cats[0].id;
+          this._cookieService.putObject('cards_filter', {profession: this.selected_profession, interest: this.selected_interest});
+          this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, interest: this.selected_interest});
         });
       });
     }else {
+      console.log('cards_filter2');
       this.cards_filter = this._cookieService.getObject('cards_filter');
-/*      this.selected_profession = this.cards_filter.profession;*/
-      this.selected_company = this.cards_filter.organization_type;
+      this.selected_profession = this.cards_filter.profession;
       this.selected_interest = this.cards_filter.interest;
-      this.cardsService.getCardCategoryByID(this.selected_company, 'organization', this.lang).subscribe((cat) => {
-        this.selected_company_name = cat.name;
-      });
-/*      this.cardsService.getCardCategoryByID(this.selected_profession, 'profession').subscribe((cat) => {
+      this.cardsService.getCardCategoryByID(this.selected_profession, 'profession', this.lang).subscribe((cat) => {
         this.selected_profession_name = cat.name;
-      });*/
+      });
       this.cardsService.getCardCategoryByID(this.selected_interest, 'interest', this.lang).subscribe((cat) => {
         this.selected_interest_name = cat.name;
-      });
-      if (this.companyIsDisabled) {
-        this.switchLeft();
-      }else {
-        this.switchRight();
-      }
-      this.cardsService.getCardCategory('organization', this.lang).subscribe((org_cats) => {
-        this.org_cats = org_cats;
       });
       this.cardsService.getCardCategory('interest', this.lang).subscribe((int_cats) => {
         this.int_cats = int_cats;
       });
-        this.cardsService.getCardCategory('profession', this.lang).subscribe((pro_cats) => {
-            this.pro_cats = pro_cats;
-            console.log(pro_cats);
-            const pro = this.getSelectedProfession(pro_cats);
-            this.selected_profession_name = pro.name;
-            this.selected_profession = pro.id;
-            this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, organization_type: this.selected_company, interest: this.selected_interest});
-        });
+      this.cardsService.getCardCategory('profession', this.lang).subscribe((pro_cats) => {
+          this.pro_cats = pro_cats;
+          console.log(pro_cats);
+          this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, interest: this.selected_interest});
+      });
     }
 
     this.selectSliderCommunicationService.transmitNotifyObservable$.subscribe((data) => {
@@ -247,7 +208,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
         this.selected_interest_name = data.item.name;
         this.selected_interest = data.item.id;
       }
-      this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, organization_type: this.selected_company, interest: this.selected_interest});
+      this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, interest: this.selected_interest});
     });
   }
 

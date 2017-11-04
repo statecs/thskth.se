@@ -1,7 +1,7 @@
 <div #card_categorizer id="card-categorizer">
     <span *ngIf="lang === 'en'">I am a</span>
     <span *ngIf="lang === 'sv'">Jag är en</span>
-  <div #profession class="profession large-devices"  (click)="companyIsDisabled !== true || toggleDropdown(1)" [attr.disabled]="!companyIsDisabled">
+  <div #profession class="profession large-devices"  (click)="toggleDropdown(1)">
     <span>{{selected_profession_name}}</span>
     <i class="material-icons">keyboard_arrow_down</i>
       <div class="dropdown-container">

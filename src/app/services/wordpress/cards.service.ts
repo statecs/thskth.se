@@ -46,15 +46,14 @@ export class CardsService {
   }
 
   getCardCategory(type: string, lang: string): Observable<CardCategory[]> {
-    console.log(lang);
+    console.log(type);
     let url = '';
-    if (type === 'organization') {
-      url = this.config.CARD_CATEGORY_ORG;
-    }else if (type === 'profession') {
+    if (type === 'profession') {
       url = this.config.CARD_CATEGORY_PRO;
     }else if (type === 'interest') {
       url = this.config.CARD_CATEGORY_INT;
     }
+    console.log(url);
     return this.http
         .get(url + '?order=desc&lang=' + lang)
         .map((res: Response) => res.json())
@@ -75,11 +74,12 @@ export class CardsService {
   // Get cards
   getCards(arg, lang: string): Observable<Card[]> {
     let filter: string = '';
-    if (!arg.profession) {
+    /*if (!arg.profession) {
       filter = '&organization_type=' + arg.organization_type + '&user_interest=' + arg.interest;
     }else {
       filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
-    }
+    }*/
+    filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
     return this.http
         .get(this.config.CARDS_URL + '?order=asc&lang=' + lang + filter)
         .map((res: Response) => res.json())
