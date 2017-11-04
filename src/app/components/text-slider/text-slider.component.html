@@ -5,7 +5,7 @@
       <p class="large-devices" [innerHTML]="item.answer | cardText:800"></p>
       <p class="mobile" [innerHTML]="item.answer | cardText:250"></p>
     </div>
-    <a class="category" [innerHTML]="item.category_name" [routerLink]="['faqs']" [queryParams]="{category_id:item.faq_category[0]}"></a>
+    <a class="category" [innerHTML]="item.category_name" [routerLink]="[(lang === 'sv' ? 'sv/support/' + item.category_slug : 'en/support/' + item.category_slug)]"></a>
   </div>
   <div class="text-slider-navBefore"><i class="material-icons" (click)="navBefore()">navigate_before</i></div>
   <div class="text-slider-navNext"><i class="material-icons" (click)="navNext()">navigate_next</i></div>

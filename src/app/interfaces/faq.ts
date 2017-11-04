@@ -18,5 +18,6 @@ export interface FAQ {
     answer: string;
     slug: string;
     category_name: string;
+    category_slug: string;
     faq_category: number[];
 }

@@ -36,6 +36,7 @@ export class FaqsService {
                       answer: res[0].content.rendered,
                       slug: res[0].slug,
                       category_name: category.name,
+                      category_slug: category.slug,
                       faq_category: res[0].faq_category,
                   };
                   return faq;
@@ -74,6 +75,7 @@ export class FaqsService {
             answer: res[0].content.rendered,
             slug: res[0].slug,
             category_name: '',
+            category_slug: res[0].pure_taxonomies.faq_category.slug,
             faq_category: res[0].faq_category,
           };
           return faq;
@@ -155,6 +157,7 @@ export class FaqsService {
             answer: item.content.rendered,
             slug: item.slug,
             category_name: category_name,
+            category_slug: item.pure_taxonomies.faq_category.slug,
             faq_category: item.faq_category,
           });
         }
@@ -173,6 +176,7 @@ export class FaqsService {
             answer: item.content.rendered,
             slug: item.slug,
             category_name: category_name,
+            category_slug: item.pure_taxonomies.faq_category.slug,
             faq_category: item.faq_category,
           });
         }
@@ -190,6 +194,7 @@ export class FaqsService {
           answer: item.content.rendered,
           slug: item.slug,
           category_name: category_name,
+          category_slug: item.pure_taxonomies.faq_category.slug,
           faq_category: item.faq_category,
         });
       });

@@ -10,7 +10,7 @@
     <app-cards-container></app-cards-container>
     <div class="faq-slider">
         <div>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</div>
-        <app-text-slider></app-text-slider>
+        <app-text-slider [lang]="lang"></app-text-slider>
     </div>
     <div class="image-slider">
         <div>{{(lang === 'en' ? 'News' : 'Nyheter')}}</div>

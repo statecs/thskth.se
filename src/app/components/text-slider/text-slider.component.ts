@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy, Input} from '@angular/core';
 import { TextSliderCommunicationService } from '../../services/component-communicators/text-slider-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./text-slider.component.scss']
 })
 export class TextSliderComponent implements OnInit, OnDestroy {
-
+  @Input() lang: any;
   @ViewChild('slides_container') slides_container: ElementRef;
   @ViewChild('slider_progress_bar') slider_progress_bar: ElementRef;
   public slides: any;
