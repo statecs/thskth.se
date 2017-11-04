@@ -79,9 +79,10 @@ export class CardsService {
     }else {
       filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
     }*/
+    console.log('&profession=' + arg.profession + '&user_interest=' + arg.interest);
     filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
     return this.http
-        .get(this.config.CARDS_URL + '?order=asc&lang=' + lang + filter)
+        .get(this.config.CARDS_URL + '?order=asc&per_page=100&lang=' + lang + filter)
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => this.castResDataToCardType(res))
