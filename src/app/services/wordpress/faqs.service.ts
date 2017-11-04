@@ -68,25 +68,32 @@ export class FaqsService {
   }
 
   // Get FAQs by slug
-  getFAQs_BySlug(slug): Observable<FAQ> {
+  getFAQs_BySlug(slug, lang): Observable<FAQ> {
+    this.language = lang;
+    console.log(slug);
+    console.log(this.config.FAQs_URL + '?slug=' + slug + '&lang=' + this.language);
     return this.http
         .get(this.config.FAQs_URL + '?slug=' + slug + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => {
+      console.log(res);
+          const faq: FAQ[] = [];
           let cat_slug = '';
-          if (res[0].pure_taxonomies.faq_category) {
-            cat_slug = res[0].pure_taxonomies.faq_category.slug;
+          if (res[0]) {
+            if (res[0].pure_taxonomies) {
+              cat_slug = res[0].pure_taxonomies.faq_category.slug;
+            }
+            faq[0] = {
+              question: res[0].title.rendered,
+              answer: res[0].content.rendered,
+              slug: res[0].slug,
+              category_name: '',
+              category_slug: cat_slug,
+              faq_category: res[0].faq_category,
+            };
           }
-          const faq: FAQ = {
-            question: res[0].title.rendered,
-            answer: res[0].content.rendered,
-            slug: res[0].slug,
-            category_name: '',
-            category_slug: cat_slug,
-            faq_category: res[0].faq_category,
-          };
-          return faq;
+          return faq[0];
         });
   }
 

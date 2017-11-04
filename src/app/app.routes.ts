@@ -48,6 +48,11 @@ const appRoutes: Routes = [
         data: { title: 'Support' }
     },
     {
+        path: ':lang/support/faqs/:slug',
+        component: SupportComponent,
+        data: { title: 'Support' }
+    },
+    {
         path: ':lang/support/:category',
         component: SupportComponent,
         data: { title: 'Support' }

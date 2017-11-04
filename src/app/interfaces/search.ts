@@ -6,6 +6,7 @@ export interface Category {
 export interface SearchResult {
     title: string;
     link: string;
+    slug: string;
     content: string;
     image: string;
     color: string;

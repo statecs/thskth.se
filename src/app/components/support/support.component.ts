@@ -15,7 +15,7 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class SupportComponent implements OnInit, OnDestroy {
     @ViewChild('searchField') searchField: ElementRef;
-
+    @ViewChild('selected_faq_el') selected_faq_el: ElementRef;
   public parent_categories: FAQCategory[];
   public selected_category: FAQCategory;
   public selected_cat_index: number;
@@ -36,7 +36,10 @@ export class SupportComponent implements OnInit, OnDestroy {
     private exist_category: boolean;
     public paramsSubscription: Subscription;
     public paramsSubscription2: Subscription;
+    public paramsSubscription3: Subscription;
     public queryParamsSubscription: Subscription;
+    public faq_slug: string;
+    public selected_faq: FAQ;
 
   constructor(private faqsService: FaqsService,
               private activatedRoute: ActivatedRoute,
@@ -62,6 +65,7 @@ export class SupportComponent implements OnInit, OnDestroy {
     this.show_single_view = false;
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
         this.lang = params['lang'];
+        this.faq_slug = params['slug'];
         if (typeof this.lang === 'undefined') {
             this.lang = 'en';
         }else if (this.lang !== 'en' && this.lang !== 'sv') {
@@ -84,6 +88,7 @@ export class SupportComponent implements OnInit, OnDestroy {
 
   searchFAQs(): void {
       this.show_single_view = true;
+      this.selected_faq = null;
       if (this.lang === 'sv') {
           this.location.go('sv/support?q=' + this.searchTerm);
       }else {
@@ -213,26 +218,28 @@ export class SupportComponent implements OnInit, OnDestroy {
               this.parent_categories = categories;
               console.log(categories);
               console.log(this.selected_cat_slug);
-              if (this.selected_cat_slug) {
-                  let matched = false;
-                  for (let i = 0; i < categories.length; i++) {
-                      if (categories[i].slug === this.selected_cat_slug) {
-                          this.selected_category = categories[i];
-                          this.selected_cat_index = i;
-                          matched = true;
+              if (!this.faq_slug) {
+                  if (this.selected_cat_slug) {
+                      let matched = false;
+                      for (let i = 0; i < categories.length; i++) {
+                          if (categories[i].slug === this.selected_cat_slug) {
+                              this.selected_category = categories[i];
+                              this.selected_cat_index = i;
+                              matched = true;
+                          }
                       }
-                  }
-                  if (matched) {
-                      console.log(matched);
+                      if (matched) {
+                          console.log(matched);
+                          this.getFAQs_ByParentCategory(this.selected_category.id);
+                          this.exist_category = true;
+                      }else {
+                          this.pageNotFound = true;
+                      }
+                  }else {
+                      this.selected_category = categories[0];
                       this.getFAQs_ByParentCategory(this.selected_category.id);
                       this.exist_category = true;
-                  }else {
-                      this.pageNotFound = true;
                   }
-              }else {
-                  this.selected_category = categories[0];
-                  this.getFAQs_ByParentCategory(this.selected_category.id);
-                  this.exist_category = true;
               }
           },
           (error) => {
@@ -254,47 +261,82 @@ export class SupportComponent implements OnInit, OnDestroy {
           });
   }
 
+    getFAQs_BySlug(): void {
+        console.log(this.faq_slug);
+        this.loading = true;
+        this.faqsService.getFAQs_BySlug(this.faq_slug, this.lang).subscribe((faq) => {
+            console.log(faq);
+                this.selected_faq = faq;
+                this.show_single_view = true;
+                this.exist_category = true;
+                this.loading = false;
+                const self = this;
+                const timer = setInterval(function () {
+                    if (self.selected_faq_el) {
+                        clearInterval(timer);
+                        self.expandElement(self.selected_faq_el.nativeElement);
+                    }
+                }, 100);
+            },
+            (error) => {
+            console.log(error);
+                this.loading = false;
+                this.notificationBarCommunicationService.send_data(error);
+            });
+    }
+
   ngOnInit() {
-      this.paramsSubscription2 = this.activatedRoute.params.subscribe((params: Params) => {
-          this.selected_cat_slug = params['category'];
-          console.log(this.selected_cat_slug);
-          // console.log(params['returnUrl']);
-          if (this.selected_cat_slug === 'undefined' || typeof this.selected_cat_slug === 'undefined') {
-              this.getFAQParentCategories();
-              this.exist_category = true;
-          }else {
-              if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
-                  console.log('pass3');
-                  this.show_single_view = true;
-                  this.loadFAQs();
-              }
+      this.paramsSubscription3 = this.activatedRoute.params.subscribe((params: Params) => {
+          this.faq_slug = params['slug'];
+          if (this.faq_slug) {
+              console.log(this.faq_slug);
+              this.selected_cat_index = null;
+              this.getFAQs_BySlug();
+              this.loadFAQs();
           }
       });
-
-      this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
-          this.searchTerm = params['q'];
-          if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
+      if (!this.faq_slug) {
+          this.paramsSubscription2 = this.activatedRoute.params.subscribe((params: Params) => {
+              this.selected_cat_slug = params['category'];
               console.log(this.selected_cat_slug);
+              // console.log(params['returnUrl']);
               if (this.selected_cat_slug === 'undefined' || typeof this.selected_cat_slug === 'undefined') {
+                  this.getFAQParentCategories();
+                  this.exist_category = true;
+              }else {
+                  if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
+                      console.log('pass3');
+                      this.show_single_view = true;
+                      this.loadFAQs();
+                  }
+              }
+          });
 
-                  this.show_single_view = true;
-                  this.searchFAQs();
+          this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
+              this.searchTerm = params['q'];
+              if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
+                  console.log(this.selected_cat_slug);
+                  if (this.selected_cat_slug === 'undefined' || typeof this.selected_cat_slug === 'undefined') {
+
+                      this.show_single_view = true;
+                      this.searchFAQs();
+                  }else {
+                      this.show_single_view = true;
+                      this.loadFAQs();
+                  }
               }else {
-                  this.show_single_view = true;
-                  this.loadFAQs();
+                  if (this.selected_cat_slug !== 'undefined' && typeof this.selected_cat_slug !== 'undefined') {
+                      console.log('pass2');
+                      this.show_single_view = true;
+                      this.loadFAQs();
+                  }else {
+                      this.show_single_view = false;
+                      this.loadFAQs();
+                      console.log('test');
+                  }
               }
-          }else {
-              if (this.selected_cat_slug !== 'undefined' && typeof this.selected_cat_slug !== 'undefined') {
-                  console.log('pass2');
-                  this.show_single_view = true;
-                  this.loadFAQs();
-              }else {
-                  this.show_single_view = false;
-                  this.loadFAQs();
-                  console.log('test');
-              }
-          }
-      });
+          });
+      }
 
       const self = this;
       const timer = setInterval(function () {
@@ -344,6 +386,9 @@ export class SupportComponent implements OnInit, OnDestroy {
         }
         if (this.paramsSubscription2) {
             this.paramsSubscription2.unsubscribe();
+        }
+        if (this.paramsSubscription3) {
+            this.paramsSubscription3.unsubscribe();
         }
         if (this.queryParamsSubscription) {
             this.queryParamsSubscription.unsubscribe();

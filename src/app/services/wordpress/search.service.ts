@@ -64,6 +64,7 @@ export class SearchService {
         results.push({
           title: p.title.rendered,
           link: p.link,
+          slug: p.slug,
           content: p.content.rendered,
           image: '',
           color: '',
@@ -85,6 +86,7 @@ export class SearchService {
         results.push({
           title: p.title.rendered,
           link: p.link,
+          slug: p.slug,
           content: p.content.rendered,
           image: image,
           color: p.acf.header_color,
@@ -109,6 +111,7 @@ export class SearchService {
         results.push({
           title: p.title.rendered,
           link: p.link,
+          slug: p.slug,
           content: p.content.rendered,
           image: '',
           color: '',

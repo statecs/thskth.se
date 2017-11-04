@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { most_asked_questions } from '../../utils/most-asked-questions';
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { FAQ } from '../../interfaces/faq';
@@ -11,7 +11,7 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./featured-faqs.component.scss']
 })
 export class FeaturedFaqsComponent implements OnInit, OnDestroy {
-
+  @Input() lang: any;
   @ViewChild('slides_wrapper') slides_wrapper: ElementRef;
   public most_asked_questions_slugs: string[];
   public most_asked_faqs: FAQ[];
@@ -90,12 +90,12 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.faqsSubscription = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0]).subscribe((faq) => {
+    this.faqsSubscription = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0], this.lang).subscribe((faq) => {
       const faqs: FAQ[] = [];
       faqs.push(faq);
-      this.faqsSubscription2 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1]).subscribe((faq2) => {
+      this.faqsSubscription2 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1], this.lang).subscribe((faq2) => {
         faqs.push(faq2);
-        this.faqsSubscription3 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2]).subscribe((faq3) => {
+        this.faqsSubscription3 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2], this.lang).subscribe((faq3) => {
           faqs.push(faq3);
 
           this.most_asked_faqs = faqs;

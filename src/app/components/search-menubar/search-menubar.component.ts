@@ -49,7 +49,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
     });
   }
 
-  goToPage(link): void {
+  goToPage(link, type): void {
     this.hideBar();
     let slug = '';
     if (this.lang === 'sv') {
@@ -57,7 +57,10 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
     }else {
       slug = 'en/search';
     }
-    this.router.navigate([slug], { queryParams: { q: this.searchTerm } });
+    if (type === 'faq') {
+      this.router.navigate([this.lang + '/support/faqs/' + link]);
+    }
+
   }
 
   goToSearchPage(): void {

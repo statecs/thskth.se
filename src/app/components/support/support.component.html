@@ -17,7 +17,7 @@
     </div>
   </div>
   <div *ngIf="!show_single_view" class="content-container">
-    <app-featured-faqs></app-featured-faqs>
+    <app-featured-faqs [lang]="lang"></app-featured-faqs>
     <div class="faqs-categories">
       <h2>{{lang === 'en' ? 'FAQ categories' : 'FAQ kategorier'}}</h2>
       <a *ngFor="let c of parent_categories" routerLink="{{c.slug}}" class="category">{{c.name}}</a>
@@ -75,6 +75,17 @@
           </div>
         </div>
         <div *ngIf="noResult" class="noItems">No FAQs found matching "{{searchTerm}}"</div>
+      </div>
+
+      <div *ngIf="faq_slug" class="search-results">
+        <div *ngIf="!loading && selected_faq">
+          <div #faqElement class="faq" (click)="toggleAnswer(faqElement)">
+            <span>+</span>
+            <div class="question" [innerHTML]="selected_faq.question | markMatchedWords:searchTerm"></div>
+            <div #selected_faq_el data-collapsed="true" class="answer" [innerHTML]="selected_faq.answer | markMatchedWords:searchTerm"></div>
+          </div>
+        </div>
+        <div *ngIf="!loading && !selected_faq" class="noItems">No requested FAQ found!</div>
       </div>
 
       <div *ngIf="loading">Loading........</div>
