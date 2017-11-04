@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 })
 export class ImageSliderSecondaryComponent implements OnInit {
   @Input() data: any;
+  @Input() lang: any;
   @ViewChild('slider') slider: ElementRef;
   public touchStartListener: any;
   public enableScroll: boolean;
@@ -22,7 +23,7 @@ export class ImageSliderSecondaryComponent implements OnInit {
 
   showAssociationInPopup(item: Association): void {
     //this.popupWindowCommunicationService.showAssociationInPopup({association: item, relatedAssociations: this.data.items});
-    this.router.navigate(['associations-and-chapters/' + item.slug]);
+    this.router.navigate([this.lang + '/associations-and-chapters/' + item.slug]);
   }
 
   showScroll() {
