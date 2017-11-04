@@ -34,6 +34,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public mainMenuSubscription: Subscription;
   public topLevelMenuSubscription: Subscription;
   public headerSubscription: Subscription;
+  public searchTerm: string;
+  public language_img: string;
+  public signin_text: string;
+  public language_text: string;
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
               private searchMenubarCommunicationService: SearchMenubarCommunicationService,
@@ -45,6 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.showChaptersMobile = false;
     this.ths_chapters = ths_chapters;
     this.subMenu = [];
+    this.searchTerm = '';
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
   }
@@ -97,8 +102,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  navToSearchPage(url): void {
+    if (this.lang === 'en') {
+      this.router.navigateByUrl('/en' + url + '?q=' + this.searchTerm);
+    }else if (this.lang === 'sv') {
+      this.router.navigateByUrl('/sv' + url + '?q=' + this.searchTerm);
+    }
+  }
+
   hideSubMenu(i): void {
     this.showSubmenuIndex = -1;
+  }
+
+  switchLanguage() {
+    if (this.lang === 'en') {
+      this.lang = 'sv';
+    }else if (this.lang === 'sv') {
+      this.lang = 'en';
+    }
+  }
+
+  changeLanguage() {
+    this.switchLanguage();
+    this.displayActualLanguage();
+    if (this.lang === 'en') {
+      this.router.navigateByUrl('/en' + this.router.url.substring(3));
+    }else if (this.lang === 'sv') {
+      this.router.navigateByUrl('/sv' + this.router.url.substring(3));
+    }
   }
 
   goToPage(slug): void {
@@ -107,6 +138,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     slug = this.addLangToSlugPipe.transform(slug, this.lang);
     this.router.navigate([slug]);
+  }
+
+  displayActualLanguage() {
+    if (this.lang === 'en' || typeof this.lang === 'undefined') {
+      this.language_text = 'THS in swedish';
+      this.language_img = '../../../assets/images/sweden_flag.png';
+      this.signin_text = 'Sign in';
+    }else if (this.lang === 'sv') {
+      this.language_text = 'THS i engelska';
+      this.language_img = '../../../assets/images/British_flag.png';
+      this.signin_text = 'Logga in';
+    }
   }
 
   ngOnInit() {
@@ -125,7 +168,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.notificationBarCommunicationService.send_data(error);
       });
     });
-
+    this.displayActualLanguage();
     this.headerSubscription = this.headerCommunicationService.notifyObservable$.subscribe((arg) => {
       /*if (arg === 'expend') {
         this.expendHeader();

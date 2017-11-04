@@ -56,7 +56,7 @@ header {
       text-align: left;
       padding: 10px;
       .search-bar{
-        >a{
+        >span{
           text-decoration: none;
           color: black;
           i{
@@ -147,13 +147,13 @@ header {
         .menu-items{
           display: block;
           background-color: white;
-          padding: 10px 0;
+          padding: 0;
           .nav-item{
-            padding: 5px 0;
+            padding: 0;
             overflow: hidden;
             .item-wrapper{
               overflow: hidden;
-              padding: 0 10%;
+              padding: 0 10% 10px;
               color: #575757;
               .label{
                 display: inline-block;
@@ -174,7 +174,7 @@ header {
             .sub-menu{
               background-color: #e3e3e3;
               text-align: left;
-              padding: 10px 12%;
+              padding: 5px 12%;
               font-size: $font-size-h3;
               color: #575757;
               >div{
@@ -183,6 +183,21 @@ header {
               }
             }
           }
+        }
+        .signin-btn, .language{
+          color: gray;
+          border-top: 1px solid lightgray;
+          font-size: 1.15em;
+          text-align: left;
+          padding: 10px 20px;
+          font-weight: 500;
+          background-color: #f4f4f4;
+        }
+        .signin-btn >a{
+          text-decoration: none;
+          font-size: 1.15em;
+          font-weight: 500;
+          color: gray;
         }
       }
 
@@ -309,13 +324,14 @@ header {
         .menu-items{
           display: block;
           background-color: white;
-          padding: 10px 0;
+          padding: 0;
           .nav-item{
-            padding: 5px 0;
+            padding: 0;
             overflow: hidden;
             .item-wrapper{
               overflow: hidden;
-              padding: 0 10%;
+              padding: 0 10% 10px;
+              color: #575757;
               .label{
                 display: inline-block;
                 float: left;
@@ -328,14 +344,14 @@ header {
               }
               >i{
                 float: right;
-                font-size: $font-size-h2;
+                font-size: $font-size-h3;
                 margin-top: 5px;
               }
             }
             .sub-menu{
               background-color: #e3e3e3;
               text-align: left;
-              padding: 10px 12%;
+              padding: 5px 12%;
               font-size: $font-size-h3;
               color: #575757;
               >div{
@@ -344,6 +360,21 @@ header {
               }
             }
           }
+        }
+        .signin-btn, .language{
+          color: gray;
+          border-top: 1px solid lightgray;
+          font-size: 1.15em;
+          text-align: left;
+          padding: 10px 20px;
+          font-weight: 500;
+          background-color: #f4f4f4;
+        }
+        .signin-btn >a{
+          text-decoration: none;
+          font-size: 1.15em;
+          font-weight: 500;
+          color: gray;
         }
       }
 
@@ -470,13 +501,14 @@ header {
         .menu-items{
           display: block;
           background-color: white;
-          padding: 10px 0;
+          padding: 0;
           .nav-item{
-            padding: 5px 0;
+            padding: 0;
             overflow: hidden;
             .item-wrapper{
               overflow: hidden;
-              padding: 0 10%;
+              padding: 0 10% 10px;
+              color: #575757;
               .label{
                 display: inline-block;
                 float: left;
@@ -489,14 +521,14 @@ header {
               }
               >i{
                 float: right;
-                font-size: $font-size-h2;
+                font-size: $font-size-h3;
                 margin-top: 5px;
               }
             }
             .sub-menu{
               background-color: #e3e3e3;
               text-align: left;
-              padding: 10px 12%;
+              padding: 5px 12%;
               font-size: $font-size-h3;
               color: #575757;
               >div{
@@ -505,6 +537,21 @@ header {
               }
             }
           }
+        }
+        .signin-btn, .language{
+          color: gray;
+          border-top: 1px solid lightgray;
+          font-size: 1.15em;
+          text-align: left;
+          padding: 10px 20px;
+          font-weight: 500;
+          background-color: #f4f4f4;
+        }
+        .signin-btn >a{
+          text-decoration: none;
+          font-size: 1.15em;
+          font-weight: 500;
+          color: gray;
         }
       }
 

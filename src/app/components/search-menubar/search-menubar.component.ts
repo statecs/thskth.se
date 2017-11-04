@@ -51,7 +51,13 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
 
   goToSearchPage(): void {
     this.hideBar();
-    this.router.navigate(['search'], { queryParams: { q: this.searchTerm } });
+    let slug = '';
+    if (this.lang === 'sv') {
+      slug = 'sv/search';
+    }else {
+      slug = 'en/search';
+    }
+    this.router.navigate([slug], { queryParams: { q: this.searchTerm } });
   }
 
   showBar(): void {

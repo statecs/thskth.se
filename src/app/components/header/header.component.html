@@ -37,8 +37,8 @@
             <div *ngIf="showMenuMobile" class="search-bar-mobile">
                 <form autocomplete="off">
                     <div class="search-bar">
-                        <a routerLink="support" [queryParams]="{ q: searchTerm }"><i class="material-icons">search</i></a>
-                        <input placeholder="{{(lang === 'en' ? 'Search THS and beyond...' : 'Sök THS')}}" [(ngModel)]="searchTerm" name="searchInput" type="search" appAutoFocus>
+                        <span (click)="navToSearchPage('/search')"><i class="material-icons">search</i></span>
+                        <input placeholder="{{(lang === 'en' ? 'Search THS and beyond...' : 'Sök THS')}}" [(ngModel)]="searchTerm" name="searchInput" type="search">
                     </div>
                 </form>
             </div>
@@ -58,6 +58,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="signin-btn"><a href="https://login.kth.se/login?service=http://thstudent.upright.se/" target="_blank">{{signin_text}}</a></div>
+
+            <div class="language" (click)="changeLanguage()">
+                <img width="25" height="17" src="{{language_img}}">
+                <span>{{language_text}}</span>
             </div>
         </div>
 

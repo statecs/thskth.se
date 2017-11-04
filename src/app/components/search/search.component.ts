@@ -55,6 +55,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public faqsSubscription2: Subscription;
   public faqsSubscription3: Subscription;
   public faqsSubscription4: Subscription;
+  public timer: any;
 
   constructor(private searchService: SearchService,
               private activatedRoute: ActivatedRoute,
@@ -239,11 +240,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     });
 
     const self = this;
-    const timer = setInterval(function () {
-      console.log(self.searchTerm);
+    this.timer = setInterval(function () {
       if (self.searchTerm) {
         console.log('search');
-        clearInterval(timer);
+        clearInterval(self.timer);
         self.renderer.listen(self.searchField.nativeElement, 'search', () => {
           console.log(self.searchTerm);
           if (self.searchTerm === '') {
@@ -261,6 +261,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    clearInterval(this.timer);
     if (this.paramsSubscription) {
       this.paramsSubscription.unsubscribe();
     }

@@ -97,11 +97,12 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
             this.switchLanguage();
         }*/
         this.switchLanguage();
+        console.log(this.router);
         console.log(this.router.url);
         if (this.language === 'en') {
-            this.router.navigate(['/en' + this.router.url.substring(3)]);
+            this.router.navigateByUrl('/en' + this.router.url.substring(3));
         }else if (this.language === 'sv') {
-            this.router.navigate(['/sv' + this.router.url.substring(3)]);
+            this.router.navigateByUrl('/sv' + this.router.url.substring(3));
         }
         //location.reload();
 
