@@ -31,12 +31,16 @@ export class FaqsService {
             return this.http.get(this.config.FAQs_URL + '?order=asc&per_page=' + amount + '&faq_category=' + category.id + '&lang=' + this.language)
             .map(res => res.json())
                 .map((res) => {
+                  let cat_slug = '';
+                  if (category.slug) {
+                    cat_slug = category.slug;
+                  }
                   const faq: FAQ = {
                       question: res[0].title.rendered,
                       answer: res[0].content.rendered,
                       slug: res[0].slug,
                       category_name: category.name,
-                      category_slug: category.slug,
+                      category_slug: cat_slug,
                       faq_category: res[0].faq_category,
                   };
                   return faq;
@@ -70,12 +74,16 @@ export class FaqsService {
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => {
+          let cat_slug = '';
+          if (res[0].pure_taxonomies.faq_category) {
+            cat_slug = res[0].pure_taxonomies.faq_category.slug;
+          }
           const faq: FAQ = {
             question: res[0].title.rendered,
             answer: res[0].content.rendered,
             slug: res[0].slug,
             category_name: '',
-            category_slug: res[0].pure_taxonomies.faq_category.slug,
+            category_slug: cat_slug,
             faq_category: res[0].faq_category,
           };
           return faq;
@@ -151,13 +159,17 @@ export class FaqsService {
     const faqs: FAQ[] = [];
     if (res) {
       res.forEach((item) => {
+        let slug = '';
+        if (item.pure_taxonomies.faq_category) {
+          slug = item.pure_taxonomies.faq_category.slug;
+        }
         if (item.faq_category.length === 1) {
           faqs.push({
             question: item.title.rendered,
             answer: item.content.rendered,
             slug: item.slug,
             category_name: category_name,
-            category_slug: item.pure_taxonomies.faq_category.slug,
+            category_slug: slug,
             faq_category: item.faq_category,
           });
         }
@@ -169,6 +181,10 @@ export class FaqsService {
   castFAQsToChildCategories(res, child_categories, category_name) {
     const subMenus: FAQSubMenu[] = child_categories;
     res.forEach((item) => {
+      let slug = '';
+      if (item.pure_taxonomies.faq_category) {
+        slug = item.pure_taxonomies.faq_category.slug;
+      }
       for (let i = 0; i < child_categories.length; i++) {
         if (item.faq_category.indexOf(child_categories[i].id) >= 0) {
           subMenus[i].faqs.push({
@@ -176,7 +192,7 @@ export class FaqsService {
             answer: item.content.rendered,
             slug: item.slug,
             category_name: category_name,
-            category_slug: item.pure_taxonomies.faq_category.slug,
+            category_slug: slug,
             faq_category: item.faq_category,
           });
         }
@@ -189,12 +205,16 @@ export class FaqsService {
     const faqs: FAQ[] = [];
     if (res) {
       res.forEach((item) => {
+        let slug = '';
+        if (item.pure_taxonomies.faq_category) {
+          slug = item.pure_taxonomies.faq_category.slug;
+        }
         faqs.push({
           question: item.title.rendered,
           answer: item.content.rendered,
           slug: item.slug,
           category_name: category_name,
-          category_slug: item.pure_taxonomies.faq_category.slug,
+          category_slug: slug,
           faq_category: item.faq_category,
         });
       });

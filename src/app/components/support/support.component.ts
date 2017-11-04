@@ -108,6 +108,7 @@ export class SupportComponent implements OnInit, OnDestroy {
                   }
               },
               (error) => {
+              console.log(error);
                   this.notificationBarCommunicationService.send_data(error);
               });
       }
