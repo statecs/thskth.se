@@ -1,6 +1,7 @@
 <div class="image-gallery">
   <div *ngFor="let item of imageGallery.items" class="item" [ngClass]="{'columns-1': imageGallery.number_of_columns == 1, 'columns-2': imageGallery.number_of_columns == 2, 'columns-3': imageGallery.number_of_columns == 3}">
-    <img src="{{item.image}}">
+    <img *ngIf="item.image" src="{{item.image}}">
+    <img *ngIf="!(item.image)" src="../../../assets/images/placeholder-image.png">
     <h2>{{item.title}}</h2>
     <p [innerHTML]="item.description"></p>
   </div>

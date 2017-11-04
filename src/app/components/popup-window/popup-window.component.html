@@ -7,22 +7,24 @@
       <!-- ---------- Page layout ---------- -->
       <div *ngIf="showPage && !loading" class="default-layout">
         <div class="header-image">
-          <img *ngIf="page_data?.acf.header_image" src="{{page_data?.acf.header_image.url}}" alt="Header image">
-          <div *ngIf="!page_data?.acf.header_image && page_data?.acf.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data?.acf.header_color}"></div>
-          <div *ngIf="!page_data?.acf.header_image && !page_data?.acf.header_color" class="default-header"></div>
+          <img *ngIf="page_data?.header.header_image" src="{{page_data?.header.header_image}}" alt="Header image">
+          <div *ngIf="!page_data?.header.header_image && page_data?.header.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data?.header.header_color}"></div>
+          <div *ngIf="!page_data?.header.header_image && !page_data?.header.header_color" class="default-header"></div>
         </div>
         <div class="content-container">
-          <h2 [innerHTML]="page_data?.title.rendered"></h2>
-          <p [innerHTML]="page_data?.content.rendered"></p>
+          <h2 [innerHTML]="page_data?.name"></h2>
+          <p [innerHTML]="page_data?.content"></p>
+          <app-image-gallery *ngIf="page_data?.image_gallery" [imageGallery]="page_data?.image_gallery"></app-image-gallery>
+          <app-text-gallery *ngIf="page_data?.text_gallery" [textGallery]="page_data?.text_gallery"></app-text-gallery>
         </div>
-        <div *ngIf="false" class="previous-post">
+        <!--<div *ngIf="false" class="previous-post">
           <div class="btn"><i class="material-icons">keyboard_arrow_left</i></div>
           <span>Previous post</span>
         </div>
         <div *ngIf="false" class="next-post">
           <span>Next post</span>
           <div class="btn"><i class="material-icons">keyboard_arrow_right</i></div>
-        </div>
+        </div>-->
       </div>
 
       <!-- ---------- Event layout ---------- -->

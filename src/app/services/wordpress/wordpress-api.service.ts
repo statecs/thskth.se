@@ -40,13 +40,13 @@ export class WordpressApiService {
         });
   }
 
-  // Get Page
+/*  // Get Page
   getPage(slug): Observable<any[]> {
     return this.http
         .get(this.config.PAGES_URL + '?slug=' + slug + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => { return res; });
-  }
+  }*/
 
 }

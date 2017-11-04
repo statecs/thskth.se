@@ -11,6 +11,7 @@ import {Archive} from '../../interfaces/archive';
 import {FAQ} from '../../interfaces/faq';
 import {Router, RoutesRecognized} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {PagesService} from '../../services/wordpress/pages.service';
 
 @Component({
   selector: 'app-popup-window',
@@ -45,7 +46,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   public paramsSubscription: Subscription;
   public pageSubscription: Subscription;
 
-  constructor( private wordpressApiService: WordpressApiService,
+  constructor( private pagesService: PagesService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
                private appCommunicationService: AppCommunicationService,
                private location: Location,
@@ -144,9 +145,9 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.showEvent = false;
     this.showPage = true;
     this.show_popup_window();
-    this.pageSubscription = this.wordpressApiService.getPage(slug).subscribe(res => {
+    this.pageSubscription = this.pagesService.getPageBySlug(slug, this.lang).subscribe(res => {
           console.log(res);
-          this.page_data = res[0];
+          this.page_data = res;
           this.loading = false;
         },
         (error) => {
