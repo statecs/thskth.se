@@ -7,14 +7,13 @@ import { AppConfig } from '../../interfaces/appConfig';
 import {Archive, ArchiveCategory, Document, SearchParams} from '../../interfaces/archive';
 import { CookieService } from 'ngx-cookie';
 import format from 'date-fns/format/index';
-import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ArchiveService {
   protected config: AppConfig;
   protected language: string;
 
-  constructor(private http: HttpClient, private injector: Injector, private _cookieService: CookieService) {
+  constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
     this.config = injector.get(APP_CONFIG);
 
     if (typeof this._cookieService.get('language') === 'undefined') {
