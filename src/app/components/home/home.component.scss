@@ -1,6 +1,8 @@
 @import "../../../style/utilities";
 
 #homePage {
+  position: relative;
+  overflow: hidden;
   .larger-devices{
     display: block;
   }

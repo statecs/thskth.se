@@ -170,11 +170,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.displayActualLanguage();
     this.headerSubscription = this.headerCommunicationService.notifyObservable$.subscribe((arg) => {
-      /*if (arg === 'expend') {
+      if (arg === 'expend') {
         this.expendHeader();
       }else if (arg === 'collapse') {
         this.collapseHeader();
-      }*/
+      }
     });
   }
 
