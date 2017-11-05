@@ -31,7 +31,6 @@
     .layouts-container{
       position: relative;
       background-color: $bg-color-default;
-      margin-top: 200px;
       transition: margin 0.5s ease;
       border-radius: 7px;
       .exit-popup-btn{
@@ -85,8 +84,8 @@
           background-color: $bg-color-default;
           position: relative;
           top: -150px;
-          border-radius: 10px;
-          box-shadow: 0 3px 5px #888888;
+          border-radius: 8px;
+          box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
           margin-top: 100px;
           transition: margin 0.7s ease;
           h2{
@@ -344,18 +343,21 @@
     #popup-window {
       width: 100%;
       margin-left: 0 !important;
-      font-size: 0.9em;
+      font-size: 1em;
       border-radius: 0;
       margin-bottom: 0;
       margin-top: 0;
       .layouts-container {
+        margin-top: 0px !important;
+        border-radius: 0px !important;
         .default-layout{
           .header-image{
             min-height: 200px;
             max-height: 210px;
           }
           .content-container{
-            width: 90%;
+            width: 100%;
+            border-radius: 0;
             padding: 20px 15px;
           }
         }
@@ -372,7 +374,7 @@
           }
           .content-container {
             width: 90%;
-            padding: 20px 15px;
+            padding: 30px 20px;
             text-align: center;
             .description{
               width: 90%;
@@ -409,7 +411,7 @@
   }
   .exit-popup-btn-mobile{
     display: block;
-    padding: 10px 25px;
+    padding: 15px 25px;
   }
 }
 
@@ -422,19 +424,22 @@
     #popup-window {
       width: 100%;
       margin-left: 0 !important;
-      font-size: 0.9em;
+      font-size: 1em;
       border-radius: 0;
       margin-bottom: 0;
       margin-top: 0;
       .layouts-container {
+        margin-top: 0px !important;
+        border-radius: 0px !important;
         .default-layout{
           .header-image{
             min-height: 250px;
             max-height: 250px;
           }
           .content-container{
-            width: 90%;
-            padding: 20px 15px;
+            width: 100%;
+            border-radius: 0;
+            padding: 30px 20px;
           }
         }
         .exit-popup-btn {
@@ -487,7 +492,7 @@
   }
   .exit-popup-btn-mobile{
     display: block;
-    padding: 10px 25px;
+    padding: 15px 25px;
   }
 }
 // Medium devices (tablets, 768px and up)
@@ -504,6 +509,8 @@
       margin-bottom: 0;
       margin-top: 0;
       .layouts-container {
+        margin-top: 0px !important;
+        border-radius: 0px !important;
         .default-layout{
           .header-image{
             min-height: 300px;
@@ -564,7 +571,7 @@
   }
   .exit-popup-btn-mobile{
     display: block;
-    padding: 10px 25px;
+    padding: 15px 25px;
   }
 }
 // Large devices (desktops, 992px and up)
