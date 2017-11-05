@@ -126,6 +126,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.showArchive = false;
     this.showFaq = false;
     this.showPage = false;
+    this.showNews = false;
   }
 
   hide_popup_window(): void {
