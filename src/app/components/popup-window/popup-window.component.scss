@@ -319,6 +319,20 @@
     width: 100% !important;
     height: auto !important;
   }
+  .description{
+    img{
+      width: 100%;
+      height: auto;
+      margin: 10px 0;
+    }
+    a{
+      text-decoration: none;
+      color: $color-link-secondary;
+      &:hover{
+        color: $color-link-secondary-hover;
+      }
+    }
+  }
 }
 
 // Extra small devices (portrait phones, less than 576px)
