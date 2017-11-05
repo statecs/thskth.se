@@ -31,6 +31,15 @@ export class PostsService {
         .map((res: any) => { return this.castResTo_PostType(res); });
   }
 
+  getOffers(amount, lang: string): Observable<Post[]> {
+    this.language = lang;
+    return this.http
+        .get(this.config.POSTS_PAGE + '?_embed&sticky=true&per_page=' + amount + '&lang=' + this.language)
+        .map((res: Response) => res.json())
+        // Cast response data to FAQ Category type
+        .map((res: any) => { return this.castResTo_PostType(res); });
+  }
+
   getPostBySlug(slug, lang: string): Observable<Post> {
     this.language = lang;
     return this.http

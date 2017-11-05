@@ -1,0 +1,120 @@
+@import "../../../style/utilities";
+
+:host /deep/ header{
+  background: none !important;
+  background-color: $bg-color-primary !important;
+  color: white !important;
+  .container{
+    border-bottom: 0 !important;
+  }
+}
+
+#content-container {
+  @include container-size(82%);
+  margin-top: 100px;
+  position: relative;
+  margin-bottom: 50px;
+  line-height: 1;
+  overflow: hidden;
+  padding-bottom: 20px;
+  >h1{
+    margin-left: 1%;
+  }
+
+  .article{
+    width: 31.33%;
+    //border: 1px solid;
+    height: 410px;
+    float: left;
+    padding: 20px;
+    margin: 0 1%;
+    cursor: pointer;
+    margin-bottom: 25px;
+    box-shadow: 0 0 5px #888888;
+    overflow: hidden;
+    .image{
+      display: block;
+      background-color: #00406c;
+      color: white;
+      position: relative;
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+    h2{
+      font-size: $font-size-h3;
+      font-weight: 500;
+      margin-bottom: 5px;
+      line-height: 1.2;
+    }
+    .content{
+      margin-top: 10px;
+    }
+
+    &:hover{
+      box-shadow: 1px 1px 5px #888888;
+    }
+  }
+}
+
+:host /deep/ .content{
+  img{
+    width: 100%;
+    height: auto;
+    margin: 10px 0;
+  }
+  a{
+    text-decoration: none;
+    color: $color-link-secondary;
+    &:hover{
+      color: $color-link-secondary-hover;
+    }
+  }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #content-container {
+    width: 90%;
+    .article{
+      width: 98%;
+      height: auto;
+      margin-bottom: 15px;
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #content-container {
+    width: 90%;
+    .article{
+      width: 98%;
+      height: auto;
+      margin-bottom: 15px;
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #content-container {
+    width: 90%;
+    .article{
+      width: 48%;
+      height: 435px;
+      margin-bottom: 15px;
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #content-container {
+    .article{
+      height: 485px;
+    }
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

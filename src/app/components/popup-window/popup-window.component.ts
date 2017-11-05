@@ -150,6 +150,12 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
         }else {
           this.router.navigate(['en/news']);
         }
+      }else if (this.page_location === 'offers') {
+        if (this.lang === 'sv') {
+          this.router.navigate(['sv/offers']);
+        }else {
+          this.router.navigate(['en/offers']);
+        }
       }
     }
     this.hide_all_layouts();
