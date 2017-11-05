@@ -10,10 +10,10 @@
   //background-color: $bg-color-primary;
   color: $bg-color-primary;
   .profession {
-    color: green;
+    color: rgb(27, 69, 127);
   }
   .interest {
-    color: blue;
+    color: rgb(73, 120, 8);
   }
   & >div {
     display: inline-block;
@@ -108,7 +108,7 @@
   #card-categorizer {
     @include container-size(90%);
     padding: 0;
-    font-size: $font-size-default;
+    font-size: $font-size-h4;
     .large-devices{
       display: none;
     }

@@ -515,14 +515,15 @@ header {
                 a{
                   text-decoration: none;
                   color: #575757;
-                  font-size: $font-size-h3;
+                  font-size: $font-size-h4;
                   font-weight: 700;
                 }
               }
               >i{
                 float: right;
-                font-size: $font-size-h3;
+                font-size: $font-size-h4;
                 margin-top: 5px;
+                color: #575757;
               }
             }
             .sub-menu{
