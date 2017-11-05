@@ -122,6 +122,30 @@
           </div>
         </div>
       </div>
+
+      <!-- ---------- News layout ---------- -->
+      <div *ngIf="showNews && !loading" class="association-layout">
+        <!--<div class="header-image">
+          <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
+          <div *ngIf="!association?.image" class="default-header"></div>
+        </div>-->
+        <div class="content-container">
+          <div class="description">
+            <h2 [innerHTML]="news?.title"></h2>
+            <div class="label">
+              <label>{{(lang === 'sv' ? 'THS Nyheter' : 'THS News')}}</label>
+            </div>
+            <p [innerHTML]="news?.content"></p>
+          </div>
+          <div class="contact">
+            <h2>Author</h2>
+            <img src="{{news?.author.avatar_url}}">
+            <p>name: <span>{{news?.author.name}}</span></p>
+            <p>email: <span>{{news?.author.email}}</span></p>
+            <p>last modified: <span>{{news?.last_modified}}</span></p>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>

@@ -2,8 +2,9 @@ import { Injectable, Inject } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Event } from '../../interfaces/event';
 import {Association} from '../../interfaces/chapters_associations';
-import {Archive} from "../../interfaces/archive";
-import {FAQ} from "../../interfaces/faq";
+import {Archive} from '../../interfaces/archive';
+import {FAQ} from '../../interfaces/faq';
+import {Post} from '../../interfaces/post';
 
 @Injectable()
 export class PopupWindowCommunicationService {
@@ -21,6 +22,8 @@ export class PopupWindowCommunicationService {
   hideNotifyObservable$ = this.hide_notify.asObservable();
   private loader_notify = new Subject<any>();
   loaderNotifyObservable$ = this.loader_notify.asObservable();
+  private news_notify = new Subject<any>();
+  newsNotifyObservable$ = this.news_notify.asObservable();
 
   constructor() { }
 
@@ -52,4 +55,7 @@ export class PopupWindowCommunicationService {
     this.loader_notify.next();
   }
 
+  showNewsInPopup(arg: any) {
+    this.news_notify.next(arg);
+  }
 }

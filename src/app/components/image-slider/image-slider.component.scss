@@ -17,7 +17,6 @@
     display: inline-block;
     transition: margin 0.5s ease;
     border-radius: 15px;
-    cursor: pointer;
     width: 223%;
     height: 100%;
     margin-left: -31.65%;
@@ -32,6 +31,7 @@
       float: left;
       opacity: 0.25;
       margin-top: 20px;
+      cursor: pointer;
       .content-container{
         background-color: rgba(0,0,0,.27);
         width: 100%;
@@ -46,6 +46,14 @@
             text-align: justify;
             display: none;
           }
+        }
+        .readMoreBtn{
+          padding: 10px 20px;
+          border: 1px solid white;
+          display: inline-block;
+          border-radius: 25px;
+          cursor: pointer;
+          display: none;
         }
         .category {
           display: inline-block;
@@ -75,6 +83,7 @@
       opacity: 1;
       margin-top: 0;
       transition: width 0.5s ease;
+      cursor: default;
       h2{
         font-size: $font-size-h2;
         margin-top: 0;
@@ -82,6 +91,9 @@
       }
       p{
         display: block !important;
+      }
+      .readMoreBtn{
+        display: inline-block !important;
       }
     }
     .empty{

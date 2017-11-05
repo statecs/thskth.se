@@ -222,6 +222,10 @@
           .description{
             width: 60%;
             margin-left: 50px;
+            .label{
+              color: gray;
+              margin: 10px 0;
+            }
             h2{
               margin-top:0;
             }
@@ -269,13 +273,14 @@
           }
           .contact{
             width: 25%;
-            height: 200px;
+            min-height: 200px;
             background-color: lightgray;
             vertical-align: top;
             margin-left: 50px;
             text-align: center;
             padding: 20px;
             word-wrap: break-word;
+            margin-top: 10px;
             h2{
               margin: 0 0 10px;
             }

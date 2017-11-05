@@ -1,6 +1,7 @@
 export interface Author {
     name: string;
     email: string;
+    avatar_url: string;
 }
 
 export interface Post {

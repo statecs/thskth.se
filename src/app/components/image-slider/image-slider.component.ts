@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core
 import {ImageSliderCommunicationService} from '../../services/component-communicators/image-slider-communication.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
+import {PopupWindowCommunicationService} from "../../services/component-communicators/popup-window-communication.service";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-image-slider',
@@ -25,7 +27,9 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
 
   constructor(private imageSliderCommunicationService: ImageSliderCommunicationService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private popupWindowCommunicationService: PopupWindowCommunicationService,
+              private location: Location) {
     this.item_onfocus_index = 1;
     this.slide_items = [];
       this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
@@ -37,6 +41,20 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
       (this.lang === 'en' ? this.news_text = 'THS News' : this.news_text = 'THS Nyheter');
     });
   }
+
+    goToPage(item, slug) {
+        if (this.lang === 'sv') {
+            slug = 'sv/news/' + slug;
+        }else {
+            slug = 'en/news/' + slug;
+        }
+        const arg = {
+            article: item,
+            page_location: 'home'
+        };
+        this.popupWindowCommunicationService.showNewsInPopup(arg);
+        this.location.go(slug);
+    }
 
     getLastItemIndex(): number {
       let index = 0;

@@ -12,6 +12,7 @@ import {FAQ} from '../../interfaces/faq';
 import {Router, RoutesRecognized} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {PagesService} from '../../services/wordpress/pages.service';
+import {Post} from '../../interfaces/post';
 
 @Component({
   selector: 'app-popup-window',
@@ -28,6 +29,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   public popup_window_faq_updater: Subscription;
   public popup_window_hide_updater: Subscription;
   public popup_window_loader_updater: Subscription;
+  public popup_window_news_updater: Subscription;
   public page_data: any;
   public showEvent: boolean;
   public event: Event;
@@ -45,6 +47,9 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   public lang: string;
   public paramsSubscription: Subscription;
   public pageSubscription: Subscription;
+  public news: Post;
+  public showNews: boolean;
+  public page_location: string;
 
   constructor( private pagesService: PagesService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -135,6 +140,18 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
         this.router.navigate(['en/associations-and-chapters']);
       }
     }
+    if (this.showNews) {
+      console.log(this.page_location);
+      if (this.page_location === 'home') {
+        this.location.back();
+      }else if (this.page_location === 'news') {
+        if (this.lang === 'sv') {
+          this.router.navigate(['sv/news']);
+        }else {
+          this.router.navigate(['en/news']);
+        }
+      }
+    }
     this.hide_all_layouts();
     this.showPopupWindow = false;
   }
@@ -189,6 +206,13 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
         this.show_popup_window();
     }
 
+    show_news_in_popup(article): void {
+      console.log(article);
+      this.news = article;
+      this.showNews = true;
+      this.show_popup_window();
+    }
+
   ngOnInit() {
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage('show');
@@ -219,6 +243,16 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.popup_window_loader_updater = this.popupWindowCommunicationService.loaderNotifyObservable$.subscribe(() => {
       this.loading = true;
     });
+    this.popup_window_news_updater = this.popupWindowCommunicationService.newsNotifyObservable$.subscribe((arg) => {
+      this.loading = true;
+      if (arg) {
+        this.loading = false;
+        this.page_location = arg.page_location;
+        this.show_news_in_popup(arg.article);
+      }else {
+        this.show_news_in_popup(arg);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -248,6 +282,9 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     }
     if (this.popup_window_loader_updater) {
       this.popup_window_loader_updater.unsubscribe();
+    }
+    if (this.popup_window_news_updater) {
+      this.popup_window_news_updater.unsubscribe();
     }
   }
 }

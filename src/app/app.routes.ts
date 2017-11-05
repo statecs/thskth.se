@@ -73,6 +73,11 @@ const appRoutes: Routes = [
         data: { title: 'News' }
     },
     {
+        path: ':lang/news/:slug',
+        component: NewsComponent,
+        data: { title: 'News' }
+    },
+    {
         path: ':lang/events',
         component: EventsCalendarComponent,
         data: { title: 'Events' }

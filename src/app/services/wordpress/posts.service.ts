@@ -31,6 +31,14 @@ export class PostsService {
         .map((res: any) => { return this.castResTo_PostType(res); });
   }
 
+  getPostBySlug(slug, lang: string): Observable<Post> {
+    this.language = lang;
+    return this.http
+        .get(this.config.POSTS_PAGE + '?_embed&slug=' + slug + '&lang=' + this.language)
+        .map((res: Response) => res.json())
+        // Cast response data to FAQ Category type
+        .map((res: any) => { return this.castResTo_PostType(res)[0]; });
+  }
   castResTo_PostType(data: any) {
     const posts: Post[] = [];
     data.forEach(p => {
@@ -45,7 +53,7 @@ export class PostsService {
         image: image,
         published_date: p.date,
         last_modified: p.modified,
-        author: this.castDataToAuthorType(p._embedded.author),
+        author: this.castDataToAuthorType(p['_embedded']),
       });
     });
     return posts;
@@ -53,8 +61,9 @@ export class PostsService {
 
   castDataToAuthorType(data: any): Author {
     const author: Author = {
-      name: '',
-      email: ''
+      name: data.author[0].name,
+      email: '',
+      avatar_url: data.author[0].avatar_urls['96']
     };
     if (data.length > 0) {
       author.name = data[0].name;
