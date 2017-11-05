@@ -96,9 +96,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  goToPage(slug): void {
-    slug = this.hrefToSlugPipeFilter.transform(slug);
-    this.router.navigate([slug]);
+  goToPage(link, type): void {
+    //slug = this.hrefToSlugPipeFilter.transform(slug);
+    if (type === 'faq') {
+      this.router.navigate([this.lang + '/support/faqs/' + link]);
+    }
+    if (type === 'post') {
+      this.router.navigate([this.lang + '/news/' + link]);
+    }
   }
 
   submitSearch(): void {

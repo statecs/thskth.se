@@ -151,12 +151,18 @@
               margin-right: 3%;
               float: left;
               font-size: $font-size-h6;
-              >a{
+              >span{
                 display: block;
-                text-decoration: none;
                 color: $color-link;
                 margin-bottom: 8px;
                 line-height: 1;
+              }
+              >a{
+                display: block;
+                color: $color-link;
+                margin-bottom: 8px;
+                line-height: 1;
+                text-decoration: none;
                 &:hover{
                   color: $color-link-hover;
                 }
@@ -237,12 +243,18 @@
           margin-right: 3%;
           float: left;
           font-size: $font-size-h6;
-          >a{
+          >span{
             display: block;
-            text-decoration: none;
             color: $color-link;
             margin-bottom: 10px;
             line-height: 1;
+          }
+          >a{
+            display: block;
+            color: $color-link;
+            margin-bottom: 8px;
+            line-height: 1;
+            text-decoration: none;
             &:hover{
               color: $color-link-hover;
             }

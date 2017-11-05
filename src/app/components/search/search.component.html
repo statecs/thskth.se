@@ -35,7 +35,7 @@
               <a *ngFor="let c of p.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
             </div>-->
             <div class="right-content">
-              <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+              <h4 (click)="goToPage(p.slug, 'post')">{{p.title}}</h4>
               <!--<p [innerHTML]="p.content | cardText:100"></p>-->
             </div>
           </div>
@@ -51,7 +51,7 @@
               </div>
             </div>-->
             <div class="right-content">
-              <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+              <h4 (click)="goToPage(p.link, 'page')">{{p.title}}</h4>
               <!--<p [innerHTML]="p.content | cardText:100"></p>-->
             </div>
           </div>
@@ -65,7 +65,7 @@
               <a *ngFor="let c of p.categories" routerLink="/contact/faq/{{c.slug}}">{{c.name}}</a>
             </div>-->
             <div class="right-content">
-              <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+              <h4 (click)="goToPage(p.slug, 'faq')">{{p.title}}</h4>
               <!--<p [innerHTML]="p.content | cardText:100"></p>-->
             </div>
           </div>
@@ -86,10 +86,10 @@
         <h3>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</h3>
         <div *ngFor="let p of postsResults" class="item">
           <div class="left-content">
-            <a *ngFor="let c of p.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
+            <span *ngFor="let c of p.categories">{{c.name}}</span>
           </div>
           <div class="right-content">
-            <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+            <h4 (click)="goToPage(p.slug, 'post')">{{p.title}}</h4>
             <p [innerHTML]="p.content | cardText:300"></p>
           </div>
         </div>
@@ -105,7 +105,7 @@
             </div>
           </div>
           <div class="right-content">
-            <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+            <h4 (click)="goToPage(p.link, 'page')">{{p.title}}</h4>
             <p [innerHTML]="p.content | cardText:300"></p>
           </div>
         </div>
@@ -116,10 +116,10 @@
         <h3>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</h3>
         <div *ngFor="let p of faqResults" class="item">
           <div class="left-content">
-            <a *ngFor="let c of p.categories" routerLink="/contact/faq/{{c.slug}}">{{c.name}}</a>
+            <a *ngFor="let c of p.categories" routerLink="/{{lang}}/support/{{c.slug}}">{{c.name}}</a>
           </div>
           <div class="right-content">
-            <h4 (click)="goToPage(p.link)">{{p.title}}</h4>
+            <h4 (click)="goToPage(p.slug, 'faq')">{{p.title}}</h4>
             <p [innerHTML]="p.content | cardText:300"></p>
           </div>
         </div>

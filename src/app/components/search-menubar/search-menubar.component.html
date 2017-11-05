@@ -17,7 +17,7 @@
           <a *ngFor="let c of p.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
         </div>
         <div class="right-content">
-          <h4 (click)="goToPage(p.link, 'post')">{{p.title}}</h4>
+          <h4 (click)="goToPage(p.slug, 'post')">{{p.title}}</h4>
           <p [innerHTML]="p.content | cardText:100"></p>
         </div>
       </div>
