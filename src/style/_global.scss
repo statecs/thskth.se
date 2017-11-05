@@ -12,6 +12,7 @@ html {
   line-height: 2em;
   color: $text-color-primary;
   height: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -22,6 +23,7 @@ body {
   vertical-align: baseline;
   position: absolute;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 h1, h2, h3, h4, h5, h6 {

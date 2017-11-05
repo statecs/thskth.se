@@ -21,6 +21,7 @@
       overflow-y: scroll;
       padding: 120px 0;
       position: relative;
+      -webkit-overflow-scrolling: touch;
       .item{
         //border: 1px solid green;
         padding: 10px;

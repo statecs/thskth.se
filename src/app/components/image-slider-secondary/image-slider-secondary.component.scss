@@ -15,8 +15,10 @@
     margin-bottom: 50px;
     position: relative;
     overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
     &:hover{
       overflow-x: scroll;
+      -webkit-overflow-scrolling: touch;
       &::-webkit-scrollbar-thumb
       {
         background: rgba(190, 190, 190, 0.69) !important;
@@ -55,6 +57,7 @@
   }
   .showScroll{
     overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
     &::-webkit-scrollbar-thumb
     {
       background: rgba(190, 190, 190, 0.69) !important;
