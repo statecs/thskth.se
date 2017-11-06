@@ -72,7 +72,7 @@ nav {
     .dropdownList {
       position: absolute;
       background-color: $color-white;
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: $font-size-h5;
       width: 300px;
       z-index: 1;
@@ -194,8 +194,8 @@ nav {
 @include media-breakpoint-only(lg) {
   nav {
     >div{
-      font-size: $font-size-h6;
-      margin-left: 10px !important;
+      font-size: 0.85em;
+      margin-left: 8px !important;
     }
     .ths-icon, .language{
       margin-left: 5px !important;

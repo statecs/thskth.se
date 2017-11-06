@@ -1,4 +1,4 @@
-@import "../../../../style/utilities";
+@import "../../../../style/_utilities";
 .freeze-submenu-bar{
   @include freeze-submenu-bar;
 }
@@ -43,6 +43,7 @@
       display: inline-block;
       text-align: right;
       .submenu{
+        margin-bottom: 20px;
         .submenu-item{
           padding: 15px 5px;
           position: relative;
@@ -75,7 +76,10 @@
     }
   }
 }
-
+:host /deep/ .showbox{
+  padding: 10% !important;
+  margin-top: 100px;
+}
 :host /deep/ .content-container{
   .content{
     >h1{

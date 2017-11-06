@@ -12,7 +12,7 @@ export let appConfig: AppConfig = {
     CARD_CATEGORY_INT: 'http://kths.se/api/wp/v2/user_interest',
     POSTS_PAGE: 'http://kths.se/api/wp/v2/posts',
     PAGES_URL: 'http://kths.se/api/wp/v2/pages',
-    PRIMARY_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/348',
+    PRIMARY_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/439',
     SECONDARY_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/348',
     SECTIONS_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/354',
     FOOTER_MENU_URL: 'http://kths.se/api/wp-api-menus/v2/menus/352',

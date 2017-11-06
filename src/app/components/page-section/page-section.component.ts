@@ -4,11 +4,11 @@ import {CookieService} from 'ngx-cookie';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-student-life-section',
-  templateUrl: './student-life-section.component.html',
-  styleUrls: ['./student-life-section.component.scss']
+  selector: 'app-page-section',
+  templateUrl: './page-section.component.html',
+  styleUrls: ['./page-section.component.scss']
 })
-export class StudentLifeSectionComponent implements OnInit, OnDestroy {
+export class PageSectionComponent implements OnInit, OnDestroy {
 
   private lang: string;
   public pageNotFound: boolean;

@@ -1,22 +1,23 @@
 <nav role="navigation" (mouseleave)="hideSubMenu()">
     <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
         <div class="label" (mouseover)="showSubMenu(item.object_slug, i, submenu_item)">
-            <a *ngIf="language === 'en'" routerLink="{{item.slug}}">{{item.title}}</a>
-            <a *ngIf="language === 'sv'" routerLink="{{item.slug | removeLangParam}}">{{item.title}}</a>
+            <a *ngIf="language === 'en'" routerLink="{{'/' + language + (item.url | hrefToSlug)}}">{{item.title}}</a>
+            <a *ngIf="language === 'sv'" routerLink="{{'/' + language + (item.url | hrefToSlug)}}">{{item.title}}</a>
         </div>
         <div [hidden]="!(showSubmenuIndex === i)" class="dropdownList" (mouseleave)="hideSubMenu()">
             <div class="d-header-bg"></div>
             <div class="d-header">
                 <div>
-                    <img *ngIf="item.title == 'Members'" src="http://kths.se/wp/wp-content/uploads/2016/06/THS-mecenatkort.jpg">
-                    <img *ngIf="item.title == 'Welfare'" src="http://kths.se/wp/wp-content/uploads/2017/08/Student-Life_small.jpg">
-                    <img *ngIf="item.title == 'Future'" src="http://kths.se/wp/wp-content/uploads/2017/08/About-THS_small.jpg">
-                    <img *ngIf="item.title == 'Education'" src="http://kths.se/wp/wp-content/uploads/2017/08/Connect_small.jpg">
-                    <img *ngIf="item.title == 'Contact'" src="http://kths.se/wp/wp-content/uploads/2017/09/karhus.jpg">
+                    <img *ngIf="item.title == 'Member' || item.title == 'Medlem'" src="http://kths.se/wp/wp-content/uploads/2016/06/THS-mecenatkort.jpg">
+                    <img *ngIf="item.title == 'Welfare' || item.title == 'Välfärd'" src="http://kths.se/wp/wp-content/uploads/2017/08/Student-Life_small.jpg">
+                    <img *ngIf="item.title == 'Future' || item.title == 'Framtida'" src="http://kths.se/wp/wp-content/uploads/2017/08/About-THS_small.jpg">
+                    <img *ngIf="item.title == 'Education' || item.title == 'Utbildning'" src="http://kths.se/wp/wp-content/uploads/2017/08/Connect_small.jpg">
+                    <img *ngIf="item.title == 'Contact' || item.title == 'Kontakt'" src="http://kths.se/wp/wp-content/uploads/2017/09/karhus.jpg">
                     <span>{{item.title}}</span>
                 </div>
             </div>
-            <div *ngFor="let sub_item of subMenu" (click)="goToPage(sub_item.slug)" class="nav-section">
+            <app-loader *ngIf="subMenu?.length === 0"></app-loader>
+            <div *ngFor="let sub_item of subMenu" (click)="goToPage(sub_item)" class="nav-section">
                 <label>{{sub_item.title}}</label>
             </div>
         </div>

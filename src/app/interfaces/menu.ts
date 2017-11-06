@@ -1,7 +1,8 @@
 export interface MenuItem2 {
     object_slug: number;
     title: string;
-    slug: string;
+    url: string;
+    type_label: string;
 }
 
 interface MenuItemGrandchild {

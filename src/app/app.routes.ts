@@ -8,7 +8,7 @@ import { EventsCalendarComponent } from './components/events-calendar/events-cal
 import { ContactSectionComponent } from './components/contact-section/contact-section.component';
 import { ContactComponent } from './components/contact-section/contact/contact.component';
 import { SingleViewComponent } from './components/single-view/single-view.component';
-import { StudentLifeComponent } from './components/student-life-section/student-life/student-life.component';
+import { SubPageComponent } from './components/page-section/sub-page/sub-page.component';
 import { SupportComponent } from './components/support/support.component';
 import { LiveSectionComponent } from './components/live-section/live-section.component';
 import { LiveComponent } from './components/live-section/live/live.component';
@@ -17,7 +17,7 @@ import { NewsComponent } from './components/news/news.component';
 import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { ChaptersAssociationsComponent } from './components/chapters-associations/chapters-associations.component';
-import {StudentLifeSectionComponent} from './components/student-life-section/student-life-section.component';
+import { PageSectionComponent } from './components/page-section/page-section.component';
 import { ContactSubpageComponent } from './components/contact-section/contact-subpage/contact-subpage.component';
 import {SearchComponent} from './components/search/search.component';
 
@@ -90,7 +90,7 @@ const appRoutes: Routes = [
             {path: '', component: LiveComponent, data: { title: 'Live' }}
         ]
     },
-    {
+    /*{
         path: ':lang/about-ths',
         component: AboutThsSectionComponent,
         data: { title: 'About THS section' },
@@ -99,17 +99,7 @@ const appRoutes: Routes = [
             {path: ':slug', component: AboutComponent, data: { title: 'About THS' }},
             {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'About THS' }},
         ]
-    },
-    {
-        path: ':lang/student-life',
-        component: StudentLifeSectionComponent,
-        data: { title: 'Student life' },
-        children: [
-            {path: '', component: StudentLifeComponent, data: { title: 'Student life' }},
-            {path: ':slug', component: StudentLifeComponent, data: { title: 'Student life' }},
-            {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Student life' }},
-        ]
-    },
+    },*/
     {
         path: ':lang/contact',
         component: ContactSectionComponent,
@@ -119,6 +109,16 @@ const appRoutes: Routes = [
             {path: ':slug', component: ContactSubpageComponent, data: { title: 'Contact Sub Page' }},
             {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Contact' }},
             ]
+    },
+    {
+        path: ':lang/:subpage',
+        component: PageSectionComponent,
+        data: { title: 'Student life' },
+        children: [
+            {path: '', component: SubPageComponent, data: { title: 'Student life' }},
+            {path: ':slug', component: SubPageComponent, data: { title: 'Student life' }},
+            {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Student life' }},
+        ]
     },
     {
         path: 'home',

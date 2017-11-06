@@ -8,22 +8,25 @@ import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarComponent} from '../../notification-bar/notification-bar.component';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {MenuItem2} from '../../../interfaces/menu';
+import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 
 @Component({
-  selector: 'app-student-life',
-  templateUrl: './student-life.component.html',
-  styleUrls: ['./student-life.component.scss'],
+  selector: 'app-sub-page',
+  templateUrl: './sub-page.component.html',
+  styleUrls: ['./sub-page.component.scss'],
   providers: [NotificationBarComponent]
 })
-export class StudentLifeComponent implements AfterViewInit, OnDestroy {
+export class SubPageComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('submenu_bar') submenu_bar: ElementRef;
   public page: Page;
-  public subMenu: any;
+  public subMenu: MenuItem2[];
   public slug: string;
   private lang: string;
   private removeLangParamPipe: RemoveLangParamPipe;
   private addLangToSlugPipe: AddLangToSlugPipe;
+  private hrefToSlugPipe: HrefToSlugPipe;
   public loading: boolean;
   public pageNotFound: boolean;
   public showSubmenuBarDropdown: boolean;
@@ -34,6 +37,7 @@ export class StudentLifeComponent implements AfterViewInit, OnDestroy {
   public secondaryMenuSubscription: Subscription;
   public mainMenuSubscription: Subscription;
   public pageSubscription: Subscription;
+  public parent_slug: string;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -44,6 +48,7 @@ export class StudentLifeComponent implements AfterViewInit, OnDestroy {
     this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
+    this.hrefToSlugPipe = new HrefToSlugPipe();
     this.showSubmenuBarDropdown = false;
     this.freeze_submenu_bar = false;
   }
@@ -84,7 +89,7 @@ export class StudentLifeComponent implements AfterViewInit, OnDestroy {
     (this.showSubmenuBarDropdown ? this.showSubmenuBarDropdown = false : this.showSubmenuBarDropdown = true);
   }
 
-  goToPage(slug): void {
+/*  goToPage(slug): void {
     console.log(slug);
     if (slug.indexOf('http://') === 0 || slug.indexOf('https://') === 0 || slug.indexOf('www.') === 0) {
       window.open(slug, '_black');
@@ -95,11 +100,40 @@ export class StudentLifeComponent implements AfterViewInit, OnDestroy {
       slug = this.addLangToSlugPipe.transform(slug, this.lang);
       this.router.navigate([slug]);
     }
+  }*/
+
+  goToPage(item): void {
+    let slug = '';
+    if (item.type_label === 'page') {
+      slug = this.hrefToSlugPipe.transform(item.url);
+      if (this.lang === 'sv') {
+        slug = this.removeLangParamPipe.transform(slug);
+      }
+      slug = this.addLangToSlugPipe.transform(slug, this.lang);
+      this.router.navigate([slug]);
+    }else if (item.type_label === 'custom') {
+      slug = item.url;
+      if (slug.substring(0, 7) === 'http://' || slug.substring(0, 8) === 'https://') {
+        window.open(slug, '_blank');
+      }else {
+        if (this.lang === 'sv') {
+          slug = this.removeLangParamPipe.transform(slug);
+        }
+        slug = this.addLangToSlugPipe.transform(slug, this.lang);
+        this.router.navigate([slug]);
+      }
+      console.log(slug.substring(0, 7));
+    }else if (item.type_label === 'association') {
+      this.router.navigate(['/' + this.lang + '/associations-and-chapters/' + item.object_slug]);
+    }
+
+    console.log(item.type_label);
+    console.log(slug);
   }
 
   getSecondarySubMenu() {
     console.log(this.slug);
-    this.secondaryMenuSubscription = this.menusService.get_secondarySubMenu('student-life', this.slug, this.lang).subscribe((submenu) => {
+    this.secondaryMenuSubscription = this.menusService.get_secondarySubMenu(this.parent_slug, this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
           console.log(this.subMenu);
         },
@@ -111,6 +145,21 @@ export class StudentLifeComponent implements AfterViewInit, OnDestroy {
   getSubmenu() {
     this.mainMenuSubscription = this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
+  }
+
+  getParentPageBySlug() {
+    this.pageSubscription = this.pagesService.getPageBySlug(this.parent_slug, this.lang).subscribe((page) => {
+          console.log(page);
+          if (page) {
+            this.getPageBySlug();
+          }else {
+            this.loading = false;
+            this.pageNotFound = true;
+          }
         },
         (error) => {
           this.notificationBarCommunicationService.send_data(error);
@@ -141,23 +190,27 @@ export class StudentLifeComponent implements AfterViewInit, OnDestroy {
     }, 1000);
 
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      console.log(params['lang']);
       this.slug = params['slug'];
+      this.parent_slug = params['subpage'];
       if (typeof this.slug === 'undefined') {
-        this.slug = 'student-life';
-      }
+        this.slug = this.parent_slug;
 
-      if (this.slug !== 'student-life') {
+      }
+      console.log(this.slug);
+      console.log(this.parent_slug);
+      if (typeof this.slug !== 'undefined') {
         this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
           this.lang = params2['lang'];
           console.log(this.lang);
+          this.parent_slug = params2['subpage'];
+          console.log(this.parent_slug);
           if (typeof this.lang === 'undefined') {
             this.lang = 'en';
           }else if (this.lang !== 'en' && this.lang !== 'sv') {
             this.lang = 'en';
           }
           this.getSecondarySubMenu();
-          this.getPageBySlug();
+          this.getParentPageBySlug();
         });
       }else {
         this.lang = params['lang'];

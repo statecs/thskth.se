@@ -45,7 +45,8 @@ export class MenusService {
                 secondary_sub_menu.push({
                   object_slug : i_grandchild.object_slug,
                   title : i_grandchild.title,
-                  slug : i_grandchild.url
+                  url : i_grandchild.url,
+                  type_label : i_grandchild.object
                 });
               });
             }
@@ -77,7 +78,8 @@ export class MenusService {
             sub_menu.push({
               object_slug : i_child.object_slug,
               title : i_child.title,
-              slug : i_child.url
+              url : i_child.url,
+              type_label : i_child.object
             });
           });
           return sub_menu;
@@ -104,7 +106,8 @@ export class MenusService {
         topLevel_menu.push({
           object_slug : item.object_slug,
           title : item.title,
-          slug : item.url
+          url : item.url,
+          type_label : item.object
         });
       }
     }

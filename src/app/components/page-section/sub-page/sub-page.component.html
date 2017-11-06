@@ -1,6 +1,6 @@
-<div id="content-container">
+<app-loader *ngIf="loading"></app-loader>
+<div id="content-container"  *ngIf="page">
   <app-breadcrumb *ngIf="page"></app-breadcrumb>
-  <app-loader *ngIf="loading"></app-loader>
   <div *ngIf="page" id="page">
     <div class="heading">
       <div class="title">
@@ -10,7 +10,7 @@
     </div>
     <div class="side-bar larger-devices">
       <div class="submenu">
-        <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m.slug)" class="submenu-item">
+        <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m)" class="submenu-item">
           <span>{{m.title}}</span>
         </div>
       </div>

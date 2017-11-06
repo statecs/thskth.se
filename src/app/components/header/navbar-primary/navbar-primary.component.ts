@@ -11,6 +11,7 @@ import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 
 @Component({
   selector: 'app-navbar-primary',
@@ -30,6 +31,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     public signin_text: string;
     private removeLangParamPipe: RemoveLangParamPipe;
     private addLangToSlugPipe: AddLangToSlugPipe;
+    private hrefToSlugPipe: HrefToSlugPipe;
     public paramsSubscription: Subscription;
     public topLevelMenuSubscription: Subscription;
     public mainMenuSubscription: Subscription;
@@ -45,31 +47,56 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
         this.ths_chapters = ths_chapters;
         this.removeLangParamPipe = new RemoveLangParamPipe();
         this.addLangToSlugPipe = new AddLangToSlugPipe();
+        this.hrefToSlugPipe = new HrefToSlugPipe();
     }
 
     openInNewTab(link): void {
         window.open(link, '_blank');
     }
 
-    goToPage(slug): void {
-        if (this.language === 'sv') {
-            slug = this.removeLangParamPipe.transform(slug);
+    goToPage(item): void {
+        let slug = '';
+        if (item.type_label === 'page') {
+            slug = this.hrefToSlugPipe.transform(item.url);
+            if (this.language === 'sv') {
+                slug = this.removeLangParamPipe.transform(slug);
+            }
+            slug = this.addLangToSlugPipe.transform(slug, this.language);
+            this.router.navigate([slug]);
+        }else if (item.type_label === 'custom') {
+            slug = item.url;
+            if (slug.substring(0, 7) === 'http://' || slug.substring(0, 8) === 'https://') {
+                window.open(slug, '_blank');
+            }else {
+                if (this.language === 'sv') {
+                    slug = this.removeLangParamPipe.transform(slug);
+                }
+                slug = this.addLangToSlugPipe.transform(slug, this.language);
+                this.router.navigate([slug]);
+            }
+            console.log(slug.substring(0, 7));
+        }else if (item.type_label === 'association') {
+            this.router.navigate(['/' + this.language + '/associations-and-chapters/' + item.object_slug]);
         }
-        slug = this.addLangToSlugPipe.transform(slug, this.language);
-        this.router.navigate([slug]);
+
+        console.log(item.type_label);
+        console.log(slug);
     }
 
     showSubMenu(id, index, submenu_item) {
-        this.showSubmenuIndex = index;
+        this.subMenu = [];
         const label = submenu_item.firstChild.nextSibling;
         if (id === 'chapters') {
             const dropdown = submenu_item.lastChild.previousSibling;
             dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
+            this.showSubmenuIndex = index;
         }else {
+            const dropdown = submenu_item.lastChild.previousSibling;
+            dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
+            this.showSubmenuIndex = index;
             this.mainMenuSubscription = this.menusService.get_mainSubMenu(id, this.language).subscribe((subMenu) => {
+                console.log(subMenu);
                     this.subMenu = subMenu;
-                    const dropdown = submenu_item.lastChild.previousSibling;
-                    dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
                 },
                 (error) => {
                     this.notificationBarCommunicationService.send_data(error);
@@ -99,16 +126,18 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
         this.switchLanguage();
         console.log(this.router);
         console.log(this.router.url);
+        this.displayActualLanguage();
+        this.getTopLevelMenu();
         if (this.language === 'en') {
             this.router.navigateByUrl('/en' + this.router.url.substring(3));
         }else if (this.language === 'sv') {
             this.router.navigateByUrl('/sv' + this.router.url.substring(3));
         }
         //location.reload();
-
     }
 
     displayActualLanguage() {
+        console.log(this.language);
         if (this.language === 'en' || typeof this.language === 'undefined') {
             this.language_text = 'THS in swedish';
             this.language_img = '../../../../assets/images/sweden_flag.png';

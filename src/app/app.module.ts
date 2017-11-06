@@ -76,7 +76,7 @@ import { ThreeColumnsTemplateComponent } from './components/single-view-template
 import { SingleViewComponent } from './components/single-view/single-view.component';
 import { TextGalleryComponent } from './components/text-gallery/text-gallery.component';
 import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
-import { StudentLifeComponent } from './components/student-life-section/student-life/student-life.component';
+import { SubPageComponent } from './components/page-section/sub-page/sub-page.component';
 import { AboutComponent } from './components/about-ths-section/about/about.component';
 import { LiveComponent } from './components/live-section/live/live.component';
 import { NewsComponent } from './components/news/news.component';
@@ -88,7 +88,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { ContactComponent } from './components/contact-section/contact/contact.component';
 import { LiveSectionComponent } from './components/live-section/live-section.component';
 import { AboutThsSectionComponent } from './components/about-ths-section/about-ths-section.component';
-import { StudentLifeSectionComponent } from './components/student-life-section/student-life-section.component';
+import { PageSectionComponent } from './components/page-section/page-section.component';
 import { SearchMenubarComponent } from './components/search-menubar/search-menubar.component';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { RestaurantsComponent } from './components/restaurants/restaurants.component';
@@ -140,7 +140,7 @@ import {NotificationBarCommunicationService} from './services/component-communic
     SingleViewComponent,
     TextGalleryComponent,
     ImageGalleryComponent,
-    StudentLifeComponent,
+      SubPageComponent,
     AboutComponent,
     LiveComponent,
     NewsComponent,
@@ -154,7 +154,7 @@ import {NotificationBarCommunicationService} from './services/component-communic
     ContactComponent,
     LiveSectionComponent,
     AboutThsSectionComponent,
-    StudentLifeSectionComponent,
+      PageSectionComponent,
     SearchMenubarComponent,
     AutoFocusDirective,
     ChatbotComponent,

@@ -22,6 +22,8 @@ export class SingleViewComponent implements OnInit, OnDestroy {
   public parentParamsSubscription: Subscription;
   public pageSubscription: Subscription;
   public pageSubscription2: Subscription;
+  public pageSubscription3: Subscription;
+  public parent_parent_slug: string;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -30,8 +32,23 @@ export class SingleViewComponent implements OnInit, OnDestroy {
     this.pageNotFound = false;
   }
 
+    getParentParentPageBySlug() {
+        this.pageSubscription = this.pagesService.getPageBySlug(this.parent_parent_slug, this.lang).subscribe((page) => {
+                console.log(page);
+                if (page) {
+                    this.getParentPageBySlug();
+                }else {
+                    this.loading = false;
+                    this.pageNotFound = true;
+                }
+            },
+            (error) => {
+                this.notificationBarCommunicationService.send_data(error);
+            });
+    }
+
   getParentPageBySlug() {
-    this.pageSubscription = this.pagesService.getPageBySlug(this.parent_slug, this.lang).subscribe((page) => {
+    this.pageSubscription2 = this.pagesService.getPageBySlug(this.parent_slug, this.lang).subscribe((page) => {
           console.log(page);
           if (page) {
             this.getPageBySlug();
@@ -46,7 +63,7 @@ export class SingleViewComponent implements OnInit, OnDestroy {
   }
 
   getPageBySlug() {
-    this.pageSubscription2 = this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
+    this.pageSubscription3 = this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
           this.loading = false;
           console.log(page);
           if (page) {
@@ -66,11 +83,16 @@ export class SingleViewComponent implements OnInit, OnDestroy {
       this.slug = params['single_page_slug'];
       this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
         this.lang = params2['lang'];
-        console.log(this.lang);
+        this.parent_parent_slug =  params2['subpage'];
+          console.log(this.parent_parent_slug);
         if (typeof this.lang === 'undefined') {
           this.lang = 'en';
         }
-        this.getParentPageBySlug();
+        if (this.parent_parent_slug) {
+            this.getParentParentPageBySlug();
+        }else {
+            this.getParentPageBySlug();
+        }
       });
 
     });
@@ -88,6 +110,9 @@ export class SingleViewComponent implements OnInit, OnDestroy {
         }
         if (this.pageSubscription2) {
             this.pageSubscription2.unsubscribe();
+        }
+        if (this.pageSubscription3) {
+            this.pageSubscription3.unsubscribe();
         }
     }
 
