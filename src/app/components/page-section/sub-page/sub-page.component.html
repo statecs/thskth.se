@@ -1,5 +1,5 @@
 <app-loader *ngIf="loading"></app-loader>
-<div id="content-container" *ngIf="page">
+<div id="content-container" *ngIf="page && !loading" [style.paddingTop]="(subMenu?.length !== 0 ? '125px' : '65px')">
   <app-breadcrumb *ngIf="page"></app-breadcrumb>
   <div *ngIf="page" id="page">
     <div class="heading">
@@ -21,6 +21,10 @@
       <div class="content" [innerHTML]="page?.content"></div>
       <app-image-gallery *ngIf="page?.image_gallery" [imageGallery]="page?.image_gallery"></app-image-gallery>
       <app-text-gallery *ngIf="page?.text_gallery" [textGallery]="page?.text_gallery"></app-text-gallery>
+      <div class="mobile">
+        <app-join-us></app-join-us>
+        <app-events-card></app-events-card>
+      </div>
     </div>
   </div>
 </div>
@@ -31,7 +35,7 @@
       <i class="material-icons">keyboard_arrow_down</i>
     </div>
     <div *ngIf="showSubmenuBarDropdown" class="submenu-bar-dropdown">
-      <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m.slug)" class="submenu-item">
+      <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m)" class="submenu-item">
         <span>{{m.title}}</span>
         <div *ngIf="i !== subMenu?.length - 1" class="divider"></div>
       </div>

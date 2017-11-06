@@ -1,5 +1,7 @@
-<app-header></app-header>
+<div id="page-section">
+    <app-header></app-header>
 
-<router-outlet *ngIf="!pageNotFound"></router-outlet>
+    <router-outlet *ngIf="!pageNotFound"></router-outlet>
 
-<app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>
+    <app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>
+</div>

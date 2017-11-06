@@ -13,12 +13,11 @@
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
-  margin-top: 100px;
   .larger-devices{
     display: block;
   }
   #page{
-    margin-top: 50px;
+    margin-top: 10px;
     .heading {
       position: relative;
       margin-bottom: 40px;
@@ -89,8 +88,8 @@
 }
 
 :host /deep/ .showbox{
-  padding: 10% !important;
-  margin-top: 100px;
+  padding-bottom: 200px !important;
+  padding-top: 250px !important;
 }
 :host /deep/ .content-container{
   .content{
@@ -146,6 +145,13 @@
       }
     }
   }
+
+  :host /deep/ .content{
+    img{
+      width: 100%;
+      height: auto;
+    }
+  }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
@@ -174,6 +180,13 @@
       }
     }
   }
+
+  :host /deep/ .content{
+    img{
+      width: 100%;
+      height: auto;
+    }
+  }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
@@ -200,6 +213,13 @@
         margin-left: 0;
         left: 0;
       }
+    }
+  }
+
+  :host /deep/ .content{
+    img{
+      max-width: 100%;
+      height: auto;
     }
   }
 }
