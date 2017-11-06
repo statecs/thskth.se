@@ -55,6 +55,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     }
 
     goToPage(item): void {
+        this.showSubmenuIndex = null;
         let slug = '';
         if (item.type_label === 'page') {
             slug = this.hrefToSlugPipe.transform(item.url);

@@ -52,6 +52,11 @@
     color: #f76d1d;
   }
 }
+
+:host /deep/ p{
+  margin: 0;
+}
+
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #notification-bar {

@@ -70,8 +70,6 @@ export class SubPageComponent implements AfterViewInit, OnDestroy {
 
   toggle_freeze_submenu_bar() {
     const pos = (document.documentElement.scrollTop || document.body.scrollTop);
-    console.log('pos: ' + pos);
-    console.log('pos_bar: ' + this.submenu_bar_pos);
     if (pos >= this.submenu_bar_pos) {
       if (!this.freeze_submenu_bar) {
         console.log('pass');
@@ -143,6 +141,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy {
   }
 
   getSubmenu() {
+    console.log(this.slug);
     this.mainMenuSubscription = this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
         },
@@ -190,16 +189,22 @@ export class SubPageComponent implements AfterViewInit, OnDestroy {
     }, 1000);
 
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.loading = true;
       this.slug = params['slug'];
       this.parent_slug = params['subpage'];
       if (typeof this.slug === 'undefined') {
         this.slug = this.parent_slug;
-
-      }
-      console.log(this.slug);
-      console.log(this.parent_slug);
-      if (typeof this.slug !== 'undefined') {
+        this.lang = params['lang'];
+        if (typeof this.lang === 'undefined') {
+          this.lang = 'en';
+        }else if (this.lang !== 'en' && this.lang !== 'sv') {
+          this.lang = 'en';
+        }
+        this.getSubmenu();
+        this.getPageBySlug();
+      }else {
         this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
+          this.loading = true;
           this.lang = params2['lang'];
           console.log(this.lang);
           this.parent_slug = params2['subpage'];
@@ -212,15 +217,6 @@ export class SubPageComponent implements AfterViewInit, OnDestroy {
           this.getSecondarySubMenu();
           this.getParentPageBySlug();
         });
-      }else {
-        this.lang = params['lang'];
-        if (typeof this.lang === 'undefined') {
-          this.lang = 'en';
-        }else if (this.lang !== 'en' && this.lang !== 'sv') {
-          this.lang = 'en';
-        }
-        this.getSubmenu();
-        this.getPageBySlug();
       }
     });
   }

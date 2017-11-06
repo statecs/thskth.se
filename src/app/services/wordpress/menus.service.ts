@@ -25,6 +25,8 @@ export class MenusService {
   }
 
   get_secondarySubMenu(subMenu_slug: string, secondary_subMenu_slug: string, lang: string): Observable<MenuItem2[]> {
+    console.log(subMenu_slug);
+    console.log(secondary_subMenu_slug);
     //if (typeof this.menus_meta === 'undefined') {
       return this.getTopLevel_mainMenu(lang).map((res) => {
         return this.castResToSecondarySubMenu(subMenu_slug, secondary_subMenu_slug);
@@ -59,6 +61,7 @@ export class MenusService {
   }
 
   get_mainSubMenu(object_slug: string, lang: string): Observable<MenuItem2[]> {
+    console.log(object_slug);
     this.language = lang;
     /*if (typeof this.menus_meta === 'undefined') {*/
       return this.getTopLevel_mainMenu(this.language).map((res) => {
@@ -70,6 +73,7 @@ export class MenusService {
   }
 
   castResToMainSubMenu(object_slug) {
+    console.log(object_slug);
     const sub_menu: MenuItem2[] = [];
     if (this.menus_meta.items) {
       for (const item of this.menus_meta.items) {

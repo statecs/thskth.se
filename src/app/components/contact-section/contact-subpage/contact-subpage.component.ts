@@ -131,11 +131,13 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
     }, 1000);
 
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.loading = true;
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
         this.slug = 'contact';
       }
       this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
+        this.loading = true;
         this.lang = params2['lang'];
         console.log(this.lang);
         if (typeof this.lang === 'undefined') {
