@@ -1,8 +1,7 @@
 <nav role="navigation" (mouseleave)="hideSubMenu()">
     <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
         <div class="label" (mouseover)="showSubMenu(item.object_slug, i, submenu_item)">
-            <a *ngIf="language === 'en'" routerLink="{{'/' + language + (item.url | hrefToSlug)}}">{{item.title}}</a>
-            <a *ngIf="language === 'sv'" routerLink="{{'/' + language + (item.url | hrefToSlug)}}">{{item.title}}</a>
+            <span (click)="goToPage(item)">{{item.title}}</span>
         </div>
         <div [hidden]="!(showSubmenuIndex === i)" class="dropdownList" (mouseleave)="hideSubMenu()">
             <div class="d-header-bg"></div>

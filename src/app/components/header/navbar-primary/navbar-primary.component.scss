@@ -56,12 +56,12 @@ nav {
     color: $color-white;
     position: relative;
     vertical-align: middle;
-    a{
-      text-decoration: none;
+    span{
       vertical-align: text-top;
     }
-    .label a{
+    .label span{
       color: $color-white;
+      cursor: pointer;
       &:hover{
         text-decoration: underline;
       }
