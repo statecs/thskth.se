@@ -42,7 +42,7 @@ export class MenusService {
       for (const item of this.menus_meta.items) {
         if (item.object_slug === subMenu_slug) {
           item.children.forEach(i_child => {
-            if (i_child.object_slug === secondary_subMenu_slug) {
+            if (i_child.object_slug === secondary_subMenu_slug && i_child.children) {
               i_child.children.forEach(i_grandchild => {
                 secondary_sub_menu.push({
                   object_slug : i_grandchild.object_slug,

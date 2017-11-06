@@ -51,6 +51,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy {
     this.hrefToSlugPipe = new HrefToSlugPipe();
     this.showSubmenuBarDropdown = false;
     this.freeze_submenu_bar = false;
+    this.subMenu = [];
   }
 /*
   getOffsetTop(elem): number {

@@ -44,6 +44,7 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
     this.pageNotFound = false;
     this.showSubmenuBarDropdown = false;
     this.freeze_submenu_bar = false;
+    this.subMenu = [];
   }
 
   @HostListener('window:scroll', ['$event'])

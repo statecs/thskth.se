@@ -2,8 +2,6 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
-import { AboutThsSectionComponent } from './components/about-ths-section/about-ths-section.component';
-import { AboutComponent } from './components/about-ths-section/about/about.component';
 import { EventsCalendarComponent } from './components/events-calendar/events-calendar.component';
 import { ContactSectionComponent } from './components/contact-section/contact-section.component';
 import { ContactComponent } from './components/contact-section/contact/contact.component';

@@ -77,7 +77,6 @@ import { SingleViewComponent } from './components/single-view/single-view.compon
 import { TextGalleryComponent } from './components/text-gallery/text-gallery.component';
 import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
 import { SubPageComponent } from './components/page-section/sub-page/sub-page.component';
-import { AboutComponent } from './components/about-ths-section/about/about.component';
 import { LiveComponent } from './components/live-section/live/live.component';
 import { NewsComponent } from './components/news/news.component';
 import { OffersComponent } from './components/offers/offers.component';
@@ -87,7 +86,6 @@ import { ImageSliderSecondaryComponent } from './components/image-slider-seconda
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ContactComponent } from './components/contact-section/contact/contact.component';
 import { LiveSectionComponent } from './components/live-section/live-section.component';
-import { AboutThsSectionComponent } from './components/about-ths-section/about-ths-section.component';
 import { PageSectionComponent } from './components/page-section/page-section.component';
 import { SearchMenubarComponent } from './components/search-menubar/search-menubar.component';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
@@ -141,7 +139,6 @@ import {NotificationBarCommunicationService} from './services/component-communic
     TextGalleryComponent,
     ImageGalleryComponent,
       SubPageComponent,
-    AboutComponent,
     LiveComponent,
     NewsComponent,
     OffersComponent,
@@ -153,7 +150,6 @@ import {NotificationBarCommunicationService} from './services/component-communic
     HrefToSlugPipe,
     ContactComponent,
     LiveSectionComponent,
-    AboutThsSectionComponent,
       PageSectionComponent,
     SearchMenubarComponent,
     AutoFocusDirective,

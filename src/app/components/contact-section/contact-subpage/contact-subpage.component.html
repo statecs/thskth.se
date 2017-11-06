@@ -28,15 +28,17 @@
     </div>
   </div>
 </div>
-<div #submenu_bar class="submenu-bar mobile" [ngClass]="{'freeze-submenu-bar': freeze_submenu_bar}">
-  <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
-    <span>{{page?.name | cardText:15}}</span>
-    <i class="material-icons">keyboard_arrow_down</i>
-  </div>
-  <div *ngIf="showSubmenuBarDropdown" class="submenu-bar-dropdown">
-    <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m.slug)" class="submenu-item">
-      <span>{{m.title}}</span>
-      <div *ngIf="i !== subMenu?.length - 1" class="divider"></div>
+<div #submenu_bar>
+  <div *ngIf="subMenu?.length !== 0 && !loading" class="submenu-bar mobile" [ngClass]="{'freeze-submenu-bar': freeze_submenu_bar}">
+    <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
+      <span>{{page?.name | cardText:15}}</span>
+      <i class="material-icons">keyboard_arrow_down</i>
+    </div>
+    <div *ngIf="showSubmenuBarDropdown" class="submenu-bar-dropdown">
+      <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m.slug)" class="submenu-item">
+        <span>{{m.title}}</span>
+        <div *ngIf="i !== subMenu?.length - 1" class="divider"></div>
+      </div>
     </div>
   </div>
 </div>
