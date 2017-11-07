@@ -56,6 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.addLangToSlugPipe = new AddLangToSlugPipe();
     this.hrefToSlugPipe = new HrefToSlugPipe();
     this.topLevelMainMenu = [];
+    localStorage.clear();
   }
 
   openInNewTab(link): void {

@@ -13,6 +13,8 @@ export class MenusService {
   protected config: AppConfig;
   protected language: string;
   public menus_meta: any;
+  public sections_menu: any;
+  public footer_menu: any;
 
   constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
     this.config = injector.get(APP_CONFIG);
@@ -22,11 +24,10 @@ export class MenusService {
     }else {
       this.language = this._cookieService.get('language');
     }
+
   }
 
   get_secondarySubMenu(subMenu_slug: string, secondary_subMenu_slug: string, lang: string): Observable<MenuItem2[]> {
-    console.log(subMenu_slug);
-    console.log(secondary_subMenu_slug);
     //if (typeof this.menus_meta === 'undefined') {
       return this.getTopLevel_mainMenu(lang).map((res) => {
         return this.castResToSecondarySubMenu(subMenu_slug, secondary_subMenu_slug);
@@ -61,7 +62,6 @@ export class MenusService {
   }
 
   get_mainSubMenu(object_slug: string, lang: string): Observable<MenuItem2[]> {
-    console.log(object_slug);
     this.language = lang;
     /*if (typeof this.menus_meta === 'undefined') {*/
       return this.getTopLevel_mainMenu(this.language).map((res) => {
@@ -73,7 +73,6 @@ export class MenusService {
   }
 
   castResToMainSubMenu(object_slug) {
-    console.log(object_slug);
     const sub_menu: MenuItem2[] = [];
     if (this.menus_meta.items) {
       for (const item of this.menus_meta.items) {
@@ -94,15 +93,30 @@ export class MenusService {
   }
 
   getTopLevel_mainMenu(lang: string): Observable<MenuItem2[]>  {
-    return this.http
-        .get(this.config.PRIMARY_MENU_URL + '?order=desc&lang=' + lang)
-        .map((res: Response) => res.json())
-        // Cast response data to card type
-        .map((res: Array<any>) => this.castToplevelToMenuType(res));
+    if (lang === 'sv') {
+      this.menus_meta = localStorage.getItem('menus_meta_sv');
+    }else {
+      this.menus_meta = localStorage.getItem('menus_meta_en');
+    }
+    if (this.menus_meta) {
+      return Observable.of(this.castToplevelToMenuType(JSON.parse(this.menus_meta)));
+    }else {
+      return this.http
+          .get(this.config.PRIMARY_MENU_URL + '?order=desc&lang=' + lang)
+          .map((res: Response) => res.json())
+          // Cast response data to card type
+          .map((res: Array<any>) => {
+            if (lang === 'sv') {
+              localStorage.setItem('menus_meta_sv', JSON.stringify(res));
+            }else {
+              localStorage.setItem('menus_meta_en', JSON.stringify(res));
+            }
+            return this.castToplevelToMenuType(res);
+          });
+    }
   }
 
   castToplevelToMenuType(res) {
-    console.log(res);
     this.menus_meta = res;
     const topLevel_menu: Array<MenuItem2> = [];
     if (res.items) {
@@ -122,20 +136,47 @@ export class MenusService {
   getMenu(param, lang: string): Observable<MenuItem[]>  {
     this.language = lang;
     let menu_url: string;
-    if (param === 'primary') {
-      menu_url = this.config.PRIMARY_MENU_URL;
-    }else if (param === 'secondary') {
-      menu_url = this.config.SECONDARY_MENU_URL;
-    }else if (param === 'sections') {
+    if (param === 'sections') {
       menu_url = this.config.SECTIONS_MENU_URL;
+      if (lang === 'sv') {
+        this.sections_menu = localStorage.getItem('sections_menu_sv');
+      }else {
+        this.sections_menu = localStorage.getItem('sections_menu_en');
+      }
+      if (this.sections_menu) {
+        return Observable.of(this.castResDataToMenuType(JSON.parse(this.sections_menu)));
+      }
     }else if (param === 'footer') {
       menu_url = this.config.FOOTER_MENU_URL;
+      if (lang === 'sv') {
+        this.footer_menu = localStorage.getItem('footer_menu_sv');
+      }else {
+        this.footer_menu = localStorage.getItem('footer_menu_en');
+      }
+      if (this.footer_menu) {
+        return Observable.of(this.castResDataToMenuType(JSON.parse(this.footer_menu)));
+      }
     }
     return this.http
         .get(menu_url + '?order=desc&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to card type
-        .map((res: Array<any>) => this.castResDataToMenuType(res));
+        .map((res: Array<any>) => {
+          if (param === 'sections') {
+            if (lang === 'sv') {
+              localStorage.setItem('sections_menu_sv', JSON.stringify(res));
+            }else {
+              localStorage.setItem('sections_menu_en', JSON.stringify(res));
+            }
+          }else if (param === 'footer') {
+            if (lang === 'sv') {
+              localStorage.setItem('footer_menu_sv', JSON.stringify(res));
+            }else {
+              localStorage.setItem('footer_menu_en', JSON.stringify(res));
+            }
+          }
+          return this.castResDataToMenuType(res);
+        });
   }
 
   // Cast response data to MenuItem type
