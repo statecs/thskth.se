@@ -12,13 +12,14 @@ export class AppComponent {
   @ViewChild('page') page: ElementRef;
   private scrollTop: number;
   public online: boolean = navigator.onLine;
+  public no_internet: boolean;
 
   constructor( private appCommunicationService: AppCommunicationService,
                @Inject(DOCUMENT) private document: Document,
                private chatbotCommunicationService: ChatbotCommunicationService) {
     window.addEventListener('online', () => {this.online = true; });
     window.addEventListener('offline', () => {this.online = false; });
-    console.log(this.online);
+    this.checkInternet();
     this.appCommunicationService.notifyObservable$.subscribe((arg) => {
       if (this.page) {
         const pageStyle = this.page.nativeElement.style;
@@ -39,7 +40,16 @@ export class AppComponent {
     });
   }
 
+  checkInternet(): void {
+    if (!this.online) {
+      this.no_internet = true;
+    }else {
+      this.no_internet = false;
+    }
+  }
+
   hideAllInfoBox(): void {
+    this.checkInternet();
     this.chatbotCommunicationService.hideInfoBox();
   }
 }

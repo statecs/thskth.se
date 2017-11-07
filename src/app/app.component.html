@@ -1,4 +1,4 @@
-<div *ngIf="online" (click)="hideAllInfoBox()">
+<div *ngIf="!no_internet" (click)="hideAllInfoBox()">
 
     <div class="page-wrapper">
         <div #page class="page">
@@ -11,7 +11,7 @@
     <app-select-slider></app-select-slider>
 </div>
 
-<div *ngIf="!online" class="non-internet">
+<div *ngIf="no_internet" class="non-internet">
     <div>
         <img src="../assets/images/no-internet.png">
         <h2>Unable to connect to the Internet</h2>
