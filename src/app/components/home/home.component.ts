@@ -32,15 +32,17 @@ export class HomeComponent implements OnInit, OnDestroy {
                 private activatedRoute: ActivatedRoute,
                 private notificationBarCommunicationService: NotificationBarCommunicationService) {
       this.pageNotFound = false;
-      this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-          this.lang = params['lang'];
+      this.lang = activatedRoute.snapshot.data['lang'];
+      console.log(this.lang);
+      /*this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+          this.lang = data['lang'];
           if (typeof this.lang === 'undefined') {
               this.lang = 'en';
           }else if (this.lang !== 'en' && this.lang !== 'sv') {
               this.pageNotFound = true;
               this.lang = 'en';
           }
-      });
+      });*/
   }
 
   ngOnInit() {

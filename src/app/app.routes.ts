@@ -21,6 +21,84 @@ import {SearchComponent} from './components/search/search.component';
 
 const appRoutes: Routes = [
     {
+        path: 'associations-and-chapters',
+        component: ChaptersAssociationsComponent,
+        data: { title: 'Chapters and Associations' }
+    },
+    {
+        path: 'associations-and-chapters/:slug',
+        component: ChaptersAssociationsComponent,
+        data: { title: 'Chapters and Associations' }
+    },
+    {
+        path: 'archive',
+        component: ArchiveComponent,
+        data: { title: 'Archive' }
+    },
+    {
+        path: 'search',
+        component: SearchComponent,
+        data: { title: 'Search' }
+    },
+    {
+        path: 'support',
+        component: SupportComponent,
+        data: { title: 'Support' }
+    },
+    {
+        path: 'support/faqs/:slug',
+        component: SupportComponent,
+        data: { title: 'Support' }
+    },
+    {
+        path: 'support/:category',
+        component: SupportComponent,
+        data: { title: 'Support' }
+    },
+    {
+        path: 'restaurants',
+        component: RestaurantsComponent,
+        data: { title: 'Restaurants' }
+    },
+    {
+        path: 'offers',
+        component: OffersComponent,
+        data: { title: 'Offers' }
+    },
+    {
+        path: 'news',
+        component: NewsComponent,
+        data: { title: 'News' }
+    },
+    {
+        path: 'news/:slug',
+        component: NewsComponent,
+        data: { title: 'News' }
+    },
+    {
+        path: 'events',
+        component: EventsCalendarComponent,
+        data: { title: 'Events' }
+    },
+    {
+        path: 'live',
+        component: LiveSectionComponent,
+        data: { title: 'Live section' },
+        children: [
+            {path: '', component: LiveComponent, data: { title: 'Live' }}
+        ]
+    },
+    {
+        path: 'contact',
+        component: ContactSectionComponent,
+        data: { title: 'Contact' },
+        children: [
+            {path: '', component: ContactComponent, data: { title: 'Contact' }},
+            {path: ':slug', component: ContactSubpageComponent, data: { title: 'Contact Sub Page' }},
+            {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Contact' }},
+        ]
+    },
+    {
         path: ':lang/associations-and-chapters',
         component: ChaptersAssociationsComponent,
         data: { title: 'Chapters and Associations' }
@@ -88,16 +166,6 @@ const appRoutes: Routes = [
             {path: '', component: LiveComponent, data: { title: 'Live' }}
         ]
     },
-    /*{
-        path: ':lang/about-ths',
-        component: AboutThsSectionComponent,
-        data: { title: 'About THS section' },
-        children: [
-            {path: '', component: AboutComponent, data: { title: 'About THS' }},
-            {path: ':slug', component: AboutComponent, data: { title: 'About THS' }},
-            {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'About THS' }},
-        ]
-    },*/
     {
         path: ':lang/contact',
         component: ContactSectionComponent,
@@ -108,31 +176,50 @@ const appRoutes: Routes = [
             {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Contact' }},
             ]
     },
-    {
-        path: ':lang/:subpage',
-        component: PageSectionComponent,
-        data: { title: 'Student life' },
-        children: [
-            {path: '', component: SubPageComponent, data: { title: 'Student life' }},
-            {path: ':slug', component: SubPageComponent, data: { title: 'Student life' }},
-            {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Student life' }},
-        ]
-    },
+
+
     {
         path: 'home',
         redirectTo: '',
         pathMatch: 'full'
     },
     {
-        path: ':lang',
+        path: 'en',
         component: HomeComponent,
-        data: { title: 'Home page', profession: {en: 'student', sv: 'student'} },
+        data: { title: 'Home page', lang: 'en' },
         pathMatch: 'full'
     },
     {
+        path: 'sv',
+        component: HomeComponent,
+        data: { title: 'Home page', lang: 'sv' },
+        pathMatch: 'full'
+    },
+    {
+        path: ':lang',
+        component: PageSectionComponent,
+        data: { title: 'Student life' },
+        children: [
+            {path: '', component: SubPageComponent, data: { title: 'Student life' }},
+            {path: ':subpage', component: SubPageComponent, data: { title: 'Student life' }},
+            {path: ':subpage/:slug', component: SubPageComponent, data: { title: 'Student life' }},
+            {path: ':subpage/:slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Student life' }},
+        ]
+    },
+     /*{
+     path: ':lang/:subpage',
+     component: PageSectionComponent,
+     data: { title: 'Student life' },
+     children: [
+     {path: '', component: SubPageComponent, data: { title: 'Student life' }},
+     {path: ':slug', component: SubPageComponent, data: { title: 'Student life' }},
+     {path: ':slug/:single_page_slug', component: SingleViewComponent, data: { title: 'Student life' }},
+     ]
+     },*/
+    {
         path: '',
         component: HomeComponent,
-        data: { title: 'Home page', profession: {en: 'student', sv: 'student'} },
+        data: { title: 'Home page', lang: 'en' },
         pathMatch: 'full'
     },
     {

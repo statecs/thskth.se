@@ -162,16 +162,24 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-            this.language = params['lang'];
-            if (typeof this.language === 'undefined') {
-                this.language = 'en';
-            }else if (this.language !== 'en' && this.language !== 'sv') {
-                this.language = 'en';
-            }
+        this.language = this.activatedRoute.snapshot.data['lang'];
+        console.log(this.language);
+        if (typeof this.language === 'undefined') {
+            this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+                this.language = params['lang'];
+                if (typeof this.language === 'undefined') {
+                    this.language = 'en';
+                }else if (this.language !== 'en' && this.language !== 'sv') {
+                    this.language = 'en';
+                }
+                this.getTopLevelMenu();
+                this.displayActualLanguage();
+            });
+        }else {
             this.getTopLevelMenu();
             this.displayActualLanguage();
-        });
+        }
+
     }
 
     ngOnDestroy() {

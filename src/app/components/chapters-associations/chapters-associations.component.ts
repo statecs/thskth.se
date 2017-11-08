@@ -115,6 +115,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     ];
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
+      console.log(this.lang);
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
       }else if (this.lang !== 'en' && this.lang !== 'sv') {

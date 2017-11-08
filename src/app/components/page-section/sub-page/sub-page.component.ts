@@ -17,7 +17,7 @@ import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
   styleUrls: ['./sub-page.component.scss'],
   providers: [NotificationBarComponent]
 })
-export class SubPageComponent implements AfterViewInit, OnDestroy {
+export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild('submenu_bar') submenu_bar: ElementRef;
   public page: Page;
@@ -38,6 +38,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy {
   public mainMenuSubscription: Subscription;
   public pageSubscription: Subscription;
   public parent_slug: string;
+  public show_single_page: boolean;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -52,6 +53,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy {
     this.showSubmenuBarDropdown = false;
     this.freeze_submenu_bar = false;
     this.subMenu = [];
+    this.show_single_page = false;
   }
 /*
   getOffsetTop(elem): number {
@@ -182,44 +184,52 @@ export class SubPageComponent implements AfterViewInit, OnDestroy {
         });
   }
 
+  ngOnInit() {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.loading = true;
+      this.slug = params['subpage'];
+      console.log(params['lang']);
+      if (typeof params['subpage'] === 'undefined') {
+        this.lang = 'en';
+        this.slug = params['lang'];
+        this.getSubmenu();
+        this.getPageBySlug();
+      }else {
+        this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
+          if (params2['lang'] !== 'en' && params2['lang'] !== 'sv') {
+            this.lang = 'en';
+            if (typeof params['slug'] === 'undefined') {
+              this.slug = params['subpage'];
+              this.parent_slug = params2['lang'];
+              this.getSecondarySubMenu();
+              this.getParentPageBySlug();
+            }else {
+              this.show_single_page = true;
+            }
+          }else {
+            this.lang = params2['lang'];
+            if (typeof params['slug'] === 'undefined') {
+              this.slug = params['subpage'];
+              this.getSubmenu();
+              this.getPageBySlug();
+            }else {
+              this.slug = params['slug'];
+              this.parent_slug = params['subpage'];
+              this.getSecondarySubMenu();
+              this.getParentPageBySlug();
+            }
+          }
+        });
+      }
+    });
+  }
+
   ngAfterViewInit() {
     const self = this;
     setTimeout(function () {
       self.submenu_bar_pos = self.submenu_bar.nativeElement.offsetTop;
       self.toggle_freeze_submenu_bar();
     }, 1000);
-
-    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      this.loading = true;
-      this.slug = params['slug'];
-      this.parent_slug = params['subpage'];
-      if (typeof this.slug === 'undefined') {
-        this.slug = this.parent_slug;
-        this.lang = params['lang'];
-        if (typeof this.lang === 'undefined') {
-          this.lang = 'en';
-        }else if (this.lang !== 'en' && this.lang !== 'sv') {
-          this.lang = 'en';
-        }
-        this.getSubmenu();
-        this.getPageBySlug();
-      }else {
-        this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
-          this.loading = true;
-          this.lang = params2['lang'];
-          console.log(this.lang);
-          this.parent_slug = params2['subpage'];
-          console.log(this.parent_slug);
-          if (typeof this.lang === 'undefined') {
-            this.lang = 'en';
-          }else if (this.lang !== 'en' && this.lang !== 'sv') {
-            this.lang = 'en';
-          }
-          this.getSecondarySubMenu();
-          this.getParentPageBySlug();
-        });
-      }
-    });
   }
 
   ngOnDestroy() {

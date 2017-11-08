@@ -170,12 +170,30 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      this.lang = params['lang'];
-      if (typeof this.lang === 'undefined') {
-        this.lang = 'en';
-      }
-      console.log(this.lang);
+    this.lang = this.activatedRoute.snapshot.data['lang'];
+    console.log(this.lang);
+    if (typeof this.lang === 'undefined') {
+      this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+        this.lang = params['lang'];
+        if (typeof this.lang === 'undefined') {
+          this.lang = 'en';
+        }
+        console.log(this.lang);
+        if (this.lang === 'en') {
+          this.read_more_text = 'Read More';
+        }else {
+          this.read_more_text = 'Läs Mer';
+        }
+        this.slideSubscription = this.primarySlidesService.getAllPrimarySlides(this.lang).subscribe((slides) => {
+              clearInterval(this.mainSlide_timer);
+              this.slides = slides;
+              this.startMainSlider();
+            },
+            (error) => {
+              this.notificationBarCommunicationService.send_data(error);
+            });
+      });
+    }else {
       if (this.lang === 'en') {
         this.read_more_text = 'Read More';
       }else {
@@ -189,7 +207,8 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
           (error) => {
             this.notificationBarCommunicationService.send_data(error);
           });
-    });
+    }
+
   }
 
   ngOnDestroy() {

@@ -52,7 +52,9 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.config = injector.get(APP_CONFIG);
     this.displayedDropdownID = 0;
     this.cards_filter = this._cookieService.getObject('cards_filter');
-    this.paramsSubscription = this.route.params.subscribe((params: Params) => {
+    this.lang = route.snapshot.data['lang'];
+    console.log(this.lang);
+    /*this.paramsSubscription = this.route.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
@@ -60,7 +62,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
         this.lang = 'en';
       }
       console.log(this.lang);
-    });
+    });*/
   }
 
   showSelectSlider(items, type): void {

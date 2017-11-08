@@ -22,7 +22,7 @@
       <app-featured-faqs></app-featured-faqs>
       <div class="divider"></div>
       <div class="submenu-bar">
-        <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m.slug)" class="submenu-item">
+        <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m)" class="submenu-item">
           <span>{{m.title}}</span>
         </div>
       </div>

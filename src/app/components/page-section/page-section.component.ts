@@ -21,7 +21,7 @@ export class PageSectionComponent implements OnInit, OnDestroy {
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
       }else if (this.lang !== 'en' && this.lang !== 'sv') {
-        this.pageNotFound = true;
+        //this.pageNotFound = true;
         this.lang = 'en';
       }
       this._cookieService.put('language', this.lang);

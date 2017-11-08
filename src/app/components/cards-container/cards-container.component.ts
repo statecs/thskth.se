@@ -53,12 +53,13 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       this.selected_event_category = 0;
       this.ths_calendars = ths_calendars;
       this.cardsLoaded = false;
-      this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = activatedRoute.snapshot.data['lang'];
+      /*this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
           this.lang = params['lang'];
           if (typeof this.lang === 'undefined') {
               this.lang = 'en';
           }
-      });
+      });*/
   }
 
     goToPage(link): void {

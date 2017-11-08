@@ -47,16 +47,22 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
     this.ths_calendars = ths_calendars;
     this.existMorePosts = true;
     this.fetching = true;
-    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      this.lang = params['lang'];
-      if (typeof this.lang === 'undefined') {
-        this.lang = 'en';
-      }else if (this.lang !== 'en' && this.lang !== 'sv') {
-        this.lang = 'en';
-      }
+    this.lang = this.activatedRoute.snapshot.data['lang'];
+    console.log(this.lang);
+    if (typeof this.lang === 'undefined') {
+      this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+        this.lang = params['lang'];
+        if (typeof this.lang === 'undefined') {
+          this.lang = 'en';
+        }else if (this.lang !== 'en' && this.lang !== 'sv') {
+          this.lang = 'en';
+        }
+        (this.lang === 'en' ? this.read_more = 'Read more' : this.read_more = 'Läs Mer');
+      });
+    }else {
       (this.lang === 'en' ? this.read_more = 'Read more' : this.read_more = 'Läs Mer');
-      console.log(this.lang);
-    });
+    }
+
   }
 
   @HostListener('window:scroll', ['$event'])

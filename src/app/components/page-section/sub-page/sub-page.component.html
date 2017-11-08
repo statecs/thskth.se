@@ -1,5 +1,6 @@
-<app-loader *ngIf="loading"></app-loader>
-<div id="content-container" *ngIf="page && !loading" [style.paddingTop]="(subMenu?.length !== 0 ? '125px' : '65px')">
+<app-loader *ngIf="loading && !show_single_page"></app-loader>
+<div id="content-container" *ngIf="page && !loading && !show_single_page" [style.paddingTop]="(subMenu?.length !== 0 ? '125px' : '65px')">
+  <div *ngIf="subMenu?.length === 0" class="larger-devices" [style.paddingTop]="'60px'"></div>
   <app-breadcrumb *ngIf="page"></app-breadcrumb>
   <div *ngIf="page" id="page">
     <div class="heading">
@@ -29,7 +30,7 @@
   </div>
 </div>
 <div #submenu_bar>
-  <div *ngIf="subMenu?.length !== 0 && !loading"class="submenu-bar mobile" [ngClass]="{'freeze-submenu-bar': freeze_submenu_bar}">
+  <div *ngIf="subMenu?.length !== 0 && !loading && !show_single_page" class="submenu-bar mobile" [ngClass]="{'freeze-submenu-bar': freeze_submenu_bar}">
     <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
       <span>{{page?.name | cardText:15}}</span>
       <i class="material-icons">keyboard_arrow_down</i>
@@ -44,4 +45,6 @@
 </div>
 
 
-<app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>
+<app-page-not-found-image *ngIf="pageNotFound && !show_single_page"></app-page-not-found-image>
+
+<app-single-view *ngIf="show_single_page"></app-single-view>

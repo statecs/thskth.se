@@ -79,12 +79,22 @@ export class SingleViewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      this.parent_slug = params['slug'];
-      this.slug = params['single_page_slug'];
+      if (typeof params['single_page_slug'] === 'undefined') {
+          this.parent_slug = params['subpage'];
+          this.slug = params['slug'];
+      }else {
+          this.parent_slug = params['slug'];
+          this.slug = params['single_page_slug'];
+      }
       this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
         this.lang = params2['lang'];
-        this.parent_parent_slug =  params2['subpage'];
-          console.log(this.parent_parent_slug);
+        if (typeof params['single_page_slug'] === 'undefined') {
+          this.lang = 'en';
+          this.parent_parent_slug =  params2['lang'];
+        }else {
+          this.parent_parent_slug =  params['subpage'];
+        }
+        console.log(this.parent_parent_slug);
         if (typeof this.lang === 'undefined') {
           this.lang = 'en';
         }

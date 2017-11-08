@@ -7,6 +7,7 @@ import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 
 @Component({
   selector: 'app-contact-subpage',
@@ -32,6 +33,7 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
   public secondarySubMenuSubscription: Subscription;
   public mainMenuSubscription: Subscription;
   public pageSubscription: Subscription;
+  private hrefToSlugPipe: HrefToSlugPipe;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -41,6 +43,7 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
+    this.hrefToSlugPipe = new HrefToSlugPipe();
     this.pageNotFound = false;
     this.showSubmenuBarDropdown = false;
     this.freeze_submenu_bar = false;
@@ -73,7 +76,36 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
     (this.showSubmenuBarDropdown ? this.showSubmenuBarDropdown = false : this.showSubmenuBarDropdown = true);
   }
 
-  goToPage(slug): void {
+  goToPage(item): void {
+    let slug = '';
+    if (item.type_label === 'page') {
+      slug = this.hrefToSlugPipe.transform(item.url);
+      if (this.lang === 'sv') {
+        slug = this.removeLangParamPipe.transform(slug);
+      }
+      slug = this.addLangToSlugPipe.transform(slug, this.lang);
+      this.router.navigate([slug]);
+    }else if (item.type_label === 'custom') {
+      slug = item.url;
+      if (slug.substring(0, 7) === 'http://' || slug.substring(0, 8) === 'https://') {
+        window.open(slug, '_blank');
+      }else {
+        if (this.lang === 'sv') {
+          slug = this.removeLangParamPipe.transform(slug);
+        }
+        slug = this.addLangToSlugPipe.transform(slug, this.lang);
+        this.router.navigate([slug]);
+      }
+      console.log(slug.substring(0, 7));
+    }else if (item.type_label === 'association') {
+      this.router.navigate(['/' + this.lang + '/associations-and-chapters/' + item.object_slug]);
+    }
+
+    console.log(item.type_label);
+    console.log(slug);
+  }
+
+/*  goToPage(slug): void {
     if (slug.indexOf('http://') === 0 || slug.indexOf('https://') === 0 || slug.indexOf('www.') === 0) {
       window.open(slug, '_black');
     }else {
@@ -83,7 +115,7 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
       slug = this.addLangToSlugPipe.transform(slug, this.lang);
       this.router.navigate([slug]);
     }
-  }
+  }*/
 
   getSecondarySubMenu() {
     this.secondarySubMenuSubscription = this.menusService.get_secondarySubMenu('contact', this.slug, this.lang).subscribe((submenu) => {

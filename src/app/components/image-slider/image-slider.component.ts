@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core
 import {ImageSliderCommunicationService} from '../../services/component-communicators/image-slider-communication.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-import {PopupWindowCommunicationService} from "../../services/component-communicators/popup-window-communication.service";
+import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {Location} from '@angular/common';
 
 @Component({
@@ -32,14 +32,22 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
               private location: Location) {
     this.item_onfocus_index = 1;
     this.slide_items = [];
-      this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      this.lang = params['lang'];
+      this.lang = this.activatedRoute.snapshot.data['lang'];
+      console.log(this.lang);
       if (typeof this.lang === 'undefined') {
-          this.lang = 'en';
+          this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+              this.lang = params['lang'];
+              if (typeof this.lang === 'undefined') {
+                  this.lang = 'en';
+              }
+              (this.lang === 'en' ? this.see_more = 'See More' : this.see_more = 'Se Mer');
+              (this.lang === 'en' ? this.news_text = 'THS News' : this.news_text = 'THS Nyheter');
+          });
+      }else {
+          (this.lang === 'en' ? this.see_more = 'See More' : this.see_more = 'Se Mer');
+          (this.lang === 'en' ? this.news_text = 'THS News' : this.news_text = 'THS Nyheter');
       }
-      (this.lang === 'en' ? this.see_more = 'See More' : this.see_more = 'Se Mer');
-      (this.lang === 'en' ? this.news_text = 'THS News' : this.news_text = 'THS Nyheter');
-    });
+
   }
 
     goToPage(item, slug) {

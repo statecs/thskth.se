@@ -1,5 +1,6 @@
 <app-loader *ngIf="loading"></app-loader>
 <div id="content-container" *ngIf="page && !loading" [style.paddingTop]="(subMenu?.length !== 0 ? '125px' : '65px')">
+  <div *ngIf="subMenu?.length === 0" class="larger-devices" [style.paddingTop]="'60px'"></div>
   <app-breadcrumb *ngIf="page"></app-breadcrumb>
   <div *ngIf="page" id="page">
     <div class="heading">

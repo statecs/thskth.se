@@ -42,8 +42,9 @@
       width: 25%;
       display: inline-block;
       text-align: right;
-      margin-bottom: 40px;
+
       .submenu{
+        margin-bottom: 20px;
         .submenu-item{
           padding: 15px 5px;
           position: relative;
@@ -99,6 +100,9 @@
 
 :host /deep/ .content-container{
   .content{
+    >h1{
+      font-size: $font-size-h3;
+    }
     a{
       text-decoration: none;
       color: $color-link-secondary;
@@ -107,13 +111,16 @@
       }
     }
     & >h2{
-      margin-top: 0;
       font-size: $font-size-h2;
     }
     & >p{
       & >h2{
         font-weight: 600;
       }
+    }
+    video{
+      width: 100% !important;
+      height: auto !important;
     }
   }
 }
