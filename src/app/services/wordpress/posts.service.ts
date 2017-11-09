@@ -51,9 +51,11 @@ export class PostsService {
   castResTo_PostType(data: any) {
     const posts: Post[] = [];
     data.forEach(p => {
-      let image = '';
-      if (p.featured_image_thumbnail_url) {
-        image = p.featured_image_thumbnail_url;
+      const image: any = {};
+      if (p['_embedded']['wp:featuredmedia']) {
+        image.thumbnail = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url;
+        image.medium = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
+        image.large = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.large.source_url;
       }
       posts.push({
         title: p.title.rendered,
@@ -72,7 +74,11 @@ export class PostsService {
     const author: Author = {
       name: data.author[0].name,
       email: '',
-      avatar_url: data.author[0].avatar_urls['96']
+      avatar_url: {
+        thumbnail: data.author[0].avatar_urls['24'],
+        medium: data.author[0].avatar_urls['48'],
+        large: data.author[0].avatar_urls['96'],
+      }
     };
     if (data.length > 0) {
       author.name = data[0].name;

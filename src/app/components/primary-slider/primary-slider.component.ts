@@ -32,6 +32,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   public read_more_text: string;
   public paramsSubscription: Subscription;
   public slideSubscription: Subscription;
+  public deviceSize: number;
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
               private primarySlidesService: PrimarySlidesService,
@@ -41,6 +42,8 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     this.slides_img_base = '../../../assets/images/main_slider/';
     this.slideIndex = 1;
     this.slideshow_play_btn = 'pause';
+    this.deviceSize = window.screen.width;
+    console.log(this.deviceSize);
   }
 
   goToPage(slug): void {
@@ -100,7 +103,18 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       }else {
         this.primary_slider.nativeElement.style.backgroundImage = 'url("' + this.slides[this.slideIndex - 1].bg_image + '")';
       }*/
-      this.primary_slider.nativeElement.style.backgroundImage = 'url("' + this.slides[this.slideIndex - 1].bg_image + '")';
+      let bg_image = '';
+      const image = this.slides[this.slideIndex - 1].bg_image;
+      if (this.deviceSize < 768) {
+          bg_image = image.medium;
+      }else if (this.deviceSize >= 768 && this.deviceSize < 992) {
+          bg_image = image.medium_large;
+      }else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
+          bg_image = image.large;
+      }else if (this.deviceSize >= 1200) {
+          bg_image = image.large;
+      }
+      this.primary_slider.nativeElement.style.backgroundImage = 'url("' + bg_image + '")';
       this.slider_progress_bars[this.slideIndex - 1].style.backgroundColor = 'white';
     }
   }

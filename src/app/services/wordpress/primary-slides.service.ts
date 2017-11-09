@@ -36,14 +36,14 @@ export class PrimarySlidesService {
     res.forEach((slide) => {
       let bg_image = '';
       if (slide.acf.background_image) {
-        bg_image = slide.acf.background_image.url;
+        bg_image = slide.acf.background_image.sizes;
       }
       slides.push({
         title: slide.title.rendered,
         description: slide.content.rendered,
         template: slide.acf.template,
         link_to_page: slide.acf.link_to_page,
-        image: slide.acf.image.url,
+        image: slide.acf.image.sizes,
         video: slide.acf.video,
         slide_order: slide.acf.slide_order,
         bg_image: bg_image

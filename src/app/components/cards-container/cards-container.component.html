@@ -112,7 +112,7 @@
 
             <div *ngFor="let sub_c of card.one_sixth_sub_cards" (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)" class="one-sixth">
                 <!-- ---------- Standard card ---------- -->
-                <div *ngIf="sub_c.card_type !== 'video-card' && card.one_third_half_sub_cards?.length <= 1" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + getBgUrl(sub_c) + ')'">
+                <div *ngIf="sub_c.card_type !== 'video-card' && card.one_third_half_sub_cards?.length <= 1" class="masonry-layout_panel-content" [style.backgroundImage]="'url(' + getBgUrl_thumbnail(sub_c) + ')'">
                     <div class="standard-card" [ngStyle]="changeBGColor(sub_c)">
                         <div class="content">
                             <h2>{{sub_c.title}}</h2>

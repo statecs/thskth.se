@@ -28,14 +28,20 @@
           <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> {{read_more_text}}</button>
         </div>
         <div class="img-wrapper">
-          <img src="{{slide.image}}">
+          <img *ngIf="deviceSize < 768" src="{{slide.image.thumbnail}}">
+          <img *ngIf="deviceSize >= 768 && deviceSize < 992" src="{{slide.image.medium}}">
+          <img *ngIf="deviceSize >= 992 && deviceSize < 1200" src="{{slide.image.medium_large}}">
+          <img *ngIf="deviceSize >= 1200" src="{{slide.image.large}}">
         </div>
       </div>
 
       <!-- ----- Image on left template ----->
       <div *ngIf="slide.template === 'image-on-left-template'" class="image-on-left-template">
         <div class="img-wrapper">
-          <img src="{{slide.image}}">
+          <img *ngIf="deviceSize < 768" src="{{slide.image.thumbnail}}">
+          <img *ngIf="deviceSize >= 768 && deviceSize < 992" src="{{slide.image.medium}}">
+          <img *ngIf="deviceSize >= 992 && deviceSize < 1200" src="{{slide.image.medium_large}}">
+          <img *ngIf="deviceSize >= 1200" src="{{slide.image.large}}">
         </div>
         <div class="text-wrapper">
           <h2>{{slide.title}}</h2>

@@ -1,14 +1,14 @@
 export interface Author {
     name: string;
     email: string;
-    avatar_url: string;
+    avatar_url: any;
 }
 
 export interface Post {
     title: string;
     slug: string;
     content: string;
-    image: string;
+    image: any;
     published_date: string;
     last_modified: string;
     author: Author;

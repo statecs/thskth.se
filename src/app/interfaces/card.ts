@@ -17,7 +17,7 @@ export interface CardCategory {
 export interface SubCard {
     title: string;
     background_color: string;
-    background_image: string | boolean;
+    background_image: any;
     slug_to_page: string;
     window_type: string;
     card_type: string;
@@ -35,7 +35,7 @@ export interface Card {
     link: string;
     item_id: string;
     background_color: string;
-    background_image: string | boolean;
+    background_image: any;
     card_type: string;
     card_number: number;
     flex_layout: string;
@@ -57,7 +57,7 @@ export class Card implements Card {
         public link: string,
         public item_id: string,
         public background_color: string,
-        public background_image: string | boolean,
+        public background_image: any,
         public card_type: string,
         public card_number: number,
         public flex_layout: string,

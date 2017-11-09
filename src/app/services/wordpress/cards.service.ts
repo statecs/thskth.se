@@ -23,7 +23,6 @@ export class CardsService {
   }
 
   getCardCategoryByID(id, type, lang): Observable<CardCategory> {
-    console.log(lang);
     let url = '';
     if (type === 'organization') {
       url = this.config.CARD_CATEGORY_ORG;
@@ -46,14 +45,12 @@ export class CardsService {
   }
 
   getCardCategory(type: string, lang: string): Observable<CardCategory[]> {
-    console.log(type);
     let url = '';
     if (type === 'profession') {
       url = this.config.CARD_CATEGORY_PRO;
     }else if (type === 'interest') {
       url = this.config.CARD_CATEGORY_INT;
     }
-    console.log(url);
     return this.http
         .get(url + '?order=desc&lang=' + lang)
         .map((res: Response) => res.json())
@@ -79,7 +76,6 @@ export class CardsService {
     }else {
       filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
     }*/
-    console.log('&profession=' + arg.profession + '&user_interest=' + arg.interest);
     filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
     return this.http
         .get(this.config.CARDS_URL + '?order=asc&per_page=100&lang=' + lang + filter)
@@ -91,7 +87,6 @@ export class CardsService {
 
   // Cast response data to Card type
   castResDataToCardType(res) {
-    //console.log(res);
     const result: Array<Card> = [];
     if (res) {
       res.forEach((c) => {
@@ -121,7 +116,7 @@ export class CardsService {
         }
         let bg_img = '';
         if (c.acf.background_image) {
-            bg_img = c.acf.background_image.sizes.medium_large;
+            bg_img = c.acf.background_image.sizes;
         }
         const cardData = new Card(
             c.id,
@@ -154,7 +149,7 @@ export class CardsService {
     data.forEach(c => {
       let bg_image = '';
       if (c.background_image !== false ) {
-        bg_image = c.background_image.sizes.medium_large;
+        bg_image = c.background_image.sizes;
       }
       subCards.push({
         title: c.title,

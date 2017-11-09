@@ -75,13 +75,9 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
                 slug = this.addLangToSlugPipe.transform(slug, this.language);
                 this.router.navigate([slug]);
             }
-            console.log(slug.substring(0, 7));
         }else if (item.type_label === 'association') {
             this.router.navigate(['/' + this.language + '/associations-and-chapters/' + item.object_slug]);
         }
-
-        console.log(item.type_label);
-        console.log(slug);
     }
 
     showSubMenu(id, index, submenu_item) {
@@ -96,7 +92,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
             dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
             this.showSubmenuIndex = index;
             this.mainMenuSubscription = this.menusService.get_mainSubMenu(id, this.language).subscribe((subMenu) => {
-                console.log(subMenu);
                     this.subMenu = subMenu;
                 },
                 (error) => {
@@ -125,8 +120,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
             this.switchLanguage();
         }*/
         this.switchLanguage();
-        console.log(this.router);
-        console.log(this.router.url);
         this.displayActualLanguage();
         this.getTopLevelMenu();
         if (this.language === 'en') {
@@ -138,7 +131,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     }
 
     displayActualLanguage() {
-        console.log(this.language);
         if (this.language === 'en' || typeof this.language === 'undefined') {
             this.language_text = 'THS in swedish';
             this.language_img = '../../../../assets/images/sweden_flag.png';
@@ -151,9 +143,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     }
 
     getTopLevelMenu(): void {
-        console.log(this.language);
         this.topLevelMenuSubscription = this.menusService.getTopLevel_mainMenu(this.language).subscribe(res => {
-                 console.log(res);
                 this.topLevelMainMenu = res;
              },
              (error) => {
@@ -163,7 +153,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.language = this.activatedRoute.snapshot.data['lang'];
-        console.log(this.language);
         if (typeof this.language === 'undefined') {
             this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
                 this.language = params['lang'];

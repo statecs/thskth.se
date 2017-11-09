@@ -24,6 +24,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   public news_text: string;
   public paramsSubscription: Subscription;
   public imageSliderSubscription: Subscription;
+    public deviceSize: number;
 
   constructor(private imageSliderCommunicationService: ImageSliderCommunicationService,
               private activatedRoute: ActivatedRoute,
@@ -34,6 +35,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     this.slide_items = [];
       this.lang = this.activatedRoute.snapshot.data['lang'];
       console.log(this.lang);
+      this.deviceSize = window.screen.width;
       if (typeof this.lang === 'undefined') {
           this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
               this.lang = params['lang'];
@@ -49,6 +51,22 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
       }
 
   }
+
+    getBgUrl(image: any): string {
+        let url = '';
+        if (image !== '') {
+            if (this.deviceSize < 768) {
+                url = image.medium;
+            }else if (this.deviceSize >= 768 && this.deviceSize < 992) {
+                url = image.medium;
+            }else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
+                url = image.large;
+            }else if (this.deviceSize >= 1200) {
+                url = image.large;
+            }
+        }
+        return url;
+    }
 
     goToPage(item, slug) {
         if (this.lang === 'sv') {

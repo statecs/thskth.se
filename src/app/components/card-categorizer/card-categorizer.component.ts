@@ -53,7 +53,6 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.displayedDropdownID = 0;
     this.cards_filter = this._cookieService.getObject('cards_filter');
     this.lang = route.snapshot.data['lang'];
-    console.log(this.lang);
     /*this.paramsSubscription = this.route.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
@@ -167,10 +166,8 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.dropdowns = this.card_categorizer.nativeElement.getElementsByClassName('dropdown-container');
 
     if (typeof this.cards_filter === 'undefined' || (Object.keys(this.cards_filter).length === 0 && this.cards_filter.constructor === Object)) {
-      console.log('cards_filter');
       this.cardsService.getCardCategory('profession', this.lang).subscribe((pro_cats) => {
         this.pro_cats = pro_cats;
-        console.log(pro_cats);
         this.selected_profession_name = pro_cats[0].name;
         this.selected_profession = pro_cats[0].id;
         this.cardsService.getCardCategory('interest', this.lang).subscribe((int_cats) => {
@@ -182,7 +179,6 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
         });
       });
     }else {
-      console.log('cards_filter2');
       this.cards_filter = this._cookieService.getObject('cards_filter');
       this.selected_profession = this.cards_filter.profession;
       this.selected_interest = this.cards_filter.interest;
@@ -197,7 +193,6 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
       });
       this.cardsService.getCardCategory('profession', this.lang).subscribe((pro_cats) => {
           this.pro_cats = pro_cats;
-          console.log(pro_cats);
           this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, interest: this.selected_interest});
       });
     }

@@ -89,7 +89,7 @@
     .masonry-layout_panel-content {
       border-radius: 10px;
       overflow: hidden;
-      background-size: 100%;
+      background-size: cover;
       width: 100%;
       height: 100%;
       box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;
@@ -145,6 +145,14 @@
 {
   background: rgba(0, 0, 0, 0);
   border-radius: 10px;
+}
+
+:host /deep/ .content{
+  >p{
+    p{
+      margin: 0;
+    }
+  }
 }
 
 // ---------- Video card ---------- //

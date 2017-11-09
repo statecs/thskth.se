@@ -3,8 +3,8 @@ export interface Slide {
     description: string;
     template: string;
     link_to_page: string;
-    image: string;
+    image: any;
     video: string;
     slide_order: number;
-    bg_image: string;
+    bg_image: any;
 }

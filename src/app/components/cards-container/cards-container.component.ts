@@ -39,6 +39,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     public paramsSubscription: Subscription;
     public cardsSubscription: Subscription;
     public eventsSubscription: Subscription;
+    public deviceSize: number;
 
   constructor(  private cardsService: CardsService,
                 private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
@@ -54,6 +55,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       this.ths_calendars = ths_calendars;
       this.cardsLoaded = false;
       this.lang = activatedRoute.snapshot.data['lang'];
+      this.deviceSize = window.screen.width;
       /*this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
           this.lang = params['lang'];
           if (typeof this.lang === 'undefined') {
@@ -63,7 +65,6 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
     goToPage(link): void {
-      console.log(link.substring(0, 7));
       if (link.substring(0, 7) === 'http://' || link.substring(0, 8) === 'https://') {
           window.open(link, '_blank');
       }else {
@@ -90,9 +91,26 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     getBgUrl(card: any): string {
       let url = '';
       if (card.background_image !== '') {
-          url = card.background_image;
+          const image = card.background_image;
+          if (this.deviceSize < 768) {
+              url = image.medium;
+          }else if (this.deviceSize >= 768 && this.deviceSize < 992) {
+              url = image.medium_large;
+          }else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
+              url = image.large;
+          }else if (this.deviceSize >= 1200) {
+              url = image.large;
+          }
       }
       return url;
+    }
+
+    getBgUrl_thumbnail(card: any): string {
+        let url = '';
+        if (card.background_image !== '') {
+            url = card.background_image.thumbnail;
+        }
+        return url;
     }
 
     changeBGColor(card: any): any {
@@ -111,12 +129,10 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
         self.one_third_half_array = [];
         this.cardsSubscription = this.cardsService.getCards(arg, this.lang).subscribe(
             cards => {
-                console.log(cards);
                 this.cards = cards;
                 this.cardsLoaded = true;
             },
             (error) => {
-                console.log(error);
                 this.notificationBarCommunicationService.send_data(error);
             });
     }
