@@ -4,9 +4,9 @@ import {
 } from '@angular/core';
 import {messages} from '../../utils/chatbot-commonMessages';
 import {LoaderMessageComponent} from '../loader-message/loader-message.component';
-import {ChatbotCommunicationService} from '../../services/component-communicators/chatbot-communication.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
+import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
 
 @Component({
   selector: 'app-chatbot',
@@ -31,7 +31,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   constructor(private resolver: ComponentFactoryResolver,
               private injector: Injector,
               private appRef: ApplicationRef,
-              private chatbotCommunicationService: ChatbotCommunicationService,
+              private hideUICommunicationService: HideUICommunicationService,
               private activatedRoute: ActivatedRoute) {
       this.messages = messages;
       this.infoBoxClickCount = 0;
@@ -405,9 +405,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
       this.initChatflow();
-    this.infoBoxSubscription = this.chatbotCommunicationService.hideInfoBoxObservable$.subscribe(() => {
-        console.log(this.showedInfoIndex);
-        console.log(this.infoBoxClickCount);
+    this.infoBoxSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(() => {
         if (this.infoBoxClickCount === 0 && this.showedInfoIndex > -1) {
             this.hideInfoBox();
         }else {

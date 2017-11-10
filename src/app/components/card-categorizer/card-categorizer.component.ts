@@ -11,6 +11,7 @@ import { CardCategory } from '../../interfaces/card';
 import {ActivatedRoute, Params} from '@angular/router';
 import {SelectSliderCommunicationService} from '../../services/component-communicators/select-slider-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
 
 @Component({
   selector: 'app-card-categorizer',
@@ -42,17 +43,21 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
   private cards_filter: any;
   public lang: string;
   public paramsSubscription: Subscription;
+  public hideUISubscription: Subscription;
+  public infoBoxClickCount: number;
 
   constructor(private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
               private injector: Injector,
               private _cookieService: CookieService,
               private cardsService: CardsService,
               private route: ActivatedRoute,
-              private selectSliderCommunicationService: SelectSliderCommunicationService) {
+              private selectSliderCommunicationService: SelectSliderCommunicationService,
+              private hideUICommunicationService: HideUICommunicationService) {
     this.config = injector.get(APP_CONFIG);
     this.displayedDropdownID = 0;
     this.cards_filter = this._cookieService.getObject('cards_filter');
     this.lang = route.snapshot.data['lang'];
+    this.infoBoxClickCount = 0;
     /*this.paramsSubscription = this.route.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
@@ -114,6 +119,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
   }
 
   toggleDropdown(param): void {
+    this.infoBoxClickCount += 1;
     if (this.displayedDropdown) {
       this.hideAllDropdown();
       this.displayedDropdown = false;
@@ -207,11 +213,24 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
       }
       this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, interest: this.selected_interest});
     });
+
+    this.hideUISubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(() => {
+      if (this.infoBoxClickCount === 0) {
+        this.hideAllDropdown();
+        this.infoBoxClickCount += 1;
+        this.displayedDropdown = false;
+      }else {
+        this.infoBoxClickCount = 0;
+      }
+    });
   }
 
   ngOnDestroy() {
     if (this.paramsSubscription) {
       this.paramsSubscription.unsubscribe();
+    }
+    if (this.hideUISubscription) {
+      this.hideUISubscription.unsubscribe();
     }
   }
 }

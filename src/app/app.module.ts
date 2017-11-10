@@ -34,9 +34,9 @@ import { RestaurantService } from './services/wordpress/restaurant.service';
 import { SelectSliderCommunicationService } from './services/component-communicators/select-slider-communication.service';
 import { PostsService } from './services/wordpress/posts.service';
 import { ImageSliderCommunicationService } from './services/component-communicators/image-slider-communication.service';
-import {ChatbotCommunicationService} from './services/component-communicators/chatbot-communication.service';
 import {ContactFormService} from './services/forms/contact-form.service';
 import {TitleCommunicationService} from './services/component-communicators/title-communication.service';
+import {HideUICommunicationService} from './services/component-communicators/hide-ui-communication.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -204,10 +204,10 @@ import {NotificationBarCommunicationService} from './services/component-communic
       SelectSliderCommunicationService,
       PostsService,
       ImageSliderCommunicationService,
-      ChatbotCommunicationService,
       ContactFormService,
       NotificationBarCommunicationService,
       TitleCommunicationService,
+      HideUICommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

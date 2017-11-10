@@ -9,6 +9,7 @@ import {NotificationBarCommunicationService} from '../../../services/component-c
 import {Subscription} from 'rxjs/Subscription';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 import {TitleCommunicationService} from '../../../services/component-communicators/title-communication.service';
+import {HideUICommunicationService} from '../../../services/component-communicators/hide-ui-communication.service';
 
 @Component({
   selector: 'app-contact-subpage',
@@ -34,14 +35,17 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
   public secondarySubMenuSubscription: Subscription;
   public mainMenuSubscription: Subscription;
   public pageSubscription: Subscription;
+  public hideUISubscription: Subscription;
   private hrefToSlugPipe: HrefToSlugPipe;
+  public infoBoxClickCount: number;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private menusService: MenusService,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private titleCommunicationService: TitleCommunicationService) {
+              private titleCommunicationService: TitleCommunicationService,
+              private hideUICommunicationService: HideUICommunicationService) {
     this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
@@ -50,6 +54,7 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
     this.showSubmenuBarDropdown = false;
     this.freeze_submenu_bar = false;
     this.subMenu = [];
+    this.infoBoxClickCount = 0;
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -75,7 +80,12 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
   }
 
   toggleSubmenuBarDropdown(): void {
-    (this.showSubmenuBarDropdown ? this.showSubmenuBarDropdown = false : this.showSubmenuBarDropdown = true);
+    this.infoBoxClickCount += 1;
+    (this.showSubmenuBarDropdown ? this.hideDropdown() : this.showSubmenuBarDropdown = true);
+  }
+
+  hideDropdown(): void {
+    this.showSubmenuBarDropdown = false;
   }
 
   goToPage(item): void {
@@ -189,6 +199,15 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
         }
       });
     });
+
+    this.hideUISubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(() => {
+      if (this.infoBoxClickCount === 0) {
+        this.hideDropdown();
+        this.infoBoxClickCount += 1;
+      }else {
+        this.infoBoxClickCount = 0;
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -206,6 +225,9 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
     }
     if (this.pageSubscription) {
       this.pageSubscription.unsubscribe();
+    }
+    if (this.hideUISubscription) {
+      this.hideUISubscription.unsubscribe();
     }
   }
 }

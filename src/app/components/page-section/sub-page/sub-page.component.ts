@@ -11,6 +11,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {MenuItem2} from '../../../interfaces/menu';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 import {TitleCommunicationService} from '../../../services/component-communicators/title-communication.service';
+import {HideUICommunicationService} from '../../../services/component-communicators/hide-ui-communication.service';
 
 @Component({
   selector: 'app-sub-page',
@@ -38,8 +39,10 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   public secondaryMenuSubscription: Subscription;
   public mainMenuSubscription: Subscription;
   public pageSubscription: Subscription;
+  public hideUISubscription: Subscription;
   public parent_slug: string;
   public show_single_page: boolean;
+  public infoBoxClickCount: number;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -47,7 +50,8 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
               private menusService: MenusService,
               private notificationBarComponent: NotificationBarComponent,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private titleCommunicationService: TitleCommunicationService) {
+              private titleCommunicationService: TitleCommunicationService,
+              private hideUICommunicationService: HideUICommunicationService) {
     this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
@@ -56,6 +60,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
     this.freeze_submenu_bar = false;
     this.subMenu = [];
     this.show_single_page = false;
+    this.infoBoxClickCount = 0;
   }
 /*
   getOffsetTop(elem): number {
@@ -89,7 +94,12 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   toggleSubmenuBarDropdown(): void {
-    (this.showSubmenuBarDropdown ? this.showSubmenuBarDropdown = false : this.showSubmenuBarDropdown = true);
+    this.infoBoxClickCount += 1;
+    (this.showSubmenuBarDropdown ? this.hideDropdown() : this.showSubmenuBarDropdown = true);
+  }
+
+  hideDropdown(): void {
+    this.showSubmenuBarDropdown = false;
   }
 
 /*  goToPage(slug): void {
@@ -230,6 +240,15 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
         });
       }
     });
+
+    this.hideUISubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(() => {
+      if (this.infoBoxClickCount === 0) {
+        this.hideDropdown();
+        this.infoBoxClickCount += 1;
+      }else {
+        this.infoBoxClickCount = 0;
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -255,6 +274,9 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
     }
     if (this.pageSubscription) {
       this.pageSubscription.unsubscribe();
+    }
+    if (this.hideUISubscription) {
+      this.hideUISubscription.unsubscribe();
     }
   }
 }
