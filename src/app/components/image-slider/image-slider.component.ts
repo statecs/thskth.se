@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener} from '@angular/core';
 import {ImageSliderCommunicationService} from '../../services/component-communicators/image-slider-communication.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
@@ -13,7 +13,7 @@ import {Location} from '@angular/common';
 export class ImageSliderComponent implements OnInit, OnDestroy {
   @ViewChild('slides_container') slides_container: ElementRef;
   @ViewChild('slider_progress_bar') slider_progress_bar: ElementRef;
-  public slides: any;
+  public slides_wrapper: any;
   public item_onfocus_index: number;
   public bar_items: any;
   public slide_items: any[];
@@ -25,6 +25,9 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   public paramsSubscription: Subscription;
   public imageSliderSubscription: Subscription;
     public deviceSize: number;
+    public dragging: boolean;
+/*    public draggedPosition: number;
+    public margin_left: number;*/
 
   constructor(private imageSliderCommunicationService: ImageSliderCommunicationService,
               private activatedRoute: ActivatedRoute,
@@ -33,6 +36,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
               private location: Location) {
     this.item_onfocus_index = 1;
     this.slide_items = [];
+      this.dragging = false;
       this.lang = this.activatedRoute.snapshot.data['lang'];
       console.log(this.lang);
       this.deviceSize = window.screen.width;
@@ -49,8 +53,68 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
           (this.lang === 'en' ? this.see_more = 'See More' : this.see_more = 'Se Mer');
           (this.lang === 'en' ? this.news_text = 'THS News' : this.news_text = 'THS Nyheter');
       }
-
   }
+/*
+    @HostListener('mousemove', ['$event'])
+    moveSlide(e): void {
+        if (this.dragging) {
+            if (!this.draggedPosition) {
+                console.log(this.draggedPosition);
+                this.draggedPosition = e.clientX;
+            }
+            console.log(e.clientX - this.draggedPosition);
+            console.log(this.slides_wrapper[0].clientWidth);
+            const distance = (e.clientX - this.draggedPosition) / this.slides_wrapper[0].clientWidth * 100;
+            if (this.slides_wrapper[0].style.marginLeft) {
+                this.margin_left = (parseFloat(this.slides_wrapper[0].style.marginLeft) + distance);
+            }else {
+                this.margin_left = (-2.05 + distance);
+            }
+            console.log(this.margin_left);
+            this.slides_wrapper[0].style.marginLeft = this.margin_left + '%';
+            this.draggedPosition = e.clientX;
+        }
+    }*/
+
+/*    @HostListener('mouseleave', ['$event'])
+    mouseleave(): void {
+        this.dragend();
+    }
+
+    @HostListener('mouseup', ['$event'])
+    mouseup(): void {
+        this.dragend();
+    }
+
+    dragstart(): void {
+        this.dragging = true;
+    }
+
+    dragend(): void {
+        this.dragging = false;
+        this.draggedPosition = null;
+        console.log(Math.abs(this.margin_left + 2.05) / 29.6 );
+        const index = Math.round(Math.abs(this.margin_left + 2.05) / 29.6 );
+        this.slides_wrapper[0].style.marginLeft = this.margin_left + '%';
+        this.selectSlide(index);
+        console.log('mouseup');
+    }*/
+
+    selectSlideMobile(index): void {
+        const margin_left = (-43.5 - (53 * index)) + '%';
+        for (let i = 0; i < this.slides_wrapper.length; i++) {
+            this.slides_wrapper[i].style.marginLeft = margin_left;
+        }
+        this.item_onfocus_index = index;
+    }
+
+    selectSlide(index): void {
+        const margin_left = (-2.05 - (29.6 * index)) + '%';
+        for (let i = 0; i < this.slides_wrapper.length; i++) {
+            this.slides_wrapper[i].style.marginLeft = margin_left;
+        }
+        this.item_onfocus_index = index;
+    }
 
     getBgUrl(image: any): string {
         let url = '';
@@ -94,7 +158,6 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     }
 
   swipe(e: TouchEvent, when: string): void {
-    console.log(when);
     const coord: [number, number] = [e.changedTouches[0].pageX, e.changedTouches[0].pageY];
     const time = new Date().getTime();
 
@@ -126,34 +189,32 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   }
 
     swipeForward(): void {
-        const slides_wrappers = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
         let margin_left = '';
         console.log('swipeForward');
-        for (let i = 0; i < slides_wrappers.length; i++) {
-            if (slides_wrappers[i].style.marginLeft) {
-                margin_left = (parseFloat(slides_wrappers[i].style.marginLeft) + 53) + '%';
+        for (let i = 0; i < this.slides_wrapper.length; i++) {
+            if (this.slides_wrapper[i].style.marginLeft) {
+                margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) + 53) + '%';
                 console.log(margin_left);
             }else {
                 margin_left = '-43.5%';
                 console.log(margin_left);
             }
-            slides_wrappers[i].style.marginLeft = margin_left;
+            this.slides_wrapper[i].style.marginLeft = margin_left;
         }
     }
 
     swipeBackward(): void {
-        const slides_wrappers = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
         let margin_left = '';
         console.log('swipeBackward');
-        for (let i = 0; i < slides_wrappers.length; i++) {
-            if (slides_wrappers[i].style.marginLeft) {
-                margin_left = (parseFloat(slides_wrappers[i].style.marginLeft) - 53) + '%';
+        for (let i = 0; i < this.slides_wrapper.length; i++) {
+            if (this.slides_wrapper[i].style.marginLeft) {
+                margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) - 53) + '%';
                 console.log(margin_left);
             }else {
                 margin_left = '-149.5%';
                 console.log(margin_left);
             }
-            slides_wrappers[i].style.marginLeft = margin_left;
+            this.slides_wrapper[i].style.marginLeft = margin_left;
         }
     }
 
@@ -167,34 +228,32 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   }
 
   nextSlide(): void {
-    const slides_wrappers = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
     let margin_left = '';
     console.log('move right');
-    for (let i = 0; i < slides_wrappers.length; i++) {
-      if (slides_wrappers[i].style.marginLeft) {
-        margin_left = (parseFloat(slides_wrappers[i].style.marginLeft) + 29.6) + '%';
+    for (let i = 0; i < this.slides_wrapper.length; i++) {
+      if (this.slides_wrapper[i].style.marginLeft) {
+        margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) + 29.6) + '%';
         console.log(margin_left);
       }else {
         margin_left = '-2.05%';
         console.log(margin_left);
       }
-      slides_wrappers[i].style.marginLeft = margin_left;
+      this.slides_wrapper[i].style.marginLeft = margin_left;
     }
   }
 
   previousSlide(): void {
-    const slides_wrappers = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
     let margin_left = '';
     console.log('move left');
-    for (let i = 0; i < slides_wrappers.length; i++) {
-      if (slides_wrappers[i].style.marginLeft) {
-        margin_left = (parseFloat(slides_wrappers[i].style.marginLeft) - 29.6) + '%';
+    for (let i = 0; i < this.slides_wrapper.length; i++) {
+      if (this.slides_wrapper[i].style.marginLeft) {
+        margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) - 29.6) + '%';
         console.log(margin_left);
       }else {
         margin_left = '-61.25%';
         console.log(margin_left);
       }
-      slides_wrappers[i].style.marginLeft = margin_left;
+      this.slides_wrapper[i].style.marginLeft = margin_left;
     }
   }
 /*
@@ -207,7 +266,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName('bar-item');
-    this.slides = this.slides_container.nativeElement.getElementsByClassName('slide-wrapper');
+    this.slides_wrapper = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
 
     // this.update_progress_bar();
     this.imageSliderSubscription = this.imageSliderCommunicationService.notifyObservable$.subscribe((data) => {

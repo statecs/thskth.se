@@ -1,5 +1,11 @@
 @import "../../../style/utilities";
 
+.large-devices{
+  display: block;
+}
+.mobile{
+  display: none;
+}
 #img-slider {
   text-align: center;
   position: relative;
@@ -7,12 +13,6 @@
   overflow: hidden;
   height: 400px;
   color: white;
-  .large-devices{
-    display: block;
-  }
-  .mobile{
-    display: none;
-  }
   .slides-wrapper {
     display: inline-block;
     transition: margin 0.5s ease;
@@ -114,6 +114,7 @@
     display: inline-block;
     margin:0 20px;
     background-color: lightgray;
+    cursor: pointer;
   }
   .selected {
     background-color: gray;
@@ -122,13 +123,13 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .large-devices{
+    display: none !important;
+  }
+  .mobile{
+    display: block !important;
+  }
   #img-slider {
-    .large-devices{
-      display: none;
-    }
-    .mobile{
-      display: block;
-    }
     .slides-wrapper {
       width: 400%;
       margin-left: -96.5%;
@@ -137,13 +138,13 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
+  .large-devices{
+    display: block !important;
+  }
+  .mobile{
+    display: none !important;
+  }
   #img-slider {
-    .large-devices{
-      display: block;
-    }
-    .mobile{
-      display: none;
-    }
     .slides-wrapper{
       .slide{
         .content-container{
@@ -160,15 +161,15 @@
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
+  .large-devices{
+    display: block !important;
+  }
+  .mobile{
+    display: none !important;
+  }
   #img-slider {
     height: 310px;
     text-align: left;
-    .large-devices{
-      display: block;
-    }
-    .mobile{
-      display: none;
-    }
     .slides-wrapper {
       .slide {
         .content-container {

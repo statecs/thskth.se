@@ -45,9 +45,10 @@
   </div>
 </div>
 <div #slider_progress_bar class="slider-progress-bar">
-  <div class="bar-item" [ngClass]="{'selected': item_onfocus_index === 0}"></div>
-  <div class="bar-item" [ngClass]="{'selected': item_onfocus_index === 1}"></div>
-  <div class="bar-item" [ngClass]="{'selected': item_onfocus_index === 2}"></div>
-  <div class="bar-item" [ngClass]="{'selected': item_onfocus_index === 3}"></div>
-  <div class="bar-item" [ngClass]="{'selected': item_onfocus_index === 4}"></div>
+  <div class="large-devices">
+    <div *ngFor="let item of slide_items, let i = index" class="bar-item" [ngClass]="{'selected': item_onfocus_index === i}" (click)="selectSlide(i)"></div>
+  </div>
+  <div class="mobile">
+    <div *ngFor="let item of slide_items, let i = index" class="bar-item" [ngClass]="{'selected': item_onfocus_index === i}" (click)="selectSlideMobile(i)"></div>
+  </div>
 </div>
