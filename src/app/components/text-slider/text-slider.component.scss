@@ -5,20 +5,28 @@
   text-align: center;
   position: relative;
   margin-top: 10px;
-  overflow: hidden;
-  height: 280px;
+  //overflow: hidden;
+  //height: 280px;
 
+  .slides-container {
+    overflow: hidden;
+    height: 280px;
+    .slides{
+      height: 100%;
+      transition: margin 1s ease;
+    }
+  }
   .slide-wrapper {
-    position: absolute;
-    left: 0;
+    position: relative;
+    //left: 0;
     display: inline-block;
     width: 100%;
     transition: left 0.5s ease;
     height: 100%;
 
-    & ~ .slide-wrapper {
-      left: 101%;
-    }
+    //& ~ .slide-wrapper {
+    //  left: 101%;
+    //}
 
     .slide {
       width: 60%;
@@ -26,10 +34,16 @@
       //display: none;
       position: absolute;
       left: 20%;
-
+      .readMore {
+        padding: 5px 10px;
+        border: 1px solid gray;
+        border-radius: 20px;
+        margin-top: 10px;
+      }
       h2{
         font-size: $font-size-h2;
         margin-top: 0;
+        text-align: left;
       }
       p{
         font-size: $font-size-default;
@@ -45,7 +59,7 @@
     .category {
       display: inline-block;
       position: absolute;
-      bottom: 30px;
+      bottom: 0;
       left: 0;
       z-index: 1;
       text-decoration: none;
@@ -74,33 +88,47 @@
   .text-slider-navNext {
     right: 0;
   }
-
+  .disabled{
+    opacity: 0.15;
+    i{
+      cursor: default;
+    }
+  }
   .slider-progress-bar {
     //border: 1px solid;
     padding:15px 0;
-    top:230px;
+    //top:230px;
     position: relative;
     .bar-item {
       @include circle(17px);
       //border: 1px solid blue;
       display: inline-block;
       margin:0 20px;
-      background-color: gray;
-      & ~ .bar-item {
-        background-color: lightgray;
-      }
+      background-color: lightgray;
+      cursor: pointer;
     }
+    .selected{
+      background-color: gray;
+    }
+  }
+}
+
+:host /deep/ .slide{
+  p{
+    margin: 0;
   }
 }
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #text-slider {
-    height: 370px;
+    .slides-container {
+      height: 370px;
+    }
     .slide-wrapper {
       .slide{
         h2{
-          font-size: $font-size-h3;
+          font-size: $font-size-h4;
         }
       }
       .category{
@@ -110,7 +138,7 @@
         display: none !important;
       }
       .mobile{
-        display: block !important;
+        display: inline-block !important;
       }
     }
     .text-slider-navBefore, .text-slider-navNext {
@@ -135,11 +163,13 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #text-slider {
-    height: 300px;
+    .slides-container {
+      height: 300px;
+    }
     .slide-wrapper {
       .slide{
         h2{
-          font-size: $font-size-h3;
+          font-size: $font-size-h4;
         }
         p{
           font-size: $font-size-h5;
@@ -153,7 +183,7 @@
         display: none !important;
       }
       .mobile{
-        display: block !important;
+        display: inline-block !important;
       }
     }
     .text-slider-navBefore, .text-slider-navNext {
@@ -178,7 +208,9 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #text-slider {
-    height: 300px;
+    .slides-container {
+      height: 300px;
+    }
     .slide-wrapper {
       .slide{
         h2{
@@ -196,7 +228,7 @@
         display: none !important;
       }
       .mobile{
-        display: block !important;
+        display: inline-block !important;
       }
     }
     .text-slider-navBefore, .text-slider-navNext {

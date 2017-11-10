@@ -183,7 +183,13 @@
           }
         }
       }
-
+      .faq{
+        .content-container{
+          .description {
+            width: 100% !important;
+          }
+        }
+      }
       .association-layout{
         .header-image{
           max-height: 430px;
