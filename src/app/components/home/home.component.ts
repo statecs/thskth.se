@@ -12,6 +12,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-home',
@@ -30,10 +31,10 @@ export class HomeComponent implements OnInit, OnDestroy {
                 private postsService: PostsService,
                 private imageSliderCommunicationService: ImageSliderCommunicationService,
                 private activatedRoute: ActivatedRoute,
-                private notificationBarCommunicationService: NotificationBarCommunicationService) {
+                private notificationBarCommunicationService: NotificationBarCommunicationService,
+                private titleCommunicationService: TitleCommunicationService) {
       this.pageNotFound = false;
       this.lang = activatedRoute.snapshot.data['lang'];
-      console.log(this.lang);
       /*this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
           this.lang = data['lang'];
           if (typeof this.lang === 'undefined') {
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+      this.titleCommunicationService.setTitle('THS');
       this.faqCatSubscription = this.faqsService.getFAQs_OfEachCategories(1, this.lang).subscribe((faqs) => {
               this.textSliderCommunicationService.send_data_to_textSlider(faqs);
           },

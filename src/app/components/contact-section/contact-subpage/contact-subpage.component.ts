@@ -8,6 +8,7 @@ import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
+import {TitleCommunicationService} from '../../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-contact-subpage',
@@ -39,7 +40,8 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private menusService: MenusService,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private titleCommunicationService: TitleCommunicationService) {
     this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
@@ -138,16 +140,18 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
   }
 
   getPageBySlug() {
-    console.log(this.lang);
-    console.log(this.slug + this.lang);
     this.pageSubscription = this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
           this.loading = false;
-          console.log(page);
-          console.log(this.loading);
           if (page) {
             this.page = page;
+            this.titleCommunicationService.setTitle(page.name);
           }else {
             this.pageNotFound = true;
+            if (this.lang === 'sv') {
+              this.titleCommunicationService.setTitle('Sidan hittades inte!');
+            }else {
+              this.titleCommunicationService.setTitle('Page not found!');
+            }
           }
         },
         (error) => {
@@ -169,10 +173,10 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
       if (typeof this.slug === 'undefined') {
         this.slug = 'contact';
       }
+
       this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
         this.loading = true;
         this.lang = params2['lang'];
-        console.log(this.lang);
         if (typeof this.lang === 'undefined') {
           this.lang = 'en';
         }

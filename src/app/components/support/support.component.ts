@@ -7,6 +7,7 @@ import {PopupWindowCommunicationService} from '../../services/component-communic
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-support',
@@ -48,7 +49,8 @@ export class SupportComponent implements OnInit, OnDestroy {
               private location: Location,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private _cookieService: CookieService,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private titleCommunicationService: TitleCommunicationService) {
       this.exist_category = false;
       this.pageNotFound = false;
     this.selected_cat_index = 0;
@@ -72,8 +74,11 @@ export class SupportComponent implements OnInit, OnDestroy {
             this.pageNotFound = true;
             this.lang = 'en';
         }
-      console.log(this.lang);
-      this._cookieService.put('language', this.lang);
+        if (this.lang === 'sv') {
+            this.titleCommunicationService.setTitle('Hjälp');
+        }else {
+            this.titleCommunicationService.setTitle('Support');
+        }
     });
   }
 

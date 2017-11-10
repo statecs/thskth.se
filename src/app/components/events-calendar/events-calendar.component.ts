@@ -11,6 +11,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-events-calendar',
@@ -39,7 +40,8 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private _cookieService: CookieService,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private titleCommunicationService: TitleCommunicationService) {
     this.events = [];
     this.actualDate = format(new Date(), 'DD MMM YYYY');
     this.ths_calendars = ths_calendars;
@@ -54,7 +56,11 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         this.pageNotFound = true;
         this.lang = 'en';
       }
-      this._cookieService.put('language', this.lang);
+      if (this.lang === 'sv') {
+        this.titleCommunicationService.setTitle('Evenemang');
+      }else {
+        this.titleCommunicationService.setTitle('Events');
+      }
     });
   }
 

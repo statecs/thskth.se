@@ -8,6 +8,7 @@ import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
+import {TitleCommunicationService} from '../../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-contact',
@@ -32,7 +33,8 @@ export class ContactComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private menusService: MenusService,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private titleCommunicationService: TitleCommunicationService) {
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
     this.hrefToSlugPipe = new HrefToSlugPipe();
@@ -117,6 +119,11 @@ export class ContactComponent implements OnInit, OnDestroy {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
+      }
+      if (this.lang === 'sv') {
+        this.titleCommunicationService.setTitle('Kontakt');
+      }else {
+        this.titleCommunicationService.setTitle('Contact');
       }
       this.getPageBySlug();
       if (this.slug !== 'contact' && this.slug !== 'faq') {

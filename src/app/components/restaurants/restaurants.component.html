@@ -3,7 +3,7 @@
 <div  *ngIf="!pageNotFound" id="restaurant">
   <h1>{{(lang === 'en' ? 'THS restaurants' : 'THS restauranger')}}</h1>
   <app-loader *ngIf="loading"></app-loader>
-  <div class="gallery larger-devices">
+  <div *ngIf="!loading" class="gallery larger-devices">
     <div *ngFor="let item of restaurants, let i = index" class="g-item" [ngClass]="{'selected': restaurant_index === i}" (click)="showRestaurant(i)" [style.backgroundImage]="'url(' + item.imageUrl + ')'">
       <div class="text">
         <h2>{{item.title}}</h2>
@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-  <div class="gallery mobile">
+  <div *ngIf="!loading" class="gallery mobile">
     <div #slides_wrapper class="slides-wrapper mobile" [style.width]="restaurants?.length * 86.66 + '%'" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
       <div *ngFor="let item of restaurants, let i = index" class="g-item" [ngClass]="{'selected': item_onfocus_index === i}" [style.backgroundImage]="'url(' + item.imageUrl + ')'">
         <div class="text">
@@ -75,7 +75,7 @@
       <p>7:00am - 15:00pm</p>
     </div>
   </div>-->
-  <div *ngIf="showSchedule" class="schedule">
+  <div *ngIf="showSchedule && !loading" class="schedule">
     <div class="options">
       <div>Lunch {{lunch?.serving_time}}</div>
       <div>A la carté {{a_la_carte?.serving_time}}</div>

@@ -36,6 +36,7 @@ import { PostsService } from './services/wordpress/posts.service';
 import { ImageSliderCommunicationService } from './services/component-communicators/image-slider-communication.service';
 import {ChatbotCommunicationService} from './services/component-communicators/chatbot-communication.service';
 import {ContactFormService} from './services/forms/contact-form.service';
+import {TitleCommunicationService} from './services/component-communicators/title-communication.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -206,6 +207,7 @@ import {NotificationBarCommunicationService} from './services/component-communic
       ChatbotCommunicationService,
       ContactFormService,
       NotificationBarCommunicationService,
+      TitleCommunicationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

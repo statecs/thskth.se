@@ -6,6 +6,7 @@ import {PostsService} from '../../services/wordpress/posts.service';
 import {Post} from '../../interfaces/post';
 import format from 'date-fns/format/index';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
+import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-news',
@@ -25,7 +26,8 @@ export class NewsComponent implements OnInit, OnDestroy {
               private _cookieService: CookieService,
               private postsService: PostsService,
               private router: Router,
-              private popupWindowCommunicationService: PopupWindowCommunicationService) {
+              private popupWindowCommunicationService: PopupWindowCommunicationService,
+              private titleCommunicationService: TitleCommunicationService) {
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       this.slug = params['slug'];
@@ -35,7 +37,11 @@ export class NewsComponent implements OnInit, OnDestroy {
         this.pageNotFound = true;
         this.lang = 'en';
       }
-      this._cookieService.put('language', this.lang);
+      if (this.lang === 'sv') {
+        this.titleCommunicationService.setTitle('Nyheter');
+      }else {
+        this.titleCommunicationService.setTitle('News');
+      }
     });
   }
 

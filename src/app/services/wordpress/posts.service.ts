@@ -50,12 +50,17 @@ export class PostsService {
   }
   castResTo_PostType(data: any) {
     const posts: Post[] = [];
+    console.log(data);
     data.forEach(p => {
       const image: any = {};
       if (p['_embedded']['wp:featuredmedia']) {
-        image.thumbnail = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url;
-        image.medium = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
-        image.large = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.large.source_url;
+        if (p['_embedded']['wp:featuredmedia'][0]) {
+          if (p['_embedded']['wp:featuredmedia'][0].media_details.sizes) {
+            image.thumbnail = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url;
+            image.medium = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
+            image.large = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.large.source_url;
+          }
+        }
       }
       posts.push({
         title: p.title.rendered,

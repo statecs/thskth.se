@@ -2,6 +2,8 @@ import {Component, ElementRef, ViewChild, Inject} from '@angular/core';
 import { AppCommunicationService } from './services/component-communicators/app-communication.service';
 import { DOCUMENT } from '@angular/common';
 import {ChatbotCommunicationService} from './services/component-communicators/chatbot-communication.service';
+import {Title} from '@angular/platform-browser';
+import {TitleCommunicationService} from './services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,9 @@ export class AppComponent {
 
   constructor( private appCommunicationService: AppCommunicationService,
                @Inject(DOCUMENT) private document: Document,
-               private chatbotCommunicationService: ChatbotCommunicationService) {
+               private chatbotCommunicationService: ChatbotCommunicationService,
+               private titleService: Title,
+               private titleCommunicationService: TitleCommunicationService) {
     window.addEventListener('online', () => {this.online = true; });
     window.addEventListener('offline', () => {this.online = false; });
     this.checkInternet();
@@ -38,6 +42,13 @@ export class AppComponent {
         }
       }
     });
+    this.titleCommunicationService.notifyObservable$.subscribe((title) => {
+      this.setTitle(title);
+    });
+  }
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   checkInternet(): void {

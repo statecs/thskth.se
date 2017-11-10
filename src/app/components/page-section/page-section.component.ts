@@ -24,7 +24,6 @@ export class PageSectionComponent implements OnInit, OnDestroy {
         //this.pageNotFound = true;
         this.lang = 'en';
       }
-      this._cookieService.put('language', this.lang);
     });
   }
 

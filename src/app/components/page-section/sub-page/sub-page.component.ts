@@ -10,6 +10,7 @@ import {NotificationBarCommunicationService} from '../../../services/component-c
 import {Subscription} from 'rxjs/Subscription';
 import {MenuItem2} from '../../../interfaces/menu';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
+import {TitleCommunicationService} from '../../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-sub-page',
@@ -45,7 +46,8 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
               private router: Router,
               private menusService: MenusService,
               private notificationBarComponent: NotificationBarComponent,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private titleCommunicationService: TitleCommunicationService) {
     this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
@@ -175,8 +177,14 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
           console.log(page);
           if (page) {
             this.page = page;
+            this.titleCommunicationService.setTitle(page.name);
           }else {
             this.pageNotFound = true;
+            if (this.lang === 'sv') {
+              this.titleCommunicationService.setTitle('Sidan hittades inte!');
+            }else {
+              this.titleCommunicationService.setTitle('Page not found!');
+            }
           }
         },
         (error) => {

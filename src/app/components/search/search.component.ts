@@ -10,6 +10,7 @@ import { most_asked_questions } from '../../utils/most-asked-questions';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-search',
@@ -64,7 +65,8 @@ export class SearchComponent implements OnInit, OnDestroy {
               private faqsService: FaqsService,
               private renderer: Renderer2,
               private _cookieService: CookieService,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private titleCommunicationService: TitleCommunicationService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -92,7 +94,11 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.pageNotFound = true;
         this.lang = 'en';
       }
-      this._cookieService.put('language', this.lang);
+      if (this.lang === 'sv') {
+        this.titleCommunicationService.setTitle('Sök');
+      }else {
+        this.titleCommunicationService.setTitle('Search');
+      }
     });
   }
 

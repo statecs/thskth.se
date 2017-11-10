@@ -9,6 +9,7 @@ import format from 'date-fns/format/index';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-archive',
@@ -61,7 +62,8 @@ export class ArchiveComponent implements OnInit, OnDestroy {
               private renderer: Renderer2,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private _cookieService: CookieService,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private titleCommunicationService: TitleCommunicationService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -92,7 +94,11 @@ export class ArchiveComponent implements OnInit, OnDestroy {
         this.pageNotFound = true;
         this.lang = 'en';
       }
-      this._cookieService.put('language', this.lang);
+      if (this.lang === 'sv') {
+        this.titleCommunicationService.setTitle('Arkiv');
+      }else {
+        this.titleCommunicationService.setTitle('Archives');
+      }
     });
   }
 

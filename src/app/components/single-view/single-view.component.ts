@@ -4,6 +4,7 @@ import { PagesService } from '../../services/wordpress/pages.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-single-view',
@@ -27,7 +28,8 @@ export class SingleViewComponent implements OnInit, OnDestroy {
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private titleCommunicationService: TitleCommunicationService) {
     this.loading = true;
     this.pageNotFound = false;
   }
@@ -68,8 +70,14 @@ export class SingleViewComponent implements OnInit, OnDestroy {
           console.log(page);
           if (page) {
             this.page = page;
+              this.titleCommunicationService.setTitle(page.name);
           }else {
             this.pageNotFound = true;
+              if (this.lang === 'sv') {
+                  this.titleCommunicationService.setTitle('Sidan hittades inte!');
+              }else {
+                  this.titleCommunicationService.setTitle('Page not found!');
+              }
           }
         },
         (error) => {

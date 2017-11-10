@@ -6,6 +6,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 
 @Component({
   selector: 'app-restaurants',
@@ -39,23 +40,14 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private _cookieService: CookieService,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private titleCommunicationService: TitleCommunicationService) {
     this.loading = true;
     this.slideIndex = 0;
     this.showSchedule = false;
     this.selected_day = 'monday';
     this.item_onfocus_index = 0;
-    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      this.lang = params['lang'];
-      if (typeof this.lang === 'undefined') {
-        this.lang = 'en';
-      }else if (this.lang !== 'en' && this.lang !== 'sv') {
-        this.pageNotFound = true;
-        this.lang = 'en';
-      }
-      console.log(this.lang);
-      this._cookieService.put('language', this.lang);
-    });
+
   }
 
   swipe(e: TouchEvent, when: string): void {
@@ -131,6 +123,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     this.restaurant_index = index;
     this.showSchedule = true;
     this.updateDishes();
+    this.titleCommunicationService.setTitle(this.restaurants[this.restaurant_index].title);
   }
 
   updateDishes() {
@@ -197,15 +190,35 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     //this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName('bar-item');
-    this.restaurantSubscription = this.restaurantService.getRestaurants(this.lang).subscribe((res) => {
-          this.loading = false;
-          console.log(res);
-          this.restaurants = res;
-          this.updateDishes();
-        },
-        (error) => {
-          this.notificationBarCommunicationService.send_data(error);
-        });
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.loading = true;
+      this.lang = params['lang'];
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }else if (this.lang !== 'en' && this.lang !== 'sv') {
+        this.pageNotFound = true;
+        this.lang = 'en';
+      }
+      this.restaurantSubscription = this.restaurantService.getRestaurants(this.lang).subscribe((res) => {
+            this.loading = false;
+            this.restaurants = res;
+            this.updateDishes();
+            if (this.restaurant_index) {
+              this.titleCommunicationService.setTitle(this.restaurants[this.restaurant_index].title);
+            }else {
+              if (this.lang === 'sv') {
+                this.titleCommunicationService.setTitle('Restauranger');
+              }else {
+                this.titleCommunicationService.setTitle('Restaurants');
+              }
+            }
+
+          },
+          (error) => {
+            this.notificationBarCommunicationService.send_data(error);
+          });
+    });
+
 /*    this.slides_items = [
       {
         title: 'THS Café',
