@@ -4,6 +4,7 @@ import { FaqsService } from '../../services/wordpress/faqs.service';
 import { FAQ } from '../../interfaces/faq';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 
 @Component({
   selector: 'app-featured-faqs',
@@ -23,10 +24,15 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
   public faqsSubscription3: Subscription;
 
   constructor(private faqsService: FaqsService,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private popupWindowCommunicationService: PopupWindowCommunicationService) {
     this.most_asked_questions_slugs = most_asked_questions;
     this.most_asked_faqs = [];
     this.item_onfocus_index = 0;
+  }
+
+  showInPopup(faq: FAQ): void {
+    this.popupWindowCommunicationService.showFaqInPopup(faq);
   }
 
   swipe(e: TouchEvent, when: string): void {
