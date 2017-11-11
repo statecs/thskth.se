@@ -19,7 +19,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   public slide_items: any[];
   private swipeCoord: [number, number];
   private swipeTime: number;
-  private lang: string;
+  public lang: string;
   public see_more: string;
   public news_text: string;
   public paramsSubscription: Subscription;

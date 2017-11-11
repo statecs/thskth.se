@@ -14,7 +14,7 @@ import {TitleCommunicationService} from '../../services/component-communicators/
 })
 export class NewsComponent implements OnInit, OnDestroy {
 
-  private lang: string;
+  public lang: string;
   public pageNotFound: boolean;
   public paramsSubscription: Subscription;
   public paramsSubscription2: Subscription;

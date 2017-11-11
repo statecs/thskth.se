@@ -27,18 +27,19 @@ export class AppComponent {
     this.appCommunicationService.notifyObservable$.subscribe((arg) => {
       if (this.page) {
         const pageStyle = this.page.nativeElement.style;
+        console.log('scroll');
         if (arg === 'collapse') {
           this.scrollTop = (document.body.scrollTop || window.pageYOffset);
           pageStyle.top = '-' + this.scrollTop + 'px';
           pageStyle.position = 'fixed';
-          window.scrollTo(0, 0);
+          /*window.scrollTo(0, 0);*/
         }else if (arg === 'show') {
-          pageStyle.position = 'absolute';
+          pageStyle.position = 'relative';
           pageStyle.top = '0';
           const self = this;
-          setTimeout(function () {
+          /*setTimeout(function () {
             window.scrollTo(0, self.scrollTop);
-          }, 3);
+          }, 3);*/
         }
       }
     });
