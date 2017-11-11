@@ -6,7 +6,6 @@ import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
 import { CookieService } from 'ngx-cookie';
 import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
-import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class FaqsService {
@@ -24,7 +23,6 @@ export class FaqsService {
   }
 
   getFAQs_OfEachCategories(amount, lang: string): Observable<FAQ[]> {
-    console.log(lang);
     this.language = lang;
     return this.getFAQParentCategories(this.language).flatMap(categories => {
           return Observable.forkJoin(categories.map((category) => {
@@ -70,14 +68,11 @@ export class FaqsService {
   // Get FAQs by slug
   getFAQs_BySlug(slug, lang): Observable<FAQ> {
     this.language = lang;
-    console.log(slug);
-    console.log(this.config.FAQs_URL + '?slug=' + slug + '&lang=' + this.language);
     return this.http
         .get(this.config.FAQs_URL + '?slug=' + slug + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => {
-      console.log(res);
           const faq: FAQ[] = [];
           let cat_slug = '';
           if (res[0]) {

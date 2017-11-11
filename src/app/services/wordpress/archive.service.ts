@@ -34,7 +34,6 @@ export class ArchiveService {
 
   searchDocuments(searchParams: SearchParams, lang: string): Observable<Archive[]> {
     this.language = lang;
-    console.log(searchParams);
     let params = '';
     if (searchParams.categoryID !== 0) {
       params = '&categories=' + searchParams.categoryID;

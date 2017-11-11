@@ -33,7 +33,6 @@ export class SearchService {
 
   searchPages(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
     this.language = lang;
-    console.log(this.language);
     return this.http
         .get(this.config.PAGES_URL + '?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
         .map((res: Response) => res.json())

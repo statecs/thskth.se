@@ -54,13 +54,8 @@ export class ChaptersAssociationsService {
     }
 
     castPostsTo_AssociationType(data: any) {
-      console.log(data);
         const associations: Association[] = [];
         data.forEach(c => {
-            /*let image = '';
-            if (c._embedded['wp:featuredmedia']) {
-                image = c._embedded['wp:featuredmedia'][0].source_url;
-            }*/
             associations.push({
                 title: c.title.rendered,
                 description: c.content.rendered,

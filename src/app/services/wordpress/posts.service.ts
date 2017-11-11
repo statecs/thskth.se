@@ -50,7 +50,6 @@ export class PostsService {
   }
   castResTo_PostType(data: any) {
     const posts: Post[] = [];
-    console.log(data);
     data.forEach(p => {
       const image: any = {};
       if (p['_embedded']['wp:featuredmedia']) {

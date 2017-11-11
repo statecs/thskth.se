@@ -23,7 +23,6 @@ export class PagesService {
   }
 
   getPageBySlug(slug, lang): Observable<Page> {
-    console.log(lang);
     return this.http
         .get(this.config.PAGES_URL + '?slug=' + slug + '&lang=' + lang)
         .map((res: Response) => res.json())

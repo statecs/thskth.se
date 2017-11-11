@@ -7,9 +7,6 @@ import { AppConfig } from '../../interfaces/appConfig';
 import { colors } from '../../utils/colors';
 import { APP_CONFIG } from '../../app.config';
 import { ths_calendars } from '../../utils/ths-calendars';
-
-import isSameMonth from 'date-fns/is_same_month/index';
-import isSameDay from 'date-fns/is_same_day/index';
 import startOfMonth from 'date-fns/start_of_month/index';
 import endOfMonth from 'date-fns/end_of_month/index';
 import startOfWeek from 'date-fns/start_of_week/index';
@@ -17,11 +14,7 @@ import endOfWeek from 'date-fns/end_of_week/index';
 import startOfDay from 'date-fns/start_of_day/index';
 import endOfDay from 'date-fns/end_of_day/index';
 import format from 'date-fns/format/index';
-import addMonths from 'date-fns/add_months/index';
-import addWeeks from 'date-fns/add_weeks/index';
 import addDays from 'date-fns/add_days/index';
-import subMonths from 'date-fns/sub_months/index';
-import subWeeks from 'date-fns/sub_weeks/index';
 import subDays from 'date-fns/sub_days/index';
 
 @Injectable()

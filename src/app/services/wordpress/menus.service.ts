@@ -6,7 +6,6 @@ import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
 import {MenuItem, MenuItem2} from '../../interfaces/menu';
 import { CookieService } from 'ngx-cookie';
-import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class MenusService {
