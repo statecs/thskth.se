@@ -218,8 +218,10 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
         }
     }
 
-  switchSlide(index): void {
-    if (index > this.item_onfocus_index) {
+  switchSlide(item, index): void {
+    if (index === this.item_onfocus_index) {
+        this.goToPage(item, item.slug);
+    }else if (index > this.item_onfocus_index) {
       this.previousSlide();
     }else if (index < this.item_onfocus_index) {
       this.nextSlide();
