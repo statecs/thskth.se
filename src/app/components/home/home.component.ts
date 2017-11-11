@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, HostListener} from '@angular/core';
 import { TextSliderCommunicationService } from '../../services/component-communicators/text-slider-communication.service';
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { PostsService } from '../../services/wordpress/posts.service';
@@ -19,6 +19,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     public paramsSubscription: Subscription;
     public faqCatSubscription: Subscription;
     public postsSubscription: Subscription;
+    public showGoogleMap: boolean;
+    public showSocialMediaCards: boolean;
+    public showFAQSlider: boolean;
+    public showNewsSlider: boolean;
+    public showCardsContainer: boolean;
 
   constructor(  private textSliderCommunicationService: TextSliderCommunicationService,
                 private faqsService: FaqsService,
@@ -29,22 +34,59 @@ export class HomeComponent implements OnInit, OnDestroy {
                 private titleCommunicationService: TitleCommunicationService) {
       this.pageNotFound = false;
       this.lang = activatedRoute.snapshot.data['lang'];
+      this.showGoogleMap = false;
+      this.showSocialMediaCards = false;
+      this.showFAQSlider = false;
+      this.showNewsSlider = false;
+      this.showCardsContainer = false;
   }
+
+
+    @HostListener('window:scroll', ['$event'])
+    onWindowScroll() {
+        const pos = (document.documentElement.scrollTop || document.body.scrollTop);
+        if (!this.showCardsContainer) {
+            if (pos > 5) {
+                this.showCardsContainer = true;
+            }
+        }
+        if (!this.showFAQSlider) {
+            if (pos > 500) {
+                this.showFAQSlider = true;
+                this.faqCatSubscription = this.faqsService.getFAQs_OfEachCategories(1, this.lang).subscribe((faqs) => {
+                        this.textSliderCommunicationService.send_data_to_textSlider(faqs);
+                    },
+                    (error) => {
+                        this.notificationBarCommunicationService.send_data(error);
+                    });
+            }
+        }
+        if (!this.showNewsSlider) {
+            if (pos > 600) {
+                this.showNewsSlider = true;
+                this.postsSubscription = this.postsService.getPosts(5, this.lang).subscribe((posts) => {
+                        this.imageSliderCommunicationService.send_data_to_imageSlider(posts);
+                    },
+                    (error) => {
+                        this.notificationBarCommunicationService.send_data(error);
+                    });
+            }
+        }
+        if (!this.showSocialMediaCards) {
+            if (pos > 1000) {
+                this.showSocialMediaCards = true;
+            }
+        }
+        if (!this.showGoogleMap) {
+            const max = document.documentElement.scrollHeight;
+            if (pos > max - 600) {
+                this.showGoogleMap = true;
+            }
+        }
+    }
 
   ngOnInit() {
       this.titleCommunicationService.setTitle('THS');
-      this.faqCatSubscription = this.faqsService.getFAQs_OfEachCategories(1, this.lang).subscribe((faqs) => {
-              this.textSliderCommunicationService.send_data_to_textSlider(faqs);
-          },
-          (error) => {
-              this.notificationBarCommunicationService.send_data(error);
-          });
-      this.postsSubscription = this.postsService.getPosts(5, this.lang).subscribe((posts) => {
-              this.imageSliderCommunicationService.send_data_to_imageSlider(posts);
-          },
-          (error) => {
-              this.notificationBarCommunicationService.send_data(error);
-          });
   }
 
     ngOnDestroy() {

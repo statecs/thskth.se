@@ -13,7 +13,6 @@ export class ContactInfoComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.lang = this.activatedRoute.snapshot.data['lang'];
-    console.log(this.lang);
     if (typeof this.lang === 'undefined') {
       this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
         this.lang = params['lang'];
