@@ -1,5 +1,4 @@
 import {Component, OnInit, HostListener, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import {Subscription} from 'rxjs/Subscription';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import { Event } from '../../interfaces/event';
@@ -86,10 +85,6 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     if (scrollTop < this.top_position) {
       this.top_position = scrollTop;
     }
-
-    /*if (!this.showPopupWindow && scrollTop > 200) {
-      this.startPos = (document.body.scrollTop || window.pageYOffset);
-    }*/
   }
 
   setPosition() {
@@ -142,7 +137,6 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       }
     }
     if (this.showNews) {
-      console.log(this.page_location);
       if (this.page_location === 'home') {
         this.location.back();
       }else if (this.page_location === 'news') {
@@ -170,7 +164,6 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.showPage = true;
     this.show_popup_window();
     this.pageSubscription = this.pagesService.getPageBySlug(slug, this.lang).subscribe(res => {
-          console.log(res);
           this.page_data = res;
           this.loading = false;
         },
@@ -199,22 +192,18 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   }
 
   show_archive_in_popup(archive): void {
-    console.log(archive);
     this.archive = archive;
     this.showArchive = true;
-    console.log(archive.documents);
     this.show_popup_window();
   }
 
     show_faq_in_popup(faq): void {
-        console.log(faq);
         this.faq = faq;
         this.showFaq = true;
         this.show_popup_window();
     }
 
     show_news_in_popup(article): void {
-      console.log(article);
       this.news = article;
       this.showNews = true;
       this.show_popup_window();

@@ -8,16 +8,8 @@
         <span *ngIf="page.name === 'Kontakt'">Du hittar många sätt att kontakta oss här.</span>
       </div>
     </div>
-<!--    <div class="side-bar">
-      <div class="submenu">
-        <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m.slug)" class="submenu-item">
-          <span>{{m.title}}</span>
-        </div>
-      </div>
-    </div>-->
     <div class="content-container">
       <app-chatbot></app-chatbot>
-<!--      <div class="content" [innerHTML]="page.content"></div>-->
       <div class="divider"></div>
       <app-featured-faqs></app-featured-faqs>
       <div class="divider"></div>

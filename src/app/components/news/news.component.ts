@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie';
 import {Subscription} from 'rxjs/Subscription';
 import {PostsService} from '../../services/wordpress/posts.service';
 import {Post} from '../../interfaces/post';
@@ -23,7 +22,6 @@ export class NewsComponent implements OnInit, OnDestroy {
   public slug: string;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private _cookieService: CookieService,
               private postsService: PostsService,
               private router: Router,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -54,10 +52,8 @@ export class NewsComponent implements OnInit, OnDestroy {
   }
 
   showArticleInPopup(): void {
-    console.log(this.slug);
     this.popupWindowCommunicationService.showNewsInPopup(null);
     this.postsService.getPostBySlug(this.slug, this.lang).subscribe((res) => {
-      console.log(res);
       const arg = {
         article: res,
         page_location: 'news'
@@ -69,7 +65,6 @@ export class NewsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.postsService.getPosts(15, this.lang).subscribe((res) => {
       this.posts = res;
-      console.log(res);
     });
     this.paramsSubscription2 = this.activatedRoute.params.subscribe((params: Params) => {
       this.slug = params['slug'];

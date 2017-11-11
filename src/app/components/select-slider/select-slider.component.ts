@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit, ElementRef, ViewChild, Renderer2, OnDestroy} from '@angular/core';
+import {Component, AfterViewInit, ElementRef, ViewChild, Renderer2, OnDestroy} from '@angular/core';
 import {SelectSliderCommunicationService} from '../../services/component-communicators/select-slider-communication.service';
 import {AppCommunicationService} from '../../services/component-communicators/app-communication.service';
 import {Subscription} from 'rxjs/Subscription';
@@ -45,31 +45,21 @@ export class SelectSliderComponent implements AfterViewInit, OnDestroy {
     initSelectSlider(): void {
       const self = this;
       const timer = setInterval(function(){
-          console.log('timer');
           if (self.slider) {
               self.slider.nativeElement.scrollTop = 0;
           }
           if (self.slider.nativeElement.getElementsByClassName('selected')[0]) {
-              console.log('clearInterval');
               clearInterval(timer);
               self.upper_threshold = self.slider.nativeElement.getElementsByClassName('selected')[0].offsetHeight / 2;
               self.lower_threshold = 0;
-              console.log(self.upper_threshold);
               self.renderer.listen(self.slider.nativeElement, 'scroll', (event) => {
                   self.item_onfocus = self.slider.nativeElement.getElementsByClassName('selected')[0];
-                  console.log(self.item_onfocus.offsetTop);
-                  console.log(self.slider.nativeElement.scrollTop);
                   const scrollPos = self.slider.nativeElement.scrollTop;
-                  console.log('scrollPos: ' + scrollPos);
-                  console.log('upper_threshold: ' + self.upper_threshold);
-                  console.log('lower_threshold: ' + self.lower_threshold);
                   if (scrollPos >= self.upper_threshold) {
-                      console.log('change');
                       self.item_onfocus_index += 1;
                       self.upper_threshold += self.item_onfocus.offsetHeight;
                       self.lower_threshold += self.item_onfocus.offsetHeight / 2;
                   }else if (scrollPos < self.lower_threshold) {
-                      console.log('change back');
                       self.item_onfocus_index -= 1;
                       self.upper_threshold -= self.item_onfocus.offsetHeight;
                       self.lower_threshold -= self.item_onfocus.offsetHeight / 2;

@@ -5,9 +5,6 @@
     <div class="search">
       <i class="material-icons">search</i>
       <input placeholder="Search THS and beyond" [(ngModel)]="searchTerm" name="searchInput" type="search" (keyup)="liveSearch()" appAutoFocus>
-      <!--<div class="mostSearchTerms">
-        <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
-      </div>-->
     </div>
   </form>
   <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">

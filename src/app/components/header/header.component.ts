@@ -1,6 +1,4 @@
 import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import { NavbarPrimaryComponent } from './navbar-primary/navbar-primary.component';
-import { NavbarSectionsComponent } from '../footer/navbar-sections/navbar-sections.component';
 import { HeaderCommunicationService } from '../../services/component-communicators/header-communication.service';
 import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
 import {MenusService} from '../../services/wordpress/menus.service';
@@ -89,7 +87,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   setPlaceholder(): void {
-    console.log(this.lang);
     if (this.lang === 'sv') {
       this.placeholder = 'Sök THS';
     }else {
@@ -102,9 +99,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.showSubmenuIndex = index;
     this.mainMenuSubscription = this.menusService.get_mainSubMenu(id, this.lang).subscribe((subMenu) => {
       this.subMenu = subMenu;
-      console.log(this.subMenu);
-      //const dropdown = submenu_item.lastChild.previousSibling;
-      //dropdown.style.left = '-' + (157 - label.clientWidth  / 2) + 'px';
     },
     (error) => {
       this.notificationBarCommunicationService.send_data(error);
@@ -141,14 +135,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-/*  goToPage(slug): void {
-    if (this.lang === 'sv') {
-      slug = this.removeLangParamPipe.transform(slug);
-    }
-    slug = this.addLangToSlugPipe.transform(slug, this.lang);
-    this.router.navigate([slug]);
-  }*/
-
   goToPage(item): void {
     this.showSubmenuIndex = null;
     this.showMenuMobile = false;
@@ -171,13 +157,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         slug = this.addLangToSlugPipe.transform(slug, this.lang);
         this.router.navigate([slug]);
       }
-      console.log(slug.substring(0, 7));
     }else if (item.type_label === 'association') {
       this.router.navigate(['/' + this.lang + '/associations-and-chapters/' + item.object_slug]);
     }
-
-    console.log(item.type_label);
-    console.log(slug);
   }
 
   displayActualLanguage() {
@@ -194,7 +176,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.lang = this.activatedRoute.snapshot.data['lang'];
-    console.log(this.lang);
     if (typeof this.lang === 'undefined') {
       this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
         this.lang = params['lang'];

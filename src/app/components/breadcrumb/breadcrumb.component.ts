@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { Router, ActivatedRoute, Params, PRIMARY_OUTLET } from '@angular/router';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { ActivatedRoute, Params, PRIMARY_OUTLET } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -23,8 +23,7 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   public parentParamsSubscription: Subscription;
 
   constructor(
-      private activatedRoute: ActivatedRoute,
-      private router: Router) {
+      private activatedRoute: ActivatedRoute) {
     this.breadcrumbs = [];
     // subscribe to the route
     this.paramsSubscription = this.activatedRoute.params.subscribe(() => {
@@ -38,7 +37,6 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
       }
-      console.log(this.lang);
       // set breadcrumbs
       const root: ActivatedRoute = this.activatedRoute.root;
       this.breadcrumbs = this.getBreadcrumbs(root);

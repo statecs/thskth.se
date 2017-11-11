@@ -80,9 +80,6 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   submitMessage(): void {
     this.error = null;
     this.success = null;
-    console.log(this.full_name);
-    console.log(this.email);
-    console.log(this.message);
     if (this.full_name === '' || this.email === '' || this.message === '' ) {
       if (this.lang === 'en') {
         this.error = 'Please fill in the required fields (*)!';
@@ -105,7 +102,6 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       };
       this.submitSubscription = this.contactFormService.submitMessage(post_data).subscribe(
           (res) => {
-            console.log(res);
             if (this.lang === 'en') {
               this.success = 'Email sent! We will get back to you shortly!';
             }else {
@@ -118,14 +114,9 @@ export class ContactFormComponent implements OnInit, OnDestroy {
             }else {
               this.error = 'Det uppstod ett problem. Mail inte skickat!';
             }
-            console.log(err);
           }
       );
-      console.log(post_data);
     }
-
-
-    console.log(this.captcha.getResponse());
   }
 
   ngOnInit() {

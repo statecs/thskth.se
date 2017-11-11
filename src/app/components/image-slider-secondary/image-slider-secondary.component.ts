@@ -1,6 +1,5 @@
-import {Component, OnInit, Renderer2, HostListener, ViewChild, ElementRef, Input} from '@angular/core';
+import {Component, OnInit, Renderer2, ViewChild, ElementRef, Input} from '@angular/core';
 import {Association} from '../../interfaces/chapters_associations';
-import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -16,26 +15,20 @@ export class ImageSliderSecondaryComponent implements OnInit {
   public enableScroll: boolean;
 
   constructor(private renderer: Renderer2,
-              private popupWindowCommunicationService: PopupWindowCommunicationService,
               private router: Router) {
     this.enableScroll = false;
   }
 
   showAssociationInPopup(item: Association): void {
-    //this.popupWindowCommunicationService.showAssociationInPopup({association: item, relatedAssociations: this.data.items});
     this.router.navigate([this.lang + '/associations-and-chapters/' + item.slug]);
   }
 
   showScroll() {
-    console.log('showScroll');
     this.enableScroll = true;
-    //this.slider.nativeElement.style.overflowX = 'scroll';
   }
 
   hideScroll() {
-    console.log('hideScroll');
     this.enableScroll = false;
-    //this.slider.nativeElement.style.overflowX = 'hidden';
   }
 
   ngOnInit() {
@@ -57,12 +50,10 @@ export class ImageSliderSecondaryComponent implements OnInit {
           }
         }, 100);
         self.touchStartListener = self.renderer.listen(self.slider.nativeElement, 'touchstart', (event) => {
-          //event.preventDefault();
           self.showScroll();
         });
 
         self.touchStartListener = self.renderer.listen(self.slider.nativeElement, 'touchend', (event) => {
-          //event.preventDefault();
           self.hideScroll();
         });
       }

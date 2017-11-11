@@ -34,15 +34,6 @@ export class TextSliderComponent implements OnInit, OnDestroy {
     if (this.slideIndex !== index) {
       this.slideIndex = index;
       this.slides.style.marginLeft = this.slideIndex * -100 + '%';
-      /*if (this.slideIndex < index) {
-        this.slides.style.marginLeft = this.slideIndex * 100 + '%';
-        this.slideIndex = index;
-        //this.showActualSlide();
-      }else {
-
-
-        //this.showActualSlide();
-      }*/
     }
   }
 
@@ -53,7 +44,6 @@ export class TextSliderComponent implements OnInit, OnDestroy {
       this.slideIndex = 0;
     }
     this.slides.style.marginLeft = (this.slideIndex * -100) + '%';
-    //this.showActualSlide();
   }
 
   selectSlideElements(): void {
@@ -69,19 +59,6 @@ export class TextSliderComponent implements OnInit, OnDestroy {
       this.slideIndex = this.slides.length - 1;
     }
     this.slides.style.marginLeft =  (this.slideIndex * -100) + '%';
-    //this.showActualSlide();
-  }
-
-  update_progress_bar(): void {
-    for (let i = 0; i < this.slides.length; i++) {
-      this.bar_items[i].style.backgroundColor = 'lightgray';
-    }
-    this.bar_items[this.slideIndex].style.backgroundColor = 'gray';
-  }
-
-  showActualSlide(): void {
-    this.update_progress_bar();
-    //this.slides[this.slideIndex].style.left = '0';
   }
 
   ngOnInit() {

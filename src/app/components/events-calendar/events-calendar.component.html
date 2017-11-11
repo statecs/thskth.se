@@ -21,9 +21,6 @@
   <div *ngIf="!showFeaturedEvents" class="events-wrapper">
     <div class="events-header">
       <h2>{{(lang === 'en' ? 'Events on' : 'Evenemang på')}} {{actualDate}}</h2>
-      <!--<div class="filter-icon">
-        Filter <i class="material-icons">filter_list</i>
-      </div>-->
     </div>
     <div class="events">
       <div *ngFor="let e of events" class="item" (click)="showInPopup(e)">

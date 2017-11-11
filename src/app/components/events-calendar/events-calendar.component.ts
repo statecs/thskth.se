@@ -1,14 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Event } from '../../interfaces/event';
-import { Observable } from 'rxjs/Observable';
-import { CalendarEvent } from 'angular-calendar';
 import { CalendarCommunicationService } from '../../services/component-communicators/calendar-communication.service';
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import format from 'date-fns/format/index';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
 import { ths_calendars } from '../../utils/ths-calendars';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie';
+import {ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
@@ -38,8 +35,6 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
               private googleCalendarService: GoogleCalendarService,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private _cookieService: CookieService,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService) {
     this.events = [];
@@ -89,32 +84,26 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   }
 
   getEventsPerDay(calendarId, viewDate: Date): void {
-    console.log(calendarId);
     if (calendarId === 'all') {
       this.allEventsSubscription = this.googleCalendarService.getAllEvents(viewDate, 'day').subscribe(res => {
-        console.log(res);
         const mergedArrays = this.mergeArrays(res);
         const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
-        console.log(sortedArrays);
         this.events = sortedArrays;
         if (this.events.length !== 0) {
           this.showFeaturedEvents = false;
         }
       },
       (error) => {
-        console.log(error);
         this.notificationBarCommunicationService.send_data(error);
       });
     }else {
       this.eventsSubscription = this.googleCalendarService.fetchEvents(calendarId, viewDate, 'day').subscribe(res => {
-        console.log(res);
         this.events = res;
         if (this.events.length !== 0) {
           this.showFeaturedEvents = false;
         }
       },
       (error) => {
-        console.log(error);
         this.notificationBarCommunicationService.send_data(error);
       });
     }
@@ -139,21 +128,17 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
       this.actualDate = format(arg.viewDate, 'DD MMM YYYY');
       if (arg.noActivity) {
         this.events = [];
-        console.log('no activity');
         this.showFeaturedEvents = false;
       }else {
         this.getEventsPerDay(arg.calendarId, arg.viewDate);
       }
-      console.log(arg);
     });
 
     this.getEventsPerDay(this.ths_calendars[0].calendarId, new Date());
 
     this.allEventsSubscription2 = this.googleCalendarService.getAllEvents(null, 'month').subscribe(res => {
-      console.log(res);
       const mergedArrays = this.mergeArrays(res);
       const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
-      console.log(sortedArrays);
       if (sortedArrays.length > 3) {
         this.earliest_events = sortedArrays.slice(0, 3);
       }else {
@@ -161,7 +146,6 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
       }
     },
     (error) => {
-      console.log(error);
       this.notificationBarCommunicationService.send_data(error);
     });
   }

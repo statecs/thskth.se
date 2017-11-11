@@ -6,7 +6,6 @@ import { Location } from '@angular/common';
 import {Archive, SearchParams} from '../../interfaces/archive';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import format from 'date-fns/format/index';
-import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
@@ -61,7 +60,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
               private location: Location,
               private renderer: Renderer2,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
-              private _cookieService: CookieService,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService) {
     this.postsChecked = true;
@@ -109,7 +107,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
   filterTopic(event, categoryID): void {
     event.stopPropagation();
-    console.log("filterTopic");
     this.hideAllDropdown();
     this.categoryID = categoryID;
     this.searchDocuments();
@@ -117,7 +114,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
 
   filterDate(): void {
-    console.log("filterDate");
     this.searchDocuments();
     this.showResults = true;
   }
@@ -125,7 +121,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   toggleDropdown(param, event): void {
     event.stopPropagation();
     if (this.displayedDropdown) {
-      console.log("event");
       this.hideAllDropdown();
     }else {
       this.dropdowns[param - 1].style.display = 'block';
@@ -141,24 +136,8 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   hideAllDropdown(): void {
     for (let i = 0; i < this.dropdowns.length; i++) {
       this.dropdowns[i].style.display = 'none';
-      console.log("s");
     }
     this.displayedDropdown = false;
-  }
-
-  hideDropdowns(event) {
-    console.log(event.target);
-    console.log(this.displayedDropdownID);
-    console.log(this.dropdowns[this.displayedDropdownID - 1]);
-    console.log(this.displayedDropdown);
-    //console.log(this.dropdowns[this.displayedDropdownID - 1].contains(event.target));
-
-    if (this.dropdowns[this.displayedDropdownID - 1]) {
-      if (!this.dropdowns[this.displayedDropdownID - 1].contains(event.target) && this.displayedDropdown) {
-        console.log("pass");
-        this.hideAllDropdown();
-      }
-    }
   }
 
   goToPage(slug): void {
@@ -171,7 +150,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.showResults = true;
     this.showFilters = true;
     this.documentResults = this.searchResults;
-    //this.search();
   }
 
   liveSearch(event): void {
@@ -206,11 +184,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.documentsSubscription = this.archiveService.searchDocuments(searchParams, this.lang).subscribe(
         (res) => {
           this.documentsLoading = false;
-          console.log(res);
           this.searchResults = res;
         },
         (error) => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -226,27 +202,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     (this.searchOnFocus ? this.searchOnFocus = false : this.searchOnFocus = true);
   }
 
-  toggleFilter(): void {
-    if (this.showFilterOptions) {
-      this.showFilterOptions = false;
-      this.filter_icon.nativeElement.style.color = 'lightgray';
-    }else {
-      this.showFilterOptions = true;
-      this.filter_icon.nativeElement.style.color = 'rgba(0, 108, 170, 0.62)';
-    }
-  }
-
-  toggleCheckbox(optId): void {
-    if (optId === 'posts') {
-      (this.postsChecked ? this.postsChecked = false : this.postsChecked = true);
-    }else if (optId === 'page') {
-      (this.pageChecked ? this.pageChecked = false : this.pageChecked = true);
-    }else if (optId === 'faq') {
-      (this.faqChecked ? this.faqChecked = false : this.faqChecked = true);
-    }
-    this.search();
-  }
-
   downloadFile(url: string) {
     window.open(url);
   }
@@ -256,29 +211,22 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
         this.searchTerm = params['q'];
         if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
-          console.log('pass');
           this.submitSearch();
         }
       });
       const self = this;
       const timer = setInterval(function () {
-        console.log('timer');
         if (self.filters) {
-          console.log('ptimer');
           clearInterval(timer);
           self.dropdowns = self.filters.nativeElement.getElementsByClassName('dropdown-container');
         }
       }, 100);
 
       const timer2 = setInterval(function () {
-        console.log('timer2');
         if (self.searchField) {
-          console.log('ptimer2');
           clearInterval(timer2);
           self.renderer.listen(self.searchField.nativeElement, 'search', () => {
-            console.log(self.searchTerm);
             if (self.searchTerm === '') {
-              console.log('search');
               if (self.lang === 'sv') {
                 self.location.go('sv/archive?q=' + self.searchTerm);
               }else {
@@ -295,17 +243,14 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.documentsSubscription2 = this.archiveService.getDocuments(10, this.lang).subscribe(
           (res) => {
             this.documentsLoading = false;
-            console.log(res);
             this.documentResults = res;
             this.latestDocuments = res;
           },
           (error) => {
-            console.log(error);
             this.notificationBarCommunicationService.send_data(error);
           });
 
       this.end_date = format(new Date(), 'YYYY-MM-DD');
-      console.log(this.end_date);
     }
 
   }

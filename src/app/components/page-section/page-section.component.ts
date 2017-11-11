@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie';
+import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -14,14 +13,12 @@ export class PageSectionComponent implements OnInit, OnDestroy {
   public pageNotFound: boolean;
   public paramsSubscription: Subscription;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private _cookieService: CookieService) {
+  constructor(private activatedRoute: ActivatedRoute) {
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
       }else if (this.lang !== 'en' && this.lang !== 'sv') {
-        //this.pageNotFound = true;
         this.lang = 'en';
       }
     });

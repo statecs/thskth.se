@@ -1,8 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {WordpressApiService} from '../../services/wordpress/wordpress-api.service';
-import {MenuItem} from '../../interfaces/menu';
-import { NavbarSectionsComponent } from './navbar-sections/navbar-sections.component';
-import { NavbarFooterComponent } from './navbar-footer/navbar-footer.component';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 

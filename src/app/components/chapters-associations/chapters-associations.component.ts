@@ -2,12 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild, Renderer2, OnDestroy} from '@a
 import { ChaptersAssociationsService } from '../../services/wordpress/chapters-associations.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
-import { Location } from '@angular/common';
-import { Archive } from '../../interfaces/archive';
 import {Association, Chapter} from '../../interfaces/chapters_associations';
-import {forEach} from '@angular/router/src/utils/collection';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
-import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
@@ -63,10 +59,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private location: Location,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private renderer: Renderer2,
-              private _cookieService: CookieService,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService) {
     this.item_exist = false;
@@ -117,7 +111,6 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     ];
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
-      console.log(this.lang);
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
       }else if (this.lang !== 'en' && this.lang !== 'sv') {
@@ -143,7 +136,6 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   }
 
   showAssociationInPopup(item: any): void {
-    console.log('show');
     let relatedAssociations: Association[] = [];
     if (item.category === this.associations[0].category.en || item.category === this.associations[0].category.sv) {
       relatedAssociations = this.career_associations;
@@ -167,9 +159,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   }
 
   submitSearch(): void {
-    console.log(this.searchTerm);
     if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
-      console.log("pass");
       this.showResultsDropdown = false;
       this.showResults = true;
       this.search();
@@ -177,7 +167,6 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   }
 
   liveSearch(event): void {
-      console.log(this.searchTerm);
     if (event.keyCode !== 13) {
       if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
         this.documentsLoading = true;
@@ -210,14 +199,12 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         this.sport_associations = [];
         this.social_associations = [];
         this.associationsSubsciption = this.chaptersAssociationsService.searchAssociations(this.searchTerm, this.lang).subscribe((res) => {
-                console.log(res);
                 this.associationResults = res;
                 this.allocateAssociations(res);
                 this.showAssociations = true;
                 this.checkResults();
             },
             (error) => {
-              console.log(error);
               this.notificationBarCommunicationService.send_data(error);
             });
     }
@@ -225,13 +212,11 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     searchChapters(): void {
       this.chapterResults = [];
         this.chaptersSubscription = this.chaptersAssociationsService.searchChapters(this.searchTerm, this.lang).subscribe((res) => {
-                console.log(res);
                 this.chapterResults = res;
                 this.showChapters = true;
                 this.checkResults();
             },
             (error) => {
-              console.log(error);
               this.notificationBarCommunicationService.send_data(error);
             });
     }
@@ -247,12 +232,10 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   getChapters(): void {
     this.documentsLoading = true;
     this.chaptersSubscription2 = this.chaptersAssociationsService.getChapters(this.lang).subscribe((res) => {
-          console.log(res);
           this.chapterResults = res;
           this.checkResults();
         },
         (error) => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -272,19 +255,15 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.social_associations = [];
     this.associationsSubsciption2 = this.chaptersAssociationsService.getAssociations(this.lang).subscribe((res) => {
           this.associationResults = res;
-          console.log(res);
           this.allocateAssociations(res);
           this.checkResults();
         },
         (error) => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
 
   allocateAssociations(data): void {
-    console.log('allocateAssociations');
-    console.log(data);
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
@@ -341,19 +320,16 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
       }
     },
     (error) => {
-      console.log(error);
       this.notificationBarCommunicationService.send_data(error);
     });
   }
 
   ngOnInit() {
-    console.log(this.pageNotFound);
     if (!this.pageNotFound) {
       this.paramsSubscription2 = this.activatedRoute.params.subscribe((params: Params) => {
         this.slug = params['slug'];

@@ -1,15 +1,9 @@
-import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
-import { CardCategorizerComponent } from '../card-categorizer/card-categorizer.component';
-import { CardsContainerComponent } from '../cards-container/cards-container.component';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import { TextSliderCommunicationService } from '../../services/component-communicators/text-slider-communication.service';
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { PostsService } from '../../services/wordpress/posts.service';
 import { ImageSliderCommunicationService } from '../../services/component-communicators/image-slider-communication.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie';
+import {ActivatedRoute} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
@@ -35,15 +29,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                 private titleCommunicationService: TitleCommunicationService) {
       this.pageNotFound = false;
       this.lang = activatedRoute.snapshot.data['lang'];
-      /*this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-          this.lang = data['lang'];
-          if (typeof this.lang === 'undefined') {
-              this.lang = 'en';
-          }else if (this.lang !== 'en' && this.lang !== 'sv') {
-              this.pageNotFound = true;
-              this.lang = 'en';
-          }
-      });*/
   }
 
   ngOnInit() {

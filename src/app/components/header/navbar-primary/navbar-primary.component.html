@@ -7,11 +7,11 @@
             <div class="d-header-bg"></div>
             <div class="d-header">
                 <div>
-                    <img *ngIf="item.title == 'Member' || item.title == 'Medlem'" src="http://kths.se/wp/wp-content/uploads/2016/06/THS-mecenatkort.jpg">
-                    <img *ngIf="item.title == 'Welfare' || item.title == 'Välfärd'" src="http://kths.se/wp/wp-content/uploads/2017/08/Student-Life_small.jpg">
-                    <img *ngIf="item.title == 'Future' || item.title == 'Framtida'" src="http://kths.se/wp/wp-content/uploads/2017/08/About-THS_small.jpg">
-                    <img *ngIf="item.title == 'Education' || item.title == 'Utbildning'" src="http://kths.se/wp/wp-content/uploads/2017/08/Connect_small.jpg">
-                    <img *ngIf="item.title == 'Contact' || item.title == 'Kontakt'" src="http://kths.se/wp/wp-content/uploads/2017/09/karhus.jpg">
+                    <img *ngIf="item.title == 'Member' || item.title == 'Medlem'" src="../../../../assets/images/menu/THS-mecenatkort.jpg">
+                    <img *ngIf="item.title == 'Welfare' || item.title == 'Välfärd'" src="../../../../assets/images/menu/Student-Life_small.jpg">
+                    <img *ngIf="item.title == 'Future' || item.title == 'Framtida'" src="../../../../assets/images/menu/About-THS_small.jpg">
+                    <img *ngIf="item.title == 'Education' || item.title == 'Utbildning'" src="../../../../assets/images/menu/Connect_small.jpg">
+                    <img *ngIf="item.title == 'Contact' || item.title == 'Kontakt'" src="../../../../assets/images/menu/karhus.jpg">
                     <span>{{item.title}}</span>
                 </div>
             </div>
@@ -40,12 +40,10 @@
                 <div class="logo"><img src="{{chapter.image}}"></div>
                 <label>{{(language === 'en' ? chapter.title.en : chapter.title.sv)}}</label>
             </div>
-            <!--<a routerLink="/ths-chapters" class="browse-more">See more chapters >></a>-->
         </div>
     </div>
 
     <div class="language" (click)="changeLanguage()">
-        <!--<span>{{language_text}}</span>-->
         <img width="25" height="17" src="{{language_img}}">
     </div>
 </nav>

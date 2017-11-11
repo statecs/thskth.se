@@ -6,7 +6,7 @@ import {Subscription} from 'rxjs/Subscription';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import format from 'date-fns/format/index';
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import { Event } from '../../interfaces/event';
@@ -56,12 +56,6 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       this.cardsLoaded = false;
       this.lang = activatedRoute.snapshot.data['lang'];
       this.deviceSize = window.screen.width;
-      /*this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-          this.lang = params['lang'];
-          if (typeof this.lang === 'undefined') {
-              this.lang = 'en';
-          }
-      });*/
   }
 
     goToPage(link): void {

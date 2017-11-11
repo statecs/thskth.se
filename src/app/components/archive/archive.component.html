@@ -1,4 +1,3 @@
-<!--<div (click)="hideDropdowns($event)">-->
 <app-header></app-header>
 
 <div *ngIf="!pageNotFound" id="content-container">
@@ -11,42 +10,18 @@
       </div>
       <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
         <div class="section">
-          <!--          <div class="heading">
-                      <span class="numberOfResults">Showing 1-20 of {{documentResults.length}} hits</span>
-                      <span class="sortBy">Sort by <strong>Published</strong> Relevance</span>
-                    </div>-->
           <div *ngFor="let d of searchResults" class="item">
             <div class="left-content">
               <a *ngFor="let c of d.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
             </div>
             <div class="right-content">
               <h4 (click)="goToPage(d.link)">{{d.title}}</h4>
-              <!--<p [innerHTML]="d.content | cardText:100"></p>-->
             </div>
           </div>
           <p *ngIf="documentsLoading">{{lang === 'en'? 'Loading' : 'Laddar'}}...</p>
           <p *ngIf="!documentsLoading && searchResults.length === 0" class="notResult">{{lang === 'en'? 'No documents found for' : 'Inga dokument hittades för'}} "{{searchTerm}}"!</p>
         </div>
       </div>
-<!--        <div class="filter">
-        <div #filter_icon class="options-icon" (click)="toggleFilter()">
-          <i class="material-icons">more_vert</i>
-        </div>
-        <div *ngIf="showFilterOptions" class="options">
-          <div class="option" (click)="toggleCheckbox('posts')">
-            <div class="checkbox"><i *ngIf="postsChecked" class="material-icons">check</i></div>
-            <span>Posts</span>
-          </div>
-          <div class="option" (click)="toggleCheckbox('page')">
-            <div class="checkbox"><i *ngIf="pageChecked" class="material-icons">check</i></div>
-            <span>Page</span>
-          </div>
-          <div class="option" (click)="toggleCheckbox('faq')">
-            <div class="checkbox"><i *ngIf="faqChecked" class="material-icons">check</i></div>
-            <span>FAQ</span>
-          </div>
-        </div>
-      </div>-->
       <div class="mostSearchTerms">
         <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
       </div>
@@ -81,13 +56,6 @@
         </div>
       </div>
     </div>
-<!--      <div>
-      <label>Organization</label>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-    </div>-->
     <div *ngIf="showFilters">
       <div class="date_input">
         <input type="date" id="startDate" [(ngModel)]="start_date" (change)="filterDate()">
@@ -116,7 +84,6 @@
           </div>
           <div class="right-content">
             <h4 (click)="showDocumentInPopup(d)">{{d.title}}</h4>
-            <!--            <p [innerHTML]="d.content | cardText:100"></p>-->
             <p [innerHTML]="d.description | cardText:100"></p>
             <div class="files">
               <div *ngFor="let f of d.documents" class="link_container">
@@ -137,12 +104,10 @@
           </div>
         </div>
         <app-loader *ngIf="documentsLoading"></app-loader>
-        <!--<p *ngIf="documentsLoading">Loading...</p>-->
         <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">{{lang === 'en'? 'No documents found for' : 'Inga dokument hittades för'}} "{{searchTerm}}"!</p>
       </div>
     </div>
   </div>
 </div>
-<!--</div>-->
 
 <app-page-not-found-image *ngIf="pageNotFound"></app-page-not-found-image>

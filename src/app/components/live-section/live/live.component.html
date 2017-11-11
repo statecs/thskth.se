@@ -1,29 +1,3 @@
 <div id="content-container">
   <app-cards-social-container [showFetchMoreBtn]="false"></app-cards-social-container>
 </div>
-
-
-<!--<div id="content-container">
-  <div *ngIf="page" id="page">
-    <div class="heading">
-      <div class="title">
-        <h2>{{page.name}}</h2>
-        <span *ngIf="page.name === 'Live'">The student life is a balance of learning, exploring, having fun and getting serious.</span>
-      </div>
-    </div>
-    <div class="side-bar">
-      <div class="submenu">
-        <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m.slug)" class="submenu-item">
-          <span>{{m.title}}</span>
-        </div>
-      </div>
-      <app-join-us></app-join-us>
-      <app-events-card></app-events-card>
-    </div>
-    <div class="content-container">
-      <div class="content" [innerHTML]="page.content"></div>
-      <app-image-gallery *ngIf="page.image_gallery" [imageGallery]="page.image_gallery"></app-image-gallery>
-      <app-text-gallery *ngIf="page.text_gallery" [textGallery]="page.text_gallery"></app-text-gallery>
-    </div>
-  </div>
-</div>-->

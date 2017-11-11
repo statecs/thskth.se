@@ -58,23 +58,6 @@
       </div>
     </div>
   </div>
-  <!--  <div #slides_container id="text-slider">
-    <div *ngFor="let item of restaurants" class="slide-wrapper" [style.backgroundImage]="'url(' + item.image + ')'">
-      <div class="slide">
-        <h2 [innerHTML]="item.title"></h2>
-      </div>
-    </div>
-    <div class="text-slider-navBefore"><i class="material-icons" (click)="navBefore()">navigate_before</i></div>
-    <div class="text-slider-navNext"><i class="material-icons" (click)="navNext()">navigate_next</i></div>
-    <div #slider_progress_bar class="slider-progress-bar">
-      <div *ngFor="let item of restaurants" class="bar-item"></div>
-    </div>
-    <div class="opening-hour">
-      <h3>Opening hours</h3>
-      <p>Monday-Friday</p>
-      <p>7:00am - 15:00pm</p>
-    </div>
-  </div>-->
   <div *ngIf="showSchedule && !loading" class="schedule">
     <div class="options">
       <div>Lunch {{lunch?.serving_time}}</div>

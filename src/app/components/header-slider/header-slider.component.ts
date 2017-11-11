@@ -45,15 +45,7 @@ export class HeaderSliderComponent implements OnInit {
     this.showActualSlide();
   }
 
-  update_progress_bar(): void {
-    for (let i = 0; i < this.slides.length; i++) {
-      this.bar_items[i].style.backgroundColor = 'lightgray';
-    }
-    this.bar_items[this.slideIndex].style.backgroundColor = 'gray';
-  }
-
   showActualSlide(): void {
-/*    this.update_progress_bar();*/
     this.slides[this.slideIndex].style.left = '0';
   }
 

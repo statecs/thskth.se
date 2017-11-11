@@ -5,9 +5,8 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import {Location} from '@angular/common';
 import { FaqsService } from '../../services/wordpress/faqs.service';
-import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
+import { FAQ, FAQCategory } from '../../interfaces/faq';
 import { most_asked_questions } from '../../utils/most-asked-questions';
-import {CookieService} from 'ngx-cookie';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
@@ -64,7 +63,6 @@ export class SearchComponent implements OnInit, OnDestroy {
               private location: Location,
               private faqsService: FaqsService,
               private renderer: Renderer2,
-              private _cookieService: CookieService,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService) {
     this.postsChecked = true;
@@ -103,7 +101,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   goToPage(link, type): void {
-    //slug = this.hrefToSlugPipeFilter.transform(slug);
     if (type === 'faq') {
       this.router.navigate([this.lang + '/support/faqs/' + link]);
     }
@@ -215,7 +212,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchTerm = params['q'];
-      console.log(this.searchTerm);
       if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
         this.submitSearch();
       }
@@ -223,7 +219,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.faqCatSubscription =this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
           this.parent_categories = categories;
-          console.log(categories);
         },
         (error) => {
           this.notificationBarCommunicationService.send_data(error);
@@ -253,12 +248,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     const self = this;
     this.timer = setInterval(function () {
       if (self.searchTerm) {
-        console.log('search');
         clearInterval(self.timer);
         self.renderer.listen(self.searchField.nativeElement, 'search', () => {
-          console.log(self.searchTerm);
           if (self.searchTerm === '') {
-            console.log(self.lang);
             if (self.lang === 'sv') {
               self.location.go('sv/search');
             }else {

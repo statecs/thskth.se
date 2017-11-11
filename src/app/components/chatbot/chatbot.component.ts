@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {messages} from '../../utils/chatbot-commonMessages';
 import {LoaderMessageComponent} from '../loader-message/loader-message.component';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
 
@@ -336,11 +336,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     showInfo(index): void {
         this.infoBoxClickCount += 1;
         this.showedInfoIndex = index;
-      // if (this.showedInfoIndex === index) {
-      //     this.hideInfoBox();
-      // }else {
-      //
-      // }
     }
 
     hideInfoBox(): void {
@@ -362,7 +357,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     const y = this.chatFlowContainer.nativeElement.offsetHeight - top - this.resonsesContainer.nativeElement.offsetHeight - height + 5;
     event.target.style.transform = 'translate3d(' + x + 'px, -' + y + 'px, 0px)';
     const self = this;
-    console.log('ww');
     setTimeout(function(){
       self.responses.push({
         message: self.user_inputs[index].message,
@@ -372,7 +366,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       const old_user_inputs = self.user_inputs;
       self.user_inputs = [];
       setTimeout(function () {
-          console.log(self.chatFlowList.nativeElement.lastElementChild);
           self.chatFlowList.nativeElement.lastElementChild.remove();
           self.responses.push({
               message: old_user_inputs[index].response.message,

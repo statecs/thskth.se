@@ -1,14 +1,11 @@
-import {Component, OnInit, ViewChild, ElementRef, Input, HostListener, OnDestroy} from '@angular/core';
-import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
+import {Component, OnInit, Input, HostListener, OnDestroy} from '@angular/core';
 import { Card } from '../../interfaces/card';
 import { SocialMediaPostService } from '../../services/social-media-post/social-media-post.service';
 import { SocialMediaPost } from '../../interfaces/social_media_post';
 import format from 'date-fns/format/index';
-import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import { Event } from '../../interfaces/event';
-import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
 import { ths_calendars } from '../../utils/ths-calendars';
-import {ActivatedRoute, Params, Router, RoutesRecognized} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -38,17 +35,13 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
   public postsSubscription: Subscription;
 
   constructor( private socialMediaPostService: SocialMediaPostService,
-               private googleCalendarService: GoogleCalendarService,
-               private popupWindowCommunicationService: PopupWindowCommunicationService,
-               private activatedRoute: ActivatedRoute,
-               private router: Router) {
+               private activatedRoute: ActivatedRoute) {
     this.displayedCards_amount = 6;
     this.showEventCalendar = false;
     this.ths_calendars = ths_calendars;
     this.existMorePosts = true;
     this.fetching = true;
     this.lang = this.activatedRoute.snapshot.data['lang'];
-    console.log(this.lang);
     if (typeof this.lang === 'undefined') {
       this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
         this.lang = params['lang'];
@@ -86,24 +79,6 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
     this.fetching = false;
   }
 
-  displayEventInPopup() {
-    this.popupWindowCommunicationService.showEventInPopup(this.events[this.selected_event_index]);
-  }
-
-  selectEvent(i) {
-    this.selected_event_title = this.events[i].title;
-    this.selected_event_text = this.events[i].description;
-    this.selected_event_index = i;
-  }
-
-  getMonth(date): string {
-    return format(date, 'MMM');
-  }
-
-  getDay(date): string {
-    return format(date, 'DD');
-  }
-
   formatDate(created_time): string {
     const date = new Date(created_time * 1000);
     return format(date, 'DD MMM YYYY') + ' at ' + format(date, 'hh:mma');
@@ -113,25 +88,7 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
     window.open(url, '_blank');
   }
 
-  updateEventCalendar(index) {
-    if (index == 2) {
-      this.showEventCalendar = true;
-    }
-  }
-
   ngOnInit() {
-    /*this.router.events.subscribe(val => {
-      console.log(this.lang);
-      if (val instanceof RoutesRecognized) {
-        this.lang = val.state.root.firstChild.params['lang'];
-        if (typeof this.lang === 'undefined') {
-          this.lang = 'en';
-        }
-        console.log(this.lang);
-        (this.lang === 'en' ? this.read_more = 'Read more' : this.read_more = 'Läs Mer');
-      }
-    });*/
-
     this.selected_event_title = '';
     this.selected_event_text = '';
     this.selected_event_index = 0;
@@ -143,14 +100,6 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
       this.socialMediaPosts = first_six_posts;
       this.fetching = false;
     });
-
-    /*this.googleCalendarService.getUpcomingEvents(this.ths_calendars[0].calendarId, 3).subscribe(res => {
-      this.events = res;
-      if (res.length !== 0) {
-        this.selected_event_title = res[0].title;
-        this.selected_event_text = res[0].description;
-      }
-    });*/
   }
 
   ngOnDestroy() {

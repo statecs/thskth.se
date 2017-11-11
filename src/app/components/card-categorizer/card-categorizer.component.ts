@@ -1,5 +1,5 @@
 import {
-  Component, ElementRef, OnInit, ViewChild, Injector, AfterViewInit, AfterViewChecked,
+  Component, ElementRef, ViewChild, Injector, AfterViewInit,
   OnDestroy
 } from '@angular/core';
 import { CardCategorizerCardContainerService } from '../../services/component-communicators/card-categorizer-card-container.service';
@@ -8,7 +8,7 @@ import { AppConfig } from '../../interfaces/appConfig';
 import { CookieService } from 'ngx-cookie';
 import { CardsService } from '../../services/wordpress/cards.service';
 import { CardCategory } from '../../interfaces/card';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {SelectSliderCommunicationService} from '../../services/component-communicators/select-slider-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
@@ -20,12 +20,9 @@ import {HideUICommunicationService} from '../../services/component-communicators
 })
 export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
 
-  //@ViewChild('switch_button') switch_button: ElementRef;
   @ViewChild('profession') profession: ElementRef;
-  //@ViewChild('company') company: ElementRef;
   @ViewChild('card_categorizer') card_categorizer: ElementRef;
 
-  public activated_person: number;
   public displayedDropdown: boolean;
   public displayedDropdownID: number;
   public dropdowns: any;
@@ -58,15 +55,6 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.cards_filter = this._cookieService.getObject('cards_filter');
     this.lang = route.snapshot.data['lang'];
     this.infoBoxClickCount = 0;
-    /*this.paramsSubscription = this.route.params.subscribe((params: Params) => {
-      this.lang = params['lang'];
-      if (typeof this.lang === 'undefined') {
-        this.lang = 'en';
-      }else if (this.lang !== 'en' && this.lang !== 'sv') {
-        this.lang = 'en';
-      }
-      console.log(this.lang);
-    });*/
   }
 
   showSelectSlider(items, type): void {
@@ -76,42 +64,6 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     };
     this.selectSliderCommunicationService.showSelectSlider(data);
   }
-
-/*  switchPerson(): void {
-    this.hideAllDropdown();
-    if (this.companyIsDisabled) {
-      this.switchRight();
-      this.companyIsDisabled = false;
-    }else {
-      this.switchLeft();
-      this.companyIsDisabled = true;
-    }
-    this.updateCardsContainer();
-  }*/
-
-/*  switchLeft(): void {
-    //const el = this.switch_button.nativeElement;
-    const profession_el = this.profession.nativeElement;
-    //const company_el = this.company.nativeElement;
-    //el.style.left = '0px';
-    profession_el.style.opacity = 1;
-    profession_el.style.cursor = 'pointer';
-    /!*company_el.style.opacity = 0.25;
-    company_el.disabled = true;
-    company_el.style.cursor = 'default';*!/
-  }*/
-
-/*  switchRight(): void {
-    //const el = this.switch_button.nativeElement;
-    const profession_el = this.profession.nativeElement;
-    //const company_el = this.company.nativeElement;
-    //el.style.left = '66%';
-    profession_el.style.opacity = 0.25;
-    profession_el.disabled = true;
-    profession_el.style.cursor = 'default';
-    /!*company_el.style.opacity = 1;
-    company_el.style.cursor = 'pointer';*!/
-  }*/
 
   updateCardsContainer(): void {
     this.cards_filter = this._cookieService.putObject('cards_filter', {profession: this.selected_profession, interest: this.selected_interest});
@@ -151,22 +103,6 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     }
     this.updateCardsContainer();
   }
-
-/*  getSelectedProfession(obj: CardCategory[]): CardCategory {
-      let output: CardCategory = {id: 0, name: '', order: 0};
-      obj.forEach((c) => {
-          let pro = '';
-          if (this.lang === 'sv') {
-            pro = this.route.snapshot.data['profession'].sv;
-          }else {
-            pro = this.route.snapshot.data['profession'].en;
-          }
-          if (c.name === pro) {
-             output = c;
-          }
-      });
-      return output;
-  }*/
 
   ngAfterViewInit() {
     this.dropdowns = this.card_categorizer.nativeElement.getElementsByClassName('dropdown-container');

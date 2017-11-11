@@ -1,10 +1,8 @@
-import {Component, OnInit, Injectable, Injector, OnDestroy} from '@angular/core';
-import {WordpressApiService} from '../../../services/wordpress/wordpress-api.service';
+import {Component, OnInit, Injector, OnDestroy} from '@angular/core';
 import {MenusService} from '../../../services/wordpress/menus.service';
 import {MenuItem, MenuItem2} from '../../../interfaces/menu';
 import { AppConfig } from '../../../interfaces/appConfig';
 import { APP_CONFIG } from '../../../app.config';
-import { CookieService } from 'ngx-cookie';
 import { ths_chapters } from '../../../utils/ths-chapters';
 import {ActivatedRoute, Router, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
@@ -36,9 +34,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     public topLevelMenuSubscription: Subscription;
     public mainMenuSubscription: Subscription;
 
-    constructor( private wordpressApiService: WordpressApiService,
-                 injector: Injector,
-                 private _cookieService: CookieService,
+    constructor( injector: Injector,
                  private router: Router,
                  private menusService: MenusService,
                  private activatedRoute: ActivatedRoute,
@@ -113,12 +109,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     }
 
     changeLanguage() {
-        /*if (typeof this._cookieService.get('language') !== 'undefined') {
-            this.config.LANGUAGE = this._cookieService.get('language');
-            this.switchLanguage();
-        }else {
-            this.switchLanguage();
-        }*/
         this.switchLanguage();
         this.displayActualLanguage();
         this.getTopLevelMenu();
@@ -127,7 +117,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
         }else if (this.language === 'sv') {
             this.router.navigateByUrl('/sv' + this.router.url.substring(3));
         }
-        //location.reload();
     }
 
     displayActualLanguage() {

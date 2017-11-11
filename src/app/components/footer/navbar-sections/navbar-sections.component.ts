@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ths_chapters } from '../../../utils/ths-chapters';
-import {ActivatedRoute, Params, Router, RoutesRecognized} from '@angular/router';
+import {Router, RoutesRecognized} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Pipe} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
@@ -60,27 +60,10 @@ export class ContactComponent implements OnInit, OnDestroy {
         slug = this.addLangToSlugPipe.transform(slug, this.lang);
         this.router.navigate([slug]);
       }
-      console.log(slug.substring(0, 7));
     }else if (item.type_label === 'association') {
       this.router.navigate(['/' + this.lang + '/associations-and-chapters/' + item.object_slug]);
     }
-
-    console.log(item.type_label);
-    console.log(slug);
   }
-/*
-  goToPage(slug): void {
-    console.log(slug);
-    if (slug.indexOf('http://') === 0 || slug.indexOf('https://') === 0 || slug.indexOf('www.') === 0) {
-      window.open(slug, '_black');
-    }else {
-      if (this.lang === 'sv') {
-        slug = this.removeLangParamPipe.transform(slug);
-      }
-      slug = this.addLangToSlugPipe.transform(slug, this.lang);
-      this.router.navigate([slug]);
-    }
-  }*/
 
   getSecondarySubMenu() {
     this.secondarySubMenuSubscription = this.menusService.get_secondarySubMenu('contact', this.slug, this.lang).subscribe((submenu) => {
@@ -101,7 +84,6 @@ export class ContactComponent implements OnInit, OnDestroy {
   }
 
   getPageBySlug() {
-    console.log(this.slug + this.lang);
     this.pageSubscription = this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
         this.page = page;
       },

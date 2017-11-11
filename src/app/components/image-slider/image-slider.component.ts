@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import {ImageSliderCommunicationService} from '../../services/component-communicators/image-slider-communication.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
@@ -31,14 +31,12 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
 
   constructor(private imageSliderCommunicationService: ImageSliderCommunicationService,
               private activatedRoute: ActivatedRoute,
-              private router: Router,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private location: Location) {
     this.item_onfocus_index = 1;
     this.slide_items = [];
       this.dragging = false;
       this.lang = this.activatedRoute.snapshot.data['lang'];
-      console.log(this.lang);
       this.deviceSize = window.screen.width;
       if (typeof this.lang === 'undefined') {
           this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
@@ -174,7 +172,6 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
         if (direction[0] < 0) {
           if (this.item_onfocus_index <= this.slide_items.length - 1) {
             this.item_onfocus_index += 1;
-            console.log(this.item_onfocus_index);
             this.swipeBackward();
           }
         }else {
@@ -190,14 +187,11 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
 
     swipeForward(): void {
         let margin_left = '';
-        console.log('swipeForward');
         for (let i = 0; i < this.slides_wrapper.length; i++) {
             if (this.slides_wrapper[i].style.marginLeft) {
                 margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) + 53) + '%';
-                console.log(margin_left);
             }else {
                 margin_left = '-43.5%';
-                console.log(margin_left);
             }
             this.slides_wrapper[i].style.marginLeft = margin_left;
         }
@@ -205,14 +199,11 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
 
     swipeBackward(): void {
         let margin_left = '';
-        console.log('swipeBackward');
         for (let i = 0; i < this.slides_wrapper.length; i++) {
             if (this.slides_wrapper[i].style.marginLeft) {
                 margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) - 53) + '%';
-                console.log(margin_left);
             }else {
                 margin_left = '-149.5%';
-                console.log(margin_left);
             }
             this.slides_wrapper[i].style.marginLeft = margin_left;
         }
@@ -231,14 +222,11 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
 
   nextSlide(): void {
     let margin_left = '';
-    console.log('move right');
     for (let i = 0; i < this.slides_wrapper.length; i++) {
       if (this.slides_wrapper[i].style.marginLeft) {
         margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) + 29.6) + '%';
-        console.log(margin_left);
       }else {
         margin_left = '-2.05%';
-        console.log(margin_left);
       }
       this.slides_wrapper[i].style.marginLeft = margin_left;
     }
@@ -246,31 +234,19 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
 
   previousSlide(): void {
     let margin_left = '';
-    console.log('move left');
     for (let i = 0; i < this.slides_wrapper.length; i++) {
       if (this.slides_wrapper[i].style.marginLeft) {
         margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) - 29.6) + '%';
-        console.log(margin_left);
       }else {
         margin_left = '-61.25%';
-        console.log(margin_left);
       }
       this.slides_wrapper[i].style.marginLeft = margin_left;
     }
   }
-/*
-  update_progress_bar(): void {
-    for (let i = 0; i < this.slides.length; i++) {
-      this.bar_items[i].style.backgroundColor = 'lightgray';
-    }
-    this.bar_items[this.item_onfocus_index - 1].style.backgroundColor = 'gray';
-  }*/
 
   ngOnInit() {
     this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName('bar-item');
     this.slides_wrapper = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
-
-    // this.update_progress_bar();
     this.imageSliderSubscription = this.imageSliderCommunicationService.notifyObservable$.subscribe((data) => {
       this.slide_items = data;
     });

@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, ViewChild, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
 import { SearchService } from '../../services/wordpress/search.service';
 import { SearchResult } from '../../interfaces/search';
@@ -45,18 +45,11 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
       }
-      console.log(this.lang);
     });
   }
 
   goToPage(link, type): void {
     this.hideBar();
-    /*let slug = '';
-    if (this.lang === 'sv') {
-      slug = 'sv/search';
-    }else {
-      slug = 'en/search';
-    }*/
     if (type === 'faq') {
       this.router.navigate([this.lang + '/support/faqs/' + link]);
     }

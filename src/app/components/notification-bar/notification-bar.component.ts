@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
-import {CookieService} from 'ngx-cookie';
-import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
+import {Router, RoutesRecognized} from '@angular/router';
 import {Notification} from '../../interfaces/notification';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {notificationMessages} from '../../utils/notification-messages';
@@ -60,10 +59,8 @@ export class NotificationBarComponent implements OnInit, OnDestroy {
     this.notificationSubscription = this.wordpressApiService.getNotification(this.lang).subscribe(
         (res) => {
           this.notification = res;
-          console.log(this.notification);
         },
         (error) => {
-          console.log(error);
           this.notifyError(error);
         });
   }
@@ -74,7 +71,6 @@ export class NotificationBarComponent implements OnInit, OnDestroy {
     this.paramsSubscription = this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
         this.lang = val.state.root.firstChild.data['lang'];
-        console.log(this.lang);
         if (typeof this.lang === 'undefined') {
           this.lang = val.state.root.firstChild.params['lang'];
           if (typeof this.lang === 'undefined') {

@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import { Page } from '../../interfaces/page';
 import { PagesService } from '../../services/wordpress/pages.service';
-import { Router, ActivatedRoute, Params} from '@angular/router';
+import { ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
@@ -36,7 +36,6 @@ export class SingleViewComponent implements OnInit, OnDestroy {
 
     getParentParentPageBySlug() {
         this.pageSubscription = this.pagesService.getPageBySlug(this.parent_parent_slug, this.lang).subscribe((page) => {
-                console.log(page);
                 if (page) {
                     this.getParentPageBySlug();
                 }else {
@@ -51,7 +50,6 @@ export class SingleViewComponent implements OnInit, OnDestroy {
 
   getParentPageBySlug() {
     this.pageSubscription2 = this.pagesService.getPageBySlug(this.parent_slug, this.lang).subscribe((page) => {
-          console.log(page);
           if (page) {
             this.getPageBySlug();
           }else {
@@ -67,7 +65,6 @@ export class SingleViewComponent implements OnInit, OnDestroy {
   getPageBySlug() {
     this.pageSubscription3 = this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
           this.loading = false;
-          console.log(page);
           if (page) {
             this.page = page;
               this.titleCommunicationService.setTitle(page.name);
@@ -102,7 +99,6 @@ export class SingleViewComponent implements OnInit, OnDestroy {
         }else {
           this.parent_parent_slug =  params['subpage'];
         }
-        console.log(this.parent_parent_slug);
         if (typeof this.lang === 'undefined') {
           this.lang = 'en';
         }

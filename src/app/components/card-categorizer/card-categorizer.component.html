@@ -14,18 +14,6 @@
         <span>{{selected_profession_name}}</span>
         <i class="material-icons">keyboard_arrow_down</i>
     </div>
-<!--  <div (click)="switchPerson()" class="switcher">
-    <div #switch_button class="switch-button"></div>
-  </div>
-  <div #company class="company" (click)="companyIsDisabled === true || toggleDropdown(2)" [attr.disabled]="companyIsDisabled">
-    <span>{{selected_company_name}}</span>
-    <i class="material-icons">keyboard_arrow_down</i>
-      <div class="dropdown-container">
-          <div class="dropdown-list">
-              <div *ngFor="let c of org_cats" class="dropdown-item" (click)="updateFiltering('company', $event, c.id)">{{c.name}}</div>
-          </div>
-      </div>
-  </div>-->
     <span *ngIf="lang === 'en'">and I am interested in</span>
     <span *ngIf="lang === 'sv'">och jag är intresserad av</span>
 

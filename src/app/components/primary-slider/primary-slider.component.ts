@@ -43,11 +43,9 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     this.slideIndex = 1;
     this.slideshow_play_btn = 'pause';
     this.deviceSize = window.screen.width;
-    console.log(this.deviceSize);
   }
 
   goToPage(slug): void {
-    console.log(slug);
     if (slug.indexOf('http://') === 0 || slug.indexOf('https://') === 0 || slug.indexOf('www.') === 0) {
       window.open(slug, '_black');
     }else {
@@ -98,11 +96,6 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     if (typeof this.slider_progress_bars !== 'undefined' && typeof this.slideElements !== 'undefined') {
       this.slideElements[this.slideIndex - 1].style.visibility = 'visible';
       this.slideElements[this.slideIndex - 1].style.opacity = 1;
-      /*if (this.slideIndex === 2) {
-        this.primary_slider.nativeElement.style.backgroundImage = 'none';
-      }else {
-        this.primary_slider.nativeElement.style.backgroundImage = 'url("' + this.slides[this.slideIndex - 1].bg_image + '")';
-      }*/
       let bg_image = '';
       const image = this.slides[this.slideIndex - 1].bg_image;
       if (this.deviceSize < 768) {
@@ -185,14 +178,12 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.lang = this.activatedRoute.snapshot.data['lang'];
-    console.log(this.lang);
     if (typeof this.lang === 'undefined') {
       this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
         this.lang = params['lang'];
         if (typeof this.lang === 'undefined') {
           this.lang = 'en';
         }
-        console.log(this.lang);
         if (this.lang === 'en') {
           this.read_more_text = 'Read More';
         }else {

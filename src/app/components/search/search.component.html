@@ -31,12 +31,8 @@
         <div *ngIf="postsChecked" class="section">
           <h3>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</h3>
           <div *ngFor="let p of postsResults" class="item">
-            <!--<div class="left-content">
-              <a *ngFor="let c of p.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
-            </div>-->
             <div class="right-content">
               <h4 (click)="goToPage(p.slug, 'post')">{{p.title}}</h4>
-              <!--<p [innerHTML]="p.content | cardText:100"></p>-->
             </div>
           </div>
           <p *ngIf="postsLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
@@ -45,14 +41,8 @@
         <div *ngIf="pageChecked" class="section">
           <h3>{{(lang === 'en' ? 'Pages' : 'Sidor')}}</h3>
           <div *ngFor="let p of pageResults" class="item">
-            <!--<div class="left-content">
-              <div class="img-wrapper">
-                <img src="{{p.image}}" alt="{{p.title}}" (click)="goToPage(p.link)">
-              </div>
-            </div>-->
             <div class="right-content">
               <h4 (click)="goToPage(p.link, 'page')">{{p.title}}</h4>
-              <!--<p [innerHTML]="p.content | cardText:100"></p>-->
             </div>
           </div>
           <p *ngIf="pagesLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
@@ -61,12 +51,8 @@
         <div *ngIf="faqChecked" class="section">
           <h3>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</h3>
           <div *ngFor="let p of faqResults" class="item">
-            <!--<div class="left-content">
-              <a *ngFor="let c of p.categories" routerLink="/contact/faq/{{c.slug}}">{{c.name}}</a>
-            </div>-->
             <div class="right-content">
               <h4 (click)="goToPage(p.slug, 'faq')">{{p.title}}</h4>
-              <!--<p [innerHTML]="p.content | cardText:100"></p>-->
             </div>
           </div>
           <p *ngIf="faqsLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>

@@ -60,16 +60,6 @@ export class EventsCardComponent implements OnInit, OnDestroy {
     return format(date, 'DD');
   }
 
-  getCalendar(calendarId): void {
-    this.calendarSubscription = this.googleCalendarService.getUpcomingEvents(calendarId, 3).subscribe(res => {
-      this.events = res;
-      if (res.length !== 0) {
-        this.selected_event_title = res[0].title;
-        this.selected_event_text = res[0].description;
-      }
-    });
-  }
-
   mergeArrays(arrays: any): Event[] {
     let merged: Event[] = [];
     arrays.forEach((event) => {
@@ -85,7 +75,6 @@ export class EventsCardComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
-    //this.getCalendar(this.ths_calendars[0].calendarId);
     this.eventsSubscription = this.googleCalendarService.getAllEvents(null, '').subscribe(res => {
       const mergedArrays = this.mergeArrays(res);
       const sortedArrays = mergedArrays.sort(this.sortArrayByTime);

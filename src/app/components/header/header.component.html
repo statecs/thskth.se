@@ -6,8 +6,6 @@
         </div>
 
         <app-navbar-primary></app-navbar-primary>
-        <!--<app-navbar-sections></app-navbar-sections>
-        <app-navbar-secondary></app-navbar-secondary>-->
     </div>
     <div class="container mobile">
         <div class="menu-wrapper">
@@ -17,15 +15,7 @@
             <div class="chapters">
                 <i class="material-icons" (click)="toggleChaptersMobile($event)">more_vert</i>
             </div>
-            <!--        <app-navbar-primary></app-navbar-primary>-->
             <div class="menu-bar">
-                <!--<div class="chapters">
-                    <i class="material-icons" (click)="toggleChaptersMobile()">more_vert</i>
-                    &lt;!&ndash;<div class="icon" >
-                        &lt;!&ndash;<img src="../../../assets/images/logo.png">&ndash;&gt;
-
-                    </div>&ndash;&gt;
-                </div>-->
                 <div class="menu" (click)="toggleMenuMobile()">
                     <span>{{(lang === 'en' ? 'Menu' : 'Meny')}}</span>
                     <i *ngIf="!showMenuMobile" class="fa fa-bars"></i>
@@ -75,8 +65,6 @@
                 <label>{{(lang === 'en' ? chapter.title.en : chapter.title.sv)}}</label>
             </div>
         </div>
-        <!--<app-navbar-sections></app-navbar-sections>
-        <app-navbar-secondary></app-navbar-secondary>-->
     </div>
 </header>
 <app-search-menubar></app-search-menubar>

@@ -112,34 +112,6 @@
 
             </div>
         </div>
-        <!--<div *ngIf="i !== 0 && i === 1" class="masonry-layout_panel-content">
-          <div class="event-calendar-card">
-            <div class="left-content" [ngClass]="{'event-arrow-index1': selected_event_index === 0, 'event-arrow-index2': selected_event_index === 1, 'event-arrow-index3': selected_event_index === 2}">
-              <h3>{{selected_event_title}}</h3>
-                <p class="large-devices">{{selected_event_text | cardText:100}}</p>
-                <p class="mobile">{{selected_event_text | cardText:70}}</p>
-              <span (click)="displayEventInPopup()">{{read_more}}</span>
-            </div>
-            <div class="right-content">
-                <div class="event-wrapper">
-                    <h4>THS's Upcoming events</h4>
-                    <div>
-                        <div *ngFor="let e of events, let i = index" class="event">
-                            <h6>{{getMonth(e.start)}}</h6>
-                            <div class="date" (click)="selectEvent(i)">
-                                <span>{{getDay(e.start)}}</span>
-                            </div>
-                            <div class="excerpt">
-                                <span (click)="displayEventInPopup()">{{e.title | cardText:25}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <a *ngIf="events?.length === 3" routerLink="events-calendar">More >></a>
-                    <span *ngIf="events?.length === 0" class="no-events">There are no upcoming events.</span>
-                </div>
-            </div>
-          </div>
-        </div>-->
   </div>
     <div *ngFor="let post of socialMediaPosts, let i = index" class="masonry-layout_panel two-fourth mobile-devices">
 
@@ -184,27 +156,6 @@
         </div>
     </div>
 
-        <!-- ---------- Small card ---------- -->
-        <!--<div class="sub-masonry-layout-row two-fourth">
-            <div class="sub-masonry-layout_penal two-fourth">
-                <div class="sub-masonry-layout_panel-content">
-                    <div class="standard-card">
-                        <h3>Title</h3>
-                        <p>let b of card.card_primary_buttons let b of card.card_primary_buttons let b of card.card_primary_buttons</p>
-                        <a type="button">{{read_more}}</a>
-                    </div>
-                </div>
-            </div>
-            <div class="sub-masonry-layout_penal two-fourth">
-                <div class="sub-masonry-layout_panel-content">
-                    <div class="standard-card">
-                        <h3>Title</h3>
-                        <p>let b of card.card_primary_buttons let b of card.card_primary_buttons let b of card.card_primary_buttons</p>
-                        <a type="button">{{read_more}}</a>
-                    </div>
-                </div>
-            </div>
-        </div>-->
 </div>
 <app-loader *ngIf="fetching"></app-loader>
 <div *ngIf="existMorePosts && showFetchMoreBtn" class="fetcher">

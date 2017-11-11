@@ -17,14 +17,6 @@
           <app-image-gallery *ngIf="page_data?.image_gallery" [imageGallery]="page_data?.image_gallery"></app-image-gallery>
           <app-text-gallery *ngIf="page_data?.text_gallery" [textGallery]="page_data?.text_gallery"></app-text-gallery>
         </div>
-        <!--<div *ngIf="false" class="previous-post">
-          <div class="btn"><i class="material-icons">keyboard_arrow_left</i></div>
-          <span>Previous post</span>
-        </div>
-        <div *ngIf="false" class="next-post">
-          <span>Next post</span>
-          <div class="btn"><i class="material-icons">keyboard_arrow_right</i></div>
-        </div>-->
       </div>
 
       <!-- ---------- Event layout ---------- -->
@@ -72,10 +64,6 @@
 
       <!-- ---------- Archive layout ---------- -->
       <div *ngIf="showArchive && !loading" class="association-layout">
-        <!--<div class="header-image">
-          <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
-          <div *ngIf="!association?.image" class="default-header"></div>
-        </div>-->
         <div class="content-container">
           <div class="description">
             <h2 [innerHTML]="archive?.title"></h2>
@@ -111,10 +99,6 @@
 
       <!-- ---------- FAQ layout ---------- -->
       <div *ngIf="showFaq && !loading" class="association-layout faq">
-        <!--<div class="header-image">
-          <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
-          <div *ngIf="!association?.image" class="default-header"></div>
-        </div>-->
         <div class="content-container">
           <div class="description">
             <h2 [innerHTML]="faq?.question"></h2>
@@ -125,10 +109,6 @@
 
       <!-- ---------- News layout ---------- -->
       <div *ngIf="showNews && !loading" class="association-layout">
-        <!--<div class="header-image">
-          <img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">
-          <div *ngIf="!association?.image" class="default-header"></div>
-        </div>-->
         <div class="content-container">
           <div class="description">
             <h2 [innerHTML]="news?.title"></h2>

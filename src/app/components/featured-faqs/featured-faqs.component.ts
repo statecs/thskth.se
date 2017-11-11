@@ -36,7 +36,6 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
   }
 
   swipe(e: TouchEvent, when: string): void {
-    console.log(when);
     const coord: [number, number] = [e.changedTouches[0].pageX, e.changedTouches[0].pageY];
     const time = new Date().getTime();
 
@@ -53,17 +52,14 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
         if (direction[0] < 0) {
           if (this.item_onfocus_index < this.most_asked_faqs.length - 1) {
             this.item_onfocus_index += 1;
-            console.log(this.item_onfocus_index);
             this.swipeForward();
           }
         }else {
           if (this.item_onfocus_index > 0) {
             this.item_onfocus_index -= 1;
             this.swipeBackward();
-            console.log(this.item_onfocus_index);
           }
         }
-        // Do whatever you want with swipe
       }
     }
   }
@@ -71,14 +67,10 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
   swipeForward(): void {
     const slides_wrapper = this.slides_wrapper.nativeElement;
     let margin_left = '';
-    console.log('swipeForward');
     if (slides_wrapper.style.marginLeft) {
-      console.log(parseFloat(slides_wrapper.style.marginLeft));
       margin_left = (parseFloat(slides_wrapper.style.marginLeft) - 83) + '%';
-      console.log(margin_left);
     }else {
       margin_left = '-80%';
-      console.log(margin_left);
     }
     slides_wrapper.style.marginLeft = margin_left;
   }
@@ -86,11 +78,8 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
   swipeBackward(): void {
     const slides_wrapper = this.slides_wrapper.nativeElement;
     let margin_left = '';
-    console.log('swipeForward');
     if (slides_wrapper.style.marginLeft) {
-      console.log(parseFloat(slides_wrapper.style.marginLeft));
       margin_left = (parseFloat(slides_wrapper.style.marginLeft) + 83) + '%';
-      console.log(margin_left);
     }
     slides_wrapper.style.marginLeft = margin_left;
   }
