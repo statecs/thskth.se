@@ -1,4 +1,4 @@
-import {Component, OnInit, Injector, OnDestroy} from '@angular/core';
+import {Component, OnInit, Injector, OnDestroy, HostListener} from '@angular/core';
 import { CardsService } from '../../services/wordpress/cards.service';
 import { Card } from '../../interfaces/card';
 import { CardCategorizerCardContainerService } from '../../services/component-communicators/card-categorizer-card-container.service';
@@ -21,6 +21,7 @@ import {NotificationBarCommunicationService} from '../../services/component-comm
 })
 export class CardsContainerComponent implements OnInit, OnDestroy {
   public cards: Card[];
+  public standbyCards: Card[];
   public arranged_cards: Card[];
     public one_sixth_cards_array: Card[][];
     public one_third_half_array: Card[][];
@@ -57,6 +58,17 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       this.lang = activatedRoute.snapshot.data['lang'];
       this.deviceSize = window.screen.width;
   }
+
+    @HostListener('window:scroll', ['$event'])
+    onWindowScroll() {
+        if (this.standbyCards) {
+            const pos = (document.documentElement.scrollTop || document.body.scrollTop);
+            if (pos > 200) {
+                this.cards = this.cards.concat(this.standbyCards);
+                this.standbyCards = null;
+            }
+        }
+    }
 
     goToPage(link): void {
       if (link.substring(0, 7) === 'http://' || link.substring(0, 8) === 'https://') {
@@ -123,7 +135,14 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
         self.one_third_half_array = [];
         this.cardsSubscription = this.cardsService.getCards(arg, this.lang).subscribe(
             cards => {
-                this.cards = cards;
+                const pos = (document.documentElement.scrollTop || document.body.scrollTop);
+                if (pos > 200) {
+                    this.cards = cards;
+                    this.standbyCards = null;
+                }else {
+                    this.cards = cards.slice(0, 4);
+                    this.standbyCards = cards.slice(4);
+                }
                 this.cardsLoaded = true;
             },
             (error) => {
