@@ -1,6 +1,6 @@
 import {
   Component, ElementRef, ViewChild, Injector, AfterViewInit,
-  OnDestroy, HostListener
+  OnDestroy
 } from '@angular/core';
 import { CardCategorizerCardContainerService } from '../../services/component-communicators/card-categorizer-card-container.service';
 import { APP_CONFIG } from '../../app.config';
@@ -42,7 +42,6 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
   public paramsSubscription: Subscription;
   public hideUISubscription: Subscription;
   public infoBoxClickCount: number;
-  public showCardsContainer: boolean;
 
   constructor(private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
               private injector: Injector,
@@ -56,10 +55,9 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.cards_filter = this._cookieService.getObject('cards_filter');
     this.lang = route.snapshot.data['lang'];
     this.infoBoxClickCount = 0;
-    this.showCardsContainer = false;
   }
 
-  @HostListener('window:scroll', ['$event'])
+/*  @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     if (!this.showCardsContainer) {
       const pos = (document.documentElement.scrollTop || document.body.scrollTop);
@@ -68,7 +66,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
         this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, interest: this.selected_interest});
       }
     }
-  }
+  }*/
 
   showSelectSlider(items, type): void {
     const data = {

@@ -2,7 +2,7 @@
     <app-header></app-header>
     <app-primary-slider></app-primary-slider>
     <app-card-categorizer></app-card-categorizer>
-    <app-cards-container *ngIf="showCardsContainer"></app-cards-container>
+    <app-cards-container></app-cards-container>
     <div class="faq-slider">
         <div>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</div>
         <app-loader *ngIf="!showFAQSlider"></app-loader>

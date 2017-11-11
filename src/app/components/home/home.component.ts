@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     public showSocialMediaCards: boolean;
     public showFAQSlider: boolean;
     public showNewsSlider: boolean;
-    public showCardsContainer: boolean;
 
   constructor(  private textSliderCommunicationService: TextSliderCommunicationService,
                 private faqsService: FaqsService,
@@ -38,18 +37,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.showSocialMediaCards = false;
       this.showFAQSlider = false;
       this.showNewsSlider = false;
-      this.showCardsContainer = false;
   }
 
 
     @HostListener('window:scroll', ['$event'])
     onWindowScroll() {
         const pos = (document.documentElement.scrollTop || document.body.scrollTop);
-        if (!this.showCardsContainer) {
-            if (pos > 5) {
-                this.showCardsContainer = true;
-            }
-        }
         if (!this.showFAQSlider) {
             if (pos > 500) {
                 this.showFAQSlider = true;
