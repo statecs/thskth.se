@@ -112,10 +112,19 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
         this.switchLanguage();
         this.displayActualLanguage();
         this.getTopLevelMenu();
-        if (this.language === 'en') {
-            this.router.navigateByUrl('/en' + this.router.url.substring(3));
-        }else if (this.language === 'sv') {
-            this.router.navigateByUrl('/sv' + this.router.url.substring(3));
+        const lang = this.activatedRoute.snapshot.params['lang'];
+        if (typeof lang === 'undefined' || (lang !== 'en' && lang !== 'sv')) {
+            if (this.language === 'en') {
+                this.router.navigateByUrl('/en' + this.router.url);
+            }else if (this.language === 'sv') {
+                this.router.navigateByUrl('/sv' + this.router.url);
+            }
+        }else {
+            if (this.language === 'en') {
+                this.router.navigateByUrl('/en' + this.router.url.substring(3));
+            }else if (this.language === 'sv') {
+                this.router.navigateByUrl('/sv' + this.router.url.substring(3));
+            }
         }
     }
 
