@@ -128,11 +128,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
   changeLanguage() {
     this.switchLanguage();
     this.displayActualLanguage();
-    if (this.lang === 'en') {
-      this.router.navigateByUrl('/en' + this.router.url.substring(3));
-    }else if (this.lang === 'sv') {
-      this.router.navigateByUrl('/sv' + this.router.url.substring(3));
+    this.getTopLevelMenu();
+    const lang = this.activatedRoute.snapshot.params['lang'];
+    if (typeof lang === 'undefined' || (lang !== 'en' && lang !== 'sv')) {
+      let url = this.router.url;
+      if (this.router.url === '/en' || this.router.url === '/sv') {
+        url = '';
+      }
+      if (this.lang === 'en') {
+        this.router.navigateByUrl('/en' + url);
+      }else if (this.lang === 'sv') {
+        this.router.navigateByUrl('/sv' + url);
+      }
+    }else {
+      if (this.lang === 'en') {
+        this.router.navigateByUrl('/en' + this.router.url.substring(3));
+      }else if (this.lang === 'sv') {
+        this.router.navigateByUrl('/sv' + this.router.url.substring(3));
+      }
     }
+  }
+
+  getTopLevelMenu(): void {
+    this.topLevelMainMenu = [];
+    this.topLevelMenuSubscription = this.menusService.getTopLevel_mainMenu(this.lang).subscribe(res => {
+          this.topLevelMainMenu = res;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   goToPage(item): void {
@@ -185,21 +209,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.lang = 'en';
         }
         this.setPlaceholder();
-        this.topLevelMenuSubscription = this.menusService.getTopLevel_mainMenu(this.lang).subscribe(res => {
-              this.topLevelMainMenu = res;
-            },
-            (error) => {
-              this.notificationBarCommunicationService.send_data(error);
-            });
+        this.getTopLevelMenu();
       });
     }else {
       this.setPlaceholder();
-      this.topLevelMenuSubscription = this.menusService.getTopLevel_mainMenu(this.lang).subscribe(res => {
-            this.topLevelMainMenu = res;
-          },
-          (error) => {
-            this.notificationBarCommunicationService.send_data(error);
-          });
+      this.getTopLevelMenu();
     }
 
     this.displayActualLanguage();

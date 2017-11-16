@@ -105,14 +105,18 @@ export class MenusService {
           .map((res: Response) => res.json())
           // Cast response data to card type
           .map((res: Array<any>) => {
-            if (lang === 'sv') {
-              localStorage.setItem('menus_meta_sv', JSON.stringify(res));
-            }else {
-              localStorage.setItem('menus_meta_en', JSON.stringify(res));
-            }
-            return this.castToplevelToMenuType(res);
+              return this.handleResponse(res, lang);
           });
     }
+  }
+
+  handleResponse(res: any, lang) {
+    if (lang === 'sv') {
+      localStorage.setItem('menus_meta_sv', JSON.stringify(res));
+    }else {
+      localStorage.setItem('menus_meta_en', JSON.stringify(res));
+    }
+    return this.castToplevelToMenuType(res);
   }
 
   castToplevelToMenuType(res) {

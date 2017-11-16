@@ -114,10 +114,14 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
         this.getTopLevelMenu();
         const lang = this.activatedRoute.snapshot.params['lang'];
         if (typeof lang === 'undefined' || (lang !== 'en' && lang !== 'sv')) {
+            let url = this.router.url;
+            if (this.router.url === '/en' || this.router.url === '/sv') {
+                url = '';
+            }
             if (this.language === 'en') {
-                this.router.navigateByUrl('/en' + this.router.url);
+                this.router.navigateByUrl('/en' + url);
             }else if (this.language === 'sv') {
-                this.router.navigateByUrl('/sv' + this.router.url);
+                this.router.navigateByUrl('/sv' + url);
             }
         }else {
             if (this.language === 'en') {
