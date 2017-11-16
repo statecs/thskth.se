@@ -6,14 +6,17 @@ import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
 import { SearchResult, Category } from '../../interfaces/search';
 import { CookieService } from 'ngx-cookie';
+import {HrefToSlugPipe} from '../../pipes/href-to-slug.pipe';
 
 @Injectable()
 export class SearchService {
   protected config: AppConfig;
   protected language: string;
+  private hrefToSlugPipeFilter: HrefToSlugPipe;
 
   constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
     this.config = injector.get(APP_CONFIG);
+    this.hrefToSlugPipeFilter = new HrefToSlugPipe();
 
     if (typeof this._cookieService.get('language') === 'undefined') {
       this.language = 'en';
@@ -84,7 +87,7 @@ export class SearchService {
         }
         results.push({
           title: p.title.rendered,
-          link: p.link,
+          link: this.getSlug(p.link),
           slug: p.slug,
           content: p.content.rendered,
           image: image,
@@ -94,6 +97,17 @@ export class SearchService {
       });
     }
     return results;
+  }
+
+  getSlug(link: string) {
+    let slug = '';
+    if (link.substring(link.length - 8) === '?lang=sv') {
+      link = link.substring(0, link.length - 8);
+      slug = this.hrefToSlugPipeFilter.transform(link);
+    }else {
+      slug = this.hrefToSlugPipeFilter.transform(link);
+    }
+    return slug;
   }
 
   castFAQsTo_SearchResultType(res) {

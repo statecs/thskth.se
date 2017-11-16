@@ -26,7 +26,6 @@ export class PagesService {
     return this.http
         .get(this.config.PAGES_URL + '?slug=' + slug + '&lang=' + lang)
         .map((res: Response) => res.json())
-        // Cast response data to FAQ Category type
         .map((res: any) => { return this.castResTo_PageType(res[0]); });
   }
 
@@ -61,6 +60,8 @@ export class PagesService {
     }
     return page;
   }
+
+
 
   castResToImageGalleryType(res) {
     const items: ImageGalleryItem[] = [];

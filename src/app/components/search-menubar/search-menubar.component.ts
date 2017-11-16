@@ -58,6 +58,9 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
     if (type === 'post') {
       this.router.navigate([this.lang + '/news/' + link]);
     }
+    if (type === 'page') {
+      this.router.navigate(['/' + link]);
+    }
   }
 
   goToSearchPage(): void {
@@ -110,6 +113,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
     this.pageSubscription = this.searchService.searchPages(this.searchTerm, 2, this.lang).subscribe((res) => {
           this.pagesLoading = false;
           this.pageResults = res;
+          console.log(res);
         },
         (error) => {
           this.notificationBarCommunicationService.send_data(error);
