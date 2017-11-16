@@ -1,6 +1,6 @@
 <div *ngIf="showSearchBar" class="background_layer"></div>
 <div *ngIf="showSearchBar" id="search-menubar">
-  <div class="exit-btn" (click)="hideBar()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
+  <div class="exit-btn" (click)="closeBar()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
   <form autocomplete="off">
     <div class="search">
       <i class="material-icons">search</i>
@@ -8,6 +8,7 @@
     </div>
   </form>
   <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
+    <app-loader *ngIf="postsResults?.length === 0 && pageResults?.length === 0 && faqResults?.length === 0"></app-loader>
     <div class="section">
       <div *ngFor="let p of postsResults" class="item">
         <div class="left-content">

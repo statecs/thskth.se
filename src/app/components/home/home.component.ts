@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, HostListener} from '@angular/core';
+import {Component, OnInit, OnDestroy, HostListener, AfterViewInit, ChangeDetectorRef} from '@angular/core';
 import { TextSliderCommunicationService } from '../../services/component-communicators/text-slider-communication.service';
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { PostsService } from '../../services/wordpress/posts.service';
@@ -7,13 +7,15 @@ import {ActivatedRoute} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
+import { CookieService } from 'ngx-cookie';
+import {SearchMenubarCommunicationService} from '../../services/component-communicators/search-menubar-communication.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     private lang: string;
     public pageNotFound: boolean;
     public paramsSubscription: Subscription;
@@ -30,7 +32,10 @@ export class HomeComponent implements OnInit, OnDestroy {
                 private imageSliderCommunicationService: ImageSliderCommunicationService,
                 private activatedRoute: ActivatedRoute,
                 private notificationBarCommunicationService: NotificationBarCommunicationService,
-                private titleCommunicationService: TitleCommunicationService) {
+                private titleCommunicationService: TitleCommunicationService,
+                private _cookieService: CookieService,
+                private searchMenubarCommunicationService: SearchMenubarCommunicationService,
+                private _changeDetectionRef: ChangeDetectorRef) {
       this.pageNotFound = false;
       this.lang = activatedRoute.snapshot.data['lang'];
       this.showGoogleMap = false;
@@ -81,6 +86,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
       this.titleCommunicationService.setTitle('THS');
   }
+
+    ngAfterViewInit() {
+        if (this._cookieService.get('search-menubar-terms')) {
+            this.searchMenubarCommunicationService.showSearchMenubar();
+            this._changeDetectionRef.detectChanges();
+        }
+    }
 
     ngOnDestroy() {
         if (this.paramsSubscription) {

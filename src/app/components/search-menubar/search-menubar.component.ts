@@ -5,6 +5,7 @@ import { SearchResult } from '../../interfaces/search';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-search-menubar',
@@ -33,7 +34,8 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
               private searchService: SearchService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private _cookieService: CookieService) {
     this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
     this.showSearchBar = false;
     this.showResultsDropdown = false;
@@ -73,6 +75,11 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
     this.showSearchBar = true;
   }
 
+  closeBar(): void {
+    this._cookieService.remove('search-menubar-terms');
+    this.hideBar();
+  }
+
   hideBar(): void {
     this.showSearchBar = false;
   }
@@ -83,6 +90,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
       this.searchPages();
       this.searchFAQs();
       this.showResultsDropdown = true;
+      this._cookieService.put('search-menubar-terms', this.searchTerm);
     }else {
       this.showResultsDropdown = false;
     }
@@ -121,6 +129,13 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.menuBarSubscription = this.searchMenubarCommunicationService.notifyObservable$.subscribe(() => {
       this.showBar();
+      const search_term = this._cookieService.get('search-menubar-terms');
+      if (search_term) {
+        this.searchTerm = search_term;
+        this.liveSearch();
+      }else {
+        this.searchTerm = '';
+      }
     });
   }
 
