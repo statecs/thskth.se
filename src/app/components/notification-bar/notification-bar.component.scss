@@ -1,38 +1,43 @@
 @import "../../../style/utilities";
-
-#notification-bar{
+#bar {
+  overflow: hidden;
+  position: fixed;
   background-color: #45b8da;
   color: white;
-  padding: 15px 20px;
-  position: relative;
   z-index: 1;
+  width: 100%;
+  top: -100px;
+  transition: top 0.2s ease;
+  #notification-bar{
+    padding: 15px 20px;
+    & >span{
+      display: inline-block;
+    }
+    & >p{
+      display: inline-block;
+      margin: 0;
+    }
+    .icon{
+      @include circle(25px);
+      background-color: white;
+      text-align: center;
+      font-weight: 800;
+      position: relative;
+      display: inline-block;
 
-  & >span{
-    display: inline-block;
-  }
-  & >p{
-    display: inline-block;
-    margin: 0;
-  }
-  .icon{
-    @include circle(25px);
-    background-color: white;
-    text-align: center;
-    font-weight: 800;
-    position: relative;
-    display: inline-block;
-
-    span{
-      line-height: 1.5;
+      span{
+        line-height: 1.5;
+      }
+    }
+    .close-btn{
+      right: 20px;
+      @include center-vertically(50%);
+      font-weight: 600;
+      cursor: pointer;
     }
   }
-  .close-btn{
-    right: 20px;
-    @include center-vertically(50%);
-    font-weight: 600;
-    cursor: pointer;
-  }
 }
+
 .default {
   background-color: #45b8da !important;
   .icon{

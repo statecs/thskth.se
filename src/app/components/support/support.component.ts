@@ -7,6 +7,7 @@ import {PopupWindowCommunicationService} from '../../services/component-communic
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
+import {HeaderCommunicationService} from "../../services/component-communicators/header-communication.service";
 
 @Component({
   selector: 'app-support',
@@ -48,7 +49,8 @@ export class SupportComponent implements OnInit, OnDestroy {
               private location: Location,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private titleCommunicationService: TitleCommunicationService) {
+              private titleCommunicationService: TitleCommunicationService,
+              private headerCommunicationService: HeaderCommunicationService) {
       this.exist_category = false;
       this.pageNotFound = false;
     this.selected_cat_index = 0;
@@ -255,6 +257,7 @@ export class SupportComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
+      this.headerCommunicationService.tranparentHeader(false);
       this.paramsSubscription3 = this.activatedRoute.params.subscribe((params: Params) => {
           this.faq_slug = params['slug'];
           if (this.faq_slug) {

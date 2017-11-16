@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {CookieService} from 'ngx-cookie';
 import {Subscription} from 'rxjs/Subscription';
+import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-contact',
@@ -15,7 +16,8 @@ export class ContactSectionComponent implements OnInit, OnDestroy {
   public paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private _cookieService: CookieService) {
+              private _cookieService: CookieService,
+              private headerCommunicationService: HeaderCommunicationService) {
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
@@ -29,6 +31,7 @@ export class ContactSectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.headerCommunicationService.tranparentHeader(false);
   }
 
   ngOnDestroy() {

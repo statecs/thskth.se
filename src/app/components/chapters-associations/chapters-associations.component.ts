@@ -7,6 +7,7 @@ import {PopupWindowCommunicationService} from '../../services/component-communic
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
+import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-chapters-associations',
@@ -62,7 +63,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private renderer: Renderer2,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private titleCommunicationService: TitleCommunicationService) {
+              private titleCommunicationService: TitleCommunicationService,
+              private headerCommunicationService: HeaderCommunicationService) {
     this.item_exist = false;
     this.postsChecked = true;
     this.pageChecked = true;
@@ -330,6 +332,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.headerCommunicationService.tranparentHeader(false);
     if (!this.pageNotFound) {
       this.paramsSubscription2 = this.activatedRoute.params.subscribe((params: Params) => {
         this.slug = params['slug'];

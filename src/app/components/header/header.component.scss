@@ -1,12 +1,24 @@
 @import "../../../style/utilities";
+.tranparentHeader{
+  @include bg-linear-grad-to-top(rgba(0,0,0,0), rgba(0,0,0,1));
+  .container{
+    border-bottom: 1px solid lightgray;
+  }
+}
+
 
 header {
-  position: absolute;
+  position: fixed;
   width: 100%;
-  @include bg-linear-grad-to-top(rgba(0,0,0,0), rgba(0,0,0,0.6));
+  top: 0;
   text-align: center;
   transition: top 0.5s ease;
   z-index: 1;
+  background-color: $bg-color-primary;
+  color: white !important;
+  .container{
+    border-bottom: 0;
+  }
   .mobile{
     display: none;
   }

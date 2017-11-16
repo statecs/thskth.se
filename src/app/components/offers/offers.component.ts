@@ -6,6 +6,7 @@ import {Post} from '../../interfaces/post';
 import format from 'date-fns/format/index';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
+import {HeaderCommunicationService} from "../../services/component-communicators/header-communication.service";
 
 @Component({
   selector: 'app-offers',
@@ -25,7 +26,8 @@ export class OffersComponent implements OnInit, OnDestroy {
               private postsService: PostsService,
               private router: Router,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
-              private titleCommunicationService: TitleCommunicationService) {
+              private titleCommunicationService: TitleCommunicationService,
+              private headerCommunicationService: HeaderCommunicationService) {
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       this.slug = params['slug'];
@@ -63,6 +65,7 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.headerCommunicationService.tranparentHeader(false);
     this.postsService.getOffers(15, this.lang).subscribe((res) => {
       this.posts = res;
     });

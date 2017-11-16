@@ -1,4 +1,4 @@
-<header #app_header>
+<header #app_header [ngClass]="{'tranparentHeader': tranparentHeader}">
     <div class="container bigger-device">
         <div class="search" role="search" (click)="showSearchMenubar()"><i class="material-icons">search</i> {{placeholder}}</div>
         <div class="logo">

@@ -38,6 +38,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public language_img: string;
   public signin_text: string;
   public language_text: string;
+  public headerPosition: number;
+  public tranparentHeader: boolean;
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
               private searchMenubarCommunicationService: SearchMenubarCommunicationService,
@@ -54,6 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.addLangToSlugPipe = new AddLangToSlugPipe();
     this.hrefToSlugPipe = new HrefToSlugPipe();
     this.topLevelMainMenu = [];
+    this.tranparentHeader = true;
     localStorage.clear();
   }
 
@@ -79,7 +82,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   expendHeader() {
-    this.app_header.nativeElement.style.top = '0';
+    this.app_header.nativeElement.style.top = '0px';
   }
 
   collapseHeader() {
@@ -199,6 +202,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.headerSubscription = this.headerCommunicationService.positionHeaderObservable$.subscribe((arg) => {
+      console.log(arg);
+      this.headerPosition = arg;
+      this.app_header.nativeElement.style.marginTop = arg + 'px';
+    });
+
+    this.headerSubscription = this.headerCommunicationService.positionHeaderObservable$.subscribe((arg) => {
+      if (arg) {
+        this.tranparentHeader = true;
+      }else {
+        this.tranparentHeader = false;
+      }
+    });
     this.lang = this.activatedRoute.snapshot.data['lang'];
     if (typeof this.lang === 'undefined') {
       this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
@@ -224,6 +240,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.collapseHeader();
       }
     });
+
   }
 
   ngOnDestroy() {

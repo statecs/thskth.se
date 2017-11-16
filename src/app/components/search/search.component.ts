@@ -10,6 +10,7 @@ import { most_asked_questions } from '../../utils/most-asked-questions';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
+import {HeaderCommunicationService} from "../../services/component-communicators/header-communication.service";
 
 @Component({
   selector: 'app-search',
@@ -64,7 +65,8 @@ export class SearchComponent implements OnInit, OnDestroy {
               private faqsService: FaqsService,
               private renderer: Renderer2,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private titleCommunicationService: TitleCommunicationService) {
+              private titleCommunicationService: TitleCommunicationService,
+              private headerCommunicationService: HeaderCommunicationService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -213,6 +215,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.headerCommunicationService.tranparentHeader(false);
     this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchTerm = params['q'];
       if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {

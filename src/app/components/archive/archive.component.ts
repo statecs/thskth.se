@@ -9,6 +9,7 @@ import format from 'date-fns/format/index';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
+import {HeaderCommunicationService} from "../../services/component-communicators/header-communication.service";
 
 @Component({
   selector: 'app-archive',
@@ -61,7 +62,8 @@ export class ArchiveComponent implements OnInit, OnDestroy {
               private renderer: Renderer2,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private titleCommunicationService: TitleCommunicationService) {
+              private titleCommunicationService: TitleCommunicationService,
+              private headerCommunicationService: HeaderCommunicationService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -207,6 +209,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.headerCommunicationService.tranparentHeader(false);
     if (!this.pageNotFound) {
       this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
         this.searchTerm = params['q'];

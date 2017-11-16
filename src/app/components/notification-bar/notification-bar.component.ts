@@ -1,18 +1,20 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import {Router, RoutesRecognized} from '@angular/router';
 import {Notification} from '../../interfaces/notification';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {notificationMessages} from '../../utils/notification-messages';
 import {Subscription} from 'rxjs/Subscription';
+import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-notification-bar',
   templateUrl: './notification-bar.component.html',
   styleUrls: ['./notification-bar.component.scss']
 })
-export class NotificationBarComponent implements OnInit, OnDestroy {
+export class NotificationBarComponent implements OnInit, OnDestroy{
 
+  @ViewChild('bar') bar: ElementRef;
   public notification: Notification;
   private lang: string;
   public notificationMessages: object;
@@ -23,12 +25,14 @@ export class NotificationBarComponent implements OnInit, OnDestroy {
 
   constructor(private wordpressApiService: WordpressApiService,
               private router: Router,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private headerCommunicationService: HeaderCommunicationService) {
     this.notificationMessages = notificationMessages;
   }
 
   closeBar(): void {
     this.notification = null;
+    this.headerCommunicationService.positionHeader(0);
   }
 
   notifyError(error: any): void {
@@ -58,7 +62,15 @@ export class NotificationBarComponent implements OnInit, OnDestroy {
   getNotification() {
     this.notificationSubscription = this.wordpressApiService.getNotification(this.lang).subscribe(
         (res) => {
+          console.log(res);
           this.notification = res;
+          const self = this;
+          setTimeout(function () {
+            const barHeight = self.bar.nativeElement.clientHeight;
+            console.log(barHeight);
+            self.bar.nativeElement.style.top = 0;
+            self.headerCommunicationService.positionHeader(barHeight);
+          }, 200);
         },
         (error) => {
           this.notifyError(error);
@@ -66,8 +78,6 @@ export class NotificationBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-
     this.paramsSubscription = this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
         this.lang = val.state.root.firstChild.data['lang'];

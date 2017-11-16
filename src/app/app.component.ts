@@ -4,6 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import {Title} from '@angular/platform-browser';
 import {TitleCommunicationService} from './services/component-communicators/title-communication.service';
 import {HideUICommunicationService} from './services/component-communicators/hide-ui-communication.service';
+import {HeaderCommunicationService} from './services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent {
                @Inject(DOCUMENT) private document: Document,
                private hideUICommunicationService: HideUICommunicationService,
                private titleService: Title,
-               private titleCommunicationService: TitleCommunicationService) {
+               private titleCommunicationService: TitleCommunicationService,
+               private headerCommunicationService: HeaderCommunicationService) {
     window.addEventListener('online', () => {this.online = true; });
     window.addEventListener('offline', () => {this.online = false; });
     this.checkInternet();
@@ -45,6 +47,9 @@ export class AppComponent {
     });
     this.titleCommunicationService.notifyObservable$.subscribe((title) => {
       this.setTitle(title);
+    });
+    this.headerCommunicationService.positionHeaderObservable$.subscribe((arg) => {
+      this.page.nativeElement.style.top = arg + 'px';
     });
   }
 

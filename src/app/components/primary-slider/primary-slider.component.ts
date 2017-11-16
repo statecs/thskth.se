@@ -32,6 +32,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   public read_more_text: string;
   public paramsSubscription: Subscription;
   public slideSubscription: Subscription;
+  public headerSubscription: Subscription;
   public deviceSize: number;
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
@@ -223,6 +224,9 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     }
     if (this.slideSubscription) {
       this.slideSubscription.unsubscribe();
+    }
+    if (this.headerSubscription) {
+      this.headerSubscription.unsubscribe();
     }
   }
 

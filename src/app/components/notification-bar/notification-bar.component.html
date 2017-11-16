@@ -1,5 +1,7 @@
-<div *ngIf="notification" id="notification-bar" [ngClass]="{'default': notification.bg_color === 'light-blue', 'warning': notification.bg_color === 'yellow', 'danger': notification.bg_color === 'red'}">
-  <div class="icon"><span>!</span></div>
-  <p [innerHTML]="notification?.message"></p>
-  <span class="close-btn" (click)="closeBar()">X</span>
+<div id="bar" #bar>
+  <div *ngIf="notification" id="notification-bar" [ngClass]="{'default': notification.bg_color === 'light-blue', 'warning': notification.bg_color === 'yellow', 'danger': notification.bg_color === 'red'}">
+    <div class="icon"><span>!</span></div>
+    <p [innerHTML]="notification?.message"></p>
+    <span class="close-btn" (click)="closeBar()">X</span>
+  </div>
 </div>

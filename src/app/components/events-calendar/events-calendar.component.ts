@@ -9,6 +9,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
+import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-events-calendar',
@@ -36,7 +37,8 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private activatedRoute: ActivatedRoute,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private titleCommunicationService: TitleCommunicationService) {
+              private titleCommunicationService: TitleCommunicationService,
+              private headerCommunicationService: HeaderCommunicationService) {
     this.events = [];
     this.actualDate = format(new Date(), 'DD MMM YYYY');
     this.ths_calendars = ths_calendars;
@@ -124,6 +126,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
+    this.headerCommunicationService.tranparentHeader(false);
     this.calendarSubscription = this.calendarCommunicationService.notifyObservable$.subscribe((arg) => {
       this.actualDate = format(arg.viewDate, 'DD MMM YYYY');
       if (arg.noActivity) {

@@ -5,6 +5,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
+import {HeaderCommunicationService} from "../../services/component-communicators/header-communication.service";
 
 @Component({
   selector: 'app-restaurants',
@@ -37,7 +38,8 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   constructor(private restaurantService: RestaurantService,
               private activatedRoute: ActivatedRoute,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private titleCommunicationService: TitleCommunicationService) {
+              private titleCommunicationService: TitleCommunicationService,
+              private headerCommunicationService: HeaderCommunicationService) {
     this.loading = true;
     this.slideIndex = 0;
     this.showSchedule = false;
@@ -135,6 +137,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.headerCommunicationService.tranparentHeader(false);
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.loading = true;
       this.lang = params['lang'];
