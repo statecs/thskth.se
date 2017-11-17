@@ -22,7 +22,7 @@
                     <div class="content">
                         <h2>{{card.title}}</h2>
                         <p [innerHTML]="card.content | cardText:120"></p>
-                        <a type="button">> Read more </a>
+                        <a type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}} </a>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                         <h2>{{card.title}}</h2>
                         <p [innerHTML]="card.content | cardText:120"></p>
                         <!--<a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>-->
-                        <a type="button">> Read more </a>
+                        <a type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}} </a>
                     </div>
                 </div>
             </div>
@@ -141,7 +141,7 @@
                         <div class="content">
                             <h2>{{card.title}}</h2>
                             <p [innerHTML]="card.content | cardText:50"></p>
-                            <a *ngIf="card.card_primary_buttons.length === 0" type="button">> Read more </a>
+                            <a *ngIf="card.card_primary_buttons.length === 0" type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}}</a>
                             <a type="button" *ngFor="let b of card.card_primary_buttons" (click)="goToPage(b.link)">{{b.text}}</a>
                         </div>
                     </div>

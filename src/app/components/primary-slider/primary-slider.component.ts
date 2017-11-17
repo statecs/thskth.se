@@ -100,13 +100,13 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       let bg_image = '';
       const image = this.slides[this.slideIndex - 1].bg_image;
       if (this.deviceSize < 768) {
-          bg_image = image.medium;
+          bg_image = image.image640;
       }else if (this.deviceSize >= 768 && this.deviceSize < 992) {
-          bg_image = image.medium_large;
+          bg_image = image.image960;
       }else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
-          bg_image = image.large;
+          bg_image = image.image1280;
       }else if (this.deviceSize >= 1200) {
-          bg_image = image.large;
+          bg_image = image.image1920;
       }
       this.primary_slider.nativeElement.style.backgroundImage = 'url("' + bg_image + '")';
       this.slider_progress_bars[this.slideIndex - 1].style.backgroundColor = 'white';

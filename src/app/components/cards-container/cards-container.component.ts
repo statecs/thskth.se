@@ -99,13 +99,13 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       if (card.background_image !== '') {
           const image = card.background_image;
           if (this.deviceSize < 768) {
-              url = image.medium;
+              url = image.image640;
           }else if (this.deviceSize >= 768 && this.deviceSize < 992) {
-              url = image.medium_large;
+              url = image.image960;
           }else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
-              url = image.large;
+              url = image.image1280;
           }else if (this.deviceSize >= 1200) {
-              url = image.large;
+              url = image.image1920;
           }
       }
       return url;
