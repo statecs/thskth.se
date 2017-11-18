@@ -93,6 +93,8 @@ header {
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   header {
+    position: absolute !important;
+    margin-top: 0 !important;
     .container {
       @include container-size(100%);
       overflow: hidden;
@@ -270,6 +272,8 @@ header {
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   header {
+    position: absolute !important;
+    margin-top: 0 !important;
     .container {
       @include container-size(100%);
       overflow: hidden;

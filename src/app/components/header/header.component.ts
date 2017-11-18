@@ -203,12 +203,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.headerSubscription = this.headerCommunicationService.positionHeaderObservable$.subscribe((arg) => {
-      console.log(arg);
       this.headerPosition = arg;
       this.app_header.nativeElement.style.marginTop = arg + 'px';
     });
 
-    this.headerSubscription = this.headerCommunicationService.positionHeaderObservable$.subscribe((arg) => {
+    this.headerSubscription = this.headerCommunicationService.tranparentHeaderObservable$.subscribe((arg) => {
       if (arg) {
         this.tranparentHeader = true;
       }else {

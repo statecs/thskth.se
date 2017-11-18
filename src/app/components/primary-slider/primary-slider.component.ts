@@ -92,7 +92,6 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   getBgUrl(slide: Slide): string {
-    console.log('test');
     let url = '';
     if (slide.bg_image !== '') {
       const image = slide.bg_image;
