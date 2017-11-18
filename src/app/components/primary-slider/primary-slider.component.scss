@@ -65,6 +65,7 @@
     .video-template {
       height: 100%;
       overflow: hidden;
+      background-size: cover;
 
       video {
         position: absolute;

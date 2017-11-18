@@ -91,6 +91,24 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     }
   }
 
+  getBgUrl(slide: Slide): string {
+    console.log('test');
+    let url = '';
+    if (slide.bg_image !== '') {
+      const image = slide.bg_image;
+      if (this.deviceSize < 768) {
+        url = image.image640;
+      }else if (this.deviceSize >= 768 && this.deviceSize < 992) {
+        url = image.image960;
+      }else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
+        url = image.image1280;
+      }else if (this.deviceSize >= 1200) {
+        url = image.image1920;
+      }
+    }
+    return url;
+  }
+
   showSlide(): void {
     this.slider_progress_bars = this.primary_slider.nativeElement.getElementsByClassName('slider-progress-bar');
     this.slideElements = this.slides_container.nativeElement.getElementsByClassName('slide');
