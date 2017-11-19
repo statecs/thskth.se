@@ -22,13 +22,14 @@
       </div>
     </div>
   </div>
-  <div class="slides-wrapper mobile" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
-    <div class="slide empty" [ngClass]="{'item_onfocus': item_onfocus_index === -1}">
+  <!--<div class="slides-wrapper mobile" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">-->
+  <div class="slides-wrapper mobile" (touchstart)="dragstart()" (touchend)="dragend()">
+    <div class="slide empty">
       <div class="content-container">
         <a routerLink="/news" class="more-btn">{{see_more}}</a>
       </div>
     </div>
-    <div *ngFor="let item of slide_items, let i = index" (click)="goToPage(item, item.slug)" class="slide" [style.backgroundImage]="'url(' + getBgUrl(item.image) + ')'" [ngClass]="{'item_onfocus': item_onfocus_index === i}">
+    <div *ngFor="let item of slide_items, let i = index" (click)="goToPage(item, item.slug)" class="slide" [style.backgroundImage]="'url(' + getBgUrl(item.image) + ')'">
       <div class="content-container">
         <div class="content">
           <h2>{{item.title | cardText:50}}</h2>
@@ -37,7 +38,7 @@
         <div class="category">{{news_text}}</div>
       </div>
     </div>
-    <div class="slide empty" [ngClass]="{'item_onfocus': item_onfocus_index === 5}">
+    <div class="slide empty">
       <div class="content-container">
         <a routerLink="/news" class="more-btn">{{see_more}}</a>
       </div>
@@ -49,6 +50,6 @@
     <div *ngFor="let item of slide_items, let i = index" class="bar-item" [ngClass]="{'selected': item_onfocus_index === i}" (click)="selectSlide(i)"></div>
   </div>
   <div class="mobile">
-    <div *ngFor="let item of slide_items, let i = index" class="bar-item" [ngClass]="{'selected': item_onfocus_index === i}" (click)="selectSlideMobile(i)"></div>
+    <div *ngFor="let item of slide_items, let i = index" class="bar-item" [ngClass]="{'selected': item_onfocus_index === i}" (click)="selectSlideMobile(i + 1)"></div>
   </div>
 </div>

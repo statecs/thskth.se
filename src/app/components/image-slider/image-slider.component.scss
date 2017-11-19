@@ -130,20 +130,36 @@
   }
   #img-slider {
     .slides-wrapper {
-      width: 400%;
-      margin-left: -96.5%;
+      width: 700%;
+      margin-left: -165%;
+      transition: margin 0.1s ease;
+      .slide{
+        margin: 0 0.5%;
+        opacity: 1;
+      }
     }
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   .large-devices{
-    display: block !important;
-  }
-  .mobile{
     display: none !important;
   }
+  .mobile{
+    display: block !important;
+  }
   #img-slider {
+    .slides-wrapper {
+      width: 700%;
+      margin-left: -165%;
+      transition: margin 0.1s ease;
+      .slide{
+        margin: 0 0.5%;
+        opacity: 1;
+      }
+    }
+  }
+  /*#img-slider {
     .slides-wrapper{
       .slide{
         .content-container{
@@ -156,7 +172,7 @@
         }
       }
     }
-  }
+  }*/
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {

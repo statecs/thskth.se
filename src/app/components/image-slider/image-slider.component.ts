@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener} from '@angular/core';
 import {ImageSliderCommunicationService} from '../../services/component-communicators/image-slider-communication.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
@@ -26,8 +26,8 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   public imageSliderSubscription: Subscription;
     public deviceSize: number;
     public dragging: boolean;
-/*    public draggedPosition: number;
-    public margin_left: number;*/
+    public draggedPosition: number;
+    public margin_left: number;
 
   constructor(private imageSliderCommunicationService: ImageSliderCommunicationService,
               private activatedRoute: ActivatedRoute,
@@ -82,6 +82,27 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     @HostListener('mouseup', ['$event'])
     mouseup(): void {
         this.dragend();
+    }*/
+
+    @HostListener('document:touchmove', ['$event'])
+    touchMoving(event) {
+        event = event.touches[0];
+        if (this.dragging) {
+            if (!this.draggedPosition) {
+                this.draggedPosition = event.clientX;
+                console.log(this.draggedPosition);
+            }
+            console.log(event.clientX);
+            console.log(event.clientX + 1 - this.draggedPosition);
+            const distance = ((event.clientX - this.draggedPosition) / (this.slides_wrapper[1].clientWidth / 4)) * 100;
+            if (this.slides_wrapper[1].style.marginLeft) {
+                this.margin_left = (parseFloat(this.slides_wrapper[1].style.marginLeft) + distance);
+            }else {
+                this.margin_left = (-165 + distance);
+            }
+            this.slides_wrapper[1].style.marginLeft = this.margin_left + '%';
+            this.draggedPosition = event.clientX;
+        }
     }
 
     dragstart(): void {
@@ -91,19 +112,29 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     dragend(): void {
         this.dragging = false;
         this.draggedPosition = null;
-        console.log(Math.abs(this.margin_left + 2.05) / 29.6 );
-        const index = Math.round(Math.abs(this.margin_left + 2.05) / 29.6 );
-        this.slides_wrapper[0].style.marginLeft = this.margin_left + '%';
-        this.selectSlide(index);
-        console.log('mouseup');
-    }*/
+        let index;
+        if (this.margin_left > 7) {
+            index = 0;
+        }else {
+            index = Math.round(Math.abs(this.margin_left + 7) / 86 );
+        }
+        if (index < 0) {
+            index = 0;
+        }
+        if (index > 6) {
+            index = 6;
+        }
+        //this.slides_wrapper[1].style.marginLeft = this.margin_left + '%';
+        this.selectSlideMobile(index);
+    }
 
     selectSlideMobile(index): void {
-        const margin_left = (-43.5 - (53 * index)) + '%';
-        for (let i = 0; i < this.slides_wrapper.length; i++) {
+        const margin_left = (7 - (86 * index)) + '%';
+        /*for (let i = 0; i < this.slides_wrapper.length; i++) {
             this.slides_wrapper[i].style.marginLeft = margin_left;
-        }
-        this.item_onfocus_index = index;
+        }*/
+        this.slides_wrapper[1].style.marginLeft = margin_left;
+        this.item_onfocus_index = index - 1;
     }
 
     selectSlide(index): void {
@@ -189,9 +220,11 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
         let margin_left = '';
         for (let i = 0; i < this.slides_wrapper.length; i++) {
             if (this.slides_wrapper[i].style.marginLeft) {
-                margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) + 53) + '%';
+                /*margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) + 53) + '%';*/
+                margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) + 86) + '%';
             }else {
-                margin_left = '-43.5%';
+                margin_left = '-79%';
+
             }
             this.slides_wrapper[i].style.marginLeft = margin_left;
         }
@@ -201,9 +234,9 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
         let margin_left = '';
         for (let i = 0; i < this.slides_wrapper.length; i++) {
             if (this.slides_wrapper[i].style.marginLeft) {
-                margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) - 53) + '%';
+                margin_left = (parseFloat(this.slides_wrapper[i].style.marginLeft) - 86) + '%';
             }else {
-                margin_left = '-149.5%';
+                margin_left = '-251%';
             }
             this.slides_wrapper[i].style.marginLeft = margin_left;
         }
