@@ -27,6 +27,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     public deviceSize: number;
     public dragging: boolean;
     public draggedPosition: number;
+    public drag_start_pos: number;
     public margin_left: number;
 
   constructor(private imageSliderCommunicationService: ImageSliderCommunicationService,
@@ -90,6 +91,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
         if (this.dragging) {
             if (!this.draggedPosition) {
                 this.draggedPosition = event.clientX;
+                this.drag_start_pos = event.clientX;
                 console.log(this.draggedPosition);
             }
             console.log(event.clientX);
@@ -110,13 +112,16 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     }
 
     dragend(): void {
-        this.dragging = false;
-        this.draggedPosition = null;
         let index;
         if (this.margin_left > 7) {
             index = 0;
         }else {
-            index = Math.round(Math.abs(this.margin_left + 7) / 86 );
+            console.log(this.margin_left);
+            if (this.draggedPosition < this.drag_start_pos) {
+                index = Math.round(Math.abs(this.margin_left - 15 /*7*/) / 86 );
+            }else {
+                index = Math.round(Math.abs(this.margin_left + 15 /*7*/) / 86 );
+            }
         }
         if (index < 0) {
             index = 0;
@@ -126,6 +131,8 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
         }
         //this.slides_wrapper[1].style.marginLeft = this.margin_left + '%';
         this.selectSlideMobile(index);
+        this.dragging = false;
+        this.draggedPosition = null;
     }
 
     selectSlideMobile(index): void {
