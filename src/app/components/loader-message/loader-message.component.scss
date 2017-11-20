@@ -12,6 +12,10 @@
   display: inline-block;
 
   .loader {
+    &:before {
+      content: '';
+      display: none !important;
+    }
     >div{
       position: relative;
       margin: 0 5px;
