@@ -11,11 +11,7 @@
   border-bottom-left-radius: 2px;
   display: inline-block;
 
-  .loader {
-    &:before {
-      content: '';
-      display: none !important;
-    }
+  .loader-m {
     >div{
       position: relative;
       margin: 0 5px;
