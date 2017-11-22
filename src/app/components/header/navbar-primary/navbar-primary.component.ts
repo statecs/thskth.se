@@ -4,7 +4,7 @@ import {MenuItem, MenuItem2} from '../../../interfaces/menu';
 import { AppConfig } from '../../../interfaces/appConfig';
 import { APP_CONFIG } from '../../../app.config';
 import { ths_chapters } from '../../../utils/ths-chapters';
-import {ActivatedRoute, Router, Params} from '@angular/router';
+import {ActivatedRoute, Router, Params, RoutesRecognized} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
@@ -118,10 +118,18 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
             if (this.router.url === '/en' || this.router.url === '/sv') {
                 url = '';
             }
-            if (this.language === 'en') {
-                this.router.navigateByUrl('/en' + url);
-            }else if (this.language === 'sv') {
-                this.router.navigateByUrl('/sv' + url);
+            if (typeof lang === 'undefined') {
+                if (url.substring(0, 4) === '/sv/') {
+                    this.router.navigateByUrl('/en/' + url.substring(4));
+                }else if (url.substring(0, 4) === '/en/') {
+                    this.router.navigateByUrl('/sv/' + url.substring(4));
+                }
+            }else {
+                if (this.language === 'en') {
+                    this.router.navigateByUrl('/en' + url);
+                }else if (this.language === 'sv') {
+                    this.router.navigateByUrl('/sv' + url);
+                }
             }
         }else {
             if (this.language === 'en') {
@@ -155,9 +163,28 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.language = this.activatedRoute.snapshot.data['lang'];
+        console.log(this.language);
+
         if (typeof this.language === 'undefined') {
-            this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+            this.paramsSubscription = this.router.events.subscribe(val => {
+                if (val instanceof RoutesRecognized) {
+                    this.language = val.state.root.firstChild.data['lang'];
+                    if (typeof this.language === 'undefined') {
+                        this.language = val.state.root.firstChild.params['lang'];
+                        console.log(this.language);
+                        if (typeof this.language === 'undefined') {
+                            this.language = 'en';
+                        }else if (this.language !== 'en' && this.language !== 'sv') {
+                            this.language = 'en';
+                        }
+                    }
+                    this.getTopLevelMenu();
+                    this.displayActualLanguage();
+                }
+            });
+            /*this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
                 this.language = params['lang'];
+                console.log(this.language);
                 if (typeof this.language === 'undefined') {
                     this.language = 'en';
                 }else if (this.language !== 'en' && this.language !== 'sv') {
@@ -165,7 +192,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
                 }
                 this.getTopLevelMenu();
                 this.displayActualLanguage();
-            });
+            });*/
         }else {
             this.getTopLevelMenu();
             this.displayActualLanguage();
