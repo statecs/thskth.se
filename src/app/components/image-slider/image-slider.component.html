@@ -22,8 +22,9 @@
       </div>
     </div>
   </div>
-  <!--<div class="slides-wrapper mobile" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">-->
-  <div class="slides-wrapper mobile" (touchstart)="dragstart()" (touchend)="dragend()">
+
+<!--  <div class="slides-wrapper mobile" (touchstart)="dragstart()" (touchend)="dragend()">-->
+  <div class="slides-wrapper mobile" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
     <div class="slide empty">
       <div class="content-container">
         <a routerLink="/news" class="more-btn">{{see_more}}</a>
