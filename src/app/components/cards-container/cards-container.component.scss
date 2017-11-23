@@ -190,6 +190,28 @@
   }
 }
 
+// ---------- Membership card ---------- //
+:host /deep/ .restrictions-card {
+  .content {
+    h2{
+      padding: 10px 0;
+      font-size: 1.7em;
+    }
+    & >p{
+      opacity: 1;
+      margin-top: 0 !important;
+      >p{
+        margin: 6px 0;
+        font-weight: 300;
+      }
+    }
+    >a{
+      opacity: 1;
+      margin-top: 10px !important;
+    }
+  }
+}
+
 :host /deep/ .one-sixth{
   video{
     max-height: 180px !important;
