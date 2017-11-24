@@ -5,7 +5,8 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
-import {HeaderCommunicationService} from "../../services/component-communicators/header-communication.service";
+import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
+import format from 'date-fns/format/index';
 
 @Component({
   selector: 'app-restaurants',
@@ -34,6 +35,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   public item_onfocus_index: number;
   public paramsSubscription: Subscription;
   public restaurantSubscription: Subscription;
+  public menuFullText: string;
 
   constructor(private restaurantService: RestaurantService,
               private activatedRoute: ActivatedRoute,
@@ -43,7 +45,10 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.slideIndex = 0;
     this.showSchedule = false;
-    this.selected_day = 'monday';
+    this.selected_day = format(new Date(), 'dddd');
+    if (this.selected_day === 'Sunday' || this.selected_day === 'Saturday' ) {
+      this.selected_day = 'Monday';
+    }
     this.item_onfocus_index = 0;
 
   }
@@ -115,23 +120,25 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
   updateDishes() {
     let day_index: number;
-    if (this.selected_day === 'monday') {
+    if (this.selected_day === 'Monday') {
       day_index = 0;
-    }else if (this.selected_day === 'tuesday') {
+    }else if (this.selected_day === 'Tuesday') {
       day_index = 1;
-    }else if (this.selected_day === 'wednesday') {
+    }else if (this.selected_day === 'Wednesday') {
       day_index = 2;
-    }else if (this.selected_day === 'thursday') {
+    }else if (this.selected_day === 'Thursday') {
       day_index = 3;
-    }else if (this.selected_day === 'friday') {
+    }else if (this.selected_day === 'Friday') {
       day_index = 4;
     }
     if (this.restaurant_index) {
       this.lunch = this.restaurants[this.restaurant_index].menu[day_index].lunch;
       this.a_la_carte = this.restaurants[this.restaurant_index].menu[day_index].a_la_carte;
+      this.menuFullText = this.restaurants[this.restaurant_index].menu[day_index].full_text;
     }else {
       this.lunch = this.restaurants[this.item_onfocus_index].menu[day_index].lunch;
       this.a_la_carte = this.restaurants[this.item_onfocus_index].menu[day_index].a_la_carte;
+      this.menuFullText = this.restaurants[this.item_onfocus_index].menu[day_index].full_text;
     }
 
   }
