@@ -148,7 +148,7 @@
             <div *ngIf="(card.one_sixth_sub_cards?.length === 0 && card.one_third_half_sub_cards?.length === 0)" (click)="card.card_primary_buttons.length != 0 || showPage(card.slug, card.window_type, card.slug_to_page)">
                 <!-- ---------- Standard card ---------- -->
                 <div *ngIf="card.card_type !== 'video-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none'}" [ngClass]="{'disabled': card.card_primary_buttons.length != 0}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
-                    <div *ngIf="card.card_type !== 'restrictions-card'" class="standard-card" [ngStyle]="changeBGColor(card)">
+                    <div *ngIf="card.card_type !== 'restrictions-card' && card.card_type !== 'nymble-card'" class="standard-card" [ngStyle]="changeBGColor(card)">
                         <div class="content">
                             <h2>{{card.title}}</h2>
                             <p [innerHTML]="card.content | cardText:50"></p>
@@ -161,6 +161,15 @@
                             <h2>{{card.title}}</h2>
                             <p [innerHTML]="card.content"></p>
                             <!--<a *ngIf="card.card_primary_buttons.length === 0" type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}}</a>-->
+                            <!--<a type="button" *ngFor="let b of card.card_primary_buttons" (click)="goToPage(b.link)">{{b.text}}</a>-->
+                        </div>
+                    </div>
+                    <div *ngIf="card.card_type === 'nymble-card'" class="standard-card restrictions-card nymble-card" [ngStyle]="changeBGColor(card)">
+                        <div class="content">
+                            <h2>{{card.title + ' - ' + getDate()}}</h2>
+                            <p *ngIf="restaurant && getDayIndex() <= 4" [innerHTML]="restaurant.menu[getDayIndex()].full_text"></p>
+                            <p *ngIf="restaurant && getDayIndex() >= 5">{{(lang === 'en' ? 'No menu' : 'Ingen meny')}}</p>
+                            <a routerLink="/restaurants">{{(lang === 'en' ? 'Menu week ' + getWeekNumber() : 'Meny vecka ' + getWeekNumber())}}</a>
                             <!--<a type="button" *ngFor="let b of card.card_primary_buttons" (click)="goToPage(b.link)">{{b.text}}</a>-->
                         </div>
                     </div>

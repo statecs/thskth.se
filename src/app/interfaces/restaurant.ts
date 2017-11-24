@@ -14,6 +14,7 @@ export interface Menu {
     weekday: string;
     lunch: DishesTime;
     a_la_carte: DishesTime;
+    full_text: string;
 }
 
 export interface Restaurant {

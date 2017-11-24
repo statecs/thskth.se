@@ -211,7 +211,17 @@
     }
   }
 }
-
+// ---------- Membership card ---------- //
+:host /deep/ .nymble-card {
+  .content {
+    color: #222;
+    >a{
+      color: #00406c;
+      border: 1px solid #00406c;
+      font-weight: 500;
+    }
+  }
+}
 :host /deep/ .one-sixth{
   video{
     max-height: 180px !important;

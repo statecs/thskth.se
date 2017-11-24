@@ -22,6 +22,15 @@ export class RestaurantService {
     }
   }
 
+  getSingleRestaurant(slug: string, lang: string): Observable<Restaurant> {
+    this.language = lang;
+    return this.http
+        .get(this.config.RESTAURANT_URL + '?_embed&slug=' + slug + '&lang=' + this.language)
+        .map((res: Response) => res.json())
+        // Cast response data to FAQ Category type
+        .map((res: any) => { return this.castPostsTo_SearchResultType(res)[0]; });
+  }
+
   getRestaurants(lang: string): Observable<Restaurant[]> {
     this.language = lang;
     return this.http
@@ -54,16 +63,25 @@ export class RestaurantService {
     const menus: Menu[] = [];
     if (data) {
       data.forEach((m) => {
+        let serving_time_l = '';
+        let serving_time_a = '';
+        if (m.lunch[0]) {
+          serving_time_l = m.lunch[0].serving_time;
+        }
+        if (m.a_la_carte[0]) {
+          serving_time_a = m.lunch[0].serving_time;
+        }
         menus.push({
           weekday: m.weekday,
           lunch: {
-            serving_time: m.lunch[0].serving_time,
-            dishes: this.castResTo_DishType(m.lunch[0].dish)
+            serving_time: serving_time_l,
+            dishes: this.castResTo_DishType(m.lunch[0])
           },
           a_la_carte: {
-            serving_time: m.a_la_carte[0].serving_time,
-            dishes: this.castResTo_DishType(m.a_la_carte[0].dish)
+            serving_time: serving_time_a,
+            dishes: this.castResTo_DishType(m.a_la_carte[0])
           },
+          full_text: m.full_text
         });
       });
     }
@@ -73,7 +91,7 @@ export class RestaurantService {
   castResTo_DishType(data) {
     const dishes: Dish[] = [];
     if (data) {
-      data.forEach((d) => {
+      data.dish.forEach((d) => {
         let image = '';
         if (d.image) {
           image = d.image.url;

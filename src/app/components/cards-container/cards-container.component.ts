@@ -13,6 +13,8 @@ import { Event } from '../../interfaces/event';
 import { ths_calendars } from '../../utils/ths-calendars';
 import {Location} from '@angular/common';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
+import {RestaurantService} from '../../services/wordpress/restaurant.service';
+import {Restaurant} from '../../interfaces/restaurant';
 
 @Component({
   selector: 'app-cards-container',
@@ -40,7 +42,10 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     public paramsSubscription: Subscription;
     public cardsSubscription: Subscription;
     public eventsSubscription: Subscription;
+    public restaurantUpdater: Subscription;
     public deviceSize: number;
+    public restaurant: Restaurant;
+    public date: Date;
 
   constructor(  private cardsService: CardsService,
                 private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
@@ -50,13 +55,15 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
                 private router: Router,
                 private location: Location,
                 private activatedRoute: ActivatedRoute,
-                private notificationBarCommunicationService: NotificationBarCommunicationService ) {
+                private notificationBarCommunicationService: NotificationBarCommunicationService,
+                private restaurantService: RestaurantService) {
       this.config = injector.get(APP_CONFIG);
       this.selected_event_category = 0;
       this.ths_calendars = ths_calendars;
       this.cardsLoaded = false;
       this.lang = activatedRoute.snapshot.data['lang'];
       this.deviceSize = window.screen.width;
+      this.date = new Date();
   }
 
     @HostListener('window:scroll', ['$event'])
@@ -175,6 +182,18 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
         return format(date, 'DD MMM YYYY') + ' at ' + format(date, 'hh:mma');
     }
 
+    getDate(): string {
+        return format(this.date, 'ddd DD/MM');
+    }
+
+    getDayIndex(): number {
+        return parseInt(format(this.date, 'd'), 10);
+    }
+
+    getWeekNumber(): string {
+        return format(this.date, 'W');
+    }
+
     switchCalendar(calendarId, index) {
       this.getCalendar(calendarId);
       this.selected_event_category = index;
@@ -190,6 +209,12 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
         });
     }
 
+    getRestaurantMenu(): void {
+      this.restaurantUpdater = this.restaurantService.getSingleRestaurant('nymble-restaurant', this.lang).subscribe(res => {
+          this.restaurant = res;
+      });
+    }
+
   ngOnInit() {
       this.selected_event_title = '';
       this.selected_event_text = '';
@@ -199,6 +224,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       });
 
       this.getCalendar(this.ths_calendars[0].calendarId);
+      this.getRestaurantMenu();
   }
 
     ngOnDestroy() {
@@ -213,6 +239,9 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
         }
         if (this.cardsUpdater) {
             this.cardsUpdater.unsubscribe();
+        }
+        if (this.restaurantUpdater) {
+            this.restaurantUpdater.unsubscribe();
         }
     }
 }
