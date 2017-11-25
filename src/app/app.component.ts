@@ -16,6 +16,7 @@ export class AppComponent {
   private scrollTop: number;
   public online: boolean = navigator.onLine;
   public no_internet: boolean;
+  public header_position: number;
 
   constructor( private appCommunicationService: AppCommunicationService,
                @Inject(DOCUMENT) private document: Document,
@@ -37,7 +38,7 @@ export class AppComponent {
           /*window.scrollTo(0, 0);*/
         }else if (arg === 'show') {
           pageStyle.position = 'relative';
-          pageStyle.top = '0';
+          pageStyle.top = this.header_position + 'px';
           const self = this;
           /*setTimeout(function () {
             window.scrollTo(0, self.scrollTop);
@@ -49,6 +50,7 @@ export class AppComponent {
       this.setTitle(title);
     });
     this.headerCommunicationService.positionHeaderObservable$.subscribe((arg) => {
+      this.header_position = arg;
       this.page.nativeElement.style.top = arg + 'px';
     });
   }
