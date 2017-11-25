@@ -114,6 +114,11 @@ const appRoutes: Routes = [
         data: { title: 'Archive' }
     },
     {
+        path: ':lang/archive/:slug',
+        component: ArchiveComponent,
+        data: { title: 'Archive' }
+    },
+    {
         path: ':lang/search',
         component: SearchComponent,
         data: { title: 'Search' }

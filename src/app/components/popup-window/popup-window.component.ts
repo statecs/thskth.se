@@ -126,7 +126,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
 
   hide_popup_window(): void {
     this.appCommunicationService.collapseScrollOnPage('show');
-    if (this.showPage) {
+    if (this.showPage || this.showArchive) {
       this.location.back();
     }
     if (this.showAssociation) {

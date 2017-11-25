@@ -9,7 +9,7 @@ import format from 'date-fns/format/index';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
-import {HeaderCommunicationService} from "../../services/component-communicators/header-communication.service";
+import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-archive',
@@ -54,6 +54,8 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   public documentsSubscription: Subscription;
   public documentsSubscription2: Subscription;
   public queryParamsSubscription: Subscription;
+  public paramsSubscription2: Subscription;
+  public slug: string;
 
   constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,
@@ -105,6 +107,11 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
   showDocumentInPopup(item): void {
     this.popupWindowCommunicationService.showArchiveInPopup(item);
+    if (this.lang === 'sv') {
+      this.location.go('sv/archive/' + item.slug);
+    }else {
+      this.location.go('en/archive/' + item.slug);
+    }
   }
 
   filterTopic(event, categoryID): void {
@@ -208,9 +215,40 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     window.open(url);
   }
 
+  getDocuments(): void {
+    this.documentsSubscription2 = this.archiveService.getDocuments(10, this.lang).subscribe(
+        (res) => {
+          this.documentsLoading = false;
+          this.documentResults = res;
+          this.latestDocuments = res;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
+  }
+
+  getArchiveBySlug(): void {
+    this.documentsSubscription2 = this.archiveService.getArchiveBySlug(this.slug, this.lang).subscribe(
+        (res) => {
+          this.popupWindowCommunicationService.showArchiveInPopup(res);
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
+  }
+
   ngOnInit() {
     this.headerCommunicationService.tranparentHeader(false);
     if (!this.pageNotFound) {
+      this.paramsSubscription2 = this.activatedRoute.params.subscribe((params: Params) => {
+        this.slug = params['slug'];
+        this.popupWindowCommunicationService.showLoader();
+        if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
+          this.getDocuments();
+          this.getArchiveBySlug();
+        }
+      });
+
       this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
         this.searchTerm = params['q'];
         if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
@@ -243,15 +281,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
         }
       }, 100);
 
-      this.documentsSubscription2 = this.archiveService.getDocuments(10, this.lang).subscribe(
-          (res) => {
-            this.documentsLoading = false;
-            this.documentResults = res;
-            this.latestDocuments = res;
-          },
-          (error) => {
-            this.notificationBarCommunicationService.send_data(error);
-          });
+      this.getDocuments();
 
       this.end_date = format(new Date(), 'YYYY-MM-DD');
     }

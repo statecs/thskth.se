@@ -23,6 +23,15 @@ export class ArchiveService {
     }
   }
 
+  getArchiveBySlug(slug: string, lang: string): Observable<Archive> {
+    this.language = lang;
+    return this.http
+        .get(this.config.ARCHIVE_URL + '?_embed&slug=' + slug + '&lang=' + this.language)
+        .map((res: Response) => res.json())
+        // Cast response data to FAQ Category type
+        .map((res: any) => { return this.castPostsTo_SearchResultType(res)[0]; });
+  }
+
   getDocuments(amount, lang: string): Observable<Archive[]> {
     this.language = lang;
     return this.http
