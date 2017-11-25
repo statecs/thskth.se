@@ -66,6 +66,7 @@ export class SupportComponent implements OnInit, OnDestroy {
     this.most_asked_faqs = [];
     this.show_single_view = false;
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+        this.pageNotFound = false;
         this.lang = params['lang'];
         this.faq_slug = params['slug'];
         if (typeof this.lang === 'undefined') {

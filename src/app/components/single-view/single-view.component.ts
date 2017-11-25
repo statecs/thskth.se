@@ -84,6 +84,7 @@ export class SingleViewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+        this.pageNotFound = false;
       if (typeof params['single_page_slug'] === 'undefined') {
           this.parent_slug = params['subpage'];
           this.slug = params['slug'];
@@ -92,6 +93,7 @@ export class SingleViewComponent implements OnInit, OnDestroy {
           this.slug = params['single_page_slug'];
       }
       this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
+          this.pageNotFound = false;
         this.lang = params2['lang'];
         if (typeof params['single_page_slug'] === 'undefined') {
           this.lang = 'en';

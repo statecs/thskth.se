@@ -46,6 +46,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     this.earliest_events = [];
     this.showCalendar = false;
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.pageNotFound = false;
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';

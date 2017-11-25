@@ -1,5 +1,5 @@
 <app-loader *ngIf="loading && !show_single_page"></app-loader>
-<div id="content-container" *ngIf="page && !loading && !show_single_page" [style.paddingTop]="(subMenu?.length !== 0 ? '125px' : '65px')">
+<div id="content-container" *ngIf="!pageNotFound && page && !loading && !show_single_page" [style.paddingTop]="(subMenu?.length !== 0 ? '125px' : '65px')">
   <div *ngIf="subMenu?.length === 0" class="larger-devices" [style.paddingTop]="'60px'"></div>
   <app-breadcrumb *ngIf="page"></app-breadcrumb>
   <div *ngIf="page" id="page">
@@ -17,6 +17,7 @@
       </div>
       <app-join-us></app-join-us>
       <app-events-card></app-events-card>
+      <app-related-links [links]="page.related_links"></app-related-links>
     </div>
     <div class="content-container">
       <div class="content" [innerHTML]="page?.content"></div>
@@ -25,6 +26,7 @@
       <div class="mobile">
         <app-join-us></app-join-us>
         <app-events-card></app-events-card>
+        <app-related-links [links]="page.related_links"></app-related-links>
       </div>
     </div>
   </div>

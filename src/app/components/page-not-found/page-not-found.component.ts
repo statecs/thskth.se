@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HeaderCommunicationService} from "../../services/component-communicators/header-communication.service";
+import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-page-not-found',

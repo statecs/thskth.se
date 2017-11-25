@@ -29,6 +29,7 @@ export class NewsComponent implements OnInit, OnDestroy {
               private titleCommunicationService: TitleCommunicationService,
               private headerCommunicationService: HeaderCommunicationService) {
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.pageNotFound = false;
       this.lang = params['lang'];
       this.slug = params['slug'];
       if (typeof this.lang === 'undefined') {

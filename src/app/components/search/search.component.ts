@@ -87,6 +87,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.parent_categories = [];
     this.most_asked_faqs = [];
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.pageNotFound = false;
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';

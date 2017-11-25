@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
 import { CookieService } from 'ngx-cookie';
-import { Page, ImageGallery, TextGallery, ImageGalleryItem, TextGalleryItem } from '../../interfaces/page';
+import {Page, ImageGallery, TextGallery, ImageGalleryItem, TextGalleryItem, RelatedLink} from '../../interfaces/page';
 
 @Injectable()
 export class PagesService {
@@ -34,6 +34,7 @@ export class PagesService {
     let header_image = '';
     let text_gallery: TextGallery;
     let image_gallery: ImageGallery;
+    let related_links: RelatedLink[];
     if (res) {
       if (res.acf.header_image) {
         header_image = res.acf.header_image.url;
@@ -44,7 +45,9 @@ export class PagesService {
       if (res.acf.ths_image_gallery) {
         image_gallery = this.castResToImageGalleryType(res);
       }
-
+      if (res.acf.related_links) {
+        related_links = this.getRelatedLinks(res);
+      }
       page = {
         name: res.title.rendered,
         slug: res.slug,
@@ -56,12 +59,22 @@ export class PagesService {
         template: res.acf.template,
         image_gallery: image_gallery,
         text_gallery: text_gallery,
+        related_links: related_links
       };
     }
     return page;
   }
 
-
+  getRelatedLinks(res) {
+    const items: RelatedLink[] = [];
+    res.acf.related_links.forEach((item) => {
+      items.push({
+        name: item.name,
+        url: item.url,
+      });
+    });
+    return items;
+  }
 
   castResToImageGalleryType(res) {
     const items: ImageGalleryItem[] = [];

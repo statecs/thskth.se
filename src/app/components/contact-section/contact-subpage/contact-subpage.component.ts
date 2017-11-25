@@ -178,6 +178,7 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
     }, 1000);
 
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.pageNotFound = false;
       this.loading = true;
       this.slug = params['slug'];
       if (typeof this.slug === 'undefined') {
@@ -185,6 +186,7 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
       }
 
       this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
+        this.pageNotFound = false;
         this.loading = true;
         this.lang = params2['lang'];
         if (typeof this.lang === 'undefined') {

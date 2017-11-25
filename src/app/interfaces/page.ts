@@ -21,6 +21,11 @@ export interface ImageGallery {
     items: ImageGalleryItem[];
 }
 
+export interface RelatedLink {
+    name: string;
+    url: string;
+}
+
 interface Header {
     header_image: string;
     header_color: string;
@@ -40,4 +45,5 @@ export interface Page {
         number_of_columns: number,
         items: TextGalleryItem[]
     };
+    related_links: RelatedLink[];
 }

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-import {HeaderCommunicationService} from "../../services/component-communicators/header-communication.service";
+import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-page-section',

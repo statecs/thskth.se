@@ -1,0 +1,4 @@
+<div id="related_links">
+  <h2 *ngIf="links.length !== 0">{{(lang === 'en' ? 'Related links' : 'Relaterade länkar')}}</h2>
+  <a *ngFor="let l of links" (click)="goToPage(l.url)">{{l.name}}</a>
+</div>

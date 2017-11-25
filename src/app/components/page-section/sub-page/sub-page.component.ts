@@ -198,15 +198,17 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
           }
         },
         (error) => {
+      console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
 
   ngOnInit() {
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.pageNotFound = false;
       this.loading = true;
       this.slug = params['subpage'];
-      console.log(params['lang']);
+      console.log(params['subpage']);
       if (typeof params['subpage'] === 'undefined') {
         this.lang = 'en';
         this.slug = params['lang'];
@@ -214,6 +216,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
         this.getPageBySlug();
       }else {
         this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
+          this.pageNotFound = false;
           if (params2['lang'] !== 'en' && params2['lang'] !== 'sv') {
             this.lang = 'en';
             if (typeof params['slug'] === 'undefined') {

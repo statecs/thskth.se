@@ -146,6 +146,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.headerCommunicationService.tranparentHeader(false);
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.pageNotFound = false;
       this.loading = true;
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {

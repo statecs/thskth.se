@@ -241,6 +241,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.headerCommunicationService.tranparentHeader(false);
     if (!this.pageNotFound) {
       this.paramsSubscription2 = this.activatedRoute.params.subscribe((params: Params) => {
+        this.pageNotFound = false;
         this.slug = params['slug'];
         this.popupWindowCommunicationService.showLoader();
         if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {

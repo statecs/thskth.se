@@ -17,6 +17,7 @@ export class LiveSectionComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute,
               private headerCommunicationService: HeaderCommunicationService) {
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.pageNotFound = false;
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
         this.lang = 'en';
