@@ -13,7 +13,7 @@
   @include container-size($main-container);
   position: relative;
   line-height: 1;
-  margin-top: 100px;
+  padding-top: 100px;
 
   .search-bar{
     height: auto;
@@ -419,7 +419,7 @@
 @include media-breakpoint-only(xs) {
   #content-container {
     width: 100%;
-    margin-top: 60px;
+    padding-top: 60px;
     .search-bar{
       height: auto;
       padding-bottom: 20px;
@@ -522,7 +522,7 @@
 @include media-breakpoint-only(sm) {
   #content-container {
     width: 100%;
-    margin-top: 60px;
+    padding-top: 60px;
     .search-bar{
       height: auto;
       padding-bottom: 20px;
@@ -625,7 +625,7 @@
 @include media-breakpoint-only(md) {
   #content-container {
     width: 100%;
-    margin-top: 60px;
+    padding-top: 60px;
     .search-bar{
       height: auto;
       padding-bottom: 20px;
