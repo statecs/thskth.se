@@ -79,7 +79,7 @@
     display: flex;
     flex: 0 1 auto;
     margin-bottom: 15px;
-    border-radius: 8px;
+    border-radius: 8px !important;
     margin-right: 1%;
     margin-left: 1%;
     height: 300px;
@@ -91,7 +91,7 @@
     }
 
     .masonry-layout_panel-content {
-      border-radius: 10px;
+      border-radius: 8px !important;
       overflow: hidden;
       background-size: 140%;
       width: 100%;
