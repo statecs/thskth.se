@@ -62,6 +62,14 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     });
   }
 
+  getBGimage(e): string {
+    if (e.imageUrl) {
+      return e.imageUrl;
+    }else {
+      return '../../../assets/images/placeholder-image.png';
+    }
+  }
+
   hide_popup_window(): void {
     this.showCalendar = false;
   }

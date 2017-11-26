@@ -23,11 +23,10 @@
     </div>
     <div class="events">
       <div *ngFor="let e of events" class="item" (click)="showInPopup(e)">
-        <div class="img-wrapper" [ngStyle]="{'background-image': 'url(' + e.imageUrl + ')'}">
+        <div class="img-wrapper" [ngStyle]="{'background-image': 'url(' + getBGimage(e) + ')'}">
           <span>
             {{formatTime(e.start, e.end)}}
           </span>
-          <img *ngIf="e.imageUrl === ''" src="../../../assets/images/placeholder-image.png" alt="No image available">
         </div>
         <div class="info">
           <h5>{{e.title}}</h5>
@@ -44,10 +43,9 @@
     </div>
     <div class="events-container">
       <div class="f_events-wrapper">
-        <div *ngFor="let e of earliest_events" class="event">
-          <div class="image-wrapper" [ngStyle]="{'background-image': 'url(' + e.imageUrl + ')'}">
+        <div *ngFor="let e of earliest_events" class="event" (click)="showInPopup(e)">
+          <div class="image-wrapper" [ngStyle]="{'background-image': 'url(' + getBGimage(e) + ')'}">
             <span class="date">{{formatDay(e.start)}}</span>
-            <img *ngIf="e.imageUrl === ''" src="../../../assets/images/placeholder-image.png" alt="No image available">
           </div>
           <div class="info">
             <h2>{{e.title}}</h2>
