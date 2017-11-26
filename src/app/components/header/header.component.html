@@ -35,7 +35,7 @@
             <app-loader *ngIf="topLevelMainMenu?.length === 0"></app-loader>
             <div *ngIf="showMenuMobile" class="menu-items">
                 <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
-                    <div class="item-wrapper">
+                    <div class="item-wrapper" [ngClass]="{'selected': showSubmenuIndex === i}">
                         <div class="label">
                             <span (click)="goToPage(item)">{{item.title}}</span>
                         </div>
@@ -51,11 +51,11 @@
                 </div>
             </div>
 
-            <div class="signin-btn"><a href="https://login.kth.se/login?service=http://thstudent.upright.se/" target="_blank">{{signin_text}}</a></div>
+            <div class="signin-btn"><a href="https://login.kth.se/login?service=http://thstudent.upright.se/" target="_blank">{{signin_text }} <i class="fa fa-lock fa-fw"></i></a></div>
 
             <div class="language" (click)="changeLanguage()">
+                <span>{{language_text}} </span>
                 <img width="25" height="17" src="{{language_img}}">
-                <span>{{language_text}}</span>
             </div>
         </div>
 
