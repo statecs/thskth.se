@@ -261,7 +261,11 @@
             .files{
               margin-top: 20px;
               .link_container{
-                display: inline-block;
+                display: block;
+                margin-bottom: 15px;
+                h5{
+                  margin: 0 0 5px;
+                }
                 .download_link{
                   padding: 5px 15px;
                   border: 1px solid gray;

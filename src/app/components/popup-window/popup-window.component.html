@@ -73,6 +73,7 @@
             <p [innerHTML]="archive?.description"></p>
             <div class="files">
               <div *ngFor="let f of archive?.documents" class="link_container">
+                <h5>{{f.filename}}</h5>
                 <div *ngIf="f.mime_type ==='pdf'" class="download_link" (click)="downloadFile(f.url)">
                   <span>PDF </span>
                   <i class="material-icons">file_download</i>
