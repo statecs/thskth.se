@@ -35,14 +35,14 @@ export class AppComponent {
           this.scrollTop = (document.body.scrollTop || window.pageYOffset);
           pageStyle.top = '-' + this.scrollTop + 'px';
           pageStyle.position = 'fixed';
-          /*window.scrollTo(0, 0);*/
+          window.scrollTo(0, 0);
         }else if (arg === 'show') {
           pageStyle.position = 'relative';
           pageStyle.top = this.header_position + 'px';
           const self = this;
-          /*setTimeout(function () {
+          setTimeout(function () {
             window.scrollTo(0, self.scrollTop);
-          }, 3);*/
+          }, 0);
         }
       }
     });
