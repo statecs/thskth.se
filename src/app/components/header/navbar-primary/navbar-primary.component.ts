@@ -123,6 +123,8 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
                     this.router.navigateByUrl('/en/' + url.substring(4));
                 }else if (url.substring(0, 4) === '/en/') {
                     this.router.navigateByUrl('/sv/' + url.substring(4));
+                }else {
+                    this.router.navigateByUrl('/sv/' + url.substring(1));
                 }
             }else {
                 if (this.language === 'en') {
