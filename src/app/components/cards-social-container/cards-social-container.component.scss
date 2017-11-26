@@ -49,6 +49,7 @@
       //height: 100%;
       box-shadow: 0 1px 5px #888888;
       margin-top: 10px;
+      background-position: center;
       .large-devices{
         display: block;
       }
@@ -208,6 +209,7 @@
     float: right;
     background-size: cover;
     color: white;
+    background-position: center;
 
     & >div{
       width: 100%;

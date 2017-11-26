@@ -57,23 +57,25 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
         if (!this.showFAQSlider) {
             if (pos > 500) {
                 this.faqCatSubscription = this.faqsService.getFAQs_OfEachCategories(1, this.lang).subscribe((faqs) => {
-                        this.showFAQSlider = true;
+                        // this.showFAQSlider = true;
                         this.textSliderCommunicationService.send_data_to_textSlider(faqs);
                     },
                     (error) => {
                         this.notificationBarCommunicationService.send_data(error);
                     });
+                this.showFAQSlider = true;
             }
         }
         if (!this.showNewsSlider) {
             if (pos > 600) {
                 this.postsSubscription = this.postsService.getPosts(5, this.lang).subscribe((posts) => {
-                        this.showNewsSlider = true;
+                        // this.showNewsSlider = true;
                         this.imageSliderCommunicationService.send_data_to_imageSlider(posts);
                     },
                     (error) => {
                         this.notificationBarCommunicationService.send_data(error);
                     });
+                this.showNewsSlider = true;
             }
         }
         if (!this.showSocialMediaCards) {
