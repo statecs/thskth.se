@@ -125,6 +125,7 @@
   }
 
   .schedule{
+    margin-top: 50px;
     .options{
       text-align: center;
       padding: 15px 0;
@@ -136,60 +137,72 @@
         margin-bottom: 5px;
       }
     }
-
-    .menu-calendar{
-      text-align: center;
-      border-bottom:1px solid gray;
-      h2{
-        float: left;
-        position: absolute;
-      }
-      div{
-        display: inline-block;
-        color: black;
-        padding: 10px 20px;
-        cursor: pointer;
-        &:hover{
+    .description{
+      width: 35%;
+      display: inline-block;
+      text-align: left;
+      padding: 0 10px;
+    }
+    .menu-wrapper {
+      width: 60%;
+      display: inline-block;
+      margin-left: 3%;
+      vertical-align: top;
+      .menu-calendar{
+        text-align: center;
+        border-bottom:1px solid gray;
+        h2{
+          float: left;
+          position: absolute;
+        }
+        div{
+          display: inline-block;
+          color: black;
+          padding: 10px 20px;
+          cursor: pointer;
+          &:hover{
+            border-bottom:4px solid gray;
+          }
+        }
+        .selected{
           border-bottom:4px solid gray;
         }
       }
-      .selected{
-        border-bottom:4px solid gray;
+
+      .menu-container{
+        @include container-size(70%);
+        overflow: hidden;
+        >h2{
+          border-bottom: 1px solid lightgray;
+        }
+        .dish{
+          width: 40%;
+          overflow: hidden;
+          display: inline-block;
+          margin: 10px 20px;
+          div{
+            display: inline-block;
+            float: left;
+          }
+          span{
+            display: inline-block;
+          }
+          .fl{
+            float: left;
+          }
+          .fr{
+            float: right;
+          }
+          img{
+            display: inline-block;
+            float: right;
+            width: 100px;
+            height: 100px;
+          }
+        }
       }
     }
 
-    .menu-container{
-      @include container-size(70%);
-      overflow: hidden;
-      >h2{
-        border-bottom: 1px solid lightgray;
-      }
-      .dish{
-        width: 40%;
-        overflow: hidden;
-        display: inline-block;
-        margin: 10px 20px;
-        div{
-          display: inline-block;
-          float: left;
-        }
-        span{
-          display: inline-block;
-        }
-        .fl{
-          float: left;
-        }
-        .fr{
-          float: right;
-        }
-        img{
-          display: inline-block;
-          float: right;
-          width: 100px;
-          height: 100px;
-        }
-      }
-    }
   }
 
   .gallery{
@@ -261,22 +274,28 @@
       }
     }
     .schedule{
-      .menu-container{
-        width: 90%;
-        .dish{
+      .description{
+        width: 100%;
+      }
+      .menu-wrapper {
+        width: 100%;
+        .menu-container{
           width: 90%;
-          h4{
-            margin: 0;
+          .dish{
+            width: 90%;
+            h4{
+              margin: 0;
+            }
           }
         }
-      }
-      .menu-calendar{
-        overflow-x: scroll;
-        >div{
-          width: 600px;
-        }
-        .selected{
-          box-shadow: 0 2px 15px rgba(0,0,0,0);
+        .menu-calendar{
+          overflow-x: scroll;
+          >div{
+            width: 600px;
+          }
+          .selected{
+            box-shadow: 0 2px 15px rgba(0,0,0,0);
+          }
         }
       }
     }
@@ -314,22 +333,28 @@
       }
     }
     .schedule{
-      .menu-container{
-        width: 90%;
-        .dish{
+      .description{
+        width: 100%;
+      }
+      .menu-wrapper {
+        width: 100%;
+        .menu-container{
           width: 90%;
-          h4{
-            margin: 0;
+          .dish{
+            width: 90%;
+            h4{
+              margin: 0;
+            }
           }
         }
-      }
-      .menu-calendar{
-        overflow-x: scroll;
-        >div{
-          width: 600px;
-        }
-        .selected{
-          box-shadow: 0 2px 15px rgba(0,0,0,0);
+        .menu-calendar{
+          overflow-x: scroll;
+          >div{
+            width: 600px;
+          }
+          .selected{
+            box-shadow: 0 2px 15px rgba(0,0,0,0);
+          }
         }
       }
     }
@@ -366,22 +391,28 @@
       }
     }
     .schedule{
-      .menu-container{
-        width: 90%;
-        .dish{
+      .description{
+        width: 100%;
+      }
+      .menu-wrapper {
+        width: 100%;
+        .menu-container{
           width: 90%;
-          h4{
-            margin: 0;
+          .dish{
+            width: 90%;
+            h4{
+              margin: 0;
+            }
           }
         }
-      }
-      .menu-calendar{
-        overflow-x: scroll;
-        >div{
-          width: 600px;
-        }
-        .selected{
-          box-shadow: 0 2px 15px rgba(0,0,0,0);
+        .menu-calendar{
+          overflow-x: scroll;
+          >div{
+            width: 600px;
+          }
+          .selected{
+            box-shadow: 0 2px 15px rgba(0,0,0,0);
+          }
         }
       }
     }
@@ -390,7 +421,15 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #restaurant {
-
+    .schedule {
+      .menu-wrapper {
+        .menu-calendar {
+          div {
+            padding: 10px 15px;
+          }
+        }
+      }
+    }
   }
 }
 // Extra large devices (large desktops, 1200px and up)
