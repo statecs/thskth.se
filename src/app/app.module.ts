@@ -102,7 +102,6 @@ import { SelectSliderComponent } from './components/select-slider/select-slider.
 import { SearchComponent } from './components/search/search.component';
 import { HeaderSliderComponent } from './components/header-slider/header-slider.component';
 import { AddLangToSlugPipe } from './pipes/add-lang-to-slug.pipe';
-import { PageNotFoundImageComponent } from './components/page-not-found/page-not-found-image/page-not-found-image.component';
 import { FeaturedFaqsComponent } from './components/featured-faqs/featured-faqs.component';
 import {NotificationBarCommunicationService} from './services/component-communicators/notification-bar-communication.service';
 import { RelatedLinksComponent } from './components/advertisements/related-links/related-links.component';
@@ -169,7 +168,6 @@ import { RelatedLinksComponent } from './components/advertisements/related-links
     HeaderSliderComponent,
     RemoveLangParamPipe,
     AddLangToSlugPipe,
-    PageNotFoundImageComponent,
     FeaturedFaqsComponent,
     RelatedLinksComponent
   ],
