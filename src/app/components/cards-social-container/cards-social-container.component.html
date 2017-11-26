@@ -1,4 +1,4 @@
-<div class="title">{{(lang === 'en' ? 'Social Media' : 'Sociala Media')}}</div>
+<a routerLink="{{lang === 'en' ? '/live' : '/sv/live'}}" class="title">{{(lang === 'en' ? 'Social Media' : 'Sociala Media')}}</a>
 <div id="cards-container" class="masonry-layout">
 
     <div *ngFor="let post of socialMediaPosts, let i = index" class="masonry-layout_panel two-fourth larger-devices">

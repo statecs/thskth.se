@@ -3,12 +3,12 @@
     <app-card-categorizer></app-card-categorizer>
     <app-cards-container></app-cards-container>
     <div class="faq-slider">
-        <div>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</div>
+        <a routerLink="{{lang === 'en' ? '/support' : '/sv/support'}}" class="title">{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</a>
         <app-loader *ngIf="!showFAQSlider"></app-loader>
         <app-text-slider *ngIf="showFAQSlider" [lang]="lang"></app-text-slider>
     </div>
     <div class="image-slider">
-        <div>{{(lang === 'en' ? 'News' : 'Nyheter')}}</div>
+        <a routerLink="{{lang === 'en' ? '/news' : '/sv/news'}}" class="title">{{(lang === 'en' ? 'News' : 'Nyheter')}}</a>
         <app-loader *ngIf="!showNewsSlider"></app-loader>
         <app-image-slider *ngIf="showNewsSlider"></app-image-slider>
     </div>
