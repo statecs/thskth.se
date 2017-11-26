@@ -6,13 +6,15 @@ import { TextSliderCommunicationService } from '../../services/component-communi
 import { FaqsService } from '../../services/wordpress/faqs.service';
 import { PostsService } from '../../services/wordpress/posts.service';
 import { ImageSliderCommunicationService } from '../../services/component-communicators/image-slider-communication.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 import { CookieService } from 'ngx-cookie';
 import {SearchMenubarCommunicationService} from '../../services/component-communicators/search-menubar-communication.service';
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
+import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
+import {PlatformLocation} from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -41,13 +43,22 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
                 private _cookieService: CookieService,
                 private searchMenubarCommunicationService: SearchMenubarCommunicationService,
                 private _changeDetectionRef: ChangeDetectorRef,
-                private headerCommunicationService: HeaderCommunicationService) {
+                private headerCommunicationService: HeaderCommunicationService,
+                private popupWindowCommunicationService: PopupWindowCommunicationService,
+                private platformLocation: PlatformLocation) {
       this.pageNotFound = false;
       this.lang = activatedRoute.snapshot.data['lang'];
       this.showGoogleMap = false;
       this.showSocialMediaCards = false;
       this.showFAQSlider = false;
       this.showNewsSlider = false;
+      platformLocation.onPopState(() => {
+          const arg = {
+              hidden: true,
+              navigateBack: false
+          };
+          this.popupWindowCommunicationService.hidePopup(arg);
+      });
   }
 
 

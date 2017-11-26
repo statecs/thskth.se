@@ -49,6 +49,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   public news: Post;
   public showNews: boolean;
   public page_location: string;
+  public navigateBack: boolean;
 
   constructor( private pagesService: PagesService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -63,6 +64,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.showFaq = false;
     this.showPage = false;
     this.loading = false;
+    this.navigateBack = true;
     this.paramsSubscription = this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
         this.lang = val.state.root.firstChild.params['lang'];
@@ -127,8 +129,11 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   hide_popup_window(): void {
     this.appCommunicationService.collapseScrollOnPage('show');
     if (this.showPage || this.showArchive) {
-      this.location.back();
+      if (this.navigateBack) {
+        this.location.back();
+      }
     }
+    this.navigateBack = true;
     if (this.showAssociation) {
       if (this.lang === 'sv') {
         this.router.navigate(['sv/associations-and-chapters']);
@@ -232,7 +237,9 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       this.show_faq_in_popup(faq);
     });
     this.popup_window_hide_updater = this.popupWindowCommunicationService.hideNotifyObservable$.subscribe((arg) => {
-      if (arg === true) {
+      console.log(arg.navigateBack);
+      if (arg.hidden === true) {
+        this.navigateBack = arg.navigateBack;
         this.hide_popup_window();
       }
     });

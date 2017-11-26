@@ -47,7 +47,7 @@ export class PopupWindowCommunicationService {
     this.faq_notify.next(faq);
   }
 
-  hidePopup(arg: boolean) {
+  hidePopup(arg: object) {
     this.hide_notify.next(arg);
   }
 

@@ -30,6 +30,8 @@ export class LiveSectionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.headerCommunicationService.tranparentHeader(false);
+
+
   }
 
   ngOnDestroy() {

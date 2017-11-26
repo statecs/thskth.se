@@ -361,7 +361,11 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
               this.getAssociations();
             }
           }
-          this.popupWindowCommunicationService.hidePopup(true);
+          const arg = {
+            hidden: true,
+            navigateBack: true
+          };
+          this.popupWindowCommunicationService.hidePopup(arg);
         }else {
           if (params['q'] && !this.pageNotFound) {
             if (this.lang === 'sv') {
