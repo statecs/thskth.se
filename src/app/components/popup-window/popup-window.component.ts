@@ -133,7 +133,6 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
         this.location.back();
       }
     }
-    this.navigateBack = true;
     if (this.showAssociation) {
       if (this.lang === 'sv') {
         this.router.navigate(['sv/associations-and-chapters']);
@@ -143,7 +142,10 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     }
     if (this.showNews) {
       if (this.page_location === 'home') {
-        this.location.back();
+        /*this.location.back();*/
+        if (this.navigateBack) {
+          this.location.back();
+        }
       }else if (this.page_location === 'news') {
         if (this.lang === 'sv') {
           this.router.navigate(['sv/news']);
@@ -158,6 +160,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
         }
       }
     }
+    this.navigateBack = true;
     this.hide_all_layouts();
     this.showPopupWindow = false;
   }
