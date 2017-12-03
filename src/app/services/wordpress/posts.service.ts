@@ -55,9 +55,15 @@ export class PostsService {
       if (p['_embedded']['wp:featuredmedia']) {
         if (p['_embedded']['wp:featuredmedia'][0]) {
           if (p['_embedded']['wp:featuredmedia'][0].media_details.sizes) {
-            image.thumbnail = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url;
-            image.medium = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
-            image.large = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.large.source_url;
+            if (p['_embedded']['wp:featuredmedia'][0].media_details.sizes.thumbnail) {
+              image.thumbnail = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url;
+            }
+            if (p['_embedded']['wp:featuredmedia'][0].media_details.sizes.medium) {
+              image.medium = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
+            }
+            if (p['_embedded']['wp:featuredmedia'][0].media_details.sizes.large) {
+              image.large = p['_embedded']['wp:featuredmedia'][0].media_details.sizes.large.source_url;
+            }
           }
         }
       }
