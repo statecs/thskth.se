@@ -6,6 +6,7 @@ import {NotificationBarCommunicationService} from '../../services/component-comm
 import {notificationMessages} from '../../utils/notification-messages';
 import {Subscription} from 'rxjs/Subscription';
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-notification-bar',
@@ -26,12 +27,14 @@ export class NotificationBarComponent implements OnInit, OnDestroy{
   constructor(private wordpressApiService: WordpressApiService,
               private router: Router,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private headerCommunicationService: HeaderCommunicationService) {
+              private headerCommunicationService: HeaderCommunicationService,
+              private cookieService: CookieService) {
     this.notificationMessages = notificationMessages;
   }
 
   closeBar(): void {
     this.notification = null;
+    this.cookieService.put('turnOffNB', 'true');
     this.headerCommunicationService.positionHeader(0);
   }
 
@@ -89,7 +92,10 @@ export class NotificationBarComponent implements OnInit, OnDestroy{
             this.lang = 'en';
           }
         }
-        this.getNotification();
+        if (this.cookieService.get('turnOffNB') !== 'true') {
+          this.getNotification();
+        }
+
       }
     });
 

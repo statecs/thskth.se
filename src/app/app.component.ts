@@ -5,6 +5,7 @@ import {Title} from '@angular/platform-browser';
 import {TitleCommunicationService} from './services/component-communicators/title-communication.service';
 import {HideUICommunicationService} from './services/component-communicators/hide-ui-communication.service';
 import {HeaderCommunicationService} from './services/component-communicators/header-communication.service';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,9 @@ export class AppComponent {
                private hideUICommunicationService: HideUICommunicationService,
                private titleService: Title,
                private titleCommunicationService: TitleCommunicationService,
-               private headerCommunicationService: HeaderCommunicationService) {
+               private headerCommunicationService: HeaderCommunicationService,
+               private _cookieService: CookieService) {
+    this._cookieService.put('turnOffNB', 'false');
     window.addEventListener('online', () => {this.online = true; });
     window.addEventListener('offline', () => {this.online = false; });
     this.checkInternet();

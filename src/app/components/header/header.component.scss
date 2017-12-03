@@ -168,7 +168,7 @@ header {
             line-height: 1.3em;
             border-top: 1px solid #ebebeb;
             .selected{
-              background-color: #f7f7f7;
+              background-color: #e7e7e7;
             }
             .item-wrapper{
               overflow: hidden;
@@ -183,12 +183,12 @@ header {
                   color: #505050 !important;
                 }
               }
-              >i{
-                float: right;
-                font-size: $font-size-default;
-                margin-top: 5px;
-                font-weight: 500;
-              }
+            }
+            i{
+              float: right;
+              font-size: $font-size-default;
+              margin-top: 5px;
+              font-weight: 500;
             }
             .sub-menu{
               background-color: #fff;
@@ -198,9 +198,22 @@ header {
               >div{
                 font-weight: 400;
                 overflow: hidden;
-                padding: 20px 5% 20px 10%;
                 line-height: 1.3em;
                 border-top: 1px solid #ebebeb;
+              }
+              .sub_item{
+                overflow: hidden;
+                padding: 20px 5% 20px 10%;
+                color: #575757;
+                display: block;
+                background-color: #f7f7f7;
+
+              }
+              .inner_sub_item{
+                overflow: hidden;
+                padding: 20px 5% 20px 15%;
+                color: #575757;
+                display: block;
               }
             }
           }
@@ -358,37 +371,56 @@ header {
           background-color: white;
           padding: 0;
           .nav-item{
-            padding: 0;
             overflow: hidden;
+            line-height: 1.3em;
+            border-top: 1px solid #ebebeb;
+            .selected{
+              background-color: #e7e7e7;
+            }
             .item-wrapper{
               overflow: hidden;
-              padding: 0 10% 10px;
+              padding: 20px 5%;
               color: #575757;
               .label{
                 display: inline-block;
                 float: left;
                 span{
-                  text-decoration: none;
-                  color: #575757;
-                  font-size: $font-size-h3;
-                  font-weight: 700;
+                  font-weight: 500;
+                  font-size: $font-size-default;
+                  color: #505050 !important;
                 }
               }
-              >i{
-                float: right;
-                font-size: $font-size-h3;
-                margin-top: 5px;
-              }
+            }
+            i{
+              float: right;
+              font-size: $font-size-default;
+              margin-top: 5px;
+              font-weight: 500;
             }
             .sub-menu{
-              background-color: #e3e3e3;
+              background-color: #fff;
               text-align: left;
-              padding: 5px 12%;
-              font-size: $font-size-h3;
+              font-size: $font-size-default;
               color: #575757;
               >div{
-                margin: 15px 0;
                 font-weight: 400;
+                overflow: hidden;
+                line-height: 1.3em;
+                border-top: 1px solid #ebebeb;
+              }
+              .sub_item{
+                overflow: hidden;
+                padding: 20px 5% 20px 10%;
+                color: #575757;
+                display: block;
+                background-color: #f7f7f7;
+
+              }
+              .inner_sub_item{
+                overflow: hidden;
+                padding: 20px 5% 20px 15%;
+                color: #575757;
+                display: block;
               }
             }
           }
@@ -536,38 +568,56 @@ header {
           background-color: white;
           padding: 0;
           .nav-item{
-            padding: 0;
             overflow: hidden;
+            line-height: 1.3em;
+            border-top: 1px solid #ebebeb;
+            .selected{
+              background-color: #e7e7e7;
+            }
             .item-wrapper{
               overflow: hidden;
-              padding: 0 10% 10px;
+              padding: 20px 5%;
               color: #575757;
               .label{
                 display: inline-block;
                 float: left;
                 span{
-                  text-decoration: none;
-                  color: #575757;
-                  font-size: $font-size-h4;
-                  font-weight: 700;
+                  font-weight: 500;
+                  font-size: $font-size-default;
+                  color: #505050 !important;
                 }
               }
-              >i{
-                float: right;
-                font-size: $font-size-h4;
-                margin-top: 5px;
-                color: #575757;
-              }
+            }
+            i{
+              float: right;
+              font-size: $font-size-default;
+              margin-top: 5px;
+              font-weight: 500;
             }
             .sub-menu{
-              background-color: #e3e3e3;
+              background-color: #fff;
               text-align: left;
-              padding: 5px 12%;
-              font-size: $font-size-h3;
+              font-size: $font-size-default;
               color: #575757;
               >div{
-                margin: 15px 0;
                 font-weight: 400;
+                overflow: hidden;
+                line-height: 1.3em;
+                border-top: 1px solid #ebebeb;
+              }
+              .sub_item{
+                overflow: hidden;
+                padding: 20px 5% 20px 10%;
+                color: #575757;
+                display: block;
+                background-color: #f7f7f7;
+
+              }
+              .inner_sub_item{
+                overflow: hidden;
+                padding: 20px 5% 20px 15%;
+                color: #575757;
+                display: block;
               }
             }
           }

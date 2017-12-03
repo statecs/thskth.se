@@ -6,7 +6,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class RemoveLangParamPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    return value.substring(0, value.length - 8);
+    let output = '';
+    if (value.substring(value.length - 9) === '/?lang=en' || value.substring(value.length - 9) === '/?lang=sv') {
+      output = value.substring(0, value.length - 9);
+    }
+    if (value.substring(value.length - 8) === '?lang=en' || value.substring(value.length - 8) === '?lang=sv') {
+      output = value.substring(0, value.length - 8);
+    }
+    return output;
   }
 
 }

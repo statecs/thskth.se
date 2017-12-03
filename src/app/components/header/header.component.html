@@ -44,8 +44,18 @@
                     </div>
                     <div *ngIf="showSubmenuIndex === i" class="sub-menu">
                         <app-loader *ngIf="subMenu.length === 0"></app-loader>
-                        <div *ngFor="let subItem of subMenu" (click)="goToPage(subItem)">
-                            {{subItem.title}}
+                        <div *ngFor="let subItem of subMenu; index as sub_i">
+                            <div class="sub_item">
+                                <span (click)="goToPage(subItem)">{{subItem.title}}</span>
+                                <i *ngIf="showSubmenuIndex2 !== sub_i" class="fa fa-plus" (click)="showSubMenu2(subItem.object_slug, sub_i)"></i>
+                                <i *ngIf="showSubmenuIndex2 === sub_i" class="fa fa-minus" (click)="hideSubMenu2(sub_i)"></i>
+                            </div>
+                            <div *ngIf="showSubmenuIndex2 === sub_i" class="sub-menu">
+                                <app-loader *ngIf="subMenu2.length === 0"></app-loader>
+                                <div class="inner_sub_item" *ngFor="let subItem2 of subMenu2; index as sub_i" (click)="goToPage(subItem2)">
+                                    {{subItem2.title}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

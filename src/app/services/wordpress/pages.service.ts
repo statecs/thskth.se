@@ -94,15 +94,22 @@ export class PagesService {
 
   castResToTextGalleryType(res) {
     const items: TextGalleryItem[] = [];
-    res.acf.ths_text_gallery[0].gallery_items.forEach((item) => {
-      items.push({
-        title: item.title,
-        url: item.url,
-        description: item.description,
+    let number_of_columns = 0;
+    if (res.acf.ths_text_gallery[0].gallery_items) {
+      res.acf.ths_text_gallery[0].gallery_items.forEach((item) => {
+        items.push({
+          title: item.title,
+          url: item.url,
+          description: item.description,
+        });
       });
-    });
+    }
+
+    if (res.acf.ths_text_gallery[0]) {
+      number_of_columns = res.acf.ths_text_gallery[0].number_of_columns;
+    }
     return {
-      number_of_columns: res.acf.ths_text_gallery[0].number_of_columns,
+      number_of_columns: number_of_columns,
       items: items,
     };
   }
