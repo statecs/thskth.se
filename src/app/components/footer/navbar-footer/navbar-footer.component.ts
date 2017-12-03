@@ -23,19 +23,20 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
   ngOnInit() {
       this.paramsSubscription = this.router.events.subscribe(val => {
           if (val instanceof RoutesRecognized) {
+              console.log("test");
               this.lang = val.state.root.firstChild.params['lang'];
               if (typeof this.lang === 'undefined') {
                   this.lang = 'en';
               }else if (this.lang !== 'en' && this.lang !== 'sv') {
                   this.lang = 'en';
               }
+              this.menusService.getMenu('footer', this.lang).subscribe(res => {
+                      this.footer_menu = res;
+                  },
+                  (error) => {
+                      this.notificationBarCommunicationService.send_data(error);
+                  });
           }
-          this.menusService.getMenu('footer', this.lang).subscribe(res => {
-                  this.footer_menu = res;
-              },
-              (error) => {
-                  this.notificationBarCommunicationService.send_data(error);
-              });
       });
   }
 
