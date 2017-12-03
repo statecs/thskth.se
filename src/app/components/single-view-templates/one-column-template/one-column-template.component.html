@@ -9,5 +9,18 @@
     <app-breadcrumb class="larger-devices"></app-breadcrumb>
     <h2 [innerHTML]="page_data.name" class="title"></h2>
     <div [innerHTML]="page_data.content" class="content"></div>
+    
+    <footer class="article-footer">
+      <dl class="dl-horizontal dl-in-article-footer">
+        <dt>Last modified</dt>
+        <dd>
+          <time datetime="{{formatDate(page_data.last_modifiled)}" class="ng-binding">{{formatDate(page_data.last_modifiled)}}</time>
+        </dd>
+
+        <dt>Responsible</dt>
+        <dd> <a href="mailto:{{page_data.author.email}}" class="ng-binding">{{page_data.author.name}}</a></dd>
+      </dl>
+    </footer>
   </div>
+
 </div>

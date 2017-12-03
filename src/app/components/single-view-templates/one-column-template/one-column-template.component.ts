@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Page } from '../../../interfaces/page';
+import format from 'date-fns/format/index';
 
 @Component({
   selector: 'app-one-column-template',
@@ -9,7 +10,12 @@ import { Page } from '../../../interfaces/page';
 export class OneColumnTemplateComponent implements OnInit {
   @Input() page_data: Page;
 
-  constructor() { }
+  formatDate(created_time): string {
+    return format(created_time, 'YYYY-MM-DD');
+  }
+ 
+  constructor() { 
+  }
 
   ngOnInit() {
   }
