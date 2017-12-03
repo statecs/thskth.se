@@ -26,7 +26,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public placeholder: string;
   public lang: string;
   public subMenu: MenuItem2[];
+  public subMenu_slug: string;
+  public subMenu2: MenuItem2[];
   private showSubmenuIndex: number;
+  private showSubmenuIndex2: number;
   private removeLangParamPipe: RemoveLangParamPipe;
   private addLangToSlugPipe: AddLangToSlugPipe;
   private hrefToSlugPipe: HrefToSlugPipe;
@@ -51,6 +54,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.showChaptersMobile = false;
     this.ths_chapters = ths_chapters;
     this.subMenu = [];
+    this.subMenu2 = [];
     this.searchTerm = '';
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
@@ -100,12 +104,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showSubMenu(id, index) {
     this.subMenu = [];
     this.showSubmenuIndex = index;
+    this.subMenu_slug = id;
     this.mainMenuSubscription = this.menusService.get_mainSubMenu(id, this.lang).subscribe((subMenu) => {
       this.subMenu = subMenu;
     },
     (error) => {
       this.notificationBarCommunicationService.send_data(error);
     });
+  }
+
+  showSubMenu2(id, index) {
+    this.subMenu2 = [];
+    this.showSubmenuIndex2 = index;
+    this.mainMenuSubscription = this.menusService.get_secondarySubMenu(this.subMenu_slug, id, this.lang).subscribe((subMenu) => {
+          this.subMenu2 = subMenu;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
   }
 
   navToSearchPage(url): void {
@@ -118,6 +134,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   hideSubMenu(i): void {
     this.showSubmenuIndex = -1;
+  }
+
+  hideSubMenu2(i): void {
+    this.showSubmenuIndex2 = -1;
   }
 
   switchLanguage() {
