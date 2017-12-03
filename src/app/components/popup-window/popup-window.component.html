@@ -31,7 +31,7 @@
             <h2 [innerHTML]="event?.title"></h2>
             <span class="time">{{formatDate(event?.start, event?.end)}}</span>
             <p class="location"><span>Location:</span> {{event?.location}}</p>
-            <p [innerHTML]="event?.description"></p>
+            <div class="text">{{event?.description}}</div>
             <br/>
             <p>Created by <span class="creator">{{event?.creator.email}}</span></p>
           </div>
