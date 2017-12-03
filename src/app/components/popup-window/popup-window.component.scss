@@ -309,6 +309,13 @@
               border-radius: 25px;
               margin-bottom: 10px;
             }
+            .email{
+              text-decoration: none;
+              color: $color-link-secondary;
+              &:hover {
+                color: $color-link-secondary-hover;
+              }
+            }
           }
         }
       }

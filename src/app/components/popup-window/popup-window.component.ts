@@ -77,6 +77,10 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     });
   }
 
+  formatDate_News(created_time): string {
+    return format(created_time, 'YYYY-MM-DD');
+  }
+
   downloadFile(url: string) {
     window.open(url);
   }

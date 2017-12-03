@@ -23,6 +23,17 @@
       <div class="content" [innerHTML]="page.content"></div>
       <app-image-gallery *ngIf="page.image_gallery" [imageGallery]="page.image_gallery"></app-image-gallery>
       <app-text-gallery *ngIf="page.text_gallery" [textGallery]="page.text_gallery"></app-text-gallery>
+      <footer class="article-footer">
+        <dl class="dl-horizontal dl-in-article-footer">
+          <dt>Last modified</dt>
+          <dd>
+            <time datetime="2017-07-27" class="ng-binding">{{formatDate(page.last_modifiled)}}</time>
+          </dd>
+
+          <dt>Responsible</dt>
+          <dd> <a href="mailto:{{page.author.email}}" class="ng-binding">{{page.author.name}}</a></dd>
+        </dl>
+      </footer>
       <div class="mobile">
         <app-join-us></app-join-us>
         <app-events-card></app-events-card>

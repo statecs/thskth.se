@@ -122,8 +122,8 @@
             <h2>Author</h2>
             <img src="{{news?.author.avatar_url.thumbnail}}">
             <p>name: <span>{{news?.author.name}}</span></p>
-            <p>email: <span>{{news?.author.email}}</span></p>
-            <p>last modified: <span>{{news?.last_modified}}</span></p>
+            <p>email: <a href="mailto:{{news?.author.email}}" class="email">{{news?.author.email}}</a></p>
+            <p>last modified: <span>{{formatDate_News(news?.last_modified)}}</span></p>
           </div>
         </div>
       </div>

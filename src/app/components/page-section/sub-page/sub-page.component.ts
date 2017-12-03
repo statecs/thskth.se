@@ -12,6 +12,7 @@ import {MenuItem2} from '../../../interfaces/menu';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 import {TitleCommunicationService} from '../../../services/component-communicators/title-communication.service';
 import {HideUICommunicationService} from '../../../services/component-communicators/hide-ui-communication.service';
+import format from 'date-fns/format/index';
 
 @Component({
   selector: 'app-sub-page',
@@ -72,6 +73,10 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
     } while ( elem = elem.offsetParent );
     return offsetTop;
   }*/
+
+  formatDate(created_time): string {
+    return format(created_time, 'YYYY-MM-DD');
+  }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {

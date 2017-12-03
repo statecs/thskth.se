@@ -74,7 +74,7 @@ export class PostsService {
         image: image,
         published_date: p.date,
         last_modified: p.modified,
-        author: this.castDataToAuthorType(p['_embedded']),
+        author: this.castDataToAuthorType(p),
       });
     });
     return posts;
@@ -82,12 +82,12 @@ export class PostsService {
 
   castDataToAuthorType(data: any): Author {
     const author: Author = {
-      name: data.author[0].name,
-      email: '',
+      name: data['_embedded'].author[0].name,
+      email: data.author.user_email,
       avatar_url: {
-        thumbnail: data.author[0].avatar_urls['24'],
-        medium: data.author[0].avatar_urls['48'],
-        large: data.author[0].avatar_urls['96'],
+        thumbnail: data['_embedded'].author[0].avatar_urls['24'],
+        medium: data['_embedded'].author[0].avatar_urls['48'],
+        large: data['_embedded'].author[0].avatar_urls['96'],
       }
     };
     if (data.length > 0) {

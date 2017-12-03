@@ -31,9 +31,15 @@ interface Header {
     header_color: string;
 }
 
+export interface Author {
+    name: string;
+    email: string;
+}
+
 export interface Page {
     name: string;
     slug: string;
+    last_modifiled: string;
     content: string;
     header: Header;
     template: string;
@@ -46,4 +52,5 @@ export interface Page {
         items: TextGalleryItem[]
     };
     related_links: RelatedLink[];
+    author: Author;
 }

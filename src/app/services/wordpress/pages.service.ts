@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces/appConfig';
 import { CookieService } from 'ngx-cookie';
-import {Page, ImageGallery, TextGallery, ImageGalleryItem, TextGalleryItem, RelatedLink} from '../../interfaces/page';
+import {Author, Page, ImageGallery, TextGallery, ImageGalleryItem, TextGalleryItem, RelatedLink} from '../../interfaces/page';
 
 @Injectable()
 export class PagesService {
@@ -35,6 +35,10 @@ export class PagesService {
     let text_gallery: TextGallery;
     let image_gallery: ImageGallery;
     let related_links: RelatedLink[];
+    let author: Author = {
+      name: '',
+      email: ''
+    };
     if (res) {
       if (res.acf.header_image) {
         header_image = res.acf.header_image.url;
@@ -48,9 +52,16 @@ export class PagesService {
       if (res.acf.related_links) {
         related_links = this.getRelatedLinks(res);
       }
+      if (res.author) {
+        author = {
+          name: res.author.display_name,
+          email: res.author.user_email
+        };
+      }
       page = {
         name: res.title.rendered,
         slug: res.slug,
+        last_modifiled: res.modified,
         content: res.content.rendered,
         header: {
           header_image: header_image,
@@ -59,7 +70,8 @@ export class PagesService {
         template: res.acf.template,
         image_gallery: image_gallery,
         text_gallery: text_gallery,
-        related_links: related_links
+        related_links: related_links,
+        author: author
       };
     }
     return page;
