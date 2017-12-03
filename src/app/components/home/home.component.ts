@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         if (!this.showGoogleMap) {
             const max = document.documentElement.scrollHeight;
-            if (pos > max - 600) {
+            if (pos > 600) {
                 this.showGoogleMap = true;
             }
         }
