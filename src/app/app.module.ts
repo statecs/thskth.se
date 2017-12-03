@@ -44,6 +44,7 @@ import { CalendarDatePipe } from './pipes/calendar-date.pipe';
 import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
 import { HrefToSlugPipe } from './pipes/href-to-slug.pipe';
 import { RemoveLangParamPipe } from './pipes/remove-lang-param.pipe';
+import { EscapeHtmlPipe } from './pipes/keep-html.pipe';
 
 // Directives
 import { AutoFocusDirective } from './directives/auto-focus.directive';
@@ -169,7 +170,8 @@ import { RelatedLinksComponent } from './components/advertisements/related-links
     RemoveLangParamPipe,
     AddLangToSlugPipe,
     FeaturedFaqsComponent,
-    RelatedLinksComponent
+    RelatedLinksComponent,
+    EscapeHtmlPipe
   ],
   imports: [
     BrowserModule,

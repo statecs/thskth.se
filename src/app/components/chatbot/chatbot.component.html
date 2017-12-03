@@ -3,7 +3,7 @@
     <ol #chatFlowList>
       <li *ngFor="let i of responses, let index = index">
         <div class="response" *ngIf="i.type === 'response'">
-          <div class="text">{{(lang === 'en' ? i.message.en : i.message.sv)}}</div>
+          <section class="text" [innerHTML]="(lang === 'en' ? i.message.en : i.message.sv) | keepHtml"></section>
           <div *ngIf="i.info && i.info !== ''" class="info">
             <span (click)="showInfo(index)">?</span>
             <div *ngIf="showedInfoIndex == index" class="info-text">
