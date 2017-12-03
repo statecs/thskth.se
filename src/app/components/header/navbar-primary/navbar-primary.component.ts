@@ -62,17 +62,29 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
             this.router.navigate([slug]);
         }else if (item.type_label === 'custom') {
             slug = item.url;
+            console.log(slug);
+
             if (slug.substring(0, 7) === 'http://' || slug.substring(0, 8) === 'https://') {
                 window.open(slug, '_blank');
             }else {
                 if (slug.substring(slug.length - 9) === '/?lang=en' || slug.substring(slug.length - 9) === '/?lang=sv') {
                     slug = this.removeLangParamPipe.transform(slug);
                 }
+                if (slug.substring(slug.length - 8) === '?lang=en' || slug.substring(slug.length - 8) === '?lang=sv') {
+                    slug = this.removeLangParamPipe.transform(slug);
+                }
                 slug = this.addLangToSlugPipe.transform(slug, this.language);
                 this.router.navigate([slug]);
             }
         }else if (item.type_label === 'association') {
-            this.router.navigate(['/' + this.language + '/associations-and-chapters/' + item.object_slug]);
+            slug = item.object_slug;
+            if (slug.substring(slug.length - 9) === '/?lang=en' || slug.substring(slug.length - 9) === '/?lang=sv') {
+                slug = this.removeLangParamPipe.transform(slug);
+            }
+            if (slug.substring(slug.length - 8) === '?lang=en' || slug.substring(slug.length - 8) === '?lang=sv') {
+                slug = this.removeLangParamPipe.transform(slug);
+            }
+            this.router.navigate(['/' + this.language + '/associations-and-chapters/' + slug]);
         }
     }
 
