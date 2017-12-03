@@ -55,7 +55,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
         let slug = '';
         if (item.type_label === 'page') {
             slug = this.hrefToSlugPipe.transform(item.url);
-            if (this.language === 'sv') {
+            if (slug.substring(slug.length - 9) === '/?lang=en' || slug.substring(slug.length - 9) === '/?lang=sv') {
                 slug = this.removeLangParamPipe.transform(slug);
             }
             slug = this.addLangToSlugPipe.transform(slug, this.language);
@@ -65,7 +65,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
             if (slug.substring(0, 7) === 'http://' || slug.substring(0, 8) === 'https://') {
                 window.open(slug, '_blank');
             }else {
-                if (this.language === 'sv') {
+                if (slug.substring(slug.length - 9) === '/?lang=en' || slug.substring(slug.length - 9) === '/?lang=sv') {
                     slug = this.removeLangParamPipe.transform(slug);
                 }
                 slug = this.addLangToSlugPipe.transform(slug, this.language);

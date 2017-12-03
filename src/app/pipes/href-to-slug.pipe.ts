@@ -6,7 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class HrefToSlugPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    return value.substring(14);
+    let output = '';
+    if (value.substring(0, 7) === 'http://') {
+      output = value.substring(14);
+    }else if (value.substring(0, 8) === 'https://') {
+      output = value.substring(15);
+    }
+    return output;
   }
 
 }
