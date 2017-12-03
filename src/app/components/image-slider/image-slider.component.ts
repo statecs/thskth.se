@@ -4,6 +4,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {Location} from '@angular/common';
+import format from 'date-fns/format/index';
 
 @Component({
   selector: 'app-image-slider',
@@ -105,6 +106,10 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
             this.slides_wrapper[1].style.marginLeft = this.margin_left + '%';
             this.draggedPosition = event.clientX;
         }
+    }
+
+    formatDate(created_time): string {
+        return format(created_time, 'DD MMM YYYY');
     }
 
     dragstart(): void {

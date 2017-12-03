@@ -42,6 +42,15 @@
         .content {
           overflow: hidden;
           padding: 20px;
+          >h2{
+            margin-bottom: 0;
+            text-align: left;
+          }
+          >h5{
+            margin-top: 10px;
+            text-align: left;
+            color: white;
+          }
           p{
             font-size: $font-size-default;
             text-align: justify;
@@ -136,6 +145,13 @@
       .slide{
         margin: 0 0.5%;
         opacity: 1;
+        .content-container{
+          .content{
+            p{
+              display: block !important;
+            }
+          }
+        }
       }
     }
   }
@@ -156,6 +172,13 @@
       .slide{
         margin: 0 0.5%;
         opacity: 1;
+        .content-container{
+          .content{
+            p{
+              display: block !important;
+            }
+          }
+        }
       }
     }
   }
@@ -192,6 +215,9 @@
             h2 {
               word-wrap: break-word;
               font-size: $font-size-h5;
+            }
+            p{
+              display: block !important;
             }
           }
         }
