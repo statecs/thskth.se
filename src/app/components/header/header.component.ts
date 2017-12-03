@@ -124,7 +124,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
   }
 
+  submitSearch(event) {
+    if (event.keyCode === 13) {
+      this.navToSearchPage('/search');
+    }
+  }
+
   navToSearchPage(url): void {
+    this.showMenuMobile = false;
     if (this.lang === 'en') {
       this.router.navigateByUrl('/en' + url + '?q=' + this.searchTerm);
     }else if (this.lang === 'sv') {

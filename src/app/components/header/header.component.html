@@ -28,7 +28,7 @@
                 <form autocomplete="off">
                     <div class="search-bar">
                         <span (click)="navToSearchPage('/search')"><i class="material-icons">search</i></span>
-                        <input placeholder="{{(lang === 'en' ? 'Search THS and beyond...' : 'Sök THS')}}" [(ngModel)]="searchTerm" name="searchInput" type="search">
+                        <input placeholder="{{(lang === 'en' ? 'Search THS and beyond...' : 'Sök THS')}}" [(ngModel)]="searchTerm" name="searchInput" type="search" (keyup)="submitSearch($event)">
                     </div>
                 </form>
             </div>
