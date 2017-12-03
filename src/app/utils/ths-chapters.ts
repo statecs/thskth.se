@@ -149,6 +149,6 @@ export const ths_chapters: any = [
             sv: 'Ingenjörssektionen Flemingsberg (IsF)',
         },
         link: 'https://www.facebook.com/isflemingsberg',
-        image: 'https://wp.kths.se/wp/wp-content/uploads/2016/08/18.png'
+        image: 'https://wp.kths.se/wp-content/uploads/2016/08/18.png'
     }
 ];
