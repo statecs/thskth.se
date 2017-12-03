@@ -4,7 +4,7 @@ import {AppConfig} from './interfaces/appConfig';
 export let APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 
 export let appConfig: AppConfig = {
-    BASE_URL: 'http://kths.se/',
+    BASE_URL: 'https://kths.se/',
     API_URL: 'https://wp.kths.se/api/wp/v2/',
     CARDS_URL: 'https://wp.kths.se/api/wp/v2/cards',
     CARD_CATEGORY_ORG: 'https://wp.kths.se/api/wp/v2/organization_type',
