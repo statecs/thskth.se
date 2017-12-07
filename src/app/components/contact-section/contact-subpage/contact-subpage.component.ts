@@ -10,6 +10,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 import {TitleCommunicationService} from '../../../services/component-communicators/title-communication.service';
 import {HideUICommunicationService} from '../../../services/component-communicators/hide-ui-communication.service';
+import format from 'date-fns/format/index';
 
 @Component({
   selector: 'app-contact-subpage',
@@ -86,6 +87,10 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
 
   hideDropdown(): void {
     this.showSubmenuBarDropdown = false;
+  }
+
+  formatDate(created_time): string {
+    return format(created_time, 'DD MMM YYYY');
   }
 
   goToPage(item): void {
