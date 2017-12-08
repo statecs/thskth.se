@@ -6,9 +6,10 @@ nav {
   position: relative;
   display: inline-block;
 
-  a {
+  .link {
     text-decoration: none;
     color: $color-white;
+    cursor: pointer;
     &:hover{
       text-decoration: underline;
     }

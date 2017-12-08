@@ -4,6 +4,9 @@ import {MenusService} from '../../../services/wordpress/menus.service';
 import {Router, RoutesRecognized} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
+import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
+import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
+import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 
 @Component({
   selector: 'app-navbar-footer',
@@ -14,16 +17,34 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
 
   public footer_menu: MenuItem[];
   private lang: string;
-    public paramsSubscription: Subscription;
+  public paramsSubscription: Subscription;
+  private removeLangParamPipe: RemoveLangParamPipe;
+  private addLangToSlugPipe: AddLangToSlugPipe;
+  private hrefToSlugPipe: HrefToSlugPipe;
 
   constructor( private menusService: MenusService, private router: Router,
                private notificationBarCommunicationService: NotificationBarCommunicationService) {
+      this.removeLangParamPipe = new RemoveLangParamPipe();
+      this.addLangToSlugPipe = new AddLangToSlugPipe();
+      this.hrefToSlugPipe = new HrefToSlugPipe();
   }
+
+    goToPage(item): void {
+        let slug = item.url;
+        console.log(item);
+        if (slug.substring(slug.length - 9) === '/?lang=en' || slug.substring(slug.length - 9) === '/?lang=sv') {
+            slug = this.removeLangParamPipe.transform(slug);
+        }
+        if (slug.substring(slug.length - 8) === '?lang=en' || slug.substring(slug.length - 8) === '?lang=sv') {
+            slug = this.removeLangParamPipe.transform(slug);
+        }
+        slug = this.addLangToSlugPipe.transform(slug, this.lang);
+        this.router.navigate([slug]);
+    }
 
   ngOnInit() {
       this.paramsSubscription = this.router.events.subscribe(val => {
           if (val instanceof RoutesRecognized) {
-              console.log("test");
               this.lang = val.state.root.firstChild.params['lang'];
               if (typeof this.lang === 'undefined') {
                   this.lang = 'en';
