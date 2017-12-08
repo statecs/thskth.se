@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
+import {HeaderCommunicationService} from '../../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-navbar-footer',
@@ -23,7 +24,8 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
   private hrefToSlugPipe: HrefToSlugPipe;
 
   constructor( private menusService: MenusService, private router: Router,
-               private notificationBarCommunicationService: NotificationBarCommunicationService) {
+               private notificationBarCommunicationService: NotificationBarCommunicationService,
+               private headerCommunicationService: HeaderCommunicationService) {
       this.removeLangParamPipe = new RemoveLangParamPipe();
       this.addLangToSlugPipe = new AddLangToSlugPipe();
       this.hrefToSlugPipe = new HrefToSlugPipe();
@@ -40,6 +42,7 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
         }
         slug = this.addLangToSlugPipe.transform(slug, this.lang);
         this.router.navigate([slug]);
+        this.headerCommunicationService.hideMenu();
     }
 
   ngOnInit() {

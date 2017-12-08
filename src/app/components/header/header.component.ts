@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public mainMenuSubscription: Subscription;
   public topLevelMenuSubscription: Subscription;
   public headerSubscription: Subscription;
+  public menuSubscription: Subscription;
   public searchTerm: string;
   public language_img: string;
   public signin_text: string;
@@ -279,6 +280,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.menuSubscription = this.headerCommunicationService.menuObservable$.subscribe(() => {
+        this.showMenuMobile = false;
+    });
+
   }
 
   ngOnDestroy() {
@@ -293,6 +298,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     if (this.headerSubscription) {
       this.headerSubscription.unsubscribe();
+    }
+    if (this.menuSubscription) {
+      this.menuSubscription.unsubscribe();
     }
   }
 
