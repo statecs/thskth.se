@@ -179,7 +179,7 @@ export class SupportComponent implements OnInit, OnDestroy {
     }
 
   getFAQs_ByParentCategory(parentId): void {
-    this.faqsService.getSubMenus_ByParentCategory(parentId).subscribe((faq_subMenus) => {
+    this.faqsService.getSubMenus_ByParentCategory(parentId, this.lang).subscribe((faq_subMenus) => {
             this.faq_subMenus = faq_subMenus;
             this.getFAQs_ByCategoryID(parentId);
         },

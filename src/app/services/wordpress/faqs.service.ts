@@ -93,7 +93,8 @@ export class FaqsService {
   }
 
   // Get FAQs by parent categories
-  getSubMenus_ByParentCategory(catID): Observable<FAQSubMenu[]> {
+  getSubMenus_ByParentCategory(catID, lang): Observable<FAQSubMenu[]> {
+    this.language = lang;
     return this.getFAQChildCategories(catID).flatMap((child_categories) => {
       if (child_categories.length !== 0) {
         return this.http
@@ -120,7 +121,7 @@ export class FaqsService {
   // Get FAQ Child Categories
   getFAQChildCategories(parentID): Observable<FAQCategory[]> {
     return this.http
-        .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=' + parentID)
+        .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=' + parentID + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => { return this.castDataToFAQSubMenuType(res); });
