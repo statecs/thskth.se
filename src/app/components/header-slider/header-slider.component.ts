@@ -25,7 +25,7 @@ export class HeaderSliderComponent implements OnInit {
     if (this.slideIndex < 0) {
       this.slideIndex = 0;
     }
-    this.slides[this.slideIndex + 1].style.left = '-101%';
+    this.slides[this.slideIndex + 1].style.left = '101%';
     this.showActualSlide();
   }
 
@@ -41,7 +41,7 @@ export class HeaderSliderComponent implements OnInit {
     if (this.slideIndex >= this.slides.length) {
       this.slideIndex = this.slides.length - 1;
     }
-    this.slides[this.slideIndex - 1].style.left = '101%';
+    this.slides[this.slideIndex - 1].style.left = '-101%';
     this.showActualSlide();
   }
 
