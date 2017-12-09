@@ -367,12 +367,20 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     }
 
   addItemToChatFlow(event, index) {
+      if (this.responses.length === 0) {
+          this.chatFlowContainer.nativeElement.style.minHeight = '300px';
+      }
     const rect = this.chatFlowList.nativeElement.lastElementChild;
     let top: number;
     let height: number;
     if (rect !== 'undefined') {
-      top = rect.offsetTop;
-      height = rect.getElementsByClassName('response')[0].offsetHeight;
+        if (rect === null) {
+            top = 0;
+            height = 0;
+        }else {
+            top = rect.offsetTop;
+            height = rect.getElementsByClassName('response')[0].offsetHeight;
+        }
     }else {
       top = 15;
       height = 0;
@@ -412,11 +420,12 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     }
 
     initChatflow(): void {
-        this.responses = [{
+        /*this.responses = [{
             message: this.chatFlow[0].message,
             info: this.chatFlow[0].info,
             type: 'response'
-        }];
+        }];*/
+        this.responses = [];
         this.user_inputs = this.chatFlow[0].user_input;
     }
 
