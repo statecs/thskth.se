@@ -58,6 +58,9 @@
           }
         }
       }
+      .sendToBack{
+        z-index: -1;
+      }
       .resultsDropdownList{
         position: absolute;
         left: 0;
@@ -69,7 +72,6 @@
         box-shadow: 0 15px 30px rgba(0,0,0,0.25);
         text-align: left;
         padding: 10px 20px;
-        z-index: 1;
         .section{
           >h3{
             border-bottom: 1px solid lightgray;
@@ -109,6 +111,13 @@
                 &:hover{
                   color: $color-link-hover;
                 }
+              }
+              span{
+                display: block;
+                text-decoration: none;
+                color: #1b8ba8;
+                margin-bottom: 10px;
+                line-height: 1;
               }
               .img-wrapper{
                 width: 100%;

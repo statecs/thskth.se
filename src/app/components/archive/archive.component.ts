@@ -56,6 +56,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   public queryParamsSubscription: Subscription;
   public paramsSubscription2: Subscription;
   public slug: string;
+  public showMostSearchTerms: boolean;
 
   constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,
@@ -77,6 +78,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.documentResults = [];
     this.searchResults = [];
     this.latestDocuments = [];
+    this.showMostSearchTerms = true;
     this.showResultsDropdown = false;
     this.documentsLoading = true;
     this.showResults = false;
@@ -156,18 +158,37 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
   submitSearch(): void {
     this.showResultsDropdown = false;
+    this.showMostSearchTerms = true;
     this.showResults = true;
     this.showFilters = true;
     this.documentResults = this.searchResults;
+    this.searchResults = [];
   }
 
   liveSearch(event): void {
-    if (event.keyCode !== 13) {
-      this.documentsLoading = true;
-      this.showResultsDropdown = true;
+    this.documentsLoading = true;
+    if (event.keyCode !== 13 && this.searchTerm !== '') {
+      this.searchResults = [];
+      this.showMostSearchTerms = false;
+      const self = this;
+      const timer = setTimeout(function () {
+        self.showResultsDropdown = true;
+        clearTimeout(timer);
+      }, 50);
       this.showFilters = false;
       this.showResults = false;
       this.search();
+    }
+    if (this.searchTerm === '') {
+      this.searchResults = [];
+      this.showMostSearchTerms = true;
+      if (this.lang === 'sv') {
+        this.location.go('sv/archive?q=');
+      }else {
+        this.location.go('en/archive?q=');
+      }
+      this.documentsLoading = false;
+      this.showResultsDropdown = false;
     }
   }
 
@@ -184,6 +205,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
 
   searchDocuments(): void {
+    this.searchResults = [];
     const searchParams: SearchParams = {
       searchTerm: this.searchTerm,
       categoryID: this.categoryID,
@@ -192,7 +214,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     };
     this.documentsSubscription = this.archiveService.searchDocuments(searchParams, this.lang).subscribe(
         (res) => {
+          console.log(res);
           this.documentsLoading = false;
+          this.searchResults = [];
           this.searchResults = res;
         },
         (error) => {
@@ -201,8 +225,10 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
 
   selectTerm(term): void {
+    this.searchResults = [];
     this.searchTerm = term;
     this.search();
+    this.showMostSearchTerms = false;
     this.showResultsDropdown = true;
     this.showFilters = false;
   }
@@ -276,6 +302,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
               }
               self.showFilters = true;
               self.showResults = false;
+              self.showMostSearchTerms = true;
               self.documentResults = self.latestDocuments;
             }
           });

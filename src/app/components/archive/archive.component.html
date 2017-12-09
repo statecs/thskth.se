@@ -10,17 +10,17 @@
         <div class="section">
           <div *ngFor="let d of searchResults" class="item">
             <div class="left-content">
-              <a *ngFor="let c of d.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
+              <span *ngFor="let c of d.categories">{{c.name}}</span>
             </div>
             <div class="right-content">
-              <h4 (click)="goToPage(d.link)">{{d.title}}</h4>
+              <h4 (click)="showDocumentInPopup(d)">{{d.title}}</h4>
             </div>
           </div>
           <p *ngIf="documentsLoading">{{lang === 'en'? 'Loading' : 'Laddar'}}...</p>
           <p *ngIf="!documentsLoading && searchResults.length === 0" class="notResult">{{lang === 'en'? 'No documents found for' : 'Inga dokument hittades för'}} "{{searchTerm}}"!</p>
         </div>
       </div>
-      <div class="mostSearchTerms">
+      <div class="mostSearchTerms" [ngClass]="{'sendToBack': !showMostSearchTerms}">
         <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
       </div>
     </form>
