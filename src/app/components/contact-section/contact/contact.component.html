@@ -11,7 +11,7 @@
     <div class="content-container">
       <app-chatbot></app-chatbot>
       <div class="divider"></div>
-      <app-featured-faqs></app-featured-faqs>
+      <app-featured-faqs [lang]="lang"></app-featured-faqs>
       <div class="divider"></div>
       <div class="submenu-bar">
         <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m)" class="submenu-item">

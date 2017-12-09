@@ -57,6 +57,11 @@
     .slides-wrapper{
       transition: margin 0.5s ease;
     }
+    .item{
+      h2{
+        font-size: $font-size-h5;
+      }
+    }
   }
 }
 
@@ -73,6 +78,11 @@
     .slides-wrapper{
       transition: margin 0.5s ease;
     }
+    .item{
+      h2{
+        font-size: $font-size-h5;
+      }
+    }
   }
 }
 // Medium devices (tablets, 768px and up)
@@ -87,6 +97,11 @@
     }
     .slides-wrapper{
       transition: margin 0.5s ease;
+    }
+    .item{
+      h2{
+        font-size: $font-size-h5;
+      }
     }
   }
 }
