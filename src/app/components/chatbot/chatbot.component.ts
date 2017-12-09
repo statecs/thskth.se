@@ -41,15 +41,21 @@ export class ChatbotComponent implements OnInit, OnDestroy {
               this.lang = 'en';
           }
       });
+
+
+
+      this.messages.welcome_en = "Hey, Nice to meet you!. What do you want help with?";
+      this.messages.welcome_sv = "Hej trevligt att träffas!. Vad vill du ha hjälp med?"
+
     this.chatFlow = [
       {
         message: {
-            en: 'Hey, Nice to meet you!. What do you want help with?',
-            sv: 'Hej trevligt att träffas!. Vad vill du ha hjälp med?'
+            en: this.messages.welcome_en,
+            sv: this.messages.welcome_sv
         },
         info: {
-            en: 'This is welcome message info!',
-            sv: 'Detta är välkommen meddelande information!'
+            en: 'This is welcome message!',
+            sv: 'Detta är välkomstmeddelande!'
         },
         type: 'response',
         user_input: [
@@ -62,8 +68,8 @@ export class ChatbotComponent implements OnInit, OnDestroy {
             response:
               {
                 message: {
-                    en: 'Great! Was it helpful?',
-                    sv: 'Bra! Var det till hjälp?'
+                    en: 'Great! Was kind of help do you need?',
+                    sv: 'Bra! Var är det du vill ha hjälp med?'
                 },
                 info: {
                     en: 'We would be appreciated to get feedback from you.',
@@ -73,15 +79,32 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                 user_input: [
                   {
                     message: {
-                        en: this.messages.three.en,
-                        sv: this.messages.three.sv
+                        en: 'Study support',
+                        sv: 'Study support'
                     },
                     type: 'user',
                     response:
                       {
                         message: {
-                            en: this.messages.one.en,
-                            sv: this.messages.one.sv
+                            en: 'We understand! Here comes some contact info:   <input type="email" id="email" [(ngModel)]="email" name="email" required>',
+                            sv: "VI förstår din situation! Här följer kontaktinformation",
+                        },
+                        info: null,
+                        type: 'response',
+                      }
+                  },
+                  
+                  {
+                    message: {
+                        en: "Report Harassments",
+                        sv: "Rapportera trakasserier",
+                    },
+                    type: 'user',
+                    response:
+                      {
+                        message: {
+                            en: "Ok! Here comes some contact info: <img src='https://wp.kths.se/wp-content/uploads/2016/08/2.png'>",
+                            sv: "Ok! Här följer lite kontaktinformation <img src='https://wp.kths.se/wp-content/uploads/2016/08/2.png'>"
                         },
                         info: null,
                         type: 'response',
@@ -89,14 +112,14 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                   },
                   {
                     message: {
-                        en: this.messages.four.en,
+                        en: "Great! Was it helpful?3",
                         sv: this.messages.four.sv
                     },
                     type: 'user',
                     response:
                       {
                         message: {
-                            en: this.messages.two.en,
+                            en: "Great! Was it helpful?3",
                             sv: this.messages.two.sv
                         },
                         info: null,
@@ -328,6 +351,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       }
     ];
   }
+  
 
     resetChatbot(): void {
         this.initChatflow();
