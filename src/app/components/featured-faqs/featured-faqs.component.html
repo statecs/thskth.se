@@ -1,6 +1,6 @@
 <div class="featured-faqs">
   <div class="larger-devices">
-    <div *ngFor="let item of most_asked_faqs" class="item">
+    <div *ngFor="let item of most_asked_faqs" class="item" (click)="showInPopup(item)">
       <h2>{{item.question}}</h2>
       <div>
         <p [innerHTML]="item.answer | cardText:100"></p>
