@@ -333,7 +333,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           });
         }
       }, 100);
-      
+
       if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
         this.getDocuments();
       }

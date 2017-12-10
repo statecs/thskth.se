@@ -85,6 +85,7 @@
     height: 300px;
     position: relative;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;
+    overflow: hidden;
 
     .noLink{
       cursor: default !important;
