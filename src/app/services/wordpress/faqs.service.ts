@@ -98,7 +98,7 @@ export class FaqsService {
     return this.getFAQChildCategories(catID).flatMap((child_categories) => {
       if (child_categories.length !== 0) {
         return this.http
-            .get(this.config.FAQs_URL + '?order=asc&per_page=100&faq_category=' + catID)
+            .get(this.config.FAQs_URL + '?order=asc&per_page=100&faq_category=' + catID + '&lang=' + this.language)
             .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: Array<any>) => { return this.castFAQsToChildCategories(res, child_categories, ''); });

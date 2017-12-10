@@ -42,7 +42,6 @@ export class ArchiveService {
   }
 
   searchDocuments(searchParams: SearchParams, lang: string): Observable<Archive[]> {
-    console.log("test");
     this.language = lang;
     let params = '';
     if (searchParams.categoryID !== 0) {

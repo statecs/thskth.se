@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { Event } from '../../interfaces/event';
 
 @Injectable()
 export class TextSliderCommunicationService {
