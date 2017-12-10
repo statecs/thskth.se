@@ -36,7 +36,7 @@ export class SocialMediaPostService {
   fetchFacebookPosts(): Observable<SocialMediaPost[]> {
     this.facebook_posts = [];
     return this.http
-        .get(this.config.FACEBOOK_POST_URL)
+        .get(this.config.FACEBOOK_POST_URL + '?lang=en')
         .map((res: Response) => res.json())
         // Cast response data to SocialMediaPost type
         .map((res: any) => {
@@ -50,7 +50,7 @@ export class SocialMediaPostService {
   fetchInstagramPosts(): Observable<SocialMediaPost[]> {
     this.instagram_posts = [];
     return this.http
-        .get(this.config.INSTAGRAM_POST_URL)
+        .get(this.config.INSTAGRAM_POST_URL + '?lang=en')
         .map((res: Response) => res.json())
         // Cast response data to SocialMediaPost type
         .map((res: any) => {
