@@ -6,7 +6,7 @@
     <i class="material-icons">keyboard_arrow_down</i>
       <div class="dropdown-container">
           <div class="dropdown-list">
-              <div *ngFor="let c of pro_cats" class="dropdown-item" (click)="updateFiltering('profession', $event, c.id)">{{c.name}}</div>
+              <div *ngFor="let c of pro_cats, let i = index" class="dropdown-item" [ngClass]="{'selected-item': prof_selectedIndex === i}" (click)="updateFiltering('profession', $event, c.id, i)">{{c.name}}</div>
           </div>
       </div>
   </div>
@@ -22,7 +22,7 @@
     <i class="material-icons">keyboard_arrow_down</i>
       <div class="dropdown-container">
           <div class="dropdown-list">
-              <div *ngFor="let c of int_cats" class="dropdown-item" (click)="updateFiltering('interest', $event, c.id)">{{c.name}}</div>
+              <div *ngFor="let c of int_cats, let i = index" class="dropdown-item" [ngClass]="{'selected-item': inter_selectedIndex === i}" (click)="updateFiltering('interest', $event, c.id, i)">{{c.name}}</div>
           </div>
       </div>
   </div>

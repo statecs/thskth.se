@@ -42,6 +42,8 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
   public paramsSubscription: Subscription;
   public hideUISubscription: Subscription;
   public infoBoxClickCount: number;
+  public prof_selectedIndex: number;
+  public inter_selectedIndex: number;
 
   constructor(private cardCategorizerCardContainerService: CardCategorizerCardContainerService,
               private injector: Injector,
@@ -55,6 +57,8 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.cards_filter = this._cookieService.getObject('cards_filter');
     this.lang = route.snapshot.data['lang'];
     this.infoBoxClickCount = 0;
+    this.prof_selectedIndex = 0;
+    this.inter_selectedIndex = 0;
   }
 
 /*  @HostListener('window:scroll', ['$event'])
@@ -103,14 +107,16 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  updateFiltering(type, e, id): void {
+  updateFiltering(type, e, id, index): void {
     const el = e.target;
     if (type === 'profession') {
       this.selected_profession = id;
       this.selected_profession_name = el.innerHTML;
+      this.prof_selectedIndex = index;
     }else if (type === 'interest') {
       this.selected_interest = id;
       this.selected_interest_name = el.innerHTML;
+      this.inter_selectedIndex = index;
     }
     this.updateCardsContainer();
   }

@@ -54,13 +54,13 @@
           padding: 10px 20px;
           background-color: white;
           border-bottom: 1px solid lightgray;
+          border-left: 3px solid lightgray;
 
           &:hover{background-color: #e7eef3;}
 
           &:first-child {
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
-            border-left: 3px solid #1485d2;
           }
 
           &:last-child {
@@ -68,6 +68,9 @@
             border-bottom-left-radius: 5px;
             border-bottom-right-radius: 5px;
           }
+        }
+        .selected-item {
+          border-left: 3px solid #1485d2;
         }
       }
     }
