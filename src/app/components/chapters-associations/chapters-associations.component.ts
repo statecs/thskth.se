@@ -236,7 +236,9 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
 
   getChapters(): void {
     this.documentsLoading = true;
+    this.showChapters = true;
     this.chaptersSubscription2 = this.chaptersAssociationsService.getChapters(this.lang).subscribe((res) => {
+      console.log(res);
           this.chapterResults = res;
           this.checkResults();
         },
@@ -344,13 +346,13 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         this.popupWindowCommunicationService.showLoader();
         if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
           if (this.cookieService.get('selectedFilter') === 'chapters') {
-            this.displayChapters();
+            this.getChapters();
           }else {
             this.getAssociations();
           }
           const self = this;
           const timer = setInterval(function () {
-            if (self.career_associations.length > 0) {
+            if (self.career_associations.length > 0 || self.chapterResults.length > 0 ) {
               clearInterval(timer);
               self.getPostBySlug();
             }
@@ -362,13 +364,14 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         if (this.slug === 'undefined' || typeof this.slug === 'undefined') {
           this.item_exist = true;
           this.searchTerm = params['q'];
-          if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
+          if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined' && this.searchTerm !== '') {
             this.submitSearch();
           }else {
-            if (this.associations[0].associations.length === 0) {
-              if (this.cookieService.get('selectedFilter') === 'chapters') {
-                this.displayChapters();
-              }else {
+            if (this.cookieService.get('selectedFilter') === 'chapters') {
+              this.displayChapters();
+              this.getChapters();
+            }else {
+              if (this.associations[0].associations.length === 0) {
                 this.getAssociations();
               }
             }
@@ -404,6 +407,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
               self.showAssociations = true;
               if (this.cookieService.get('selectedFilter') === 'chapters') {
                 this.displayChapters();
+                this.getChapters();
               }else {
                 this.getAssociations();
               }

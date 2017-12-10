@@ -106,10 +106,10 @@ export class ChaptersAssociationsService {
     castPostsTo_ChapterType(data: any) {
         const chapters: Chapter[] = [];
         data.forEach(c => {
-            /*let image = '';
+            let image = '';
             if (c._embedded) {
                 image = c._embedded['wp:featuredmedia'][0].source_url;
-            }*/
+            }
             chapters.push({
                 title: c.title.rendered,
                 description: c.content.rendered,
@@ -117,7 +117,11 @@ export class ChaptersAssociationsService {
                 website: c.acf.website_url,
                 section_local: c.acf.section_local,
                 slug: c.slug,
-                header_slides: this.getHeaderSlides(c.acf.slides)
+                header_slides: [
+                    {
+                        imageUrl: image
+                    }
+                ]
             });
         });
         return chapters;

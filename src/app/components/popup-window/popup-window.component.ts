@@ -200,6 +200,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       items: arg.relatedAssociations,
       displayed_item: arg.association
     };
+    console.log(arg);
     this.show_popup_window();
   }
 
@@ -232,6 +233,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       this.show_event_in_popup(event);
     });
     this.popup_window_association_updater = this.popupWindowCommunicationService.associationNotifyObservable$.subscribe((arg) => {
+      console.log(arg);
       this.loading = false;
       this.show_association_in_popup(arg);
     });
