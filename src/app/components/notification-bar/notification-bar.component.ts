@@ -65,12 +65,10 @@ export class NotificationBarComponent implements OnInit, OnDestroy{
   getNotification() {
     this.notificationSubscription = this.wordpressApiService.getNotification(this.lang).subscribe(
         (res) => {
-          console.log(res);
           this.notification = res;
           const self = this;
           setTimeout(function () {
             const barHeight = self.bar.nativeElement.clientHeight;
-            console.log(barHeight);
             self.bar.nativeElement.style.top = 0;
             self.headerCommunicationService.positionHeader(barHeight);
           }, 200);

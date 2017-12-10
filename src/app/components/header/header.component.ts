@@ -203,7 +203,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.router.navigate([slug]);
     }else if (item.type_label === 'custom') {
       slug = item.url;
-      console.log(slug);
 
       if (slug.substring(0, 7) === 'http://' || slug.substring(0, 8) === 'https://') {
         window.open(slug, '_blank');

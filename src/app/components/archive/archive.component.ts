@@ -253,7 +253,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           this.latestDocuments = res;
         },
         (error) => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }

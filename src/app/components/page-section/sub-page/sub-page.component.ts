@@ -87,12 +87,10 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
     const pos = (document.documentElement.scrollTop || document.body.scrollTop);
     if (pos >= this.submenu_bar_pos) {
       if (!this.freeze_submenu_bar) {
-        console.log('pass');
         this.freeze_submenu_bar = true;
       }
     } else {
       if (this.freeze_submenu_bar) {
-        console.log('pass');
         this.freeze_submenu_bar = false;
       }
     }
@@ -108,7 +106,6 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
 /*  goToPage(slug): void {
-    console.log(slug);
     if (slug.indexOf('http://') === 0 || slug.indexOf('https://') === 0 || slug.indexOf('www.') === 0) {
       window.open(slug, '_black');
     }else {
@@ -131,7 +128,6 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
       this.router.navigate([slug]);
     }else if (item.type_label === 'custom') {
       slug = item.url;
-      console.log(slug);
 
       if (slug.substring(0, 7) === 'http://' || slug.substring(0, 8) === 'https://') {
         window.open(slug, '_blank');
@@ -158,10 +154,8 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   getSecondarySubMenu() {
-    console.log(this.slug);
     this.secondaryMenuSubscription = this.menusService.get_secondarySubMenu(this.parent_slug, this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
-          console.log(this.subMenu);
         },
         (error) => {
           this.notificationBarCommunicationService.send_data(error);
@@ -169,7 +163,6 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   getSubmenu() {
-    console.log(this.slug);
     this.mainMenuSubscription = this.menusService.get_mainSubMenu(this.slug, this.lang).subscribe((submenu) => {
           this.subMenu = submenu;
         },
@@ -180,7 +173,6 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
 
   getParentPageBySlug() {
     this.pageSubscription = this.pagesService.getPageBySlug(this.parent_slug, this.lang).subscribe((page) => {
-          console.log(page);
           if (page) {
             this.getPageBySlug();
           }else {
@@ -194,10 +186,8 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   getPageBySlug() {
-    console.log(this.slug + this.lang);
     this.pageSubscription = this.pagesService.getPageBySlug(this.slug, this.lang).subscribe((page) => {
           this.loading = false;
-          console.log(page);
           if (page) {
             this.page = page;
             this.titleCommunicationService.setTitle(page.name);
@@ -211,7 +201,6 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
           }
         },
         (error) => {
-      console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -221,7 +210,6 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
       this.pageNotFound = false;
       this.loading = true;
       this.slug = params['subpage'];
-      console.log(params['subpage']);
       if (typeof params['subpage'] === 'undefined') {
         this.lang = 'en';
         this.slug = params['lang'];

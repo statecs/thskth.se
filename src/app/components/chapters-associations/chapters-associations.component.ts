@@ -240,7 +240,6 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.documentsLoading = true;
     this.showChapters = true;
     this.chaptersSubscription2 = this.chaptersAssociationsService.getChapters(this.lang).subscribe((res) => {
-      console.log(res);
           this.chapterResults = res;
           this.checkResults();
         },

@@ -62,7 +62,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
             this.router.navigate([slug]);
         }else if (item.type_label === 'custom') {
             slug = item.url;
-            console.log(slug);
 
             if (slug.substring(0, 7) === 'http://' || slug.substring(0, 8) === 'https://') {
                 window.open(slug, '_blank');
@@ -177,7 +176,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.language = this.activatedRoute.snapshot.data['lang'];
-        console.log(this.language);
 
         if (typeof this.language === 'undefined') {
             this.paramsSubscription = this.router.events.subscribe(val => {
@@ -185,7 +183,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
                     this.language = val.state.root.firstChild.data['lang'];
                     if (typeof this.language === 'undefined') {
                         this.language = val.state.root.firstChild.params['lang'];
-                        console.log(this.language);
                         if (typeof this.language === 'undefined') {
                             this.language = 'en';
                         }else if (this.language !== 'en' && this.language !== 'sv') {
@@ -198,7 +195,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
             });
             /*this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
                 this.language = params['lang'];
-                console.log(this.language);
                 if (typeof this.language === 'undefined') {
                     this.language = 'en';
                 }else if (this.language !== 'en' && this.language !== 'sv') {

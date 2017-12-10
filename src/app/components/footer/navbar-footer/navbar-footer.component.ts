@@ -33,7 +33,6 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
 
     goToPage(item): void {
         let slug = item.url;
-        console.log(item);
         if (slug.substring(slug.length - 9) === '/?lang=en' || slug.substring(slug.length - 9) === '/?lang=sv') {
             slug = this.removeLangParamPipe.transform(slug);
         }

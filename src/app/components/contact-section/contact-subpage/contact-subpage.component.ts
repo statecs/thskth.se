@@ -65,16 +65,12 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
 
   toggle_freeze_submenu_bar() {
     const pos = (document.documentElement.scrollTop || document.body.scrollTop);
-    console.log('pos: ' + pos);
-    console.log('pos_bar: ' + this.submenu_bar_pos);
     if (pos >= this.submenu_bar_pos) {
       if (!this.freeze_submenu_bar) {
-        console.log('pass');
         this.freeze_submenu_bar = true;
       }
     } else {
       if (this.freeze_submenu_bar) {
-        console.log('pass');
         this.freeze_submenu_bar = false;
       }
     }
@@ -104,7 +100,6 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
       this.router.navigate([slug]);
     }else if (item.type_label === 'custom') {
       slug = item.url;
-      console.log(slug);
 
       if (slug.substring(0, 7) === 'http://' || slug.substring(0, 8) === 'https://') {
         window.open(slug, '_blank');
@@ -147,7 +142,6 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
           this.subMenu = submenu;
         },
         (error) => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -157,7 +151,6 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
           this.subMenu = submenu;
         },
         (error) => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -178,7 +171,6 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -205,7 +197,6 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
         if (typeof this.lang === 'undefined') {
           this.lang = 'en';
         }
-        console.log(this.lang);
         this.getPageBySlug();
         if (this.slug !== 'contact' && this.slug !== 'faq') {
           this.getSecondarySubMenu();

@@ -59,18 +59,14 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     moveSlide(e): void {
         if (this.dragging) {
             if (!this.draggedPosition) {
-                console.log(this.draggedPosition);
                 this.draggedPosition = e.clientX;
             }
-            console.log(e.clientX - this.draggedPosition);
-            console.log(this.slides_wrapper[0].clientWidth);
             const distance = (e.clientX - this.draggedPosition) / this.slides_wrapper[0].clientWidth * 100;
             if (this.slides_wrapper[0].style.marginLeft) {
                 this.margin_left = (parseFloat(this.slides_wrapper[0].style.marginLeft) + distance);
             }else {
                 this.margin_left = (-2.05 + distance);
             }
-            console.log(this.margin_left);
             this.slides_wrapper[0].style.marginLeft = this.margin_left + '%';
             this.draggedPosition = e.clientX;
         }
@@ -93,10 +89,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
             if (!this.draggedPosition) {
                 this.draggedPosition = event.clientX;
                 this.drag_start_pos = event.clientX;
-                console.log(this.draggedPosition);
             }
-            console.log(event.clientX);
-            console.log(event.clientX + 1 - this.draggedPosition);
             const distance = ((event.clientX - this.draggedPosition) / (this.slides_wrapper[1].clientWidth / 4)) * 100;
             if (this.slides_wrapper[1].style.marginLeft) {
                 this.margin_left = (parseFloat(this.slides_wrapper[1].style.marginLeft) + distance);
@@ -121,7 +114,6 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
         if (this.margin_left > 7) {
             index = 0;
         }else {
-            console.log(this.margin_left);
             if (this.draggedPosition < this.drag_start_pos) {
                 index = Math.round(Math.abs(this.margin_left - 15 /*7*/) / 86 );
             }else {

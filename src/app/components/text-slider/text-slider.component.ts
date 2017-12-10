@@ -29,7 +29,6 @@ export class TextSliderComponent implements OnInit, OnDestroy {
   }
 
   selectSlide(index): void {
-    console.log(index);
     this.selectSlideElements();
     if (this.slideIndex !== index) {
       this.slideIndex = index;

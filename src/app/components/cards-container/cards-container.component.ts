@@ -142,14 +142,12 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
         self.one_third_half_array = [];
         this.cardsSubscription = this.cardsService.getCards(arg, this.lang).subscribe(
             cards => {
-                console.log(cards);
                 const pos = (document.documentElement.scrollTop || document.body.scrollTop);
                 if (pos > 200) {
                     this.cards = cards;
                     this.standbyCards = null;
                 }else {
                     this.cards = cards.slice(0, 4);
-                    console.log(this.cards);
                     this.standbyCards = cards.slice(4);
                 }
                 this.cardsLoaded = true;
