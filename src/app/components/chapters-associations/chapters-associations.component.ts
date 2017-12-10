@@ -57,6 +57,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   public chaptersSubscription: Subscription;
   public chaptersSubscription2: Subscription;
   public chaptersSubscription3: Subscription;
+  public showingPopup: boolean;
 
   constructor(private chaptersAssociationsService: ChaptersAssociationsService,
               private activatedRoute: ActivatedRoute,
@@ -90,6 +91,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.showChapters = false;
     this.noResults = false;
     this.pageNotFound = false;
+    this.showingPopup = false;
     this.associations = [
       {
         category: {
@@ -316,12 +318,14 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.associationsSubsciption3 = this.chaptersAssociationsService.getAssociationBySlug(this.slug, this.lang).subscribe((res) => {
       if (res.length > 0) {
         this.showAssociationInPopup(res[0]);
+        this.showingPopup = true;
         this.item_exist = true;
       }else {
         this.chaptersSubscription3 = this.chaptersAssociationsService.getChapterBySlug(this.slug, this.lang).subscribe((res2) => {
           if (res2.length > 0) {
             this.showAssociationInPopup(res2[0]);
             this.item_exist = true;
+            this.showingPopup = true;
           }else {
             this.pageNotFound = true;
             this.item_exist = false;
@@ -345,18 +349,19 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         this.slug = params['slug'];
         this.popupWindowCommunicationService.showLoader();
         if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
-          if (this.cookieService.get('selectedFilter') === 'chapters') {
+          /*if (this.cookieService.get('selectedFilter') === 'chapters') {
             this.getChapters();
           }else {
             this.getAssociations();
-          }
-          const self = this;
+          }*/
+          /*const self = this;
           const timer = setInterval(function () {
             if (self.career_associations.length > 0 || self.chapterResults.length > 0 ) {
               clearInterval(timer);
               self.getPostBySlug();
             }
-          }, 100);
+          }, 100);*/
+          this.getPostBySlug();
         }
       });
 
@@ -405,12 +410,12 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
               }
               self.showChapters = false;
               self.showAssociations = true;
-              if (this.cookieService.get('selectedFilter') === 'chapters') {
+              /*if (this.cookieService.get('selectedFilter') === 'chapters') {
                 this.displayChapters();
                 this.getChapters();
               }else {
                 this.getAssociations();
-              }
+              }*/
             }
           });
         }

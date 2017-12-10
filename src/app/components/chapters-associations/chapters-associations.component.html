@@ -1,5 +1,5 @@
 <app-loader *ngIf="!item_exist && !pageNotFound" class="page-loader"></app-loader>
-<div *ngIf="item_exist && !pageNotFound" id="content-container">
+<div *ngIf="item_exist && !pageNotFound && !showingPopup" id="content-container">
   <div class="search-bar">
     <h2>{{(lang === 'en' ? 'Search THS associations and chapters' : 'Sök THS föreningar och sektioner')}}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
@@ -83,5 +83,5 @@
 
   </div>
 </div>
-
+<div *ngIf="showingPopup" class="white-bg"></div>
 <app-page-not-found *ngIf="pageNotFound"></app-page-not-found>
