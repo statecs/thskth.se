@@ -26,13 +26,13 @@
 
     <div #submenu_chapter class="ths-icon">
         <div class="icon" (mouseover)="showSubMenu('chapters', -1, submenu_chapter)">
-            <img src="/assets/images/logo.png">
+            <img src="/assets/svg/ths_circles_filled.svg">
         </div>
         <div [hidden]="!(showSubmenuIndex === -1)" class="dropdownList" (mouseleave)="hideSubMenu()">
             <div class="d-header-bg"></div>
             <div class="d-header">
                 <div>
-                    <img src="https://kths.se/wp-content/uploads/2014/11/379676_10151394288791160_1414982083_n.jpg">
+                    <img src="https://wp.kths.se/wp-content/uploads/2014/11/379676_10151394288791160_1414982083_n.jpg">
                     <span>{{(language === 'en' ? 'THS Chapters' : 'THS Sektioner')}}</span>
                 </div>
             </div>
