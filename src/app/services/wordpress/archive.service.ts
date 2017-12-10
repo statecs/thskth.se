@@ -81,15 +81,17 @@ export class ArchiveService {
 
   castDataToDocumentType(data): Document[] {
     const documents: Document[] = [];
-    data.forEach(d => {
-      documents.push({
-        title: d.documents.title,
-        filename: d.documents.filename,
-        url: d.documents.url,
-        icon: d.documents.icon,
-        mime_type: this.getMimeType(d.documents.filename),
+    if (data){
+      data.forEach(d => {
+        documents.push({
+          title: d.documents.title,
+          filename: d.documents.filename,
+          url: d.documents.url,
+          icon: d.documents.icon,
+          mime_type: this.getMimeType(d.documents.filename),
+        });
       });
-    });
+    }
     return documents;
   }
 

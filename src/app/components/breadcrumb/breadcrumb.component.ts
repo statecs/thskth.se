@@ -99,7 +99,6 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
         clearInterval(timer);
         let containerWidth = 0;
         for (let i = 0; i < items.length; i++) {
-          console.log(items[i].clientWidth);
           containerWidth += items[i].clientWidth + 10;
           if (i === items.length - 1) {
             self.containerWidth = containerWidth;

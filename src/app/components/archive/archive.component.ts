@@ -219,7 +219,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     };
     this.documentsSubscription = this.archiveService.searchDocuments(searchParams, this.lang).subscribe(
         (res) => {
-          console.log(res);
           this.documentsLoading = false;
           this.searchResults = [];
           this.searchResults = res;
@@ -254,6 +253,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           this.latestDocuments = res;
         },
         (error) => {
+          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -320,7 +320,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     }
 
     this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(() => {
-      console.log("testHide");
       if (this.clickCount === 0 && this.showResultsDropdown) {
         this.showResultsDropdown = false;
         this.showMostSearchTerms = true;
