@@ -10,6 +10,7 @@ import {NotificationBarCommunicationService} from '../../services/component-comm
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
+import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
 
 @Component({
   selector: 'app-archive',
@@ -55,8 +56,10 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   public documentsSubscription2: Subscription;
   public queryParamsSubscription: Subscription;
   public paramsSubscription2: Subscription;
+  public hideOverlappingUIsSubscription: Subscription;
   public slug: string;
   public showMostSearchTerms: boolean;
+  public clickCount: number;
 
   constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,
@@ -66,7 +69,8 @@ export class ArchiveComponent implements OnInit, OnDestroy {
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService,
-              private headerCommunicationService: HeaderCommunicationService) {
+              private headerCommunicationService: HeaderCommunicationService,
+              private hideUICommunicationService: HideUICommunicationService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -90,6 +94,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.pdfChecked = true;
     this.categoryID = 0;
     this.start_date = '2014-09-24';
+    this.clickCount = 0;
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
@@ -314,6 +319,15 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.end_date = format(new Date(), 'YYYY-MM-DD');
     }
 
+    this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(() => {
+      console.log("testHide");
+      if (this.clickCount === 0 && this.showResultsDropdown) {
+        this.showResultsDropdown = false;
+        this.showMostSearchTerms = true;
+      }else {
+        this.clickCount = 0;
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -328,6 +342,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     }
     if (this.queryParamsSubscription) {
       this.queryParamsSubscription.unsubscribe();
+    }
+    if (this.hideOverlappingUIsSubscription) {
+      this.hideOverlappingUIsSubscription.unsubscribe();
     }
   }
 }

@@ -421,6 +421,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         }
       }, 100);
     }
+
   }
 
   ngOnDestroy() {
