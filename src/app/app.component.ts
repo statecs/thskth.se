@@ -33,7 +33,6 @@ export class AppComponent {
     this.appCommunicationService.notifyObservable$.subscribe((arg) => {
       if (this.page) {
         const pageStyle = this.page.nativeElement.style;
-        console.log('scroll');
         if (arg === 'collapse') {
           this.scrollTop = (document.body.scrollTop || window.pageYOffset);
           pageStyle.top = '-' + this.scrollTop + 'px';

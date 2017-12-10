@@ -21,7 +21,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
   @ViewChild('searchForm') searchForm: ElementRef;
   @ViewChild('filter_icon') filter_icon: ElementRef;
-  @ViewChild('filters') filters: ElementRef;
+/*  @ViewChild('filters') filters: ElementRef;*/
   @ViewChild('searchField') searchField: ElementRef;
 
   public postsChecked: boolean;
@@ -76,7 +76,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.faqChecked = true;
     this.showFilterOptions = false;
     this.searchOnFocus = false;
-    this.searchTerm = '';
+    //this.searchTerm = '';
     this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
     this.hrefToSlugPipeFilter = new HrefToSlugPipe();
     this.documentResults = [];
@@ -95,6 +95,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.categoryID = 0;
     this.start_date = '2014-09-24';
     this.clickCount = 0;
+    this.end_date = format(new Date(), 'YYYY-MM-DD');
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
       if (typeof this.lang === 'undefined') {
@@ -228,6 +229,25 @@ export class ArchiveComponent implements OnInit, OnDestroy {
         });
   }
 
+  getDocument(): void {
+    this.searchResults = [];
+    const searchParams: SearchParams = {
+      searchTerm: this.searchTerm,
+      categoryID: this.categoryID,
+      start_date: this.start_date,
+      end_date: this.end_date
+    };
+    this.documentsSubscription = this.archiveService.searchDocuments(searchParams, this.lang).subscribe(
+        (res) => {
+          this.documentResults = res;
+          this.showResults = true;
+          this.documentsLoading = false;
+        },
+        (error) => {
+          this.notificationBarCommunicationService.send_data(error);
+        });
+  }
+
   selectTerm(term): void {
     this.searchResults = [];
     this.searchTerm = term;
@@ -283,16 +303,17 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
         this.searchTerm = params['q'];
         if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
-          this.submitSearch();
+          //this.submitSearch();
+          this.getDocument();
         }
       });
       const self = this;
-      const timer = setInterval(function () {
+      /*      const timer = setInterval(function () {
         if (self.filters) {
           clearInterval(timer);
           self.dropdowns = self.filters.nativeElement.getElementsByClassName('dropdown-container');
         }
-      }, 100);
+      }, 100);*/
 
       const timer2 = setInterval(function () {
         if (self.searchField) {
@@ -312,8 +333,10 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           });
         }
       }, 100);
-
-      this.getDocuments();
+      
+      if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
+        this.getDocuments();
+      }
 
       this.end_date = format(new Date(), 'YYYY-MM-DD');
     }

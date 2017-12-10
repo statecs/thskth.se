@@ -50,7 +50,7 @@ export class FaqsService {
   searchFAQs(search_term, lang: string): Observable<FAQ[]> {
     this.language = lang;
     return this.http
-        .get(this.config.FAQs_URL + '?order=asc&per_page=100&support=' + search_term + '&lang=' + this.language)
+        .get(this.config.FAQs_URL + '?order=asc&per_page=100&search=' + search_term + '&lang=' + this.language)
         .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => { return this.castSearchResultsToFAQType(res, ''); });
