@@ -8,6 +8,7 @@ import {NotificationBarCommunicationService} from '../../services/component-comm
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-chapters-associations',
@@ -64,7 +65,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
               private renderer: Renderer2,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService,
-              private headerCommunicationService: HeaderCommunicationService) {
+              private headerCommunicationService: HeaderCommunicationService,
+              private cookieService: CookieService) {
     this.item_exist = false;
     this.postsChecked = true;
     this.pageChecked = true;
@@ -226,6 +228,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   displayChapters(): void {
     this.showAssociations = false;
     this.showChapters = true;
+    this.cookieService.put('selectedFilter', 'chapters');
     if (this.searchTerm !== '' && this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
       this.getChapters();
     }
@@ -245,6 +248,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   displayAssociations(): void {
     this.showAssociations = true;
     this.showChapters = false;
+    this.cookieService.put('selectedFilter', 'associations');
     if (this.searchTerm !== '' && this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
       this.getAssociations();
     }
@@ -339,7 +343,11 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         this.slug = params['slug'];
         this.popupWindowCommunicationService.showLoader();
         if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
-          this.getAssociations();
+          if (this.cookieService.get('selectedFilter') === 'chapters') {
+            this.displayChapters();
+          }else {
+            this.getAssociations();
+          }
           const self = this;
           const timer = setInterval(function () {
             if (self.career_associations.length > 0) {
@@ -358,7 +366,11 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
             this.submitSearch();
           }else {
             if (this.associations[0].associations.length === 0) {
-              this.getAssociations();
+              if (this.cookieService.get('selectedFilter') === 'chapters') {
+                this.displayChapters();
+              }else {
+                this.getAssociations();
+              }
             }
           }
           const arg = {
@@ -390,7 +402,11 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
               }
               self.showChapters = false;
               self.showAssociations = true;
-              self.getAssociations();
+              if (this.cookieService.get('selectedFilter') === 'chapters') {
+                this.displayChapters();
+              }else {
+                this.getAssociations();
+              }
             }
           });
         }
