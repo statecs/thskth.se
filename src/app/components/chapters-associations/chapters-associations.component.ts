@@ -348,19 +348,19 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         this.slug = params['slug'];
         this.popupWindowCommunicationService.showLoader();
         if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
-          /*if (this.cookieService.get('selectedFilter') === 'chapters') {
+          if (this.cookieService.get('selectedFilter') === 'chapters') {
             this.getChapters();
           }else {
             this.getAssociations();
-          }*/
-          /*const self = this;
+          }
+          const self = this;
           const timer = setInterval(function () {
             if (self.career_associations.length > 0 || self.chapterResults.length > 0 ) {
               clearInterval(timer);
               self.getPostBySlug();
             }
-          }, 100);*/
-          this.getPostBySlug();
+          }, 100);
+          //this.getPostBySlug();
         }
       });
 

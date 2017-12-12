@@ -199,18 +199,24 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
 
     getCalendar(calendarId): void {
         this.eventsSubscription = this.googleCalendarService.getUpcomingEvents(calendarId, 3).subscribe(res => {
-            this.events = res;
-            if (res.length !== 0) {
-                this.selected_event_title = res[0].title;
-                this.selected_event_text = res[0].description;
-            }
-        });
+                this.events = res;
+                if (res.length !== 0) {
+                    this.selected_event_title = res[0].title;
+                    this.selected_event_text = res[0].description;
+                }
+            },
+            (error) => {
+                this.notificationBarCommunicationService.send_data(error);
+            });
     }
 
     getRestaurantMenu(): void {
       this.restaurantUpdater = this.restaurantService.getSingleRestaurant('nymble-restaurant', this.lang).subscribe(res => {
-          this.restaurant = res;
-      });
+              this.restaurant = res;
+          },
+          (error) => {
+              this.notificationBarCommunicationService.send_data(error);
+          });
     }
 
   ngOnInit() {

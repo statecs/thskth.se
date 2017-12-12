@@ -355,6 +355,12 @@
   }
 }
 
+:host /deep/ #image-slider-secondary{
+  width: 100% !important;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   .container{
