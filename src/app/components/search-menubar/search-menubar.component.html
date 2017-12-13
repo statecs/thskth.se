@@ -1,4 +1,4 @@
-<div *ngIf="showSearchBar" class="background_layer"></div>
+<div *ngIf="showSearchBar" class="background_layer" (click)="hideBar()"></div>
 <div *ngIf="showSearchBar" id="search-menubar">
   <div class="exit-btn" (click)="closeBar()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
   <form autocomplete="off">
