@@ -132,5 +132,5 @@
   </div>
 
 </div>
-
-<div *ngIf="showPopupWindow" class="exit-popup-btn-mobile" (click)="hide_popup_window()"><i class="fa fa-times-circle"></i> Close</div>
+<div *ngIf="showPopupWindow && exit_btn1" class="exit-popup-btn-mobile" (click)="hide_popup_window()">X</div>
+<div *ngIf="showPopupWindow && exit_btn2" class="exit-popup-btn-mobile" (click)="hide_popup_window()"><i class="fa fa-times-circle"></i> Close</div>

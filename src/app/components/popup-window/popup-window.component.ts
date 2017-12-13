@@ -50,6 +50,8 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   public showNews: boolean;
   public page_location: string;
   public navigateBack: boolean;
+  public exit_btn1: boolean;
+  public exit_btn2: boolean;
 
   constructor( private pagesService: PagesService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -65,6 +67,8 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.showPage = false;
     this.loading = false;
     this.navigateBack = true;
+    this.exit_btn1 = true;
+    this.exit_btn2 = false;
     this.paramsSubscription = this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
         this.lang = val.state.root.firstChild.params['lang'];
@@ -87,10 +91,24 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const scrollTop = (window.pageYOffset || document.body.scrollTop) + 100;
-    if (scrollTop < this.top_position) {
-      this.top_position = scrollTop;
+    const scrollTop = (window.pageYOffset || document.body.scrollTop);
+    const scrollPos = scrollTop + 100;
+    if (scrollPos < this.top_position) {
+      this.top_position = scrollPos;
     }
+
+    if (scrollTop > 0 && !this.exit_btn2) {
+      this.exit_btn2 = true;
+      if (this.exit_btn1) {
+        this.exit_btn1 = false;
+      }
+    }else if (scrollTop === 0 && !this.exit_btn1) {
+      this.exit_btn1 = true;
+      if (this.exit_btn2) {
+        this.exit_btn2 = false;
+      }
+    }
+
   }
 
   setPosition() {
