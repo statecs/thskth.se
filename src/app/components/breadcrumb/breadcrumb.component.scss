@@ -2,10 +2,10 @@
 
 #breadcrumbs{
   display: inline-block;
-  background-color: rgba(0,0,0,0.45);
+  //background-color: rgba(0,0,0,0.45);
   overflow: hidden;
   ul{
-    color: white;
+    color: #727272;
     line-height: 1.3;
     list-style: none;
     display: inline-block;
@@ -14,10 +14,10 @@
     li{
       display: inherit;
       >a{
-        text-decoration: none;
-        color: #05d4ff;
+        color: black;
+        text-decoration: underline;
         &:hover{
-          text-decoration: underline;
+          text-decoration: none;
         }
       }
       >span{

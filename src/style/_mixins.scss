@@ -22,14 +22,15 @@
 
 @mixin submenu-bar{
   width: 100%;
-  padding: 8px 4%;
+  //padding: 8px 4%;
   background-color: white;
   position: absolute;
   //margin-top: 65px;
   top: 65px;
+  z-index: 1;
   .selected-item{
     background-color: lightgray;
-    padding: 10px 20px;
+    padding: 15px 20px;
     display: inline-block;
     position: relative;
     width: 100%;
@@ -46,9 +47,9 @@
     position: absolute;
     background-color: white;
     //z-index: 1;
-    top: 45px;
+    top: 54px;
     box-shadow: 1px 3px 10px #bababa;
-    width: 92%;
+    width: 100%;
     .submenu-item{
       //padding: 5px 10px;
       span{
