@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { CalendarModule } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReCaptchaModule } from 'angular2-recaptcha';
+import { MatFormFieldModule } from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
 
 // Routes import
 import { routing } from './app.routes';
@@ -181,7 +183,9 @@ import { RelatedLinksComponent } from './components/advertisements/related-links
     ReCaptchaModule,
     CookieModule.forRoot(),
     BrowserAnimationsModule,
-    CalendarModule.forRoot()
+    CalendarModule.forRoot(),
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
       WordpressApiService,

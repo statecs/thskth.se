@@ -10,7 +10,7 @@ import { most_asked_questions } from '../../utils/most-asked-questions';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
-import {HeaderCommunicationService} from "../../services/component-communicators/header-communication.service";
+import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-search',

@@ -3,8 +3,11 @@
     <h2>{{(lang === 'en' ? 'Search THS and beyond' : 'Sök THS')}}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
       <div class="search" [ngClass]="{onFocus: searchOnFocus}">
-        <input class="searchInput" #searchField placeholder="{{(lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord')}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
-        <input class="submit" type="submit" value="{{(lang === 'en' ? 'Search' : 'Sök')}}">
+        <mat-form-field class="searchInput">
+          <input matInput #searchField placeholder="{{(lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord')}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        </mat-form-field>
+        <!--<input class="searchInput" #searchField placeholder="{{(lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord')}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        --><input class="submit" type="submit" value="{{(lang === 'en' ? 'Search' : 'Sök')}}">
         <div class="filter">
           <div #filter_icon class="options-icon" (click)="toggleFilter()">
             <i class="material-icons">more_vert</i>
@@ -114,5 +117,4 @@
   </div>
 
 </div>
-
 <app-page-not-found *ngIf="pageNotFound"></app-page-not-found>
