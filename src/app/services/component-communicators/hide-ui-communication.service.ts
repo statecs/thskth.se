@@ -8,7 +8,7 @@ export class HideUICommunicationService {
 
   constructor() { }
 
-  hideOverlappingElements() {
-    this.hideUI_notify.next();
+  hideOverlappingElements(event: any) {
+    this.hideUI_notify.next(event);
   }
 }

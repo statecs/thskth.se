@@ -11,6 +11,7 @@ import {NotificationBarCommunicationService} from '../../services/component-comm
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
+import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
 
 @Component({
   selector: 'app-search',
@@ -23,6 +24,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchForm') searchForm: ElementRef;
   @ViewChild('filter_icon') filter_icon: ElementRef;
   @ViewChild('searchField') searchField: ElementRef;
+  @ViewChild('resultsDropdownList') resultsDropdownList: ElementRef;
 
   public postsChecked: boolean;
   public pageChecked: boolean;
@@ -56,6 +58,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public faqsSubscription2: Subscription;
   public faqsSubscription3: Subscription;
   public faqsSubscription4: Subscription;
+  public hideUiSubscription: Subscription;
   public timer: any;
 
   constructor(private searchService: SearchService,
@@ -66,7 +69,8 @@ export class SearchComponent implements OnInit, OnDestroy {
               private renderer: Renderer2,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService,
-              private headerCommunicationService: HeaderCommunicationService) {
+              private headerCommunicationService: HeaderCommunicationService,
+              private hideUiCommunicationService: HideUICommunicationService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -224,7 +228,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.faqCatSubscription =this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
+    this.faqCatSubscription = this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
           this.parent_categories = categories;
         },
         (error) => {
@@ -268,6 +272,14 @@ export class SearchComponent implements OnInit, OnDestroy {
         });
       }
     }, 100);
+
+    this.hideUiSubscription = this.hideUiCommunicationService.hideUIObservable$.subscribe((event) => {
+      if (this.resultsDropdownList) {
+        if (this.resultsDropdownList.nativeElement !== event.target && !this.resultsDropdownList.nativeElement.contains(event.target)) {
+          this.showResultsDropdown = false;
+        }
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -298,6 +310,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
     if (this.faqsSubscription4) {
       this.faqsSubscription4.unsubscribe();
+    }
+    if (this.hideUiSubscription) {
+      this.hideUiSubscription.unsubscribe();
     }
   }
 }

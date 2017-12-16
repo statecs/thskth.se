@@ -69,8 +69,8 @@ export class AppComponent {
     }
   }
 
-  hideAllInfoBox(): void {
+  hideOverlappingUI(event: any): void {
     this.checkInternet();
-    this.hideUICommunicationService.hideOverlappingElements();
+    this.hideUICommunicationService.hideOverlappingElements(event);
   }
 }

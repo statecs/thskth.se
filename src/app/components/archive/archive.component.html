@@ -6,7 +6,7 @@
         <input class="searchInput" #searchField placeholder="{{lang === 'en'? 'Enter your search term' : 'Ange ditt sökord'}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
         <input class="submit" type="submit" value="{{lang === 'en'? 'Search' : 'Sök'}}">
       </div>
-      <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
+      <div #resultsDropdownList *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
         <div class="section">
           <div *ngFor="let d of searchResults" class="item">
             <div class="left-content">

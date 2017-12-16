@@ -23,6 +23,7 @@ import format from 'date-fns/format/index';
 export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild('submenu_bar') submenu_bar: ElementRef;
+  @ViewChild('submenuBarDropdown') submenuBarDropdown: ElementRef;
   public page: Page;
   public subMenu: MenuItem2[];
   public slug: string;
@@ -248,7 +249,11 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.hideUISubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(() => {
       if (this.infoBoxClickCount === 0) {
-        this.hideDropdown();
+        if (this.submenuBarDropdown) {
+          if (this.submenuBarDropdown.nativeElement !== event.target && !this.submenuBarDropdown.nativeElement.contains(event.target)) {
+            this.hideDropdown();
+          }
+        }
         this.infoBoxClickCount += 1;
       }else {
         this.infoBoxClickCount = 0;

@@ -167,7 +167,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
       this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, interest: this.selected_interest});
     });
 
-    this.hideUISubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(() => {
+    this.hideUISubscription = this.hideUICommunicationService.hideUIObservable$.subscribe((event) => {
       if (this.infoBoxClickCount === 0) {
         this.hideAllDropdown();
         this.infoBoxClickCount += 1;

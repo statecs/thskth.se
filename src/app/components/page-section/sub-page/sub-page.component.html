@@ -6,7 +6,7 @@
       <span>{{page?.name | cardText:15}}</span>
       <i class="material-icons">keyboard_arrow_down</i>
     </div>
-    <div *ngIf="showSubmenuBarDropdown" class="submenu-bar-dropdown">
+    <div #submenuBarDropdown *ngIf="showSubmenuBarDropdown" class="submenu-bar-dropdown">
       <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m)" class="submenu-item">
         <span>{{m.title}}</span>
         <div *ngIf="i !== subMenu?.length - 1" class="divider"></div>

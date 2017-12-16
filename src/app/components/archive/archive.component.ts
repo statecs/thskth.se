@@ -23,6 +23,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   @ViewChild('filter_icon') filter_icon: ElementRef;
 /*  @ViewChild('filters') filters: ElementRef;*/
   @ViewChild('searchField') searchField: ElementRef;
+  @ViewChild('resultsDropdownList') resultsDropdownList: ElementRef;
 
   public postsChecked: boolean;
   public pageChecked: boolean;
@@ -59,7 +60,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   public hideOverlappingUIsSubscription: Subscription;
   public slug: string;
   public showMostSearchTerms: boolean;
-  public clickCount: number;
 
   constructor(private archiveService: ArchiveService,
               private activatedRoute: ActivatedRoute,
@@ -94,7 +94,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.pdfChecked = true;
     this.categoryID = 0;
     this.start_date = '2014-09-24';
-    this.clickCount = 0;
     this.end_date = format(new Date(), 'YYYY-MM-DD');
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
@@ -341,12 +340,11 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.end_date = format(new Date(), 'YYYY-MM-DD');
     }
 
-    this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(() => {
-      if (this.clickCount === 0 && this.showResultsDropdown) {
-        this.showResultsDropdown = false;
-        this.showMostSearchTerms = true;
-      }else {
-        this.clickCount = 0;
+    this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe((event) => {
+      if (this.showResultsDropdown) {
+        if (this.resultsDropdownList.nativeElement !== event.target && !this.resultsDropdownList.nativeElement.contains(event.target)) {
+          this.showResultsDropdown = false;
+        }
       }
     });
   }

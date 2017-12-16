@@ -28,7 +28,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
+      <div #resultsDropdownList *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
         <div *ngIf="postsChecked" class="section">
           <h3>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</h3>
           <div *ngFor="let p of postsResults" class="item">
