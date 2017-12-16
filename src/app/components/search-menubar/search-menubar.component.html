@@ -4,7 +4,7 @@
   <form autocomplete="off">
     <div class="search">
       <i class="material-icons">search</i>
-      <input placeholder="Search THS and beyond" [(ngModel)]="searchTerm" name="searchInput" type="search" (keyup)="liveSearch()" appAutoFocus>
+      <input placeholder="{{(lang === 'en' ? 'Search THS ...' : 'Sök THS ...')}}" [(ngModel)]="searchTerm" name="searchInput" type="search" (keyup)="liveSearch()" appAutoFocus>
     </div>
   </form>
   <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">

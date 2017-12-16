@@ -1,6 +1,6 @@
 <div *ngIf="!pageNotFound" id="content-container">
   <div class="search-bar" [ngClass]="{'center-vertically': !showResults}">
-    <h2>{{(lang === 'en' ? 'Search THS and beyond' : 'Sök THS')}}</h2>
+    <h2>{{(lang === 'en' ? 'Search THS ...' : 'Sök THS ...')}}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
       <div class="search" [ngClass]="{onFocus: searchOnFocus}">
         <mat-form-field class="searchInput">
