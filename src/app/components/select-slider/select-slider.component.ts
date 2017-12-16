@@ -55,11 +55,11 @@ export class SelectSliderComponent implements AfterViewInit, OnDestroy {
               self.renderer.listen(self.slider.nativeElement, 'scroll', (event) => {
                   self.item_onfocus = self.slider.nativeElement.getElementsByClassName('selected')[0];
                   const scrollPos = self.slider.nativeElement.scrollTop;
-                  if (scrollPos >= self.upper_threshold) {
+                  if (scrollPos >= self.upper_threshold && self.item_onfocus_index < self.data.items.length) {
                       self.item_onfocus_index += 1;
                       self.upper_threshold += self.item_onfocus.offsetHeight;
                       self.lower_threshold += self.item_onfocus.offsetHeight / 2;
-                  }else if (scrollPos < self.lower_threshold) {
+                  }else if (scrollPos < self.lower_threshold && self.item_onfocus_index > 0) {
                       self.item_onfocus_index -= 1;
                       self.upper_threshold -= self.item_onfocus.offsetHeight;
                       self.lower_threshold -= self.item_onfocus.offsetHeight / 2;
