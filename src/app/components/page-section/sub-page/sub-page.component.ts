@@ -85,6 +85,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
 
   toggle_freeze_submenu_bar() {
     const pos = (document.documentElement.scrollTop || document.body.scrollTop);
+    console.log(this.submenu_bar_pos);
     if (pos >= this.submenu_bar_pos) {
       if (!this.freeze_submenu_bar) {
         this.freeze_submenu_bar = true;

@@ -1,4 +1,20 @@
 <app-loader *ngIf="loading && !show_single_page"></app-loader>
+
+<div #submenu_bar class="submenu-bar mobile" [ngClass]="{'freeze-submenu-bar': freeze_submenu_bar}">
+  <div *ngIf="subMenu?.length !== 0 && !loading && !show_single_page">
+    <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
+      <span>{{page?.name | cardText:15}}</span>
+      <i class="material-icons">keyboard_arrow_down</i>
+    </div>
+    <div *ngIf="showSubmenuBarDropdown" class="submenu-bar-dropdown">
+      <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m)" class="submenu-item">
+        <span>{{m.title}}</span>
+        <div *ngIf="i !== subMenu?.length - 1" class="divider"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="content-container" *ngIf="!pageNotFound && page && !loading && !show_single_page" [style.paddingTop]="(subMenu?.length !== 0 ? '125px' : '65px')">
   <div *ngIf="subMenu?.length === 0" class="larger-devices" [style.paddingTop]="'60px'"></div>
   <app-breadcrumb *ngIf="page"></app-breadcrumb>
@@ -40,20 +56,6 @@
         <app-join-us></app-join-us>
         <app-events-card></app-events-card>
         <app-related-links [links]="page.related_links"></app-related-links>
-      </div>
-    </div>
-  </div>
-</div>
-<div #submenu_bar>
-  <div *ngIf="subMenu?.length !== 0 && !loading && !show_single_page" class="submenu-bar mobile" [ngClass]="{'freeze-submenu-bar': freeze_submenu_bar}">
-    <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
-      <span>{{page?.name | cardText:15}}</span>
-      <i class="material-icons">keyboard_arrow_down</i>
-    </div>
-    <div *ngIf="showSubmenuBarDropdown" class="submenu-bar-dropdown">
-      <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m)" class="submenu-item">
-        <span>{{m.title}}</span>
-        <div *ngIf="i !== subMenu?.length - 1" class="divider"></div>
       </div>
     </div>
   </div>
