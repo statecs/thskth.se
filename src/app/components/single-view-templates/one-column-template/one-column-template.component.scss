@@ -1,5 +1,16 @@
 @import "../../../../style/utilities";
 
+:host /deep/ app-breadcrumb {
+  ul {
+    li {
+      a {
+        color: #c5c5c5 !important;
+      }
+    }
+  }
+
+}
+
 #one-column-template{
   .larger-devices{
     display: block;

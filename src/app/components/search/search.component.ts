@@ -12,6 +12,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
+import {RemoveLangParamPipe} from '../../pipes/remove-lang-param.pipe';
+import {AddLangToSlugPipe} from '../../pipes/add-lang-to-slug.pipe';
 
 @Component({
   selector: 'app-search',
@@ -37,6 +39,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   public postsResults: SearchResult[];
   public faqResults: SearchResult[];
   private hrefToSlugPipeFilter: HrefToSlugPipe;
+  private removeLangParamPipe: RemoveLangParamPipe;
+  private addLangToSlugPipe: AddLangToSlugPipe;
   public showResultsDropdown: boolean;
   public postsLoading: boolean;
   public pagesLoading: boolean;
@@ -105,6 +109,9 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.titleCommunicationService.setTitle('Search');
       }
     });
+
+    this.removeLangParamPipe = new RemoveLangParamPipe();
+    this.addLangToSlugPipe = new AddLangToSlugPipe();
   }
 
   goToPage(link, type): void {
@@ -115,7 +122,15 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.router.navigate([this.lang + '/news/' + link]);
     }
     if (type === 'page') {
-      this.router.navigate(['/' + link]);
+      let slug = link;
+      if (slug.substring(slug.length - 9) === '/?lang=en' || slug.substring(slug.length - 9) === '/?lang=sv') {
+        slug = this.removeLangParamPipe.transform(slug);
+      }
+      if (slug.substring(slug.length - 8) === '?lang=en' || slug.substring(slug.length - 8) === '?lang=sv') {
+        slug = this.removeLangParamPipe.transform(slug);
+      }
+      slug = this.addLangToSlugPipe.transform(slug, this.lang);
+      this.router.navigate([slug]);
     }
   }
 
