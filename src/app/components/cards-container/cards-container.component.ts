@@ -158,7 +158,8 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
             });
     }
 
-    displayEventInPopup() {
+    displayEventInPopup(index) {
+        this.selected_event_index = index;
         this.popupWindowCommunicationService.showEventInPopup(this.events[this.selected_event_index]);
     }
 
