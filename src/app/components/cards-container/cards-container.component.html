@@ -1,6 +1,7 @@
 <div id="cards-container" class="masonry-layout">
 <!--    <div *ngIf="!cardsLoaded" class="loader">Loading cards...</div>-->
     <app-loader *ngIf="!cardsLoaded"></app-loader>
+    <div class="no-cards" *ngIf="cards?.length === 0">No Cards</div>
     <div *ngFor="let card of cards" class="masonry-layout_panel {{(card.one_sixth_sub_cards?.length !== 0 || card.one_third_half_sub_cards?.length !== 0)? 'o-third box-shadow-none': card.flex_layout}}">
         <div *ngIf="(card.flex_layout !== 'o-third')">
             <!-- ---------- Video card ---------- -->

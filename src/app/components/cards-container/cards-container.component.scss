@@ -7,6 +7,11 @@
   flex-direction: row;
   flex-wrap: wrap;
 
+  .no-cards{
+    text-align: center;
+    width: 100%;
+  }
+
   app-loader{
     width: 100%;
   }
