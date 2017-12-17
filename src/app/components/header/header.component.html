@@ -13,7 +13,7 @@
                 <a routerLink="/"><img src="/assets/svg/ths_circles_filled.svg"/></a>
             </div>
             <div class="chapters">
-                <i class="material-icons" (click)="toggleChaptersMobile($event)">more_vert</i>
+                <i #chapter_icon class="material-icons" (click)="toggleChaptersMobile($event)">more_vert</i>
             </div>
             <div class="menu-bar">
                 <div class="menu" (click)="toggleMenuMobile()">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="showMenuMobile" class="menu-dropdown">
+        <div #menuDropdown *ngIf="showMenuMobile" class="menu-dropdown">
             <div *ngIf="showMenuMobile" class="search-bar-mobile">
                 <form autocomplete="off">
                     <div class="search-bar">
@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <div *ngIf="showChaptersMobile" class="chapters-items">
+        <div #chaptersMobile *ngIf="showChaptersMobile" class="chapters-items">
             <div *ngFor="let chapter of ths_chapters" class="nav-item" (click)="openInNewTab(chapter.link)">
                 <div class="logo"><img src="{{chapter.image}}"></div>
                 <label>{{(lang === 'en' ? chapter.title.en : chapter.title.sv)}}</label>

@@ -10,6 +10,7 @@ import {AddLangToSlugPipe} from '../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {HrefToSlugPipe} from '../../pipes/href-to-slug.pipe';
+import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,9 @@ import {HrefToSlugPipe} from '../../pipes/href-to-slug.pipe';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   @ViewChild('app_header') app_header: ElementRef;
+  @ViewChild('menuDropdown') menuDropdown: ElementRef;
+  @ViewChild('chaptersMobile') chaptersMobile: ElementRef;
+  @ViewChild('chapter_icon') chapter_icon: ElementRef;
   private topLevelMainMenu: MenuItem2[];
   public showMenuMobile: boolean;
   public showChaptersMobile: boolean;
@@ -38,19 +42,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public topLevelMenuSubscription: Subscription;
   public headerSubscription: Subscription;
   public menuSubscription: Subscription;
+  public hideOverlappingUIsSubscription: Subscription;
   public searchTerm: string;
   public language_img: string;
   public signin_text: string;
   public language_text: string;
   public headerPosition: number;
   public tranparentHeader: boolean;
+  public menu_clickCount: number;
+  public chapters_clickCount: number;
 
   constructor(private headerCommunicationService: HeaderCommunicationService,
               private searchMenubarCommunicationService: SearchMenubarCommunicationService,
               private menusService: MenusService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private hideUICommunicationService: HideUICommunicationService) {
     this.showMenuMobile = false;
     this.showChaptersMobile = false;
     this.ths_chapters = ths_chapters;
@@ -63,6 +71,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.topLevelMainMenu = [];
     this.tranparentHeader = true;
     localStorage.clear();
+    this.menu_clickCount = 0;
+    this.chapters_clickCount = 0;
   }
 
   openInNewTab(link): void {
@@ -70,6 +80,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleChaptersMobile(event): void {
+    this.chapters_clickCount += 1;
     (this.showChaptersMobile === true ? this.showChaptersMobile = false : this.showChaptersMobile = true);
     if (this.showChaptersMobile) {
       event.target.style.transform = 'rotate(90deg)';
@@ -79,6 +90,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleMenuMobile(): void {
+    this.menu_clickCount += 1;
     (this.showMenuMobile === true ? this.showMenuMobile = false : this.showMenuMobile = true);
   }
 
@@ -281,6 +293,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.menuSubscription = this.headerCommunicationService.menuObservable$.subscribe(() => {
         this.showMenuMobile = false;
+    });
+
+    this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe((event) => {
+      if (this.menu_clickCount === 0 && this.menuDropdown) {
+        if (this.menuDropdown.nativeElement !== event.target && !this.menuDropdown.nativeElement.contains(event.target)) {
+          this.showMenuMobile = false;
+          this.menu_clickCount += 1;
+        }
+      }else {
+        this.menu_clickCount = 0;
+      }
+
+      if (this.chapters_clickCount === 0 && this.chaptersMobile) {
+        if (this.chaptersMobile.nativeElement !== event.target && !this.chaptersMobile.nativeElement.contains(event.target)) {
+          this.showChaptersMobile = false;
+          this.chapter_icon.nativeElement.style.transform = 'rotate(0deg)';
+          this.chapters_clickCount += 1;
+        }
+      }else {
+        this.chapters_clickCount = 0;
+      }
     });
 
   }
