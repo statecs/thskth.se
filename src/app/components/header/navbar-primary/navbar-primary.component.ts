@@ -126,10 +126,13 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
         const lang = this.activatedRoute.snapshot.params['lang'];
         if (typeof lang === 'undefined' || (lang !== 'en' && lang !== 'sv')) {
             let url = this.router.url;
-            if (this.router.url === '/en' || this.router.url === '/sv') {
+            console.log(url);
+            if (this.router.url === '/en' || this.router.url === '/sv' || this.router.url === '/sv/' || this.router.url === '/en/' || this.router.url === '/') {
                 url = '';
             }
-            if (typeof lang === 'undefined') {
+            console.log(url);
+            if (url.substring(0, 4) === '/sv/' || url.substring(0, 4) === '/en/') {
+                console.log(lang);
                 if (url.substring(0, 4) === '/sv/') {
                     this.router.navigateByUrl('/en/' + url.substring(4));
                 }else if (url.substring(0, 4) === '/en/') {
@@ -138,6 +141,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
                     this.router.navigateByUrl('/sv/' + url.substring(1));
                 }
             }else {
+                console.log(lang);
                 if (this.language === 'en') {
                     this.router.navigateByUrl('/en' + url);
                 }else if (this.language === 'sv') {
