@@ -132,10 +132,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   showSubMenu(id, index) {
     this.subMenu = [];
+    this.subMenu2 = [];
     this.showSubmenuIndex = index;
+    this.showSubmenuIndex2 = -1;
     this.subMenu_slug = id;
     this.mainMenuSubscription = this.menusService.get_mainSubMenu(id, this.lang).subscribe((subMenu) => {
       this.subMenu = subMenu;
+          console.log(subMenu);
     },
     (error) => {
       this.notificationBarCommunicationService.send_data(error);
@@ -147,6 +150,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.showSubmenuIndex2 = index;
     this.mainMenuSubscription = this.menusService.get_secondarySubMenu(this.subMenu_slug, id, this.lang).subscribe((subMenu) => {
           this.subMenu2 = subMenu;
+          console.log(subMenu);
+          if (this.subMenu2.length === 0) {
+            this.showSubmenuIndex2 = -1;
+          }
         },
         (error) => {
           this.notificationBarCommunicationService.send_data(error);

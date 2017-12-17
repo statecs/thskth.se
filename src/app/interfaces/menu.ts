@@ -3,6 +3,7 @@ export interface MenuItem2 {
     title: string;
     url: string;
     type_label: string;
+    children: any;
 }
 
 interface MenuItemGrandchild {

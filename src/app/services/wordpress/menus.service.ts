@@ -48,7 +48,8 @@ export class MenusService {
                   object_slug : i_grandchild.object_slug,
                   title : i_grandchild.title,
                   url : i_grandchild.url,
-                  type_label : i_grandchild.object
+                  type_label : i_grandchild.object,
+                  children: i_grandchild.children
                 });
               });
             }
@@ -81,7 +82,8 @@ export class MenusService {
               object_slug : i_child.object_slug,
               title : i_child.title,
               url : i_child.url,
-              type_label : i_child.object
+              type_label : i_child.object,
+              children: i_child.children
             });
           });
           return sub_menu;
@@ -128,7 +130,8 @@ export class MenusService {
           object_slug : item.object_slug,
           title : item.title,
           url : item.url,
-          type_label : item.object
+          type_label : item.object,
+          children: item.children
         });
       }
     }
