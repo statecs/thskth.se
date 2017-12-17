@@ -302,6 +302,9 @@
     .mobile{
       display: none;
     }
+    p{
+      white-space: pre-wrap !important;
+    }
   }
   .right-content{
     width: 50%;
