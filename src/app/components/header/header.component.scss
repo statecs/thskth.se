@@ -160,6 +160,7 @@ header {
         width: 100%;
         background-color: white;
         overflow: hidden;
+        z-index: 1;
         .menu-items{
           display: block;
           background-color: white;
@@ -367,6 +368,7 @@ header {
       .menu-dropdown{
         width: 100%;
         background-color: white;
+        z-index: 1;
         .menu-items{
           display: block;
           background-color: white;
@@ -564,6 +566,7 @@ header {
       .menu-dropdown{
         width: 100%;
         background-color: white;
+        z-index: 1;
         .menu-items{
           display: block;
           background-color: white;
