@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('menuDropdown') menuDropdown: ElementRef;
   @ViewChild('chaptersMobile') chaptersMobile: ElementRef;
   @ViewChild('chapter_icon') chapter_icon: ElementRef;
+  @ViewChild('submenu_item') submenu_item: ElementRef;
   private topLevelMainMenu: MenuItem2[];
   public showMenuMobile: boolean;
   public showChaptersMobile: boolean;
@@ -75,6 +76,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.chapters_clickCount = 0;
   }
 
+  goToHome(): void {
+    if (this.showChaptersMobile) {
+      this.chapter_icon.nativeElement.style.transform = 'rotate(0deg)';
+      this.showChaptersMobile = false;
+    }
+    if (this.showMenuMobile) {
+      this.showMenuMobile = false;
+    }
+  }
+
   openInNewTab(link): void {
     window.open(link, '_blank');
   }
@@ -84,6 +95,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     (this.showChaptersMobile === true ? this.showChaptersMobile = false : this.showChaptersMobile = true);
     if (this.showChaptersMobile) {
       event.target.style.transform = 'rotate(90deg)';
+      this.showMenuMobile = false;
     }else {
       event.target.style.transform = 'rotate(0deg)';
     }
@@ -92,6 +104,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   toggleMenuMobile(): void {
     this.menu_clickCount += 1;
     (this.showMenuMobile === true ? this.showMenuMobile = false : this.showMenuMobile = true);
+    if (this.showMenuMobile) {
+      this.showChaptersMobile = false;
+      this.chapter_icon.nativeElement.style.transform = 'rotate(0deg)';
+    }
   }
 
   showSearchMenubar(): void {
@@ -295,11 +311,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.showMenuMobile = false;
     });
 
-    this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe((event) => {
-      if (this.menu_clickCount === 0 && this.menuDropdown) {
+    /*this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe((event) => {
+      if (this.menu_clickCount === 0 && this.submenu_item) {
+        console.log(event.target);
+        console.log(this.menuDropdown.nativeElement);
+        console.log(this.menuDropdown.nativeElement !== event.target);
+        console.log(this.submenu_item.nativeElement.contains(event.target));
+        const plus_minus_btns = this.submenu_item.nativeElement.getElementsByClassName('fa');
         if (this.menuDropdown.nativeElement !== event.target && !this.menuDropdown.nativeElement.contains(event.target)) {
-          this.showMenuMobile = false;
-          this.menu_clickCount += 1;
+          let matched = false;
+          let count = 0;
+          for (const btn of plus_minus_btns) {
+            console.log(btn);
+            if (btn === event.target) {
+              console.log("matched");
+              matched = true;
+            }
+            count += 1;
+            if ( plus_minus_btns.length === count - 1 && !matched) {
+              this.showMenuMobile = false;
+              this.menu_clickCount += 1;
+            }
+          }
+
         }
       }else {
         this.menu_clickCount = 0;
@@ -314,7 +348,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }else {
         this.chapters_clickCount = 0;
       }
-    });
+    });*/
 
   }
 

@@ -10,7 +10,7 @@
     <div class="container mobile">
         <div class="menu-wrapper">
             <div class="logo">
-                <a routerLink="/"><img src="/assets/svg/ths_circles_filled.svg"/></a>
+                <a routerLink="/" (click)="goToHome()"><img src="/assets/svg/ths_circles_filled.svg"/></a>
             </div>
             <div class="chapters">
                 <i #chapter_icon class="material-icons" (click)="toggleChaptersMobile($event)">more_vert</i>
