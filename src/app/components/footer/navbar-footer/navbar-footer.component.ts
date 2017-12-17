@@ -57,6 +57,7 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
                       this.footer_menu = res;
                   },
                   (error) => {
+                      this.footer_menu = [];
                       this.notificationBarCommunicationService.send_data(error);
                   });
           }

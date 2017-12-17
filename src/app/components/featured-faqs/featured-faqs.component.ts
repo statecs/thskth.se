@@ -96,14 +96,17 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
           this.most_asked_faqs = faqs;
         },
         (error) => {
+          this.most_asked_faqs = [];
           this.notificationBarCommunicationService.send_data(error);
         });
       },
       (error) => {
+        this.most_asked_faqs = [];
         this.notificationBarCommunicationService.send_data(error);
       });
     },
     (error) => {
+      this.most_asked_faqs = [];
       this.notificationBarCommunicationService.send_data(error);
     });
   }

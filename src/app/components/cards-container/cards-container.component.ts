@@ -153,6 +153,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
                 this.cardsLoaded = true;
             },
             (error) => {
+                this.cardsLoaded = true;
                 this.notificationBarCommunicationService.send_data(error);
             });
     }
@@ -206,6 +207,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
                 }
             },
             (error) => {
+                this.events = [];
                 this.notificationBarCommunicationService.send_data(error);
             });
     }
@@ -215,6 +217,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
               this.restaurant = res;
           },
           (error) => {
+              this.restaurant = null;
               this.notificationBarCommunicationService.send_data(error);
           });
     }

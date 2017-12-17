@@ -55,6 +55,13 @@ export class NotificationBarComponent implements OnInit, OnDestroy{
         message = this.notificationMessages['error500'].sv;
       }
       color = 'red';
+    }else {
+      if (this.lang === 'en') {
+        message = 'There was an error loading the page.';
+      }else {
+        message = 'Det gick inte att läsa in sidan.';
+      }
+      color = 'red';
     }
     this.notification = {
       message: message,

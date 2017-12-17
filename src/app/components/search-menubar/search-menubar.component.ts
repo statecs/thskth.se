@@ -105,6 +105,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
           this.postsResults = res;
         },
         (error) => {
+          this.postsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -115,6 +116,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
           this.pageResults = res;
         },
         (error) => {
+          this.pagesLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -125,6 +127,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
           this.faqResults = res;
         },
         (error) => {
+          this.faqsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }

@@ -171,6 +171,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
           },
           (error) => {
+            this.loading = false;
             this.notificationBarCommunicationService.send_data(error);
           });
     });

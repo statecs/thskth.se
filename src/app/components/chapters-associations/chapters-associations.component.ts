@@ -211,6 +211,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
                 this.checkResults();
             },
             (error) => {
+              this.showAssociations = false;
+              this.documentsLoading = false;
               this.notificationBarCommunicationService.send_data(error);
             });
     }
@@ -223,6 +225,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
                 this.checkResults();
             },
             (error) => {
+              this.showChapters = false;
+              this.documentsLoading = false;
               this.notificationBarCommunicationService.send_data(error);
             });
     }
@@ -244,6 +248,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
           this.checkResults();
         },
         (error) => {
+          this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -268,6 +273,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
           this.checkResults();
         },
         (error) => {
+          this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -331,11 +337,13 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
+          this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
       }
     },
     (error) => {
+      this.documentsLoading = false;
       this.notificationBarCommunicationService.send_data(error);
     });
   }

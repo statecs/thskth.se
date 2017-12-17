@@ -105,6 +105,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
+        this.showFeaturedEvents = false;
         this.notificationBarCommunicationService.send_data(error);
       });
     }else {
@@ -115,6 +116,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
+        this.showFeaturedEvents = false;
         this.notificationBarCommunicationService.send_data(error);
       });
     }
@@ -158,6 +160,8 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
       }
     },
     (error) => {
+      this.earliest_events = [];
+      this.showFeaturedEvents = false;
       this.notificationBarCommunicationService.send_data(error);
     });
   }

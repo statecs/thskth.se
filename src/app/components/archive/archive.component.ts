@@ -224,6 +224,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           this.searchResults = res;
         },
         (error) => {
+          this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -243,6 +244,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           this.documentsLoading = false;
         },
         (error) => {
+          this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -272,6 +274,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           this.latestDocuments = res;
         },
         (error) => {
+          this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -282,6 +285,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           this.popupWindowCommunicationService.showArchiveInPopup(res);
         },
         (error) => {
+          this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }

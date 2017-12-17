@@ -44,6 +44,7 @@ export class SingleViewComponent implements OnInit, OnDestroy {
                 }
             },
             (error) => {
+                this.loading = false;
                 this.notificationBarCommunicationService.send_data(error);
             });
     }
@@ -58,6 +59,7 @@ export class SingleViewComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
+            this.loading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -78,6 +80,7 @@ export class SingleViewComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
+            this.loading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }

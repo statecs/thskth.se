@@ -142,6 +142,7 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
           this.subMenu = submenu;
         },
         (error) => {
+          this.loading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -151,6 +152,7 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
           this.subMenu = submenu;
         },
         (error) => {
+          this.loading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -171,6 +173,7 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
+          this.loading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }

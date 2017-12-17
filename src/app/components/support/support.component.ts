@@ -119,6 +119,7 @@ export class SupportComponent implements OnInit, OnDestroy {
                   }
               },
               (error) => {
+                  this.loading = false;
                   this.notificationBarCommunicationService.send_data(error);
               });
       }
@@ -174,6 +175,7 @@ export class SupportComponent implements OnInit, OnDestroy {
                 }
             },
             (error) => {
+                this.loading = false;
                 this.notificationBarCommunicationService.send_data(error);
             });
     }
@@ -184,6 +186,7 @@ export class SupportComponent implements OnInit, OnDestroy {
             this.getFAQs_ByCategoryID(parentId);
         },
         (error) => {
+            this.loading = false;
             this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -219,6 +222,7 @@ export class SupportComponent implements OnInit, OnDestroy {
               }
           },
           (error) => {
+              this.loading = false;
               this.notificationBarCommunicationService.send_data(error);
           });
   }
@@ -232,6 +236,7 @@ export class SupportComponent implements OnInit, OnDestroy {
               this.parent_categories = categories;
           },
           (error) => {
+              this.loading = false;
               this.notificationBarCommunicationService.send_data(error);
           });
   }

@@ -160,6 +160,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
           this.subMenu = submenu;
         },
         (error) => {
+          this.loading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -169,6 +170,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
           this.subMenu = submenu;
         },
         (error) => {
+          this.loading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -183,6 +185,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
           }
         },
         (error) => {
+          this.loading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
@@ -203,6 +206,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
           }
         },
         (error) => {
+          this.loading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }

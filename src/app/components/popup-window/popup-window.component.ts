@@ -198,6 +198,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
           this.loading = false;
         },
         (error) => {
+          this.loading = false;
           this.notificationBarCommunicationService.send_data(error);
         });
   }
