@@ -1,5 +1,17 @@
 @import "../../../style/utilities";
 
+:host /deep/ .chat_flow{
+  .response {
+    a {
+      text-decoration: none;
+      color: $color-link;
+      &:hover {
+        color: $color-link-hover;
+      }
+    }
+  }
+}
+
 #chatbot{
   position: relative;
   border-bottom: 2px solid #eee;

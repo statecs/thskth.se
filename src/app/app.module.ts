@@ -108,6 +108,7 @@ import { AddLangToSlugPipe } from './pipes/add-lang-to-slug.pipe';
 import { FeaturedFaqsComponent } from './components/featured-faqs/featured-faqs.component';
 import {NotificationBarCommunicationService} from './services/component-communicators/notification-bar-communication.service';
 import { RelatedLinksComponent } from './components/advertisements/related-links/related-links.component';
+import { CookieNotificationBarComponent } from './components/cookie-notification-bar/cookie-notification-bar.component';
 
 
 @NgModule({
@@ -173,7 +174,8 @@ import { RelatedLinksComponent } from './components/advertisements/related-links
     AddLangToSlugPipe,
     FeaturedFaqsComponent,
     RelatedLinksComponent,
-    EscapeHtmlPipe
+    EscapeHtmlPipe,
+    CookieNotificationBarComponent
   ],
   imports: [
     BrowserModule,
