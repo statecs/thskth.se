@@ -13,6 +13,7 @@ import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 import {TitleCommunicationService} from '../../../services/component-communicators/title-communication.service';
 import {HideUICommunicationService} from '../../../services/component-communicators/hide-ui-communication.service';
 import format from 'date-fns/format/index';
+import {HeaderCommunicationService} from '../../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-sub-page',
@@ -45,6 +46,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   public parent_slug: string;
   public show_single_page: boolean;
   public infoBoxClickCount: number;
+  public notificationBarHeight: number;
 
   constructor(private pagesService: PagesService,
               private activatedRoute: ActivatedRoute,
@@ -53,7 +55,8 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
               private notificationBarComponent: NotificationBarComponent,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService,
-              private hideUICommunicationService: HideUICommunicationService) {
+              private hideUICommunicationService: HideUICommunicationService,
+              private headerCommunicationService: HeaderCommunicationService) {
     this.loading = true;
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
@@ -86,14 +89,15 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
 
   toggle_freeze_submenu_bar() {
     const pos = (document.documentElement.scrollTop || document.body.scrollTop);
-    console.log(this.submenu_bar_pos);
-    if (pos >= this.submenu_bar_pos) {
+    if (pos >= this.submenu_bar_pos ) {
       if (!this.freeze_submenu_bar) {
         this.freeze_submenu_bar = true;
+        this.submenu_bar.nativeElement.style.top = this.notificationBarHeight + 'px';
       }
     } else {
       if (this.freeze_submenu_bar) {
         this.freeze_submenu_bar = false;
+        this.submenu_bar.nativeElement.style.top = this.submenu_bar_pos + 'px';
       }
     }
   }
@@ -262,6 +266,10 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
       }else {
         this.infoBoxClickCount = 0;
       }
+    });
+
+    this.headerCommunicationService.positionHeaderObservable$.subscribe((height) => {
+      this.notificationBarHeight = height;
     });
   }
 
