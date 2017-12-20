@@ -2,7 +2,8 @@
     <div class="container bigger-device">
         <div class="search" role="search" (click)="showSearchMenubar()"><i class="material-icons">search</i> {{placeholder}}</div>
         <div class="logo">
-            <a routerLink="/"><img src="/assets/svg/ths_circles_filled.svg"/></a>
+            <a *ngIf="lang === 'en'" routerLink="/"><img src="/assets/svg/ths_circles_filled.svg"/></a>
+            <a *ngIf="lang === 'sv'" routerLink="/sv"><img src="/assets/svg/ths_circles_filled.svg"/></a>
         </div>
 
         <app-navbar-primary></app-navbar-primary>
@@ -10,7 +11,8 @@
     <div class="container mobile">
         <div class="menu-wrapper">
             <div class="logo">
-                <a routerLink="/" (click)="goToHome()"><img src="/assets/svg/ths_circles_filled.svg"/></a>
+                <a *ngIf="lang === 'en'" routerLink="/" (click)="goToHome()"><img src="/assets/svg/ths_circles_filled.svg"/></a>
+                <a *ngIf="lang === 'sv'" routerLink="/sv" (click)="goToHome()"><img src="/assets/svg/ths_circles_filled.svg"/></a>
             </div>
             <div class="chapters">
                 <i #chapter_icon class="material-icons" (click)="toggleChaptersMobile($event)">more_vert</i>
