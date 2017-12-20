@@ -6,6 +6,8 @@ import {TitleCommunicationService} from './services/component-communicators/titl
 import {HideUICommunicationService} from './services/component-communicators/hide-ui-communication.service';
 import {HeaderCommunicationService} from './services/component-communicators/header-communication.service';
 import { CookieService } from 'ngx-cookie';
+import {NavigationEnd, Router} from '@angular/router';
+declare let ga: Function;
 
 @Component({
   selector: 'app-root',
@@ -25,7 +27,8 @@ export class AppComponent {
                private titleService: Title,
                private titleCommunicationService: TitleCommunicationService,
                private headerCommunicationService: HeaderCommunicationService,
-               private _cookieService: CookieService) {
+               private _cookieService: CookieService,
+               public router: Router) {
     this._cookieService.put('turnOffNB', 'false');
     window.addEventListener('online', () => {this.online = true; });
     window.addEventListener('offline', () => {this.online = false; });
@@ -54,6 +57,12 @@ export class AppComponent {
     this.headerCommunicationService.positionHeaderObservable$.subscribe((arg) => {
       this.header_position = arg;
       this.page.nativeElement.style.top = arg + 'px';
+    });
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        ga('set', 'page', event.urlAfterRedirects);
+        ga('send', 'pageview');
+      }
     });
   }
 
