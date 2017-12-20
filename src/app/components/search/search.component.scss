@@ -8,15 +8,7 @@
     border-bottom: 0 !important;
   }
 }
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
 
-.example-full-width {
-  width: 100%;
-}
 #content-container{
   @include container-size($main-container);
   position: relative;
@@ -314,13 +306,6 @@
 {
   background: #b2b2b2;
   border-radius: 10px;
-}
-
-:host /deep/ .mat-form-field-underline{
-  height: 0 !important;
-  .mat-form-field-ripple{
-    height: 0 !important;
-  }
 }
 
 // Extra small devices (portrait phones, less than 576px)
