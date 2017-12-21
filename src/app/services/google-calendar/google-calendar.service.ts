@@ -143,11 +143,23 @@ export class GoogleCalendarService {
       }else {
         imageUrl = '';
       }
+      let start: Date;
+      if (event.start.dateTime) {
+        start = new Date(event.start.dateTime);
+      }else if (event.start.date) {
+        start = new Date(Date.parse(event.start.date));
+      }
+      let end: Date;
+      if (event.end.dateTime) {
+        end = new Date(event.end.dateTime);
+      }else if (event.end.date) {
+        end = new Date(Date.parse(event.end.date));
+      }
       result.push({
         id: event.id,
         title: event.summary,
-        start: new Date(event.start.dateTime),
-        end: new Date(event.end.dateTime),
+        start: start,
+        end: end,
         description: event.description,
         imageUrl: imageUrl,
         color: colors.yellow,
