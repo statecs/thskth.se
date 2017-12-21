@@ -5,6 +5,7 @@ import { FAQ } from '../../interfaces/faq';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-featured-faqs',
@@ -12,7 +13,7 @@ import {PopupWindowCommunicationService} from '../../services/component-communic
   styleUrls: ['./featured-faqs.component.scss']
 })
 export class FeaturedFaqsComponent implements OnInit, OnDestroy {
-  @Input() lang: any;
+  //@Input() lang: any;
   @ViewChild('slides_wrapper') slides_wrapper: ElementRef;
   public most_asked_questions_slugs: string[];
   public most_asked_faqs: FAQ[];
@@ -22,10 +23,13 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
   public faqsSubscription: Subscription;
   public faqsSubscription2: Subscription;
   public faqsSubscription3: Subscription;
+  public paramsSubscription: Subscription;
+  public lang: string;
 
   constructor(private faqsService: FaqsService,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private popupWindowCommunicationService: PopupWindowCommunicationService) {
+              private popupWindowCommunicationService: PopupWindowCommunicationService,
+              private activatedRoute: ActivatedRoute) {
     this.most_asked_questions_slugs = most_asked_questions;
     this.most_asked_faqs = [];
     this.item_onfocus_index = 0;
@@ -84,30 +88,40 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
     slides_wrapper.style.marginLeft = margin_left;
   }
 
-  ngOnInit() {
+  getFAQs(): void {
     this.faqsSubscription = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0], this.lang).subscribe((faq) => {
-      const faqs: FAQ[] = [];
-      faqs.push(faq);
-      this.faqsSubscription2 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1], this.lang).subscribe((faq2) => {
-        faqs.push(faq2);
-        this.faqsSubscription3 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2], this.lang).subscribe((faq3) => {
-          faqs.push(faq3);
+          const faqs: FAQ[] = [];
+          faqs.push(faq);
+          this.faqsSubscription2 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1], this.lang).subscribe((faq2) => {
+                faqs.push(faq2);
+                this.faqsSubscription3 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2], this.lang).subscribe((faq3) => {
+                      faqs.push(faq3);
 
-          this.most_asked_faqs = faqs;
+                      this.most_asked_faqs = faqs;
+                    },
+                    (error) => {
+                      this.most_asked_faqs = [];
+                      this.notificationBarCommunicationService.send_data(error);
+                    });
+              },
+              (error) => {
+                this.most_asked_faqs = [];
+                this.notificationBarCommunicationService.send_data(error);
+              });
         },
         (error) => {
           this.most_asked_faqs = [];
           this.notificationBarCommunicationService.send_data(error);
         });
-      },
-      (error) => {
-        this.most_asked_faqs = [];
-        this.notificationBarCommunicationService.send_data(error);
-      });
-    },
-    (error) => {
-      this.most_asked_faqs = [];
-      this.notificationBarCommunicationService.send_data(error);
+  }
+
+  ngOnInit() {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      this.lang = params['lang'];
+      if (typeof this.lang === 'undefined') {
+        this.lang = 'en';
+      }
+      this.getFAQs();
     });
   }
 
