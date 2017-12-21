@@ -66,6 +66,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
     this.subMenu = [];
     this.show_single_page = false;
     this.infoBoxClickCount = 0;
+    this.notificationBarHeight = 0;
   }
 /*
   getOffsetTop(elem): number {
@@ -92,6 +93,8 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
     if (pos >= this.submenu_bar_pos ) {
       if (!this.freeze_submenu_bar) {
         this.freeze_submenu_bar = true;
+        this.submenu_bar.nativeElement.style.top = this.notificationBarHeight + 'px';
+      }else {
         this.submenu_bar.nativeElement.style.top = this.notificationBarHeight + 'px';
       }
     } else {
@@ -270,6 +273,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.headerCommunicationService.positionHeaderObservable$.subscribe((height) => {
       this.notificationBarHeight = height;
+      this.toggle_freeze_submenu_bar();
     });
   }
 

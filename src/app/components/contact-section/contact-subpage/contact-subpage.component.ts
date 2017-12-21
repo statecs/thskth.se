@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
 import {Page} from '../../../interfaces/page';
@@ -18,7 +18,7 @@ import {HeaderCommunicationService} from '../../../services/component-communicat
   templateUrl: './contact-subpage.component.html',
   styleUrls: ['./contact-subpage.component.scss']
 })
-export class ContactSubpageComponent implements OnInit, OnDestroy {
+export class ContactSubpageComponent implements AfterViewInit, OnInit, OnDestroy {
 
   @ViewChild('submenu_bar') submenu_bar: ElementRef;
   public page: Page;
@@ -71,6 +71,8 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
     if (pos >= this.submenu_bar_pos ) {
       if (!this.freeze_submenu_bar) {
         this.freeze_submenu_bar = true;
+        this.submenu_bar.nativeElement.style.top = this.notificationBarHeight + 'px';
+      }else {
         this.submenu_bar.nativeElement.style.top = this.notificationBarHeight + 'px';
       }
     } else {
@@ -225,7 +227,16 @@ export class ContactSubpageComponent implements OnInit, OnDestroy {
 
     this.headerCommunicationService.positionHeaderObservable$.subscribe((height) => {
       this.notificationBarHeight = height;
+      this.toggle_freeze_submenu_bar();
     });
+  }
+
+  ngAfterViewInit() {
+    const self = this;
+    setTimeout(function () {
+      self.submenu_bar_pos = self.submenu_bar.nativeElement.offsetTop;
+      self.toggle_freeze_submenu_bar();
+    }, 1000);
   }
 
   ngOnDestroy() {
