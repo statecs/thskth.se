@@ -4,7 +4,7 @@
 
   <div class="divider"></div>
 
-  <label>Subject *</label>
+  <label>{{(lang === 'en' ? 'Subject' : 'Ämne')}} *</label>
   <select name="subject" formControlName="subject_to" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
     <option *ngFor="let s of subjects" [ngValue]="s.email">{{s.name}}</option>
   </select>
