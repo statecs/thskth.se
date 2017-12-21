@@ -5,6 +5,7 @@ import { ReCaptchaComponent } from 'angular2-recaptcha';
 import {ContactFormService} from '../../services/forms/contact-form.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-contact-form',
@@ -16,19 +17,17 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
   public config: AppConfig;
   public subjects: object[];
-  public full_name: string;
-  public email: string;
-  public message: string;
-  public id_number: string;
   public error: string;
   public success: string;
   public lang: string;
   public paramsSubscription: Subscription;
   public submitSubscription: Subscription;
+  public contactForm: FormGroup;
 
   constructor(private injector: Injector,
               public contactFormService: ContactFormService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private fb: FormBuilder) {
     this.config = injector.get(APP_CONFIG);
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
@@ -36,43 +35,46 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         this.lang = 'en';
       }
     });
+    this.contactForm = fb.group({
+      subject_to: ['', Validators.required],
+      message: ['', Validators.required],
+      full_name: ['', Validators.required],
+      id_number: [null],
+      email: ['', [Validators.required, Validators.email]],
+    });
     this.subjects = [
       {
-        name: '---', email: ''
+        email: '', name: '---'
       }, {
-        name: 'karx@ths.kth.se', email: 'Membership'
+        email: 'karx@ths.kth.se', name: 'Membership'
       }, {
-        name: 'studiesocialt@ths.kth.se', email: 'Social activities'
+        email: 'studiesocialt@ths.kth.se', name: 'Social activities'
       }, {
-        name: 'utbildning@ths.kth.se', email: 'Education'
+        email: 'utbildning@ths.kth.se', name: 'Education'
       }, {
-        name: 'naringsliv@ths.kth.se', email: 'Business relations'
+        email: 'naringsliv@ths.kth.se', name: 'Business relations'
       }, {
-        name: 'studiesocialt@ths.kth.se', email: 'Study environment'
+        email: 'studiesocialt@ths.kth.se', name: 'Study environment'
       }, {
-        name: 'kommunikation@ths.kth.se', email: 'Information'
+        email: 'kommunikation@ths.kth.se', name: 'Information'
       }, {
-        name: 'karx@ths.kth.se', email: 'Student ID card'
+        email: 'karx@ths.kth.se', name: 'Student ID card'
       }, {
-        name: 'lokalbokning@ths.kth.se', email: 'Booking inquiries'
+        email: 'lokalbokning@ths.kth.se', name: 'Booking inquiries'
       }, {
-        name: 'event@ths.kth.se', email: 'Party related'
+        email: 'event@ths.kth.se', name: 'Party related'
       }, {
-        name: 'restaurang@ths.kth.se', email: 'Nymble restaurants'
+        email: 'restaurang@ths.kth.se', name: 'Nymble restaurants'
       }, {
-        name: 'roger2@kth.se', email: 'Report a fault in Nymble'
+        email: 'roger2@kth.se', name: 'Report a fault in Nymble'
       }, {
-        name: 'naringsliv@ths.kth.se', email: 'Advertising'
+        email: 'naringsliv@ths.kth.se', name: 'Advertising'
       }, {
-        name: 'webmaster@ths.kth.se', email: 'Webmaster'
+        email: 'webmaster@ths.kth.se', name: 'Webmaster'
       }, {
-        name: 'kommunikation@ths.kth.se', email: 'Övrigt/Other'
+        email: 'kommunikation@ths.kth.se', name: 'Övrigt/Other'
       },
     ];
-    this.full_name = '';
-    this.email = '';
-    this.message = '';
-    this.id_number = null;
     this.error = null;
     this.success = null;
   }
@@ -80,11 +82,17 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   submitMessage(): void {
     this.error = null;
     this.success = null;
-    if (this.full_name === '' || this.email === '' || this.message === '' ) {
+    if (this.contactForm.value.full_name === '' || this.contactForm.value.message === '' || this.contactForm.value.subject_to === '' || this.contactForm.value.subject_to === '---' ) {
       if (this.lang === 'en') {
         this.error = 'Please fill in the required fields (*)!';
       }else {
         this.error = 'Vänligen fyll i obligatoriska fält (*)!';
+      }
+    }else if (!this.contactForm.controls['email'].valid && this.contactForm.controls['email'].touched) {
+      if (this.lang === 'en') {
+        this.error = 'Please enter the correct email, this email is not valid.';
+      }else {
+        this.error = 'Vänligen ange rätt e-post.';
       }
     }else if (this.captcha.getResponse() === '') {
       if (this.lang === 'en') {
@@ -94,10 +102,11 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       }
     }else {
       const post_data = {  // prepare payload for request
-        'name': this.full_name,
-        'email': this.email,
-        'message': this.message,
-        'pnumber': this.id_number,
+        'name': this.contactForm.value.full_name,
+        'email': this.contactForm.value.email,
+        'message': this.contactForm.value.message,
+        'subject_to': this.contactForm.value.subject_to,
+        'pnumber': this.contactForm.value.id_number,
         'g-recaptcha-response': this.captcha.getResponse()  // send g-captcah-reponse to our server
       };
       this.submitSubscription = this.contactFormService.submitMessage(post_data).subscribe(

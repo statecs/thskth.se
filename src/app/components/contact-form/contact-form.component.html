@@ -1,11 +1,16 @@
-<form (ngSubmit)="submitMessage()">
+<form [formGroup]="contactForm" (ngSubmit)="submitMessage()" autocomplete="off">
   <h1>{{(lang === 'en' ? 'Send your question' : 'Skicka din fråga')}}</h1>
   <p>{{(lang === 'en' ? 'We respond as quickly as we can.' : 'Vi svarar så fort vi kan.')}}</p>
 
   <div class="divider"></div>
 
+  <label>Subject *</label>
+  <select name="subject" formControlName="subject_to" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+    <option *ngFor="let s of subjects" [ngValue]="s.email">{{s.name}}</option>
+  </select>
+
   <label>{{(lang === 'en' ? 'Message' : 'Meddelande')}} *</label>
-  <textarea [(ngModel)]="message" name="message" rows="6" id="message" required></textarea>
+  <textarea formControlName="message" name="message" rows="6" id="message" required></textarea>
 
   <label class="heading">{{(lang === 'en' ? 'Leave your contacts below' : 'Lämna dina kontakter nedan')}}</label>
   <div class="divider"></div>
@@ -14,17 +19,17 @@
     <div class="row">
       <div class="o-half">
         <label>{{(lang === 'en' ? 'Name' : 'Namn')}} *</label>
-        <input type="text" id="name" [(ngModel)]="full_name" name="full name" required>
+        <input type="text" id="name" formControlName="full_name" name="full name" required>
       </div>
       <div class="o-half">
         <label>{{(lang === 'en' ? 'Personal identity number' : 'Personnummer')}} (YYMMDD-XXXX)</label>
-        <input [(ngModel)]="id_number" name="id_number" type="text" id="id_number">
+        <input formControlName="id_number" name="id_number" type="text" id="id_number">
       </div>
     </div>
   </div>
 
   <label>{{(lang === 'en' ? 'E-mail' : 'E-post')}} *</label>
-  <input type="email" id="email" [(ngModel)]="email" name="email" required>
+  <input type="email" id="email" formControlName="email" name="email" required>
 
   <div class="cb-simple mt20" id="termsAccepted">
     <div class="cb-simple-box"></div><br />
