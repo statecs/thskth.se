@@ -71,7 +71,6 @@ export class SocialMediaPostService {
 
   castFBResSMPType(post_list) {
     post_list.forEach((post) => {
-      console.log(post);
       const user = {
         name: post.from.name,
         profile_image: 'http://graph.facebook.com/' + post.from.id + '/picture?type=square',

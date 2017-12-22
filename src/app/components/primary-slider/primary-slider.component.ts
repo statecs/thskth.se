@@ -169,7 +169,6 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       this.video = this.video_player.nativeElement;
       const self = this;
       const mouseStopped = function(){
-        console.log("test4");
         self.hideControls();
       };
       if (this.video.paused) {
@@ -247,7 +246,6 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       clearTimeout(this.mousemove_timer);
     }
     if (!this.video.paused) {
-      console.log("test");
       this.headerCommunicationService.expendHeader();
     }
     clearInterval(this.mainSlide_timer);

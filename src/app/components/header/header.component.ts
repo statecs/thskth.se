@@ -137,12 +137,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   expendHeader() {
-    console.log("test2");
     this.app_header.nativeElement.style.top = '0px';
   }
 
   collapseHeader() {
-    console.log("test3");
     this.app_header.nativeElement.style.top = '-150px';
   }
 
@@ -162,7 +160,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subMenu_slug = id;
     this.mainMenuSubscription = this.menusService.get_mainSubMenu(id, this.lang).subscribe((subMenu) => {
       this.subMenu = subMenu;
-          console.log(subMenu);
     },
     (error) => {
       this.notificationBarCommunicationService.send_data(error);
@@ -174,7 +171,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.showSubmenuIndex2 = index;
     this.mainMenuSubscription = this.menusService.get_secondarySubMenu(this.subMenu_slug, id, this.lang).subscribe((subMenu) => {
           this.subMenu2 = subMenu;
-          console.log(subMenu);
           if (this.subMenu2.length === 0) {
             this.showSubmenuIndex2 = -1;
           }
@@ -226,7 +222,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         url = '';
       }
       if (url.substring(0, 4) === '/sv/' || url.substring(0, 4) === '/en/') {
-        console.log(lang);
         if (url.substring(0, 4) === '/sv/') {
           this.router.navigateByUrl('/en/' + url.substring(4));
         }else if (url.substring(0, 4) === '/en/') {
@@ -235,7 +230,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.router.navigateByUrl('/sv/' + url.substring(1));
         }
       }else {
-        console.log(lang);
         if (this.lang === 'en') {
           this.router.navigateByUrl('/en' + url);
         }else if (this.lang === 'sv') {

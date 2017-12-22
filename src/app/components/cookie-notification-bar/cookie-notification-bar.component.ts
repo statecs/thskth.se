@@ -39,7 +39,6 @@ export class CookieNotificationBarComponent implements OnInit {
             this.lang = 'en';
           }
         }
-        console.log(this.cookieService.get('turnOffCNB'));
         if (this.cookieService.get('turnOffCNB') === 'true') {
           this.showNotification = false;
         }else {
