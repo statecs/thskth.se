@@ -21,6 +21,8 @@
         <dd> <a href="mailto:{{page_data.author.email}}" class="ng-binding">{{page_data.author.name}}</a></dd>
       </dl>
     </footer>
+
+    <app-related-links [links]="page_data.related_links"></app-related-links>
   </div>
 
 </div>

@@ -14,7 +14,7 @@ export class OneColumnTemplateComponent implements OnInit {
     return format(created_time, 'YYYY-MM-DD');
   }
  
-  constructor() { 
+  constructor() {
   }
 
   ngOnInit() {
