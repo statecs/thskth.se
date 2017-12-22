@@ -36,7 +36,7 @@
       <app-related-links [links]="page.related_links"></app-related-links>
     </div>
     <div class="content-container">
-      <div class="content" [innerHTML]="page?.content"></div>
+      <div class="content" [innerHTML]="page?.content | keepHtml"></div>
       <app-image-gallery *ngIf="page?.image_gallery" [imageGallery]="page?.image_gallery"></app-image-gallery>
       <app-text-gallery *ngIf="page?.text_gallery" [textGallery]="page?.text_gallery"></app-text-gallery>
 
