@@ -79,22 +79,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleSubmenu(object_slug, i): void {
-    console.log("test");
-    console.log(this.showSubmenuIndex);
     if (this.showSubmenuIndex < 0 || this.showSubmenuIndex === null ) {
       this.showSubMenu(object_slug, i);
-    }else {
+    }else if (this.showSubmenuIndex === i) {
       this.hideSubMenu(i);
+    }else if (this.showSubmenuIndex !== i) {
+      this.showSubMenu(object_slug, i);
     }
   }
 
   toggleSubmenu2(object_slug, i): void {
-    console.log("test");
-    console.log(this.showSubmenuIndex2);
     if (this.showSubmenuIndex2 < 0 || this.showSubmenuIndex2 === null ) {
       this.showSubMenu2(object_slug, i);
-    }else {
+    }else if (this.showSubmenuIndex2 === i) {
       this.hideSubMenu2(i);
+    }else if (this.showSubmenuIndex2 !== i) {
+      this.showSubMenu2(object_slug, i);
     }
   }
 
