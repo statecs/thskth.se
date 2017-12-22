@@ -18,7 +18,7 @@ export class HeaderCommunicationService {
     this.notify.next('expend');
   }
 
-  collapeHeader() {
+  collapseHeader() {
     this.notify.next('collapse');
   }
 

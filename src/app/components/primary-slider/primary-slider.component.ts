@@ -152,7 +152,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
 
   hideControls() {
     this.slider_bar_container.nativeElement.style.bottom = '-100px';
-    this.headerCommunicationService.collapeHeader();
+    this.headerCommunicationService.collapseHeader();
     this.playButton.nativeElement.style.opacity = '0';
     this.controlsOpacity = 0;
   }
@@ -169,6 +169,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       this.video = this.video_player.nativeElement;
       const self = this;
       const mouseStopped = function(){
+        console.log("test4");
         self.hideControls();
       };
       if (this.video.paused) {
@@ -242,6 +243,13 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.mousemove_timer) {
+      clearTimeout(this.mousemove_timer);
+    }
+    if (!this.video.paused) {
+      console.log("test");
+      this.headerCommunicationService.expendHeader();
+    }
     clearInterval(this.mainSlide_timer);
     if (this.paramsSubscription) {
       this.paramsSubscription.unsubscribe();

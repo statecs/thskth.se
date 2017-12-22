@@ -137,10 +137,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   expendHeader() {
+    console.log("test2");
     this.app_header.nativeElement.style.top = '0px';
   }
 
   collapseHeader() {
+    console.log("test3");
     this.app_header.nativeElement.style.top = '-150px';
   }
 
