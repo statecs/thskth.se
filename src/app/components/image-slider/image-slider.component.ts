@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener, Input} from '@angular/core';
 import {ImageSliderCommunicationService} from '../../services/component-communicators/image-slider-communication.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
@@ -14,10 +14,10 @@ import format from 'date-fns/format/index';
 export class ImageSliderComponent implements OnInit, OnDestroy {
   @ViewChild('slides_container') slides_container: ElementRef;
   @ViewChild('slider_progress_bar') slider_progress_bar: ElementRef;
+  @Input() slide_items: any;
   public slides_wrapper: any;
   public item_onfocus_index: number;
   public bar_items: any;
-  public slide_items: any[];
   private swipeCoord: [number, number];
   private swipeTime: number;
   public lang: string;
@@ -36,7 +36,6 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private location: Location) {
     this.item_onfocus_index = 1;
-    this.slide_items = [];
       this.dragging = false;
       this.lang = this.activatedRoute.snapshot.data['lang'];
       this.deviceSize = window.screen.width;
@@ -284,9 +283,9 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName('bar-item');
     this.slides_wrapper = this.slides_container.nativeElement.getElementsByClassName('slides-wrapper');
-    this.imageSliderSubscription = this.imageSliderCommunicationService.notifyObservable$.subscribe((data) => {
+    /*this.imageSliderSubscription = this.imageSliderCommunicationService.notifyObservable$.subscribe((data) => {
       this.slide_items = data;
-    });
+    });*/
   }
 
     ngOnDestroy() {

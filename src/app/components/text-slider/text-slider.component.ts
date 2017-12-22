@@ -16,7 +16,7 @@ export class TextSliderComponent implements OnInit, OnDestroy {
   public slides: any;
   public slideIndex: number;
   public bar_items: any;
-  public slides_items: any;
+  @Input() slides_items: any;
   public sliderSubscription: Subscription;
 
   constructor(private textSliderCommunicationService: TextSliderCommunicationService,
@@ -62,9 +62,9 @@ export class TextSliderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName('bar-item');
-    this.textSliderCommunicationService.notifyObservable$.subscribe((arg) => {
+    /*this.textSliderCommunicationService.notifyObservable$.subscribe((arg) => {
       this.slides_items = arg;
-    });
+    });*/
   }
 
   ngOnDestroy() {

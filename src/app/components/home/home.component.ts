@@ -15,6 +15,8 @@ import {SearchMenubarCommunicationService} from '../../services/component-commun
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {PlatformLocation} from '@angular/common';
+import {Post} from '../../interfaces/post';
+import {FAQ} from '../../interfaces/faq';
 
 @Component({
   selector: 'app-home',
@@ -32,6 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     public showSocialMediaCards: boolean;
     public showFAQSlider: boolean;
     public showNewsSlider: boolean;
+    public news: Post[];
+    public faqs: FAQ[];
 
   constructor(  private textSliderCommunicationService: TextSliderCommunicationService,
                 private faqsService: FaqsService,
@@ -66,10 +70,11 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     onWindowScroll() {
         const pos = (document.documentElement.scrollTop || document.body.scrollTop);
         if (!this.showFAQSlider) {
-            if (pos > 500) {
+            if (pos > 10) {
                 this.faqCatSubscription = this.faqsService.getFAQs_OfEachCategories(1, this.lang).subscribe((faqs) => {
                         this.showFAQSlider = true;
-                        this.textSliderCommunicationService.send_data_to_textSlider(faqs);
+                        this.faqs = faqs;
+                        //this.textSliderCommunicationService.send_data_to_textSlider(faqs);
                     },
                     (error) => {
                         this.showFAQSlider = false;
@@ -79,10 +84,11 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         }
         if (!this.showNewsSlider) {
-            if (pos > 600) {
+            if (pos > 10) {
                 this.postsSubscription = this.postsService.getPosts(5, this.lang).subscribe((posts) => {
                         this.showNewsSlider = true;
-                        this.imageSliderCommunicationService.send_data_to_imageSlider(posts);
+                        this.news = posts;
+                        //this.imageSliderCommunicationService.send_data_to_imageSlider(posts);
                     },
                     (error) => {
                         this.showNewsSlider = false;
@@ -92,13 +98,12 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         }
         if (!this.showSocialMediaCards) {
-            if (pos > 1000) {
+            if (pos > 10) {
                 this.showSocialMediaCards = true;
             }
         }
         if (!this.showGoogleMap) {
-            const max = document.documentElement.scrollHeight;
-            if (pos > 600) {
+            if (pos > 10) {
                 this.showGoogleMap = true;
             }
         }

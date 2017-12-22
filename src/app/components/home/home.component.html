@@ -5,12 +5,12 @@
     <div class="faq-slider">
         <a routerLink="{{lang === 'en' ? '/support' : '/sv/support'}}" class="title">{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</a>
         <app-loader *ngIf="!showFAQSlider"></app-loader>
-        <app-text-slider *ngIf="showFAQSlider" [lang]="lang"></app-text-slider>
+        <app-text-slider *ngIf="showFAQSlider" [lang]="lang" [slides_items]="faqs"></app-text-slider>
     </div>
     <div class="image-slider">
         <a routerLink="{{lang === 'en' ? '/news' : '/sv/news'}}" class="title">{{(lang === 'en' ? 'News' : 'Nyheter')}}</a>
         <app-loader *ngIf="!showNewsSlider"></app-loader>
-        <app-image-slider *ngIf="showNewsSlider"></app-image-slider>
+        <app-image-slider *ngIf="showNewsSlider" [slide_items]="news"></app-image-slider>
     </div>
     <app-cards-social-container *ngIf="showSocialMediaCards" [showFetchMoreBtn]="true"></app-cards-social-container>
 
