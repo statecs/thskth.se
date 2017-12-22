@@ -245,9 +245,12 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     if (this.mousemove_timer) {
       clearTimeout(this.mousemove_timer);
     }
-    if (!this.video.paused) {
-      this.headerCommunicationService.expendHeader();
+    if (this.video) {
+      if (!this.video.paused) {
+        this.headerCommunicationService.expendHeader();
+      }
     }
+
     clearInterval(this.mainSlide_timer);
     if (this.paramsSubscription) {
       this.paramsSubscription.unsubscribe();
