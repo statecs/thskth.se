@@ -14,10 +14,9 @@ export class ContactFormService {
     this.config = injector.get(APP_CONFIG);
   }
 
-  submitMessage(post_data: ContactForm): Observable<any> {
+  submitMessage(post_data: ContactForm): Observable<Response> {
     return this.http
-        .post(this.config.XHR_CONTACT_FORM, post_data)
-        .map((res: Response) => res.json());
+        .post(this.config.XHR_CONTACT_FORM, post_data);
   }
 
 }
