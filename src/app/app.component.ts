@@ -43,10 +43,14 @@ export class AppComponent {
           window.scrollTo(0, 0);
         }else if (arg === 'show') {
           pageStyle.position = 'relative';
-          pageStyle.top = this.header_position + 'px';
-          const self = this;
-          setTimeout(function () {
-            window.scrollTo(0, self.scrollTop);
+          if (this.header_position) {
+            pageStyle.top = this.header_position + 'px';
+          }else {
+            pageStyle.top = '0px';
+          }
+
+          setTimeout(() => {
+            window.scrollTo(0, this.scrollTop);
           }, 0);
         }
       }
