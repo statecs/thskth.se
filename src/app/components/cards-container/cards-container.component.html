@@ -165,10 +165,10 @@
                             <!--<a type="button" *ngFor="let b of card.card_primary_buttons" (click)="goToPage(b.link)">{{b.text}}</a>-->
                         </div>
                     </div>
-                    <div *ngIf="card.card_type === 'nymble-card'" class="standard-card restrictions-card nymble-card" [ngStyle]="changeBGColor(card)">
+                    <div *ngIf="card.card_type === 'nymble-card'" class="standard-card restrictions-card nymble-card" [ngStyle]="changeBGColor(card)" routerLink="/restaurants">
                         <div class="content">
                             <h2>{{card.title + ' - ' + getDate()}}</h2>
-                            <p *ngIf="restaurant && getDayIndex() <= 5 && getDayIndex() > 0" [innerHTML]="restaurant.menu[getDayIndex()]?.full_text"></p>
+                            <p *ngIf="restaurant && getDayIndex() <= 5 && getDayIndex() > 0" [innerHTML]="restaurant.menu[getDayIndex()]?.full_text | cardText:200"></p>
                             <p *ngIf="restaurant && (getDayIndex() === 6 || getDayIndex() === 0)">{{(lang === 'en' ? 'Restaurant closed for the weekend.' : 'Restaurang är stängd för helgen.')}}</p>
                             <a routerLink="/restaurants">{{(lang === 'en' ? 'Menu week ' + getWeekNumber() : 'Meny vecka ' + getWeekNumber())}}</a>
                             <!--<a type="button" *ngFor="let b of card.card_primary_buttons" (click)="goToPage(b.link)">{{b.text}}</a>-->

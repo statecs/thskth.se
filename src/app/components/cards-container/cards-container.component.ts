@@ -189,7 +189,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     }
 
     getDayIndex(): number {
-        return parseInt(format(this.date, 'd'), 10);
+        return parseInt(format(this.date, 'd'), 10) - 1;
     }
 
     getWeekNumber(): string {
