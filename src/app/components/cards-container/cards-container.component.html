@@ -23,7 +23,7 @@
                     <div class="content">
                         <h2>{{card.title}}</h2>
                         <p [innerHTML]="card.content | cardText:120"></p>
-                        <a type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}} </a>
+                        <a *ngIf="card.slug_to_page !== ''" type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}} </a>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                         <h2>{{card.title}}</h2>
                         <p [innerHTML]="card.content | cardText:120"></p>
                         <!--<a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>-->
-                        <a type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}} </a>
+                        <a *ngIf="card.slug_to_page !== ''" type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}} </a>
                     </div>
                 </div>
             </div>
@@ -153,7 +153,7 @@
                         <div class="content">
                             <h2>{{card.title}}</h2>
                             <p [innerHTML]="card.content | cardText:50"></p>
-                            <a *ngIf="card.card_primary_buttons.length === 0" type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}}</a>
+                            <a *ngIf="card.card_primary_buttons.length === 0 && card.slug_to_page !== ''" type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}}</a>
                             <a type="button" *ngFor="let b of card.card_primary_buttons" (click)="goToPage(b.link)">{{b.text}}</a>
                         </div>
                     </div>

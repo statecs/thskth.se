@@ -86,18 +86,20 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     }
 
   showPage(slug, window_type, slug_to_page): void {
-      if (this.lang === 'sv') {
-          slug_to_page = 'sv' + (slug_to_page.substring(0, 1) === '/' ? '' : '/') + slug_to_page;
-      }else {
-          slug_to_page = 'en' + (slug_to_page.substring(0, 1) === '/' ? '' : '/') + slug_to_page;
-      }
-      if (window_type === 'popup-window') {
-          this.popupWindowCommunicationService.showPageInPopup(slug);
-          this.location.go(slug_to_page);
-      }else if (window_type === 'new-tab') {
-          window.open('/' + slug_to_page, '_blank');
-      }else if (window_type === 'same-page') {
-          this.router.navigate(['/' + slug_to_page]);
+      if (slug_to_page) {
+          if (this.lang === 'sv') {
+              slug_to_page = 'sv' + (slug_to_page.substring(0, 1) === '/' ? '' : '/') + slug_to_page;
+          }else {
+              slug_to_page = 'en' + (slug_to_page.substring(0, 1) === '/' ? '' : '/') + slug_to_page;
+          }
+          if (window_type === 'popup-window') {
+              this.popupWindowCommunicationService.showPageInPopup(slug);
+              this.location.go(slug_to_page);
+          }else if (window_type === 'new-tab') {
+              window.open('/' + slug_to_page, '_blank');
+          }else if (window_type === 'same-page') {
+              this.router.navigate(['/' + slug_to_page]);
+          }
       }
   }
 
