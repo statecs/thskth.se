@@ -18,6 +18,7 @@ export interface SubCard {
     title: string;
     background_color: string;
     background_image: any;
+    slug: string;
     slug_to_page: string;
     window_type: string;
     card_type: string;

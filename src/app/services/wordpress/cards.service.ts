@@ -155,6 +155,7 @@ export class CardsService {
         title: c.title,
         background_color: c.background_color,
         background_image: bg_image,
+        slug: this.getSubCardSlug(c.slug_to_page),
         slug_to_page: c.slug_to_page,
         window_type: c.window_type,
         card_type: c.card_type,
@@ -162,6 +163,11 @@ export class CardsService {
       });
     });
     return subCards;
+  }
+
+  getSubCardSlug(data): string {
+    const array: [string] = data.split('/');
+    return array[array.length - 1];
   }
 
   sortArrayByCardNumber(a, b) {
