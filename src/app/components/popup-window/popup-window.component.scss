@@ -16,6 +16,7 @@
     min-height: 100vh;
     top: 0;
     z-index: 1;
+    cursor: url(/assets/icons/icon-cursor-close.svg) 25 25, move;
   }
   #popup-window{
     @include container-size(70%);
@@ -27,12 +28,15 @@
     overflow: hidden;
     padding-bottom: 100px;
     min-height: 500px;
+    cursor: url(/assets/icons/icon-cursor-close.svg) 25 25, move;
 
     .layouts-container{
       position: relative;
       background-color: $bg-color-default;
       transition: margin 0.5s ease;
       border-radius: 7px;
+      margin-top: 200px;
+      cursor: auto;
       .exit-popup-btn{
         background-color: black;
         color: white;
@@ -87,7 +91,7 @@
           border-radius: 8px;
           box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
           margin-top: 100px;
-          transition: margin 0.7s ease;
+          transition: margin 0.5s ease;
           h2{
             margin-top:0;
           }
