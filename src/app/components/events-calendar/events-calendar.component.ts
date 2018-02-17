@@ -153,11 +153,12 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     this.allEventsSubscription2 = this.googleCalendarService.getAllEvents(null, 'month').subscribe(res => {
       const mergedArrays = this.mergeArrays(res);
       const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
-      if (sortedArrays.length > 3) {
+      this.earliest_events = sortedArrays;
+      /*if (sortedArrays.length > 3) {
         this.earliest_events = sortedArrays.slice(0, 3);
       }else {
         this.earliest_events = sortedArrays;
-      }
+      }*/
     },
     (error) => {
       this.earliest_events = [];

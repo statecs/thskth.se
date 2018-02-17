@@ -23,6 +23,7 @@ export class GoogleCalendarService {
   protected search: URLSearchParams = new URLSearchParams();
   view: string;
   public ths_calendars: any[];
+  public ths_events: any[];
 
   constructor(private http: Http, private injector: Injector) {
     this.config = injector.get(APP_CONFIG);
@@ -56,6 +57,7 @@ export class GoogleCalendarService {
     }
   }
 
+
   getAllEvents(viewDate, view): Observable<Event[][]> {
     this.view = view;
     const params: URLSearchParams = new URLSearchParams();
@@ -87,8 +89,9 @@ export class GoogleCalendarService {
     const cal6 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[5].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res, this.ths_calendars[5].calendarId);});
     const cal7 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[6].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res, this.ths_calendars[6].calendarId);});
     const cal8 = this.http.get(this.config.GOOGLE_CALENDAR_BASE_URL + this.ths_calendars[7].calendarId + '/events', { params }).map(res => res.json()).map((res: any)=>{return this.castResToEventType(res, this.ths_calendars[7].calendarId);});
+    const cal9 = this.http.get(this.config.EVENTS_URL + '?lang=en').map(res => res.json()).map((res: any)=>{return this.castFacebookResToEventType(res, this.ths_events);});
 
-    return Observable.forkJoin([cal1, cal2, cal3, cal4, cal5, cal6, cal7, cal8]);
+    return Observable.forkJoin([cal1, cal2, cal3, cal4, cal5, cal6, cal7, cal8, cal9]);
   }
 
   fetchEvents(calendarId, viewDate, view): Observable<Event[]> {
@@ -173,5 +176,46 @@ export class GoogleCalendarService {
     });
     return result;
   }
+
+
+  castFacebookResToEventType(res, events) {
+    const result: Array<Event> = [];
+
+    res[this.config.THS_FACEBOOK_USER_ID]['data'].forEach((event) => {
+      console.log(event);
+
+      let start: Date;
+      if (event.start_time) {
+        start = new Date(event.start_time);
+      }else if (event.start_time) {
+        start = new Date(Date.parse(event.start_time));
+      }
+      let end: Date;
+      if (event.end_time) {
+        end = new Date(event.end_time);
+      }else if (event.end_time) {
+        end = new Date(Date.parse(event.end_time));
+      }
+
+      result.push({
+        id: event.id,
+        title: event.name,
+        start: event.start_time,
+        end: event.end_time,
+        description: event.description,
+        imageUrl: event.cover.source,
+        color: colors.yellow,
+        location: event.place.location.street,
+        creator: event.owner,
+        meta: {
+          event
+        },
+        calendarId: 'ths.kth.se_uj2mnoprtjqmfkgth7u55tcjvo@group.calendar.google.com'
+      });
+
+    });
+    return result;
+  }
+
 
 }

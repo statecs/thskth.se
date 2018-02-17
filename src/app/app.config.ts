@@ -25,6 +25,7 @@ export let appConfig: AppConfig = {
     EVENT_IMAGE_BASE_URL: 'https://drive.google.com/uc?export=view&id=',
     FACEBOOK_POST_URL: 'https://wp.kths.se/api/wp/v2/social/facebook',
     INSTAGRAM_POST_URL: 'https://wp.kths.se/api/wp/v2/social/instagram',
+    EVENTS_URL: 'https://wp.kths.se/api/wp/v2/social/events',
     THS_FACEBOOK_USER_ID: '121470594571005',
     ARMADA_FACEBOOK_USER_ID: '148731426526',
     FAQ_CATEGORIES_URL: 'https://wp.kths.se/api/wp/v2/faq_category',

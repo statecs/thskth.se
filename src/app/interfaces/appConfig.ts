@@ -19,6 +19,7 @@ export interface AppConfig {
     GOOGLE_CALENDAR_KEY: string;
     EVENT_IMAGE_BASE_URL: string;
     FACEBOOK_POST_URL: string;
+    EVENTS_URL: string;
     INSTAGRAM_POST_URL: string;
     THS_FACEBOOK_USER_ID: string;
     ARMADA_FACEBOOK_USER_ID: string;
