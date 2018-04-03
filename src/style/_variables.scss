@@ -1,0 +1,70 @@
+/* ----------- Colors ---------- */
+// Background colors
+$bg-color-default: #f7f7f7 !default;
+$bg-color-primary: #00406c !default;
+$bg-color-secondary: #00a5ce !default;
+
+// Text colors
+$text-color-primary: #222222 !default;
+$text-color-default: black !default;
+$text-color-warning: #ff9600 !default;
+$text-color-danger: red !default;
+$text-color-deemphasize: #777 !default;
+$text-color-content: #444;
+$text-color-brown: brown;
+$text-color-success: green;
+
+// Link colors
+$color-link: #1b8ba8;
+$color-link-hover: #32d5ff;
+$color-link-secondary: #05a5cf;
+$color-link-secondary-hover: #00caff;
+$color-a-link: #00406C;
+$color-a-hover: #00406C;
+
+// Other colors
+$color-blue: #00406c;
+$color-white: #ffffff;
+$color-main-view-bg: #f2f2f2;
+
+/* ----------- Typography ----------- */
+// Font types
+$font-family-primary: BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+$font-family-regular: "Times New Roman", Times, serif;
+$font-family-title: CenturyGothic, sans-serif;
+
+// Font sizes
+$font-size-default: 1em !default;
+$font-size-extraLarge: 5em;
+$font-size-h1: 3em;
+$font-size-h2: 2em;
+$font-size-h3: 1.5em;
+$font-size-h4: 1.25em;
+$font-size-h5: 1.15em;
+$font-size-h6: 0.9em;
+$font-size-h7: 0.8em;
+$font-size-h8: 0.75em;
+
+// Font weights
+$font-weight-regular: 600;
+$font-weight-title: 800;
+
+
+/* ----------- Layout ----------- */
+
+// Container
+$main-container: 80%;
+
+// Header
+$header-height: 200px;
+
+// Footer
+$footer-height: 350px;
+
+// Card sizes
+$card-size-width: 25%;
+$card-size-height: 30%;
+
+
+/* ----------- Others ----------- */
+$box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;

@@ -1,0 +1,70 @@
+/* You can add global styles to this file, and also import other style files */
+@import "variables";
+@import "../app/components/loader/loader.component";
+
+* {
+  box-sizing: border-box;
+  outline: none;
+  line-height: 1.3;
+}
+*:focus {
+  outline: none;
+}
+.startupLoader{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+}
+html {
+  font-family: $font-family-primary;
+  line-height: 2em;
+  color: $text-color-primary;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  background: $bg-color-default;
+  margin: 0;
+  min-height: 100%;
+  line-height: 1;
+  vertical-align: baseline;
+  position: absolute;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-title;
+  font-weight: $font-weight-title;
+  line-height: 1;
+}
+
+h3, h4, h5, h6 {
+  //margin: 0;
+}
+
+p{
+  //margin: 0;
+}
+
+*::-webkit-media-controls-panel {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+/* Old shadow dom for play button */
+
+*::--webkit-media-controls-play-button {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+/* New shadow dom for play button */
+
+*::-webkit-media-controls-start-playback-button {
+  display: none!important;
+  -webkit-appearance: none;
+}

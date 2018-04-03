@@ -1,0 +1,83 @@
+@import "../../../style/utilities";
+#cookie-notification-bar {
+  background-color: #fbdbac;
+  color: black;
+  z-index: 2;
+  width: 100%;
+  padding: 15px 10%;
+  position: fixed;
+  bottom: 0;
+  & >span{
+    display: inline-block;
+  }
+  & >p{
+    display: inline-block;
+    margin: 0;
+    margin-right: 50px;
+    width: 75%;
+    a{
+      text-decoration: underline;
+      color: $color-link;
+      &:hover {
+        text-decoration: none;
+        color: $color-link-hover;
+      }
+    }
+  }
+  .close-btn {
+    text-decoration: underline;
+    color: $color-link;
+    cursor: pointer;
+    vertical-align: top;
+    &:hover {
+      text-decoration: none;
+      color: $color-link-hover;
+    }
+  }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #cookie-notification-bar {
+    padding: 10px;
+    & >p{
+      width: 100%;
+      vertical-align: middle;
+      font-size: 0.75em;
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #cookie-notification-bar {
+    padding: 10px;
+    & >p{
+      width: 100%;
+      vertical-align: middle;
+      font-size: 0.75em;
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #cookie-notification-bar {
+    padding: 10px;
+    & >p{
+      width: 100%;
+      vertical-align: middle;
+      font-size: 0.95em;
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #cookie-notification-bar {
+    & >p{
+      width: 100%;
+    }
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

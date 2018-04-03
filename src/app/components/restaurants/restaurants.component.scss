@@ -1,0 +1,438 @@
+@import "../../../style/utilities";
+
+:host /deep/ header{
+  background: none !important;
+  background-color: $bg-color-primary !important;
+  color: white !important;
+  .container{
+    border-bottom: 0 !important;
+  }
+}
+
+#restaurant{
+  @include container-size(80%);
+  margin-bottom: 50px;
+  padding-top: 100px;
+  .larger-devices{
+    display: block;
+  }
+  .mobile{
+    display: none;
+  }
+
+  >h1{
+    text-align: center;
+    margin-top: 50px;
+  }
+  #text-slider {
+    //@include container-size($main-container);
+    text-align: center;
+    position: relative;
+    margin-top: 10px;
+    overflow: hidden;
+    height: 280px;
+
+    .opening-hour{
+      position: absolute;
+      right: 50px;
+      bottom: 0;
+      background-color: white;
+      text-align: center;
+      height: 80px;
+      width: 200px;
+      padding: 15px 0;
+    }
+
+    .slide-wrapper {
+      position: absolute;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      transition: left 0.5s ease;
+      height: 100%;
+      background-size: cover;
+
+      & ~ .slide-wrapper {
+        left: -101%;
+      }
+
+      .slide {
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        height: 100%;
+        background-color: rgba(0,0,0,0.20);
+
+        h2{
+          font-size: $font-size-h2;
+          color: white;
+        }
+        p{
+          font-size: $font-size-default;
+          text-align: justify;
+        }
+      }
+      .category {
+        display: inline-block;
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        z-index: 1;
+        text-decoration: none;
+        color: $color-link-secondary;
+        &:hover {
+          color: $color-link-secondary-hover;
+        }
+      }
+    }
+
+    .text-slider-navBefore, .text-slider-navNext {
+      display: inline-block;
+      @include center-vertically(50%);
+      color: lightgrey;
+
+      i{
+        font-size: $font-size-extraLarge;
+        font-weight: $font-weight-title;
+        cursor: pointer;
+      }
+    }
+
+    .text-slider-navBefore {
+      left: 0;
+    }
+
+    .text-slider-navNext {
+      right: 0;
+    }
+
+    .slider-progress-bar {
+      //border: 1px solid;
+      padding:15px 0;
+      top:230px;
+      position: relative;
+      .bar-item {
+        @include circle(17px);
+        //border: 1px solid blue;
+        display: inline-block;
+        margin:0 20px;
+        background-color: gray;
+        & ~ .bar-item {
+          background-color: lightgray;
+        }
+      }
+    }
+  }
+
+  .schedule{
+    margin-top: 50px;
+    .options{
+      text-align: center;
+      padding: 15px 0;
+      div{
+        display: inline-block;
+        border:1px solid gray;
+        color: black;
+        padding: 15px 20px;
+        margin-bottom: 5px;
+      }
+    }
+    .description{
+      width: 35%;
+      display: inline-block;
+      text-align: left;
+      padding: 0 10px;
+    }
+    .menu-wrapper {
+      width: 60%;
+      display: inline-block;
+      margin-left: 3%;
+      vertical-align: top;
+      .menu-calendar{
+        text-align: center;
+        border-bottom:1px solid gray;
+        h2{
+          float: left;
+          position: absolute;
+        }
+        div{
+          display: inline-block;
+          color: black;
+          padding: 10px 20px;
+          cursor: pointer;
+          &:hover{
+            border-bottom:4px solid gray;
+          }
+        }
+        .selected{
+          border-bottom:4px solid gray;
+        }
+      }
+
+      .menu-container{
+        @include container-size(70%);
+        overflow: hidden;
+        >h2{
+          border-bottom: 1px solid lightgray;
+        }
+        .dish{
+          width: 40%;
+          overflow: hidden;
+          display: inline-block;
+          margin: 10px 20px;
+          div{
+            display: inline-block;
+            float: left;
+          }
+          span{
+            display: inline-block;
+          }
+          .fl{
+            float: left;
+          }
+          .fr{
+            float: right;
+          }
+          img{
+            display: inline-block;
+            float: right;
+            width: 100px;
+            height: 100px;
+          }
+        }
+      }
+    }
+
+  }
+
+  .gallery{
+    overflow: hidden;
+    text-align: center;
+    margin-top: 20px;
+    .g-item{
+      width: 25%;
+      height: 400px;
+      display: inline-block;
+      margin: 10px;
+      background-size: cover;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      .text{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.4);
+        color: lightgray;
+        text-align: left;
+        padding: 0 10px 15px;
+      }
+      &:hover{
+        box-shadow: 0 2px 15px #0ae6c9;
+      }
+    }
+    .selected{
+      box-shadow: 0 2px 15px #0ae6c9;
+    }
+  }
+}
+
+::-webkit-scrollbar
+{
+  width: 0;  /* for vertical scrollbars */
+  height: 0; /* for horizontal scrollbars */
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #restaurant {
+    width: 100%;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .gallery{
+      .g-item{
+        width: 31%;
+        margin: 0 1%;
+        .text{
+          p{
+            font-size: $font-size-h4;
+          }
+        }
+      }
+      .slides-wrapper{
+        width: 260%;
+        //border: 1px solid;
+        text-align: left;
+        margin-left: 20px;
+        transition: margin 0.5s ease;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+    .schedule{
+      .description{
+        width: 100%;
+      }
+      .menu-wrapper {
+        width: 100%;
+        .menu-container{
+          width: 90%;
+          .dish{
+            width: 90%;
+            h4{
+              margin: 0;
+            }
+          }
+        }
+        .menu-calendar{
+          overflow-x: scroll;
+          >div{
+            width: 600px;
+          }
+          .selected{
+            box-shadow: 0 2px 15px rgba(0,0,0,0);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #restaurant {
+    width: 100%;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .gallery{
+      .g-item{
+        width: 31%;
+        margin: 0 1%;
+        .text{
+          p{
+            font-size: $font-size-h4;
+          }
+        }
+      }
+      .slides-wrapper{
+        width: 260%;
+        //border: 1px solid;
+        text-align: left;
+        margin-left: 20px;
+        transition: margin 0.5s ease;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+    .schedule{
+      .description{
+        width: 100%;
+      }
+      .menu-wrapper {
+        width: 100%;
+        .menu-container{
+          width: 90%;
+          .dish{
+            width: 90%;
+            h4{
+              margin: 0;
+            }
+          }
+        }
+        .menu-calendar{
+          overflow-x: scroll;
+          >div{
+            width: 600px;
+          }
+          .selected{
+            box-shadow: 0 2px 15px rgba(0,0,0,0);
+          }
+        }
+      }
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #restaurant {
+    width: 100%;
+    .larger-devices{
+      display: none;
+    }
+    .mobile{
+      display: block;
+    }
+    .gallery{
+      .g-item{
+        width: 31%;
+        margin: 0 1%;
+        .text{
+          p{
+            font-size: $font-size-h4;
+          }
+        }
+      }
+      .slides-wrapper{
+        width: 260%;
+        //border: 1px solid;
+        text-align: left;
+        margin-left: 20px;
+        transition: margin 0.5s ease;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+    .schedule{
+      .description{
+        width: 100%;
+      }
+      .menu-wrapper {
+        width: 100%;
+        .menu-container{
+          width: 90%;
+          .dish{
+            width: 90%;
+            h4{
+              margin: 0;
+            }
+          }
+        }
+        .menu-calendar{
+          overflow-x: scroll;
+          >div{
+            width: 600px;
+          }
+          .selected{
+            box-shadow: 0 2px 15px rgba(0,0,0,0);
+          }
+        }
+      }
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #restaurant {
+    .schedule {
+      .menu-wrapper {
+        .menu-calendar {
+          div {
+            padding: 10px 15px;
+          }
+        }
+      }
+    }
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

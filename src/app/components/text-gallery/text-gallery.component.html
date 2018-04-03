@@ -1,0 +1,6 @@
+<div class="image-gallery">
+  <div *ngFor="let item of textGallery.items" class="item" [ngClass]="{'columns-1': textGallery.number_of_columns == 1, 'columns-2': textGallery.number_of_columns == 2, 'columns-3': textGallery.number_of_columns == 3}">
+    <h2>{{item.title}}</h2>
+    <p [innerHTML]="item.description"></p>
+  </div>
+</div>

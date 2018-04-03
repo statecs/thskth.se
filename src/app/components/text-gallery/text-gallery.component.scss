@@ -1,0 +1,80 @@
+@import "../../../style/utilities";
+
+.image-gallery{
+  width: 104%;
+  .item{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 4%;
+    margin-bottom: 50px;
+    img{
+      width: 100%;
+    }
+  }
+  .columns-1{
+    width: 96%;
+  }
+  .columns-2{
+    width: 46%;
+  }
+  .columns-3{
+    width: 29%;
+  }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  .image-gallery {
+    .item{
+      font-size: $font-size-h6;
+      h2{
+        margin-bottom: 5px;
+        font-size: $font-size-h5;
+      }
+    }
+    .columns-3{
+      width: 46%;
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  .image-gallery {
+    .item{
+      font-size: $font-size-h6;
+      h2{
+        margin-bottom: 5px;
+        font-size: $font-size-h5;
+      }
+    }
+    .columns-3{
+      width: 46%;
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  .image-gallery {
+    .item{
+      font-size: $font-size-h6;
+      h2{
+        margin-bottom: 5px;
+        font-size: $font-size-h5;
+      }
+    }
+    .columns-3{
+      width: 46%;
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  .image-gallery {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

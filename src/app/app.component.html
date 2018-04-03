@@ -1,0 +1,26 @@
+<div *ngIf="!no_internet"  (click)="hideOverlappingUI($event)">
+    <app-cookie-notification-bar></app-cookie-notification-bar>
+    <div class="page-wrapper">
+        <div #page class="page">
+            <app-search-menubar></app-search-menubar>
+            <router-outlet></router-outlet>
+            <app-header></app-header>
+            <app-notification-bar></app-notification-bar>
+            <app-footer></app-footer>
+        </div>
+        <div tabindex="0" aria-hidden="true" style="" class="feedback-button">
+            <a href="http://goo.gl/forms/znyZ6DWkIs" target="_blank">
+                <img src="../assets/images/feedback.png" width="38" height="94">
+            </a>
+        </div>
+    </div>
+    <app-popup-window></app-popup-window>
+    <app-select-slider></app-select-slider>
+</div>
+
+<div *ngIf="no_internet" class="non-internet">
+    <div>
+        <img src="../assets/images/no-internet.png">
+        <h2>Unable to connect to the Internet</h2>
+    </div>
+</div>

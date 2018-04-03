@@ -1,0 +1,28 @@
+<div *ngIf="page_data" id="one-column-template">
+  <app-breadcrumb class="mobile"></app-breadcrumb>
+  <div class="header-image">
+    <img *ngIf="page_data.header.header_image" src="{{page_data.header.header_image}}" alt="Header image">
+    <div *ngIf="!page_data.header.header_image && page_data.header.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data.header.header_color}"></div>
+    <div *ngIf="!page_data.header.header_image && !page_data.header.header_color" class="default-header"></div>
+  </div>
+  <div class="content-container">
+    <app-breadcrumb class="larger-devices"></app-breadcrumb>
+    <h2 [innerHTML]="page_data.name" class="title"></h2>
+    <div [innerHTML]="page_data.content" class="content"></div>
+    
+    <footer class="article-footer">
+      <dl class="dl-horizontal dl-in-article-footer">
+        <dt>Last modified</dt>
+        <dd>
+          <time datetime="{{formatDate(page_data.last_modifiled)}" class="ng-binding">{{formatDate(page_data.last_modifiled)}}</time>
+        </dd>
+
+        <dt>Responsible</dt>
+        <dd> <a href="mailto:{{page_data.author.email}}" class="ng-binding">{{page_data.author.name}}</a></dd>
+      </dl>
+    </footer>
+
+    <app-related-links [links]="page_data.related_links"></app-related-links>
+  </div>
+
+</div>

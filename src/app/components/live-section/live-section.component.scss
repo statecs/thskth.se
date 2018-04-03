@@ -1,0 +1,10 @@
+@import "../../../style/variables";
+
+:host /deep/ header{
+  background: none !important;
+  background-color: $bg-color-primary !important;
+  color: white !important;
+  .container{
+    border-bottom: 0 !important;
+  }
+}

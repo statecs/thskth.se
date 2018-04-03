@@ -1,0 +1,16 @@
+<nav role="navigation">
+  <div *ngFor="let item of footer_menu; first as isFirst" class="menu-sections">
+    <label>
+      <span *ngIf="item?.url" class="link" (click)="goToPage(item)">{{item?.title}}</span>
+      <span *ngIf="!item?.url">{{item.title}}</span>
+    </label>
+    <div class="subItems">
+      <div *ngFor="let child_item of item.children">
+        <label>
+          <span *ngIf="child_item?.url" class="link" (click)="goToPage(child_item)">{{child_item?.title}}</span>
+          <span *ngIf="!child_item?.url">{{child_item?.title}}</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</nav>

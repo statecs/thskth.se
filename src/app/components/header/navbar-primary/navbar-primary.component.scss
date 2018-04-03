@@ -1,0 +1,209 @@
+@import "../../../../style/utilities";
+
+nav {
+  @include center-vertically(50%);
+  display: inline-block;
+  right: 0;
+  padding: 20px 0;
+  font-size: $font-size-h6 + 0.01em;
+
+  .signin-btn {
+    border-radius: 15px;
+    padding: 7px;
+    border: 1px solid;
+    cursor: pointer;
+    >a{
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  .ths-icon, .language {
+    cursor: pointer;
+    margin-left: 12px !important;
+    vertical-align: middle;
+    img{
+      vertical-align: middle;
+    }
+  }
+  .ths-icon{
+    .icon{
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      overflow: hidden;
+      position: relative;
+      vertical-align: middle;
+      img{
+        /*position: absolute;
+        width: 100px;
+        margin-left: -13px;*/
+        margin-top: -3px;
+      }
+    }
+    .dropdownList{
+      height: 350px;
+      overflow-y: scroll;
+      .d-header-bg{
+        border-top-right-radius: 0 !important;
+      }
+    }
+  }
+
+  >div{
+    display:inline-block;
+    margin-left: 15px;
+    font-size: $font-size-default;
+    color: $color-white;
+    position: relative;
+    vertical-align: middle;
+    span{
+      vertical-align: text-top;
+    }
+    .label span{
+      color: $color-white;
+      cursor: pointer;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+    i{
+      margin-left: 10px;
+    }
+    .dropdownList {
+      position: absolute;
+      background-color: $color-white;
+      margin-top: 25px;
+      font-size: $font-size-h5;
+      width: 300px;
+      z-index: 1;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      text-align: left;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+
+      .d-header-bg{
+        height: 90px;
+        background-color: #00a5ce;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+      .d-header{
+        height: 20px;
+        background-color: white;
+        position: relative;
+        & >div{
+          position: absolute;
+          bottom: 5px;
+          padding-left: 20px;
+          img{
+            width: 100px;
+            height: 70px;
+            vertical-align: middle;
+            margin-right: 10px;
+          }
+        }
+      }
+
+      &::before {
+        @include arrow-up(15px, #00a5ce, 48%);
+      }
+
+      .nav-section {
+        vertical-align: top;
+        font-size: $font-size-h7;
+        line-height: 1.6;
+        border-bottom: 1px solid lightgrey;
+        padding: 0 15px;
+        cursor: pointer;
+        &:hover {
+          background-color: #d7ecf1;
+        }
+        & >label {
+          display: inline-block;
+          padding: 10px 10px;
+          font-weight: $font-weight-regular;
+          width: 80%;
+          vertical-align: middle;
+          color: $text-color-default;
+          cursor: pointer;
+        }
+        &:last-child{
+          border: none;
+          margin-bottom: 30px;
+        }
+        .logo{
+          background-color: rgba(0,0,0,0.25);
+          display: inline-block;
+          vertical-align: middle;
+          cursor: pointer;
+          & img{
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+          }
+        }
+      }
+      .browse-more{
+        background-color: #00a5ce;
+        text-align: center;
+        padding: 15px 0;
+        display: block;
+        text-decoration: none;
+        color: white;
+      }
+    }
+  }
+}
+
+::-webkit-scrollbar
+{
+  width: 10px;  /* for vertical scrollbars */
+  height: 10px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(84, 84, 84, 0.2);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: #b2b2b2;
+  border-radius: 10px;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  nav {
+
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  nav {
+
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  nav {
+
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  nav {
+    >div{
+      font-size: 0.85em;
+      margin-left: 8px !important;
+    }
+    .ths-icon, .language{
+      margin-left: 5px !important;
+    }
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

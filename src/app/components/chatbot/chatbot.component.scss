@@ -1,0 +1,238 @@
+@import "../../../style/utilities";
+
+:host /deep/ .chat_flow{
+  .response {
+    a {
+      text-decoration: none;
+      color: $color-link;
+      &:hover {
+        color: $color-link-hover;
+      }
+    }
+  }
+}
+
+#chatbot{
+  position: relative;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 50px;
+  .chat_flow{
+    //min-height: calc(100vh - 80px);
+    min-height: 0;
+    position: relative;
+    padding: 15px 15px 50px;
+    ol{
+      list-style: none;
+      padding: 0;
+      margin: 0 0 110px 0;
+      li{
+        display: block;
+        .response{
+          float: left;
+          display: inline-block;
+          width: 100%;
+          .text{
+            display: inline-block;
+            max-width: 57%;
+            padding: 15px;
+            background: #87a1ba;
+            color: white;
+            border-radius: 15px;
+            margin: 0 5px;
+            border-bottom-left-radius: 2px;
+            //float: left;
+            vertical-align: middle;
+          }
+          .info{
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            width: 41%;
+            >span{
+              @include circle(20px);
+              background-color: orange;
+              display: inline-block;
+              text-align: center;
+              color: white;
+              cursor: pointer;
+            }
+            .info-text{
+              position: absolute;
+              display: inline-block;
+              background-color: orange;
+              border-radius: 10px;
+              padding: 15px;
+              bottom: 40px;
+              max-width: 100%;
+              word-wrap: break-word;
+              left: 0;
+              &::after{
+                content: '';
+                @include arrow-down-tilted(10px, orange, 10px);
+              }
+            }
+          }
+        }
+        .user{
+          width: 100%;
+          overflow: hidden;
+          .message{
+            float: right;
+            display: inline-block;
+            padding: 10px 15px;
+            background: lightgrey;
+            color: black;
+            border-radius: 20px;
+            margin: 5px 0;
+          }
+        }
+      }
+    }
+
+    .responses{
+      position: absolute;
+      padding: 6px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0;
+      max-width: 70%;
+      .res_item{
+        transition: transform 0.5s cubic-bezier(0.68, 0.01, 0.245, 1.13) 0s;
+        transform: translate3d(0px, 0px, 0px);
+        display: inline-block;
+        padding: 10px 15px;
+        background: lightgrey;
+        color: black;
+        border-radius: 20px;
+        margin: 5px 5px;
+        cursor: pointer;
+      }
+    }
+    .reset-btn{
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      padding: 20px 10px;
+      border: 1px solid white;
+      border-radius: 40px;
+      background-color: #f26c6c;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+    }
+  }
+}
+
+:host /deep/ #chatbot {
+  ol{
+    img{
+      height: 50px;
+      vertical-align: middle;
+    }
+  }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #chatbot {
+    .chat_flow {
+      min-height: 350px;
+      font-size: $font-size-h6;
+      .reset-btn{
+        right: 10px;
+      }
+      ol{
+        li{
+          .response{
+            .text{
+              max-width: 50%;
+              padding: 10px;
+            }
+            .info{
+              width: 45%;
+              .info-text{
+                padding: 10px;
+              }
+            }
+          }
+          input{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #chatbot {
+    .chat_flow {
+      min-height: 350px;
+      font-size: $font-size-h6;
+      .reset-btn{
+        right: 10px;
+      }
+      ol{
+        li{
+          .response{
+            .text{
+              max-width: 50%;
+              padding: 10px;
+            }
+            .info{
+              width: 45%;
+              .info-text{
+                padding: 10px;
+              }
+            }
+          }
+          input{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #chatbot {
+    .chat_flow {
+      min-height: 300px;
+      font-size: $font-size-h6;
+      .reset-btn{
+        right: 10px;
+      }
+      ol{
+        li{
+          .response{
+            .text{
+              max-width: 50%;
+              padding: 10px;
+            }
+            .info{
+              width: 45%;
+              .info-text{
+                padding: 10px;
+              }
+            }
+          }
+          input{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #chatbot {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

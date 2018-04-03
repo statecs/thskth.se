@@ -1,0 +1,112 @@
+<div *ngIf="!pageNotFound" id="content-container">
+  <div class="search-bar">
+    <h2>{{lang === 'en'? 'Search THS Documents' : 'Sök THS Dokument'}}</h2>
+    <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
+      <div class="search" [ngClass]="{onFocus: searchOnFocus}">
+        <input class="searchInput" #searchField placeholder="{{lang === 'en'? 'Enter your search term' : 'Ange ditt sökord'}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
+        <input class="submit" type="submit" value="{{lang === 'en'? 'Search' : 'Sök'}}">
+      </div>
+      <div #resultsDropdownList *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
+        <div class="section">
+          <div *ngFor="let d of searchResults" class="item">
+            <div class="left-content">
+              <span *ngFor="let c of d.categories">{{c.name}}</span>
+            </div>
+            <div class="right-content">
+              <h4 (click)="showDocumentInPopup(d)">{{d.title}}</h4>
+            </div>
+          </div>
+          <p *ngIf="documentsLoading">{{lang === 'en'? 'Loading' : 'Laddar'}}...</p>
+          <p *ngIf="!documentsLoading && searchResults.length === 0" class="notResult">{{lang === 'en'? 'No documents found for' : 'Inga dokument hittades för'}} "{{searchTerm}}"!</p>
+        </div>
+      </div>
+      <!--<div class="mostSearchTerms" [ngClass]="{'sendToBack': !showMostSearchTerms}">
+        <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
+      </div>-->
+    </form>
+  </div>
+
+  <!--<div #filters class="filters">
+    <div *ngIf="showFilters">
+      <div #content_type class="content-type" (click)="displayedDropdown === true || toggleDropdown(1, $event)">
+        <span>{{lang === 'en'? 'Content type' : 'Innehållstyp'}}</span>
+        <i class="material-icons">keyboard_arrow_down</i>
+        <div class="dropdown-container checkboxs">
+          <div class="dropdown-list">
+            <input type="checkbox" name="pdf" value="PDF" class="dropdown-item" [(ngModel)]="pdfChecked"> PDF<br>
+            <input type="checkbox" name="zip" value="Zip" class="dropdown-item" [(ngModel)]="zipChecked"> Zip<br>
+            <input type="checkbox" name="doc" value="DOC" class="dropdown-item" [(ngModel)]="docChecked"> DOC<br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showFilters">
+      <div #content_type class="content-type" (click)="displayedDropdown === true || toggleDropdown(2, $event)">
+        <span>{{lang === 'en'? 'Topic' : 'Ämne'}}</span>
+        <i class="material-icons">keyboard_arrow_down</i>
+        <div class="dropdown-container">
+          <div class="dropdown-list">
+            <div class="dropdown-item" (click)="filterTopic($event, 0)" [ngClass]="{'selected': categoryID == 0}">{{lang === 'en'? 'Show all' : 'Visa alla'}}</div>
+            <div class="dropdown-item" (click)="filterTopic($event, 354)" [ngClass]="{'selected': categoryID == 354}">{{lang === 'en'? 'Documents Archive' : 'Dokumentarkiv'}}</div>
+            <div class="dropdown-item" (click)="filterTopic($event, 355)" [ngClass]="{'selected': categoryID == 355}">{{lang === 'en'? 'KF documents' : 'KF dokument'}}</div>
+            <div class="dropdown-item" (click)="filterTopic($event, 356)" [ngClass]="{'selected': categoryID == 356}">{{lang === 'en'? 'KS documents' : 'KS dokument'}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showFilters">
+      <div class="date_input">
+        <input type="date" id="startDate" [(ngModel)]="start_date" (change)="filterDate()">
+      </div>
+      <div class="date_input">
+        <input type="date" id="endDate" [(ngModel)]="end_date" (change)="filterDate()">
+      </div>
+    </div>
+  </div>-->
+
+  <div class="results-container">
+    <div>
+      <div class="section">
+        <div class="heading">
+          <h3 *ngIf="showResults" class="numberOfResults">Showing {{documentResults.length !== 0 ? 1 : 0 }}-{{documentResults.length}} of {{documentResults.length}} hits</h3>
+          <!--<span class="sortBy">Sort by <strong>Published</strong> Relevance</span>-->
+          <h3 *ngIf="!showResults">{{lang === 'en'? 'Latest published documents' : 'Senast publicerade dokument'}}</h3>
+        </div>
+        <div *ngFor="let d of documentResults" class="item">
+          <div class="left-content">
+            <span *ngFor="let c of d.categories">{{c.name}}</span>
+            <div class="dates">
+              <div class="date">{{lang === 'en'? 'Published' : 'Publicerad'}}: <span>{{d.published}}</span></div>
+              <div class="date">{{lang === 'en'? 'Last modified' : 'Senast ändrad'}}: <span>{{d.lastModified}}</span></div>
+            </div>
+          </div>
+          <div class="right-content">
+            <h4 (click)="showDocumentInPopup(d)">{{d.title}}</h4>
+            <p [innerHTML]="d.description | cardText:100"></p>
+            <div class="files">
+              <div *ngFor="let f of d.documents" class="link_container">
+                <h5>{{f.filename}}</h5>
+                <div *ngIf="f.mime_type ==='pdf' && pdfChecked" class="download_link" (click)="downloadFile(f.url)">
+                  <span>PDF </span>
+                  <i class="material-icons">file_download</i>
+                </div>
+                <div *ngIf="f.mime_type ==='docx' && docChecked" class="download_link" (click)="downloadFile(f.url)">
+                  <span>DOC </span>
+                  <i class="material-icons">file_download</i>
+                </div>
+                <div *ngIf="f.mime_type ==='zip' && zipChecked" class="download_link" (click)="downloadFile(f.url)">
+                  <span>Zip </span>
+                  <i class="material-icons">file_download</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-loader *ngIf="documentsLoading"></app-loader>
+        <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">{{lang === 'en'? 'No documents found for' : 'Inga dokument hittades för'}} "{{searchTerm}}"!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-page-not-found *ngIf="pageNotFound"></app-page-not-found>

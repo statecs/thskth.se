@@ -1,0 +1,811 @@
+@import "../../../style/utilities";
+
+.masonry-layout {
+  height: auto;
+  @include container-size($main-container + 2%);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .no-cards{
+    text-align: center;
+    width: 100%;
+  }
+
+  app-loader{
+    width: 100%;
+  }
+  .loader{
+    color: $text-color-brown;
+  }
+
+  .o-third {
+    width: 31%;
+  }
+
+  .two-third {
+    width: 64%;
+  }
+
+  .o-whole {
+    width: 100%;
+  }
+
+  .one-sixth {
+    position: relative;
+    height: 145px !important;
+    width: 48% !important;
+    margin-left: 2%;
+    left: -1.5%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+    h2{
+      margin-top: 10px !important;
+      margin-bottom: 15px !important;
+      padding: 0;
+      font-size: $font-size-h5;
+    }
+    p{
+      margin: -5px 0 0 0;
+      font-weight: 300;
+      text-align: left;
+    }
+    .video-card{
+      h2{
+        font-size: $font-size-default !important;
+        margin: 0 !important;
+      }
+      .video-controller{
+        i{
+          font-size: $font-size-h1 !important;
+        }
+      }
+    }
+  }
+
+  .one-third-half {
+    width: 100%;
+    height: 145px !important;
+    margin-bottom: 10px;
+    h2{
+      margin-top: 0 !important;
+      margin-bottom: 15px !important;
+      padding: 0;
+      font-size: $font-size-h4;
+    }
+    p{
+      margin: -5px 0 0 0;
+      font-weight: 300;
+    }
+  }
+
+  .masonry-layout_panel {
+    display: flex;
+    flex: 0 1 auto;
+    margin-bottom: 15px;
+    border-radius: 8px !important;
+    margin-right: 1%;
+    margin-left: 1%;
+    height: 300px;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;
+    overflow: hidden;
+
+    .noLink{
+      cursor: default !important;
+    }
+
+    .masonry-layout_panel-content {
+      border-radius: 8px !important;
+      overflow: hidden;
+      background-size: 140%;
+      width: 100%;
+      height: 100%;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;
+      background-position: center;
+      transition: background-size 0.5s ease-out;
+      cursor: pointer;
+      &:hover {
+        background-size: 145%;
+      }
+      a{
+        cursor: pointer;
+      }
+    }
+
+    .disabled{
+      cursor: default;
+    }
+
+    .masonry-layout-sub {
+      width: 100%;
+      //border: 1px solid red;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      >div{
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    & >div{
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .box-shadow-none{
+    box-shadow: none !important;
+  }
+}
+::-webkit-scrollbar
+{
+  width: 0;  /* for vertical scrollbars */
+  height: 0; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgba(0, 0, 0, 0);
+  border-radius: 10px;
+}
+
+:host /deep/ .content{
+  >p{
+    p{
+      margin: 0;
+    }
+  }
+}
+
+// ---------- Video card ---------- //
+:host /deep/ .video-card {
+  @include video-card();
+}
+
+// ---------- Centered Content card ---------- //
+:host /deep/ .centered-content-card {
+  @include standard-card(0 25%, center);
+}
+
+// ---------- Standard card ---------- //
+:host /deep/ .standard-card {
+  @include standard-card(5% 7%, left);
+  position: relative !important;
+}
+
+// ---------- Membership card ---------- //
+:host /deep/ .membership-card {
+  @include standard-card(5% 7%, left);
+  position: relative !important;
+
+  .content{
+    padding-top: 0;
+    h2{
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+    p{font-weight: 300;}
+  }
+}
+
+// ---------- Membership card ---------- //
+:host /deep/ .restrictions-card {
+  .content {
+    h2{
+      padding: 10px 0;
+      font-size: 1.7em;
+    }
+    & >p{
+      opacity: 1;
+      margin-top: 0 !important;
+      >p{
+        margin: 6px 0;
+        font-weight: 300;
+      }
+    }
+    >a{
+      opacity: 1;
+      margin-top: 10px !important;
+    }
+  }
+}
+// ---------- Membership card ---------- //
+:host /deep/ .nymble-card {
+  .content {
+    color: #222;
+    >a{
+      color: #00406c;
+      border: 1px solid #00406c;
+      font-weight: 500;
+    }
+  }
+}
+:host /deep/ .one-sixth{
+  video{
+    max-height: 180px !important;
+  }
+}
+
+// ---------- Event Calendar card ---------- //
+:host /deep/ .event-calendar-card {
+  height: 300px;
+  cursor: default;
+  & >div{
+    height: 100%;
+    //border: 1px solid;
+    display: inline-block;
+  }
+
+  .event-arrow-index1{
+    &::after{
+      top: 28% !important;
+    }
+  }
+  .event-arrow-index2{
+    &::after{
+      top: 56% !important;
+    }
+  }
+  .event-arrow-index3{
+    &::after{
+      top: 82% !important;
+    }
+  }
+  .categories{
+    background: $bg-color-primary;
+    height: auto;
+    display: block;
+    color: darkgray;
+    font-size: $font-size-h6;
+    overflow: hidden;
+    .item{
+      display: inline-block;
+      padding:5px 7px;
+      height: 100%;
+      float: left;
+      cursor: pointer;
+      border-bottom: 2px solid rgba(255, 255, 255, 0);
+      &:hover{
+        border-bottom:2px solid white;
+      }
+    }
+    .selected{
+      color: #fff;
+      border-bottom:2px solid white;
+    }
+  }
+
+  .left-content{
+    width: 43%;
+    vertical-align: top;
+    background-color: lightgray;
+    position: relative;
+    padding: 0 20px;
+
+    &::after{
+      @include arrow-right(15px, #d3d3d3);
+    }
+    h3{
+      font-size: $font-size-h3;
+    }
+    span{
+      @include capsule-button(10px, 5px);
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .large-devices{
+      display: block;
+    }
+    .mobile{
+      display: none;
+    }
+    p{
+      white-space: pre-wrap !important;
+    }
+  }
+  .right-content{
+    width: 50%;
+    position: relative;
+    float: right;
+    .event-wrapper{
+      //@include center-vertically(50%);
+      position: absolute;
+      width: 95%;
+      & >h4{
+        margin: 15px 0;
+      }
+      & >a{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+        text-decoration: none;
+        color: $color-link;
+        &:hover{
+          color: $color-link-hover;
+        }
+      }
+      .no-events{
+        color: $text-color-brown;
+      }
+      .event{
+        margin-bottom: 7px;
+        h6{
+          margin: 0 0 5px 15px;
+        }
+        .date{
+          @include circle(50px);
+          display: inline-block;
+          position: relative;
+          background-color: lightgray;
+          vertical-align: middle;
+          cursor: pointer;
+          span{
+            @include center-content(50%, 50%);
+          }
+        }
+        .excerpt{
+          display: inline-block;
+          width: 70%;
+          right:0;
+          margin-left: 10px;
+          vertical-align: middle;
+          span{
+            font-size: $font-size-h6;
+            font-weight: 600;
+            color: $color-link;
+            text-decoration: none;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*.masonry-layout {
+  column-count: 1;
+  column-gap: 0;
+  margin: 0;
+  -webkit-column-break-inside: avoid; !* Chrome, Safari *!
+  page-break-inside: avoid;           !* Theoretically FF 20+ *!
+  break-inside: avoid-column;         !* IE 11 *!
+  display:table;
+}
+.masonry-layout_panel {
+  break-inside: avoid;
+  padding: 5px;
+  display: inline-block;
+}
+.masonry-layout_panel-content {
+  padding: 10px;
+  border-radius: 10px;
+}*/
+
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  .masonry-layout {
+    width: 90%;
+    .o-third {
+      width: 100%;
+    }
+    .two-third {
+      width: 100%;
+    }
+    .one-sixth {
+      height: 110px !important;
+      h2{
+        margin-bottom: 0 !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
+      .video-card{
+        h2{
+          font-size: $font-size-h6 !important;
+        }
+        .video-controller{
+          i{
+            font-size: $font-size-h1 !important;
+          }
+        }
+      }
+    }
+    .one-third-half {
+      height: 110px !important;
+      h2{
+        margin-bottom: 5px !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
+    }
+    .masonry-layout_panel {
+      height: 230px;
+    }
+  }
+  :host /deep/ .video-card {
+    .text h2{
+      font-size: $font-size-h3;
+    }
+    .video-controller i {
+      font-size: 4em;
+    }
+  }
+  :host /deep/ .centered-content-card {
+    .content {
+      padding: 0 10%;
+      h2 {
+        font-size: $font-size-h3;
+      }
+      > a {
+        padding: 10px 30px;
+        margin-top: 10px;
+      }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+    }
+  }
+  :host /deep/ .standard-card {
+    .content{
+      h2{
+        font-size: $font-size-h3;
+        padding: 15px 0;
+      }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+      >a{
+        padding: 10px 30px !important;
+      }
+    }
+  }
+  :host /deep/ .event-calendar-card {
+    .event-arrow-index1{
+      &::after{
+        top: 20% !important;
+      }
+    }
+    .event-arrow-index2{
+      &::after{
+        top: 40% !important;
+      }
+    }
+    .categories{
+      overflow-x: scroll;
+      font-size: $font-size-default;
+      .item{
+        font-size: $font-size-h6;
+        border-bottom: 0 solid rgba(0,0,0,0) !important;
+      }
+      .selected{
+        color: #000;
+        border-bottom: 0 solid rgba(0,0,0,0) !important;
+        background-color: #efefef;
+        font-weight: 700;
+      }
+    }
+    .left-content{
+      display: none;
+    }
+    .right-content{
+      float: left;
+      padding: 20px 10px;
+      width: 100%;
+      .event-wrapper{
+        padding-bottom: 20px;
+        >h4{
+          display: none;
+        }
+        .event{
+          .date{
+            width: 40px;
+            height: 40px;
+          }
+          .excerpt{
+            width: 60%;
+          }
+        }
+        .event:nth-child(3){
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  .masonry-layout {
+    width: 90%;
+    .o-third {
+      width: 48%;
+    }
+    .two-third {
+      width: 100%;
+    }
+    .one-sixth {
+      height: 110px !important;
+      h2{
+        margin-bottom: 0 !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
+      .video-card{
+        h2{
+          font-size: $font-size-h6 !important;
+        }
+        .video-controller{
+          i{
+            font-size: $font-size-h1 !important;
+          }
+        }
+      }
+    }
+    .one-third-half {
+      height: 110px !important;
+      h2{
+        margin-bottom: 5px !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
+    }
+    .masonry-layout_panel {
+      height: 230px;
+    }
+  }
+  :host /deep/ .video-card {
+    .text h2{
+      font-size: $font-size-h3;
+    }
+    .video-controller i {
+      font-size: 4em;
+    }
+  }
+  :host /deep/ .centered-content-card {
+    .content {
+      padding: 0 10%;
+      h2 {
+        font-size: $font-size-h3;
+      }
+      > a {
+        padding: 10px 30px;
+        margin-top: 10px;
+      }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+    }
+  }
+  :host /deep/ .standard-card {
+    .content{
+      h2{
+        font-size: $font-size-h3;
+        padding: 15px 0;
+      }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+      >a{
+        padding: 10px 30px !important;
+      }
+    }
+  }
+  :host /deep/ .event-calendar-card {
+    .event-arrow-index1{
+      &::after{
+        top: 20% !important;
+      }
+    }
+    .event-arrow-index2{
+      &::after{
+        top: 40% !important;
+      }
+    }
+    .categories{
+      overflow-x: scroll;
+      font-size: 1.1em;
+      .item{
+        font-size: $font-size-h6;
+        border-bottom: 0 solid rgba(0,0,0,0) !important;
+      }
+      .selected{
+        color: #000;
+        border-bottom: 0 solid rgba(0,0,0,0) !important;
+        background-color: #efefef;
+        font-weight: 700;
+      }
+    }
+    .left-content{
+      display: none;
+    }
+    .right-content{
+      float: left;
+      padding: 20px 10px;
+      width: 100%;
+      .event-wrapper{
+        padding-bottom: 20px;
+        >h4{
+          display: none;
+        }
+        .event{
+          .date{
+            width: 40px;
+            height: 40px;
+          }
+          .excerpt{
+            width: 60%;
+          }
+        }
+        .event:nth-child(3){
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  .masonry-layout {
+    width: 90%;
+    .o-third {
+      width: 48%;
+    }
+    .two-third {
+      width: 100%;
+    }
+    .one-sixth {
+      height: 110px !important;
+      h2{
+        margin-bottom: 0 !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
+      .video-card{
+        h2{
+          font-size: $font-size-h6 !important;
+        }
+        .video-controller{
+          i{
+            font-size: $font-size-h1 !important;
+          }
+        }
+      }
+    }
+    .one-third-half {
+      height: 110px !important;
+      h2{
+        margin-bottom: 5px !important;
+      }
+      p{
+        font-size: 0.85em;
+      }
+    }
+    .masonry-layout_panel {
+      height: 230px;
+    }
+  }
+  :host /deep/ .video-card {
+    .text h2{
+      font-size: $font-size-h3;
+    }
+    .video-controller i {
+      font-size: 4em;
+    }
+  }
+  :host /deep/ .centered-content-card {
+    .content {
+      padding: 0 10%;
+      h2 {
+        font-size: $font-size-h3;
+      }
+      > a {
+        padding: 10px 30px;
+        margin-top: 10px;
+      }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+    }
+  }
+  :host /deep/ .standard-card {
+    .content{
+      h2{
+        font-size: $font-size-h3;
+        padding: 15px 0;
+      }
+      >p, >a{
+        opacity: 1;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+      >a{
+        padding: 10px 30px !important;
+      }
+    }
+  }
+  :host /deep/ .event-calendar-card {
+    .event-arrow-index1{
+      &::after{
+        top: 20% !important;
+      }
+    }
+    .event-arrow-index2{
+      &::after{
+        top: 40% !important;
+      }
+    }
+    .categories{
+      overflow-x: scroll;
+      font-size: 1.1em;
+      .item{
+        font-size: $font-size-h6;
+        border-bottom: 0 solid rgba(0,0,0,0) !important;
+      }
+      .selected{
+        color: #000;
+        border-bottom: 0 solid rgba(0,0,0,0) !important;
+        background-color: #efefef;
+        font-weight: 700;
+      }
+    }
+    .left-content{
+      display: none;
+    }
+    .right-content{
+      float: left;
+      padding: 20px 10px;
+      width: 100%;
+      .event-wrapper{
+        padding-bottom: 20px;
+        >h4{
+          display: none;
+        }
+        .event{
+          .date{
+            width: 40px;
+            height: 40px;
+          }
+          .excerpt{
+            width: 60%;
+          }
+        }
+        .event:nth-child(3){
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  .masonry-layout {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

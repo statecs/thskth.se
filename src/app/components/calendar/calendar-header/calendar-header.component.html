@@ -1,0 +1,29 @@
+<div id="calendar-header" class="row text-center">
+  <div class="col-md-4 date-control">
+    <div class="btn-group">
+      <div
+        class="previous-btn"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="viewDateChange.next(viewDate)"
+        (click)="triggerEventUpdater()">
+        <div class="btn"><i class="material-icons">keyboard_arrow_left</i></div>
+        <span>{{(lang === 'en' ? 'Previous' : 'Föregående')}}</span>
+      </div>
+      <div class="date">
+        <h3>{{ viewDate | calendarDate:view}}</h3>
+      </div>
+      <div
+        class="next-btn"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="viewDateChange.next(viewDate)"
+        (click)="triggerEventUpdater()">
+        <span>{{(lang === 'en' ? 'Next' : 'Nästa')}}</span>
+        <div class="btn"><i class="material-icons">keyboard_arrow_right</i></div>
+      </div>
+    </div>
+  </div>
+</div>

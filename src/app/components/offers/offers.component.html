@@ -1,0 +1,11 @@
+<div id="content-container">
+  <h1>{{(lang === 'sv' ? 'THS Erbjudanden' : 'THS Offers')}}</h1>
+  <app-loader *ngIf="!posts"></app-loader>
+  <div *ngFor="let offer of posts" class="article" (click)="goToPage(offer.slug)">
+    <div class="image"  [style.background-image]="offer.image? ('url(' + offer.image + ')'): none"></div>
+    <h2>{{offer.title | cardText:50}}</h2>
+    <p class="content" [innerHTML]="offer.content | cardText:150"></p>
+  </div>
+</div>
+
+<app-page-not-found *ngIf="pageNotFound"></app-page-not-found>

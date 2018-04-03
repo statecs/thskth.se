@@ -1,0 +1,8 @@
+<div id="join-us">
+  <h1>{{(lang === 'en' ? 'Join us!' : 'Bli med oss!')}}</h1>
+  <p>
+    {{(lang === 'en' ? 'You need to be semester registered at KTH to receive all the membership benefits including the student union card and continue to accumulate credit days in the SSSB housing queue.' : 'Du måste vara semesterregistrerad på KTH för att få alla medlemsförmåner inklusive studentkårskortet och fortsätt att ackumulera kreditdagar i SSSB-bostadskön.')}}
+  </p>
+  <span class="button" (click)="goToPage('student-life/new-at-kth')">{{(lang === 'en' ? 'New student?' : 'Ny student?')}}</span>
+  <a class="button" href="http://thstudent.upright.se/" target="_blank">{{(lang === 'en' ? 'Renew your membership' : 'Förnya ditt medlemskap')}}</a>
+</div>

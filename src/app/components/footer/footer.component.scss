@@ -1,0 +1,96 @@
+@import "../../../style/utilities";
+
+footer {
+  background-color: $bg-color-primary;
+  position: relative;
+  width: 100%;
+  text-align: center;
+
+  .container{
+    @include container-size(85%);
+    position: relative;
+
+    .logo {
+      display: inline-block;
+      @include square(100px);
+      overflow: hidden;
+      margin-top: 30px;
+      margin-left: 40px;
+      position: relative;
+
+      a{
+        text-decoration: none;
+        img{
+          width: auto;
+          height: 100%;
+        }
+      }
+    }
+
+    .location {
+      color: $color-white;
+      font-size: $font-size-h8;
+      padding: 40px 0;
+    }
+  }
+}
+
+:host /deep/ {
+  #navbar-sections {
+    top: 15px !important;
+    position: relative !important;
+
+    img {
+      @include square(50px !important);
+    }
+  }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  footer {
+    .container {
+      .logo {
+        margin-left: 0;
+        width: 70px;
+        height: 70px;
+      }
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  footer {
+    .container {
+      .logo {
+        margin-left: 0;
+        width: 70px;
+        height: 70px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  footer {
+    .container {
+      .logo {
+        margin-left: 0;
+        width: 70px;
+        height: 70px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  footer {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

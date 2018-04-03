@@ -1,0 +1,160 @@
+@import "../../../style/utilities";
+
+#card-categorizer {
+  @include container-size($main-container);
+  //border:1px solid red;
+  padding: 20px 40px;
+  margin: 10px auto;
+  text-align: center;
+  font-size: $font-size-h3;
+  //background-color: $bg-color-primary;
+  color: $bg-color-primary;
+  .profession {
+    color: rgb(27, 69, 127);
+  }
+  .interest {
+    color: rgb(73, 120, 8);
+  }
+  & >div {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+
+    & >span {
+      //text-decoration: underline;
+      margin: 0 10px;
+      font-weight: 700;
+    }
+    & >i {
+      vertical-align: middle;
+      font-weight: 700;
+    }
+
+    .dropdown-container {
+      color: #222222;
+      border-radius: 5px;
+      font-size: $font-size-default;
+      width: 300px;
+      position: absolute;
+      margin-top: 10px;
+      right: -10px;
+      box-shadow: 0 0 10px #888888;
+      display: none;
+      z-index: 1;
+
+      &::before {
+        @include arrow-up(10px, white, 89%);
+      }
+
+      .dropdown-list {
+        text-align: left;
+
+        .dropdown-item {
+          list-style: none;
+          padding: 10px 20px;
+          background-color: white;
+          border-bottom: 1px solid lightgray;
+          border-left: 3px solid lightgray;
+
+          &:hover{background-color: #e7eef3;}
+
+          &:first-child {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+          }
+
+          &:last-child {
+            border-bottom: 0;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+          }
+        }
+        .selected-item {
+          border-left: 3px solid #1485d2;
+        }
+      }
+    }
+  }
+
+  .company {
+    opacity: 0.25;
+    cursor: default;
+  }
+
+  .switcher {
+    @include capsule-button(3px, 3px);
+    width: 60px;
+    vertical-align: middle;
+    border:2px solid $bg-color-primary;
+    margin: 0 10px;
+    position: relative;
+
+    .switch-button {
+      @include circle(20px);
+      background-color: $bg-color-primary;
+      position: inherit;
+      left:0;
+      transition: left 0.5s ease, right 0.5s ease;
+    }
+  }
+
+  .large-devices{
+    display: inline-block;
+  }
+  .mobile{
+    display: none;
+  }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #card-categorizer {
+    @include container-size(90%);
+    padding: 0;
+    font-size: $font-size-h4;
+    .large-devices{
+      display: none;
+    }
+    .mobile{
+      display: inline-block;
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #card-categorizer {
+    @include container-size(90%);
+    padding: 10px 0;
+    font-size: $font-size-h4;
+    .large-devices{
+      display: none;
+    }
+    .mobile{
+      display: inline-block;
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #card-categorizer {
+    @include container-size(95%);
+    padding: 10px 0;
+    font-size: $font-size-h3;
+    .large-devices{
+      display: none;
+    }
+    .mobile{
+      display: inline-block;
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #card-categorizer {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

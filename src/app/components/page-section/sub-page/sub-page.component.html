@@ -1,0 +1,67 @@
+<app-loader *ngIf="loading && !show_single_page"></app-loader>
+
+<div #submenu_bar class="submenu-bar mobile" [ngClass]="{'freeze-submenu-bar': freeze_submenu_bar}">
+  <div *ngIf="subMenu?.length !== 0 && !loading && !show_single_page">
+    <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
+      <span>{{page?.name | cardText:15}}</span>
+      <i class="material-icons">keyboard_arrow_down</i>
+    </div>
+    <div #submenuBarDropdown *ngIf="showSubmenuBarDropdown" class="submenu-bar-dropdown">
+      <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m)" class="submenu-item">
+        <span>{{m.title}}</span>
+        <div *ngIf="i !== subMenu?.length - 1" class="divider"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="content-container" *ngIf="!pageNotFound && page && !loading && !show_single_page" [style.paddingTop]="(subMenu?.length !== 0 ? '125px' : '65px')">
+  <div *ngIf="subMenu?.length === 0" class="larger-devices" [style.paddingTop]="'60px'"></div>
+  <app-breadcrumb *ngIf="page"></app-breadcrumb>
+  <div *ngIf="page" id="page">
+    <div class="heading">
+      <div class="title">
+        <h2>{{page?.name}}</h2>
+        <span *ngIf="page?.name === 'Student Life'">The student life is a balance of learning, exploring, having fun and getting serious.</span>
+      </div>
+    </div>
+    <div class="side-bar larger-devices">
+      <div class="submenu">
+        <div *ngFor="let m of subMenu, let i = index" (click)="goToPage(m)" class="submenu-item">
+          <span>{{m.title}}</span>
+        </div>
+      </div>
+      <app-join-us></app-join-us>
+      <app-events-card></app-events-card>
+      <app-related-links [links]="page.related_links"></app-related-links>
+    </div>
+    <div class="content-container">
+      <div class="content" [innerHTML]="page?.content | keepHtml"></div>
+      <app-image-gallery *ngIf="page?.image_gallery" [imageGallery]="page?.image_gallery"></app-image-gallery>
+      <app-text-gallery *ngIf="page?.text_gallery" [textGallery]="page?.text_gallery"></app-text-gallery>
+
+      <footer class="article-footer">
+        <dl class="dl-horizontal dl-in-article-footer">
+          <dt>Last modified</dt>
+          <dd>
+            <time datetime="{{formatDate(page.last_modifiled)}" class="ng-binding">{{formatDate(page.last_modifiled)}}</time>
+          </dd>
+
+          <dt>Responsible</dt>
+          <dd> <a href="mailto:{{page.author.email}}" class="ng-binding">{{page.author.name}}</a></dd>
+        </dl>
+      </footer>
+
+      <div class="mobile">
+        <app-join-us></app-join-us>
+        <app-events-card></app-events-card>
+        <app-related-links [links]="page.related_links"></app-related-links>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-page-not-found *ngIf="pageNotFound && !show_single_page"></app-page-not-found>
+
+<app-single-view *ngIf="show_single_page"></app-single-view>

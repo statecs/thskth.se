@@ -1,0 +1,14 @@
+<div id="image-slider-secondary">
+  <div class="slider-title">{{data?.title}}</div>
+  <div #slider *ngIf="data?.title === 'Related associations'" class="slider" [ngClass]="{showScroll: enableScroll}">
+    <div class="items-wrapper">
+      <div *ngFor="let item of data.items">
+        <div *ngIf="item.title !== data.displayed_item.title" class="item link" (click)="showAssociationInPopup(item)">
+          <div class="img-wrapper" [style.background-image]="'url(' + item.header_slides[0]?.imageUrl + ')'"></div>
+          <h4>{{item.title}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,107 @@
+@import "../../../style/utilities";
+#bar {
+  overflow: hidden;
+  position: fixed;
+  background-color: #45b8da;
+  color: white;
+  z-index: 1;
+  width: 100%;
+  top: -100px;
+  //transition: top 0.2s ease;
+  #notification-bar{
+    padding: 15px 20px;
+    & >span{
+      display: inline-block;
+    }
+    & >p{
+      display: inline-block;
+      margin: 0;
+    }
+    .icon{
+      @include circle(25px);
+      background-color: white;
+      text-align: center;
+      font-weight: 800;
+      position: relative;
+      display: inline-block;
+
+      span{
+        line-height: 1.5;
+      }
+    }
+    .close-btn{
+      right: 20px;
+      @include center-vertically(50%);
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+}
+
+.default {
+  background-color: #45b8da !important;
+  .icon{
+    color: #45b8da;
+  }
+}
+.warning {
+  background-color: #f0d863 !important;
+  color: #413f3f !important;
+  .icon{
+    color: #f0d863;
+  }
+}
+.danger {
+  background-color: #f76d1d !important;
+  .icon{
+    color: #f76d1d;
+  }
+}
+
+:host /deep/ p{
+  margin: 0;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #notification-bar {
+    padding: 10px;
+    & >p{
+      width: 80%;
+      vertical-align: middle;
+      font-size: 0.75em;
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #notification-bar {
+    padding: 10px;
+    & >p{
+      width: 80%;
+      vertical-align: middle;
+      font-size: 0.75em;
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #notification-bar {
+    padding: 10px;
+    & >p{
+      width: 80%;
+      vertical-align: middle;
+      font-size: 0.95em;
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #notification-bar {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}

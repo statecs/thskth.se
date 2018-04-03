@@ -1,0 +1,16 @@
+<div id="content-container">
+  <h1>{{(lang === 'sv' ? 'THS Nyheter' : 'THS News')}}</h1>
+  <app-loader *ngIf="!posts"></app-loader>
+  <div *ngFor="let article of posts" class="article" (click)="goToPage(article.slug)">
+    <div class="date">
+      <span>{{formatDate(article.last_modified)}}</span>
+    </div>
+    <h2>{{article.title | cardText:50}}</h2>
+    <div class="label">
+      <label>{{(lang === 'sv' ? 'THS Nyheter' : 'THS News')}}</label>
+    </div>
+    <p class="content" [innerHTML]="article.content | cardText:150"></p>
+  </div>
+</div>
+
+<app-page-not-found *ngIf="pageNotFound"></app-page-not-found>

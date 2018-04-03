@@ -1,0 +1,49 @@
+<nav role="navigation" (mouseleave)="hideSubMenu()">
+    <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
+        <div class="label" (mouseover)="showSubMenu(item.object_slug, i, submenu_item)">
+            <span (click)="goToPage(item)">{{item.title}}</span>
+        </div>
+        <div [hidden]="!(showSubmenuIndex === i)" class="dropdownList" (mouseleave)="hideSubMenu()">
+            <div class="d-header-bg"></div>
+            <div class="d-header">
+                <div>
+                    <img *ngIf="item.title == 'Members' || item.title == 'Medlem'" src="/assets/images/menu/THS-mecenatkort.jpg">
+                    <img *ngIf="item.title == 'Welfare' || item.title == 'Välfärd'" src="/assets/images/menu/Student-Life_small.jpg">
+                    <img *ngIf="item.title == 'Future' || item.title == 'Framtida'" src="/assets/images/menu/About-THS_small.jpg">
+                    <img *ngIf="item.title == 'Education' || item.title == 'Utbildning'" src="/assets/images/menu/Connect_small.jpg">
+                    <img *ngIf="item.title == 'Contact' || item.title == 'Kontakt'" src="/assets/images/menu/karhus.jpg">
+                    <span>{{item.title}}</span>
+                </div>
+            </div>
+            <app-loader *ngIf="subMenu?.length === 0"></app-loader>
+            <div *ngFor="let sub_item of subMenu" (click)="goToPage(sub_item)" class="nav-section">
+                <label>{{sub_item.title}}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="signin-btn"><a href="https://login.kth.se/login?service=http://thstudent.upright.se/" target="_blank">{{signin_text}}</a></div>
+
+    <div #submenu_chapter class="ths-icon">
+        <div class="icon" (mouseover)="showSubMenu('chapters', -1, submenu_chapter)">
+            <img src="/assets/svg/ths_circles_filled.svg">
+        </div>
+        <div [hidden]="!(showSubmenuIndex === -1)" class="dropdownList" (mouseleave)="hideSubMenu()">
+            <div class="d-header-bg"></div>
+            <div class="d-header">
+                <div>
+                    <img src="https://wp.kths.se/wp-content/uploads/2014/11/379676_10151394288791160_1414982083_n.jpg">
+                    <span>{{(language === 'en' ? 'THS Chapters' : 'THS Sektioner')}}</span>
+                </div>
+            </div>
+            <div *ngFor="let chapter of ths_chapters" class="nav-section" (click)="openInNewTab(chapter.link)">
+                <div class="logo"><img src="{{chapter.image}}"></div>
+                <label>{{(language === 'en' ? chapter.title.en : chapter.title.sv)}}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="language" (click)="changeLanguage()">
+        <img width="25" height="17" src="{{language_img}}">
+    </div>
+</nav>

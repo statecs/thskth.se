@@ -1,0 +1,3 @@
+<div id="navbar-sections">
+  <a *ngFor="let chapter of ths_chapters" title="{{(lang === 'en' ? chapter.title.en : chapter.title.sv)}}" href="{{chapter.link}}" target="_blank"><img src="{{chapter.image}}" class="section-img"></a>
+</div>

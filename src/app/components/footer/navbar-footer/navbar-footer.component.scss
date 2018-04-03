@@ -1,0 +1,73 @@
+@import "../../../../style/utilities";
+
+nav {
+  line-height: 1.5;
+  margin-top: 50px;
+  position: relative;
+  display: inline-block;
+
+  .link {
+    text-decoration: none;
+    color: $color-white;
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+
+  .menu-sections {
+    display: inline-block;
+    text-align: left;
+    padding: 0 15px;
+
+    & >label {
+      font-weight: $font-weight-title;
+    }
+    span {
+      color: $color-white;
+    }
+  }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  nav {
+    margin-top: 10px;
+    .menu-sections {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  nav {
+    margin-top: 10px;
+    .menu-sections {
+      margin-bottom: 20px;
+      text-align: left;
+      float: left;
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  nav {
+    margin-top: 10px;
+    .menu-sections {
+      margin-bottom: 20px;
+      text-align: left;
+      float: left;
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  nav {
+
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}
