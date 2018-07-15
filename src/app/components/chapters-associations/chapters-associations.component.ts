@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild, Renderer2, OnDestroy} from '@a
 import { ChaptersAssociationsService } from '../../services/wordpress/chapters-associations.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
-import {Association, Chapter} from '../../interfaces/chapters_associations';
+import {Association, Chapter} from '../../interfaces-and-classes/chapters_associations';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';

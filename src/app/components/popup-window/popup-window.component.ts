@@ -1,17 +1,17 @@
 import {Component, OnInit, HostListener, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
-import { Event } from '../../interfaces/event';
+import { Event } from '../../interfaces-and-classes/event';
 import format from 'date-fns/format/index';
 import { AppCommunicationService } from '../../services/component-communicators/app-communication.service';
 import {Location} from '@angular/common';
-import {Association} from '../../interfaces/chapters_associations';
-import {Archive} from '../../interfaces/archive';
-import {FAQ} from '../../interfaces/faq';
+import {Association} from '../../interfaces-and-classes/chapters_associations';
+import {Archive} from '../../interfaces-and-classes/archive';
+import {FAQ} from '../../interfaces-and-classes/faq';
 import {Router, RoutesRecognized} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {PagesService} from '../../services/wordpress/pages.service';
-import {Post} from '../../interfaces/post';
+import {Post} from '../../interfaces-and-classes/post';
 
 @Component({
   selector: 'app-popup-window',

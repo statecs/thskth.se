@@ -1,9 +1,9 @@
 import {Component, OnInit, Input, HostListener, OnDestroy} from '@angular/core';
-import { Card } from '../../interfaces/card';
+import { Card } from '../../interfaces-and-classes/card';
 import { SocialMediaPostService } from '../../services/social-media-post/social-media-post.service';
-import { SocialMediaPost } from '../../interfaces/social_media_post';
+import { SocialMediaPost } from '../../interfaces-and-classes/social_media_post';
 import format from 'date-fns/format/index';
-import { Event } from '../../interfaces/event';
+import { Event } from '../../interfaces-and-classes/event';
 import { ths_calendars } from '../../utils/ths-calendars';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';

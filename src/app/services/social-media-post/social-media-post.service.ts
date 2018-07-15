@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/forkJoin';
-import { AppConfig } from '../../interfaces/appConfig';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { APP_CONFIG } from '../../app.config';
-import { SocialMediaPost } from '../../interfaces/social_media_post';
+import { SocialMediaPost } from '../../interfaces-and-classes/social_media_post';
 
 @Injectable()
 export class SocialMediaPostService {

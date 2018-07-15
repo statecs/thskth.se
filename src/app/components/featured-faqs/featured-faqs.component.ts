@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { most_asked_questions } from '../../utils/most-asked-questions';
 import { FaqsService } from '../../services/wordpress/faqs.service';
-import { FAQ } from '../../interfaces/faq';
+import { FAQ } from '../../interfaces-and-classes/faq';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';

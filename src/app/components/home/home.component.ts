@@ -15,8 +15,8 @@ import {SearchMenubarCommunicationService} from '../../services/component-commun
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {PlatformLocation} from '@angular/common';
-import {Post} from '../../interfaces/post';
-import {FAQ} from '../../interfaces/faq';
+import {Post} from '../../interfaces-and-classes/post';
+import {FAQ} from '../../interfaces-and-classes/faq';
 
 @Component({
   selector: 'app-home',

@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { SearchService } from '../../services/wordpress/search.service';
-import { SearchResult } from '../../interfaces/search';
+import { SearchResult } from '../../interfaces-and-classes/search';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import {Location} from '@angular/common';
 import { FaqsService } from '../../services/wordpress/faqs.service';
-import { FAQ, FAQCategory } from '../../interfaces/faq';
+import { FAQ, FAQCategory } from '../../interfaces-and-classes/faq';
 import { most_asked_questions } from '../../utils/most-asked-questions';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';

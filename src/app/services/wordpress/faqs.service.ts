@@ -3,9 +3,9 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
-import { AppConfig } from '../../interfaces/appConfig';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { CookieService } from 'ngx-cookie';
-import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
+import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces-and-classes/faq';
 
 @Injectable()
 export class FaqsService {

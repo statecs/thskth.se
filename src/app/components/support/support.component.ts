@@ -1,6 +1,6 @@
 import {Component, OnInit, ElementRef, Renderer2, ViewChild, OnDestroy} from '@angular/core';
 import { FaqsService } from '../../services/wordpress/faqs.service';
-import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces/faq';
+import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces-and-classes/faq';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';

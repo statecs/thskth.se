@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { PagesService } from '../../../services/wordpress/pages.service';
 import { MenusService } from '../../../services/wordpress/menus.service';
-import {Page} from '../../../interfaces/page';
+import {Page} from '../../../interfaces-and-classes/page';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';

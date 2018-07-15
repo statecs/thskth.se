@@ -3,8 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
-import { Card, SubCard, CardCategory } from '../../interfaces/card';
-import { AppConfig } from '../../interfaces/appConfig';
+import { Card, SubCard, CardCategory } from '../../interfaces-and-classes/card';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { CookieService } from 'ngx-cookie';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MenuItem} from '../../../interfaces/menu';
+import {MenuItem} from '../../../interfaces-and-classes/menu';
 import {MenusService} from '../../../services/wordpress/menus.service';
 import {Router, RoutesRecognized} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';

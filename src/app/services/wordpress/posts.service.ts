@@ -3,9 +3,9 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
-import { AppConfig } from '../../interfaces/appConfig';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { CookieService } from 'ngx-cookie';
-import { Post, Author } from '../../interfaces/post';
+import { Post, Author } from '../../interfaces-and-classes/post';
 
 @Injectable()
 export class PostsService {

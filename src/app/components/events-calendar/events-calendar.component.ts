@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { Event } from '../../interfaces/event';
+import { Event } from '../../interfaces-and-classes/event';
 import { CalendarCommunicationService } from '../../services/component-communicators/calendar-communication.service';
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import format from 'date-fns/format/index';

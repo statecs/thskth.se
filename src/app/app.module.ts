@@ -107,6 +107,7 @@ import { FeaturedFaqsComponent } from './components/featured-faqs/featured-faqs.
 import {NotificationBarCommunicationService} from './services/component-communicators/notification-bar-communication.service';
 import { RelatedLinksComponent } from './components/advertisements/related-links/related-links.component';
 import { CookieNotificationBarComponent } from './components/cookie-notification-bar/cookie-notification-bar.component';
+import {DataFetcherService} from './services/utility/data-fetcher.service';
 
 
 @NgModule({
@@ -213,6 +214,7 @@ import { CookieNotificationBarComponent } from './components/cookie-notification
       NotificationBarCommunicationService,
       TitleCommunicationService,
       HideUICommunicationService,
+      DataFetcherService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

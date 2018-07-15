@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { Event } from '../../interfaces/event';
+import { Event } from '../../interfaces-and-classes/event';
 import { Observable } from 'rxjs/Observable';
 import { CalendarEvent } from 'angular-calendar';
 

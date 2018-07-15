@@ -3,8 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
-import { AppConfig } from '../../interfaces/appConfig';
-import {Archive, ArchiveCategory, Document, SearchParams} from '../../interfaces/archive';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
+import {Archive, ArchiveCategory, Document, SearchParams} from '../../interfaces-and-classes/archive';
 import { CookieService } from 'ngx-cookie';
 import format from 'date-fns/format/index';
 

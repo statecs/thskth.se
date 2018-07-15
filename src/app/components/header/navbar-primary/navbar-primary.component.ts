@@ -1,7 +1,7 @@
 import {Component, OnInit, Injector, OnDestroy} from '@angular/core';
 import {MenusService} from '../../../services/wordpress/menus.service';
-import {MenuItem, MenuItem2} from '../../../interfaces/menu';
-import { AppConfig } from '../../../interfaces/appConfig';
+import {MenuItem, MenuItem2} from '../../../interfaces-and-classes/menu';
+import { AppConfig } from '../../../interfaces-and-classes/appConfig';
 import { APP_CONFIG } from '../../../app.config';
 import { ths_chapters } from '../../../utils/ths-chapters';
 import {ActivatedRoute, Router, Params, RoutesRecognized} from '@angular/router';

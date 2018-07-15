@@ -1,5 +1,5 @@
 import {InjectionToken} from '@angular/core';
-import {AppConfig} from './interfaces/appConfig';
+import {AppConfig} from './interfaces-and-classes/appConfig';
 
 export let APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 
@@ -20,7 +20,7 @@ export let appConfig: AppConfig = {
 /*    PROFESSION: {student: 367, professor: 368, other: 377},
     ORGANIZATION_TYPE: {company: 375, institute: 376, other: 382},
     USER_INTEREST: {student: 378, education: 380, careers: 379, other: 381},*/
-    GOOGLE_CALENDAR_BASE_URL: 'https://www.googleapis.com/calendar/v3/calendars/',
+    GOOGLE_CALENDAR_BASE_URL: 'https://www.googleapis.com/calendar/v3/calendars',
     GOOGLE_CALENDAR_KEY: 'AIzaSyBlXb10kwagd6soG9SCxwN_AOVKbkGzHo0',
     EVENT_IMAGE_BASE_URL: 'https://drive.google.com/uc?export=view&id=',
     FACEBOOK_POST_URL: 'https://wp.kths.se/api/wp/v2/social/facebook',

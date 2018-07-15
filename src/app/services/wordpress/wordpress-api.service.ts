@@ -3,8 +3,8 @@ import { Http, Response,  } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
-import { AppConfig } from '../../interfaces/appConfig';
-import {Notification} from '../../interfaces/notification';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
+import {Notification} from '../../interfaces-and-classes/notification';
 
 @Injectable()
 export class WordpressApiService {

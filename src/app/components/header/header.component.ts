@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core
 import { HeaderCommunicationService } from '../../services/component-communicators/header-communication.service';
 import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
 import {MenusService} from '../../services/wordpress/menus.service';
-import {MenuItem2} from '../../interfaces/menu';
+import {MenuItem2} from '../../interfaces-and-classes/menu';
 import { ths_chapters } from '../../utils/ths-chapters';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RemoveLangParamPipe} from '../../pipes/remove-lang-param.pipe';

@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import format from 'date-fns/format/index';
 import { ths_calendars } from '../../../utils/ths-calendars';
 import { GoogleCalendarService } from '../../../services/google-calendar/google-calendar.service';
-import { Event } from '../../../interfaces/event';
+import { Event } from '../../../interfaces-and-classes/event';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PopupWindowCommunicationService} from '../../../services/component-communicators/popup-window-communication.service';
 import {Subscription} from 'rxjs/Subscription';

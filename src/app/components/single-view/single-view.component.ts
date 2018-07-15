@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import { Page } from '../../interfaces/page';
+import { Page } from '../../interfaces-and-classes/page';
 import { PagesService } from '../../services/wordpress/pages.service';
 import { ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';

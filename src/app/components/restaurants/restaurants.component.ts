@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { RestaurantService } from '../../services/wordpress/restaurant.service';
-import {Restaurant, DishesTime} from '../../interfaces/restaurant';
+import {Restaurant, DishesTime} from '../../interfaces-and-classes/restaurant';
 import {ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';

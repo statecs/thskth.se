@@ -5,7 +5,7 @@ import { URLSearchParams } from '@angular/http';
 import * as _ from 'lodash';
 
 export abstract class BaseDataService<T extends BaseDataInterface> {
-    private data: BehaviorSubject<BaseData<T>> = new BehaviorSubject(null);
+    private data: BehaviorSubject<T[]> = new BehaviorSubject(null);
     private fetched = false;
     private params: URLSearchParams = new URLSearchParams();
 
@@ -13,9 +13,12 @@ export abstract class BaseDataService<T extends BaseDataInterface> {
                 protected endpoint: string) {
     }
 
-    getData(params: URLSearchParams = null): Observable<BaseData<T>> {
+    getData(endpointExtension: string = '', params: URLSearchParams = null): Observable<T[]> {
         if (params) {
             this.params = params;
+        }
+        if (endpointExtension) {
+            this.endpoint += endpointExtension[0] === '/' ? endpointExtension : '/' + endpointExtension;
         }
 
         if (!this.fetched) {
@@ -31,7 +34,7 @@ export abstract class BaseDataService<T extends BaseDataInterface> {
     private fetchData() {
         this.dataFetcherService.get(this.endpoint, this.params).subscribe(
             (values) => {
-                this.data.next(new BaseData(this.mapItems(values)));
+                this.data.next(this.mapItems(values));
             }
         );
     }
@@ -45,10 +48,6 @@ export abstract class BaseDataService<T extends BaseDataInterface> {
     }
 }
 
-export class BaseData<T> {
-    constructor(public data: T[]) { }
-}
-
-interface BaseDataInterface {
+export interface BaseDataInterface {
     id: number;
 }

@@ -3,8 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
-import { AppConfig } from '../../interfaces/appConfig';
-import { SearchResult, Category } from '../../interfaces/search';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
+import { SearchResult, Category } from '../../interfaces-and-classes/search';
 import { CookieService } from 'ngx-cookie';
 import {HrefToSlugPipe} from '../../pipes/href-to-slug.pipe';
 

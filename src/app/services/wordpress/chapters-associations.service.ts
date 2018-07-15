@@ -3,8 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
-import { AppConfig } from '../../interfaces/appConfig';
-import {Association, Chapter, HeaderSlide} from '../../interfaces/chapters_associations';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
+import {Association, Chapter, HeaderSlide} from '../../interfaces-and-classes/chapters_associations';
 import { CookieService } from 'ngx-cookie';
 
 @Injectable()

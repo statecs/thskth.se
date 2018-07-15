@@ -3,7 +3,7 @@ import { ArchiveService } from '../../services/wordpress/archive.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import { Location } from '@angular/common';
-import {Archive, SearchParams} from '../../interfaces/archive';
+import {Archive, SearchParams} from '../../interfaces-and-classes/archive';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import format from 'date-fns/format/index';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';

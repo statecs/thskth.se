@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Page } from '../../../interfaces/page';
+import { Page } from '../../../interfaces-and-classes/page';
 import format from 'date-fns/format/index';
 
 @Component({
