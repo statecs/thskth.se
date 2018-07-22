@@ -10,14 +10,16 @@ export abstract class BaseDataService<T extends BaseDataInterface> {
     private params: URLSearchParams = new URLSearchParams();
 
     constructor(protected dataFetcherService: DataFetcherService,
-                protected endpoint: string) {
+                protected endpoint: string = '') {
     }
 
     getData(endpointExtension: string = '', params: URLSearchParams = null): Observable<T[]> {
         if (params) {
             this.params = params;
         }
-        if (endpointExtension) {
+        if (this.endpoint === '') {
+            this.endpoint = endpointExtension;
+        }else if (endpointExtension && this.endpoint !== '') {
             this.endpoint += endpointExtension[0] === '/' ? endpointExtension : '/' + endpointExtension;
         }
 
