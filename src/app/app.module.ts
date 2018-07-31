@@ -108,6 +108,8 @@ import {NotificationBarCommunicationService} from './services/component-communic
 import { RelatedLinksComponent } from './components/advertisements/related-links/related-links.component';
 import { CookieNotificationBarComponent } from './components/cookie-notification-bar/cookie-notification-bar.component';
 import {DataFetcherService} from './services/utility/data-fetcher.service';
+import {FacebookPostService} from "./services/social-media-post/facebook-post.service";
+import {InstagramPostService} from "./services/social-media-post/instagram-post.service";
 
 
 @NgModule({
@@ -215,6 +217,8 @@ import {DataFetcherService} from './services/utility/data-fetcher.service';
       TitleCommunicationService,
       HideUICommunicationService,
       DataFetcherService,
+      FacebookPostService,
+      InstagramPostService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

@@ -92,14 +92,19 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
     this.selected_event_title = '';
     this.selected_event_text = '';
     this.selected_event_index = 0;
-    this.postsSubscription = this.socialMediaPostService.fetchAllPosts().subscribe(res => {
-      this.meta_data = res;
-      this.thirdCard = res[2];
-      const first_six_posts = res.slice(0, this.displayedCards_amount + 1);
-      first_six_posts.splice(2, 1);
-      this.socialMediaPosts = first_six_posts;
-      this.fetching = false;
-    });
+    this.postsSubscription = this.socialMediaPostService.fetchAllPosts().subscribe(
+        res => {
+          this.meta_data = res;
+          this.thirdCard = res[2];
+          const first_six_posts = res.slice(0, this.displayedCards_amount + 1);
+          first_six_posts.splice(2, 1);
+          this.socialMediaPosts = first_six_posts;
+          this.fetching = false;
+        },
+        error => {
+          console.log(error);
+        }
+    );
   }
 
   ngOnDestroy() {

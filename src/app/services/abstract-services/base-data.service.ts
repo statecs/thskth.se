@@ -17,9 +17,7 @@ export abstract class BaseDataService<T extends BaseDataInterface> {
         if (params) {
             this.params = params;
         }
-        if (this.endpoint === '') {
-            this.endpoint = endpointExtension;
-        }else if (endpointExtension && this.endpoint !== '') {
+        if (endpointExtension && this.endpoint !== '') {
             this.endpoint += endpointExtension[0] === '/' ? endpointExtension : '/' + endpointExtension;
         }
 

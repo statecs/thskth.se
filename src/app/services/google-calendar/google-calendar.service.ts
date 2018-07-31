@@ -2,6 +2,7 @@ import {Injectable, Injector} from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/combineLatest';
 import { Event } from '../../interfaces-and-classes/event';
 import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { colors } from '../../utils/colors';
@@ -67,7 +68,7 @@ export class GoogleCalendarService extends BaseDataService<Event> {
     observables.push(this.getData(this.ths_calendars[6].calendarId + '/events', params));
     observables.push(this.getData(this.ths_calendars[7].calendarId + '/events', params));
 
-    return Observable.forkJoin(observables).map(values => {
+    return Observable.combineLatest(observables).map(values => {
       let events: Event[] = [];
       _.each(values, (value) => {
         events = events.concat(value);
