@@ -1,8 +1,9 @@
 import {Injectable, Injector} from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/observable/merge';
+import {map, combineAll, mergeAll} from 'rxjs/operators';
 import { Event } from '../../interfaces-and-classes/event';
 import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { colors } from '../../utils/colors';
@@ -20,16 +21,32 @@ import subDays from 'date-fns/sub_days/index';
 import {BaseDataInterface, BaseDataService} from '../abstract-services/base-data.service';
 import {DataFetcherService} from '../utility/data-fetcher.service';
 import * as _ from 'lodash';
+import {EventsCalendarService} from './events.calendar.service';
+import {AssociationsCalendarService} from './associations.calendar.service';
+import {CentralCalendarService} from './central.calendar.service';
+import {ChaptersCalendarService} from './chapters.calendar.service';
+import {EducationCalendarService} from './education.calendar.service';
+import {FutureCalendarService} from './future.calendar.service';
+import {InternationalCalendarService} from './international.calendar.service';
+import {ReceptionCalendarService} from './reception.calendar.service';
 
 @Injectable()
-export class GoogleCalendarService extends BaseDataService<Event> {
+export class GoogleCalendarService {
   protected config: AppConfig;
   protected search: URLSearchParams = new URLSearchParams();
   view: string;
   public ths_calendars: any[];
 
-  constructor(protected dataFetcherService: DataFetcherService, private injector: Injector) {
-    super(dataFetcherService, injector.get(APP_CONFIG).GOOGLE_CALENDAR_BASE_URL);
+  constructor(protected dataFetcherService: DataFetcherService,
+              private injector: Injector,
+              private eventsCalendarService: EventsCalendarService,
+              private associationsCalendarService: AssociationsCalendarService,
+              private centralCalendarService: CentralCalendarService,
+              private chaptersCalendarService: ChaptersCalendarService,
+              private educationCalendarService: EducationCalendarService,
+              private futureCalendarService: FutureCalendarService,
+              private internationalCalendarService: InternationalCalendarService,
+              private receptionCalendarService: ReceptionCalendarService) {
     this.config = injector.get(APP_CONFIG);
     this.view = '';
     this.ths_calendars = ths_calendars;
@@ -59,22 +76,25 @@ export class GoogleCalendarService extends BaseDataService<Event> {
     params.set('orderBy', 'startTime');
     params.set('maxResults', '4');
     const observables: Observable<any>[] = [];
-    observables.push(this.getData(this.ths_calendars[0].calendarId + '/events', params));
-    observables.push(this.getData(this.ths_calendars[1].calendarId + '/events', params));
-    observables.push(this.getData(this.ths_calendars[2].calendarId + '/events', params));
-    observables.push(this.getData(this.ths_calendars[3].calendarId + '/events', params));
-    observables.push(this.getData(this.ths_calendars[4].calendarId + '/events', params));
-    observables.push(this.getData(this.ths_calendars[5].calendarId + '/events', params));
-    observables.push(this.getData(this.ths_calendars[6].calendarId + '/events', params));
-    observables.push(this.getData(this.ths_calendars[7].calendarId + '/events', params));
+    observables.push(this.eventsCalendarService.getCalendar(params));
+    observables.push(this.associationsCalendarService.getCalendar(params));
+    observables.push(this.centralCalendarService.getCalendar(params));
+    observables.push(this.chaptersCalendarService.getCalendar(params));
+    observables.push(this.educationCalendarService.getCalendar(params));
+    observables.push(this.futureCalendarService.getCalendar(params));
+    observables.push(this.internationalCalendarService.getCalendar(params));
+    observables.push(this.receptionCalendarService.getCalendar(params));
 
-    return Observable.combineLatest(observables).map(values => {
-      let events: Event[] = [];
-      _.each(values, (value) => {
-        events = events.concat(value);
-      });
-      return events;
-    });
+    return Observable.combineLatest(observables).pipe(
+        mergeAll(),
+        map(values => {
+            let events: Event[] = [];
+            _.each(values, (value) => {
+                events = events.concat(value);
+            });
+            return events;
+        })
+    );
   }
 
   fetchEvents(calendarId, viewDate, view): Observable<Event[]> {
@@ -91,7 +111,8 @@ export class GoogleCalendarService extends BaseDataService<Event> {
     params.set('key', this.config.GOOGLE_CALENDAR_KEY);
     params.set('singleEvents', 'true');
     params.set('orderBy', 'startTime');
-    return this.getData(calendarId + '/events', params);
+    return this.dataFetcherService.get(this.config.GOOGLE_CALENDAR_BASE_URL + calendarId + '/events', params)
+        .map(res => this.castResToEventType(res, calendarId));
   }
 
   getUpcomingEvents(calendarId, amount): Observable<Event[]> {
@@ -105,7 +126,8 @@ export class GoogleCalendarService extends BaseDataService<Event> {
     params.set('singleEvents', 'true');
     params.set('orderBy', 'startTime');
     params.set('maxResults', amount);
-    return this.getData(calendarId + '/events', params);
+    return this.dataFetcherService.get(this.config.GOOGLE_CALENDAR_BASE_URL + calendarId + '/events', params)
+        .map(res => this.castResToEventType(res, calendarId));
   }
 
   getStart(viewDate: any): any {
@@ -134,7 +156,7 @@ export class GoogleCalendarService extends BaseDataService<Event> {
     }
   }
 
-/*
+
   castResToEventType(res, calendarId) {
     const result: Array<Event> = [];
     res.items.forEach((event) => {
@@ -173,6 +195,6 @@ export class GoogleCalendarService extends BaseDataService<Event> {
       });
     });
     return result;
-  }*/
+  }
 
 }
