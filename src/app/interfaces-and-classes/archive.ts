@@ -25,6 +25,7 @@ export interface Author {
 }
 
 export interface Archive {
+    id: number;
     slug: string;
     title: string;
     published: string;

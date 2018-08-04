@@ -11,7 +11,7 @@ export class DataFetcherService {
     constructor(private http: Http) {
     }
 
-    get(url: string, params: URLSearchParams): Observable<any> {
+    get(url: string, params: URLSearchParams = null): Observable<any> {
         return this.http.get(url, {params})
             .map(data => this.extractData(data))
             .share()
