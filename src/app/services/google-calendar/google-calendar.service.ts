@@ -112,7 +112,7 @@ export class GoogleCalendarService {
     params.set('singleEvents', 'true');
     params.set('orderBy', 'startTime');
     return this.dataFetcherService.get(this.config.GOOGLE_CALENDAR_BASE_URL + calendarId + '/events', params)
-        .map(res => this.castResToEventType(res, calendarId));
+        .map(res => Event.convertToEventType(res, calendarId, this.config.EVENT_IMAGE_BASE_URL));
   }
 
   getUpcomingEvents(calendarId, amount): Observable<Event[]> {
@@ -127,7 +127,7 @@ export class GoogleCalendarService {
     params.set('orderBy', 'startTime');
     params.set('maxResults', amount);
     return this.dataFetcherService.get(this.config.GOOGLE_CALENDAR_BASE_URL + calendarId + '/events', params)
-        .map(res => this.castResToEventType(res, calendarId));
+        .map(res => Event.convertToEventType(res, calendarId, this.config.EVENT_IMAGE_BASE_URL));
   }
 
   getStart(viewDate: any): any {
@@ -157,7 +157,7 @@ export class GoogleCalendarService {
   }
 
 
-  castResToEventType(res, calendarId) {
+  /*castResToEventType(res, calendarId) {
     const result: Array<Event> = [];
     res.items.forEach((event) => {
       let imageUrl: string;
@@ -195,6 +195,6 @@ export class GoogleCalendarService {
       });
     });
     return result;
-  }
+  }*/
 
 }

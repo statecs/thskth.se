@@ -7,6 +7,10 @@ import { Event } from '../../interfaces-and-classes/event';
 import { ths_calendars } from '../../utils/ths-calendars';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
+import {
+    CardsSocialContainerComponentService,
+    CardsSocialContainerViewModel
+} from './cards-social-container.component.service';
 
 @Component({
   selector: 'app-cards-social-container',
@@ -16,31 +20,24 @@ import {Subscription} from 'rxjs/Subscription';
 export class CardsSocialContainerComponent implements OnInit, OnDestroy {
   @Input() showFetchMoreBtn: boolean;
   public cards: Card[];
-  public socialMediaPosts: SocialMediaPost[];
-  public thirdCard: SocialMediaPost;
-  private meta_data: SocialMediaPost[];
-  public displayedCards_amount: number;
+  public viewModel: CardsSocialContainerViewModel;
   public showEventCalendar: boolean;
   public events: Event[];
-
   public selected_event_title: string;
   public selected_event_text: string;
   public selected_event_index: number;
   public ths_calendars: any[];
   public existMorePosts: boolean;
-  public fetching: boolean;
   public lang: string;
   public read_more: string;
   public paramsSubscription: Subscription;
   public postsSubscription: Subscription;
 
-  constructor( private socialMediaPostService: SocialMediaPostService,
+  constructor( private viewModelService: CardsSocialContainerComponentService,
                private activatedRoute: ActivatedRoute) {
-    this.displayedCards_amount = 6;
     this.showEventCalendar = false;
     this.ths_calendars = ths_calendars;
     this.existMorePosts = true;
-    this.fetching = true;
     this.lang = this.activatedRoute.snapshot.data['lang'];
     if (typeof this.lang === 'undefined') {
       this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
@@ -58,9 +55,23 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
 
   }
 
+  ngOnInit() {
+      this.selected_event_title = '';
+      this.selected_event_text = '';
+      this.selected_event_index = 0;
+      this.postsSubscription = this.viewModelService.getData().subscribe(
+          viewModel => {
+              this.viewModel = viewModel;
+          },
+          error => {
+              console.log(error);
+          }
+      );
+  }
+
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-    if (!this.showFetchMoreBtn && this.meta_data) {
+    if (!this.showFetchMoreBtn && this.viewModel.meta_data) {
       const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
       const max = document.documentElement.scrollHeight;
       if (pos > max - 500) {
@@ -70,13 +81,13 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
   }
 
   fetchMorePosts(): void {
-    this.fetching = true;
-    this.displayedCards_amount += 6;
-    this.socialMediaPosts = this.meta_data.slice(0, this.displayedCards_amount);
-    if (this.displayedCards_amount >= this.meta_data.length) {
+    this.viewModel.fetching = true;
+    this.viewModel.displayedCards_amount += 6;
+    this.viewModel.socialMediaPosts = this.viewModel.meta_data.slice(0, this.viewModel.displayedCards_amount);
+    if (this.viewModel.displayedCards_amount >= this.viewModel.meta_data.length) {
       this.existMorePosts = false;
     }
-    this.fetching = false;
+    this.viewModel.fetching = false;
   }
 
   formatDate(created_time): string {
@@ -86,25 +97,6 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
 
   goToUserProfile(url): void {
     window.open(url, '_blank');
-  }
-
-  ngOnInit() {
-    this.selected_event_title = '';
-    this.selected_event_text = '';
-    this.selected_event_index = 0;
-    this.postsSubscription = this.socialMediaPostService.fetchAllPosts().subscribe(
-        res => {
-          this.meta_data = res;
-          this.thirdCard = res[2];
-          const first_six_posts = res.slice(0, this.displayedCards_amount + 1);
-          first_six_posts.splice(2, 1);
-          this.socialMediaPosts = first_six_posts;
-          this.fetching = false;
-        },
-        error => {
-          console.log(error);
-        }
-    );
   }
 
   ngOnDestroy() {

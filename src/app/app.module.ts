@@ -15,7 +15,6 @@ import { APP_CONFIG, appConfig } from './app.config';
 import { CookieModule } from 'ngx-cookie';
 import { CardCategorizerCardContainerService } from './services/component-communicators/card-categorizer-card-container.service';
 import { PopupWindowCommunicationService } from './services/component-communicators/popup-window-communication.service';
-import { GoogleCalendarService } from './services/google-calendar/google-calendar.service';
 import { CalendarCommunicationService } from './services/component-communicators/calendar-communication.service';
 import { SocialMediaPostService } from './services/social-media-post/social-media-post.service';
 import { FaqsService } from './services/wordpress/faqs.service';
@@ -108,8 +107,9 @@ import {NotificationBarCommunicationService} from './services/component-communic
 import { RelatedLinksComponent } from './components/advertisements/related-links/related-links.component';
 import { CookieNotificationBarComponent } from './components/cookie-notification-bar/cookie-notification-bar.component';
 import {DataFetcherService} from './services/utility/data-fetcher.service';
-import {FacebookPostService} from "./services/social-media-post/facebook-post.service";
-import {InstagramPostService} from "./services/social-media-post/instagram-post.service";
+import {FacebookPostService} from './services/social-media-post/facebook-post.service';
+import {InstagramPostService} from './services/social-media-post/instagram-post.service';
+import {GoogleCalendarModule} from './services/google-calendar/google-calendar.module';
 
 
 @NgModule({
@@ -179,7 +179,7 @@ import {InstagramPostService} from "./services/social-media-post/instagram-post.
     CookieNotificationBarComponent
   ],
   imports: [
-    BrowserModule,
+      BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
@@ -188,12 +188,12 @@ import {InstagramPostService} from "./services/social-media-post/instagram-post.
     CookieModule.forRoot(),
     BrowserAnimationsModule,
     CalendarModule.forRoot(),
+      GoogleCalendarModule,
   ],
   providers: [
       WordpressApiService,
       CardCategorizerCardContainerService,
       PopupWindowCommunicationService,
-      GoogleCalendarService,
       CalendarCommunicationService,
       SocialMediaPostService,
       FaqsService,
