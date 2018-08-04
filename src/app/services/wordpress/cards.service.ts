@@ -1,18 +1,23 @@
 import { Injectable, Injector } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
 import { Card, SubCard, CardCategory } from '../../interfaces-and-classes/card';
 import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { CookieService } from 'ngx-cookie';
+import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
+import {Archive} from '../../interfaces-and-classes/archive';
+import {DataFetcherService} from '../utility/data-fetcher.service';
 
 @Injectable()
-export class CardsService {
+export class CardsService extends WordpressBaseDataService<Archive> {
   protected config: AppConfig;
   protected language: string;
 
-  constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
+  constructor(protected dataFetcherService: DataFetcherService,
+              private injector: Injector,
+              private _cookieService: CookieService) {
+    super(dataFetcherService);
     this.config = injector.get(APP_CONFIG);
 
     if (typeof this._cookieService.get('language') === 'undefined') {
@@ -31,9 +36,7 @@ export class CardsService {
     }else if (type === 'interest') {
       url = this.config.CARD_CATEGORY_INT;
     }
-    return this.http
-        .get(url + '/' + id + '?lang=' + lang)
-        .map((res: Response) => res.json())
+    return this.getDataById( 'lang=' + lang, url + '/' + id)
         // Cast response data to card type
         .map((res: any) => {
           return {
@@ -51,9 +54,7 @@ export class CardsService {
     }else if (type === 'interest') {
       url = this.config.CARD_CATEGORY_INT;
     }
-    return this.http
-        .get(url + '?order=desc&lang=' + lang)
-        .map((res: Response) => res.json())
+    return this.getDataByURL('?order=desc&lang=' + lang, url)
         // Cast response data to card type
         .map((res: Array<any>) => {
           const cats: CardCategory[] = [];
@@ -70,16 +71,14 @@ export class CardsService {
 
   // Get cards
   getCards(arg, lang: string): Observable<Card[]> {
-    let filter: string = '';
+    let filter = '';
     /*if (!arg.profession) {
       filter = '&organization_type=' + arg.organization_type + '&user_interest=' + arg.interest;
     }else {
       filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
     }*/
     filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
-    return this.http
-        .get(this.config.CARDS_URL + '?order=asc&per_page=100' + filter + '&lang=' + lang)
-        .map((res: Response) => res.json())
+    return this.getData(this.config.CARDS_URL, 'order=asc&per_page=100' + filter + '&lang=' + lang)
         // Cast response data to card type
         .map((res: Array<any>) => this.castResDataToCardType(res))
         .map((cards: Array<Card>) => cards.sort(this.sortArrayByCardNumber));

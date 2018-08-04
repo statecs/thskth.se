@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, ViewChild, Renderer2, OnDestroy} from '@angular/core';
-import { ChaptersAssociationsService } from '../../services/wordpress/chapters-associations.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import {Association, Chapter} from '../../interfaces-and-classes/chapters_associations';
@@ -9,6 +8,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 import { CookieService } from 'ngx-cookie';
+import {ChaptersService} from '../../services/wordpress/chapters.service';
+import {AssociationsService} from '../../services/wordpress/associations.service';
 
 @Component({
   selector: 'app-chapters-associations',
@@ -59,7 +60,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   public chaptersSubscription3: Subscription;
   public showingPopup: boolean;
 
-  constructor(private chaptersAssociationsService: ChaptersAssociationsService,
+  constructor(private chaptersService: ChaptersService,
+              private associationsService: AssociationsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -204,7 +206,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         this.career_associations = [];
         this.sport_associations = [];
         this.social_associations = [];
-        this.associationsSubsciption = this.chaptersAssociationsService.searchAssociations(this.searchTerm, this.lang).subscribe((res) => {
+        this.associationsSubsciption = this.associationsService.searchAssociations(this.searchTerm, this.lang).subscribe((res) => {
                 this.associationResults = res;
                 this.allocateAssociations(res);
                 this.showAssociations = true;
@@ -219,7 +221,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
 
     searchChapters(): void {
       this.chapterResults = [];
-        this.chaptersSubscription = this.chaptersAssociationsService.searchChapters(this.searchTerm, this.lang).subscribe((res) => {
+        this.chaptersSubscription = this.chaptersService.searchChapters(this.searchTerm, this.lang).subscribe((res) => {
                 this.chapterResults = res;
                 this.showChapters = true;
                 this.checkResults();
@@ -243,7 +245,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   getChapters(): void {
     this.documentsLoading = true;
     this.showChapters = true;
-    this.chaptersSubscription2 = this.chaptersAssociationsService.getChapters(this.lang).subscribe((res) => {
+    this.chaptersSubscription2 = this.chaptersService.getChapters(this.lang).subscribe((res) => {
           this.chapterResults = res;
           this.checkResults();
         },
@@ -267,7 +269,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
-    this.associationsSubsciption2 = this.chaptersAssociationsService.getAssociations(this.lang).subscribe((res) => {
+    this.associationsSubsciption2 = this.associationsService.getAssociations(this.lang).subscribe((res) => {
           this.associationResults = res;
           this.allocateAssociations(res);
           this.checkResults();
@@ -320,13 +322,13 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   }
 
   getPostBySlug() {
-    this.associationsSubsciption3 = this.chaptersAssociationsService.getAssociationBySlug(this.slug, this.lang).subscribe((res) => {
+    this.associationsSubsciption3 = this.associationsService.getAssociationBySlug(this.slug, this.lang).subscribe((res) => {
       if (res.length > 0) {
         this.showAssociationInPopup(res[0]);
         this.showingPopup = true;
         this.item_exist = true;
       }else {
-        this.chaptersSubscription3 = this.chaptersAssociationsService.getChapterBySlug(this.slug, this.lang).subscribe((res2) => {
+        this.chaptersSubscription3 = this.chaptersService.getChapterBySlug(this.slug, this.lang).subscribe((res2) => {
           if (res2.length > 0) {
             this.showAssociationInPopup(res2[0]);
             this.item_exist = true;

@@ -8,20 +8,25 @@ import {SearchParams} from '../../interfaces-and-classes/archive';
 export abstract class WordpressBaseDataService<T extends BaseDataInterface> {
     private data: BehaviorSubject<T[]> = new BehaviorSubject(null);
     private fetched = false;
-    private params: URLSearchParams = new URLSearchParams();
+    private params: string;
 
     constructor(protected dataFetcherService: DataFetcherService,
                 protected endpoint: string = '') {
     }
 
-    getData(query: string = '', params: URLSearchParams = null): Observable<T[]> {
+    getData(endpointExtension: string = '', params: string = ''): Observable<T[]> {
         if (params) {
             this.params = params;
+        }
+        if (endpointExtension && this.endpoint !== '') {
+            this.endpoint += endpointExtension[0] === '/' ? endpointExtension : '/' + endpointExtension;
+        }else if (this.endpoint === '' ) {
+            this.endpoint = endpointExtension;
         }
 
         if (!this.fetched) {
             this.fetched = true;
-            this.fetchData(this.endpoint + '?' + query);
+            this.fetchData(this.endpoint + '?' + params);
         }
 
         return this.data.filter(data => {
@@ -30,23 +35,39 @@ export abstract class WordpressBaseDataService<T extends BaseDataInterface> {
     }
 
     private fetchData(url: string) {
-        this.dataFetcherService.get(url, this.params).subscribe(
+        this.dataFetcherService.get(url).subscribe(
             (values) => {
                 this.data.next(this.mapItems(values));
             }
         );
     }
 
-    getDataBySlug(query: string): Observable<T[]> {
-        return this.dataFetcherService.get(this.endpoint + '?' + query)
+    getDataByURL( query: string = '', url: string = null ): Observable<T[]> {
+        return this.dataFetcherService.get((url ? url : this.endpoint) + '?' + query)
+            .map((values) => {
+                    return this.mapItems(values);
+                }
+            );
+    }
+
+    getDataById( query: string = '', url: string = null ): Observable<T[]> {
+        return this.dataFetcherService.get((url ? url : this.endpoint) + '?' + query)
+            .map((values) => {
+                    return this.mapItems(values);
+                }
+            );
+    }
+
+    getDataBySlug( query: string = '', url: string = null ): Observable<T[]> {
+        return this.dataFetcherService.get((url ? url : this.endpoint) + '?' + query)
             .map((values) => {
                 return this.mapItems(values);
             }
         );
     }
 
-    searchData(query: string) {
-        return this.dataFetcherService.get(this.endpoint + '?' + query)
+    searchData( query: string = '', url: string = null ) {
+        return this.dataFetcherService.get((url ? url : this.endpoint) + '?' + query)
             .map((values) => {
                     return this.mapItems(values);
                 }

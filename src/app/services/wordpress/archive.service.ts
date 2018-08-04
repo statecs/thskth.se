@@ -36,7 +36,7 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
 
   getDocuments(amount, lang: string): Observable<Archive[]> {
     this.language = lang;
-    return this.getData('_embed&per_page=' + amount + '&lang=' + this.language)
+    return this.getData(null, '_embed&per_page=' + amount + '&lang=' + this.language)
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
   }

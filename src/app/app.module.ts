@@ -28,7 +28,6 @@ import { CardsService } from './services/wordpress/cards.service';
 import { SearchService } from './services/wordpress/search.service';
 import { SearchMenubarCommunicationService } from './services/component-communicators/search-menubar-communication.service';
 import { ArchiveService } from './services/wordpress/archive.service';
-import { ChaptersAssociationsService } from './services/wordpress/chapters-associations.service';
 import { RestaurantService } from './services/wordpress/restaurant.service';
 import { SelectSliderCommunicationService } from './services/component-communicators/select-slider-communication.service';
 import { PostsService } from './services/wordpress/posts.service';
@@ -207,7 +206,6 @@ import {GoogleCalendarModule} from './services/google-calendar/google-calendar.m
       SearchService,
       SearchMenubarCommunicationService,
       ArchiveService,
-      ChaptersAssociationsService,
       RestaurantService,
       SelectSliderCommunicationService,
       PostsService,
