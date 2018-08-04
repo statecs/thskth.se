@@ -110,7 +110,6 @@ import {DataFetcherService} from './services/utility/data-fetcher.service';
 import {FacebookPostService} from './services/social-media-post/facebook-post.service';
 import {InstagramPostService} from './services/social-media-post/instagram-post.service';
 import {GoogleCalendarModule} from './services/google-calendar/google-calendar.module';
-import {ViewModelModule} from './components/view-model.module';
 
 
 @NgModule({
@@ -190,7 +189,6 @@ import {ViewModelModule} from './components/view-model.module';
     BrowserAnimationsModule,
     CalendarModule.forRoot(),
       GoogleCalendarModule,
-      ViewModelModule,
   ],
   providers: [
       WordpressApiService,

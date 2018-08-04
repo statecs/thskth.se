@@ -15,7 +15,8 @@ import {
 @Component({
   selector: 'app-cards-social-container',
   templateUrl: './cards-social-container.component.html',
-  styleUrls: ['./cards-social-container.component.scss']
+  styleUrls: ['./cards-social-container.component.scss'],
+    providers: [CardsSocialContainerComponentService]
 })
 export class CardsSocialContainerComponent implements OnInit, OnDestroy {
   @Input() showFetchMoreBtn: boolean;
