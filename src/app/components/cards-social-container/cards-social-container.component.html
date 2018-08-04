@@ -157,7 +157,7 @@
     </div>
 
 </div>
-<app-loader *ngIf="viewModel.fetching"></app-loader>
+<app-loader *ngIf="viewModel?.fetching"></app-loader>
 <div *ngIf="existMorePosts && showFetchMoreBtn" class="fetcher">
     <span class="plus-button" (click)="fetchMorePosts()"><span>+</span></span>
 </div>

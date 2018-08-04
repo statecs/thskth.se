@@ -5,7 +5,7 @@ import {SocialMediaPost} from '../../interfaces-and-classes/social_media_post';
 
 @Injectable()
 export class CardsSocialContainerComponentService {
-    viewModel: CardsSocialContainerViewModel;
+    viewModel: CardsSocialContainerViewModel = new CardsSocialContainerViewModel();
 
     constructor(private socialMediaPostService: SocialMediaPostService) {
     }
