@@ -40,6 +40,7 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
                     cat_slug = category.slug;
                   }
                   const faq: FAQ = {
+                    id: res[0].id,
                       question: res[0].title.rendered,
                       answer: res[0].content.rendered,
                       slug: res[0].slug,
@@ -57,14 +58,14 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
     this.language = lang;
     return this.searchData( 'order=asc&per_page=100&search=' + search_term + '&lang=' + this.language)
         // Cast response data to FAQ Category type
-        .map((res: Array<any>) => { return this.castSearchResultsToFAQType(res, ''); });
+        .map((res: Array<any>) => { return FAQ.convertToFAQType(res, ''); });
   }
 
   // Get FAQs by categories ID
   getFAQs_ByCategoryID(catID): Observable<FAQ[]> {
     return this.getDataById('order=asc&per_page=100&faq_category=' + catID + '&lang=' + this.language)
         // Cast response data to FAQ Category type
-        .map((res: Array<any>) => { return this.castResFAQType(res, ''); });
+        .map((res: Array<any>) => { return FAQ.convertToFAQType(res, ''); });
   }
 
   // Get FAQs by slug
@@ -80,6 +81,7 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
               cat_slug = res[0].pure_taxonomies.faq_category.slug;
             }
             faq[0] = {
+                id: res[0].id,
               question: res[0].title.rendered,
               answer: res[0].content.rendered,
               slug: res[0].slug,
@@ -100,7 +102,7 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
         return this.dataFetcherService
             .get(this.config.FAQs_URL + '?order=asc&per_page=100&faq_category=' + catID + '&lang=' + this.language)
             // Cast response data to FAQ Category type
-            .map((res: Array<any>) => { return this.castFAQsToChildCategories(res, child_categories, ''); });
+            .map((res: Array<any>) => { return FAQ.convertFAQsToChildCategories(res, child_categories, ''); });
       }else {
         return Observable.of([]);
       }
@@ -113,7 +115,7 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
     return this.dataFetcherService
         .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=0' + '&lang=' + this.language)
         // Cast response data to FAQ Category type
-        .map((res: Array<any>) => { return this.castDataToFAQCategory(res); });
+        .map((res: Array<any>) => { return FAQ.castDataToFAQCategory(res); });
   }
 
   // Get FAQ Child Categories
@@ -121,108 +123,6 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
     return this.dataFetcherService
         .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=' + parentID + '&lang=' + this.language)
         // Cast response data to FAQ Category type
-        .map((res: Array<any>) => { return this.castDataToFAQSubMenuType(res); });
+        .map((res: Array<any>) => { return FAQ.convertToFAQSubMenuType(res); });
   }
-
-  castDataToFAQSubMenuType(res) {
-    const categories: FAQSubMenu[] = [];
-    if (res) {
-      res.forEach((c) => {
-        categories.push({
-          id: c.id,
-          name: c.name,
-          slug: c.slug,
-          parent: c.parent,
-          faqs: [],
-        });
-      });
-    }
-    return categories;
-  }
-
-  castDataToFAQCategory(res) {
-    const categories: FAQCategory[] = [];
-    if (res) {
-      res.forEach((c) => {
-        categories.push({
-          id: c.id,
-          name: c.name,
-          slug: c.slug,
-          parent: c.parent
-        });
-      });
-    }
-    return categories;
-  }
-
-  castResFAQType(res, category_name) {
-    const faqs: FAQ[] = [];
-    if (res) {
-      res.forEach((item) => {
-        let slug = '';
-        if (item.pure_taxonomies.faq_category) {
-          slug = item.pure_taxonomies.faq_category.slug;
-        }
-        if (item.faq_category.length === 1) {
-          faqs.push({
-              id: item.id,
-            question: item.title.rendered,
-            answer: item.content.rendered,
-            slug: item.slug,
-            category_name: category_name,
-            category_slug: slug,
-            faq_category: item.faq_category,
-          });
-        }
-      });
-    }
-    return faqs;
-  }
-
-  castFAQsToChildCategories(res, child_categories, category_name) {
-    const subMenus: FAQSubMenu[] = child_categories;
-    res.forEach((item) => {
-      let slug = '';
-      if (item.pure_taxonomies.faq_category) {
-        slug = item.pure_taxonomies.faq_category.slug;
-      }
-      for (let i = 0; i < child_categories.length; i++) {
-        if (item.faq_category.indexOf(child_categories[i].id) >= 0) {
-          subMenus[i].faqs.push({
-              id: item.id,
-            question: item.title.rendered,
-            answer: item.content.rendered,
-            slug: item.slug,
-            category_name: category_name,
-            category_slug: slug,
-            faq_category: item.faq_category,
-          });
-        }
-      }
-    });
-    return subMenus;
-  }
-
-  castSearchResultsToFAQType(res, category_name) {
-    const faqs: FAQ[] = [];
-    if (res) {
-      res.forEach((item) => {
-        let slug = '';
-        if (item.pure_taxonomies.faq_category) {
-          slug = item.pure_taxonomies.faq_category.slug;
-        }
-        faqs.push({
-            id: item.id,
-          question: item.title.rendered,
-          answer: item.content.rendered,
-          slug: item.slug,
-          category_name: category_name,
-          category_slug: slug,
-          faq_category: item.faq_category,
-        });
-      });
-    }
-    return faqs;
-  }
-
 }

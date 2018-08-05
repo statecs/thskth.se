@@ -29,30 +29,8 @@ export class PrimarySlidesService extends WordpressBaseDataService<Slide> {
   getAllPrimarySlides(lang: string): Observable<Slide[]> {
     return this.getData(null, 'per_page=5&order=desc&lang=' + lang)
         // Cast response data to FAQ Category type
-        .map((res: any) => { return this.castResTo_SlideType(res); })
+        .map((res: any) => { return Slide.convertToSlideType(res); })
         .map((cards: Array<Slide>) => cards.sort(this.sortArrayBySlideOrder));
-  }
-
-  castResTo_SlideType(res) {
-    const slides: Slide[] = [];
-    res.forEach((slide) => {
-      let bg_image = '';
-      if (slide.acf.background_image) {
-        bg_image = slide.acf.background_image.sizes;
-      }
-      slides.push({
-          id: slide.id,
-        title: slide.title.rendered,
-        description: slide.content.rendered,
-        template: slide.acf.template,
-        link_to_page: slide.acf.link_to_page,
-        image: slide.acf.image.sizes,
-        video: slide.acf.video,
-        slide_order: slide.acf.slide_order,
-        bg_image: bg_image
-      });
-    });
-    return slides;
   }
 
   sortArrayBySlideOrder(a, b) {

@@ -26,44 +26,18 @@ export class ChaptersService extends WordpressBaseDataService<Chapter> {
     getChapterBySlug(slug, lang: string): Observable<Chapter[]> {
         return this.getDataBySlug('slug=' + slug + '&_embed' + '&lang=' + lang)
         // Cast response data to FAQ Category type
-            .map((res: any) => { return this.castPostsTo_ChapterType(res); });
+            .map((res: any) => { return Chapter.convertToChapterType(res); });
     }
 
     getChapters(lang: string): Observable<Chapter[]> {
         return this.getData(null, '?per_page=100&_embed' + '&lang=' + lang)
             // Cast response data to FAQ Category type
-            .map((res: any) => { return this.castPostsTo_ChapterType(res); });
+            .map((res: any) => { return Chapter.convertToChapterType(res); });
     }
 
     searchChapters(searchTerm: string, lang: string): Observable<Chapter[]> {
         return this.searchData('?per_page=100&_embed&search=' + searchTerm + '&lang=' + lang)
             // Cast response data to FAQ Category type
-            .map((res: any) => { return this.castPostsTo_ChapterType(res); });
+            .map((res: any) => { return Chapter.convertToChapterType(res); });
     }
-
-    castPostsTo_ChapterType(data: any) {
-        const chapters: Chapter[] = [];
-        data.forEach(c => {
-            let image = '';
-            if (c._embedded) {
-                image = c._embedded['wp:featuredmedia'][0].source_url;
-            }
-            chapters.push({
-                id: c.id,
-                title: c.title.rendered,
-                description: c.content.rendered,
-                year: c.acf.year,
-                website: c.acf.website_url,
-                section_local: c.acf.section_local,
-                slug: c.slug,
-                header_slides: [
-                    {
-                        imageUrl: image
-                    }
-                ]
-            });
-        });
-        return chapters;
-    }
-
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit, Injector, OnDestroy} from '@angular/core';
 import {MenusService} from '../../../services/wordpress/menus.service';
-import {MenuItem, MenuItem2} from '../../../interfaces-and-classes/menu';
+import {MainMenuItem, MenuItem} from '../../../interfaces-and-classes/menu';
 import { AppConfig } from '../../../interfaces-and-classes/appConfig';
 import { APP_CONFIG } from '../../../app.config';
 import { ths_chapters } from '../../../utils/ths-chapters';
@@ -17,9 +17,9 @@ import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
   styleUrls: ['./navbar-primary.component.scss']
 })
 export class NavbarPrimaryComponent implements OnInit, OnDestroy {
-    private menu: MenuItem[];
-    public topLevelMainMenu: MenuItem2[];
-    public subMenu: MenuItem2[];
+    private menu: MainMenuItem[];
+    public topLevelMainMenu: MenuItem[];
+    public subMenu: MenuItem[];
     public language: string;
     public language_text: string;
     public language_img: string;

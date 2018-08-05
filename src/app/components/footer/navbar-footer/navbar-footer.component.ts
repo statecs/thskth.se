@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MenuItem} from '../../../interfaces-and-classes/menu';
+import {MainMenuItem} from '../../../interfaces-and-classes/menu';
 import {MenusService} from '../../../services/wordpress/menus.service';
 import {Router, RoutesRecognized} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
@@ -16,7 +16,7 @@ import {HeaderCommunicationService} from '../../../services/component-communicat
 })
 export class NavbarFooterComponent implements OnInit, OnDestroy {
 
-  public footer_menu: MenuItem[];
+  public footer_menu: MainMenuItem[];
   private lang: string;
   public paramsSubscription: Subscription;
   private removeLangParamPipe: RemoveLangParamPipe;

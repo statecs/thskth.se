@@ -8,7 +8,7 @@ import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarComponent} from '../../notification-bar/notification-bar.component';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
-import {MenuItem2} from '../../../interfaces-and-classes/menu';
+import {MenuItem} from '../../../interfaces-and-classes/menu';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 import {TitleCommunicationService} from '../../../services/component-communicators/title-communication.service';
 import {HideUICommunicationService} from '../../../services/component-communicators/hide-ui-communication.service';
@@ -26,7 +26,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('submenu_bar') submenu_bar: ElementRef;
   @ViewChild('submenuBarDropdown') submenuBarDropdown: ElementRef;
   public page: Page;
-  public subMenu: MenuItem2[];
+  public subMenu: MenuItem[];
   public slug: string;
   private lang: string;
   private removeLangParamPipe: RemoveLangParamPipe;
