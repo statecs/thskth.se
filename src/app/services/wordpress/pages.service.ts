@@ -1,18 +1,22 @@
 import { Injectable, Injector } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { CookieService } from 'ngx-cookie';
 import {Author, Page, ImageGallery, TextGallery, ImageGalleryItem, TextGalleryItem, RelatedLink} from '../../interfaces-and-classes/page';
+import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
+import {DataFetcherService} from '../utility/data-fetcher.service';
 
 @Injectable()
-export class PagesService {
+export class PagesService extends WordpressBaseDataService<Page> {
   protected config: AppConfig;
   protected language: string;
 
-  constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
+    constructor(protected dataFetcherService: DataFetcherService,
+                private injector: Injector,
+                private _cookieService: CookieService) {
+        super(dataFetcherService, injector.get(APP_CONFIG).PAGES_URL);
     this.config = injector.get(APP_CONFIG);
 
     if (typeof this._cookieService.get('language') === 'undefined') {
@@ -23,9 +27,7 @@ export class PagesService {
   }
 
   getPageBySlug(slug, lang): Observable<Page> {
-    return this.http
-        .get(this.config.PAGES_URL + '?slug=' + slug + '&lang=' + lang)
-        .map((res: Response) => res.json())
+    return this.getDataBySlug('slug=' + slug + '&lang=' + lang)
         .map((res: any) => { return this.castResTo_PageType(res[0]); });
   }
 
@@ -59,6 +61,7 @@ export class PagesService {
         };
       }
       page = {
+        id: res.id,
         name: res.title.rendered,
         slug: res.slug,
         last_modifiled: res.modified,

@@ -1,18 +1,22 @@
 import { Injectable, Injector } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { CookieService } from 'ngx-cookie';
 import { Slide } from '../../interfaces-and-classes/slide';
+import {DataFetcherService} from '../utility/data-fetcher.service';
+import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
 
 @Injectable()
-export class PrimarySlidesService {
+export class PrimarySlidesService extends WordpressBaseDataService<Slide> {
   protected config: AppConfig;
   protected language: string;
 
-  constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
+    constructor(protected dataFetcherService: DataFetcherService,
+                private injector: Injector,
+                private _cookieService: CookieService) {
+        super(dataFetcherService, injector.get(APP_CONFIG).PRIMARY_SLIDES_URL);
     this.config = injector.get(APP_CONFIG);
 
     if (typeof this._cookieService.get('language') === 'undefined') {
@@ -23,9 +27,7 @@ export class PrimarySlidesService {
   }
 
   getAllPrimarySlides(lang: string): Observable<Slide[]> {
-    return this.http
-        .get(this.config.PRIMARY_SLIDES_URL + '?per_page=5&order=desc&lang=' + lang)
-        .map((res: Response) => res.json())
+    return this.getData(null, 'per_page=5&order=desc&lang=' + lang)
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castResTo_SlideType(res); })
         .map((cards: Array<Slide>) => cards.sort(this.sortArrayBySlideOrder));
@@ -39,6 +41,7 @@ export class PrimarySlidesService {
         bg_image = slide.acf.background_image.sizes;
       }
       slides.push({
+          id: slide.id,
         title: slide.title.rendered,
         description: slide.content.rendered,
         template: slide.acf.template,

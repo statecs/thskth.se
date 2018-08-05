@@ -37,6 +37,7 @@ export interface Author {
 }
 
 export interface Page {
+    id: number;
     name: string;
     slug: string;
     last_modifiled: string;

@@ -5,11 +5,10 @@ import { APP_CONFIG } from '../../app.config';
 import {Chapter} from '../../interfaces-and-classes/chapters_associations';
 import { CookieService } from 'ngx-cookie';
 import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
-import {Archive} from '../../interfaces-and-classes/archive';
 import {DataFetcherService} from '../utility/data-fetcher.service';
 
 @Injectable()
-export class ChaptersService extends WordpressBaseDataService<Archive> {
+export class ChaptersService extends WordpressBaseDataService<Chapter> {
     protected language: string;
 
     constructor(protected dataFetcherService: DataFetcherService,
@@ -50,6 +49,7 @@ export class ChaptersService extends WordpressBaseDataService<Archive> {
                 image = c._embedded['wp:featuredmedia'][0].source_url;
             }
             chapters.push({
+                id: c.id,
                 title: c.title.rendered,
                 description: c.content.rendered,
                 year: c.acf.year,

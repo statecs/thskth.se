@@ -1,5 +1,4 @@
 import { Injectable, Injector } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
@@ -7,6 +6,7 @@ import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { SearchResult, Category } from '../../interfaces-and-classes/search';
 import { CookieService } from 'ngx-cookie';
 import {HrefToSlugPipe} from '../../pipes/href-to-slug.pipe';
+import {DataFetcherService} from '../utility/data-fetcher.service';
 
 @Injectable()
 export class SearchService {
@@ -14,7 +14,9 @@ export class SearchService {
   protected language: string;
   private hrefToSlugPipeFilter: HrefToSlugPipe;
 
-  constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
+  constructor(protected dataFetcherService: DataFetcherService,
+              private injector: Injector,
+              private _cookieService: CookieService) {
     this.config = injector.get(APP_CONFIG);
     this.hrefToSlugPipeFilter = new HrefToSlugPipe();
 
@@ -27,27 +29,24 @@ export class SearchService {
 
   searchPosts(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
     this.language = lang;
-    return this.http
+    return this.dataFetcherService
         .get(this.config.POSTS_PAGE + '?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
-        .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
   }
 
   searchPages(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
     this.language = lang;
-    return this.http
+    return this.dataFetcherService
         .get(this.config.PAGES_URL + '?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
-        .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPagesTo_SearchResultType(res); });
   }
 
   searchFAQs(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
     this.language = lang;
-    return this.http
+    return this.dataFetcherService
         .get(this.config.FAQs_URL + '?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
-        .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castFAQsTo_SearchResultType(res); });
   }

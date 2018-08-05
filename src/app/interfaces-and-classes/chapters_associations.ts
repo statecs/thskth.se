@@ -12,6 +12,7 @@ export interface Contact {
 }
 
 export interface Association {
+    id: number;
     title: string;
     description: string;
     category: string;
@@ -21,6 +22,7 @@ export interface Association {
 }
 
 export interface Chapter {
+    id: number;
     title: string;
     description: string;
     year: string;

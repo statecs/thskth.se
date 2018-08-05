@@ -5,11 +5,10 @@ import { APP_CONFIG } from '../../app.config';
 import {Association, HeaderSlide} from '../../interfaces-and-classes/chapters_associations';
 import { CookieService } from 'ngx-cookie';
 import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
-import {Archive} from '../../interfaces-and-classes/archive';
 import {DataFetcherService} from '../utility/data-fetcher.service';
 
 @Injectable()
-export class AssociationsService extends WordpressBaseDataService<Archive> {
+export class AssociationsService extends WordpressBaseDataService<Association> {
     protected language: string;
 
     constructor(protected dataFetcherService: DataFetcherService,
@@ -45,6 +44,7 @@ export class AssociationsService extends WordpressBaseDataService<Archive> {
         const associations: Association[] = [];
         data.forEach(c => {
             associations.push({
+                id: c.id,
                 title: c.title.rendered,
                 description: c.content.rendered,
                 category: c.pure_taxonomies.ths_associations[0].name,

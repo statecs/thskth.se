@@ -6,11 +6,10 @@ import { Card, SubCard, CardCategory } from '../../interfaces-and-classes/card';
 import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { CookieService } from 'ngx-cookie';
 import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
-import {Archive} from '../../interfaces-and-classes/archive';
 import {DataFetcherService} from '../utility/data-fetcher.service';
 
 @Injectable()
-export class CardsService extends WordpressBaseDataService<Archive> {
+export class CardsService extends WordpressBaseDataService<Card> {
   protected config: AppConfig;
   protected language: string;
 

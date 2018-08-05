@@ -1,5 +1,4 @@
 import { Injectable, Injector } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
@@ -8,13 +7,18 @@ import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { CookieService } from 'ngx-cookie';
 import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces-and-classes/faq';
+import {DataFetcherService} from '../utility/data-fetcher.service';
+import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
 
 @Injectable()
-export class FaqsService {
+export class FaqsService extends WordpressBaseDataService<FAQ> {
   protected config: AppConfig;
   protected language: string;
 
-  constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
+  constructor(protected dataFetcherService: DataFetcherService,
+              private injector: Injector,
+              private _cookieService: CookieService) {
+      super(dataFetcherService, injector.get(APP_CONFIG).FAQs_URL);
     this.config = injector.get(APP_CONFIG);
 
     if (typeof this._cookieService.get('language') === 'undefined') {
@@ -28,7 +32,7 @@ export class FaqsService {
     this.language = lang;
     return this.getFAQParentCategories(this.language).flatMap(categories => {
           return Observable.forkJoin(categories.map((category) => {
-            return this.http.get(this.config.FAQs_URL + '?order=asc&per_page=' + amount + '&faq_category=' + category.id + '&lang=' + this.language)
+            return this.dataFetcherService.get(this.config.FAQs_URL + '?order=asc&per_page=' + amount + '&faq_category=' + category.id + '&lang=' + this.language)
             .map(res => res.json())
                 .map((res) => {
                   let cat_slug = '';
@@ -51,18 +55,14 @@ export class FaqsService {
 
   searchFAQs(search_term, lang: string): Observable<FAQ[]> {
     this.language = lang;
-    return this.http
-        .get(this.config.FAQs_URL + '?order=asc&per_page=100&search=' + search_term + '&lang=' + this.language)
-        .map((res: Response) => res.json())
+    return this.searchData( 'order=asc&per_page=100&search=' + search_term + '&lang=' + this.language)
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => { return this.castSearchResultsToFAQType(res, ''); });
   }
 
   // Get FAQs by categories ID
   getFAQs_ByCategoryID(catID): Observable<FAQ[]> {
-    return this.http
-        .get(this.config.FAQs_URL + '?order=asc&per_page=100&faq_category=' + catID + '&lang=' + this.language)
-        .map((res: Response) => res.json())
+    return this.getDataById('order=asc&per_page=100&faq_category=' + catID + '&lang=' + this.language)
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => { return this.castResFAQType(res, ''); });
   }
@@ -70,9 +70,7 @@ export class FaqsService {
   // Get FAQs by slug
   getFAQs_BySlug(slug, lang): Observable<FAQ> {
     this.language = lang;
-    return this.http
-        .get(this.config.FAQs_URL + '?slug=' + slug + '&lang=' + this.language)
-        .map((res: Response) => res.json())
+    return this.getDataBySlug('slug=' + slug + '&lang=' + this.language)
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => {
           const faq: FAQ[] = [];
@@ -99,9 +97,8 @@ export class FaqsService {
     this.language = lang;
     return this.getFAQChildCategories(catID).flatMap((child_categories) => {
       if (child_categories.length !== 0) {
-        return this.http
+        return this.dataFetcherService
             .get(this.config.FAQs_URL + '?order=asc&per_page=100&faq_category=' + catID + '&lang=' + this.language)
-            .map((res: Response) => res.json())
             // Cast response data to FAQ Category type
             .map((res: Array<any>) => { return this.castFAQsToChildCategories(res, child_categories, ''); });
       }else {
@@ -113,18 +110,16 @@ export class FaqsService {
   // Get FAQ Parent Categories
   getFAQParentCategories(lang: string): Observable<FAQCategory[]> {
     this.language = lang;
-    return this.http
+    return this.dataFetcherService
         .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=0' + '&lang=' + this.language)
-        .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => { return this.castDataToFAQCategory(res); });
   }
 
   // Get FAQ Child Categories
   getFAQChildCategories(parentID): Observable<FAQCategory[]> {
-    return this.http
+    return this.dataFetcherService
         .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=' + parentID + '&lang=' + this.language)
-        .map((res: Response) => res.json())
         // Cast response data to FAQ Category type
         .map((res: Array<any>) => { return this.castDataToFAQSubMenuType(res); });
   }
@@ -170,6 +165,7 @@ export class FaqsService {
         }
         if (item.faq_category.length === 1) {
           faqs.push({
+              id: item.id,
             question: item.title.rendered,
             answer: item.content.rendered,
             slug: item.slug,
@@ -193,6 +189,7 @@ export class FaqsService {
       for (let i = 0; i < child_categories.length; i++) {
         if (item.faq_category.indexOf(child_categories[i].id) >= 0) {
           subMenus[i].faqs.push({
+              id: item.id,
             question: item.title.rendered,
             answer: item.content.rendered,
             slug: item.slug,
@@ -215,6 +212,7 @@ export class FaqsService {
           slug = item.pure_taxonomies.faq_category.slug;
         }
         faqs.push({
+            id: item.id,
           question: item.title.rendered,
           answer: item.content.rendered,
           slug: item.slug,

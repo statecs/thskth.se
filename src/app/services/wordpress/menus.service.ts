@@ -1,5 +1,4 @@
 import { Injectable, Injector } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
@@ -7,16 +6,21 @@ import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import {MenuItem, MenuItem2} from '../../interfaces-and-classes/menu';
 import { CookieService } from 'ngx-cookie';
+import {DataFetcherService} from '../utility/data-fetcher.service';
+import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
 
 @Injectable()
-export class MenusService {
+export class MenusService extends WordpressBaseDataService<MenuItem2> {
   protected config: AppConfig;
   protected language: string;
   public menus_meta: any;
   public sections_menu: any;
   public footer_menu: any;
 
-  constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
+    constructor(protected dataFetcherService: DataFetcherService,
+                private injector: Injector,
+                private _cookieService: CookieService) {
+        super(dataFetcherService, injector.get(APP_CONFIG).PRIMARY_MENU_URL);
     this.config = injector.get(APP_CONFIG);
 
     if (typeof this._cookieService.get('language') === 'undefined') {
@@ -46,6 +50,7 @@ export class MenusService {
             if (i_child.object_slug === secondary_subMenu_slug && i_child.children) {
               i_child.children.forEach(i_grandchild => {
                 secondary_sub_menu.push({
+                    id: i_grandchild.id,
                   object_slug : i_grandchild.object_slug,
                   title : i_grandchild.title,
                   url : i_grandchild.url,
@@ -80,6 +85,7 @@ export class MenusService {
         if (item.object_slug === object_slug) {
           item.children.forEach(i_child => {
             sub_menu.push({
+                id: i_child.id,
               object_slug : i_child.object_slug,
               title : i_child.title,
               url : i_child.url,
@@ -103,9 +109,7 @@ export class MenusService {
     if (this.menus_meta) {
       return Observable.of(this.castToplevelToMenuType(JSON.parse(this.menus_meta)));
     }else {
-      return this.http
-          .get(this.config.PRIMARY_MENU_URL + '?order=desc&lang=' + lang)
-          .map((res: Response) => res.json())
+      return this.getData(null,'order=desc&lang=' + lang)
           // Cast response data to card type
           .map((res: Array<any>) => {
               return this.handleResponse(res, lang);
@@ -128,6 +132,7 @@ export class MenusService {
     if (res.items) {
       for (const item of res.items) {
         topLevel_menu.push({
+            id: item.id,
           object_slug : item.object_slug,
           title : item.title,
           url : item.url,
@@ -164,9 +169,8 @@ export class MenusService {
         return Observable.of(this.castResDataToMenuType(JSON.parse(this.footer_menu)));
       }
     }
-    return this.http
+    return this.dataFetcherService
         .get(menu_url + '?order=desc&lang=' + this.language)
-        .map((res: Response) => res.json())
         // Cast response data to card type
         .map((res: Array<any>) => {
           if (param === 'sections') {

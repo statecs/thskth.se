@@ -1,18 +1,22 @@
 import { Injectable, Injector } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { APP_CONFIG } from '../../app.config';
 import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { Restaurant, Dish, Menu } from '../../interfaces-and-classes/restaurant';
 import { CookieService } from 'ngx-cookie';
+import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
+import {DataFetcherService} from '../utility/data-fetcher.service';
 
 @Injectable()
-export class RestaurantService {
+export class RestaurantService extends WordpressBaseDataService<Restaurant> {
   protected config: AppConfig;
   protected language: string;
 
-  constructor(private http: Http, private injector: Injector, private _cookieService: CookieService) {
+    constructor(protected dataFetcherService: DataFetcherService,
+                private injector: Injector,
+                private _cookieService: CookieService) {
+        super(dataFetcherService, injector.get(APP_CONFIG).RESTAURANT_URL);
     this.config = injector.get(APP_CONFIG);
 
     if (typeof this._cookieService.get('language') === 'undefined') {
@@ -24,18 +28,14 @@ export class RestaurantService {
 
   getSingleRestaurant(slug: string, lang: string): Observable<Restaurant> {
     this.language = lang;
-    return this.http
-        .get(this.config.RESTAURANT_URL + '?_embed&slug=' + slug + '&lang=' + this.language)
-        .map((res: Response) => res.json())
+    return this.getDataBySlug('_embed&slug=' + slug + '&lang=' + this.language)
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res)[0]; });
   }
 
   getRestaurants(lang: string): Observable<Restaurant[]> {
     this.language = lang;
-    return this.http
-        .get(this.config.RESTAURANT_URL + '?_embed&lang=' + this.language)
-        .map((res: Response) => res.json())
+    return this.getData(null, '_embed&lang=' + this.language)
         // Cast response data to FAQ Category type
         .map((res: any) => { return this.castPostsTo_SearchResultType(res); });
   }
@@ -49,6 +49,7 @@ export class RestaurantService {
           image = p._embedded['wp:featuredmedia'][0].source_url;
         }
         results.push({
+            id: p.id,
           title: p.title.rendered,
           description: p.content.rendered,
           imageUrl: image,
