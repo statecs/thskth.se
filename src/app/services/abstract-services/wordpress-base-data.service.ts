@@ -26,7 +26,11 @@ export abstract class WordpressBaseDataService<T extends BaseDataInterface> {
 
         if (!this.fetched) {
             this.fetched = true;
-            this.fetchData(this.endpoint + '?' + params);
+            this.dataFetcherService.get(this.endpoint + '?' + params).subscribe(
+                (values) => {
+                    this.data.next(this.mapItems(values));
+                }
+            );
         }
 
         return this.data.filter(data => {
@@ -34,44 +38,28 @@ export abstract class WordpressBaseDataService<T extends BaseDataInterface> {
         });
     }
 
-    private fetchData(url: string) {
-        this.dataFetcherService.get(url).subscribe(
-            (values) => {
-                this.data.next(this.mapItems(values));
-            }
-        );
+    private fetchData(url: string): Observable<T[]> {
+        return this.dataFetcherService.get(url)
+            .map((values) => {
+                    return this.mapItems(values);
+                }
+            );
     }
 
     getDataByURL( query: string = '', url: string = null ): Observable<T[]> {
-        return this.dataFetcherService.get((url ? url : this.endpoint) + '?' + query)
-            .map((values) => {
-                    return this.mapItems(values);
-                }
-            );
+        return this.fetchData((url ? url : this.endpoint) + '?' + query);
     }
 
     getDataById( query: string = '', url: string = null ): Observable<T[]> {
-        return this.dataFetcherService.get((url ? url : this.endpoint) + '?' + query)
-            .map((values) => {
-                    return this.mapItems(values);
-                }
-            );
+        return this.fetchData((url ? url : this.endpoint) + '?' + query);
     }
 
     getDataBySlug( query: string = '', url: string = null ): Observable<T[]> {
-        return this.dataFetcherService.get((url ? url : this.endpoint) + '?' + query)
-            .map((values) => {
-                return this.mapItems(values);
-            }
-        );
+        return this.fetchData((url ? url : this.endpoint) + '?' + query);
     }
 
     searchData( query: string = '', url: string = null ) {
-        return this.dataFetcherService.get((url ? url : this.endpoint) + '?' + query)
-            .map((values) => {
-                    return this.mapItems(values);
-                }
-            );
+        return this.fetchData((url ? url : this.endpoint) + '?' + query);
     }
 
     private mapItems(objects: any[]): T[] {

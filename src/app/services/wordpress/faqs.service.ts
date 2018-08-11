@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie';
 import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces-and-classes/faq';
 import {DataFetcherService} from '../utility/data-fetcher.service';
 import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
+import {FaqCategoriesService} from './faq-categories.service';
 
 @Injectable()
 export class FaqsService extends WordpressBaseDataService<FAQ> {
@@ -17,7 +18,8 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
 
   constructor(protected dataFetcherService: DataFetcherService,
               private injector: Injector,
-              private _cookieService: CookieService) {
+              private _cookieService: CookieService,
+              private faqCategoriesService: FaqCategoriesService) {
       super(dataFetcherService, injector.get(APP_CONFIG).FAQs_URL);
     this.config = injector.get(APP_CONFIG);
 
@@ -30,7 +32,7 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
 
   getFAQs_OfEachCategories(amount, lang: string): Observable<FAQ[]> {
     this.language = lang;
-    return this.getFAQParentCategories(this.language).flatMap(categories => {
+    return this.faqCategoriesService.getFAQParentCategories(this.language).flatMap(categories => {
           return Observable.forkJoin(categories.map((category) => {
             return this.dataFetcherService.get(this.config.FAQs_URL + '?order=asc&per_page=' + amount + '&faq_category=' + category.id + '&lang=' + this.language)
             .map(res => res.json())
@@ -97,7 +99,7 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
   // Get FAQs by parent categories
   getSubMenus_ByParentCategory(catID, lang): Observable<FAQSubMenu[]> {
     this.language = lang;
-    return this.getFAQChildCategories(catID).flatMap((child_categories) => {
+    return this.faqCategoriesService.getFAQChildCategories(catID).flatMap((child_categories) => {
       if (child_categories.length !== 0) {
         return this.dataFetcherService
             .get(this.config.FAQs_URL + '?order=asc&per_page=100&faq_category=' + catID + '&lang=' + this.language)
@@ -109,20 +111,5 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
     });
   }
 
-  // Get FAQ Parent Categories
-  getFAQParentCategories(lang: string): Observable<FAQCategory[]> {
-    this.language = lang;
-    return this.dataFetcherService
-        .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=0' + '&lang=' + this.language)
-        // Cast response data to FAQ Category type
-        .map((res: Array<any>) => { return FAQ.castDataToFAQCategory(res); });
-  }
 
-  // Get FAQ Child Categories
-  getFAQChildCategories(parentID): Observable<FAQCategory[]> {
-    return this.dataFetcherService
-        .get(this.config.FAQ_CATEGORIES_URL + '?order=asc&parent=' + parentID + '&lang=' + this.language)
-        // Cast response data to FAQ Category type
-        .map((res: Array<any>) => { return FAQ.convertToFAQSubMenuType(res); });
-  }
 }
