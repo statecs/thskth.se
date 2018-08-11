@@ -16,7 +16,7 @@ export class CardsService extends WordpressBaseDataService<Card> {
   constructor(protected dataFetcherService: DataFetcherService,
               private injector: Injector,
               private _cookieService: CookieService) {
-    super(dataFetcherService);
+    super(dataFetcherService, injector.get(APP_CONFIG).CARDS_URL);
     this.config = injector.get(APP_CONFIG);
 
     if (typeof this._cookieService.get('language') === 'undefined') {
@@ -77,7 +77,7 @@ export class CardsService extends WordpressBaseDataService<Card> {
       filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
     }*/
     filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
-    return this.getData(this.config.CARDS_URL, 'order=asc&per_page=100' + filter + '&lang=' + lang)
+    return this.getData(null, 'order=asc&per_page=100' + filter + '&lang=' + lang)
         // Cast response data to card type
         .map((res: Array<any>) => Card.convertToCardType(res))
         .map((cards: Array<Card>) => cards.sort(this.sortArrayByCardNumber));
