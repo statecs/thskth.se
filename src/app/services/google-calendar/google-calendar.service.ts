@@ -3,12 +3,10 @@ import { URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/merge';
-import {map, combineAll, mergeAll} from 'rxjs/operators';
+import {map, mergeAll} from 'rxjs/operators';
 import { Event } from '../../interfaces-and-classes/event';
 import { AppConfig } from '../../interfaces-and-classes/appConfig';
-import { colors } from '../../utils/colors';
 import { APP_CONFIG } from '../../app.config';
-import { ths_calendars } from '../../utils/ths-calendars';
 import startOfMonth from 'date-fns/start_of_month/index';
 import endOfMonth from 'date-fns/end_of_month/index';
 import startOfWeek from 'date-fns/start_of_week/index';
@@ -18,7 +16,6 @@ import endOfDay from 'date-fns/end_of_day/index';
 import format from 'date-fns/format/index';
 import addDays from 'date-fns/add_days/index';
 import subDays from 'date-fns/sub_days/index';
-import {BaseDataInterface, BaseDataService} from '../abstract-services/base-data.service';
 import {DataFetcherService} from '../utility/data-fetcher.service';
 import * as _ from 'lodash';
 import {EventsCalendarService} from './events.calendar.service';
@@ -35,7 +32,6 @@ export class GoogleCalendarService {
   protected config: AppConfig;
   protected search: URLSearchParams = new URLSearchParams();
   view: string;
-  public ths_calendars: any[];
 
   constructor(protected dataFetcherService: DataFetcherService,
               private injector: Injector,
@@ -49,7 +45,6 @@ export class GoogleCalendarService {
               private receptionCalendarService: ReceptionCalendarService) {
     this.config = injector.get(APP_CONFIG);
     this.view = '';
-    this.ths_calendars = ths_calendars;
   }
 
   getAllEvents(viewDate, view): Observable<Event[]> {

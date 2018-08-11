@@ -12,11 +12,11 @@ export class CentralCalendarService extends BaseDataService<Event> {
 
     constructor(protected dataFetcherService: DataFetcherService,
                 private injector: Injector) {
-        super(dataFetcherService, injector.get(APP_CONFIG).GOOGLE_CALENDAR_BASE_URL + ths_calendars[2].calendarId + '/events');
+        super(dataFetcherService, injector.get(APP_CONFIG).GOOGLE_CALENDAR_BASE_URL + ths_calendars.central.calendarId + '/events');
     }
 
     getCalendar(params: URLSearchParams): Observable<Event[]> {
         return this.getData(null, params)
-            .map(res => Event.convertToEventType(res, ths_calendars[2].calendarId, this.injector.get(APP_CONFIG).EVENT_IMAGE_BASE_URL));
+            .map(res => Event.convertToEventType(res, ths_calendars.central.calendarId, this.injector.get(APP_CONFIG).EVENT_IMAGE_BASE_URL));
     }
 }

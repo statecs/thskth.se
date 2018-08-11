@@ -12,11 +12,11 @@ export class InternationalCalendarService extends BaseDataService<Event> {
 
     constructor(protected dataFetcherService: DataFetcherService,
                 private injector: Injector) {
-        super(dataFetcherService, injector.get(APP_CONFIG).GOOGLE_CALENDAR_BASE_URL + ths_calendars[6].calendarId + '/events');
+        super(dataFetcherService, injector.get(APP_CONFIG).GOOGLE_CALENDAR_BASE_URL + ths_calendars.international.calendarId + '/events');
     }
 
     getCalendar(params: URLSearchParams): Observable<Event[]> {
         return this.getData(null, params)
-            .map(res => Event.convertToEventType(res, ths_calendars[6].calendarId, this.injector.get(APP_CONFIG).EVENT_IMAGE_BASE_URL));
+            .map(res => Event.convertToEventType(res, ths_calendars.international.calendarId, this.injector.get(APP_CONFIG).EVENT_IMAGE_BASE_URL));
     }
 }
