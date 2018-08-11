@@ -10,6 +10,7 @@ import { FAQ, FAQCategory, FAQSubMenu } from '../../interfaces-and-classes/faq';
 import {DataFetcherService} from '../utility/data-fetcher.service';
 import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
 import {FaqCategoriesService} from './faq-categories.service';
+import {SearchResult} from '../../interfaces-and-classes/search';
 
 @Injectable()
 export class FaqsService extends WordpressBaseDataService<FAQ> {
@@ -56,11 +57,11 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
         });
   }
 
-  searchFAQs(search_term, lang: string): Observable<FAQ[]> {
+  searchFAQs(search_term: string, amount: number, lang: string): Observable<SearchResult[]> {
     this.language = lang;
-    return this.searchData( 'order=asc&per_page=100&search=' + search_term + '&lang=' + this.language)
+    return this.searchData( 'order=asc&per_page=' + amount + '&search=' + search_term + '&lang=' + this.language)
         // Cast response data to FAQ Category type
-        .map((res: Array<any>) => { return FAQ.convertToFAQType(res, ''); });
+        .map((res: Array<any>) => { return SearchResult.convertPagesToSearchResultType(res); });
   }
 
   // Get FAQs by categories ID
@@ -110,6 +111,7 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
       }
     });
   }
+
 
 
 }

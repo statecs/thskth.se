@@ -27,28 +27,7 @@ export class SearchService {
     }
   }
 
-  searchPosts(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
-    this.language = lang;
-    return this.dataFetcherService
-        .get(this.config.POSTS_PAGE + '?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
-        // Cast response data to FAQ Category type
-        .map((res: any) => { return SearchResult.convertPostsToSearchResultType(res); });
-  }
 
-  searchPages(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
-    this.language = lang;
-    return this.dataFetcherService
-        .get(this.config.PAGES_URL + '?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
-        // Cast response data to FAQ Category type
-        .map((res: any) => { return SearchResult.convertPagesToSearchResultType(res); });
-  }
 
-  searchFAQs(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
-    this.language = lang;
-    return this.dataFetcherService
-        .get(this.config.FAQs_URL + '?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
-        // Cast response data to FAQ Category type
-        .map((res: any) => { return SearchResult.convertFAQsToSearchResultType(res); });
-  }
 
 }

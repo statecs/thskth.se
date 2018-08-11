@@ -25,7 +25,6 @@ import { HeaderCommunicationService } from './services/component-communicators/h
 import { PrimarySlidesService } from './services/wordpress/primary-slides.service';
 import { AppCommunicationService } from './services/component-communicators/app-communication.service';
 import { CardsService } from './services/wordpress/cards.service';
-import { SearchService } from './services/wordpress/search.service';
 import { SearchMenubarCommunicationService } from './services/component-communicators/search-menubar-communication.service';
 import { ArchiveService } from './services/wordpress/archive.service';
 import { RestaurantService } from './services/wordpress/restaurant.service';
@@ -203,7 +202,6 @@ import {GoogleCalendarModule} from './services/google-calendar/google-calendar.m
       PrimarySlidesService,
       AppCommunicationService,
       CardsService,
-      SearchService,
       SearchMenubarCommunicationService,
       ArchiveService,
       RestaurantService,

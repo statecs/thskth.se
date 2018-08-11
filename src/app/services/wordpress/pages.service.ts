@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie';
 import {Page} from '../../interfaces-and-classes/page';
 import {WordpressBaseDataService} from '../abstract-services/wordpress-base-data.service';
 import {DataFetcherService} from '../utility/data-fetcher.service';
+import {SearchResult} from '../../interfaces-and-classes/search';
 
 @Injectable()
 export class PagesService extends WordpressBaseDataService<Page> {
@@ -31,4 +32,10 @@ export class PagesService extends WordpressBaseDataService<Page> {
         .map((res: any) => { return Page.convertToPageType(res[0]); });
   }
 
+  searchPages(searchTerm: string, amount: number, lang: string): Observable<SearchResult[]> {
+      this.language = lang;
+      return this.searchData('?per_page=' + amount + '&search=' + searchTerm + '&lang=' + this.language)
+          // Cast response data to FAQ Category type
+          .map((res: any) => { return SearchResult.convertPagesToSearchResultType(res); });
+  }
 }

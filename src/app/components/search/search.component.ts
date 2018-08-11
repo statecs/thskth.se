@@ -14,6 +14,8 @@ import {HeaderCommunicationService} from '../../services/component-communicators
 import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
 import {RemoveLangParamPipe} from '../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../pipes/add-lang-to-slug.pipe';
+import {PostsService} from '../../services/wordpress/posts.service';
+import {PagesService} from '../../services/wordpress/pages.service';
 
 @Component({
   selector: 'app-search',
@@ -65,7 +67,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public hideUiSubscription: Subscription;
   public timer: any;
 
-  constructor(private searchService: SearchService,
+  constructor(private postsService: PostsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private location: Location,
@@ -74,7 +76,8 @@ export class SearchComponent implements OnInit, OnDestroy {
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService,
               private headerCommunicationService: HeaderCommunicationService,
-              private hideUiCommunicationService: HideUICommunicationService) {
+              private hideUiCommunicationService: HideUICommunicationService,
+              private pagesService: PagesService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -174,7 +177,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   searchPosts(): void {
-    this.postSubscription = this.searchService.searchPosts(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.postSubscription = this.postsService.searchPosts(this.searchTerm, 4, this.lang).subscribe((res) => {
           this.postsLoading = false;
           this.postsResults = res;
         },
@@ -185,7 +188,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   searchPages(): void {
-    this.pageSubscription = this.searchService.searchPages(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.pageSubscription = this.pagesService.searchPages(this.searchTerm, 4, this.lang).subscribe((res) => {
           this.pagesLoading = false;
           this.pageResults = res;
         },
@@ -196,7 +199,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   searchFAQs(): void {
-    this.faqsSubscription = this.searchService.searchFAQs(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.faqsSubscription = this.faqsService.searchFAQs(this.searchTerm, 4, this.lang).subscribe((res) => {
           this.faqsLoading = false;
           this.faqResults = res;
         },

@@ -8,6 +8,8 @@ import {NotificationBarCommunicationService} from '../../services/component-comm
 import {Subscription} from 'rxjs/Subscription';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
+import {SearchResult} from '../../interfaces-and-classes/search';
+import {FaqCategoriesService} from '../../services/wordpress/faq-categories.service';
 
 @Component({
   selector: 'app-support',
@@ -22,7 +24,7 @@ export class SupportComponent implements OnInit, OnDestroy {
   public selected_cat_index: number;
   public faq_subMenus: FAQSubMenu[];
   public faqs: FAQ[];
-  public search_results: FAQ[];
+  public search_results: SearchResult[];
   public showFaqs: boolean;
   public loading: boolean;
   public noResult: boolean;
@@ -50,7 +52,8 @@ export class SupportComponent implements OnInit, OnDestroy {
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService,
-              private headerCommunicationService: HeaderCommunicationService) {
+              private headerCommunicationService: HeaderCommunicationService,
+              private faqCategoriesService: FaqCategoriesService) {
       this.exist_category = false;
       this.pageNotFound = false;
     this.selected_cat_index = 0;
@@ -110,7 +113,7 @@ export class SupportComponent implements OnInit, OnDestroy {
           this.selected_cat_index = null;
           this.selected_category = null;
           this.loading = true;
-          this.faqsService.searchFAQs(this.searchTerm, this.lang).subscribe((faqs) => {
+          this.faqsService.searchFAQs(this.searchTerm, 100, this.lang).subscribe((faqs) => {
                   this.search_results = faqs;
 
                   this.loading = false;
@@ -196,7 +199,7 @@ export class SupportComponent implements OnInit, OnDestroy {
           this.faq_subMenus = [];
           this.showFaqs = false;
           this.loading = true;
-          this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
+          this.faqCategoriesService.getFAQParentCategories(this.lang).subscribe((categories) => {
               this.parent_categories = categories;
               if (!this.faq_slug) {
                   if (this.selected_cat_slug) {
@@ -232,7 +235,7 @@ export class SupportComponent implements OnInit, OnDestroy {
       this.faq_subMenus = [];
       this.showFaqs = false;
       this.loading = true;
-      this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
+      this.faqCategoriesService.getFAQParentCategories(this.lang).subscribe((categories) => {
               this.parent_categories = categories;
           },
           (error) => {
