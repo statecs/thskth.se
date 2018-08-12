@@ -16,6 +16,7 @@ import {RemoveLangParamPipe} from '../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../pipes/add-lang-to-slug.pipe';
 import {PostsService} from '../../services/wordpress/posts.service';
 import {PagesService} from '../../services/wordpress/pages.service';
+import {FaqCategoriesService} from '../../services/wordpress/faq-categories.service';
 
 @Component({
   selector: 'app-search',
@@ -77,7 +78,8 @@ export class SearchComponent implements OnInit, OnDestroy {
               private titleCommunicationService: TitleCommunicationService,
               private headerCommunicationService: HeaderCommunicationService,
               private hideUiCommunicationService: HideUICommunicationService,
-              private pagesService: PagesService) {
+              private pagesService: PagesService,
+              private faqCategoriesService: FaqCategoriesService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -249,7 +251,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.faqCatSubscription = this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
+    this.faqCatSubscription = this.faqCategoriesService.getFAQParentCategories(this.lang).subscribe((categories) => {
           this.parent_categories = categories;
         },
         (error) => {

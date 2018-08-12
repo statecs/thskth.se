@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MainMenuItem} from '../../../interfaces-and-classes/menu';
-import {MenusService} from '../../../services/wordpress/menus.service';
 import {Router, RoutesRecognized} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
@@ -8,6 +7,7 @@ import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {HeaderCommunicationService} from '../../../services/component-communicators/header-communication.service';
+import {FooterNavigationService} from '../../../services/wordpress/footer-navigation.service';
 
 @Component({
   selector: 'app-navbar-footer',
@@ -23,9 +23,10 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
   private addLangToSlugPipe: AddLangToSlugPipe;
   private hrefToSlugPipe: HrefToSlugPipe;
 
-  constructor( private menusService: MenusService, private router: Router,
+  constructor( private router: Router,
                private notificationBarCommunicationService: NotificationBarCommunicationService,
-               private headerCommunicationService: HeaderCommunicationService) {
+               private headerCommunicationService: HeaderCommunicationService,
+               private footerNavigationService: FooterNavigationService) {
       this.removeLangParamPipe = new RemoveLangParamPipe();
       this.addLangToSlugPipe = new AddLangToSlugPipe();
       this.hrefToSlugPipe = new HrefToSlugPipe();
@@ -53,7 +54,7 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
               }else if (this.lang !== 'en' && this.lang !== 'sv') {
                   this.lang = 'en';
               }
-              this.menusService.getMenu('footer', this.lang).subscribe(res => {
+              this.footerNavigationService.getMenu(this.lang).subscribe(res => {
                       this.footer_menu = res;
                   },
                   (error) => {
