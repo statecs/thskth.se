@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {PostsService} from '../../services/wordpress/posts.service';
-import {Post} from '../../interfaces/post';
+import {Post} from '../../interfaces-and-classes/post';
 import format from 'date-fns/format/index';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';

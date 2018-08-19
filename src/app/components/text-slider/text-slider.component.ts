@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, ElementRef, OnDestroy, Input} from '@angular/core';
 import { TextSliderCommunicationService } from '../../services/component-communicators/text-slider-communication.service';
 import {Subscription} from 'rxjs/Subscription';
-import {FAQ} from '../../interfaces/faq';
+import {FAQ} from '../../interfaces-and-classes/faq';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 
 @Component({

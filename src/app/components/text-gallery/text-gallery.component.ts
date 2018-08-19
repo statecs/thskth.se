@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TextGallery} from '../../interfaces/page';
+import {TextGallery} from '../../interfaces-and-classes/page';
 
 @Component({
   selector: 'app-text-gallery',

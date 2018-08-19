@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {RelatedLink} from '../../../interfaces/page';
+import {RelatedLink} from '../../../interfaces-and-classes/page';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';

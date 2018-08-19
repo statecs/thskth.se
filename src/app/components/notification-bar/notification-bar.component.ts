@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import {Router, RoutesRecognized} from '@angular/router';
-import {Notification} from '../../interfaces/notification';
+import {Notification} from '../../interfaces-and-classes/notification';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {notificationMessages} from '../../utils/notification-messages';
 import {Subscription} from 'rxjs/Subscription';

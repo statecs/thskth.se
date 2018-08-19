@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core
 import { HeaderCommunicationService } from '../../services/component-communicators/header-communication.service';
 import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
 import {MenusService} from '../../services/wordpress/menus.service';
-import {MenuItem2} from '../../interfaces/menu';
+import {MenuItem} from '../../interfaces-and-classes/menu';
 import { ths_chapters } from '../../utils/ths-chapters';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RemoveLangParamPipe} from '../../pipes/remove-lang-param.pipe';
@@ -24,15 +24,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('chaptersMobile') chaptersMobile: ElementRef;
   @ViewChild('chapter_icon') chapter_icon: ElementRef;
   @ViewChild('submenu_item') submenu_item: ElementRef;
-  private topLevelMainMenu: MenuItem2[];
+  private topLevelMainMenu: MenuItem[];
   public showMenuMobile: boolean;
   public showChaptersMobile: boolean;
   public ths_chapters: object[];
   public placeholder: string;
   public lang: string;
-  public subMenu: MenuItem2[];
+  public subMenu: MenuItem[];
   public subMenu_slug: string;
-  public subMenu2: MenuItem2[];
+  public subMenu2: MenuItem[];
   private showSubmenuIndex: number;
   private showSubmenuIndex2: number;
   private removeLangParamPipe: RemoveLangParamPipe;

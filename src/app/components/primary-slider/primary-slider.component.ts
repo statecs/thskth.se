@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { HeaderCommunicationService } from '../../services/component-communicators/header-communication.service';
 import { PrimarySlidesService } from '../../services/wordpress/primary-slides.service';
-import { Slide } from '../../interfaces/slide';
+import { Slide } from '../../interfaces-and-classes/slide';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';

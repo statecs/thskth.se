@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { SearchService } from '../../services/wordpress/search.service';
-import { SearchResult } from '../../interfaces/search';
+import { SearchResult } from '../../interfaces-and-classes/search';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
 import {Location} from '@angular/common';
 import { FaqsService } from '../../services/wordpress/faqs.service';
-import { FAQ, FAQCategory } from '../../interfaces/faq';
+import { FAQ, FAQCategory } from '../../interfaces-and-classes/faq';
 import { most_asked_questions } from '../../utils/most-asked-questions';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
@@ -14,6 +14,9 @@ import {HeaderCommunicationService} from '../../services/component-communicators
 import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
 import {RemoveLangParamPipe} from '../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../pipes/add-lang-to-slug.pipe';
+import {PostsService} from '../../services/wordpress/posts.service';
+import {PagesService} from '../../services/wordpress/pages.service';
+import {FaqCategoriesService} from '../../services/wordpress/faq-categories.service';
 
 @Component({
   selector: 'app-search',
@@ -65,7 +68,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public hideUiSubscription: Subscription;
   public timer: any;
 
-  constructor(private searchService: SearchService,
+  constructor(private postsService: PostsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private location: Location,
@@ -74,7 +77,9 @@ export class SearchComponent implements OnInit, OnDestroy {
               private notificationBarCommunicationService: NotificationBarCommunicationService,
               private titleCommunicationService: TitleCommunicationService,
               private headerCommunicationService: HeaderCommunicationService,
-              private hideUiCommunicationService: HideUICommunicationService) {
+              private hideUiCommunicationService: HideUICommunicationService,
+              private pagesService: PagesService,
+              private faqCategoriesService: FaqCategoriesService) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
@@ -174,7 +179,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   searchPosts(): void {
-    this.postSubscription = this.searchService.searchPosts(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.postSubscription = this.postsService.searchPosts(this.searchTerm, 4, this.lang).subscribe((res) => {
           this.postsLoading = false;
           this.postsResults = res;
         },
@@ -185,7 +190,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   searchPages(): void {
-    this.pageSubscription = this.searchService.searchPages(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.pageSubscription = this.pagesService.searchPages(this.searchTerm, 4, this.lang).subscribe((res) => {
           this.pagesLoading = false;
           this.pageResults = res;
         },
@@ -196,7 +201,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   searchFAQs(): void {
-    this.faqsSubscription = this.searchService.searchFAQs(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.faqsSubscription = this.faqsService.searchFAQs(this.searchTerm, 4, this.lang).subscribe((res) => {
           this.faqsLoading = false;
           this.faqResults = res;
         },
@@ -246,7 +251,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.faqCatSubscription = this.faqsService.getFAQParentCategories(this.lang).subscribe((categories) => {
+    this.faqCatSubscription = this.faqCategoriesService.getFAQParentCategories(this.lang).subscribe((categories) => {
           this.parent_categories = categories;
         },
         (error) => {

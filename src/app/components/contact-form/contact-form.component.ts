@@ -1,6 +1,6 @@
 import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { APP_CONFIG } from '../../app.config';
-import {AppConfig} from '../../interfaces/appConfig';
+import {AppConfig} from '../../interfaces-and-classes/appConfig';
 import { ReCaptchaComponent } from 'angular2-recaptcha';
 import {ContactFormService} from '../../services/forms/contact-form.service';
 import {ActivatedRoute, Params} from '@angular/router';

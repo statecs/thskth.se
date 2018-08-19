@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
 import { CalendarCommunicationService } from '../../services/component-communicators/calendar-communication.service';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
-import { Event } from '../../interfaces/event';
+import { Event } from '../../interfaces-and-classes/event';
 import { ths_calendars } from '../../utils/ths-calendars';
 import {ActivatedRoute, Params} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';

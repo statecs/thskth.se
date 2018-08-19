@@ -1,20 +1,20 @@
 import {Component, OnInit, Injector, OnDestroy, HostListener} from '@angular/core';
 import { CardsService } from '../../services/wordpress/cards.service';
-import { Card } from '../../interfaces/card';
+import { Card } from '../../interfaces-and-classes/card';
 import { CardCategorizerCardContainerService } from '../../services/component-communicators/card-categorizer-card-container.service';
 import {Subscription} from 'rxjs/Subscription';
 import { APP_CONFIG } from '../../app.config';
-import { AppConfig } from '../../interfaces/appConfig';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { PopupWindowCommunicationService } from '../../services/component-communicators/popup-window-communication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import format from 'date-fns/format/index';
 import { GoogleCalendarService } from '../../services/google-calendar/google-calendar.service';
-import { Event } from '../../interfaces/event';
+import { Event } from '../../interfaces-and-classes/event';
 import { ths_calendars } from '../../utils/ths-calendars';
 import {Location} from '@angular/common';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {RestaurantService} from '../../services/wordpress/restaurant.service';
-import {Restaurant} from '../../interfaces/restaurant';
+import {Restaurant} from '../../interfaces-and-classes/restaurant';
 
 @Component({
   selector: 'app-cards-container',

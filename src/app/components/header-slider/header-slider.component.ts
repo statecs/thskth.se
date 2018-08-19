@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {HeaderSlide} from '../../interfaces/chapters_associations';
+import {HeaderSlide} from '../../interfaces-and-classes/chapters_associations';
 
 @Component({
   selector: 'app-header-slider',
