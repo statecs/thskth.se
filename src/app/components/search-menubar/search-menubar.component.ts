@@ -1,6 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
-import { SearchService } from '../../services/wordpress/search.service';
 import { SearchResult } from '../../interfaces-and-classes/search';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
@@ -34,7 +33,6 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   public menuBarSubscription: Subscription;
 
   constructor(private searchMenubarCommunicationService: SearchMenubarCommunicationService,
-              private searchService: SearchService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
