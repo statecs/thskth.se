@@ -18,8 +18,14 @@ import { ChaptersAssociationsComponent } from './components/chapters-association
 import { PageSectionComponent } from './components/page-section/page-section.component';
 import { ContactSubpageComponent } from './components/contact-section/contact-subpage/contact-subpage.component';
 import {SearchComponent} from './components/search/search.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
 
 const appRoutes: Routes = [
+    {
+        path: 'user/:username',
+        component: UserProfileComponent,
+        data: { title: 'User profile' }
+    },
     {
         path: 'associations-and-chapters',
         component: ChaptersAssociationsComponent,

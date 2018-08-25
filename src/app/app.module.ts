@@ -110,6 +110,7 @@ import {InstagramPostService} from './services/social-media-post/instagram-post.
 import {GoogleCalendarModule} from './services/google-calendar/google-calendar.module';
 import {FaqCategoriesService} from './services/wordpress/faq-categories.service';
 import {FooterNavigationService} from './services/wordpress/footer-navigation.service';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -176,7 +177,8 @@ import {FooterNavigationService} from './services/wordpress/footer-navigation.se
     FeaturedFaqsComponent,
     RelatedLinksComponent,
     EscapeHtmlPipe,
-    CookieNotificationBarComponent
+    CookieNotificationBarComponent,
+    UserProfileComponent
   ],
   imports: [
       BrowserModule,
