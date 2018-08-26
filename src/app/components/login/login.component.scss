@@ -1,0 +1,93 @@
+@import "../../../style/utilities";
+
+:host /deep/ header{
+  background: none !important;
+  background-color: $bg-color-primary !important;
+  color: white !important;
+  .container{
+    border-bottom: 0 !important;
+  }
+}
+
+#login {
+  @include container-size(80%);
+  margin-bottom: 50px;
+  padding-top: 100px;
+  .heading {
+    display: flex;
+    align-items: center;
+    h1 {
+      flex: 1;
+    }
+    i {
+      flex: 1;
+      text-align: center;
+      font-size: 3em;
+    }
+  }
+
+  .tabs-wrapper {
+    display: flex;
+    align-items: center;
+    color: lightgray;
+    text-align: center;
+    .tab {
+      flex: 1;
+      border-bottom: 1px solid lightgray;
+      cursor: pointer;
+      padding: 5px 0;
+    }
+    .selected {
+      color: black;
+      border-bottom: 2px solid gray;
+    }
+  }
+
+  .tab-content {
+    padding-bottom: 50px;
+    text-align: center;
+    p {
+      padding: 20px;
+    }
+    >div {
+      .kth-login-btn {
+        display: inline-block;
+        padding: 15px 40px;
+        border-radius: 35px;
+        background-color: #0f6db5;
+        color: white;
+      }
+      form {
+        width: 80%;
+        display: inline-block;
+        input, button {
+          padding: 10px 20px;
+          border-radius: 25px;
+          width: 100%;
+        }
+        input {
+          border: 1px solid lightgray;
+        }
+        input:nth-child(2) {
+          margin-top: 15px;
+        }
+        button {
+          background-color: lightgray;
+          color: dimgray;
+          margin: 25px 0 30px;
+          border: 0;
+        }
+        .alert-error {
+          color: red;
+          font-size: 0.8em;
+        }
+      }
+      a {
+        display: block;
+        color: black;
+        text-decoration: none;
+        margin: 10px;
+      }
+    }
+  }
+}

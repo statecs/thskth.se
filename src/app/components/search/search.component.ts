@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
-import { SearchService } from '../../services/wordpress/search.service';
 import { SearchResult } from '../../interfaces-and-classes/search';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';

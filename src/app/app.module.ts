@@ -108,6 +108,10 @@ import {DataFetcherService} from './services/utility/data-fetcher.service';
 import {FacebookPostService} from './services/social-media-post/facebook-post.service';
 import {InstagramPostService} from './services/social-media-post/instagram-post.service';
 import {GoogleCalendarModule} from './services/google-calendar/google-calendar.module';
+import {FaqCategoriesService} from './services/wordpress/faq-categories.service';
+import {FooterNavigationService} from './services/wordpress/footer-navigation.service';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -174,7 +178,9 @@ import {GoogleCalendarModule} from './services/google-calendar/google-calendar.m
     FeaturedFaqsComponent,
     RelatedLinksComponent,
     EscapeHtmlPipe,
-    CookieNotificationBarComponent
+    CookieNotificationBarComponent,
+    UserProfileComponent,
+    LoginComponent
   ],
   imports: [
       BrowserModule,
@@ -215,6 +221,8 @@ import {GoogleCalendarModule} from './services/google-calendar/google-calendar.m
       DataFetcherService,
       FacebookPostService,
       InstagramPostService,
+      FaqCategoriesService,
+      FooterNavigationService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

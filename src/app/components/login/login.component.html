@@ -1,0 +1,41 @@
+<div id="login">
+  <div class="heading">
+    <h1>THS <br/>My Page</h1>
+    <i class="material-icons">person</i>
+  </div>
+
+  <div class="tabs-wrapper">
+    <div class="tab" [ngClass]="{'selected': selectedTab === loginTab.KTHLogin}" (click)="selectTab(loginTab.KTHLogin)">KTH Login</div>
+    <div class="tab" [ngClass]="{'selected': selectedTab === loginTab.Password}" (click)="selectTab(loginTab.Password)">Password</div>
+  </div>
+
+  <div [ngSwitch]="selectedTab" class="tab-content">
+    <div *ngSwitchCase="loginTab.KTHLogin">
+      <p>Identify yourself to login to My Page</p>
+      <div class="kth-login-btn">Identify with KTH-login</div>
+    </div>
+
+    <div *ngSwitchCase="loginTab.Password">
+      <p>Identify yourself to login to My Page</p>
+      <form #form="ngForm" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <input name="email" type="email" placeholder="Email" formControlName="email"/>
+        <div *ngIf="form.submitted && loginForm.get('email').invalid && (loginForm.get('email').dirty || loginForm.get('email').touched)" class="alert-error">
+          <div *ngIf="loginForm.get('email').getError('required')">
+            Please enter an email address.
+          </div>
+          <div *ngIf="!loginForm.get('email').getError('required') && loginForm.get('email').invalid">
+            Invalid email.
+          </div>
+        </div>
+        <input name="password" type="password" placeholder="Password" formControlName="password"/>
+        <div *ngIf="form.submitted && loginForm.get('password').invalid && (loginForm.get('password').dirty || loginForm.get('password').touched)" class="alert-error">
+          Please enter a password.
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <a href="#">Forgot password?</a>
+      <a href="#">Create new account</a>
+    </div>
+  </div>
+
+</div>

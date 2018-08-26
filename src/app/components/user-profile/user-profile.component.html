@@ -1,0 +1,41 @@
+<div  *ngIf="!pageNotFound" id="user-profile">
+  <h1>Hello, <br/>{{userName}}</h1>
+  <app-loader *ngIf="loading"></app-loader>
+  <p>Membership valid until {{membershipExpireDate}}</p>
+
+  <div class="cards-wrapper">
+    <div class="card">
+      <label>Find events</label>
+      <p>Find relevant events for you!</p>
+    </div>
+    <div class="card">
+      <label>Membership</label>
+      <p>Find latest invoices from THS!</p>
+    </div>
+    <div class="card">
+      <label>Vote</label>
+      <p>Vote and candidate for Kårvalet!</p>
+    </div>
+    <div class="card">
+      <label>I want help!</label>
+      <p>Create a support ticket!</p>
+    </div>
+  </div>
+
+  <h3>Quick find</h3>
+  <ul>
+    <li>I want to see the status of my membership</li>
+    <li>I want to see/pay my latest invoice</li>
+    <li>I want to renew my membership</li>
+    <li>Download receipt of payment</li>
+    <li>Check mecenat card</li>
+    <li>Am I registered?</li>
+    <li>Eligible for SL-discount</li>
+    <li>Why is my SSB-queue on hold?</li>
+    <li>I want help</li>
+  </ul>
+</div>
+
+<app-page-not-found *ngIf="pageNotFound"></app-page-not-found>
+
+
