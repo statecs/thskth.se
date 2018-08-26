@@ -111,6 +111,7 @@ import {GoogleCalendarModule} from './services/google-calendar/google-calendar.m
 import {FaqCategoriesService} from './services/wordpress/faq-categories.service';
 import {FooterNavigationService} from './services/wordpress/footer-navigation.service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -178,7 +179,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     RelatedLinksComponent,
     EscapeHtmlPipe,
     CookieNotificationBarComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    LoginComponent
   ],
   imports: [
       BrowserModule,

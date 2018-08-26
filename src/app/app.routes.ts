@@ -19,8 +19,14 @@ import { PageSectionComponent } from './components/page-section/page-section.com
 import { ContactSubpageComponent } from './components/contact-section/contact-subpage/contact-subpage.component';
 import {SearchComponent} from './components/search/search.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import {LoginComponent} from './components/login/login.component';
 
 const appRoutes: Routes = [
+    {
+        path: 'login',
+        component: LoginComponent,
+        data: { title: 'Login' }
+    },
     {
         path: 'user/:username',
         component: UserProfileComponent,
