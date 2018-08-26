@@ -41,15 +41,15 @@ export class Event implements IEvent {
                 imageUrl = '';
             }
             let start: Date;
-            if (event.start.dateTime) {
+            if (event.start && event.start.dateTime) {
                 start = new Date(event.start.dateTime);
-            }else if (event.start.date) {
+            }else if (event.start && event.start.date) {
                 start = new Date(Date.parse(event.start.date));
             }
             let end: Date;
-            if (event.end.dateTime) {
+            if (event.end && event.end.dateTime) {
                 end = new Date(event.end.dateTime);
-            }else if (event.end.date) {
+            }else if (event.end && event.end.date) {
                 end = new Date(Date.parse(event.end.date));
             }
             result.push({

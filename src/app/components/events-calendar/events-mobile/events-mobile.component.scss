@@ -1,0 +1,16 @@
+@import "../../../../style/utilities";
+
+:host /deep/ header{
+  background: none !important;
+  background-color: $bg-color-primary !important;
+  color: white !important;
+  .container{
+    border-bottom: 0 !important;
+  }
+}
+
+#events-mobile {
+  @include container-size(80%);
+  margin-bottom: 50px;
+  padding-top: 100px;
+}
