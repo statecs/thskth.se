@@ -112,6 +112,9 @@ import {FaqCategoriesService} from './services/wordpress/faq-categories.service'
 import {FooterNavigationService} from './services/wordpress/footer-navigation.service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { LoginComponent } from './components/login/login.component';
+import { EventsMobileComponent } from './components/events-calendar/events-mobile/events-mobile.component';
+import { EventsCardsComponent } from './components/events-calendar/events-cards/events-cards.component';
+import { EventsListComponent } from './components/events-calendar/events-list/events-list.component';
 
 
 @NgModule({
@@ -180,7 +183,10 @@ import { LoginComponent } from './components/login/login.component';
     EscapeHtmlPipe,
     CookieNotificationBarComponent,
     UserProfileComponent,
-    LoginComponent
+    LoginComponent,
+    EventsMobileComponent,
+    EventsCardsComponent,
+    EventsListComponent
   ],
   imports: [
       BrowserModule,

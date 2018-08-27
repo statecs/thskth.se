@@ -20,7 +20,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
 
   events: Event[];
   actualDate: string;
-  public ths_calendars: any[];
+  public ths_calendars: any;
   public showFeaturedEvents: boolean;
   public earliest_events: Event[];
   private lang: string;
@@ -148,7 +148,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.getEventsPerDay(this.ths_calendars[0].calendarId, new Date());
+    this.getEventsPerDay(this.ths_calendars.events.calendarId, new Date());
 
     this.allEventsSubscription2 = this.googleCalendarService.getAllEvents(null, 'month').subscribe(res => {
       const mergedArrays = this.mergeArrays(res);

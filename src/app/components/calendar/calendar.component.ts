@@ -23,8 +23,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
   viewDate: Date;
   events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
   activeDayIsOpen: boolean;
-  public ths_calendars: any[];
-  public selected_event_category: number;
+  public ths_calendars: any;
+  public calendar_names: any[];
+  public selected_event_category: string;
   public e_loading: boolean;
   public lang: string;
   public loading: boolean;
@@ -39,7 +40,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.activeDayIsOpen = false;
     this.viewDate = new Date();
     this.ths_calendars = ths_calendars;
-    this.selected_event_category = -1;
+    this.calendar_names = Object.keys(this.ths_calendars);
+    this.selected_event_category = null;
     this.e_loading = true;
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.lang = params['lang'];
@@ -49,26 +51,23 @@ export class CalendarComponent implements OnInit, OnDestroy {
     });
   }
 
-  switchCalendar(index) {
+  switchCalendar(calendar_name: string) {
     this.e_loading = true;
-    this.selected_event_category = index;
-    if (index === -1) {
+    this.selected_event_category = calendar_name;
+      let cal_Id = '';
+    if (calendar_name === null) {
+        cal_Id = 'all';
       this.getAllEvents();
     }else {
+        cal_Id = this.ths_calendars[this.selected_event_category].calendarId;
       this.fetchEvents();
-    }
-    let cal_Id = '';
-    if (this.selected_event_category === -1) {
-      cal_Id = 'all';
-    }else {
-      cal_Id = this.ths_calendars[this.selected_event_category].calendarId;
     }
     this.calendarCommunicationService.updateEventItemsList({noActivity: false, viewDate: this.viewDate, calendarId: cal_Id});
   }
 
   fetchEvents(): void {
     this.e_loading = true;
-    if (this.selected_event_category === -1) {
+    if (this.selected_event_category === null) {
       this.getAllEvents();
     }else {
       this.events$ = this.googleCalendarService.fetchEvents(this.ths_calendars[this.selected_event_category].calendarId, this.viewDate, this.view).map((res) => {
@@ -88,7 +87,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }): void {
     if (isSameMonth(date, this.viewDate)) {
       let cal_Id = '';
-      if (this.selected_event_category === -1) {
+      if (this.selected_event_category === null) {
         cal_Id = 'all';
       }else {
         cal_Id = this.ths_calendars[this.selected_event_category].calendarId;

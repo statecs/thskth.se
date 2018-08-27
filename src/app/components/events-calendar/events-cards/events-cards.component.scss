@@ -1,0 +1,254 @@
+@import "../../../../style/utilities";
+
+
+.mobile{
+  display: none !important;
+}
+
+.featured-events{
+  margin-top: 40px;
+  .heading{
+    text-align: left;
+    padding: 0 30px;
+    h2{
+      border-bottom: 1px solid lightgrey;
+      padding-bottom: 10px;
+      width: 60%;
+      display: inline-block;
+    }
+  }
+  .events-container{
+    .f_events-wrapper{
+      .event{
+        width: 25%;
+        display: inline-block;
+        margin: 0 2%;
+        vertical-align: top;
+        box-shadow: 1px 2px 10px rgba(114, 114, 114, 0.35);
+        height: 350px;
+        border-radius: 3px;
+        overflow: hidden;
+        cursor: pointer;
+        .image-wrapper{
+          height: 170px;
+          background-color: lightblue;
+          position: relative;
+          background-position: center;
+          background-size: cover;
+          .date{
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.67);
+            float: left;
+            font-weight: $font-weight-bold;
+            padding-top: 5px;
+          }
+          img{
+            width: 100%;
+            height: auto;
+            position: absolute;
+            left: 0;
+          }
+        }
+        .info{
+          text-align: left;
+          padding: 0 10px;
+          h2{
+            font-size: $font-size-h4;
+            margin: 10px 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+:host /deep/ .calendar-wrapper{
+  .cal-header{
+    font-weight: 400 !important;
+    font-size: $font-size-h7;
+  }
+
+  .cal-day-cell {
+    min-height: 50px !important;
+  }
+}
+:host /deep/ .cal-month-view .cal-cell-top{
+  min-height: 50px !important;
+}
+:host /deep/ .cal-month-view .cal-day-cell.cal-today .cal-day-number{
+  font-size: 1.2em !important;
+}
+
+::-webkit-scrollbar
+{
+  width: 2px;  /* for vertical scrollbars */
+  height: 2px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: #a8a8a8;
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgb(102, 101, 101);
+  border-radius: 10px;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  .mobile{
+    display: inline-block !important;
+  }
+
+  .featured-events{
+    margin-top: 20px;
+    .heading{
+      h2{
+        width: 100%;
+      }
+    }
+    .events-container {
+      width: 100%;
+      overflow-x: scroll;
+      padding: 0 0 15px;
+      .f_events-wrapper {
+        width: 150%;
+        .event {
+          width: 29%;
+          margin: 0 1.5%;
+          float: left;
+          height: 300px;
+          .image-wrapper{
+            height: 110px;
+            .date{
+              width: 40px;
+              height: 40px;
+              font-size: 0.9em;
+              padding-top: 0;
+            }
+          }
+          .info{
+            font-size: $font-size-h6;
+            h2{
+              font-size: $font-size-h5;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  .mobile{
+    display: inline-block !important;
+  }
+  .featured-events{
+    margin-top: 20px;
+    .heading{
+      h2{
+        width: 100%;
+      }
+    }
+    .events-container {
+      width: 100%;
+      overflow-x: scroll;
+      padding: 0 0 15px;
+      .f_events-wrapper {
+        width: 150%;
+        .event {
+          width: 29%;
+          margin: 0 1.5%;
+          float: left;
+          height: 300px;
+          .image-wrapper{
+            height: 150px;
+            .date{
+              width: 40px;
+              height: 40px;
+              font-size: 0.9em;
+              padding-top: 0;
+            }
+            img{
+              top: -10%;
+            }
+          }
+          .info{
+            font-size: $font-size-h6;
+            h2{
+              font-size: $font-size-h5;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  .mobile{
+    display: inline-block !important;
+  }
+
+  .featured-events{
+    margin-top: 20px;
+    .heading{
+      h2{
+        width: 100%;
+      }
+    }
+    .events-container {
+      width: 100%;
+      overflow-x: scroll;
+      padding: 0 0 15px;
+      .f_events-wrapper {
+        width: 150%;
+        .event {
+          width: 29%;
+          margin: 0 1.5%;
+          float: left;
+          height: 300px;
+          .image-wrapper{
+            height: 170px;
+            .date{
+              width: 40px;
+              height: 40px;
+              font-size: 0.9em;
+              padding-top: 0;
+            }
+            img{
+              top: -20%;
+            }
+          }
+          .info{
+            font-size: $font-size-default;
+            h2{
+              font-size: $font-size-h4;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  .featured-events{
+    .events-container{
+      .f_events-wrapper{
+        .event{
+          .info{
+            font-size: $font-size-h6;
+          }
+        }
+      }
+    }
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+
+}
