@@ -20,7 +20,7 @@
     </div>
     <app-calendar></app-calendar>
   </div>
-  <div *ngIf="!showFeaturedEvents" class="events-wrapper larger-devices">
+  <!--<div *ngIf="!showFeaturedEvents" class="events-wrapper larger-devices">
     <div class="events-header">
       <h2>{{(lang === 'en' ? 'Events on' : 'Evenemang på')}} {{actualDate}}</h2>
     </div>
@@ -39,11 +39,12 @@
       </div>
       <span *ngIf="events.length === 0">{{(lang === 'en' ? 'There are no events.' : 'Det finns inga evenemang.')}}</span>
     </div>
-  </div>
+  </div>-->
   <app-events-cards
           [title]="(lang === 'en' ? 'Events on ' : 'Evenemang på ') + actualDate"
           [events]="earliest_events">
   </app-events-cards>
+  <app-events-list [events]="earliest_events"></app-events-list>
 </div>
 
 <app-page-not-found *ngIf="pageNotFound"></app-page-not-found>

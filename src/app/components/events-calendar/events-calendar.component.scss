@@ -36,6 +36,7 @@
   position: relative;
   margin-bottom: 50px;
   text-align: center;
+  background-color: white;
   .larger-devices{
     display: block;
   }
@@ -201,6 +202,7 @@
     padding: 0 30px;
     width: 100%;
     text-align: left;
+    box-shadow: 0 2px 1px 0px #b1b1b1;
   }
   #events-calendar {
     width: 100%;
@@ -238,6 +240,7 @@
     padding: 0 30px;
     width: 100%;
     text-align: left;
+    box-shadow: 0 2px 1px 0px #b1b1b1;
   }
   #events-calendar {
     width: 100%;
@@ -275,6 +278,7 @@
     padding: 0 30px;
     width: 100%;
     text-align: left;
+    box-shadow: 0 2px 1px 0px #b1b1b1;
   }
   .cal-popup{
     .calendar-wrapper{

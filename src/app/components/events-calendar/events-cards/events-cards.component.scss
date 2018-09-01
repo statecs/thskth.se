@@ -7,6 +7,7 @@
 
 .featured-events{
   margin-top: 40px;
+  background-color: $bg-color-default;
   .heading{
     text-align: left;
     padding: 0 30px;
@@ -31,7 +32,7 @@
         cursor: pointer;
         .image-wrapper{
           height: 170px;
-          background-color: lightblue;
+          background-color: #e2e2e2;
           position: relative;
           background-position: center;
           background-size: cover;
@@ -56,6 +57,15 @@
           h2{
             font-size: $font-size-h4;
             margin: 10px 0;
+          }
+          label{
+            color: gray;
+            align-items: center;
+            display: flex;
+            font-size: 0.85em;
+            i{
+              font-size: 1.25em;
+            }
           }
         }
       }
@@ -120,9 +130,9 @@
           width: 29%;
           margin: 0 1.5%;
           float: left;
-          height: 300px;
+          height: 200px;
           .image-wrapper{
-            height: 110px;
+            height: 140px;
             .date{
               width: 40px;
               height: 40px;
@@ -163,9 +173,9 @@
           width: 29%;
           margin: 0 1.5%;
           float: left;
-          height: 300px;
+          height: 200px;
           .image-wrapper{
-            height: 150px;
+            height: 140px;
             .date{
               width: 40px;
               height: 40px;

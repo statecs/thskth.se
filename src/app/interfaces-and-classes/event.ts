@@ -16,6 +16,7 @@ interface IEvent {
     creator: Creator;
     meta: any;
     calendarId: string;
+    calendarName: string;
 }
 
 export class Event implements IEvent {
@@ -30,8 +31,9 @@ export class Event implements IEvent {
     creator: Creator;
     meta: any;
     calendarId: string;
+    calendarName: string;
 
-    static convertToEventType(data: any[], calendarId: string, event_image_base_url: string): Event[] {
+    static convertToEventType(data: any[], calendarId: string, event_image_base_url: string, calendarName: string): Event[] {
         const result: Array<Event> = [];
         data.forEach((event) => {
             let imageUrl: string;
@@ -65,7 +67,8 @@ export class Event implements IEvent {
                 meta: {
                     event
                 },
-                calendarId: calendarId
+                calendarId: calendarId,
+                calendarName: calendarName
             });
         });
         return result;

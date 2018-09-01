@@ -1,3 +1,19 @@
-<p>
-  events-list works!
-</p>
+<div id="event-list">
+  <div class="sections-wrapper">
+    <div *ngFor="let gName of groupNames" class="section">
+      <h3>Calendar name</h3>
+      <div *ngFor="let event of eventsByGroupName[gName]" class="event" (click)="showInPopup(event)">
+        <div class="date">
+          <span>08</span>
+          <span>JUN</span>
+        </div>
+        <div class="info">
+          <h2>Union Day</h2>
+          <label>
+            <i class="material-icons" [ngStyle]="{color: ths_calendars['events'].color}">fiber_manual_record</i> THS Central
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
