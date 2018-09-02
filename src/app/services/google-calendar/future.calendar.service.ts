@@ -17,6 +17,6 @@ export class FutureCalendarService extends BaseDataService<Event> {
 
     getCalendar(params: URLSearchParams): Observable<Event[]> {
         return this.getData(null, params)
-            .map(res => Event.convertToEventType(res, ths_calendars.future.calendarId, this.injector.get(APP_CONFIG).EVENT_IMAGE_BASE_URL));
+            .map(res => Event.convertToEventType(res, ths_calendars.future.calendarId, this.injector.get(APP_CONFIG).EVENT_IMAGE_BASE_URL, ths_calendars.future.calendarName));
     }
 }

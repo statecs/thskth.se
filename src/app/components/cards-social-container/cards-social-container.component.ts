@@ -4,7 +4,7 @@ import { SocialMediaPostService } from '../../services/social-media-post/social-
 import { SocialMediaPost } from '../../interfaces-and-classes/social_media_post';
 import format from 'date-fns/format/index';
 import { Event } from '../../interfaces-and-classes/event';
-import { ths_calendars } from '../../utils/ths-calendars';
+import {ths_calendars, THSCalendar} from '../../utils/ths-calendars';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {
@@ -27,7 +27,7 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
   public selected_event_title: string;
   public selected_event_text: string;
   public selected_event_index: number;
-  public ths_calendars: any[];
+  public ths_calendars: { [key: string]: THSCalendar; };
   public existMorePosts: boolean;
   public lang: string;
   public read_more: string;

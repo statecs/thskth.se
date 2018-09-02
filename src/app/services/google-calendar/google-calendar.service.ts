@@ -26,12 +26,14 @@ import {EducationCalendarService} from './education.calendar.service';
 import {FutureCalendarService} from './future.calendar.service';
 import {InternationalCalendarService} from './international.calendar.service';
 import {ReceptionCalendarService} from './reception.calendar.service';
+import {ths_calendars, THSCalendar} from '../../utils/ths-calendars';
 
 @Injectable()
 export class GoogleCalendarService {
   protected config: AppConfig;
   protected search: URLSearchParams = new URLSearchParams();
   view: string;
+  private ths_calendars: {[key: string]: THSCalendar};
 
   constructor(protected dataFetcherService: DataFetcherService,
               private injector: Injector,
@@ -45,6 +47,7 @@ export class GoogleCalendarService {
               private receptionCalendarService: ReceptionCalendarService) {
     this.config = injector.get(APP_CONFIG);
     this.view = '';
+    this.ths_calendars = ths_calendars;
   }
 
   getAllEvents(viewDate, view): Observable<Event[]> {
@@ -106,8 +109,9 @@ export class GoogleCalendarService {
     params.set('key', this.config.GOOGLE_CALENDAR_KEY);
     params.set('singleEvents', 'true');
     params.set('orderBy', 'startTime');
+    const calendar: THSCalendar = _.find(this.ths_calendars, (c) => { return c.calendarId === calendarId; });
     return this.dataFetcherService.get(this.config.GOOGLE_CALENDAR_BASE_URL + calendarId + '/events', params)
-        .map(res => Event.convertToEventType(res, calendarId, this.config.EVENT_IMAGE_BASE_URL));
+        .map(res => Event.convertToEventType(res, calendarId, this.config.EVENT_IMAGE_BASE_URL, calendar.calendarName));
   }
 
   getUpcomingEvents(calendarId, amount): Observable<Event[]> {
@@ -121,8 +125,9 @@ export class GoogleCalendarService {
     params.set('singleEvents', 'true');
     params.set('orderBy', 'startTime');
     params.set('maxResults', amount);
+    const calendar: THSCalendar = _.find(this.ths_calendars, (c) => { return c.calendarId === calendarId; });
     return this.dataFetcherService.get(this.config.GOOGLE_CALENDAR_BASE_URL + calendarId + '/events', params)
-        .map(res => Event.convertToEventType(res, calendarId, this.config.EVENT_IMAGE_BASE_URL));
+        .map(res => Event.convertToEventType(res, calendarId, this.config.EVENT_IMAGE_BASE_URL, calendar.calendarName));
   }
 
   getStart(viewDate: any): any {

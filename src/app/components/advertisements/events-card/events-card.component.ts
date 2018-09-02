@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import format from 'date-fns/format/index';
-import { ths_calendars } from '../../../utils/ths-calendars';
+import {ths_calendars, THSCalendar} from '../../../utils/ths-calendars';
 import { GoogleCalendarService } from '../../../services/google-calendar/google-calendar.service';
 import { Event } from '../../../interfaces-and-classes/event';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -16,7 +16,7 @@ export class EventsCardComponent implements OnInit, OnDestroy {
   public events: Event[];
   public selected_event_title: string;
   public selected_event_text: string;
-  public ths_calendars: any[];
+  public ths_calendars: { [key: string]: THSCalendar; };
   public selected_event_index: number;
   public lang: string;
   public parentParamsSubscription: Subscription;
