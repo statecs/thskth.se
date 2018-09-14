@@ -9,9 +9,11 @@
           <span class="date">{{formatDay(e.start)}}</span>
         </div>
         <div class="info">
-          <h2>{{e.title}}</h2>
-          <p class="larger-devices" [innerHTML]="e.description | cardText:100"></p>
-          <p class="mobile" [innerHTML]="e.description | cardText:70"></p>
+          <h2>Union Day</h2>
+          <label>
+            <i class="material-icons" [ngStyle]="{color: ths_calendars['events'].color}">fiber_manual_record</i> THS Central
+          </label>
+
         </div>
       </div>
     </div>
