@@ -115,6 +115,7 @@ import { LoginComponent } from './components/login/login.component';
 import { EventsMobileComponent } from './components/events-calendar/events-mobile/events-mobile.component';
 import { EventsCardsComponent } from './components/events-calendar/events-cards/events-cards.component';
 import { EventsListComponent } from './components/events-calendar/events-list/events-list.component';
+import {SanitizeUrlPipe} from './pipes/sanitizeUrl.pipe';
 
 
 @NgModule({
@@ -186,7 +187,8 @@ import { EventsListComponent } from './components/events-calendar/events-list/ev
     LoginComponent,
     EventsMobileComponent,
     EventsCardsComponent,
-    EventsListComponent
+    EventsListComponent,
+      SanitizeUrlPipe,
   ],
   imports: [
       BrowserModule,

@@ -1,5 +1,5 @@
 <div #card_categorizer id="card-categorizer">
-    <span *ngIf="lang === 'en'">I am a</span>
+    <!--<span *ngIf="lang === 'en'">I am a</span>
     <span *ngIf="lang === 'sv'">Jag är en</span>
   <div #profession class="profession large-devices"  (click)="toggleDropdown(1)">
     <span>{{selected_profession_name}}</span>
@@ -9,13 +9,13 @@
               <div *ngFor="let c of pro_cats, let i = index" class="dropdown-item" [ngClass]="{'selected-item': prof_selectedIndex === i}" (click)="updateFiltering('profession', $event, c.id, i)">{{c.name}}</div>
           </div>
       </div>
-  </div>
-    <div class="profession mobile" (click)="showSelectSlider(pro_cats, 'profession')">
+  </div>-->
+    <!--<div class="profession mobile" (click)="showSelectSlider(pro_cats, 'profession')">
         <span>{{selected_profession_name}}</span>
         <i class="material-icons">keyboard_arrow_down</i>
-    </div>
-    <span *ngIf="lang === 'en'">and I am interested in</span>
-    <span *ngIf="lang === 'sv'">och jag är intresserad av</span>
+    </div>-->
+    <span *ngIf="lang === 'en'">I am interested in</span>
+    <span *ngIf="lang === 'sv'">Jag är intresserad av</span>
 
   <div class="interest large-devices" (click)="toggleDropdown(2)">
     <span>{{selected_interest_name}}</span>

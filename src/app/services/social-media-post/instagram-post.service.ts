@@ -5,6 +5,7 @@ import { APP_CONFIG } from '../../app.config';
 import { SocialMediaPost } from '../../interfaces-and-classes/social_media_post';
 import {BaseDataService} from '../abstract-services/base-data.service';
 import {DataFetcherService} from '../utility/data-fetcher.service';
+import * as _ from 'lodash';
 
 @Injectable()
 export class InstagramPostService extends BaseDataService<SocialMediaPost> {
@@ -14,14 +15,14 @@ export class InstagramPostService extends BaseDataService<SocialMediaPost> {
     }
 
     getPosts(): Observable<SocialMediaPost[]> {
-        return this.getData().map((res: any[]) => {
-            return this.castInstaResSMPType(res[0]);
+        return this.getData().map((res: any) => {
+            return this.castInstaResSMPType(res.data);
         });
     }
 
     private castInstaResSMPType(post_list): SocialMediaPost[] {
         const posts: SocialMediaPost[] = [];
-        post_list.forEach((post) => {
+        _(post_list).each((post) => {
             if (!(post instanceof Array)) {
                 const user = {
                     name: post.user.full_name,
