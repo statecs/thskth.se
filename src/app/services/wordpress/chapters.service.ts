@@ -30,7 +30,7 @@ export class ChaptersService extends WordpressBaseDataService<Chapter> {
     }
 
     getChapters(lang: string): Observable<Chapter[]> {
-        return this.getData(null, '?per_page=100&_embed' + '&lang=' + lang)
+        return this.getData(null, 'per_page=100&_embed' + '&lang=' + lang)
             // Cast response data to FAQ Category type
             .map((res: any) => { return Chapter.convertToChapterType(res); });
     }

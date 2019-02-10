@@ -33,3 +33,8 @@ h1{
     color: #6c6b6b;
   }
 }
+
+app-popup-window {
+  position: fixed;
+  z-index: 1;
+}

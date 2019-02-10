@@ -29,7 +29,7 @@ export class AssociationsService extends WordpressBaseDataService<Association> {
     }
 
     getAssociations(lang: string): Observable<Association[]> {
-        return this.getData('?per_page=100&_embed' + '&lang=' + lang)
+        return this.getData(null,'per_page=100&_embed' + '&lang=' + lang)
         // Cast response data to FAQ Category type
             .map((res: any) => { return Association.convertToAssociationType(res); });
     }
