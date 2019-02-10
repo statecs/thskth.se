@@ -47,11 +47,11 @@ export abstract class WordpressBaseDataService<T extends BaseDataInterface> {
     }
 
     getDataByURL( query: string = '', url: string = null ): Observable<T[]> {
-        return this.fetchData((url ? url : this.endpoint) + '?' + query);
+        return this.dataFetcherService.get((url ? url : this.endpoint) + '?' + query);
     }
 
     getDataById( query: string = '', url: string = null ): Observable<T[]> {
-        return this.fetchData((url ? url : this.endpoint) + '?' + query);
+        return this.dataFetcherService.get((url ? url : this.endpoint) + '?' + query);
     }
 
     getDataBySlug( query: string = '', url: string = null ): Observable<T[]> {
