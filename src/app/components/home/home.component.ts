@@ -119,10 +119,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
     ngAfterViewInit() {
-        if (this._cookieService.get('search-menubar-terms')) {
-            this.searchMenubarCommunicationService.showSearchMenubar();
-            this._changeDetectionRef.detectChanges();
-        }
     }
 
     ngOnDestroy() {
