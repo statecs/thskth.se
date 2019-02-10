@@ -15,6 +15,7 @@ import {Location} from '@angular/common';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {RestaurantService} from '../../services/wordpress/restaurant.service';
 import {Restaurant} from '../../interfaces-and-classes/restaurant';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-cards-container',
@@ -36,7 +37,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     public selected_event_text: string;
     public selected_event_index: number;
     public selected_event_category: number;
-    public ths_calendars: any;
+    public ths_calendars: any[];
     public cardsLoaded: boolean;
     public lang: string;
     public paramsSubscription: Subscription;
@@ -59,7 +60,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
                 private restaurantService: RestaurantService) {
       this.config = injector.get(APP_CONFIG);
       this.selected_event_category = 0;
-      this.ths_calendars = ths_calendars;
+      this.ths_calendars = _.values(ths_calendars);
       this.cardsLoaded = false;
       this.lang = activatedRoute.snapshot.data['lang'];
       this.deviceSize = window.screen.width;
@@ -233,7 +234,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
           this.displayCards(arg);
       });
 
-      this.getCalendar(this.ths_calendars.events.calendarId);
+      this.getCalendar(ths_calendars.events.calendarId);
       this.getRestaurantMenu();
   }
 

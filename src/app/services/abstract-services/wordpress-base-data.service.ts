@@ -24,18 +24,11 @@ export abstract class WordpressBaseDataService<T extends BaseDataInterface> {
             this.endpoint = endpointExtension;
         }
 
-        if (!this.fetched) {
-            this.fetched = true;
-            this.dataFetcherService.get(this.endpoint + '?' + params).subscribe(
-                (values) => {
-                    this.data.next(this.mapItems(values));
-                }
-            );
-        }
-
-        return this.data.filter(data => {
-            return data != null;
-        });
+        return this.dataFetcherService.get(this.endpoint + '?' + params)
+            .map((values) => {
+                return this.mapItems(values);
+            }
+        );
     }
 
     private fetchData(url: string): Observable<T[]> {
