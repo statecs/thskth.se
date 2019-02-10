@@ -34,7 +34,7 @@ export abstract class BaseDataService<T extends BaseDataInterface> {
     private fetchData() {
         this.dataFetcherService.get(this.endpoint, this.params).subscribe(
             (values) => {
-                this.data.next(this.mapItems(values));
+                this.data.next(values);
             }
         );
     }

@@ -28,8 +28,8 @@ export class SocialMediaPostService {
   };
 
   private sortArrayByTime(a, b) {
-    a = new Date(parseInt(a.created_time, 10));
-    b = new Date(parseInt(b.created_time, 10));
+    a = new Date(a.created_time);
+    b = new Date(b.created_time);
     return a > b ? -1 : a < b ? 1 : 0;
   };
 }
