@@ -39,7 +39,11 @@ export class EventsListComponent implements OnInit {
       }
   }
 
-  formatDay(start) {
-      return format(start, 'MMM DD');
+  getDay(start) {
+      return format(start, 'DD');
   }
+
+    getMonth(start) {
+        return format(start, 'MMM');
+    }
 }

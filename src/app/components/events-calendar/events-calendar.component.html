@@ -10,7 +10,7 @@
 <div *ngIf="showCalendar" class="exit-popup-btn-mobile" (click)="hide_popup_window()"><i class="fa fa-times-circle"></i> Done</div>
 
 <div *ngIf="!pageNotFound" id="events-calendar">
-  <!--<div *ngIf="!showCalendar" class="display-cal-btn mobile" (click)="toggleCalendar()">More events</div>-->
+  <div *ngIf="!showCalendar" class="display-cal-btn mobile" (click)="toggleCalendar()">More events</div>
   <div class="title mobile">
     <h2>{{(lang === 'en' ? 'Events' : 'Evenemang')}}</h2>
   </div>
@@ -41,7 +41,7 @@
     </div>
   </div>-->
   <app-events-cards
-          [title]="(lang === 'en' ? 'Events on ' : 'Evenemang på ') + actualDate"
+          [title]="(lang === 'en' ? 'Upcoming events' : 'Kommande evenemang')"
           [events]="earliest_events">
   </app-events-cards>
   <app-events-list [events]="earliest_events"></app-events-list>

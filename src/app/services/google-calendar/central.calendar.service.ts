@@ -17,6 +17,8 @@ export class CentralCalendarService extends BaseDataService<Event> {
 
     getCalendar(params: URLSearchParams): Observable<Event[]> {
         return this.getData(null, params)
-            .map(res => Event.convertToEventType(res, ths_calendars.central.calendarId, this.injector.get(APP_CONFIG).EVENT_IMAGE_BASE_URL, ths_calendars.central.calendarName));
+            .map(res => {
+                return Event.convertToEventType(res, ths_calendars.central.calendarId, this.injector.get(APP_CONFIG).EVENT_IMAGE_BASE_URL, ths_calendars.central.calendarName);
+            });
     }
 }
