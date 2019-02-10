@@ -81,7 +81,10 @@ export class NotificationBarComponent implements OnInit, OnDestroy{
           }, 200);
         },
         (error) => {
-          this.notifyError(error);
+          if (error) {
+              this.notifyError(error);
+          }
+
         });
   }
 
@@ -105,7 +108,10 @@ export class NotificationBarComponent implements OnInit, OnDestroy{
     });
 
     this.errorSubscription =  this.notificationBarCommunicationService.notifyObservable$.subscribe((error) => {
-      this.notifyError(error);
+      if (error) {
+          this.notifyError(error);
+      }
+
     });
     this.closeBarSubscription = this.notificationBarCommunicationService.closeNotifyObservable$.subscribe(() => {
       this.closeBar();
