@@ -37,21 +37,9 @@ export class AppComponent {
       if (this.page) {
         const pageStyle = this.page.nativeElement.style;
         if (arg === 'collapse') {
-          this.scrollTop = (document.body.scrollTop || window.pageYOffset);
-          pageStyle.top = '-' + this.scrollTop + 'px';
-          pageStyle.position = 'fixed';
-          window.scrollTo(0, 0);
+            document.body.style.overflow = 'hidden';
         }else if (arg === 'show') {
-          pageStyle.position = 'relative';
-          if (this.header_position) {
-            pageStyle.top = this.header_position + 'px';
-          }else {
-            pageStyle.top = '0px';
-          }
-
-          setTimeout(() => {
-            window.scrollTo(0, this.scrollTop);
-          }, 0);
+            document.body.style.overflow = 'auto';
         }
       }
     });
