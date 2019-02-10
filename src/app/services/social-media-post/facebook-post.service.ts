@@ -34,7 +34,7 @@ export class FacebookPostService extends BaseDataService<SocialMediaPost> {
             };
             posts.push({
                 id: post.id,
-                created_time: post.created_time.toString(),
+                created_time: post.created_time,
                 message: post.message,
                 full_picture: post.full_picture,
                 link: post.link,

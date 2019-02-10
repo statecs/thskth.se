@@ -92,7 +92,7 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
   }
 
   formatDate(created_time): string {
-    const date = new Date(created_time * 1000);
+    const date = new Date(created_time);
     return format(date, 'DD MMM YYYY') + ' at ' + format(date, 'hh:mma');
   }
 

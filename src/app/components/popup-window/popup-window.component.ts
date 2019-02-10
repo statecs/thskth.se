@@ -131,7 +131,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       if (self.layouts_container) {
         clearInterval(timer);
         self.containers = self.layouts_container.nativeElement.getElementsByClassName('content-container');
-        self.layouts_container.nativeElement.style.marginTop = '100px';
+        // self.layouts_container.nativeElement.style.marginTop = '100px';
         for (let i = 0; i < self.containers.length; i++) {
           self.containers[i].style.marginTop = '0';
         }

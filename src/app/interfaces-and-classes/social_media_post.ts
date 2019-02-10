@@ -6,7 +6,7 @@ interface User {
 }
 
 interface ISocialMediaPost extends BaseDataInterface {
-    created_time: number;
+    created_time: string;
     message: string;
     full_picture: string;
     link: string;
@@ -16,7 +16,7 @@ interface ISocialMediaPost extends BaseDataInterface {
 
 export class SocialMediaPost implements ISocialMediaPost {
     id: number;
-    created_time: number;
+    created_time: string;
     message: string;
     full_picture: string;
     link: string;

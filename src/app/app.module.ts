@@ -116,6 +116,8 @@ import { EventsMobileComponent } from './components/events-calendar/events-mobil
 import { EventsCardsComponent } from './components/events-calendar/events-cards/events-cards.component';
 import { EventsListComponent } from './components/events-calendar/events-list/events-list.component';
 import {SanitizeUrlPipe} from './pipes/sanitizeUrl.pipe';
+import {ChaptersService} from './services/wordpress/chapters.service';
+import {AssociationsService} from './services/wordpress/associations.service';
 
 
 @NgModule({
@@ -231,6 +233,8 @@ import {SanitizeUrlPipe} from './pipes/sanitizeUrl.pipe';
       InstagramPostService,
       FaqCategoriesService,
       FooterNavigationService,
+      ChaptersService,
+      AssociationsService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

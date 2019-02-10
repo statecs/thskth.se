@@ -25,20 +25,20 @@ export class InstagramPostService extends BaseDataService<SocialMediaPost> {
         _(post_list).each((post) => {
             if (!(post instanceof Array)) {
                 const user = {
-                    name: post.user.full_name,
-                    profile_image: post.user.profile_picture,
-                    link: 'https://www.instagram.com/' + post.user.username,
+                    name: '',
+                    profile_image: '../../../assets/images/insta_profile_pic.png',
+                    link: '',
                 };
                 let message = '';
                 if (post.caption) {
-                    message = post.caption.text;
+                    message = post.caption;
                 }
                 posts.push({
                     id: post.id,
-                    created_time: post.created_time.toString(),
+                    created_time: post.timestamp,
                     message: message,
-                    full_picture: post.images.standard_resolution.url,
-                    link: post.link,
+                    full_picture: post.media_url,
+                    link: post.permalink,
                     host: 'Instagram',
                     user: user,
                 });
