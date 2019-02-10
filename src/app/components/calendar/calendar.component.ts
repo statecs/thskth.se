@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import isSameMonth from 'date-fns/is_same_month/index';
 import isSameDay from 'date-fns/is_same_day/index';
 import { CalendarEvent } from 'angular-calendar';
@@ -35,7 +35,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
               private calendarCommunicationService: CalendarCommunicationService,
               private popupWindowCommunicationService: PopupWindowCommunicationService,
               private activatedRoute: ActivatedRoute,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
+              private notificationBarCommunicationService: NotificationBarCommunicationService,
+              private cdRef: ChangeDetectorRef) {
     this.view = 'month';
     this.activeDayIsOpen = false;
     this.viewDate = new Date();
@@ -127,6 +128,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.events$ = this.googleCalendarService.getAllEvents(this.viewDate, 'month').map(res => {
       const mergedArrays = this.mergeArrays(res);
       this.e_loading = false;
+      this.cdRef.detectChanges();
       return mergedArrays.sort(this.sortArrayByTime);
     },
     (error) => {

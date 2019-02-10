@@ -82,17 +82,13 @@ export class GoogleCalendarService {
     observables.push(this.futureCalendarService.getCalendar(params));
     observables.push(this.internationalCalendarService.getCalendar(params));
     observables.push(this.receptionCalendarService.getCalendar(params));
-
-    return Observable.combineLatest(observables).pipe(
-        mergeAll(),
-        map(values => {
+    return Observable.combineLatest(observables).map(values => {
             let events: Event[] = [];
             _.each(values, (value) => {
                 events = events.concat(value);
             });
             return events;
-        })
-    );
+        });
   }
 
   fetchEvents(calendarId, viewDate, view): Observable<Event[]> {
