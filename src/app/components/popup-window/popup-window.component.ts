@@ -52,6 +52,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   public navigateBack: boolean;
   public exit_btn1: boolean;
   public exit_btn2: boolean;
+  public show_page_not_found: boolean = false;
 
   constructor( private pagesService: PagesService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -149,6 +150,18 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   }
 
   hide_popup_window(): void {
+      this.showEvent = false;
+      this.top_position = 0;
+      this.showAssociation = false;
+      this.showArchive = false;
+      this.showFaq = false;
+      this.showPage = false;
+      this.loading = false;
+      this.navigateBack = true;
+      this.exit_btn1 = true;
+      this.exit_btn2 = false;
+      this.show_page_not_found = false;
+      this.page_data = null;
     this.appCommunicationService.collapseScrollOnPage('show');
     if (this.showPage || this.showArchive) {
       if (this.navigateBack) {
@@ -194,7 +207,12 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.showPage = true;
     this.show_popup_window();
     this.pageSubscription = this.pagesService.getPageBySlug(slug, this.lang).subscribe(res => {
-          this.page_data = res;
+          if (res) {
+              this.page_data = res;
+          }else {
+            this.show_page_not_found = true;
+          }
+
           this.loading = false;
         },
         (error) => {
