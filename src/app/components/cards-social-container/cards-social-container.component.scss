@@ -1,7 +1,7 @@
 @import "../../../style/utilities";
 
-.title{
-  font-size:$font-size-h2;
+.title {
+  font-size: $font-size-h2;
   margin-bottom: 10px;
   text-decoration: none;
   color: $color-link-secondary;
@@ -20,10 +20,10 @@
   height: auto;
   margin-bottom: 20px;
   line-height: 1.15;
-  .larger-devices{
+  .larger-devices {
     display: block !important;
   }
-  .mobile-devices{
+  .mobile-devices {
     display: none !important;
   }
   .one-fourth {
@@ -55,14 +55,14 @@
       box-shadow: 0 1px 5px #888888;
       margin-top: 10px;
       background-position: center;
-      .large-devices{
+      .large-devices {
         display: block;
       }
-      .mobile{
+      .mobile {
         display: none;
       }
-      .host{
-        i{
+      .host {
+        i {
           float: right;
           color: lightgray;
           font-size: $font-size-h2;
@@ -72,22 +72,22 @@
   }
 }
 
-.fetcher{
+.fetcher {
   height: 7px;
   background-color: gray;
   text-align: center;
   @include container-size($main-container);
   position: relative;
-  .plus-button{
+  .plus-button {
     @include circle(50px);
     color: white;
     background-color: gray;
-    font-size:$font-size-h2;
+    font-size: $font-size-h2;
     position: relative;
     display: inline-block;
     margin-top: -25px;
     cursor: pointer;
-    span{
+    span {
       @include center-content(50%, 50%);
       margin-top: -4px;
     }
@@ -112,8 +112,8 @@
   width: auto;
   color: black;
   background-color: transparent !important;
-  .user{
-    img{
+  .user {
+    img {
       @include circle(50px);
       vertical-align: middle;
       cursor: pointer;
@@ -121,21 +121,21 @@
       border: 1px solid lightgray;
       margin-bottom: 5px;
     }
-    & >div{
+    & > div {
       width: 80%;
       vertical-align: middle;
       display: inline-block;
-      h3{
+      h3 {
         font-size: $font-size-default;
         color: $color-link;
         font-weight: 600;
         cursor: pointer;
-        margin:0;
-        &:hover{
+        margin: 0;
+        &:hover {
           color: $color-link-hover;
         }
       }
-      span{
+      span {
         color: gray;
         margin-top: 7px;
         font-size: $font-size-h6;
@@ -143,7 +143,7 @@
       }
     }
   }
-  a{
+  a {
     text-decoration: none;
     @include capsule-button(10px, 5px);
     @include center-content(50%, 0%);
@@ -158,46 +158,45 @@
 :host /deep/ .single-event-card {
   height: 270px;
 
-  & >div{
+  & > div {
     height: 100%;
     //border: 1px solid;
     display: inline-block;
   }
 
-  .left-content{
+  .left-content {
     width: 58%;
     position: relative;
     padding: 20px;
-    .large-devices{
+    .large-devices {
       display: block;
     }
-    .mobile{
+    .mobile {
       display: none;
     }
-    .user{
-      img{
+    .user {
+      img {
         @include circle(50px);
         vertical-align: middle;
         cursor: pointer;
         display: inline-block;
-        border: 1px solid lightgray;
         margin-bottom: 5px;
       }
-      & >div{
+      & > div {
         width: 80%;
         vertical-align: middle;
         display: inline-block;
-        h3{
+        h3 {
           font-size: $font-size-default;
           color: $color-link;
           font-weight: 600;
           cursor: pointer;
-          margin:0;
-          &:hover{
+          margin: 0;
+          &:hover {
             color: $color-link-hover;
           }
         }
-        span{
+        span {
           color: gray;
           margin-top: 7px;
           font-size: $font-size-h6;
@@ -206,7 +205,7 @@
       }
     }
   }
-  .right-content{
+  .right-content {
     width: 42%;
     vertical-align: top;
     background-color: lightgray;
@@ -216,18 +215,18 @@
     color: white;
     background-position: center;
 
-    & >div{
+    & > div {
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.25);
       padding: 10px;
     }
 
-    &::after{
+    &::after {
       @include arrow-left(15px, #d3d3d3);
     }
 
-    a{
+    a {
       @include capsule-button(10px, 5px);
       @include center-content(50%, 50%);
       text-decoration: none;
@@ -240,101 +239,101 @@
 // ---------- Event Calendar card ---------- //
 :host /deep/ .event-calendar-card {
   height: 270px;
-  & >div{
+  & > div {
     height: 100%;
     //border: 1px solid;
     display: inline-block;
   }
 
-  .event-arrow-index1{
-    &::after{
+  .event-arrow-index1 {
+    &::after {
       top: 33% !important;
     }
   }
-  .event-arrow-index2{
-    &::after{
+  .event-arrow-index2 {
+    &::after {
       top: 61% !important;
     }
   }
-  .event-arrow-index3{
-    &::after{
+  .event-arrow-index3 {
+    &::after {
       top: 87% !important;
     }
   }
 
-  .left-content{
+  .left-content {
     width: 43%;
     vertical-align: top;
     background-color: lightgray;
     position: relative;
     padding: 0 20px;
 
-    &::after{
+    &::after {
       @include arrow-right(15px, #d3d3d3);
     }
-    h3{
+    h3 {
       font-size: $font-size-h3;
     }
-    span{
+    span {
       @include capsule-button(10px, 5px);
       cursor: pointer;
       margin-top: 10px;
     }
   }
-  .right-content{
+  .right-content {
     width: 50%;
     position: relative;
     float: right;
-      .event-wrapper{
-        @include center-vertically(50%);
-        width: 95%;
-        & >h4{
-          margin: 15px 0;
+    .event-wrapper {
+      @include center-vertically(50%);
+      width: 95%;
+      & > h4 {
+        margin: 15px 0;
+      }
+      & > a {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+        text-decoration: none;
+        color: $color-link;
+        &:hover {
+          color: $color-link-hover;
         }
-        & >a{
-          position: absolute;
-          bottom: 0;
-          right: 0;
+      }
+      .no-events {
+        color: $text-color-brown;
+      }
+      .event {
+        margin-bottom: 7px;
+        h6 {
+          margin: 0 0 5px 15px;
+        }
+        .date {
+          @include circle(50px);
+          display: inline-block;
+          position: relative;
+          background-color: lightgray;
+          vertical-align: middle;
           cursor: pointer;
-          text-decoration: none;
-          color: $color-link;
-          &:hover{
-            color: $color-link-hover;
+          span {
+            @include center-content(50%, 50%);
           }
         }
-        .no-events{
-          color: $text-color-brown;
-        }
-        .event{
-          margin-bottom: 7px;
-          h6{
-            margin: 0 0 5px 15px;
-          }
-          .date{
-            @include circle(50px);
-            display: inline-block;
-            position: relative;
-            background-color: lightgray;
-            vertical-align: middle;
+        .excerpt {
+          display: inline-block;
+          width: 70%;
+          right: 0;
+          margin-left: 10px;
+          vertical-align: middle;
+          span {
+            font-size: $font-size-h6;
+            font-weight: 600;
+            color: $color-link;
+            text-decoration: none;
             cursor: pointer;
-            span{
-              @include center-content(50%, 50%);
-            }
           }
-          .excerpt{
-            display: inline-block;
-            width: 70%;
-            right:0;
-            margin-left: 10px;
-            vertical-align: middle;
-            span{
-              font-size: $font-size-h6;
-              font-weight: 600;
-              color: $color-link;
-              text-decoration: none;
-              cursor: pointer;
-            }
-          }
+        }
       }
     }
   }
@@ -363,7 +362,7 @@
     width: 100%;
   }
 
-  .sub-masonry-layout_penal{
+  .sub-masonry-layout_penal {
     display: flex;
     flex: 0 1 auto;
     //margin-bottom: 10px;
@@ -381,12 +380,12 @@
       width: 100%;
       height: 100%;
 
-      .standard-card{
+      .standard-card {
         padding: 20px;
         height: 100%;
         width: auto;
 
-        a{
+        a {
           @include capsule-button(10px, 10px);
         }
       }
@@ -400,15 +399,15 @@
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.4);
   color: white;
-  .host{
-    i{
+  .host {
+    i {
       font-size: $font-size-h1 !important;
       opacity: 0.6;
     }
   }
-  .user{
+  .user {
     margin-top: 100px;
-    img{
+    img {
       @include circle(70px);
       vertical-align: middle;
       cursor: pointer;
@@ -416,31 +415,30 @@
       border: 1px solid lightgray;
       margin-bottom: 5px;
     }
-    & >div{
+    & > div {
       width: 80%;
       vertical-align: middle;
       display: inline-block;
-      h3{
+      h3 {
         font-size: $font-size-h3;
         color: $color-link-secondary;
         font-weight: 600;
         cursor: pointer;
-        margin:0;
+        margin: 0;
         text-shadow: 2px 2px rgba(0, 0, 0, 0.22);
-        &:hover{
+        &:hover {
           color: $color-link-secondary-hover;
         }
       }
-      span{
+      span {
         color: lightgrey;
         margin-top: 7px;
         font-size: $font-size-h6;
         display: block;
       }
     }
-
   }
-  a{
+  a {
     @include capsule-button(15px, 15px);
     text-decoration: none;
     margin-top: 20px;
@@ -469,16 +467,16 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
-  .title{
-    font-size:$font-size-h3;
+  .title {
+    font-size: $font-size-h3;
     width: 95%;
   }
   .masonry-layout {
     width: 100%;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    .mobile-devices{
+    .mobile-devices {
       display: block !important;
     }
     .one-fourth {
@@ -492,14 +490,14 @@
       .masonry-layout_panel-content {
         height: auto;
         .host {
-          i{
+          i {
             font-size: $font-size-h2;
           }
         }
-        .large-devices{
+        .large-devices {
           display: none;
         }
-        .mobile{
+        .mobile {
           display: block;
         }
       }
@@ -507,18 +505,18 @@
   }
   :host /deep/ .single-event-card {
     height: 200px;
-    .left-content{
+    .left-content {
       padding: 10px;
-      .large-devices{
+      .large-devices {
         display: none;
       }
-      .mobile{
+      .mobile {
         display: block;
       }
-      .user{
-        >div{
+      .user {
+        > div {
           width: 70%;
-          span{
+          span {
             font-size: $font-size-h8;
           }
         }
@@ -527,39 +525,39 @@
   }
   :host /deep/ .event-calendar-card {
     height: 200px;
-    .event-arrow-index1{
-      &::after{
+    .event-arrow-index1 {
+      &::after {
         top: 44% !important;
       }
     }
-    .event-arrow-index2{
-      &::after{
+    .event-arrow-index2 {
+      &::after {
         top: 75% !important;
       }
     }
-    .left-content{
+    .left-content {
       padding: 0 10px;
-      h3{
+      h3 {
         font-size: $font-size-h4;
         margin: 15px 0 5px;
       }
     }
-    .right-content{
-      .event-wrapper{
+    .right-content {
+      .event-wrapper {
         padding-bottom: 20px;
-        >h4{
+        > h4 {
           margin: 5px 0;
         }
-        .event{
-          .date{
+        .event {
+          .date {
             width: 40px;
             height: 40px;
           }
-          .excerpt{
+          .excerpt {
             width: 60%;
           }
         }
-        .event:nth-child(3){
+        .event:nth-child(3) {
           display: none !important;
         }
       }
@@ -568,29 +566,29 @@
   :host /deep/ .featured-card {
     height: 320px;
     padding: 15px;
-    .user{
+    .user {
       margin-top: 40px;
-      >div{
+      > div {
         width: 70%;
-        h3{
+        h3 {
           font-size: $font-size-h4;
         }
       }
-      img{
+      img {
         width: 60px;
         height: 60px;
       }
     }
-    p{
+    p {
       font-size: $font-size-default;
       margin-top: 5px;
     }
-    .host{
-      i{
+    .host {
+      i {
         font-size: $font-size-h2 !important;
       }
     }
-    a{
+    a {
       padding: 7px;
       margin-top: 15px;
     }
@@ -606,16 +604,16 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
-  .title{
-    font-size:$font-size-h3;
+  .title {
+    font-size: $font-size-h3;
     width: 95%;
   }
   .masonry-layout {
     width: 100%;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    .mobile-devices{
+    .mobile-devices {
       display: block !important;
     }
     .one-fourth {
@@ -629,14 +627,14 @@
       .masonry-layout_panel-content {
         height: auto;
         .host {
-          i{
+          i {
             font-size: $font-size-h2;
           }
         }
-        .large-devices{
+        .large-devices {
           display: none;
         }
-        .mobile{
+        .mobile {
           display: block;
         }
       }
@@ -644,18 +642,18 @@
   }
   :host /deep/ .single-event-card {
     height: 200px;
-    .left-content{
+    .left-content {
       padding: 10px;
-      .large-devices{
+      .large-devices {
         display: none;
       }
-      .mobile{
+      .mobile {
         display: block;
       }
-      .user{
-        >div{
+      .user {
+        > div {
           width: 70%;
-          span{
+          span {
             font-size: $font-size-h8;
           }
         }
@@ -664,39 +662,39 @@
   }
   :host /deep/ .event-calendar-card {
     height: 200px;
-    .event-arrow-index1{
-      &::after{
+    .event-arrow-index1 {
+      &::after {
         top: 44% !important;
       }
     }
-    .event-arrow-index2{
-      &::after{
+    .event-arrow-index2 {
+      &::after {
         top: 75% !important;
       }
     }
-    .left-content{
+    .left-content {
       padding: 0 10px;
-      h3{
+      h3 {
         font-size: $font-size-h4;
         margin: 15px 0 5px;
       }
     }
-    .right-content{
-      .event-wrapper{
+    .right-content {
+      .event-wrapper {
         padding-bottom: 20px;
-        >h4{
+        > h4 {
           margin: 5px 0;
         }
-        .event{
-          .date{
+        .event {
+          .date {
             width: 40px;
             height: 40px;
           }
-          .excerpt{
+          .excerpt {
             width: 60%;
           }
         }
-        .event:nth-child(3){
+        .event:nth-child(3) {
           display: none !important;
         }
       }
@@ -705,32 +703,32 @@
   :host /deep/ .featured-card {
     height: 320px;
     padding: 20px;
-    .user{
+    .user {
       margin-top: 40px;
-      >div{
+      > div {
         width: 70%;
-        span{
+        span {
           font-size: $font-size-default;
         }
-        h3{
+        h3 {
           font-size: $font-size-h4;
         }
       }
-      img{
+      img {
         width: 60px;
         height: 60px;
       }
     }
-    p{
+    p {
       font-size: $font-size-default;
       margin-top: 5px;
     }
-    .host{
-      i{
+    .host {
+      i {
         font-size: $font-size-h2 !important;
       }
     }
-    a{
+    a {
       padding: 10px;
       margin-top: 20px;
     }
@@ -746,16 +744,16 @@
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
-  .title{
-    font-size:$font-size-h3;
+  .title {
+    font-size: $font-size-h3;
     width: 95%;
   }
   .masonry-layout {
     width: 100%;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    .mobile-devices{
+    .mobile-devices {
       display: inline-block !important;
     }
     .one-fourth {
@@ -768,14 +766,14 @@
       .masonry-layout_panel-content {
         height: auto;
         .host {
-          i{
+          i {
             font-size: $font-size-h2;
           }
         }
-        .large-devices{
+        .large-devices {
           display: none;
         }
-        .mobile{
+        .mobile {
           display: block;
         }
       }
@@ -783,18 +781,18 @@
   }
   :host /deep/ .single-event-card {
     height: 200px;
-    .left-content{
+    .left-content {
       padding: 10px;
-      .large-devices{
+      .large-devices {
         display: none;
       }
-      .mobile{
+      .mobile {
         display: block;
       }
-      .user{
-        >div{
+      .user {
+        > div {
           width: 70%;
-          span{
+          span {
             font-size: $font-size-h8;
           }
         }
@@ -803,39 +801,39 @@
   }
   :host /deep/ .event-calendar-card {
     height: 200px;
-    .event-arrow-index1{
-      &::after{
+    .event-arrow-index1 {
+      &::after {
         top: 44% !important;
       }
     }
-    .event-arrow-index2{
-      &::after{
+    .event-arrow-index2 {
+      &::after {
         top: 75% !important;
       }
     }
-    .left-content{
+    .left-content {
       padding: 0 10px;
-      h3{
+      h3 {
         font-size: $font-size-h4;
         margin: 15px 0 5px;
       }
     }
-    .right-content{
-      .event-wrapper{
+    .right-content {
+      .event-wrapper {
         padding-bottom: 20px;
-        >h4{
+        > h4 {
           margin: 5px 0;
         }
-        .event{
-          .date{
+        .event {
+          .date {
             width: 40px;
             height: 40px;
           }
-          .excerpt{
+          .excerpt {
             width: 60%;
           }
         }
-        .event:nth-child(3){
+        .event:nth-child(3) {
           display: none !important;
         }
       }
@@ -844,32 +842,32 @@
   :host /deep/ .featured-card {
     height: 320px;
     padding: 15px;
-    .user{
+    .user {
       margin-top: 40px;
-      >div{
+      > div {
         width: 70%;
-        span{
+        span {
           font-size: $font-size-default;
         }
-        h3{
+        h3 {
           font-size: $font-size-h4;
         }
       }
-      img{
+      img {
         width: 60px;
         height: 60px;
       }
     }
-    p{
+    p {
       font-size: $font-size-default;
       margin-top: 5px;
     }
-    .host{
-      i{
+    .host {
+      i {
         font-size: $font-size-h2 !important;
       }
     }
-    a{
+    a {
       padding: 10px;
       margin-top: 20px;
     }
@@ -885,15 +883,12 @@
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
-  .title{
-
+  .title {
   }
 
   .masonry-layout {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }
