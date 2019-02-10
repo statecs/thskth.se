@@ -53,7 +53,7 @@ export class CardsService extends WordpressBaseDataService<Card> {
     }else if (type === 'interest') {
       url = this.config.CARD_CATEGORY_INT;
     }
-    return this.getDataByURL('?order=desc&lang=' + lang, url)
+    return this.getDataByURL('order=desc&lang=' + lang, url)
         // Cast response data to card type
         .map((res: Array<any>) => {
           const cats: CardCategory[] = [];

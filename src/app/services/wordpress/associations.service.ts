@@ -23,13 +23,13 @@ export class AssociationsService extends WordpressBaseDataService<Association> {
         }
     }
     getAssociationBySlug(slug, lang: string): Observable<Association[]> {
-        return this.getDataBySlug('slug=' + slug + '' + '&lang=' + lang)
+        return this.getDataBySlug('slug=' + slug + '&_embed' + '&lang=' + lang)
         // Cast response data to FAQ Category type
             .map((res: any) => { return Association.convertToAssociationType(res); });
     }
 
     getAssociations(lang: string): Observable<Association[]> {
-        return this.getData('?per_page=100' + '&lang=' + lang)
+        return this.getData('?per_page=100&_embed' + '&lang=' + lang)
         // Cast response data to FAQ Category type
             .map((res: any) => { return Association.convertToAssociationType(res); });
     }
