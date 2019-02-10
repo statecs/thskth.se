@@ -78,7 +78,7 @@
                     </div>
                     <div class="right-content">
                         <div class="event-wrapper">
-                            <h4>{{(lang === 'en' ? ths_calendars[selected_event_category].title.en : ths_calendars[selected_event_category].title.sv)}}</h4>
+                            <h4>{{(lang === 'en' ? ths_calendars[selected_event_category]?.title.en : ths_calendars[selected_event_category]?.title.sv)}}</h4>
                             <div *ngFor="let e of events, let i = index" class="event">
                                 <h6>{{getMonth(e.start)}}</h6>
                                 <div class="date" (click)="selectEvent(i)">
