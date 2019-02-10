@@ -5,7 +5,7 @@
       <div class="exit-popup-btn" (click)="hide_popup_window()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
       <app-loader *ngIf="loading"></app-loader>
       <!-- ---------- Page layout ---------- -->
-      <div *ngIf="showPage && !loading" class="default-layout">
+      <div *ngIf="showPage && page_data && !loading" class="default-layout">
         <div class="header-image">
           <img *ngIf="page_data?.header.header_image" src="{{page_data?.header.header_image}}" alt="Header image">
           <div *ngIf="!page_data?.header.header_image && page_data?.header.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data?.header.header_color}"></div>
@@ -127,6 +127,9 @@
           </div>
         </div>
       </div>
+
+      <!-- ---------- Page not found ---------- -->
+      <app-page-not-found *ngIf="show_page_not_found"></app-page-not-found>
     </div>
 
   </div>
