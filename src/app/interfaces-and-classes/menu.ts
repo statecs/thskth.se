@@ -17,8 +17,8 @@ export class MenuItem implements IMenuItem {
 
     static convertToplevelToMenuItem2Type(res): MenuItem[] {
         const topLevel_menu: Array<MenuItem> = [];
-        if (res.items) {
-            for (const item of res.items) {
+        if (res) {
+            for (const item of res) {
                 topLevel_menu.push({
                     id: item.id,
                     object_slug : item.object_slug,
@@ -103,8 +103,8 @@ export class MainMenuItem implements IMainMenuItem {
     // Cast response data to MenuItem type
     static convertToMenuItemType(res) {
         const menu: Array<MainMenuItem> = [];
-        if (res.items) {
-            for (const item of res.items) {
+        if (res) {
+            for (const item of res) {
                 const menu_item_children = [];
                 if (item.children) {
                     item.children.forEach(i_child => {

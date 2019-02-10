@@ -35,16 +35,17 @@ export class FooterNavigationService extends WordpressBaseDataService<MenuItem> 
             this.footer_menu = localStorage.getItem('footer_menu_en');
         }
         if (this.footer_menu) {
-            return Observable.of(MainMenuItem.convertToMenuItemType(JSON.parse(this.footer_menu)));
+            return Observable.of(JSON.parse(this.footer_menu));
         }
         return this.getData(null, '?order=desc&lang=' + this.language)
-            .map((res: Array<any>) => {
+            .map((res: any) => {
+                const items = MainMenuItem.convertToMenuItemType(res.items);
                 if (lang === 'sv') {
-                    localStorage.setItem('footer_menu_sv', JSON.stringify(res));
+                    localStorage.setItem('footer_menu_sv', JSON.stringify(items));
                 }else {
-                    localStorage.setItem('footer_menu_en', JSON.stringify(res));
+                    localStorage.setItem('footer_menu_en', JSON.stringify(items));
                 }
-                return MainMenuItem.convertToMenuItemType(res);
+                return items;
             });
     }
 }
