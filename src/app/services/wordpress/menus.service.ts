@@ -31,14 +31,14 @@ export class MenusService extends WordpressBaseDataService<MenuItem> {
 
   get_secondarySubMenu(subMenu_slug: string, secondary_subMenu_slug: string, lang: string): Observable<MenuItem[]> {
       return this.getTopLevel_mainMenu(lang).map((res) => {
-        return MenuItem.convertToSecondarySubMenu(this.menus_meta.items, subMenu_slug, secondary_subMenu_slug);
+        return MenuItem.convertToSecondarySubMenu(res, subMenu_slug, secondary_subMenu_slug);
       });
   }
 
   get_mainSubMenu(object_slug: string, lang: string): Observable<MenuItem[]> {
     this.language = lang;
       return this.getTopLevel_mainMenu(this.language).map((res) => {
-        return MenuItem.convertToMainSubMenu(this.menus_meta.items, object_slug);
+        return MenuItem.convertToMainSubMenu(res, object_slug);
       });
   }
 
@@ -49,22 +49,23 @@ export class MenusService extends WordpressBaseDataService<MenuItem> {
       this.menus_meta = localStorage.getItem('menus_meta_en');
     }
     if (this.menus_meta) {
-      return Observable.of(MenuItem.convertToplevelToMenuItem2Type(JSON.parse(this.menus_meta)));
+      return Observable.of(JSON.parse(this.menus_meta));
     }else {
       return this.getData(null, 'order=desc&lang=' + lang)
           // Cast response data to card type
-          .map((res: Array<any>) => {
-              return this.handleResponse(res, lang);
+          .map((res: any) => {
+              return this.handleResponse(res.items, lang);
           });
     }
   }
 
   handleResponse(res: any, lang): MenuItem[] {
-    if (lang === 'sv') {
-      localStorage.setItem('menus_meta_sv', JSON.stringify(res));
-    }else {
-      localStorage.setItem('menus_meta_en', JSON.stringify(res));
-    }
-    return MenuItem.convertToplevelToMenuItem2Type(res);
+      res = MenuItem.convertToplevelToMenuItem2Type(res);
+      if (lang === 'sv') {
+        localStorage.setItem('menus_meta_sv', JSON.stringify(res));
+      }else {
+        localStorage.setItem('menus_meta_en', JSON.stringify(res));
+      }
+      return res;
   }
 }
