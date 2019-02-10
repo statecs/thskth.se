@@ -26,7 +26,7 @@ export class FacebookPostService extends BaseDataService<SocialMediaPost> {
 
     private castFBResSMPType(post_list): SocialMediaPost[] {
         const posts: SocialMediaPost[] = [];
-        post_list.forEach((post) => {
+        _(post_list).each((post) => {
             const user = {
                 name: post.from.name,
                 profile_image: 'http://graph.facebook.com/' + post.from.id + '/picture?type=square',

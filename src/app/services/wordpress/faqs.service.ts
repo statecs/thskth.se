@@ -36,7 +36,6 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
     return this.faqCategoriesService.getFAQParentCategories(this.language).flatMap(categories => {
           return Observable.forkJoin(categories.map((category) => {
             return this.dataFetcherService.get(this.config.FAQs_URL + '?order=asc&per_page=' + amount + '&faq_category=' + category.id + '&lang=' + this.language)
-            .map(res => res.json())
                 .map((res) => {
                   let cat_slug = '';
                   if (category.slug) {
