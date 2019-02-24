@@ -50,7 +50,10 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
           if (val instanceof RoutesRecognized) {
               this.lang = val.state.root.firstChild.params['lang'];
               if (typeof this.lang === 'undefined') {
-                  this.lang = 'en';
+                  this.lang = val.state.root.firstChild.data['lang'];
+                  if (!this.lang) {
+                      this.lang = 'en';
+                  }
               }else if (this.lang !== 'en' && this.lang !== 'sv') {
                   this.lang = 'en';
               }

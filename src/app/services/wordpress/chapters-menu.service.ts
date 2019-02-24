@@ -37,7 +37,7 @@ export class ChaptersMenuService extends WordpressBaseDataService<ChapterMenu> {
         if (this.chapters_menu) {
             return Observable.of(JSON.parse(this.chapters_menu));
         }
-        return this.getData(null, '?order=desc&lang=' + this.language)
+        return this.getData(null, 'order=desc&lang=' + this.language)
             .map((res: any) => {
                 const items = ChapterMenu.convertMenuToChapterMenuType(res.items);
                 if (lang === 'sv') {
