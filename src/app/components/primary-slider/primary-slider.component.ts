@@ -130,7 +130,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     }
   }
 
-  togglePlay(e): void {
+  togglePlay(): void {
     this.video = this.video_player.nativeElement;
     clearInterval(this.mainSlide_timer);
     const el = this.playButton.nativeElement;
@@ -139,11 +139,12 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       el.innerHTML = 'pause_circle_outline';
       this.hideControls();
     }else {
-      this.pauseVideo(el);
+      this.pauseVideo();
     }
   }
 
-  pauseVideo(el): void {
+  pauseVideo(): void {
+    const el = this.playButton.nativeElement;
     this.video.pause();
     el.innerHTML = 'play_circle_outline';
     this.showControls();
@@ -188,7 +189,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   showSelectedSlide(slideNumber): void {
     this.slideIndex = slideNumber;
     if (!this.video.paused) {
-      this.pauseVideo(this.playButton.nativeElement);
+      this.pauseVideo();
     }
       clearInterval(this.mainSlide_timer);
       if (this.slideshow_play_btn === 'pause') {
