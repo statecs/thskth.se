@@ -5,7 +5,7 @@
         <a routerLink="{{lang}}/news" class="more-btn">{{see_more}}</a>
       </div>
     </div>
-    <div *ngFor="let item of slide_items, let i = index" class="slide" [style.backgroundImage]="'url(' + getBgUrl(item.image) + ')'" (click)="switchSlide(item, i)" [ngClass]="{'item_onfocus': item_onfocus_index === i}">
+    <div *ngFor="let item of slide_items, let i = index" class="slide"  [ngStyle]="{'background-image': (item.image.large ? 'url(' + getBgUrl(item.image) + ')' : 'none')}" (click)="switchSlide(item, i)" [ngClass]="{'item_onfocus': item_onfocus_index === i}">
       <div class="content-container">
         <div class="content">
           <h2 *ngIf="item.title.length <= 70">{{item.title}}</h2>
@@ -31,7 +31,7 @@
         <a routerLink="/news" class="more-btn">{{see_more}}</a>
       </div>
     </div>
-    <div *ngFor="let item of slide_items, let i = index" (click)="goToPage(item, item.slug)" class="slide" [style.backgroundImage]="'url(' + getBgUrl(item.image) + ')'">
+    <div *ngFor="let item of slide_items, let i = index" (click)="goToPage(item, item.slug)" class="slide"  [ngStyle]="{'background-image': (item.image.large ? 'url(' + getBgUrl(item.image) + ')' : 'none')}">
       <div class="content-container">
         <div class="content">
           <h2>{{item.title | cardText:50}}</h2>

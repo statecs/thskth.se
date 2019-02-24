@@ -1,5 +1,5 @@
 import {Component, OnInit, Renderer2, ViewChild, ElementRef, Input} from '@angular/core';
-import {Association} from '../../interfaces/chapters_associations';
+import {Association} from '../../interfaces-and-classes/chapters_associations';
 import {Router} from '@angular/router';
 
 @Component({

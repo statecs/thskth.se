@@ -31,6 +31,13 @@ footer {
       color: $color-white;
       font-size: $font-size-h8;
       padding: 40px 0;
+      a {
+        text-decoration: none;
+        color: #45b8da;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }

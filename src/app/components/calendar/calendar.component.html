@@ -1,7 +1,7 @@
 <div class="categories">
-    <div class="cat-wrapper">
-        <div class="item" (click)="switchCalendar(-1)" [ngClass]="{'selected': selected_event_category === -1}">{{(lang === 'en' ? 'All' : 'Alla')}}</div>
-        <div *ngFor="let c of ths_calendars, let i = index" class="item" (click)="switchCalendar(i)" [ngClass]="{'selected': selected_event_category === i}">{{(lang === 'en' ? c.title.en : c.title.sv)}}</div>
+    <div *ngIf="calendar_names" class="cat-wrapper">
+        <div class="item" (click)="switchCalendar(null)" [ngClass]="{'selected': selected_event_category === -1}">{{(lang === 'en' ? 'All' : 'Alla')}}</div>
+        <div *ngFor="let cName of calendar_names, let i = index" class="item" (click)="switchCalendar(cName)" [ngClass]="{'selected': selected_event_category === cName}">{{(lang === 'en' ? ths_calendars[cName].title.en : ths_calendars[cName].title.sv)}}</div>
     </div>
 </div>
 

@@ -1,29 +1,35 @@
-import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
-import { ArchiveService } from '../../services/wordpress/archive.service';
-import { Router, ActivatedRoute, Params} from '@angular/router';
-import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
-import { Location } from '@angular/common';
-import {Archive, SearchParams} from '../../interfaces/archive';
-import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
-import format from 'date-fns/format/index';
-import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
-import {Subscription} from 'rxjs/Subscription';
-import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
-import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
-import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild
+} from "@angular/core";
+import { ArchiveService } from "../../services/wordpress/archive.service";
+import { Router, ActivatedRoute, Params } from "@angular/router";
+import { HrefToSlugPipe } from "../../pipes/href-to-slug.pipe";
+import { Location } from "@angular/common";
+import { Archive, SearchParams } from "../../interfaces-and-classes/archive";
+import { PopupWindowCommunicationService } from "../../services/component-communicators/popup-window-communication.service";
+import * as format from "date-fns/format";
+import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
+import { Subscription } from "rxjs/Subscription";
+import { TitleCommunicationService } from "../../services/component-communicators/title-communication.service";
+import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
+import { HideUICommunicationService } from "../../services/component-communicators/hide-ui-communication.service";
 
 @Component({
-  selector: 'app-archive',
-  templateUrl: './archive.component.html',
-  styleUrls: ['./archive.component.scss']
+  selector: "app-archive",
+  templateUrl: "./archive.component.html",
+  styleUrls: ["./archive.component.scss"]
 })
 export class ArchiveComponent implements OnInit, OnDestroy {
-
-  @ViewChild('searchForm') searchForm: ElementRef;
-  @ViewChild('filter_icon') filter_icon: ElementRef;
-/*  @ViewChild('filters') filters: ElementRef;*/
-  @ViewChild('searchField') searchField: ElementRef;
-  @ViewChild('resultsDropdownList') resultsDropdownList: ElementRef;
+  @ViewChild("searchForm") searchForm: ElementRef;
+  @ViewChild("filter_icon") filter_icon: ElementRef;
+  /*  @ViewChild('filters') filters: ElementRef;*/
+  @ViewChild("searchField") searchField: ElementRef;
+  @ViewChild("resultsDropdownList") resultsDropdownList: ElementRef;
 
   public postsChecked: boolean;
   public pageChecked: boolean;
@@ -61,23 +67,32 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   public slug: string;
   public showMostSearchTerms: boolean;
 
-  constructor(private archiveService: ArchiveService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private location: Location,
-              private renderer: Renderer2,
-              private popupWindowCommunicationService: PopupWindowCommunicationService,
-              private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private titleCommunicationService: TitleCommunicationService,
-              private headerCommunicationService: HeaderCommunicationService,
-              private hideUICommunicationService: HideUICommunicationService) {
+  constructor(
+    private archiveService: ArchiveService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private location: Location,
+    private renderer: Renderer2,
+    private popupWindowCommunicationService: PopupWindowCommunicationService,
+    private notificationBarCommunicationService: NotificationBarCommunicationService,
+    private titleCommunicationService: TitleCommunicationService,
+    private headerCommunicationService: HeaderCommunicationService,
+    private hideUICommunicationService: HideUICommunicationService
+  ) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
     this.showFilterOptions = false;
     this.searchOnFocus = false;
     //this.searchTerm = '';
-    this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
+    this.mostSearchTerms = [
+      "Membership",
+      "THS card",
+      "Career",
+      "Student",
+      "Contact",
+      "News"
+    ];
     this.hrefToSlugPipeFilter = new HrefToSlugPipe();
     this.documentResults = [];
     this.searchResults = [];
@@ -93,31 +108,32 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.zipChecked = true;
     this.pdfChecked = true;
     this.categoryID = 0;
-    this.start_date = '2014-09-24';
-    this.end_date = format(new Date(), 'YYYY-MM-DD');
-    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      this.lang = params['lang'];
-      if (typeof this.lang === 'undefined') {
-        this.lang = 'en';
-      }else if (this.lang !== 'en' && this.lang !== 'sv') {
-        this.pageNotFound = true;
-        this.lang = 'en';
+    this.start_date = "2014-09-24";
+    this.end_date = format(new Date(), "YYYY-MM-DD");
+    this.paramsSubscription = this.activatedRoute.params.subscribe(
+      (params: Params) => {
+        this.lang = params["lang"];
+        if (typeof this.lang === "undefined") {
+          this.lang = "en";
+        } else if (this.lang !== "en" && this.lang !== "sv") {
+          this.pageNotFound = true;
+          this.lang = "en";
+        }
+        if (this.lang === "sv") {
+          this.titleCommunicationService.setTitle("Arkiv");
+        } else {
+          this.titleCommunicationService.setTitle("Archives");
+        }
       }
-      if (this.lang === 'sv') {
-        this.titleCommunicationService.setTitle('Arkiv');
-      }else {
-        this.titleCommunicationService.setTitle('Archives');
-      }
-    });
+    );
   }
-
 
   showDocumentInPopup(item): void {
     this.popupWindowCommunicationService.showArchiveInPopup(item);
-    if (this.lang === 'sv') {
-      this.location.go('sv/archive/' + item.slug);
-    }else {
-      this.location.go('en/archive/' + item.slug);
+    if (this.lang === "sv") {
+      this.location.go("sv/archive/" + item.slug);
+    } else {
+      this.location.go("en/archive/" + item.slug);
     }
   }
 
@@ -138,12 +154,12 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     if (this.displayedDropdown) {
       this.hideAllDropdown();
-    }else {
-      this.dropdowns[param - 1].style.display = 'block';
+    } else {
+      this.dropdowns[param - 1].style.display = "block";
       this.displayedDropdown = true;
     }
     if (this.displayedDropdownID !== param) {
-      this.dropdowns[param - 1].style.display = 'block';
+      this.dropdowns[param - 1].style.display = "block";
       this.displayedDropdown = true;
     }
     this.displayedDropdownID = param;
@@ -151,7 +167,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
   hideAllDropdown(): void {
     for (let i = 0; i < this.dropdowns.length; i++) {
-      this.dropdowns[i].style.display = 'none';
+      this.dropdowns[i].style.display = "none";
     }
     this.displayedDropdown = false;
   }
@@ -172,11 +188,11 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
   liveSearch(event): void {
     this.documentsLoading = true;
-    if (event.keyCode !== 13 && this.searchTerm !== '') {
+    if (event.keyCode !== 13 && this.searchTerm !== "") {
       this.searchResults = [];
       this.showMostSearchTerms = false;
       const self = this;
-      const timer = setTimeout(function () {
+      const timer = setTimeout(function() {
         self.showResultsDropdown = true;
         clearTimeout(timer);
       }, 50);
@@ -184,13 +200,13 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.showResults = false;
       this.search();
     }
-    if (this.searchTerm === '') {
+    if (this.searchTerm === "") {
       this.searchResults = [];
       this.showMostSearchTerms = true;
-      if (this.lang === 'sv') {
-        this.location.go('sv/archive?q=');
-      }else {
-        this.location.go('en/archive?q=');
+      if (this.lang === "sv") {
+        this.location.go("sv/archive?q=");
+      } else {
+        this.location.go("en/archive?q=");
       }
       this.documentsLoading = false;
       this.showResultsDropdown = false;
@@ -201,12 +217,11 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     if (this.postsChecked) {
       this.searchDocuments();
     }
-    if (this.lang === 'sv') {
-      this.location.go('sv/archive?q=' + this.searchTerm);
-    }else {
-      this.location.go('en/archive?q=' + this.searchTerm);
+    if (this.lang === "sv") {
+      this.location.go("sv/archive?q=" + this.searchTerm);
+    } else {
+      this.location.go("en/archive?q=" + this.searchTerm);
     }
-
   }
 
   searchDocuments(): void {
@@ -217,16 +232,19 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       start_date: this.start_date,
       end_date: this.end_date
     };
-    this.documentsSubscription = this.archiveService.searchDocuments(searchParams, this.lang).subscribe(
-        (res) => {
+    this.documentsSubscription = this.archiveService
+      .searchDocuments(searchParams, this.lang)
+      .subscribe(
+        res => {
           this.documentsLoading = false;
           this.searchResults = [];
           this.searchResults = res;
         },
-        (error) => {
+        error => {
           this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
-        });
+        }
+      );
   }
 
   getDocument(): void {
@@ -237,16 +255,19 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       start_date: this.start_date,
       end_date: this.end_date
     };
-    this.documentsSubscription = this.archiveService.searchDocuments(searchParams, this.lang).subscribe(
-        (res) => {
+    this.documentsSubscription = this.archiveService
+      .searchDocuments(searchParams, this.lang)
+      .subscribe(
+        res => {
           this.documentResults = res;
           this.showResults = true;
           this.documentsLoading = false;
         },
-        (error) => {
+        error => {
           this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
-        });
+        }
+      );
   }
 
   selectTerm(term): void {
@@ -259,7 +280,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
 
   toggleSearchFocus(): void {
-    (this.searchOnFocus ? this.searchOnFocus = false : this.searchOnFocus = true);
+    this.searchOnFocus
+      ? (this.searchOnFocus = false)
+      : (this.searchOnFocus = true);
   }
 
   downloadFile(url: string) {
@@ -267,49 +290,62 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
 
   getDocuments(): void {
-    this.documentsSubscription2 = this.archiveService.getDocuments(10, this.lang).subscribe(
-        (res) => {
+    this.documentsSubscription2 = this.archiveService
+      .getDocuments(10, this.lang)
+      .subscribe(
+        res => {
           this.documentsLoading = false;
           this.documentResults = res;
           this.latestDocuments = res;
         },
-        (error) => {
+        error => {
           this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
-        });
+        }
+      );
   }
 
   getArchiveBySlug(): void {
-    this.documentsSubscription2 = this.archiveService.getArchiveBySlug(this.slug, this.lang).subscribe(
-        (res) => {
+    this.documentsSubscription2 = this.archiveService
+      .getArchiveBySlug(this.slug, this.lang)
+      .subscribe(
+        res => {
           this.popupWindowCommunicationService.showArchiveInPopup(res);
         },
-        (error) => {
+        error => {
           this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
-        });
+        }
+      );
   }
 
   ngOnInit() {
     this.headerCommunicationService.tranparentHeader(false);
     if (!this.pageNotFound) {
-      this.paramsSubscription2 = this.activatedRoute.params.subscribe((params: Params) => {
-        this.pageNotFound = false;
-        this.slug = params['slug'];
-        this.popupWindowCommunicationService.showLoader();
-        if (this.slug !== 'undefined' && typeof this.slug !== 'undefined') {
-          this.getDocuments();
-          this.getArchiveBySlug();
+      this.paramsSubscription2 = this.activatedRoute.params.subscribe(
+        (params: Params) => {
+          this.pageNotFound = false;
+          this.slug = params["slug"];
+          this.popupWindowCommunicationService.showLoader();
+          if (this.slug !== "undefined" && typeof this.slug !== "undefined") {
+            this.getDocuments();
+            this.getArchiveBySlug();
+          }
         }
-      });
+      );
 
-      this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
-        this.searchTerm = params['q'];
-        if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
-          //this.submitSearch();
-          this.getDocument();
+      this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe(
+        (params: Params) => {
+          this.searchTerm = params["q"];
+          if (
+            this.searchTerm !== "undefined" &&
+            typeof this.searchTerm !== "undefined"
+          ) {
+            //this.submitSearch();
+            this.getDocument();
+          }
         }
-      });
+      );
       const self = this;
       /*      const timer = setInterval(function () {
         if (self.filters) {
@@ -318,15 +354,15 @@ export class ArchiveComponent implements OnInit, OnDestroy {
         }
       }, 100);*/
 
-      const timer2 = setInterval(function () {
+      const timer2 = setInterval(function() {
         if (self.searchField) {
           clearInterval(timer2);
-          self.renderer.listen(self.searchField.nativeElement, 'search', () => {
-            if (self.searchTerm === '') {
-              if (self.lang === 'sv') {
-                self.location.go('sv/archive?q=' + self.searchTerm);
-              }else {
-                self.location.go('en/archive?q=' + self.searchTerm);
+          self.renderer.listen(self.searchField.nativeElement, "search", () => {
+            if (self.searchTerm === "") {
+              if (self.lang === "sv") {
+                self.location.go("sv/archive?q=" + self.searchTerm);
+              } else {
+                self.location.go("en/archive?q=" + self.searchTerm);
               }
               self.showFilters = true;
               self.showResults = false;
@@ -337,20 +373,28 @@ export class ArchiveComponent implements OnInit, OnDestroy {
         }
       }, 100);
 
-      if (this.searchTerm === 'undefined' || typeof this.searchTerm === 'undefined') {
+      if (
+        this.searchTerm === "undefined" ||
+        typeof this.searchTerm === "undefined"
+      ) {
         this.getDocuments();
       }
 
-      this.end_date = format(new Date(), 'YYYY-MM-DD');
+      this.end_date = format(new Date(), "YYYY-MM-DD");
     }
 
-    this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe((event) => {
-      if (this.showResultsDropdown) {
-        if (this.resultsDropdownList.nativeElement !== event.target && !this.resultsDropdownList.nativeElement.contains(event.target)) {
-          this.showResultsDropdown = false;
+    this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(
+      event => {
+        if (this.showResultsDropdown) {
+          if (
+            this.resultsDropdownList.nativeElement !== event.target &&
+            !this.resultsDropdownList.nativeElement.contains(event.target)
+          ) {
+            this.showResultsDropdown = false;
+          }
         }
       }
-    });
+    );
   }
 
   ngOnDestroy() {

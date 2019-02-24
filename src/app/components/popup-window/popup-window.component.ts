@@ -1,17 +1,24 @@
-import {Component, OnInit, HostListener, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
-import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
-import { Event } from '../../interfaces/event';
-import format from 'date-fns/format/index';
-import { AppCommunicationService } from '../../services/component-communicators/app-communication.service';
-import {Location} from '@angular/common';
-import {Association} from '../../interfaces/chapters_associations';
-import {Archive} from '../../interfaces/archive';
-import {FAQ} from '../../interfaces/faq';
-import {Router, RoutesRecognized} from '@angular/router';
-import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
-import {PagesService} from '../../services/wordpress/pages.service';
-import {Post} from '../../interfaces/post';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  ViewChild,
+  ElementRef,
+  OnDestroy
+} from "@angular/core";
+import { Subscription } from "rxjs/Subscription";
+import { PopupWindowCommunicationService } from "../../services/component-communicators/popup-window-communication.service";
+import { Event } from "../../interfaces-and-classes/event";
+import * as format from "date-fns/format";
+import { AppCommunicationService } from "../../services/component-communicators/app-communication.service";
+import { Location } from "@angular/common";
+import { Association } from "../../interfaces-and-classes/chapters_associations";
+import { Archive } from "../../interfaces-and-classes/archive";
+import { FAQ } from "../../interfaces-and-classes/faq";
+import { Router, RoutesRecognized } from "@angular/router";
+import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
+import { PagesService } from "../../services/wordpress/pages.service";
+import { Post } from "../../interfaces-and-classes/post";
 
 @Component({
   selector: 'app-popup-window',
@@ -52,6 +59,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   public navigateBack: boolean;
   public exit_btn1: boolean;
   public exit_btn2: boolean;
+  public show_page_not_found: boolean = false;
 
   constructor( private pagesService: PagesService,
                private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -131,7 +139,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       if (self.layouts_container) {
         clearInterval(timer);
         self.containers = self.layouts_container.nativeElement.getElementsByClassName('content-container');
-        self.layouts_container.nativeElement.style.marginTop = '100px';
+        // self.layouts_container.nativeElement.style.marginTop = '100px';
         for (let i = 0; i < self.containers.length; i++) {
           self.containers[i].style.marginTop = '0';
         }
@@ -149,6 +157,12 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   }
 
   hide_popup_window(): void {
+    this.top_position = 0;
+    this.loading = false;
+    this.exit_btn1 = true;
+    this.exit_btn2 = false;
+    this.show_page_not_found = false;
+    this.page_data = null;
     this.appCommunicationService.collapseScrollOnPage('show');
     if (this.showPage || this.showArchive) {
       if (this.navigateBack) {
@@ -194,7 +208,12 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.showPage = true;
     this.show_popup_window();
     this.pageSubscription = this.pagesService.getPageBySlug(slug, this.lang).subscribe(res => {
-          this.page_data = res;
+          if (res) {
+              this.page_data = res;
+          }else {
+            this.show_page_not_found = true;
+          }
+
           this.loading = false;
         },
         (error) => {
@@ -263,7 +282,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       this.show_faq_in_popup(faq);
     });
     this.popup_window_hide_updater = this.popupWindowCommunicationService.hideNotifyObservable$.subscribe((arg) => {
-      if (arg.hidden === true) {
+      if (this.showPopupWindow && arg.hidden === true) {
         this.navigateBack = arg.navigateBack;
         this.hide_popup_window();
       }
@@ -316,3 +335,4 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     }
   }
 }
+

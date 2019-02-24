@@ -7,7 +7,14 @@
       </div>
       <app-navbar-footer></app-navbar-footer>
     </div>
-    <div class="location">{{(lang === 'en' ? 'Made with ♥ in Stockholm, Sweden' : 'Gjord med ♥ i Stockholm, Sverige')}}</div>
+    <div class="location">
+      {{(lang === 'en' ? 'Made with ♥ in Stockholm, Sweden' : 'Gjord med ♥ i Stockholm, Sverige')}}
+      <p>
+        {{(lang === 'en' ? 'Developed by ' : 'Utvecklad av ')}}<a href="https://www.ahzaumarang.com" target="_blank">Ah Zau Marang</a>
+        {{(lang === 'en' ? 'and UX by ' : 'och UX av ')}}<a href="https://www.cstate.se" target="_blank">Christopher State</a>
+      </p>
+    </div>
+
   </div>
 </footer>
 

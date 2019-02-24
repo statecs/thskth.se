@@ -1,11 +1,13 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import { SearchMenubarCommunicationService } from '../../services/component-communicators/search-menubar-communication.service';
-import { SearchService } from '../../services/wordpress/search.service';
-import { SearchResult } from '../../interfaces/search';
+import { SearchResult } from '../../interfaces-and-classes/search';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import { CookieService } from 'ngx-cookie';
+import {PostsService} from '../../services/wordpress/posts.service';
+import {PagesService} from '../../services/wordpress/pages.service';
+import {FaqsService} from '../../services/wordpress/faqs.service';
 
 @Component({
   selector: 'app-search-menubar',
@@ -31,11 +33,13 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   public menuBarSubscription: Subscription;
 
   constructor(private searchMenubarCommunicationService: SearchMenubarCommunicationService,
-              private searchService: SearchService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private _cookieService: CookieService) {
+              private _cookieService: CookieService,
+              private postsService: PostsService,
+              private pagesService: PagesService,
+              private faqsService: FaqsService) {
     this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
     this.showSearchBar = false;
     this.showResultsDropdown = false;
@@ -100,7 +104,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   }
 
   searchPosts(): void {
-    this.postSubscription = this.searchService.searchPosts(this.searchTerm, 2, this.lang).subscribe((res) => {
+    this.postSubscription = this.postsService.searchPosts(this.searchTerm, 2, this.lang).subscribe((res) => {
           this.postsLoading = false;
           this.postsResults = res;
         },
@@ -111,7 +115,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   }
 
   searchPages(): void {
-    this.pageSubscription = this.searchService.searchPages(this.searchTerm, 2, this.lang).subscribe((res) => {
+    this.pageSubscription = this.pagesService.searchPages(this.searchTerm, 2, this.lang).subscribe((res) => {
           this.pagesLoading = false;
           this.pageResults = res;
         },
@@ -122,7 +126,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   }
 
   searchFAQs(): void {
-    this.faqsSubscription = this.searchService.searchFAQs(this.searchTerm, 2, this.lang).subscribe((res) => {
+    this.faqsSubscription = this.faqsService.searchFAQs(this.searchTerm, 2, this.lang).subscribe((res) => {
           this.faqsLoading = false;
           this.faqResults = res;
         },

@@ -4,10 +4,10 @@ import {
 } from '@angular/core';
 import { CardCategorizerCardContainerService } from '../../services/component-communicators/card-categorizer-card-container.service';
 import { APP_CONFIG } from '../../app.config';
-import { AppConfig } from '../../interfaces/appConfig';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
 import { CookieService } from 'ngx-cookie';
 import { CardsService } from '../../services/wordpress/cards.service';
-import { CardCategory } from '../../interfaces/card';
+import { CardCategory } from '../../interfaces-and-classes/card';
 import {ActivatedRoute} from '@angular/router';
 import {SelectSliderCommunicationService} from '../../services/component-communicators/select-slider-communication.service';
 import {Subscription} from 'rxjs/Subscription';

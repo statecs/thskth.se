@@ -5,7 +5,7 @@
     <div *ngFor="let card of cards" class="masonry-layout_panel {{(card.one_sixth_sub_cards?.length !== 0 || card.one_third_half_sub_cards?.length !== 0)? 'o-third box-shadow-none': card.flex_layout}}">
         <div *ngIf="(card.flex_layout !== 'o-third')">
             <!-- ---------- Video card ---------- -->
-            <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
+            <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl(card) + ')' : 'none')}" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
                 <div class="video-card">
                     <div class="text">
                         <h2>{{card.title}}</h2>
@@ -18,7 +18,7 @@
             </div>
 
             <!-- ---------- Centered Content card ---------- -->
-            <div *ngIf="card.card_type === 'centered-content-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
+            <div *ngIf="card.card_type === 'centered-content-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl(card) + ')' : 'none')}" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
                 <div class="centered-content-card" [ngStyle]="changeBGColor(card)">
                     <div class="content">
                         <h2>{{card.title}}</h2>
@@ -29,7 +29,7 @@
             </div>
 
             <!-- ---------- Standard card ---------- -->
-            <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
+            <div *ngIf="card.card_type === 'standard-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl(card) + ')' : 'none')}" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
                 <div class="standard-card" [ngStyle]="changeBGColor(card)">
                     <div class="content">
                         <h2>{{card.title}}</h2>
@@ -41,7 +41,7 @@
             </div>
 
             <!-- ---------- Membership card ---------- -->
-            <div *ngIf="card.card_type === 'membership-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
+            <div *ngIf="card.card_type === 'membership-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl(card) + ')' : 'none')}" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
                 <div class="membership-card" [ngStyle]="changeBGColor(card)">
                     <div class="content">
                         <h2>{{card.title}}</h2>
@@ -52,7 +52,7 @@
             </div>
 
             <!-- ---------- Restrictions card ---------- -->
-            <div *ngIf="card.card_type === 'restrictions-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
+            <div *ngIf="card.card_type === 'restrictions-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl(card) + ')' : 'none')}" (click)="showPage(card.slug, card.window_type, card.slug_to_page)">
                 <div class="membership-card restrictions-card" [ngStyle]="changeBGColor(card)">
                     <div class="content">
                         <h2>{{card.title}}</h2>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="right-content">
                         <div class="event-wrapper">
-                            <h4>{{(lang === 'en' ? ths_calendars[selected_event_category].title.en : ths_calendars[selected_event_category].title.sv)}}</h4>
+                            <h4>{{(lang === 'en' ? ths_calendars[selected_event_category]?.title.en : ths_calendars[selected_event_category]?.title.sv)}}</h4>
                             <div *ngFor="let e of events, let i = index" class="event">
                                 <h6>{{getMonth(e.start)}}</h6>
                                 <div class="date" (click)="selectEvent(i)">
@@ -100,7 +100,7 @@
 
             <div *ngFor="let sub_c of card.one_third_half_sub_cards" class="one-third-half">
                 <!-- ---------- Standard sub card ---------- -->
-                <div *ngIf="sub_c.card_type !== 'video-card' && sub_c" (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)" class="masonry-layout_panel-content one-third-half" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [style.backgroundImage]="'url(' + getBgUrl(sub_c) + ')'">
+                <div *ngIf="sub_c.card_type !== 'video-card' && sub_c" (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)" class="masonry-layout_panel-content one-third-half" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}"[ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl(card) + ')' : 'none')}">
                     <div class="standard-card" [ngStyle]="changeBGColor(sub_c)">
                         <div class="content">
                             <h2>{{sub_c.title}}</h2>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
                 <!-- ---------- Video sub card ---------- -->
-                <div *ngIf="sub_c.card_type === 'video-card' && sub_c" (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)" class="masonry-layout_panel-content one-sixth" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [style.backgroundImage]="'url(' + getBgUrl(sub_c) + ')'">
+                <div *ngIf="sub_c.card_type === 'video-card' && sub_c" (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)" class="masonry-layout_panel-content one-sixth" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl(card) + ')' : 'none')}">
                     <div class="video-card">
                         <div class="text">
                             <h2>{{sub_c.title | cardText:25}}</h2>
@@ -124,7 +124,7 @@
 
             <div *ngFor="let sub_c of card.one_sixth_sub_cards" (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)" class="one-sixth">
                 <!-- ---------- Standard card ---------- -->
-                <div *ngIf="sub_c.card_type !== 'video-card' && card.one_third_half_sub_cards?.length <= 1" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [style.backgroundImage]="'url(' + getBgUrl_thumbnail(sub_c) + ')'">
+                <div *ngIf="sub_c.card_type !== 'video-card' && card.one_third_half_sub_cards?.length <= 1" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl_thumbnail(sub_c) + ')' : 'none')}">
                     <div class="standard-card" [ngStyle]="changeBGColor(sub_c)">
                         <div class="content">
                             <h2>{{sub_c.title}}</h2>
@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <!-- ---------- Video card ---------- -->
-                <div *ngIf="sub_c.card_type === 'video-card' && card.one_third_half_sub_cards?.length <= 1" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [style.backgroundImage]="'url(' + getBgUrl_thumbnail(sub_c) + ')'">
+                <div *ngIf="sub_c.card_type === 'video-card' && card.one_third_half_sub_cards?.length <= 1" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl_thumbnail(sub_c) + ')' : 'none')}">
                     <div class="video-card">
                         <div class="text">
                             <h2>{{sub_c.title | cardText:25}}</h2>
@@ -148,7 +148,7 @@
 
             <div *ngIf="(card.one_sixth_sub_cards?.length === 0 && card.one_third_half_sub_cards?.length === 0)" (click)="card.card_primary_buttons.length != 0 || showPage(card.slug, card.window_type, card.slug_to_page)">
                 <!-- ---------- Standard card ---------- -->
-                <div *ngIf="card.card_type !== 'video-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngClass]="{'disabled': card.card_primary_buttons.length != 0}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+                <div *ngIf="card.card_type !== 'video-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngClass]="{'disabled': card.card_primary_buttons.length != 0}" [ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl(card) + ')' : 'none')}">
                     <div *ngIf="card.card_type !== 'restrictions-card' && card.card_type !== 'nymble-card'" class="standard-card" [ngStyle]="changeBGColor(card)">
                         <div class="content">
                             <h2>{{card.title}}</h2>
@@ -176,7 +176,7 @@
                     </div>
                 </div>
                 <!-- ---------- Video card ---------- -->
-                <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [style.backgroundImage]="'url(' + getBgUrl(card) + ')'">
+                <div *ngIf="card.card_type === 'video-card'" class="masonry-layout_panel-content" [ngClass]="{'noLink': card.window_type === 'none' || card.slug_to_page === ''}" [ngStyle]="{'background-image': (card.background_image ? 'url(' + getBgUrl(card) + ')' : 'none')}">
                     <div class="video-card">
                         <div class="text">
                             <h2>{{card.title}}</h2>

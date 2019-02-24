@@ -1,22 +1,28 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { HeaderCommunicationService } from '../../services/component-communicators/header-communication.service';
-import { PrimarySlidesService } from '../../services/wordpress/primary-slides.service';
-import { Slide } from '../../interfaces/slide';
-import { Router, ActivatedRoute, Params} from '@angular/router';
-import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
-import {Subscription} from 'rxjs/Subscription';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy
+} from "@angular/core";
+import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
+import { PrimarySlidesService } from "../../services/wordpress/primary-slides.service";
+import { Slide } from "../../interfaces-and-classes/slide";
+import { Router, ActivatedRoute, Params } from "@angular/router";
+import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
-  selector: 'app-primary-slider',
-  templateUrl: './primary-slider.component.html',
-  styleUrls: ['./primary-slider.component.scss']
+  selector: "app-primary-slider",
+  templateUrl: "./primary-slider.component.html",
+  styleUrls: ["./primary-slider.component.scss"]
 })
 export class PrimarySliderComponent implements OnInit, OnDestroy {
-  @ViewChild('primary_slider') primary_slider: ElementRef;
-  @ViewChild('slides_container') slides_container: ElementRef;
-  @ViewChild('video_player') video_player: ElementRef;
-  @ViewChild('slider_bar_container') slider_bar_container: ElementRef;
-  @ViewChild('playButton') playButton: ElementRef;
+  @ViewChild("primary_slider") primary_slider: ElementRef;
+  @ViewChild("slides_container") slides_container: ElementRef;
+  @ViewChild("video_player") video_player: ElementRef;
+  @ViewChild("slider_bar_container") slider_bar_container: ElementRef;
+  @ViewChild("playButton") playButton: ElementRef;
 
   public slides_img_base: string;
   public slider_progress_bars: any;
@@ -34,29 +40,36 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   public slideSubscription: Subscription;
   public headerSubscription: Subscription;
   public deviceSize: number;
+  private headerCommunicationSub: Subscription;
 
-  constructor(private headerCommunicationService: HeaderCommunicationService,
-              private primarySlidesService: PrimarySlidesService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private notificationBarCommunicationService: NotificationBarCommunicationService) {
-    this.slides_img_base = '../../../assets/images/main_slider/';
+  constructor(
+    private headerCommunicationService: HeaderCommunicationService,
+    private primarySlidesService: PrimarySlidesService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private notificationBarCommunicationService: NotificationBarCommunicationService,
+  ) {
+    this.slides_img_base = "../../../assets/images/main_slider/";
     this.slideIndex = 1;
-    this.slideshow_play_btn = 'pause';
+    this.slideshow_play_btn = "pause";
     this.deviceSize = window.screen.width;
   }
 
   goToPage(slug): void {
-    if (slug.indexOf('http://') === 0 || slug.indexOf('https://') === 0 || slug.indexOf('www.') === 0) {
-      window.open(slug, '_black');
-    }else {
+    if (
+      slug.indexOf("http://") === 0 ||
+      slug.indexOf("https://") === 0 ||
+      slug.indexOf("www.") === 0
+    ) {
+      window.open(slug, "_black");
+    } else {
       this.router.navigate([slug]);
     }
   }
 
   startMainSlider(): void {
     const self = this;
-    this.mainSlide_timer = setInterval(function () {
+    this.mainSlide_timer = setInterval(function() {
       self.hideAllSlides();
       self.slideIndex++;
       if (self.slideIndex > self.slides.length) {
@@ -67,41 +80,48 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   toggleMainSlider(): void {
-    if (this.slideshow_play_btn === 'pause') {
-      this.slideshow_play_btn = 'play_arrow';
+    if (this.slideshow_play_btn === "pause") {
+      this.slideshow_play_btn = "play_arrow";
       clearInterval(this.mainSlide_timer);
-    }else {
-      this.slideshow_play_btn = 'pause';
+    } else {
+      this.slideshow_play_btn = "pause";
       this.startMainSlider();
     }
   }
 
   hideAllSlides(): void {
-    this.slider_progress_bars = this.primary_slider.nativeElement.getElementsByClassName('slider-progress-bar');
-    this.slideElements = this.slides_container.nativeElement.getElementsByClassName('slide');
-    if (typeof this.slider_progress_bars !== 'undefined' && typeof this.slideElements !== 'undefined') {
-      if (typeof this.slideElements[this.slideIndex - 1] !== 'undefined') {
+    this.slider_progress_bars = this.primary_slider.nativeElement.getElementsByClassName(
+      "slider-progress-bar"
+    );
+    this.slideElements = this.slides_container.nativeElement.getElementsByClassName(
+      "slide"
+    );
+    if (
+      typeof this.slider_progress_bars !== "undefined" &&
+      typeof this.slideElements !== "undefined"
+    ) {
+      if (typeof this.slideElements[this.slideIndex - 1] !== "undefined") {
         this.slideElements[this.slideIndex - 1].style.right = 0;
         this.slideElements[this.slideIndex - 1].style.opacity = 0;
       }
       for (let i = 0; i < this.slideElements.length; i++) {
-        this.slideElements[i].style.visibility = 'hidden';
-        this.slider_progress_bars[i].style.backgroundColor = 'gray';
+        this.slideElements[i].style.visibility = "hidden";
+        this.slider_progress_bars[i].style.backgroundColor = "gray";
       }
     }
   }
 
   getBgUrl(slide: Slide): string {
-    let url = '';
-    if (slide.bg_image !== '') {
+    let url = "";
+    if (slide.bg_image !== "") {
       const image = slide.bg_image;
       if (this.deviceSize < 768) {
         url = image.image640;
-      }else if (this.deviceSize >= 768 && this.deviceSize < 992) {
+      } else if (this.deviceSize >= 768 && this.deviceSize < 992) {
         url = image.image960;
-      }else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
+      } else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
         url = image.image1280;
-      }else if (this.deviceSize >= 1200) {
+      } else if (this.deviceSize >= 1200) {
         url = image.image1920;
       }
     }
@@ -109,75 +129,86 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   showSlide(): void {
-    this.slider_progress_bars = this.primary_slider.nativeElement.getElementsByClassName('slider-progress-bar');
-    this.slideElements = this.slides_container.nativeElement.getElementsByClassName('slide');
-    if (typeof this.slider_progress_bars !== 'undefined' && typeof this.slideElements !== 'undefined') {
-      this.slideElements[this.slideIndex - 1].style.visibility = 'visible';
+    this.slider_progress_bars = this.primary_slider.nativeElement.getElementsByClassName(
+      "slider-progress-bar"
+    );
+    this.slideElements = this.slides_container.nativeElement.getElementsByClassName(
+      "slide"
+    );
+    if (
+      typeof this.slider_progress_bars !== "undefined" &&
+      typeof this.slideElements !== "undefined"
+    ) {
+      this.slideElements[this.slideIndex - 1].style.visibility = "visible";
       this.slideElements[this.slideIndex - 1].style.opacity = 1;
-      let bg_image = '';
+      let bg_image = "";
       const image = this.slides[this.slideIndex - 1].bg_image;
       if (this.deviceSize < 768) {
-          bg_image = image.image640;
-      }else if (this.deviceSize >= 768 && this.deviceSize < 992) {
-          bg_image = image.image960;
-      }else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
-          bg_image = image.image1280;
-      }else if (this.deviceSize >= 1200) {
-          bg_image = image.image1920;
+        bg_image = image.image640;
+      } else if (this.deviceSize >= 768 && this.deviceSize < 992) {
+        bg_image = image.image960;
+      } else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
+        bg_image = image.image1280;
+      } else if (this.deviceSize >= 1200) {
+        bg_image = image.image1920;
       }
-      this.primary_slider.nativeElement.style.backgroundImage = 'url("' + bg_image + '")';
-      this.slider_progress_bars[this.slideIndex - 1].style.backgroundColor = 'white';
+      this.primary_slider.nativeElement.style.background =
+        'url("' + bg_image + '") no-repeat center center';
+      this.primary_slider.nativeElement.style.backgroundSize = "cover";
+      this.slider_progress_bars[this.slideIndex - 1].style.backgroundColor =
+        "white";
     }
   }
 
-  togglePlay(e): void {
+  togglePlay(): void {
     this.video = this.video_player.nativeElement;
     clearInterval(this.mainSlide_timer);
     const el = this.playButton.nativeElement;
     if (this.video.paused) {
       this.video.play();
-      el.innerHTML = 'pause_circle_outline';
+      el.innerHTML = "pause_circle_outline";
       this.hideControls();
     }else {
-      this.pauseVideo(el);
+      this.pauseVideo();
     }
   }
 
-  pauseVideo(el): void {
+  pauseVideo(): void {
+    const el = this.playButton.nativeElement;
     this.video.pause();
-    el.innerHTML = 'play_circle_outline';
+    el.innerHTML = "play_circle_outline";
     this.showControls();
     this.startMainSlider();
   }
 
   hideControls() {
-    this.slider_bar_container.nativeElement.style.bottom = '-100px';
+    this.slider_bar_container.nativeElement.style.bottom = "-100px";
     this.headerCommunicationService.collapseHeader();
-    this.playButton.nativeElement.style.opacity = '0';
+    this.playButton.nativeElement.style.opacity = "0";
     this.controlsOpacity = 0;
   }
 
   showControls() {
-    this.slider_bar_container.nativeElement.style.bottom = '0';
+    this.slider_bar_container.nativeElement.style.bottom = "0";
     this.headerCommunicationService.expendHeader();
-    this.playButton.nativeElement.style.opacity = '1';
+    this.playButton.nativeElement.style.opacity = "1";
     this.controlsOpacity = 1;
   }
 
   mouseMovingOnPlayer() {
-    if (typeof this.video_player !== 'undefined') {
+    if (typeof this.video_player !== "undefined") {
       this.video = this.video_player.nativeElement;
       const self = this;
-      const mouseStopped = function(){
+      const mouseStopped = function() {
         self.hideControls();
       };
       if (this.video.paused) {
-        clearTimeout( this.mousemove_timer );
+        clearTimeout(this.mousemove_timer);
         this.showControls();
-      }else {
+      } else {
         if (this.controlsOpacity === 0) {
           this.showControls();
-        }else {
+        } else {
           clearTimeout(this.mousemove_timer);
           this.mousemove_timer = setTimeout(mouseStopped, 1500);
         }
@@ -185,60 +216,93 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     }
   }
 
-  showSelectedSlide(slideNumber): void {
-    this.slideIndex = slideNumber;
-    if (!this.video.paused) {
-      this.pauseVideo(this.playButton.nativeElement);
+  private stopHidingVideoControlsTimer(): void {
+    if (this.video && !this.video.paused) {
+        clearTimeout(this.mousemove_timer);
     }
-      clearInterval(this.mainSlide_timer);
-      if (this.slideshow_play_btn === 'pause') {
-          this.hideAllSlides();
-          this.showSlide();
-          this.startMainSlider();
-      }else {
-          this.hideAllSlides();
-          this.showSlide();
+  }
+
+  private startHidingVideoControlsTimer(): void {
+      const mouseStopped = () => {
+          this.hideControls();
+      };
+      if (this.video && !this.video.paused) {
+          clearTimeout(this.mousemove_timer);
+          this.mousemove_timer = setTimeout(mouseStopped, 1500);
       }
   }
 
+  showSelectedSlide(slideNumber): void {
+    this.slideIndex = slideNumber;
+    if (!this.video.paused) {
+      this.pauseVideo();
+    }
+    clearInterval(this.mainSlide_timer);
+    if (this.slideshow_play_btn === "pause") {
+      this.hideAllSlides();
+      this.showSlide();
+      this.startMainSlider();
+    } else {
+      this.hideAllSlides();
+      this.showSlide();
+    }
+  }
+
   ngOnInit() {
-    this.lang = this.activatedRoute.snapshot.data['lang'];
-    if (typeof this.lang === 'undefined') {
-      this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-        this.lang = params['lang'];
-        if (typeof this.lang === 'undefined') {
-          this.lang = 'en';
+    this.lang = this.activatedRoute.snapshot.data["lang"];
+    if (typeof this.lang === "undefined") {
+      this.paramsSubscription = this.activatedRoute.params.subscribe(
+        (params: Params) => {
+          this.lang = params["lang"];
+          if (typeof this.lang === "undefined") {
+            this.lang = "en";
+          }
+          if (this.lang === "en") {
+            this.read_more_text = "Read More";
+          } else {
+            this.read_more_text = "Läs Mer";
+          }
+          this.slideSubscription = this.primarySlidesService
+            .getAllPrimarySlides(this.lang)
+            .subscribe(
+              slides => {
+                clearInterval(this.mainSlide_timer);
+                this.slides = slides;
+                this.startMainSlider();
+              },
+              error => {
+                this.notificationBarCommunicationService.send_data(error);
+              }
+            );
         }
-        if (this.lang === 'en') {
-          this.read_more_text = 'Read More';
-        }else {
-          this.read_more_text = 'Läs Mer';
-        }
-        this.slideSubscription = this.primarySlidesService.getAllPrimarySlides(this.lang).subscribe((slides) => {
-              clearInterval(this.mainSlide_timer);
-              this.slides = slides;
-              this.startMainSlider();
-            },
-            (error) => {
-              this.notificationBarCommunicationService.send_data(error);
-            });
-      });
-    }else {
-      if (this.lang === 'en') {
-        this.read_more_text = 'Read More';
-      }else {
-        this.read_more_text = 'Läs Mer';
+      );
+    } else {
+      if (this.lang === "en") {
+        this.read_more_text = "Read More";
+      } else {
+        this.read_more_text = "Läs Mer";
       }
-      this.slideSubscription = this.primarySlidesService.getAllPrimarySlides(this.lang).subscribe((slides) => {
+      this.slideSubscription = this.primarySlidesService
+        .getAllPrimarySlides(this.lang)
+        .subscribe(
+          slides => {
             clearInterval(this.mainSlide_timer);
             this.slides = slides;
             this.startMainSlider();
           },
-          (error) => {
+          error => {
             this.notificationBarCommunicationService.send_data(error);
-          });
+          }
+        );
     }
 
+    this.headerCommunicationSub =  this.headerCommunicationService.onMenuDropDownObservable$.subscribe((arg) => {
+      if (arg === 'stopHidingVideoControlsTimer') {
+        this.stopHidingVideoControlsTimer();
+      }else if (arg === 'startHidingVideoControlsTimer') {
+        this.startHidingVideoControlsTimer();
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -261,6 +325,8 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     if (this.headerSubscription) {
       this.headerSubscription.unsubscribe();
     }
+    if (this.headerCommunicationSub) {
+        this.headerCommunicationSub.unsubscribe();
+    }
   }
-
 }

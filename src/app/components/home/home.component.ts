@@ -15,8 +15,8 @@ import {SearchMenubarCommunicationService} from '../../services/component-commun
 import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
 import {PopupWindowCommunicationService} from '../../services/component-communicators/popup-window-communication.service';
 import {PlatformLocation} from '@angular/common';
-import {Post} from '../../interfaces/post';
-import {FAQ} from '../../interfaces/faq';
+import {Post} from '../../interfaces-and-classes/post';
+import {FAQ} from '../../interfaces-and-classes/faq';
 
 @Component({
   selector: 'app-home',
@@ -34,8 +34,10 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     public showSocialMediaCards: boolean;
     public showFAQSlider: boolean;
     public showNewsSlider: boolean;
-    public news: Post[];
-    public faqs: FAQ[];
+    public news: Post[] = [];
+    public faqs: FAQ[] = [];
+    private faqsFetched: boolean;
+    private newsFetched: boolean;
 
   constructor(  private textSliderCommunicationService: TextSliderCommunicationService,
                 private faqsService: FaqsService,
@@ -68,9 +70,10 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
     @HostListener('window:scroll', ['$event'])
     onWindowScroll() {
-        const pos = (document.documentElement.scrollTop || document.body.scrollTop);
+        const pos = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         if (!this.showFAQSlider) {
-            if (pos > 10) {
+            if (pos > 10 && !this.faqsFetched) {
+                this.faqsFetched = true;
                 this.faqCatSubscription = this.faqsService.getFAQs_OfEachCategories(1, this.lang).subscribe((faqs) => {
                         this.showFAQSlider = true;
                         this.faqs = faqs;
@@ -84,7 +87,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         }
         if (!this.showNewsSlider) {
-            if (pos > 10) {
+            if (pos > 10 && !this.newsFetched) {
+                this.newsFetched = true;
                 this.postsSubscription = this.postsService.getPosts(5, this.lang).subscribe((posts) => {
                         this.showNewsSlider = true;
                         this.news = posts;
@@ -115,10 +119,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
     ngAfterViewInit() {
-        if (this._cookieService.get('search-menubar-terms')) {
-            this.searchMenubarCommunicationService.showSearchMenubar();
-            this._changeDetectionRef.detectChanges();
-        }
     }
 
     ngOnDestroy() {

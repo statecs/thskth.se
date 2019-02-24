@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { Event } from '../../interfaces/event';
-import {Archive} from '../../interfaces/archive';
-import {FAQ} from '../../interfaces/faq';
+import { Event } from '../../interfaces-and-classes/event';
+import {Archive} from '../../interfaces-and-classes/archive';
+import {FAQ} from '../../interfaces-and-classes/faq';
 
 @Injectable()
 export class PopupWindowCommunicationService {

@@ -2,9 +2,9 @@ import {Injectable, Injector} from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {ContactForm} from '../../interfaces/contact_form';
+import {ContactForm} from '../../interfaces-and-classes/contact_form';
 import { APP_CONFIG } from '../../app.config';
-import { AppConfig } from '../../interfaces/appConfig';
+import { AppConfig } from '../../interfaces-and-classes/appConfig';
 
 @Injectable()
 export class ContactFormService {

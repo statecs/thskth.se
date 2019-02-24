@@ -11,13 +11,16 @@
 
 <div *ngIf="!pageNotFound" id="events-calendar">
   <div *ngIf="!showCalendar" class="display-cal-btn mobile" (click)="toggleCalendar()">More events</div>
+  <div class="title mobile">
+    <h2>{{(lang === 'en' ? 'Events' : 'Evenemang')}}</h2>
+  </div>
   <div class="calendar-wrapper larger-devices">
     <div class="title">
       <h2>{{(lang === 'en' ? 'Events calendar' : 'Evenemangskalender')}}</h2>
     </div>
     <app-calendar></app-calendar>
   </div>
-  <div *ngIf="!showFeaturedEvents" class="events-wrapper">
+  <!--<div *ngIf="!showFeaturedEvents" class="events-wrapper larger-devices">
     <div class="events-header">
       <h2>{{(lang === 'en' ? 'Events on' : 'Evenemang på')}} {{actualDate}}</h2>
     </div>
@@ -36,26 +39,12 @@
       </div>
       <span *ngIf="events.length === 0">{{(lang === 'en' ? 'There are no events.' : 'Det finns inga evenemang.')}}</span>
     </div>
-  </div>
-  <div class="featured-events">
-    <div class="heading">
-      <h2>{{(lang === 'en' ? 'Upcoming events' : 'Uppkommande evenemang')}}</h2>
-    </div>
-    <div class="events-container">
-      <div class="f_events-wrapper">
-        <div *ngFor="let e of earliest_events" class="event" (click)="showInPopup(e)">
-          <div class="image-wrapper" [ngStyle]="{'background-image': 'url(' + getBGimage(e) + ')'}">
-            <span class="date">{{formatDay(e.start)}}</span>
-          </div>
-          <div class="info">
-            <h2>{{e.title}}</h2>
-            <p class="larger-devices" [innerHTML]="e.description | cardText:100"></p>
-            <p class="mobile" [innerHTML]="e.description | cardText:70"></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </div>-->
+  <app-events-cards
+          [title]="(lang === 'en' ? 'Upcoming events' : 'Kommande evenemang')"
+          [events]="earliest_events">
+  </app-events-cards>
+  <app-events-list [events]="earliest_events"></app-events-list>
 </div>
 
 <app-page-not-found *ngIf="pageNotFound"></app-page-not-found>

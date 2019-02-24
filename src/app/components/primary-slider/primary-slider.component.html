@@ -11,7 +11,7 @@
 
       <!-- ----- Video template ----->
       <div *ngIf="slide.template === 'video-template'" class="video-template" (click)="togglePlay()" [style.backgroundImage]="'url(' + getBgUrl(slide) + ')'">
-        <video #video_player [src]="slide.video" preload="metadata">
+        <video #video_player [src]="slide.video" preload="metadata" (pause)="pauseVideo()" (ended)="pauseVideo()">
           <source src="{{slide.video}}">
           Your browser does not support HTML5 video player.
         </video>

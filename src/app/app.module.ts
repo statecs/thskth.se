@@ -15,7 +15,6 @@ import { APP_CONFIG, appConfig } from './app.config';
 import { CookieModule } from 'ngx-cookie';
 import { CardCategorizerCardContainerService } from './services/component-communicators/card-categorizer-card-container.service';
 import { PopupWindowCommunicationService } from './services/component-communicators/popup-window-communication.service';
-import { GoogleCalendarService } from './services/google-calendar/google-calendar.service';
 import { CalendarCommunicationService } from './services/component-communicators/calendar-communication.service';
 import { SocialMediaPostService } from './services/social-media-post/social-media-post.service';
 import { FaqsService } from './services/wordpress/faqs.service';
@@ -26,10 +25,8 @@ import { HeaderCommunicationService } from './services/component-communicators/h
 import { PrimarySlidesService } from './services/wordpress/primary-slides.service';
 import { AppCommunicationService } from './services/component-communicators/app-communication.service';
 import { CardsService } from './services/wordpress/cards.service';
-import { SearchService } from './services/wordpress/search.service';
 import { SearchMenubarCommunicationService } from './services/component-communicators/search-menubar-communication.service';
 import { ArchiveService } from './services/wordpress/archive.service';
-import { ChaptersAssociationsService } from './services/wordpress/chapters-associations.service';
 import { RestaurantService } from './services/wordpress/restaurant.service';
 import { SelectSliderCommunicationService } from './services/component-communicators/select-slider-communication.service';
 import { PostsService } from './services/wordpress/posts.service';
@@ -37,6 +34,7 @@ import { ImageSliderCommunicationService } from './services/component-communicat
 import {ContactFormService} from './services/forms/contact-form.service';
 import {TitleCommunicationService} from './services/component-communicators/title-communication.service';
 import {HideUICommunicationService} from './services/component-communicators/hide-ui-communication.service';
+import {ChaptersMenuService} from './services/wordpress/chapters-menu.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -45,6 +43,7 @@ import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
 import { HrefToSlugPipe } from './pipes/href-to-slug.pipe';
 import { RemoveLangParamPipe } from './pipes/remove-lang-param.pipe';
 import { EscapeHtmlPipe } from './pipes/keep-html.pipe';
+import {SanitizeHtmlPipe} from './pipes/sanitizeHtml.pipe';
 
 // Directives
 import { AutoFocusDirective } from './directives/auto-focus.directive';
@@ -107,7 +106,20 @@ import { FeaturedFaqsComponent } from './components/featured-faqs/featured-faqs.
 import {NotificationBarCommunicationService} from './services/component-communicators/notification-bar-communication.service';
 import { RelatedLinksComponent } from './components/advertisements/related-links/related-links.component';
 import { CookieNotificationBarComponent } from './components/cookie-notification-bar/cookie-notification-bar.component';
-
+import {DataFetcherService} from './services/utility/data-fetcher.service';
+import {FacebookPostService} from './services/social-media-post/facebook-post.service';
+import {InstagramPostService} from './services/social-media-post/instagram-post.service';
+import {GoogleCalendarModule} from './services/google-calendar/google-calendar.module';
+import {FaqCategoriesService} from './services/wordpress/faq-categories.service';
+import {FooterNavigationService} from './services/wordpress/footer-navigation.service';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { LoginComponent } from './components/login/login.component';
+import { EventsMobileComponent } from './components/events-calendar/events-mobile/events-mobile.component';
+import { EventsCardsComponent } from './components/events-calendar/events-cards/events-cards.component';
+import { EventsListComponent } from './components/events-calendar/events-list/events-list.component';
+import {SanitizeUrlPipe} from './pipes/sanitizeUrl.pipe';
+import {ChaptersService} from './services/wordpress/chapters.service';
+import {AssociationsService} from './services/wordpress/associations.service';
 
 @NgModule({
   declarations: [
@@ -173,10 +185,17 @@ import { CookieNotificationBarComponent } from './components/cookie-notification
     FeaturedFaqsComponent,
     RelatedLinksComponent,
     EscapeHtmlPipe,
-    CookieNotificationBarComponent
+    CookieNotificationBarComponent,
+    UserProfileComponent,
+    LoginComponent,
+    EventsMobileComponent,
+    EventsCardsComponent,
+    EventsListComponent,
+    SanitizeUrlPipe,
+    SanitizeHtmlPipe,
   ],
   imports: [
-    BrowserModule,
+      BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
@@ -185,12 +204,12 @@ import { CookieNotificationBarComponent } from './components/cookie-notification
     CookieModule.forRoot(),
     BrowserAnimationsModule,
     CalendarModule.forRoot(),
+      GoogleCalendarModule,
   ],
   providers: [
       WordpressApiService,
       CardCategorizerCardContainerService,
       PopupWindowCommunicationService,
-      GoogleCalendarService,
       CalendarCommunicationService,
       SocialMediaPostService,
       FaqsService,
@@ -201,10 +220,8 @@ import { CookieNotificationBarComponent } from './components/cookie-notification
       PrimarySlidesService,
       AppCommunicationService,
       CardsService,
-      SearchService,
       SearchMenubarCommunicationService,
       ArchiveService,
-      ChaptersAssociationsService,
       RestaurantService,
       SelectSliderCommunicationService,
       PostsService,
@@ -213,6 +230,14 @@ import { CookieNotificationBarComponent } from './components/cookie-notification
       NotificationBarCommunicationService,
       TitleCommunicationService,
       HideUICommunicationService,
+      DataFetcherService,
+      FacebookPostService,
+      InstagramPostService,
+      FaqCategoriesService,
+      FooterNavigationService,
+      ChaptersService,
+      AssociationsService,
+      ChaptersMenuService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]

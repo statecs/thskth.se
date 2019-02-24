@@ -1,0 +1,48 @@
+@import "../../../style/utilities";
+
+:host /deep/ header{
+  background: none !important;
+  background-color: $bg-color-primary !important;
+  color: white !important;
+  .container{
+    border-bottom: 0 !important;
+  }
+}
+
+#user-profile {
+  @include container-size(80%);
+  margin-bottom: 50px;
+  padding-top: 100px;
+
+  .cards-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 300px;
+    margin-left: -5%;
+    width: 110%;
+    .card {
+      height: 45%;
+      width: 45%;
+      margin-bottom: 5%;
+      background-color: #eaeaea;
+      justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      text-align: center;
+      padding: 35px 10px;
+      label{
+        width: 100%;
+        font-weight: 600;
+      }
+      p{
+        width: 100%;
+        font-size: 0.9em;
+        color: #888787;
+        margin: 0;
+      }
+    }
+  }
+}

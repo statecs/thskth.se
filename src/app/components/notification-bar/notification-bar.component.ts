@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
 import {Router, RoutesRecognized} from '@angular/router';
-import {Notification} from '../../interfaces/notification';
+import {Notification} from '../../interfaces-and-classes/notification';
 import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
 import {notificationMessages} from '../../utils/notification-messages';
 import {Subscription} from 'rxjs/Subscription';
@@ -81,7 +81,10 @@ export class NotificationBarComponent implements OnInit, OnDestroy{
           }, 200);
         },
         (error) => {
-          this.notifyError(error);
+          if (error) {
+              this.notifyError(error);
+          }
+
         });
   }
 
@@ -105,7 +108,10 @@ export class NotificationBarComponent implements OnInit, OnDestroy{
     });
 
     this.errorSubscription =  this.notificationBarCommunicationService.notifyObservable$.subscribe((error) => {
-      this.notifyError(error);
+      if (error) {
+          this.notifyError(error);
+      }
+
     });
     this.closeBarSubscription = this.notificationBarCommunicationService.closeNotifyObservable$.subscribe(() => {
       this.closeBar();
