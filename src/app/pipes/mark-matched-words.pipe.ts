@@ -7,7 +7,7 @@ export class MarkMatchedWordsPipe implements PipeTransform {
 
   transform(value: any, arg: any): any {
     let output = '';
-    if (arg !== '') {
+    if (arg !== '' && value) {
       const outputList = [];
       const wordsList = value.split(' ');
       wordsList.forEach(function (item, index) {
