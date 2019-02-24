@@ -11,20 +11,20 @@
   color: $color-white;
   background-size: cover;
   overflow: hidden;
-  margin-top:0;
+  margin-top: 0;
   transition: background-image 0.5s ease-in-out, margin 0.5s ease;
-  .larger-devices{
+  .larger-devices {
     display: block !important;
   }
-  .mobile{
+  .mobile {
     display: none !important;
   }
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.35);
+    background-color: rgba(0, 0, 0, 0.35);
   }
 
   .slides {
@@ -34,7 +34,7 @@
     text-align: center;
 
     .slide {
-      height:100%;
+      height: 100%;
       width: 100%;
       //border: 1px solid blue;
       visibility: hidden;
@@ -51,13 +51,13 @@
       @include center-content(60%, 50%);
       transition: visibility 0.5s ease-in-out, opacity 0.5s ease-in-out;
 
-      h2{
+      h2 {
         font-size: $font-size-h2;
       }
-      p{
+      p {
         font-size: $font-size-h3;
       }
-      button{
+      button {
         @include capsule-button(50px, 20px);
         margin-top: 15px;
       }
@@ -76,8 +76,8 @@
         object-fit: fill;
         left: 0;
         right: 0;
-        top:0;
-        bottom:0;
+        top: 0;
+        bottom: 0;
       }
       .video-controller {
         position: absolute;
@@ -97,14 +97,14 @@
         width: 40%;
         margin-right: 5%;
         text-align: left;
-        h2{
+        h2 {
           font-size: $font-size-h2;
         }
-        p{
+        p {
           //padding: 0 25%;
           font-size: $font-size-h3;
         }
-        button{
+        button {
           @include capsule-button(50px, 20px);
           margin-top: 15px;
         }
@@ -113,7 +113,7 @@
         display: inline-block;
         vertical-align: bottom;
         img {
-          box-shadow: 0 0 7px rgba(0,0,0,0.5);
+          box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
           width: auto;
           max-height: 300px;
         }
@@ -125,13 +125,13 @@
         display: inline-block;
         width: 40%;
         text-align: left;
-        h2{
+        h2 {
           font-size: $font-size-h2;
         }
-        p{
+        p {
           font-size: $font-size-h3;
         }
-        button{
+        button {
           @include capsule-button(50px, 20px);
           margin-top: 15px;
         }
@@ -143,7 +143,7 @@
         img {
           width: auto;
           max-height: 300px;
-          box-shadow: 0 0 7px rgba(0,0,0,0.5);
+          box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
         }
       }
     }
@@ -165,7 +165,7 @@
       //border:1px solid green;
       position: absolute;
       bottom: 0;
-      @include bg-linear-grad-to-bottom(rgba(0,0,0,0), rgba(0,0,0,0.6));
+      @include bg-linear-grad-to-bottom(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
       //z-index: -1;
       left: 0;
     }
@@ -186,7 +186,7 @@
         .slider-progress-bar {
           background-color: #636161;
           border-radius: 2px;
-          height:4px;
+          height: 4px;
           @include container-size(100%);
           margin-bottom: 15px;
         }
@@ -215,8 +215,8 @@
       }
     }
 
-    .slideshow-play-button{
-      padding:15px;
+    .slideshow-play-button {
+      padding: 15px;
       border: 1px solid white;
       display: inline-block;
       border-radius: 3px;
@@ -226,9 +226,9 @@
   }
 }
 
-:host /deep/ .text-wrapper{
-  .mobile{
-    p{
+:host /deep/ .text-wrapper {
+  .mobile {
+    p {
       display: inline !important;
     }
   }
@@ -239,10 +239,11 @@
   #primary-slider {
     height: 400px;
     height: 75vh;
-    .larger-devices{
+    max-height: 450px;
+    .larger-devices {
       display: none !important;
     }
-    .mobile{
+    .mobile {
       display: block !important;
     }
     .slides {
@@ -256,13 +257,13 @@
       .text-center-template {
         margin-top: 13%;
         @include center-content(60%, 50%);
-        h2{
+        h2 {
           font-size: $font-size-h4;
         }
-        p{
+        p {
           font-size: $font-size-h6;
         }
-        button{
+        button {
           @include capsule-button(20px, 5px);
         }
       }
@@ -270,13 +271,13 @@
         margin-top: 20%;
         .text-wrapper {
           vertical-align: middle;
-          h2{
+          h2 {
             font-size: $font-size-h4;
           }
-          p{
+          p {
             font-size: $font-size-h6;
           }
-          button{
+          button {
             @include capsule-button(20px, 5px);
           }
         }
@@ -292,13 +293,13 @@
         margin-top: 20%;
         .text-wrapper {
           vertical-align: middle;
-          h2{
+          h2 {
             font-size: $font-size-h4;
           }
-          p{
+          p {
             font-size: $font-size-h6;
           }
-          button{
+          button {
             @include capsule-button(20px, 5px);
           }
         }
@@ -314,16 +315,16 @@
       .slider-bar {
         margin-left: 4%;
         width: 92%;
-        .item{
+        .item {
           .text {
-            .title{
+            .title {
               display: none;
             }
           }
         }
       }
-      .slideshow-play-button{
-        padding:5px;
+      .slideshow-play-button {
+        padding: 5px;
         display: none !important;
       }
     }
@@ -334,10 +335,10 @@
   #primary-slider {
     height: 400px;
     height: 88vh;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    .mobile{
+    .mobile {
       display: block !important;
     }
     .slides {
@@ -351,13 +352,13 @@
       .text-center-template {
         margin-top: 13%;
         @include center-content(60%, 50%);
-        h2{
+        h2 {
           font-size: $font-size-h4;
         }
-        p{
+        p {
           font-size: $font-size-default;
         }
-        button{
+        button {
           @include capsule-button(20px, 5px);
         }
       }
@@ -365,13 +366,13 @@
         margin-top: 13%;
         .text-wrapper {
           vertical-align: middle;
-          h2{
+          h2 {
             font-size: $font-size-h4;
           }
-          p{
+          p {
             font-size: $font-size-default;
           }
-          button{
+          button {
             @include capsule-button(20px, 5px);
           }
         }
@@ -387,13 +388,13 @@
         margin-top: 13%;
         .text-wrapper {
           vertical-align: middle;
-          h2{
+          h2 {
             font-size: $font-size-h4;
           }
-          p{
+          p {
             font-size: $font-size-default;
           }
-          button{
+          button {
             @include capsule-button(20px, 5px);
           }
         }
@@ -409,16 +410,16 @@
       .slider-bar {
         margin-left: 4%;
         width: 92%;
-        .item{
+        .item {
           .text {
-            .title{
+            .title {
               display: none;
             }
           }
         }
       }
-      .slideshow-play-button{
-        padding:5px;
+      .slideshow-play-button {
+        padding: 5px;
         display: none !important;
       }
     }
@@ -429,10 +430,10 @@
   #primary-slider {
     height: 500px;
     height: 80vh;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    .mobile{
+    .mobile {
       display: block !important;
     }
     .slides {
@@ -446,13 +447,13 @@
       .text-center-template {
         margin-top: 13%;
         @include center-content(60%, 50%);
-        h2{
+        h2 {
           font-size: $font-size-h4;
         }
-        p{
+        p {
           font-size: $font-size-default;
         }
-        button{
+        button {
           @include capsule-button(20px, 5px);
         }
       }
@@ -460,13 +461,13 @@
         margin-top: 13%;
         .text-wrapper {
           vertical-align: middle;
-          h2{
+          h2 {
             font-size: $font-size-h4;
           }
-          p{
+          p {
             font-size: $font-size-default;
           }
-          button{
+          button {
             @include capsule-button(20px, 5px);
           }
         }
@@ -482,13 +483,13 @@
         margin-top: 13%;
         .text-wrapper {
           vertical-align: middle;
-          h2{
+          h2 {
             font-size: $font-size-h4;
           }
-          p{
+          p {
             font-size: $font-size-default;
           }
-          button{
+          button {
             @include capsule-button(20px, 5px);
           }
         }
@@ -504,16 +505,16 @@
       .slider-bar {
         margin-left: 4%;
         width: 92%;
-        .item{
+        .item {
           .text {
-            .title{
+            .title {
               display: none;
             }
           }
         }
       }
-      .slideshow-play-button{
-        padding:5px;
+      .slideshow-play-button {
+        padding: 5px;
         display: none !important;
       }
     }
@@ -524,10 +525,10 @@
   #primary-slider {
     height: 700px;
     height: 80vh;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    .mobile{
+    .mobile {
       display: block !important;
     }
     .slides {
@@ -541,13 +542,13 @@
       .text-center-template {
         margin-top: 13%;
         @include center-content(60%, 50%);
-        h2{
+        h2 {
           font-size: $font-size-h4;
         }
-        p{
+        p {
           font-size: $font-size-default;
         }
-        button{
+        button {
           @include capsule-button(20px, 5px);
         }
       }
@@ -555,13 +556,13 @@
         margin-top: 13%;
         .text-wrapper {
           vertical-align: middle;
-          h2{
+          h2 {
             font-size: $font-size-h4;
           }
-          p{
+          p {
             font-size: $font-size-default;
           }
-          button{
+          button {
             @include capsule-button(20px, 5px);
           }
         }
@@ -577,13 +578,13 @@
         margin-top: 13%;
         .text-wrapper {
           vertical-align: middle;
-          h2{
+          h2 {
             font-size: $font-size-h4;
           }
-          p{
+          p {
             font-size: $font-size-default;
           }
-          button{
+          button {
             @include capsule-button(20px, 5px);
           }
         }
@@ -598,21 +599,20 @@
     .slider-bar-container {
       .slider-bar {
         margin-left: 4%;
-        .item{
+        .item {
           .text {
-            .title{
+            .title {
               display: none;
             }
           }
         }
       }
-      .slideshow-play-button{
-        padding:5px;
+      .slideshow-play-button {
+        padding: 5px;
       }
     }
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }
