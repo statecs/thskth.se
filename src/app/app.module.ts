@@ -118,6 +118,7 @@ import { EventsListComponent } from './components/events-calendar/events-list/ev
 import {SanitizeUrlPipe} from './pipes/sanitizeUrl.pipe';
 import {ChaptersService} from './services/wordpress/chapters.service';
 import {AssociationsService} from './services/wordpress/associations.service';
+import {SanitizeHtmlPipe} from './pipes/sanitizeHtml.pipe';
 
 
 @NgModule({
@@ -190,7 +191,8 @@ import {AssociationsService} from './services/wordpress/associations.service';
     EventsMobileComponent,
     EventsCardsComponent,
     EventsListComponent,
-      SanitizeUrlPipe,
+    SanitizeUrlPipe,
+    SanitizeHtmlPipe,
   ],
   imports: [
       BrowserModule,
