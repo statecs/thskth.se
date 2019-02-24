@@ -1,117 +1,262 @@
 <div *ngIf="!pageNotFound" id="content-container">
-  <div class="search-bar" [ngClass]="{'center-vertically': !showResults}">
-    <h2>{{(lang === 'en' ? 'Search THS ...' : 'Sök THS ...')}}</h2>
+  <div class="search-bar" [ngClass]="{ 'center-vertically': !showResults }">
+    <h2>{{ lang === "en" ? "Search THS ..." : "Sök THS ..." }}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
-      <div class="search" [ngClass]="{onFocus: searchOnFocus}">
-        <input class="searchInput" #searchField placeholder="{{(lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord')}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
-        <input class="submit" type="submit" value="{{(lang === 'en' ? 'Search' : 'Sök')}}">
+      <div class="search" [ngClass]="{ onFocus: searchOnFocus }">
+        <input
+          class="searchInput"
+          #searchField
+          placeholder="{{
+            lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord'
+          }}"
+          [(ngModel)]="searchTerm"
+          name="searchInput"
+          (focus)="toggleSearchFocus()"
+          (blur)="toggleSearchFocus()"
+          type="search"
+          (keyup)="liveSearch($event)"
+        />
+        <input
+          class="submit"
+          type="submit"
+          value="{{ lang === 'en' ? 'Search' : 'Sök' }}"
+        />
         <div class="filter">
           <div #filter_icon class="options-icon" (click)="toggleFilter()">
             <i class="material-icons">more_vert</i>
           </div>
           <div *ngIf="showFilterOptions" class="options">
             <div class="option" (click)="toggleCheckbox('posts')">
-              <div class="checkbox"><i *ngIf="postsChecked" class="material-icons">check</i></div>
-              <span>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</span>
+              <div class="checkbox">
+                <i *ngIf="postsChecked" class="material-icons">check</i>
+              </div>
+              <span>{{ lang === "en" ? "Posts" : "Inlägg" }}</span>
             </div>
             <div class="option" (click)="toggleCheckbox('page')">
-              <div class="checkbox"><i *ngIf="pageChecked" class="material-icons">check</i></div>
-              <span>{{(lang === 'en' ? 'Pages' : 'Sidor')}}</span>
+              <div class="checkbox">
+                <i *ngIf="pageChecked" class="material-icons">check</i>
+              </div>
+              <span>{{ lang === "en" ? "Pages" : "Sidor" }}</span>
             </div>
             <div class="option" (click)="toggleCheckbox('faq')">
-              <div class="checkbox"><i *ngIf="faqChecked" class="material-icons">check</i></div>
-              <span>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</span>
+              <div class="checkbox">
+                <i *ngIf="faqChecked" class="material-icons">check</i>
+              </div>
+              <span>{{ lang === "en" ? "FAQs" : "Vanliga frågor" }}</span>
+            </div>
+            <div class="option" (click)="toggleCheckbox('document')">
+              <div class="checkbox">
+                <i *ngIf="documentChecked" class="material-icons">check</i>
+              </div>
+              <span>{{ lang === "en" ? "Documents" : "Dokument" }}</span>
             </div>
           </div>
         </div>
       </div>
-      <div #resultsDropdownList *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
-        <div *ngIf="postsChecked" class="section">
-          <h3>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</h3>
-          <div *ngFor="let p of postsResults" class="item">
+      <div
+        #resultsDropdownList
+        *ngIf="showResultsDropdown && searchTerm !== ''"
+        class="resultsDropdownList"
+      >
+        <div *ngIf="documentChecked" class="section">
+          <h3>{{ lang === "en" ? "Documents" : "Dokument" }}</h3>
+          <div *ngFor="let p of documentResultsSearch" class="item">
+            <div class="left-content">
+              <a
+                *ngFor="let c of p.categories"
+                routerLink="/{{ lang }}/documents/{{ c.slug }}"
+                >{{ c.name }}</a
+              >
+            </div>
             <div class="right-content">
-              <h4 (click)="goToPage(p.slug, 'post')">{{p.title}}</h4>
+              <h4 (click)="goToPage(p.slug, 'document')">{{ p.title }}</h4>
+              <p [innerHTML]="p.content | cardText: 300"></p>
             </div>
           </div>
-          <p *ngIf="postsLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
-          <p *ngIf="!postsLoading && postsResults.length === 0" class="notResult">{{(lang === 'en' ? 'No posts found for' : 'Inga inlägg hittades för')}} "{{searchTerm}}"!</p>
-        </div>
-        <div *ngIf="pageChecked" class="section">
-          <h3>{{(lang === 'en' ? 'Pages' : 'Sidor')}}</h3>
-          <div *ngFor="let p of pageResults" class="item">
-            <div class="right-content">
-              <h4 (click)="goToPage(p.link, 'page')">{{p.title}}</h4>
-            </div>
-          </div>
-          <p *ngIf="pagesLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
-          <p *ngIf="!pagesLoading && pageResults.length === 0" class="notResult">{{(lang === 'en' ? 'No pages found for' : 'Inga sidor hittades för')}} "{{searchTerm}}"!</p>
+          <p *ngIf="documentLoading">
+            {{ lang === "en" ? "Loading" : "Laddar" }}...
+          </p>
+
+          <p
+            *ngIf="!documentLoading && documentResultsSearch === undefined"
+            class="notResult"
+          >
+            {{
+              lang === "en"
+                ? "No Documents found for"
+                : "Inga Dokument hittades för"
+            }}
+            "{{ searchTerm }}"!
+          </p>
         </div>
         <div *ngIf="faqChecked" class="section">
-          <h3>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</h3>
+          <h3>{{ lang === "en" ? "FAQs" : "Vanliga frågor" }}</h3>
           <div *ngFor="let p of faqResults" class="item">
             <div class="right-content">
-              <h4 (click)="goToPage(p.slug, 'faq')">{{p.title}}</h4>
+              <h4 (click)="goToPage(p.slug, 'faq')">{{ p.title }}</h4>
             </div>
           </div>
-          <p *ngIf="faqsLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
-          <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">{{(lang === 'en' ? 'No FAQs found for' : 'Inga FAQs hittades för')}} "{{searchTerm}}"!</p>
+          <p *ngIf="faqsLoading">
+            {{ lang === "en" ? "Loading" : "Laddar" }}...
+          </p>
+          <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">
+            {{ lang === "en" ? "No FAQs found for" : "Inga FAQs hittades för" }}
+            "{{ searchTerm }}"!
+          </p>
+        </div>
+        <div *ngIf="pageChecked" class="section">
+          <h3>{{ lang === "en" ? "Pages" : "Sidor" }}</h3>
+          <div *ngFor="let p of pageResults" class="item">
+            <div class="right-content">
+              <h4 (click)="goToPage(p.link, 'page')">{{ p.title }}</h4>
+            </div>
+          </div>
+          <p *ngIf="pagesLoading">
+            {{ lang === "en" ? "Loading" : "Laddar" }}...
+          </p>
+          <p
+            *ngIf="!pagesLoading && pageResults.length === 0"
+            class="notResult"
+          >
+            {{
+              lang === "en" ? "No pages found for" : "Inga sidor hittades för"
+            }}
+            "{{ searchTerm }}"!
+          </p>
+        </div>
+        <div *ngIf="postsChecked" class="section">
+          <h3>{{ lang === "en" ? "Posts" : "Inlägg" }}</h3>
+          <div *ngFor="let p of postsResults" class="item">
+            <div class="right-content">
+              <h4 (click)="goToPage(p.slug, 'post')">{{ p.title }}</h4>
+            </div>
+          </div>
+          <p *ngIf="postsLoading">
+            {{ lang === "en" ? "Loading" : "Laddar" }}...
+          </p>
+          <p
+            *ngIf="!postsLoading && postsResults.length === 0"
+            class="notResult"
+          >
+            {{
+              lang === "en" ? "No posts found for" : "Inga inlägg hittades för"
+            }}
+            "{{ searchTerm }}"!
+          </p>
         </div>
       </div>
       <div class="mostSearchTerms">
-        <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
+        <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{
+          term
+        }}</span>
       </div>
     </form>
   </div>
 
   <div *ngIf="showResults" class="results-container">
     <div>
-      <h2>{{(lang === 'en' ? 'Results of' : 'Resultaten av')}} "{{searchTerm}}"</h2>
-      <div *ngIf="postsChecked" class="section">
-        <h3>{{(lang === 'en' ? 'Posts' : 'Inlägg')}}</h3>
-        <div *ngFor="let p of postsResults" class="item">
+      <h2>
+        {{ lang === "en" ? "Results of" : "Resultaten av" }} "{{ searchTerm }}"
+      </h2>
+      <div *ngIf="documentChecked" class="section">
+        <h3>{{ lang === "en" ? "Documents" : "Dokument" }}</h3>
+        <div *ngFor="let p of documentResultsSearch" class="item">
           <div class="left-content">
-            <span *ngFor="let c of p.categories">{{c.name}}</span>
+            <a
+              *ngFor="let c of p.categories"
+              routerLink="/{{ lang }}/documents/{{ c.slug }}"
+              >{{ c.name }}</a
+            >
           </div>
           <div class="right-content">
-            <h4 (click)="goToPage(p.slug, 'post')">{{p.title}}</h4>
-            <p [innerHTML]="p.content | cardText:300"></p>
+            <h4 (click)="goToPage(p.slug, 'document')">{{ p.title }}</h4>
+            <p [innerHTML]="p.content | cardText: 300"></p>
           </div>
         </div>
-        <p *ngIf="postsLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
-        <p *ngIf="!postsLoading && postsResults.length === 0" class="notResult">{{(lang === 'en' ? 'No posts found for' : 'Inga inlägg hittades för')}} "{{searchTerm}}"!</p>
+        <p *ngIf="documentLoading">
+          {{ lang === "en" ? "Loading" : "Laddar" }}...
+        </p>
+
+        <div
+          *ngIf="!documentLoading && documentResultsSearch?.length === 0"
+          class="notResult"
+        >
+          {{
+            lang === "en"
+              ? "No Documents found for"
+              : "Inga Dokument hittades för"
+          }}
+          "{{ searchTerm }}"!
+        </div>
+      </div>
+      <div *ngIf="faqChecked" class="section">
+        <h3>{{ lang === "en" ? "FAQs" : "Vanliga frågor" }}</h3>
+        <div *ngFor="let p of faqResults" class="item">
+          <div class="left-content">
+            <a
+              *ngFor="let c of p.categories"
+              routerLink="/{{ lang }}/support/{{ c.slug }}"
+              >{{ c.name }}</a
+            >
+          </div>
+          <div class="right-content">
+            <h4 (click)="goToPage(p.slug, 'faq')">{{ p.title }}</h4>
+            <p [innerHTML]="p.content | cardText: 300"></p>
+          </div>
+        </div>
+        <p *ngIf="faqsLoading">{{ lang === "en" ? "Loading" : "Laddar" }}...</p>
+        <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">
+          {{ lang === "en" ? "No FAQs found for" : "Inga FAQs hittades för" }}
+          "{{ searchTerm }}"!
+        </p>
       </div>
       <div *ngIf="pageChecked" class="section">
-        <h3>{{(lang === 'en' ? 'Pages' : 'Sidor')}}</h3>
+        <h3>{{ lang === "en" ? "Pages" : "Sidor" }}</h3>
         <div *ngFor="let p of pageResults" class="item">
           <div class="left-content">
             <div class="img-wrapper">
-              <img src="{{p.image}}" alt="{{p.title}}" (click)="goToPage(p.link)">
+              <img
+                src="{{ p.image }}"
+                alt="{{ p.title }}"
+                (click)="goToPage(p.link)"
+              />
             </div>
           </div>
           <div class="right-content">
-            <h4 (click)="goToPage(p.link, 'page')">{{p.title}}</h4>
-            <p [innerHTML]="p.content | cardText:300"></p>
+            <h4 (click)="goToPage(p.link, 'page')">{{ p.title }}</h4>
+            <p [innerHTML]="p.content | cardText: 300"></p>
           </div>
         </div>
-        <p *ngIf="pagesLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
-        <p *ngIf="!pagesLoading && pageResults.length === 0" class="notResult">{{(lang === 'en' ? 'No pages found for' : 'Inga sidor hittades för')}} "{{searchTerm}}"!</p>
+        <p *ngIf="pagesLoading">
+          {{ lang === "en" ? "Loading" : "Laddar" }}...
+        </p>
+        <p *ngIf="!pagesLoading && pageResults.length === 0" class="notResult">
+          {{ lang === "en" ? "No pages found for" : "Inga sidor hittades för" }}
+          "{{ searchTerm }}"!
+        </p>
       </div>
-      <div *ngIf="faqChecked" class="section">
-        <h3>{{(lang === 'en' ? 'FAQs' : 'Vanliga frågor')}}</h3>
-        <div *ngFor="let p of faqResults" class="item">
+      <div *ngIf="postsChecked" class="section">
+        <h3>{{ lang === "en" ? "Posts" : "Inlägg" }}</h3>
+        <div *ngFor="let p of postsResults" class="item">
           <div class="left-content">
-            <a *ngFor="let c of p.categories" routerLink="/{{lang}}/support/{{c.slug}}">{{c.name}}</a>
+            <span *ngFor="let c of p.categories">{{ c.name }}</span>
           </div>
           <div class="right-content">
-            <h4 (click)="goToPage(p.slug, 'faq')">{{p.title}}</h4>
-            <p [innerHTML]="p.content | cardText:300"></p>
+            <h4 (click)="goToPage(p.slug, 'post')">{{ p.title }}</h4>
+            <p [innerHTML]="p.content | cardText: 300"></p>
           </div>
         </div>
-        <p *ngIf="faqsLoading">{{(lang === 'en' ? 'Loading' : 'Laddar')}}...</p>
-        <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">{{(lang === 'en' ? 'No FAQs found for' : 'Inga FAQs hittades för')}} "{{searchTerm}}"!</p>
+        <p *ngIf="postsLoading">
+          {{ lang === "en" ? "Loading" : "Laddar" }}...
+        </p>
+        <p *ngIf="!postsLoading && postsResults.length === 0" class="notResult">
+          {{
+            lang === "en" ? "No posts found for" : "Inga inlägg hittades för"
+          }}
+          "{{ searchTerm }}"!
+        </p>
       </div>
     </div>
   </div>
-
 </div>
 <app-page-not-found *ngIf="pageNotFound"></app-page-not-found>
