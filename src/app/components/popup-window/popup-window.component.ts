@@ -150,18 +150,12 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   }
 
   hide_popup_window(): void {
-      this.showEvent = false;
-      this.top_position = 0;
-      this.showAssociation = false;
-      this.showArchive = false;
-      this.showFaq = false;
-      this.showPage = false;
-      this.loading = false;
-      this.navigateBack = true;
-      this.exit_btn1 = true;
-      this.exit_btn2 = false;
-      this.show_page_not_found = false;
-      this.page_data = null;
+    this.top_position = 0;
+    this.loading = false;
+    this.exit_btn1 = true;
+    this.exit_btn2 = false;
+    this.show_page_not_found = false;
+    this.page_data = null;
     this.appCommunicationService.collapseScrollOnPage('show');
     if (this.showPage || this.showArchive) {
       if (this.navigateBack) {
@@ -281,7 +275,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       this.show_faq_in_popup(faq);
     });
     this.popup_window_hide_updater = this.popupWindowCommunicationService.hideNotifyObservable$.subscribe((arg) => {
-      if (arg.hidden === true) {
+      if (this.showPopupWindow && arg.hidden === true) {
         this.navigateBack = arg.navigateBack;
         this.hide_popup_window();
       }
