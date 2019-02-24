@@ -145,11 +145,6 @@
           </p>
         </div>
       </div>
-      <div class="mostSearchTerms">
-        <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{
-          term
-        }}</span>
-      </div>
     </form>
   </div>
 
@@ -213,15 +208,7 @@
       <div *ngIf="pageChecked" class="section">
         <h3>{{ lang === "en" ? "Pages" : "Sidor" }}</h3>
         <div *ngFor="let p of pageResults" class="item">
-          <div class="left-content">
-            <div class="img-wrapper">
-              <img
-                src="{{ p.image }}"
-                alt="{{ p.title }}"
-                (click)="goToPage(p.link)"
-              />
-            </div>
-          </div>
+          <div class="left-content"></div>
           <div class="right-content">
             <h4 (click)="goToPage(p.link, 'page')">{{ p.title }}</h4>
             <p [innerHTML]="p.content | cardText: 300"></p>

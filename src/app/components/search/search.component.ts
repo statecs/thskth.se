@@ -99,14 +99,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.showFilterOptions = false;
     this.searchOnFocus = false;
     this.searchTerm = "";
-    this.mostSearchTerms = [
-      "Membership",
-      "THS card",
-      "Career",
-      "Student",
-      "Contact",
-      "News"
-    ];
     this.hrefToSlugPipeFilter = new HrefToSlugPipe();
     this.pageResults = [];
     this.postsResults = [];
