@@ -237,6 +237,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
         },
         error => {
           this.loading = false;
+          this.pageNotFound = true;
           this.notificationBarCommunicationService.send_data(error);
         }
       );
@@ -262,6 +263,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
         },
         error => {
           this.loading = false;
+          this.pageNotFound = true;
           this.notificationBarCommunicationService.send_data(error);
         }
       );
