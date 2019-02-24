@@ -8,6 +8,7 @@ import { CookieService } from "ngx-cookie";
 import { PostsService } from "../../services/wordpress/posts.service";
 import { PagesService } from "../../services/wordpress/pages.service";
 import { FaqsService } from "../../services/wordpress/faqs.service";
+import { ArchiveService } from "../../services/wordpress/archive.service";
 
 @Component({
   selector: "app-search-menubar",
@@ -20,9 +21,11 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   public pageResults: SearchResult[];
   public postsResults: SearchResult[];
   public faqResults: SearchResult[];
+  public documentResultsSearch: SearchResult[];
   public postsLoading: boolean;
   public pagesLoading: boolean;
   public faqsLoading: boolean;
+  public documentLoading: boolean;
   public searchTerm: string;
   public showResultsDropdown: boolean;
   private lang: string;
@@ -30,6 +33,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   public postSubscription: Subscription;
   public pageSubscription: Subscription;
   public faqsSubscription: Subscription;
+  public documentsSubscription: Subscription;
   public menuBarSubscription: Subscription;
 
   constructor(
@@ -40,7 +44,8 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
     private _cookieService: CookieService,
     private postsService: PostsService,
     private pagesService: PagesService,
-    private faqsService: FaqsService
+    private faqsService: FaqsService,
+    private archiveService: ArchiveService
   ) {
     this.mostSearchTerms = [
       "Membership",
@@ -67,6 +72,9 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
 
   goToPage(link, type): void {
     this.hideBar();
+    if (type === "document") {
+      this.router.navigate([this.lang + "/archive/" + link]);
+    }
     if (type === "faq") {
       this.router.navigate([this.lang + "/support/faqs/" + link]);
     }
@@ -107,6 +115,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
       this.searchPosts();
       this.searchPages();
       this.searchFAQs();
+      this.searchDocuments();
       this.showResultsDropdown = true;
       this._cookieService.put("search-menubar-terms", this.searchTerm);
     } else {
@@ -159,6 +168,21 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
       );
   }
 
+  searchDocuments(): void {
+    this.documentsSubscription = this.archiveService
+      .searchDocumentsPage(this.searchTerm, 4, this.lang)
+      .subscribe(
+        res => {
+          this.documentLoading = false;
+          this.documentResultsSearch = res;
+        },
+        error => {
+          this.documentLoading = false;
+          this.notificationBarCommunicationService.send_data(error);
+        }
+      );
+  }
+
   ngOnInit() {
     this.menuBarSubscription = this.searchMenubarCommunicationService.notifyObservable$.subscribe(
       () => {
@@ -177,6 +201,9 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.paramsSubscription) {
       this.paramsSubscription.unsubscribe();
+    }
+    if (this.documentsSubscription) {
+      this.documentsSubscription.unsubscribe();
     }
     if (this.postSubscription) {
       this.postSubscription.unsubscribe();

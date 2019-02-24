@@ -1,51 +1,98 @@
 <div *ngIf="showSearchBar" class="background_layer" (click)="hideBar()"></div>
 <div *ngIf="showSearchBar" id="search-menubar">
-  <div class="exit-btn" (click)="closeBar()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
+  <div class="exit-btn" (click)="closeBar()">
+    <i class="material-icons">arrow_forward</i
+    ><i class="material-icons">arrow_back</i>
+  </div>
   <form autocomplete="off">
     <div class="search">
       <i class="material-icons">search</i>
-      <input placeholder="{{(lang === 'en' ? 'Search THS ...' : 'Sök THS ...')}}" [(ngModel)]="searchTerm" name="searchInput" type="search" (keyup)="liveSearch()" appAutoFocus>
+      <input
+        placeholder="{{ lang === 'en' ? 'Search THS ...' : 'Sök THS ...' }}"
+        [(ngModel)]="searchTerm"
+        name="searchInput"
+        type="search"
+        (keyup)="liveSearch()"
+        appAutoFocus
+      />
     </div>
   </form>
-  <div *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
-    <app-loader *ngIf="postsResults?.length === 0 && pageResults?.length === 0 && faqResults?.length === 0"></app-loader>
+  <div
+    *ngIf="showResultsDropdown && searchTerm !== ''"
+    class="resultsDropdownList"
+  >
+    <app-loader
+      *ngIf="
+        postsResults?.length === 0 &&
+        pageResults?.length === 0 &&
+        faqResults?.length === 0 &&
+        documentResultsSearch?.length === 0
+      "
+    ></app-loader>
     <div class="section">
-      <div *ngFor="let p of postsResults" class="item">
+      <div *ngFor="let p of documentResultsSearch" class="item">
         <div class="left-content">
-          <a *ngFor="let c of p.categories" routerLink="/posts/{{c.slug}}">{{c.name}}</a>
+          <h3>{{ lang === "en" ? "Documents" : "Dokument" }}</h3>
+          <a
+            *ngFor="let c of p.categories"
+            routerLink="/archive/{{ c.slug }}"
+            >{{ c.name }}</a
+          >
         </div>
         <div class="right-content">
-          <h4 (click)="goToPage(p.slug, 'post')">{{p.title}}</h4>
-          <p [innerHTML]="p.content | cardText:100"></p>
+          <h4 (click)="goToPage(p.slug, 'document')">{{ p.title }}</h4>
+          <p [innerHTML]="p.content | cardText: 100"></p>
         </div>
       </div>
-      <p *ngIf="postsLoading">Loading...</p>
-    </div>
-    <div class="section">
-      <div *ngFor="let p of pageResults" class="item">
-        <div class="left-content">
-          <div class="img-wrapper">
-            <img src="{{p.image}}" alt="{{p.title}}" (click)="goToPage(p.link)">
-          </div>
-        </div>
-        <div class="right-content">
-          <h4 (click)="goToPage(p.link, 'page')">{{p.title}}</h4>
-          <p [innerHTML]="p.content | cardText:100"></p>
-        </div>
-      </div>
-      <p *ngIf="pagesLoading">Loading...</p>
+      <p *ngIf="faqsLoading">Loading...</p>
     </div>
     <div class="section">
       <div *ngFor="let p of faqResults" class="item">
         <div class="left-content">
-          <a *ngFor="let c of p.categories" routerLink="/contact/faq/{{c.slug}}">{{c.name}}</a>
+          <h3>{{ lang === "en" ? "Faqs" : "Frågor och svar" }}</h3>
+          <a
+            *ngFor="let c of p.categories"
+            routerLink="/contact/faq/{{ c.slug }}"
+            >{{ c.name }}</a
+          >
         </div>
         <div class="right-content">
-          <h4 (click)="goToPage(p.slug, 'faq')">{{p.title}}</h4>
-          <p [innerHTML]="p.content | cardText:100"></p>
+          <h4 (click)="goToPage(p.slug, 'faq')">{{ p.title }}</h4>
+          <p [innerHTML]="p.content | cardText: 100"></p>
         </div>
       </div>
       <p *ngIf="faqsLoading">Loading...</p>
+    </div>
+    <div class="section">
+      <div *ngFor="let p of pageResults" class="item">
+        <div class="left-content">
+          <h3>{{ lang === "en" ? "Page" : "Sidor" }}</h3>
+        </div>
+        <div class="right-content">
+          <h4 (click)="goToPage(p.link, 'page')">{{ p.title }}</h4>
+          <p [innerHTML]="p.content | cardText: 100"></p>
+        </div>
+      </div>
+      <p *ngIf="pagesLoading">Loading...</p>
+    </div>
+    <div class="section" *ngFor="let p of postsResults; let i = index">
+      <div *ngIf="i < 2">
+        <div class="item">
+          <div class="left-content">
+            <h3>{{ lang === "en" ? "Posts" : "Inlägg" }}</h3>
+            <a
+              *ngFor="let c of p.categories"
+              routerLink="/posts/{{ c.slug }}"
+              >{{ c.name }}</a
+            >
+          </div>
+          <div class="right-content">
+            <h4 (click)="goToPage(p.slug, 'post')">{{ p.title }}</h4>
+            <p [innerHTML]="p.content | cardText: 100"></p>
+          </div>
+        </div>
+        <p *ngIf="postsLoading">Loading...</p>
+      </div>
     </div>
     <div class="seeAll">
       <span (click)="goToSearchPage()" class="seeAll">SEE ALL RESULTS >></span>
