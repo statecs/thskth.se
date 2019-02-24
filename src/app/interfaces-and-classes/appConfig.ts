@@ -33,4 +33,5 @@ export interface AppConfig {
     CATEGORIES_URL: string;
     RECAPTCHA_PUBLICKEY: string;
     XHR_CONTACT_FORM: string;
+    CHAPTER_MENU_URL: string;
 }

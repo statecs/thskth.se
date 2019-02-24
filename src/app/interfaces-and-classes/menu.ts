@@ -1,4 +1,4 @@
-interface IMenuItem {
+export interface IMenuItem {
     id: number;
     object_slug: number;
     title: string;

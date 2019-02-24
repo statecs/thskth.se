@@ -38,4 +38,5 @@ export let appConfig: AppConfig = {
     CATEGORIES_URL: 'https://wp.kths.se/api/wp/v2/categories',
     RECAPTCHA_PUBLICKEY: '6Lf68iYTAAAAAIFMPKffFO9vYNJ7KRgQVWP9H_ac',
     XHR_CONTACT_FORM: 'https://kths.se/scripts/xhr-contact-form.php',
+    CHAPTER_MENU_URL: 'https://wp.kths.se/api/wp-api-menus/v2/menus/353',
 };

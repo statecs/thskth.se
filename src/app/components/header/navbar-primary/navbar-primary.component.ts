@@ -3,13 +3,13 @@ import {MenusService} from '../../../services/wordpress/menus.service';
 import {MainMenuItem, MenuItem} from '../../../interfaces-and-classes/menu';
 import { AppConfig } from '../../../interfaces-and-classes/appConfig';
 import { APP_CONFIG } from '../../../app.config';
-import { ths_chapters } from '../../../utils/ths-chapters';
 import {ActivatedRoute, Router, Params, RoutesRecognized} from '@angular/router';
 import {RemoveLangParamPipe} from '../../../pipes/remove-lang-param.pipe';
 import {AddLangToSlugPipe} from '../../../pipes/add-lang-to-slug.pipe';
 import {NotificationBarCommunicationService} from '../../../services/component-communicators/notification-bar-communication.service';
 import {Subscription} from 'rxjs/Subscription';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
+import {ChapterMenu, ChaptersMenuService} from '../../../services/wordpress/chapters-menu.service';
 
 @Component({
   selector: 'app-navbar-primary',
@@ -25,7 +25,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     public language_img: string;
     protected config: AppConfig;
     public showSubmenuIndex: number;
-    public ths_chapters: object[];
+    public ths_chapters: ChapterMenu[];
     public signin_text: string;
     private removeLangParamPipe: RemoveLangParamPipe;
     private addLangToSlugPipe: AddLangToSlugPipe;
@@ -33,14 +33,15 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     public paramsSubscription: Subscription;
     public topLevelMenuSubscription: Subscription;
     public mainMenuSubscription: Subscription;
+    public chaptersMenuSubscription: Subscription;
 
     constructor( injector: Injector,
                  private router: Router,
                  private menusService: MenusService,
                  private activatedRoute: ActivatedRoute,
-                 private notificationBarCommunicationService: NotificationBarCommunicationService) {
+                 private notificationBarCommunicationService: NotificationBarCommunicationService,
+                 private chaptersMenuService: ChaptersMenuService) {
         this.config = injector.get(APP_CONFIG);
-        this.ths_chapters = ths_chapters;
         this.removeLangParamPipe = new RemoveLangParamPipe();
         this.addLangToSlugPipe = new AddLangToSlugPipe();
         this.hrefToSlugPipe = new HrefToSlugPipe();
@@ -174,6 +175,15 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
              });
     }
 
+    private getChapterMenu(): void {
+        this.chaptersMenuSubscription = this.chaptersMenuService.getMenu(this.language).subscribe((ths_chapters: ChapterMenu[]) => {
+                this.ths_chapters = ths_chapters;
+            },
+            (error) => {
+                this.notificationBarCommunicationService.send_data(error);
+            });
+    }
+
     ngOnInit() {
         this.language = this.activatedRoute.snapshot.data['lang'];
 
@@ -190,6 +200,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
                         }
                     }
                     this.getTopLevelMenu();
+                    this.getChapterMenu();
                     this.displayActualLanguage();
                 }
             });
@@ -205,6 +216,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
             });*/
         }else {
             this.getTopLevelMenu();
+            this.getChapterMenu();
             this.displayActualLanguage();
         }
 
@@ -219,6 +231,10 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
         }
         if (this.topLevelMenuSubscription) {
             this.topLevelMenuSubscription.unsubscribe();
+        }
+
+        if (this.chaptersMenuSubscription) {
+            this.chaptersMenuSubscription.unsubscribe();
         }
     }
 

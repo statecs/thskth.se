@@ -36,9 +36,9 @@
                     <span>{{(language === 'en' ? 'THS Chapters' : 'THS Sektioner')}}</span>
                 </div>
             </div>
-            <div *ngFor="let chapter of ths_chapters" class="nav-section" (click)="openInNewTab(chapter.link)">
+            <div *ngFor="let chapter of ths_chapters" class="nav-section" (click)="openInNewTab(chapter.url)">
                 <div class="logo"><img src="{{chapter.image}}"></div>
-                <label>{{(language === 'en' ? chapter.title.en : chapter.title.sv)}}</label>
+                <label>{{chapter.title}}</label>
             </div>
         </div>
     </div>

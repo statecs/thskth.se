@@ -34,6 +34,7 @@ import { ImageSliderCommunicationService } from './services/component-communicat
 import {ContactFormService} from './services/forms/contact-form.service';
 import {TitleCommunicationService} from './services/component-communicators/title-communication.service';
 import {HideUICommunicationService} from './services/component-communicators/hide-ui-communication.service';
+import {ChaptersMenuService} from './services/wordpress/chapters-menu.service';
 
 // Pipes
 import { CardTextPipe } from './pipes/card-text.pipe';
@@ -42,6 +43,7 @@ import { MarkMatchedWordsPipe } from './pipes/mark-matched-words.pipe';
 import { HrefToSlugPipe } from './pipes/href-to-slug.pipe';
 import { RemoveLangParamPipe } from './pipes/remove-lang-param.pipe';
 import { EscapeHtmlPipe } from './pipes/keep-html.pipe';
+import {SanitizeHtmlPipe} from './pipes/sanitizeHtml.pipe';
 
 // Directives
 import { AutoFocusDirective } from './directives/auto-focus.directive';
@@ -118,8 +120,6 @@ import { EventsListComponent } from './components/events-calendar/events-list/ev
 import {SanitizeUrlPipe} from './pipes/sanitizeUrl.pipe';
 import {ChaptersService} from './services/wordpress/chapters.service';
 import {AssociationsService} from './services/wordpress/associations.service';
-import {SanitizeHtmlPipe} from './pipes/sanitizeHtml.pipe';
-
 
 @NgModule({
   declarations: [
@@ -237,6 +237,7 @@ import {SanitizeHtmlPipe} from './pipes/sanitizeHtml.pipe';
       FooterNavigationService,
       ChaptersService,
       AssociationsService,
+      ChaptersMenuService,
       {provide: APP_CONFIG, useValue: appConfig}
   ],
   bootstrap: [AppComponent]
