@@ -11,6 +11,8 @@ export class HeaderCommunicationService {
   tranparentHeaderObservable$ = this.tranparentHeaderNotify.asObservable();
   private menuNotify = new Subject<any>();
   menuObservable$ = this.menuNotify.asObservable();
+  private onMenuDropDownNotify = new Subject<any>();
+  onMenuDropDownObservable$ = this.onMenuDropDownNotify.asObservable();
 
   constructor() { }
 
@@ -32,5 +34,9 @@ export class HeaderCommunicationService {
 
   hideMenu() {
     this.menuNotify.next();
+  }
+
+  onMenuDropDownDisplay(arg) {
+    this.onMenuDropDownNotify.next(arg);
   }
 }

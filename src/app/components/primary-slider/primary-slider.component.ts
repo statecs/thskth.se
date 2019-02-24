@@ -40,13 +40,14 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   public slideSubscription: Subscription;
   public headerSubscription: Subscription;
   public deviceSize: number;
+  private headerCommunicationSub: Subscription;
 
   constructor(
     private headerCommunicationService: HeaderCommunicationService,
     private primarySlidesService: PrimarySlidesService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private notificationBarCommunicationService: NotificationBarCommunicationService
+    private notificationBarCommunicationService: NotificationBarCommunicationService,
   ) {
     this.slides_img_base = "../../../assets/images/main_slider/";
     this.slideIndex = 1;
@@ -215,6 +216,22 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     }
   }
 
+  private stopHidingVideoControlsTimer(): void {
+    if (!this.video.paused) {
+        clearTimeout(this.mousemove_timer);
+    }
+  }
+
+  private startHidingVideoControlsTimer(): void {
+      const mouseStopped = () => {
+          this.hideControls();
+      };
+      if (!this.video.paused) {
+          clearTimeout(this.mousemove_timer);
+          this.mousemove_timer = setTimeout(mouseStopped, 1500);
+      }
+  }
+
   showSelectedSlide(slideNumber): void {
     this.slideIndex = slideNumber;
     if (!this.video.paused) {
@@ -278,6 +295,14 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
           }
         );
     }
+
+    this.headerCommunicationSub =  this.headerCommunicationService.onMenuDropDownObservable$.subscribe((arg) => {
+      if (arg === 'stopHidingVideoControlsTimer') {
+        this.stopHidingVideoControlsTimer();
+      }else if (arg === 'startHidingVideoControlsTimer') {
+        this.startHidingVideoControlsTimer();
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -299,6 +324,9 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     }
     if (this.headerSubscription) {
       this.headerSubscription.unsubscribe();
+    }
+    if (this.headerCommunicationSub) {
+        this.headerCommunicationSub.unsubscribe();
     }
   }
 }

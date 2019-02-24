@@ -10,6 +10,7 @@ import {NotificationBarCommunicationService} from '../../../services/component-c
 import {Subscription} from 'rxjs/Subscription';
 import {HrefToSlugPipe} from '../../../pipes/href-to-slug.pipe';
 import {ChapterMenu, ChaptersMenuService} from '../../../services/wordpress/chapters-menu.service';
+import {HeaderCommunicationService} from '../../../services/component-communicators/header-communication.service';
 
 @Component({
   selector: 'app-navbar-primary',
@@ -40,7 +41,8 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
                  private menusService: MenusService,
                  private activatedRoute: ActivatedRoute,
                  private notificationBarCommunicationService: NotificationBarCommunicationService,
-                 private chaptersMenuService: ChaptersMenuService) {
+                 private chaptersMenuService: ChaptersMenuService,
+                 private headerCommunicationService: HeaderCommunicationService) {
         this.config = injector.get(APP_CONFIG);
         this.removeLangParamPipe = new RemoveLangParamPipe();
         this.addLangToSlugPipe = new AddLangToSlugPipe();
@@ -106,10 +108,14 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
                     this.notificationBarCommunicationService.send_data(error);
                 });
         }
+        // Stop timer of toggling menu if video is playing
+        this.headerCommunicationService.onMenuDropDownDisplay('stopHidingVideoControlsTimer');
     }
 
     hideSubMenu() {
         this.showSubmenuIndex = null;
+        // Start timer of toggling menu if video is playing
+        this.headerCommunicationService.onMenuDropDownDisplay('startHidingVideoControlsTimer');
     }
 
     switchLanguage() {
