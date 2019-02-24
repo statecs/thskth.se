@@ -8,7 +8,7 @@ import {
 import { Card } from "../../interfaces-and-classes/card";
 import { SocialMediaPostService } from "../../services/social-media-post/social-media-post.service";
 import { SocialMediaPost } from "../../interfaces-and-classes/social_media_post";
-import format from "date-fns/format/index";
+import * as format from "date-fns/format";
 import { Event } from "../../interfaces-and-classes/event";
 import { ths_calendars, THSCalendar } from "../../utils/ths-calendars";
 import { ActivatedRoute, Params } from "@angular/router";

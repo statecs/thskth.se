@@ -1,22 +1,22 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import format from 'date-fns/format/index';
-import {ths_calendars, THSCalendar} from '../../../utils/ths-calendars';
-import { GoogleCalendarService } from '../../../services/google-calendar/google-calendar.service';
-import { Event } from '../../../interfaces-and-classes/event';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {PopupWindowCommunicationService} from '../../../services/component-communicators/popup-window-communication.service';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import * as format from "date-fns/format";
+import { ths_calendars, THSCalendar } from "../../../utils/ths-calendars";
+import { GoogleCalendarService } from "../../../services/google-calendar/google-calendar.service";
+import { Event } from "../../../interfaces-and-classes/event";
+import { ActivatedRoute, Params, Router } from "@angular/router";
+import { PopupWindowCommunicationService } from "../../../services/component-communicators/popup-window-communication.service";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
-  selector: 'app-events-card',
-  templateUrl: './events-card.component.html',
-  styleUrls: ['./events-card.component.scss']
+  selector: "app-events-card",
+  templateUrl: "./events-card.component.html",
+  styleUrls: ["./events-card.component.scss"]
 })
 export class EventsCardComponent implements OnInit, OnDestroy {
   public events: Event[];
   public selected_event_title: string;
   public selected_event_text: string;
-  public ths_calendars: { [key: string]: THSCalendar; };
+  public ths_calendars: { [key: string]: THSCalendar };
   public selected_event_index: number;
   public lang: string;
   public parentParamsSubscription: Subscription;
@@ -24,18 +24,20 @@ export class EventsCardComponent implements OnInit, OnDestroy {
   public eventsSubscription: Subscription;
 
   constructor(
-      private googleCalendarService: GoogleCalendarService,
-      private router: Router,
-      private popupWindowCommunicationService: PopupWindowCommunicationService,
-      private activatedRoute: ActivatedRoute
+    private googleCalendarService: GoogleCalendarService,
+    private router: Router,
+    private popupWindowCommunicationService: PopupWindowCommunicationService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.ths_calendars = ths_calendars;
-    this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe((params2: Params) => {
-      this.lang = params2['lang'];
-      if (typeof this.lang === 'undefined') {
-        this.lang = 'en';
+    this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe(
+      (params2: Params) => {
+        this.lang = params2["lang"];
+        if (typeof this.lang === "undefined") {
+          this.lang = "en";
+        }
       }
-    });
+    );
   }
 
   displayEventInPopup(event: Event) {
@@ -43,7 +45,7 @@ export class EventsCardComponent implements OnInit, OnDestroy {
   }
 
   goToPage(slug): void {
-    this.router.navigate(['/' + slug]);
+    this.router.navigate(["/" + slug]);
   }
 
   selectEvent(i) {
@@ -53,16 +55,16 @@ export class EventsCardComponent implements OnInit, OnDestroy {
   }
 
   getMonth(date): string {
-    return format(date, 'MMM');
+    return format(date, "MMM");
   }
 
   getDay(date): string {
-    return format(date, 'DD');
+    return format(date, "DD");
   }
 
   mergeArrays(arrays: any): Event[] {
     let merged: Event[] = [];
-    arrays.forEach((event) => {
+    arrays.forEach(event => {
       merged = merged.concat(event);
     });
     return merged;
@@ -72,18 +74,20 @@ export class EventsCardComponent implements OnInit, OnDestroy {
     a = new Date(a.start);
     b = new Date(b.start);
     return a < b ? -1 : a > b ? 1 : 0;
-  };
+  }
 
   ngOnInit() {
-    this.eventsSubscription = this.googleCalendarService.getAllEvents(null, '').subscribe(res => {
-      const mergedArrays = this.mergeArrays(res);
-      const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
-      if (sortedArrays.length > 4) {
-        this.events = sortedArrays.slice(0, 4);
-      }else {
-        this.events = sortedArrays;
-      }
-    });
+    this.eventsSubscription = this.googleCalendarService
+      .getAllEvents(null, "")
+      .subscribe(res => {
+        const mergedArrays = this.mergeArrays(res);
+        const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+        if (sortedArrays.length > 4) {
+          this.events = sortedArrays.slice(0, 4);
+        } else {
+          this.events = sortedArrays;
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -97,5 +101,4 @@ export class EventsCardComponent implements OnInit, OnDestroy {
       this.eventsSubscription.unsubscribe();
     }
   }
-
 }
