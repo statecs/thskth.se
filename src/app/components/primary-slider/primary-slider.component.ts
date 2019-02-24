@@ -217,7 +217,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   private stopHidingVideoControlsTimer(): void {
-    if (!this.video.paused) {
+    if (this.video && !this.video.paused) {
         clearTimeout(this.mousemove_timer);
     }
   }
@@ -226,7 +226,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       const mouseStopped = () => {
           this.hideControls();
       };
-      if (!this.video.paused) {
+      if (this.video && !this.video.paused) {
           clearTimeout(this.mousemove_timer);
           this.mousemove_timer = setTimeout(mouseStopped, 1500);
       }
