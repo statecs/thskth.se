@@ -68,8 +68,8 @@
         <div *ngFor="let faq of search_results">
           <div #faqElement class="faq" (click)="toggleAnswer(faqElement)">
             <span>+</span>
-            <div class="question" [innerHTML]="faq.question | markMatchedWords:searchTerm"></div>
-            <div data-collapsed="true" class="answer" [innerHTML]="faq.answer | markMatchedWords:searchTerm"></div>
+            <div class="question" [innerHTML]="faq.title | markMatchedWords:searchTerm"></div>
+            <div data-collapsed="true" class="answer" [innerHTML]="faq.content | markMatchedWords:searchTerm"></div>
           </div>
         </div>
         <div *ngIf="noResult" class="noItems">No FAQs found matching "{{searchTerm}}"</div>
