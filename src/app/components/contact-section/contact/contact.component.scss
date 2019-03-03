@@ -1,12 +1,12 @@
 @import "../../../../style/utilities";
 
-#content-container{
+#content-container {
   @include container-size($main-container);
   padding-top: 100px;
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
-  #page{
+  #page {
     .heading {
       position: relative;
       margin-bottom: 40px;
@@ -26,44 +26,44 @@
       }
     }
 
-    .side-bar{
+    .side-bar {
       width: 25%;
       display: inline-block;
-      text-align: right;
-      .submenu{
-        .submenu-item{
+      text-align: left;
+      .submenu {
+        .submenu-item {
           padding: 15px 5px;
           position: relative;
           font-weight: 600;
           cursor: pointer;
           border-bottom: 1px solid lightgrey;
-          a{
+          a {
             text-decoration: none;
             color: $text-color-default;
           }
-          &:hover{
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+          &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
           }
-          &:last-child{
+          &:last-child {
             border: 0;
           }
         }
       }
     }
-    .content-container{
+    .content-container {
       width: 100%;
       display: inline-block;
       position: relative;
       vertical-align: top;
       line-height: 1.2;
-      .divider{
-        border-top:1px solid gray;
+      .divider {
+        border-top: 1px solid gray;
       }
-      .submenu-bar{
+      .submenu-bar {
         text-align: center;
         position: relative;
         padding: 10px 0;
-        .submenu-item{
+        .submenu-item {
           width: 25%;
           height: 80px;
           background-color: lightgrey;
@@ -72,7 +72,7 @@
           position: relative;
           cursor: pointer;
           border-radius: 5px;
-          span{
+          span {
             @include center-content(50%, 50%);
           }
         }
@@ -81,21 +81,21 @@
   }
 }
 
-:host /deep/ .content-container{
-  .content{
-    a{
+:host /deep/ .content-container {
+  .content {
+    a {
       text-decoration: none;
       color: $color-link-secondary;
-      &:hover{
+      &:hover {
         color: $color-link-secondary-hover;
       }
     }
-    & >h2{
+    & > h2 {
       margin-top: 0;
       font-size: $font-size-h2;
     }
-    & >p{
-      & >h2{
+    & > p {
+      & > h2 {
         font-weight: 600;
       }
     }
@@ -106,22 +106,22 @@
 @include media-breakpoint-only(xs) {
   #content-container {
     width: 100%;
-    #page{
-      .heading{
+    #page {
+      .heading {
         margin: 0 20px 10px;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
-        .submenu-bar{
-          .submenu-item{
+      .content-container {
+        .submenu-bar {
+          .submenu-item {
             width: 80%;
             margin: 10px 5%;
             height: 70px;
           }
         }
-        .contact-form{
+        .contact-form {
           width: 90%;
           margin-left: 5%;
         }
@@ -133,22 +133,22 @@
 @include media-breakpoint-only(sm) {
   #content-container {
     width: 100%;
-    #page{
-      .heading{
+    #page {
+      .heading {
         margin: 0 20px 10px;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
-        .submenu-bar{
-          .submenu-item{
+      .content-container {
+        .submenu-bar {
+          .submenu-item {
             width: 40%;
             margin: 10px 5%;
             height: 70px;
           }
         }
-        .contact-form{
+        .contact-form {
           width: 90%;
           margin-left: 5%;
         }
@@ -160,22 +160,22 @@
 @include media-breakpoint-only(md) {
   #content-container {
     width: 90%;
-    #page{
-      .heading{
+    #page {
+      .heading {
         margin: 0 20px 10px;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
-        .submenu-bar{
-          .submenu-item{
+      .content-container {
+        .submenu-bar {
+          .submenu-item {
             width: 40%;
             margin: 10px 5%;
             height: 70px;
           }
         }
-        .contact-form{
+        .contact-form {
           width: 90%;
           margin-left: 5%;
         }
@@ -187,22 +187,22 @@
 @include media-breakpoint-only(lg) {
   #content-container {
     width: 90%;
-    #page{
-      .heading{
+    #page {
+      .heading {
         margin: 0 20px 10px;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
-        .submenu-bar{
-          .submenu-item{
+      .content-container {
+        .submenu-bar {
+          .submenu-item {
             width: 40%;
             margin: 10px 5%;
             height: 70px;
           }
         }
-        .contact-form{
+        .contact-form {
           width: 90%;
           margin-left: 5%;
         }
@@ -212,5 +212,4 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

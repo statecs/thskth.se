@@ -154,10 +154,7 @@
       >
         <div class="event-calendar-card">
           <div class="categories">
-            <div
-              class="cat-wrapper"
-              [style.width]="ths_calendars.length * 80 + 'px'"
-            >
+            <div class="cat-wrapper">
               <div
                 *ngFor="let c of ths_calendars; let i = index"
                 class="item"
@@ -166,6 +163,9 @@
               >
                 {{ lang === "en" ? c.title.en : c.title.sv }}
               </div>
+              <a class="item eventsLink" routerLink="/events">{{
+                lang === "en" ? "Go to calendar" : "Gå till kalender"
+              }}</a>
             </div>
           </div>
           <div
@@ -215,9 +215,6 @@
                   }}</span>
                 </div>
               </div>
-              <a *ngIf="events?.length === 3" routerLink="/events">{{
-                lang === "en" ? "More >>" : "Mer >>"
-              }}</a>
               <span *ngIf="events?.length === 0" class="no-events">{{
                 lang === "en"
                   ? "There are no upcoming events."

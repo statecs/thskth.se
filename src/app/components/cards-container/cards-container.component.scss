@@ -281,7 +281,7 @@
     overflow: hidden;
     .item {
       display: inline-block;
-      padding: 5px 7px;
+      padding: 10px;
       height: 100%;
       float: left;
       cursor: pointer;
@@ -289,6 +289,11 @@
       &:hover {
         border-bottom: 2px solid white;
       }
+    }
+    .eventsLink {
+      float: right;
+      color: white;
+      text-decoration: none;
     }
     .selected {
       color: #fff;
@@ -347,7 +352,7 @@
         }
       }
       .no-events {
-        color: $text-color-brown;
+        color: $color-link;
       }
       .event {
         margin-bottom: 7px;

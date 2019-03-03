@@ -7,7 +7,6 @@
         [style.width]="100 / slides_items?.length + '%'"
       >
         <div class="slide">
-          <h2 [innerHTML]="item.question"></h2>
           <a
             class="category"
             [innerHTML]="item.category_name"
@@ -17,6 +16,7 @@
                 : 'en/support/' + item.category_slug
             ]"
           ></a>
+          <h2 class="titleSlider" [innerHTML]="item.question"></h2>
           <p
             class="large-devices"
             [innerHTML]="item.answer | cardText: 800"

@@ -1,22 +1,22 @@
 @import "../../../../style/_utilities";
-.freeze-submenu-bar{
+.freeze-submenu-bar {
   @include freeze-submenu-bar;
 }
-.submenu-bar{
+.submenu-bar {
   @include submenu-bar;
 }
-.mobile{
+.mobile {
   display: none;
 }
-#content-container{
+#content-container {
   @include container-size($main-container);
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
-  .larger-devices{
+  .larger-devices {
     display: block;
   }
-  #page{
+  #page {
     margin-top: 10px;
     .heading {
       position: relative;
@@ -38,32 +38,32 @@
       }
     }
 
-    .side-bar{
+    .side-bar {
       width: 25%;
       display: inline-block;
-      text-align: right;
-      .submenu{
+      text-align: left;
+      .submenu {
         margin-bottom: 20px;
-        .submenu-item{
+        .submenu-item {
           padding: 15px 5px;
           position: relative;
           font-weight: 600;
           cursor: pointer;
           border-bottom: 1px solid lightgrey;
-          a{
+          a {
             text-decoration: none;
             color: $text-color-default;
           }
-          &:hover{
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+          &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
           }
-          &:last-child{
+          &:last-child {
             border: 0;
           }
         }
       }
     }
-    .content-container{
+    .content-container {
       width: 66%;
       display: inline-block;
       position: relative;
@@ -76,7 +76,8 @@
         border-top: 1px solid #cac8c8;
         padding: 25px 0;
         margin: 0;
-        dt, dd {
+        dt,
+        dd {
           line-height: 1.42857;
         }
         dt {
@@ -84,7 +85,7 @@
         }
         dd {
           margin-left: 0;
-          a{
+          a {
             text-decoration: none;
             color: $color-link-secondary;
             &:hover {
@@ -102,58 +103,58 @@
         .dl-horizontal dd {
           margin-bottom: 12px;
         }
-
       }
-      .article-footer .dl-in-article-footer dt, .article-footer-news .dl-in-article-footer dt {
+      .article-footer .dl-in-article-footer dt,
+      .article-footer-news .dl-in-article-footer dt {
         width: 100px;
       }
-      .content{
+      .content {
         margin-bottom: 50px;
       }
     }
   }
 }
 
-:host /deep/ table{
+:host /deep/ table {
   width: 100%;
   margin: 10px 0;
   border-collapse: collapse;
-  td{
+  td {
     border: 1px solid lightgray;
     padding: 10px;
   }
 }
 
-:host /deep/ .showbox{
+:host /deep/ .showbox {
   padding-bottom: 200px !important;
   padding-top: 250px !important;
 }
 
-:host /deep/ #join-us{
+:host /deep/ #join-us {
   margin-bottom: 35px;
 }
 
-:host /deep/ .content-container{
-  .content{
-    >h1{
+:host /deep/ .content-container {
+  .content {
+    > h1 {
       font-size: $font-size-h3;
     }
-    a{
+    a {
       text-decoration: none;
       color: $color-link-secondary;
-      &:hover{
+      &:hover {
         color: $color-link-secondary-hover;
       }
     }
-    & >h2{
+    & > h2 {
       font-size: $font-size-h2;
     }
-    & >p{
-      & >h2{
+    & > p {
+      & > h2 {
         font-weight: 600;
       }
     }
-    video{
+    video {
       width: 100% !important;
       height: auto !important;
     }
@@ -162,25 +163,25 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
-  .mobile{
+  .mobile {
     display: block;
   }
   #content-container {
     width: 100%;
     margin-top: 0;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    #page{
+    #page {
       width: 90%;
       margin-left: 5%;
-      .heading{
+      .heading {
         margin-bottom: 0;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
+      .content-container {
         width: 100%;
         margin-left: 0;
         left: 0;
@@ -188,8 +189,8 @@
     }
   }
 
-  :host /deep/ .content{
-    img{
+  :host /deep/ .content {
+    img {
       width: 100%;
       height: auto;
     }
@@ -197,25 +198,25 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
-  .mobile{
+  .mobile {
     display: block;
   }
   #content-container {
     width: 100%;
     margin-top: 0;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    #page{
+    #page {
       width: 90%;
       margin-left: 5%;
-      .heading{
+      .heading {
         margin-bottom: 0;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
+      .content-container {
         width: 100%;
         margin-left: 0;
         left: 0;
@@ -223,8 +224,8 @@
     }
   }
 
-  :host /deep/ .content{
-    img{
+  :host /deep/ .content {
+    img {
       width: 100%;
       height: auto;
     }
@@ -232,25 +233,25 @@
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
-  .mobile{
+  .mobile {
     display: block;
   }
   #content-container {
     width: 100%;
     margin-top: 0;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    #page{
+    #page {
       width: 90%;
       margin-left: 5%;
-      .heading{
+      .heading {
         margin-bottom: 0;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
+      .content-container {
         width: 100%;
         margin-left: 0;
         left: 0;
@@ -258,8 +259,8 @@
     }
   }
 
-  :host /deep/ .content{
-    img{
+  :host /deep/ .content {
+    img {
       max-width: 100%;
       height: auto;
     }

@@ -1,6 +1,6 @@
 @import "../../../style/utilities";
 
-.categories{
+.categories {
   background: $bg-color-primary;
   height: auto;
   display: block;
@@ -8,39 +8,36 @@
   font-size: $font-size-h7;
   width: 100%;
   overflow-x: scroll;
-  .cat-wrapper{
+  .cat-wrapper {
     width: 700px;
-    .item{
+    .item {
       display: inline-block;
-      padding:5px 7px;
+      padding: 10px;
       height: 100%;
       float: left;
       cursor: pointer;
-      border-bottom:2px solid rgba(0,0,0,0);
-      &:hover{
-        border-bottom:2px solid white;
+      border-bottom: 2px solid rgba(0, 0, 0, 0);
+      &:hover {
+        border-bottom: 2px solid white;
       }
     }
-    .selected{
+    .selected {
       color: #fff;
-      border-bottom:2px solid white;
+      border-bottom: 2px solid white;
     }
   }
 }
 
-::-webkit-scrollbar
-{
-  width: 2px;  /* for vertical scrollbars */
+::-webkit-scrollbar {
+  width: 2px; /* for vertical scrollbars */
   height: 2px; /* for horizontal scrollbars */
 }
 
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
   background: rgb(102, 101, 101);
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: #a8a8a8;
   border-radius: 10px;
 }
@@ -48,9 +45,9 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   .categories {
-    .cat-wrapper{
-      .item{
-        padding:10px 7px;
+    .cat-wrapper {
+      .item {
+        padding: 10px 7px;
         font-size: $font-size-h5;
       }
     }
@@ -59,9 +56,9 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   .categories {
-    .cat-wrapper{
-      .item{
-        padding:10px 7px;
+    .cat-wrapper {
+      .item {
+        padding: 10px 7px;
         font-size: $font-size-h5;
       }
     }
@@ -70,9 +67,9 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   .categories {
-    .cat-wrapper{
-      .item{
-        padding:10px 7px;
+    .cat-wrapper {
+      .item {
+        padding: 10px 7px;
         font-size: $font-size-h5;
       }
     }
@@ -81,10 +78,8 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   .categories {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

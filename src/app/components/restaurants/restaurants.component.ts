@@ -32,9 +32,8 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   public restaurants: Restaurant[];
   public restaurant_index: number;
   public showSchedule: boolean;
-  public lunch: DishesTime;
-  public a_la_carte: DishesTime;
   public selected_day: string;
+  public today: any;
   private lang: string;
   public pageNotFound: boolean;
   private loading: boolean;
@@ -55,6 +54,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.slideIndex = 0;
     this.showSchedule = false;
+    this.today = new Date();
     this.selected_day = format(new Date(), "dddd");
     if (this.selected_day === "Sunday" || this.selected_day === "Saturday") {
       this.selected_day = "Monday";
@@ -152,22 +152,10 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       day_index = 4;
     }
     if (this.restaurant_index) {
-      this.lunch = this.restaurants[this.restaurant_index].menu[
-        day_index
-      ].lunch;
-      this.a_la_carte = this.restaurants[this.restaurant_index].menu[
-        day_index
-      ].a_la_carte;
       this.menuFullText = this.restaurants[this.restaurant_index].menu[
         day_index
       ].full_text;
     } else {
-      this.lunch = this.restaurants[this.item_onfocus_index].menu[
-        day_index
-      ].lunch;
-      this.a_la_carte = this.restaurants[this.item_onfocus_index].menu[
-        day_index
-      ].a_la_carte;
       this.menuFullText = this.restaurants[this.item_onfocus_index].menu[
         day_index
       ].full_text;

@@ -1,12 +1,12 @@
 @import "../../../../style/utilities";
 
-#content-container{
+#content-container {
   @include container-size($main-container);
   padding-top: 100px;
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
-  #page{
+  #page {
     .heading {
       position: relative;
       margin-bottom: 40px;
@@ -26,31 +26,31 @@
       }
     }
 
-    .side-bar{
+    .side-bar {
       width: 25%;
       display: inline-block;
       text-align: right;
-      .submenu{
-        .submenu-item{
+      .submenu {
+        .submenu-item {
           padding: 15px 5px;
           position: relative;
           font-weight: 600;
           cursor: pointer;
           border-bottom: 1px solid lightgrey;
-          a{
+          a {
             text-decoration: none;
             color: $text-color-default;
           }
-          &:hover{
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+          &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
           }
-          &:last-child{
+          &:last-child {
             border: 0;
           }
         }
       }
     }
-    .content-container{
+    .content-container {
       width: 66%;
       display: inline-block;
       position: relative;
@@ -61,21 +61,21 @@
   }
 }
 
-:host /deep/ .content-container{
-  .content{
-    a{
+:host /deep/ .content-container {
+  .content {
+    a {
       text-decoration: none;
       color: $color-link-secondary;
-      &:hover{
+      &:hover {
         color: $color-link-secondary-hover;
       }
     }
-    & >h2{
+    & > h2 {
       margin-top: 0;
       font-size: $font-size-h2;
     }
-    & >p{
-      & >h2{
+    & > p {
+      & > h2 {
         font-weight: 600;
       }
     }
@@ -91,22 +91,18 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #content-container {
-
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #content-container {
-
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #content-container {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }
