@@ -152,13 +152,21 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       day_index = 4;
     }
     if (this.restaurant_index) {
-      this.menuFullText = this.restaurants[this.restaurant_index].menu[
-        day_index
-      ].full_text;
+      if (this.restaurants[this.restaurant_index].menu.length > 0) {
+        this.menuFullText = this.restaurants[this.restaurant_index].menu[
+          day_index
+        ].full_text;
+      } else {
+        this.menuFullText = null;
+      }
     } else {
-      this.menuFullText = this.restaurants[this.item_onfocus_index].menu[
-        day_index
-      ].full_text;
+      if (this.restaurants[this.item_onfocus_index].menu.length > 0) {
+        this.menuFullText = this.restaurants[this.item_onfocus_index].menu[
+          day_index
+        ].full_text;
+      } else {
+        this.menuFullText = null;
+      }
     }
   }
 

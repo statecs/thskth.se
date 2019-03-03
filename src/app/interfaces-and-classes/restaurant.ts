@@ -2,6 +2,7 @@ export interface Dish {
   title: string;
   description: string;
   weekly_menu: string;
+  bistro: string;
   price: string;
   image: string;
 }
@@ -21,6 +22,7 @@ export interface IRestaurant {
   title: string;
   description: string;
   weekly_menu: string;
+  bistro: string;
   imageUrl: string;
   menu: Menu[];
 }
@@ -30,6 +32,7 @@ export class Restaurant implements IRestaurant {
   title: string;
   description: string;
   weekly_menu: string;
+  bistro: string;
   imageUrl: string;
   menu: Menu[];
 
@@ -47,6 +50,7 @@ export class Restaurant implements IRestaurant {
           description: p.content.rendered,
           imageUrl: image,
           weekly_menu: p.acf.weekly_menu,
+          bistro: p.acf.bistro,
           menu: this.castResTo_MenuType(p.acf.menu)
         });
       });
@@ -81,6 +85,7 @@ export class Restaurant implements IRestaurant {
           title: d.title,
           description: d.description,
           weekly_menu: d.weekly_menu,
+          bistro: d.bistro,
           price: d.price,
           image: image
         });

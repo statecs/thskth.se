@@ -43,7 +43,7 @@
         <p [innerHTML]="restaurants[item_onfocus_index]?.description"></p>
       </div>
       <div class="menu-wrapper">
-        <div class="menu-calendar">
+        <div *ngIf="menuFullText !== null" class="menu-calendar">
           <div>
             <div
               [ngClass]="{ selected: selected_day === 'Monday' }"
@@ -82,12 +82,22 @@
           <div>A la carté {{a_la_carte?.serving_time}}</div>
         </div>-->
         <div class="menu-container">
-          <h2 *ngIf="menuFullText !== 0">Lunch {{ today | date }}</h2>
+          <h2 *ngIf="menuFullText !== null">Lunch</h2>
           <p [innerHTML]="menuFullText"></p>
-          <h2 *ngIf="restaurants[item_onfocus_index]?.weekly_menu !== 0">
-            Weekly menu
+          <h2 *ngIf="restaurants[item_onfocus_index]?.weekly_menu !== null">
+            {{ lang === "en" ? "This week's menu" : "Veckans meny" }}
           </h2>
-          <div [innerHTML]="restaurants[item_onfocus_index]?.weekly_menu"></div>
+          <div
+            [innerHTML]="
+              restaurants[item_onfocus_index]?.weekly_menu | keepHtml
+            "
+          ></div>
+          <h2 *ngIf="restaurants[item_onfocus_index]?.bistro">
+            {{ lang === "en" ? "Bistro" : "Bistro" }}
+          </h2>
+          <div
+            [innerHTML]="restaurants[item_onfocus_index]?.bistro | keepHtml"
+          ></div>
         </div>
       </div>
     </div>
@@ -103,7 +113,7 @@
       <p [innerHTML]="restaurants[restaurant_index]?.description"></p>
     </div>
     <div class="menu-wrapper">
-      <div class="menu-calendar">
+      <div *ngIf="menuFullText !== null" class="menu-calendar">
         <div
           [ngClass]="{ selected: selected_day === 'Monday' }"
           (click)="changeDay('Monday')"
@@ -136,12 +146,20 @@
         </div>
       </div>
       <div class="menu-container">
-        <h2 *ngIf="menuFullText !== 0">Lunch {{ today | date }}</h2>
+        <h2 *ngIf="menuFullText !== null">Lunch</h2>
         <p [innerHTML]="menuFullText"></p>
-        <h2 *ngIf="restaurants[restaurant_index]?.weekly_menu !== 0">
-          Weekly menu
+        <h2 *ngIf="restaurants[restaurant_index]?.weekly_menu !== null">
+          {{ lang === "en" ? "This week's menu" : "Veckans meny" }}
         </h2>
-        <div [innerHTML]="restaurants[restaurant_index]?.weekly_menu"></div>
+        <div
+          [innerHTML]="restaurants[restaurant_index]?.weekly_menu | keepHtml"
+        ></div>
+        <h2 *ngIf="restaurants[restaurant_index]?.bistro">
+          {{ lang === "en" ? "Bistro" : "Bistro" }}
+        </h2>
+        <div
+          [innerHTML]="restaurants[restaurant_index]?.bistro | keepHtml"
+        ></div>
       </div>
     </div>
   </div>
