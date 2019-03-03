@@ -18,7 +18,7 @@
   align-items: stretch;
   align-content: flex-start;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   line-height: 1.15;
   .larger-devices {
     display: block !important;
@@ -118,7 +118,6 @@
       vertical-align: middle;
       cursor: pointer;
       display: inline-block;
-      border: 1px solid lightgray;
       margin-bottom: 5px;
     }
     & > div {
@@ -412,7 +411,6 @@
       vertical-align: middle;
       cursor: pointer;
       display: inline-block;
-      border: 1px solid lightgray;
       margin-bottom: 5px;
     }
     & > div {

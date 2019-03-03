@@ -152,7 +152,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
             .getCardCategory("interest", this.lang)
             .subscribe(int_cats => {
               this.int_cats = int_cats;
-              this.selected_interest_name = "__Select__";
+              this.selected_interest_name = int_cats[0].name;
               this.selected_interest = int_cats[0].id;
               this._cookieService.putObject("cards_filter", {
                 profession: this.selected_profession,

@@ -134,50 +134,28 @@
             <p [innerHTML]="d.description | cardText: 100"></p>
             <div class="files">
               <div *ngFor="let f of d.documents" class="link_container">
-                <h5>{{ f.filename }}</h5>
-                <div
-                  *ngIf="f.mime_type === 'pdf' && pdfChecked"
-                  class="download_link"
-                  (click)="downloadFile(f.url)"
-                >
-                  <span>PDF </span>
-                  <i class="material-icons">file_download</i>
-                </div>
-                <div
-                  *ngIf="f.mime_type === 'docx' && docChecked"
-                  class="download_link"
-                  (click)="downloadFile(f.url)"
-                >
-                  <span>DOC </span>
-                  <i class="material-icons">file_download</i>
-                </div>
-                <div
-                  *ngIf="f.mime_type === 'zip' && zipChecked"
-                  class="download_link"
-                  (click)="downloadFile(f.url)"
-                >
-                  <span>Zip </span>
-                  <i class="material-icons">file_download</i>
-                </div>
+                <h5 (click)="downloadFile(f.url)" class="download_link">
+                  {{ f.filename }} <i class="material-icons">file_download</i>
+                </h5>
               </div>
             </div>
           </div>
+          <app-loader *ngIf="documentsLoading"></app-loader>
+          <p
+            *ngIf="!documentsLoading && documentResults.length === 0"
+            class="notResult"
+          >
+            {{
+              lang === "en"
+                ? "No documents found for"
+                : "Inga dokument hittades för"
+            }}
+            "{{ searchTerm }}"!
+          </p>
         </div>
-        <app-loader *ngIf="documentsLoading"></app-loader>
-        <p
-          *ngIf="!documentsLoading && documentResults.length === 0"
-          class="notResult"
-        >
-          {{
-            lang === "en"
-              ? "No documents found for"
-              : "Inga dokument hittades för"
-          }}
-          "{{ searchTerm }}"!
-        </p>
       </div>
     </div>
   </div>
-</div>
 
-<app-page-not-found *ngIf="pageNotFound"></app-page-not-found>
+  <app-page-not-found *ngIf="pageNotFound"></app-page-not-found>
+</div>

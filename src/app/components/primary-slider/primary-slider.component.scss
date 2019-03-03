@@ -2,8 +2,8 @@
 
 #primary-slider {
   position: relative;
-  height: 800px;
-  height: 88vh;
+  height: 70vh;
+  max-height: 70vh;
   //border: 1px solid red;
   background-color: #777777;
   //background-image: url("../../../assets/images/main_slider/Background-image-733x550.jpg");
@@ -196,6 +196,7 @@
           }
 
           .number {
+            display: none;
             border: 1px solid lightgray;
             @include circle(30px);
             display: inline-block;
@@ -217,7 +218,6 @@
 
     .slideshow-play-button {
       padding: 15px;
-      border: 1px solid white;
       display: inline-block;
       border-radius: 3px;
       cursor: pointer;
@@ -615,4 +615,20 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
+  .slider-bar-container {
+    .slider-bar {
+      margin-left: 4%;
+      width: 92%;
+      .item {
+        .text {
+          .title {
+            font-size: 0.9em;
+          }
+          .number {
+            display: none !important;
+          }
+        }
+      }
+    }
+  }
 }
