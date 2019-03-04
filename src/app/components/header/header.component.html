@@ -1,82 +1,141 @@
-<header #app_header [ngClass]="{'tranparentHeader': tranparentHeader}">
-    <div class="container bigger-device">
-        <div class="search" role="search" (click)="showSearchMenubar()"><i class="material-icons">search</i> {{placeholder}}</div>
-        <div class="logo">
-            <a *ngIf="lang === 'en'" routerLink="/"><img src="/assets/svg/ths_circles_filled.svg"/></a>
-            <a *ngIf="lang === 'sv'" routerLink="/sv"><img src="/assets/svg/ths_circles_filled.svg"/></a>
-        </div>
-
-        <app-navbar-primary></app-navbar-primary>
+<header #app_header [ngClass]="{ tranparentHeader: tranparentHeader }">
+  <div class="container bigger-device">
+    <div class="search" role="search" (click)="showSearchMenubar()">
+      <i class="material-icons">search</i> {{ placeholder }}
     </div>
-    <div class="container mobile">
-        <div class="menu-wrapper">
-            <div class="logo">
-                <a *ngIf="lang === 'en'" routerLink="/" (click)="goToHome()"><img src="/assets/svg/ths_circles_filled.svg"/></a>
-                <a *ngIf="lang === 'sv'" routerLink="/sv" (click)="goToHome()"><img src="/assets/svg/ths_circles_filled.svg"/></a>
-            </div>
-            <div class="chapters">
-                <i #chapter_icon class="material-icons" (click)="toggleChaptersMobile($event)">more_vert</i>
-            </div>
-            <div class="menu-bar">
-                <div class="menu" (click)="toggleMenuMobile()">
-                    <span>{{(lang === 'en' ? 'Menu' : 'Meny')}}</span>
-                    <i *ngIf="!showMenuMobile" class="fa fa-bars"></i>
-                    <i *ngIf="showMenuMobile" class="fa fa-times-circle"></i>
-                </div>
-            </div>
-        </div>
-        <div #menuDropdown *ngIf="showMenuMobile" class="menu-dropdown">
-            <div *ngIf="showMenuMobile" class="search-bar-mobile">
-                <form autocomplete="off">
-                    <div class="search-bar">
-                        <span (click)="navToSearchPage('/search')"><i class="material-icons">search</i></span>
-                        <input placeholder="{{(lang === 'en' ? 'Search THS and beyond...' : 'Sök THS')}}" [(ngModel)]="searchTerm" name="searchInput" type="search" (keyup)="submitSearch($event)">
-                    </div>
-                </form>
-            </div>
-            <app-loader *ngIf="topLevelMainMenu?.length === 0"></app-loader>
-            <div *ngIf="showMenuMobile" class="menu-items">
-                <div #submenu_item class="nav-item" *ngFor="let item of topLevelMainMenu; index as i">
-                    <div class="item-wrapper" [ngClass]="{'selected': showSubmenuIndex === i}" (click)="toggleSubmenu(item.object_slug, i)">
-                        <div class="label">
-                            <span (click)="goToPage(item)">{{item.title}}</span>
-                        </div>
-                        <i *ngIf="showSubmenuIndex !== i && item?.children" class="fa fa-plus"></i>
-                        <i *ngIf="showSubmenuIndex === i && item?.children" class="fa fa-minus"></i>
-                    </div>
-                    <div *ngIf="showSubmenuIndex === i" class="sub-menu">
-                        <app-loader *ngIf="subMenu.length === 0"></app-loader>
-                        <div *ngFor="let subItem of subMenu; index as sub_i">
-                            <div class="sub_item" (click)="toggleSubmenu2(subItem.object_slug, sub_i)">
-                                <span (click)="goToPage(subItem)">{{subItem.title}}</span>
-                                <i *ngIf="showSubmenuIndex2 !== sub_i && subItem?.children" class="fa fa-plus"></i>
-                                <i *ngIf="showSubmenuIndex2 === sub_i && subItem?.children" class="fa fa-minus"></i>
-                            </div>
-                            <div *ngIf="showSubmenuIndex2 === sub_i" class="sub-menu">
-                                <app-loader *ngIf="subMenu2.length === 0"></app-loader>
-                                <div class="inner_sub_item" *ngFor="let subItem2 of subMenu2; index as sub_i" (click)="goToPage(subItem2)">
-                                    {{subItem2.title}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="signin-btn"><a href="https://login.kth.se/login?service=http://thstudent.upright.se/" target="_blank">{{signin_text }} <i class="fa fa-lock fa-fw"></i></a></div>
-
-            <div class="language" (click)="changeLanguage()">
-                <span>{{language_text}} </span>
-                <img width="25" height="17" src="{{language_img}}">
-            </div>
-        </div>
-
-        <div #chaptersMobile *ngIf="showChaptersMobile" class="chapters-items">
-            <div *ngFor="let chapter of ths_chapters" class="nav-item" (click)="openInNewTab(chapter.link)">
-                <div class="logo"><img src="{{chapter.image}}"></div>
-                <label>{{(lang === 'en' ? chapter.title.en : chapter.title.sv)}}</label>
-            </div>
-        </div>
+    <div class="logo">
+      <a *ngIf="lang === 'en'" routerLink="/"
+        ><img src="/assets/svg/ths_circles_filled.svg"
+      /></a>
+      <a *ngIf="lang === 'sv'" routerLink="/sv"
+        ><img src="/assets/svg/ths_circles_filled.svg"
+      /></a>
     </div>
+
+    <app-navbar-primary></app-navbar-primary>
+  </div>
+  <div class="container mobile">
+    <div class="menu-wrapper">
+      <div class="logo">
+        <a *ngIf="lang === 'en'" routerLink="/" (click)="goToHome()"
+          ><img src="/assets/svg/ths_circles_filled.svg"
+        /></a>
+        <a *ngIf="lang === 'sv'" routerLink="/sv" (click)="goToHome()"
+          ><img src="/assets/svg/ths_circles_filled.svg"
+        /></a>
+      </div>
+      <div class="chapters">
+        <i
+          #chapter_icon
+          class="material-icons"
+          (click)="toggleChaptersMobile($event)"
+          >more_vert</i
+        >
+      </div>
+      <div class="menu-bar">
+        <div class="menu" (click)="toggleMenuMobile()">
+          <span>{{ lang === "en" ? "Menu" : "Meny" }}</span>
+          <i *ngIf="!showMenuMobile" class="fa fa-bars"></i>
+          <i *ngIf="showMenuMobile" class="fa fa-times-circle"></i>
+        </div>
+      </div>
+    </div>
+    <div #menuDropdown *ngIf="showMenuMobile" class="menu-dropdown">
+      <div *ngIf="showMenuMobile" class="search-bar-mobile">
+        <form autocomplete="off">
+          <div class="search-bar">
+            <span (click)="navToSearchPage('/search')"
+              ><i class="material-icons">search</i></span
+            >
+            <input
+              placeholder="{{ lang === 'en' ? 'Search' : 'Sök' }}"
+              [(ngModel)]="searchTerm"
+              name="searchInput"
+              type="search"
+              (keyup)="submitSearch($event)"
+            />
+          </div>
+        </form>
+      </div>
+      <app-loader *ngIf="topLevelMainMenu?.length === 0"></app-loader>
+      <div *ngIf="showMenuMobile" class="menu-items">
+        <div
+          #submenu_item
+          class="nav-item"
+          *ngFor="let item of topLevelMainMenu; index as i"
+        >
+          <div
+            class="item-wrapper"
+            [ngClass]="{ selected: showSubmenuIndex === i }"
+            (click)="toggleSubmenu(item.object_slug, i)"
+          >
+            <div class="label">
+              <span (click)="goToPage(item)">{{ item.title }}</span>
+            </div>
+            <i
+              *ngIf="showSubmenuIndex !== i && item?.children"
+              class="fa fa-plus"
+            ></i>
+            <i
+              *ngIf="showSubmenuIndex === i && item?.children"
+              class="fa fa-minus"
+            ></i>
+          </div>
+          <div *ngIf="showSubmenuIndex === i" class="sub-menu">
+            <app-loader *ngIf="subMenu.length === 0"></app-loader>
+            <div *ngFor="let subItem of subMenu; index as sub_i">
+              <div
+                class="sub_item"
+                (click)="toggleSubmenu2(subItem.object_slug, sub_i)"
+              >
+                <span (click)="goToPage(subItem)">{{ subItem.title }}</span>
+                <i
+                  *ngIf="showSubmenuIndex2 !== sub_i && subItem?.children"
+                  class="fa fa-plus"
+                ></i>
+                <i
+                  *ngIf="showSubmenuIndex2 === sub_i && subItem?.children"
+                  class="fa fa-minus"
+                ></i>
+              </div>
+              <div *ngIf="showSubmenuIndex2 === sub_i" class="sub-menu">
+                <app-loader *ngIf="subMenu2.length === 0"></app-loader>
+                <div
+                  class="inner_sub_item"
+                  *ngFor="let subItem2 of subMenu2; index as sub_i"
+                  (click)="goToPage(subItem2)"
+                >
+                  {{ subItem2.title }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="signin-btn">
+        <a
+          href="https://login.kth.se/login?service=http://thstudent.upright.se/"
+          target="_blank"
+          >{{ signin_text }} <i class="fa fa-lock fa-fw"></i
+        ></a>
+      </div>
+
+      <div class="language" (click)="changeLanguage()">
+        <span>{{ language_text }} </span>
+        <img width="25" height="17" src="{{ language_img }}" />
+      </div>
+    </div>
+
+    <div #chaptersMobile *ngIf="showChaptersMobile" class="chapters-items">
+      <div
+        *ngFor="let chapter of ths_chapters"
+        class="nav-item"
+        (click)="openInNewTab(chapter.link)"
+      >
+        <div class="logo"><img src="{{ chapter.image }}" /></div>
+        <label>{{ lang === "en" ? chapter.title.en : chapter.title.sv }}</label>
+      </div>
+    </div>
+  </div>
 </header>
-

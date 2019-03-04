@@ -1,6 +1,6 @@
 <div *ngIf="!pageNotFound" id="content-container">
   <div class="search-bar" [ngClass]="{ 'center-vertically': !showResults }">
-    <h2>{{ lang === "en" ? "Search THS ..." : "Sök THS ..." }}</h2>
+    <h2>{{ lang === "en" ? "Search ..." : "Sök ..." }}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
       <div class="search" [ngClass]="{ onFocus: searchOnFocus }">
         <input
@@ -100,7 +100,7 @@
             {{ lang === "en" ? "Loading" : "Laddar" }}...
           </p>
           <p *ngIf="!faqsLoading && faqResults.length === 0" class="notResult">
-            {{ lang === "en" ? "No FAQs found for" : "Inga FAQs hittades för" }}
+            {{ lang === "en" ? "No FAQs found for" : "Inga FAQs hittades" }}
             "{{ searchTerm }}"!
           </p>
         </div>
