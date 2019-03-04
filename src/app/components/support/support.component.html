@@ -11,24 +11,24 @@
           : "Läs våra vanliga frågor för snabbare hjälp"
       }}</span>
     </div>
-    <div class="search">
-      <form (ngSubmit)="searchFAQs()" autocomplete="off">
-        <label>
-          <i class="material-icons" (click)="searchFAQs()">search</i>
-        </label>
-        <input
-          #searchField
-          type="search"
-          placeholder="{{ lang === 'en' ? 'Search FAQs' : 'Sök FAQs' }}"
-          [(ngModel)]="searchTerm"
-          name="searchInput"
-          (focus)="onFocus()"
-          (keyup)="searchFAQs()"
-        />
-      </form>
-    </div>
   </div>
   <app-chatbot></app-chatbot>
+  <div class="search">
+    <form (ngSubmit)="searchFAQs()" autocomplete="off">
+      <label>
+        <i class="material-icons" (click)="searchFAQs()">search</i>
+      </label>
+      <input
+        #searchField
+        type="search"
+        placeholder="{{ lang === 'en' ? 'Search FAQs' : 'Sök FAQs' }}"
+        [(ngModel)]="searchTerm"
+        name="searchInput"
+        (focus)="onFocus()"
+        (keyup)="searchFAQs()"
+      />
+    </form>
+  </div>
   <div *ngIf="!show_single_view" class="content-container">
     <div class="faqs-categories">
       <h2>{{ lang === "en" ? "FAQ categories" : "FAQ kategorier" }}</h2>
@@ -55,10 +55,7 @@
             {{ c.name }}
           </div>
         </div>
-        <div
-          class="cat-wrapper mobile"
-          [style.width]="parent_categories.length * 50 + '%'"
-        >
+        <div class="cat-wrapper mobile">
           <div
             *ngFor="let c of parent_categories; let i = index"
             class="submenu-item"
@@ -82,6 +79,7 @@
                   #faqElement
                   class="faq submenu-faq"
                   (click)="toggleAnswer(faqElement)"
+                  [ngClass]="status ? 'active' : ''"
                 >
                   <span>+</span>
                   <div class="question" [innerHTML]="faq.question"></div>
@@ -95,8 +93,13 @@
             </div>
           </div>
 
-          <div *ngFor="let faq of faqs">
-            <div #faqElement class="faq" (click)="toggleAnswer(faqElement)">
+          <div *ngFor="let faq of faqs; let i = index">
+            <div
+              #faqElement
+              class="faq"
+              (click)="toggleAnswer(faqElement, i)"
+              [ngClass]="{ selected: i == selected_cat_toggle }"
+            >
               <span>+</span>
               <div class="question" [innerHTML]="faq.question"></div>
               <div
@@ -120,7 +123,12 @@
           }}"
         </h3>
         <div *ngFor="let faq of search_results">
-          <div #faqElement class="faq" (click)="toggleAnswer(faqElement)">
+          <div
+            #faqElement
+            class="faq"
+            (click)="toggleAnswer(faqElement)"
+            [ngClass]="{ active: faq.active }"
+          >
             <span>+</span>
             <div
               class="question"

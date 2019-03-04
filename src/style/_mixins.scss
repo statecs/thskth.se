@@ -1,7 +1,6 @@
 @import "variables";
 
-
-@mixin exit-popup-btn-mobile{
+@mixin exit-popup-btn-mobile {
   border-radius: 30px;
   padding: 15px 20px;
   color: white;
@@ -13,14 +12,14 @@
   bottom: 20px;
 }
 
-@mixin freeze-submenu-bar{
+@mixin freeze-submenu-bar {
   position: fixed !important;
   margin-top: 0 !important;
   top: 0;
   z-index: 1;
 }
 
-@mixin submenu-bar{
+@mixin submenu-bar {
   width: 100%;
   //padding: 8px 4%;
   background-color: white;
@@ -28,58 +27,58 @@
   //margin-top: 65px;
   top: 65px;
   z-index: 1;
-  .selected-item{
+  .selected-item {
     background-color: lightgray;
     padding: 15px 20px;
     display: inline-block;
     position: relative;
     width: 100%;
-    span{
+    span {
       vertical-align: middle;
     }
-    i{
+    i {
       vertical-align: middle;
       margin-left: 20px;
       float: right;
     }
   }
-  .submenu-bar-dropdown{
+  .submenu-bar-dropdown {
     position: absolute;
     background-color: white;
     //z-index: 1;
     top: 54px;
     box-shadow: 1px 3px 10px #bababa;
     width: 100%;
-    .submenu-item{
+    .submenu-item {
       //padding: 5px 10px;
-      span{
+      span {
         padding: 10px;
         display: block;
       }
-      .divider{
+      .divider {
         border-bottom: 1px solid lightgray;
       }
     }
   }
 }
 
-@mixin square($size){
+@mixin square($size) {
   width: $size;
   height: $size;
   //border:1px solid red;
 }
 
-@mixin circle($size){
+@mixin circle($size) {
   width: $size;
   height: $size;
-  border-radius:$size / 2;
+  border-radius: $size / 2;
 }
 
 @mixin arrow-right($size, $color) {
   content: " ";
   position: absolute;
-  top:50%;
-  left:100%;
+  top: 50%;
+  left: 100%;
   margin-top: -#{$size};
   border-width: $size;
   border-style: solid;
@@ -140,23 +139,53 @@
   margin: 0;
   position: absolute;
   top: $top;
-  left:$left;
+  left: $left;
   transform: translate(-#{$left}, -#{$top});
 }
 
 @mixin bg-linear-grad-to-top($start-color, $end-color) {
-  background: rgba(0,0,0,0.55); /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(bottom,$start-color, $end-color); /*Safari 5.1-6*/
-  background: -o-linear-gradient(top,$start-color, $end-color); /*Opera 11.1-12*/
-  background: -moz-linear-gradient(top,$start-color, $end-color); /*Fx 3.6-15*/
+  background: rgba(
+    0,
+    0,
+    0,
+    0.55
+  ); /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(
+    bottom,
+    $start-color,
+    $end-color
+  ); /*Safari 5.1-6*/
+  background: -o-linear-gradient(
+    top,
+    $start-color,
+    $end-color
+  ); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(top, $start-color, $end-color); /*Fx 3.6-15*/
   background: linear-gradient(to top, $start-color, $end-color); /*Standard*/
 }
 
 @mixin bg-linear-grad-to-bottom($start-color, $end-color) {
-  background: rgba(0,0,0,0.55); /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(top,$start-color, $end-color); /*Safari 5.1-6*/
-  background: -o-linear-gradient(bottom,$start-color, $end-color); /*Opera 11.1-12*/
-  background: -moz-linear-gradient(bottom,$start-color, $end-color); /*Fx 3.6-15*/
+  background: rgba(
+    0,
+    0,
+    0,
+    0.55
+  ); /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(
+    top,
+    $start-color,
+    $end-color
+  ); /*Safari 5.1-6*/
+  background: -o-linear-gradient(
+    bottom,
+    $start-color,
+    $end-color
+  ); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(
+    bottom,
+    $start-color,
+    $end-color
+  ); /*Fx 3.6-15*/
   background: linear-gradient(to bottom, $start-color, $end-color); /*Standard*/
 }
 
@@ -176,6 +205,12 @@
   border-radius: $height * 2;
 }
 
+@mixin capsule-form-search($width, $height) {
+  width: $width;
+  padding: $height 0;
+  border: 1px solid white;
+}
+
 // ---------- Standard card layout---------- //
 @mixin standard-card($padding, $text-align) {
   text-align: $text-align;
@@ -183,26 +218,26 @@
   color: white;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.25);
+  background-color: rgba(0, 0, 0, 0.25);
 
   .content {
     position: absolute;
     left: 0;
     padding: $padding;
 
-    h2{
+    h2 {
       font-size: $font-size-h2;
       padding: 25px 0;
       margin: 0;
     }
-    & >p{
+    & > p {
       font-size: $font-size-default;
       text-align: justify;
       margin-top: 25px !important;
       opacity: 0;
       transition: opacity 0.3s ease, margin 0.5s ease;
     }
-    >a{
+    > a {
       @include capsule-button(40px, 12px);
       text-decoration: none;
       margin-top: 35px;
@@ -210,13 +245,13 @@
       transition: opacity 0.3s ease, margin 0.5s ease;
     }
   }
-  &:hover{
+  &:hover {
     .content {
-      & >p{
+      & > p {
         opacity: 1;
         margin-top: 0 !important;
       }
-      >a{
+      > a {
         opacity: 1;
         margin-top: 10px !important;
       }
@@ -231,21 +266,21 @@
 
   .text {
     position: absolute;
-    bottom:0;
+    bottom: 0;
     height: 30%;
     width: 100%;
     color: white;
-    background-color: rgba(0,0,0,0.25);
+    background-color: rgba(0, 0, 0, 0.25);
     padding: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     overflow: hidden;
 
-    h2{
+    h2 {
       font-size: $font-size-h2;
       margin: 0;
     }
-    p{
+    p {
       font-weight: 300;
       margin-top: 10px;
     }
@@ -270,48 +305,50 @@
   }
 }
 
-@mixin center-vertically($position){
+@mixin center-vertically($position) {
   top: $position;
   transform: translateY(-$position);
   position: absolute;
 }
 
-@mixin divider($width, $height){
+@mixin divider($width, $height) {
   width: $width;
   height: $height;
   border-bottom: 1px solid lightgrey;
 }
 
-@mixin standard-grid($col_gap){
+@mixin standard-grid($col_gap) {
   & {
-    .row{
+    .row {
     }
-    .o-half, .o-third, .o-fourth{
+    .o-half,
+    .o-third,
+    .o-fourth {
       display: inline-block;
       float: left;
     }
-    .o-whole{
+    .o-whole {
       width: 100%;
     }
-    .o-half{
-      width: (100% - $col_gap*2) / 2;
+    .o-half {
+      width: (100% - $col_gap * 2) / 2;
       margin-left: $col_gap / 2;
       margin-right: $col_gap / 2;
     }
-    .o-third{
-      width: (100% - $col_gap*2) / 3;
+    .o-third {
+      width: (100% - $col_gap * 2) / 3;
       margin-left: $col_gap / 3;
       margin-right: $col_gap / 3;
     }
-    .o-fourth{
-      width: (100% - $col_gap*2) / 4;
+    .o-fourth {
+      width: (100% - $col_gap * 2) / 4;
       margin-left: $col_gap / 3;
       margin-right: $col_gap / 4;
     }
   }
 }
 
-@mixin standard-button($padding){
+@mixin standard-button($padding) {
   padding: $padding;
   background-color: $bg-color-primary;
   color: white;

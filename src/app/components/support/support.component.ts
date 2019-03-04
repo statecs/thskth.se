@@ -29,6 +29,7 @@ export class SupportComponent implements OnInit, OnDestroy {
   public parent_categories: FAQCategory[];
   public selected_category: FAQCategory;
   public selected_cat_index: number;
+  public selected_cat_toggle: boolean;
   public faq_subMenus: FAQSubMenu[];
   public faqs: FAQ[];
   public search_results: SearchResult[];
@@ -49,6 +50,7 @@ export class SupportComponent implements OnInit, OnDestroy {
   public paramsSubscription3: Subscription;
   public queryParamsSubscription: Subscription;
   public faq_slug: string;
+  public active: boolean;
   public selected_faq: FAQ;
 
   constructor(
@@ -141,15 +143,18 @@ export class SupportComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleAnswer(faq: any): void {
+  toggleAnswer(faq: any, index): void {
+    this.selected_cat_toggle = null;
     const el_answer = faq.lastChild.previousSibling;
     const el_toggleBtn = faq.firstChild.nextSibling;
     if (el_answer.getAttribute("data-collapsed") === "true") {
       el_toggleBtn.innerHTML = "-";
       this.expandElement(el_answer);
+      this.selected_cat_toggle = index;
     } else {
       el_toggleBtn.innerHTML = "+";
       this.collapseElement(el_answer);
+      this.selected_cat_toggle = null;
     }
   }
 
@@ -179,6 +184,10 @@ export class SupportComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(["en/help/" + this.parent_categories[index].slug]);
     }
+  }
+
+  expandCategory(index): void {
+    this.selected_cat_index = index;
   }
 
   getFAQs_ByCategoryID(catID): void {
