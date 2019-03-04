@@ -73,7 +73,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   goToPage(link, type): void {
     this.hideBar();
     if (type === "document") {
-      this.router.navigate([this.lang + "/archive/" + link]);
+      this.router.navigate([this.lang + "/documents/" + link]);
     }
     if (type === "faq") {
       this.router.navigate([this.lang + "/help/faqs/" + link]);

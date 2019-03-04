@@ -43,9 +43,9 @@ const appRoutes: Routes = [
     data: { title: "Chapters and Associations" }
   },
   {
-    path: "archive",
+    path: "documents",
     component: ArchiveComponent,
-    data: { title: "Archive" }
+    data: { title: "Documnets" }
   },
   {
     path: "search",
@@ -127,14 +127,14 @@ const appRoutes: Routes = [
     data: { title: "Chapters and Associations" }
   },
   {
-    path: ":lang/archive",
+    path: ":lang/documents",
     component: ArchiveComponent,
-    data: { title: "Archive" }
+    data: { title: "Documents" }
   },
   {
-    path: ":lang/archive/:slug",
+    path: ":lang/documents/:slug",
     component: ArchiveComponent,
-    data: { title: "Archive" }
+    data: { title: "Documents" }
   },
   {
     path: ":lang/search",

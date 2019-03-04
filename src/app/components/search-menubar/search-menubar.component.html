@@ -35,7 +35,7 @@
           <h3>{{ lang === "en" ? "Documents" : "Dokument" }}</h3>
           <a
             *ngFor="let c of p.categories"
-            routerLink="/archive/{{ c.slug }}"
+            routerLink="/documents/{{ c.slug }}"
             >{{ c.name }}</a
           >
         </div>
