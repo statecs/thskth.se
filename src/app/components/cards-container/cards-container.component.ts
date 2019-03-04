@@ -53,6 +53,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   public deviceSize: number;
   public restaurant: Restaurant;
   public date: Date;
+  public dateDay: any;
 
   constructor(
     private cardsService: CardsService,
@@ -73,6 +74,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     this.lang = activatedRoute.snapshot.data["lang"];
     this.deviceSize = window.screen.width;
     this.date = new Date();
+    this.dateDay = format(new Date(), "d");
   }
 
   @HostListener("window:scroll", ["$event"])
@@ -216,7 +218,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   getDayIndex(): number {
-    return parseInt(format(this.date, "d"), 10) - 1;
+    return parseInt(format(this.date, "d"), 10);
   }
 
   getWeekNumber(): string {

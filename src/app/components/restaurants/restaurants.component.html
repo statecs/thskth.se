@@ -1,5 +1,7 @@
 <div *ngIf="!pageNotFound" id="restaurant">
-  <h1>{{ lang === "en" ? "THS restaurants" : "THS restauranger" }}</h1>
+  <h1>
+    {{ lang === "en" ? "Restaurants and Café" : "Restauranger och Caféer" }}
+  </h1>
   <app-loader *ngIf="loading"></app-loader>
   <div *ngIf="!loading" class="gallery larger-devices">
     <div
@@ -82,7 +84,14 @@
           <div>A la carté {{a_la_carte?.serving_time}}</div>
         </div>-->
         <div class="menu-container">
-          <h2 *ngIf="menuFullText !== null">Lunch</h2>
+          <h2 *ngIf="menuFullText !== null">
+            Lunch
+            {{
+              lang === "en"
+                ? "Week " + getWeekNumber()
+                : "Vecka " + getWeekNumber()
+            }}
+          </h2>
           <p [innerHTML]="menuFullText"></p>
           <h2 *ngIf="restaurants[item_onfocus_index]?.weekly_menu !== null">
             {{ lang === "en" ? "This week's menu" : "Veckans meny" }}
@@ -146,7 +155,14 @@
         </div>
       </div>
       <div class="menu-container">
-        <h2 *ngIf="menuFullText !== null">Lunch</h2>
+        <h2 *ngIf="menuFullText !== null">
+          Lunch
+          {{
+            lang === "en"
+              ? "Week " + getWeekNumber()
+              : "Vecka " + getWeekNumber()
+          }}
+        </h2>
         <p [innerHTML]="menuFullText"></p>
         <h2 *ngIf="restaurants[restaurant_index]?.weekly_menu !== null">
           {{ lang === "en" ? "This week's menu" : "Veckans meny" }}

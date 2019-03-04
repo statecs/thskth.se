@@ -43,6 +43,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   public paramsSubscription: Subscription;
   public restaurantSubscription: Subscription;
   public menuFullText: string;
+  public date: Date;
 
   constructor(
     private restaurantService: RestaurantService,
@@ -60,6 +61,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       this.selected_day = "Monday";
     }
     this.item_onfocus_index = 0;
+    this.date = new Date();
   }
 
   swipe(e: TouchEvent, when: string): void {
@@ -122,6 +124,10 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       margin_left = parseFloat(slides_wrapper.style.marginLeft) + 85 + "%";
     }
     slides_wrapper.style.marginLeft = margin_left;
+  }
+
+  getWeekNumber(): string {
+    return format(this.date, "W");
   }
 
   changeDay(day) {
@@ -196,9 +202,13 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
                 );
               } else {
                 if (this.lang === "sv") {
-                  this.titleCommunicationService.setTitle("Restauranger");
+                  this.titleCommunicationService.setTitle(
+                    "Restaurang och Café"
+                  );
                 } else {
-                  this.titleCommunicationService.setTitle("Restaurants");
+                  this.titleCommunicationService.setTitle(
+                    "Restaurants and Cafees"
+                  );
                 }
               }
             },
