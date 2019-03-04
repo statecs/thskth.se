@@ -214,7 +214,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   getDate(): string {
-    return format(this.date, "ddd DD/MM");
+    return format(this.date, "ddd D/M");
   }
 
   getDayIndex(): number {
