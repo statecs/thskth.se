@@ -12,8 +12,8 @@
             [innerHTML]="item.category_name"
             [routerLink]="[
               lang === 'sv'
-                ? 'sv/support/' + item.category_slug
-                : 'en/support/' + item.category_slug
+                ? 'sv/help/' + item.category_slug
+                : 'en/help/' + item.category_slug
             ]"
           ></a>
           <h2 class="titleSlider" [innerHTML]="item.question"></h2>

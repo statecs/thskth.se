@@ -138,7 +138,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.router.navigate([this.lang + "/archive/" + link]);
     }
     if (type === "faq") {
-      this.router.navigate([this.lang + "/support/faqs/" + link]);
+      this.router.navigate([this.lang + "/help/faqs/" + link]);
     }
     if (type === "post") {
       this.router.navigate([this.lang + "/news/" + link]);
