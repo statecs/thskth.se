@@ -1,19 +1,19 @@
 @import "../style/global";
 @import "../style/utilities";
 
-h1{
+h1 {
   color: green;
 }
 
-.page{
+.page {
   position: relative;
   width: 100%;
   top: 0;
 }
 
-.page-wrapper{
+.page-wrapper {
   position: relative;
-  .feedback-button{
+  .feedback-button {
     top: 67%;
     margin-top: -47px;
     position: fixed;
@@ -24,10 +24,10 @@ h1{
   }
 }
 
-.non-internet{
+.non-internet {
   width: 100vw;
   height: 100vh;
-  >div{
+  > div {
     @include center-content(50%, 50%);
     text-align: center;
     color: #6c6b6b;

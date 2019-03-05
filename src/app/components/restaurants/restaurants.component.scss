@@ -13,6 +13,8 @@
   @include container-size(80%);
   margin-bottom: 50px;
   padding-top: 100px;
+  max-width: 1600px;
+  margin: 0 auto;
   .larger-devices {
     display: block;
   }

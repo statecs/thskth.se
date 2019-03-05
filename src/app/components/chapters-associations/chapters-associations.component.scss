@@ -1,54 +1,56 @@
 @import "../../../style/utilities";
 
-:host /deep/ header{
+:host /deep/ header {
   background: none !important;
   background-color: $bg-color-primary !important;
   color: white !important;
-  .container{
+  .container {
     border-bottom: 0 !important;
   }
 }
-:host /deep/ .page-loader{
-  .loader{
+:host /deep/ .page-loader {
+  .loader {
     margin-top: 100px;
   }
 }
 
-.white-bg{
+.white-bg {
   height: 700px;
 }
 
-#content-container{
+#content-container {
   @include container-size($main-container);
   position: relative;
   line-height: 1;
   padding-top: 100px;
+  max-width: 1600px;
+  margin: 0 auto;
 
-  .search-bar{
+  .search-bar {
     height: auto;
     padding-bottom: 20px;
     background-color: #e2e2e2;
     text-align: center;
     position: relative;
     padding-top: 5px;
-    >h2{
+    > h2 {
       margin: 0;
       padding-top: 15px;
     }
-    .onFocus{
+    .onFocus {
       box-shadow: 0 0 40px rgba(0, 0, 0, 0.2) !important;
     }
-    form{
+    form {
       width: 720px;
       display: inline-block;
       margin: 10px 0 0;
-      .onFocus{
+      .onFocus {
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.2) !important;
       }
-      .search{
+      .search {
         height: 50px;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-        .searchInput{
+        .searchInput {
           width: 75%;
           padding: 0 5px 0 15px;
           border: 0;
@@ -56,7 +58,7 @@
           float: left;
           height: 50px;
         }
-        .submit{
+        .submit {
           display: inline-block;
           float: right;
           padding: 17px 38px;
@@ -64,12 +66,12 @@
           background: none;
           cursor: pointer;
           width: 25%;
-          &:hover{
+          &:hover {
             box-shadow: 0 0 15px rgba(0, 108, 170, 0.62);
           }
         }
       }
-      .filter{
+      .filter {
         display: inline-block;
         float: left;
         background-color: white;
@@ -77,19 +79,19 @@
         cursor: pointer;
         color: lightgrey;
         position: relative;
-        .options-icon{
+        .options-icon {
           width: 100%;
           height: 100%;
-          >i{
+          > i {
             @include center-vertically(50%);
             position: relative !important;
             font-size: 2em;
           }
-          &:hover{
+          &:hover {
             color: rgba(0, 108, 170, 0.62);
           }
         }
-        .options{
+        .options {
           position: absolute;
           background-color: rgba(75, 75, 75, 0.66);
           padding: 10px 20px;
@@ -97,13 +99,13 @@
           text-align: left;
           width: 200px;
           top: 40px;
-          box-shadow: 0 0 20px rgba(0,0,0,0.4);
-          .option{
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+          .option {
             margin: 15px 0;
-            &:hover{
+            &:hover {
               text-decoration: underline;
             }
-            .checkbox{
+            .checkbox {
               display: inline-block;
               border: 1px solid lightgray;
               width: 25px;
@@ -112,9 +114,9 @@
               //border-radius: 3px;
               margin-right: 10px;
               float: left;
-              i{
+              i {
                 line-height: 0.9;
-                &:hover{
+                &:hover {
                   text-decoration: none;
                 }
               }
@@ -122,20 +124,20 @@
           }
         }
       }
-      .mostSearchTerms{
+      .mostSearchTerms {
         position: relative;
         overflow: hidden;
         width: 75%;
         text-align: left;
         margin-top: 5px;
-        span{
+        span {
           margin: 2px 25px 5px 0;
           cursor: pointer;
           border: 1px solid lightgray;
           border-radius: 10px;
           padding: 2px 5px;
           display: inline-block;
-          &:hover{
+          &:hover {
             text-decoration: underline;
           }
         }
@@ -143,9 +145,9 @@
     }
   }
 
-  .filters{
+  .filters {
     text-align: center;
-    .item{
+    .item {
       display: inline-block;
       margin: 10px;
       padding: 10px 25px;
@@ -153,58 +155,58 @@
       border-radius: 35px;
       cursor: pointer;
       word-wrap: break-word;
-      &:hover{
+      &:hover {
         background-color: gray;
         color: white;
       }
     }
-    .selected{
+    .selected {
       background-color: gray;
       color: white;
     }
   }
 
-  .results-container{
+  .results-container {
     margin: 30px 0 70px;
     min-height: 300px;
-    .noResult{
+    .noResult {
       color: $text-color-brown;
       font-size: $font-size-h3;
     }
-    .section_header{
+    .section_header {
       border-bottom: 1px solid lightgray;
     }
-    .layout{
+    .layout {
       text-align: right;
-      div{
+      div {
         display: inline-block;
         color: lightgray;
         cursor: pointer;
         margin-left: 10px;
-        i{
+        i {
           vertical-align: middle;
         }
-        &:hover{
+        &:hover {
           color: black;
         }
       }
-      .selected{
+      .selected {
         color: black;
       }
     }
-    .grid{
-      .section{
+    .grid {
+      .section {
         overflow: hidden;
         text-align: center;
         margin-bottom: 20px;
-        label{
+        label {
           font-size: $font-size-h4;
           font-weight: 700;
           text-align: left;
           display: block;
         }
-        .items{
-          .item{
+        .items {
+          .item {
             width: 21%;
             display: inline-block;
             margin: 25px 2%;
@@ -215,20 +217,20 @@
             padding-bottom: 20px;
             word-wrap: break-word;
             vertical-align: top;
-            .image-wrapper{
+            .image-wrapper {
               width: 100%;
               height: 200px;
               background-size: cover;
               background-repeat: no-repeat;
               background-position: center;
             }
-            .text{
+            .text {
               bottom: 0;
               width: 100%;
               text-align: left;
               padding: 0 10px 15px;
               height: 170px;
-              h3{
+              h3 {
                 margin: 10px 0;
                 line-height: 1.3;
               }
@@ -237,19 +239,19 @@
         }
       }
     }
-    .list{
-      .section{
+    .list {
+      .section {
         overflow: hidden;
         text-align: left;
         margin-bottom: 50px;
-        label{
+        label {
           font-size: $font-size-h4;
           font-weight: 700;
           text-align: left;
           display: block;
         }
-        .items{
-          .item{
+        .items {
+          .item {
             width: 45%;
             display: inline-block;
             margin-right: 4%;
@@ -261,13 +263,13 @@
             border-bottom: 1px solid gray;
             color: $color-link-secondary;
             word-wrap: break-word;
-            h4{
+            h4 {
               display: inline;
             }
-            i{
+            i {
               float: right;
             }
-            &:hover{
+            &:hover {
               color: $color-link-secondary-hover;
             }
           }
@@ -275,22 +277,18 @@
       }
     }
   }
-
 }
 
-::-webkit-scrollbar
-{
-  width: 10px;  /* for vertical scrollbars */
+::-webkit-scrollbar {
+  width: 10px; /* for vertical scrollbars */
   height: 10px; /* for horizontal scrollbars */
 }
 
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
   background: rgba(84, 84, 84, 0.2);
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: #b2b2b2;
   border-radius: 10px;
 }
@@ -300,71 +298,71 @@
   #content-container {
     width: 100%;
     padding-top: 60px;
-    .search-bar{
+    .search-bar {
       height: auto;
       padding-bottom: 20px;
-      >h2{
+      > h2 {
         padding: 20px;
         font-size: $font-size-h4;
       }
-      form{
+      form {
         width: 90%;
         margin: 0 5%;
-        .search{
+        .search {
           width: 100%;
           display: inline-block;
-          .searchInput{
+          .searchInput {
             width: 70%;
           }
-          .submit{
+          .submit {
             width: 30%;
             padding: 17px 0;
           }
         }
-        .mostSearchTerms{
+        .mostSearchTerms {
           width: 100%;
-          span{
+          span {
             margin: 3px 15px 5px 0;
           }
         }
       }
     }
-    .filters{
-      .item{
+    .filters {
+      .item {
         padding: 7px 20px;
       }
     }
-    .results-container{
+    .results-container {
       padding: 0 10px;
-      .layout{
-        div{
-          i{
+      .layout {
+        div {
+          i {
             font-size: $font-size-h4;
           }
         }
       }
-      .section_header{
+      .section_header {
         font-size: $font-size-h3;
       }
-      .grid{
-        .section{
-          label{
+      .grid {
+        .section {
+          label {
             font-size: $font-size-h5;
             font-weight: 600;
           }
-          .items{
-            .item{
+          .items {
+            .item {
               width: 45%;
-              .image-wrapper{
+              .image-wrapper {
                 height: 150px;
               }
-              .text{
+              .text {
                 height: 190px;
-                h3{
+                h3 {
                   font-size: 1em;
                   margin: 5px 0;
                 }
-                p{
+                p {
                   font-size: $font-size-h6;
                 }
               }
@@ -372,20 +370,20 @@
           }
         }
       }
-      .list{
-        .section{
-          label{
+      .list {
+        .section {
+          label {
             font-size: $font-size-h5;
             font-weight: 600;
           }
-          .items{
-            .item{
+          .items {
+            .item {
               width: 100%;
-              h4{
+              h4 {
                 font-size: 1em;
                 margin: 5px 0;
               }
-              p{
+              p {
                 font-size: $font-size-h6;
               }
             }
@@ -400,48 +398,48 @@
   #content-container {
     width: 100%;
     padding-top: 60px;
-    .search-bar{
+    .search-bar {
       height: auto;
       padding-bottom: 20px;
-      >h2{
+      > h2 {
         padding: 20px;
         font-size: $font-size-h4;
       }
-      form{
+      form {
         width: 90%;
         margin: 0 5%;
-        .search{
+        .search {
           width: 100%;
           display: inline-block;
-          .searchInput{
+          .searchInput {
             width: 70%;
           }
-          .submit{
+          .submit {
             width: 30%;
             padding: 17px 0;
           }
         }
-        .mostSearchTerms{
+        .mostSearchTerms {
           width: 100%;
-          span{
+          span {
             margin: 3px 15px 5px 0;
           }
         }
       }
     }
-    .results-container{
+    .results-container {
       padding: 0 10px;
-      .grid{
-        .section{
-          .items{
-            .item{
+      .grid {
+        .section {
+          .items {
+            .item {
               width: 45%;
-              .image-wrapper{
+              .image-wrapper {
                 height: 150px;
               }
-              .text{
+              .text {
                 height: 170px;
-                h3{
+                h3 {
                   font-size: 1.1em;
                 }
               }
@@ -449,10 +447,10 @@
           }
         }
       }
-      .list{
-        .section{
-          .items{
-            .item{
+      .list {
+        .section {
+          .items {
+            .item {
               width: 100%;
             }
           }
@@ -466,48 +464,48 @@
   #content-container {
     width: 100%;
     padding-top: 60px;
-    .search-bar{
+    .search-bar {
       height: auto;
       padding-bottom: 20px;
-      >h2{
+      > h2 {
         padding: 20px;
         font-size: $font-size-h4;
       }
-      form{
+      form {
         width: 80%;
         margin: 0 5%;
-        .search{
+        .search {
           width: 100%;
           display: inline-block;
-          .searchInput{
+          .searchInput {
             width: 75%;
           }
-          .submit{
+          .submit {
             width: 25%;
             padding: 17px 0;
           }
         }
-        .mostSearchTerms{
+        .mostSearchTerms {
           width: 100%;
-          span{
+          span {
             margin: 3px 15px 5px 0;
           }
         }
       }
     }
-    .results-container{
+    .results-container {
       padding: 0 10px;
-      .grid{
-        .section{
-          .items{
-            .item{
+      .grid {
+        .section {
+          .items {
+            .item {
               width: 28.66%;
-              .image-wrapper{
+              .image-wrapper {
                 height: 150px;
               }
-              .text{
+              .text {
                 height: 150px;
-                h3{
+                h3 {
                   font-size: 1.1em;
                 }
               }
@@ -515,10 +513,10 @@
           }
         }
       }
-      .list{
-        .section{
-          .items{
-            .item{
+      .list {
+        .section {
+          .items {
+            .item {
               width: 100%;
             }
           }
@@ -530,17 +528,17 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #content-container {
-    .results-container{
-      .grid{
-        .section{
-          .items{
-            .item{
-              .image-wrapper{
+    .results-container {
+      .grid {
+        .section {
+          .items {
+            .item {
+              .image-wrapper {
                 height: 150px;
               }
-              .text{
+              .text {
                 height: 180px;
-                h3{
+                h3 {
                   font-size: 1.1em;
                   margin: 5px 0;
                 }
@@ -554,5 +552,4 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

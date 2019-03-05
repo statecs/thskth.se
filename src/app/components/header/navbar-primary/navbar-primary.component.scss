@@ -8,10 +8,20 @@ nav {
   font-size: $font-size-h6 + 0.01em;
 
   .signin-btn {
-    border-radius: 15px;
-    padding: 7px;
-    border: 1px solid;
+    border-radius: 40px;
+    padding: 8px 13px;
     background-color: white;
+    cursor: pointer;
+    > a {
+      text-decoration: none;
+      color: #00406c;
+    }
+  }
+
+  .chapter-btn {
+    border-radius: 40px;
+    padding: 8px 13px;
+    border: 1px solid;
     cursor: pointer;
     > a {
       text-decoration: none;
@@ -192,7 +202,8 @@ nav {
   nav {
     > div {
       font-size: 0.85em;
-      margin-left: 8px !important;
+      margin: 0;
+      padding: 0px 5px;
     }
     .ths-icon,
     .language {

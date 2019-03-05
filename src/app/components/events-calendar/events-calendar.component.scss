@@ -1,14 +1,14 @@
 @import "../../../style/utilities";
 
-:host /deep/ header{
+:host /deep/ header {
   background: none !important;
   background-color: $bg-color-primary !important;
   color: white !important;
-  .container{
+  .container {
     border-bottom: 0 !important;
   }
 }
-.cal-popup{
+.cal-popup {
   position: absolute;
   border: 1px solid red;
   height: 100%;
@@ -17,90 +17,94 @@
   color: black;
   top: 0;
   width: 100%;
-  .calendar-wrapper{
+  .calendar-wrapper {
     width: 90%;
     margin-left: 5%;
     margin-top: 50px;
   }
 }
-.exit-popup-btn-mobile{
+.exit-popup-btn-mobile {
   @include exit-popup-btn-mobile;
   background-color: #5c5c5c !important;
 }
-.mobile{
+.mobile {
   display: none !important;
 }
-#events-calendar{
+#events-calendar {
   @include container-size($main-container);
   padding-top: 100px;
   position: relative;
   margin-bottom: 50px;
   text-align: center;
   background-color: white;
-  .larger-devices{
+  max-width: 1600px;
+  margin: 0 auto;
+  .larger-devices {
     display: block;
   }
-  .display-cal-btn{
+  .display-cal-btn {
     display: inline-block;
     padding: 10px 20px;
     background-color: $bg-color-primary;
     color: white;
     border-radius: 25px;
   }
-  .calendar-wrapper{
+  .calendar-wrapper {
     width: 55%;
     border: 1px solid lightgrey;
     border-radius: 5px;
     display: inline-block;
     min-height: 466px;
 
-    .title{
+    .title {
       padding: 20px;
       background-color: #dddddd;
       border-top-right-radius: 5px;
       border-top-left-radius: 5px;
-      h2{margin: 0;}
+      h2 {
+        margin: 0;
+      }
     }
   }
 
-  .events-wrapper{
+  .events-wrapper {
     vertical-align: top;
     margin-left: 1%;
     margin-top: 15px;
 
-    .events-header{
+    .events-header {
       text-align: center;
-      h2{
+      h2 {
         border-bottom: 1px solid lightgrey;
         padding-bottom: 10px;
         width: 60%;
         display: inline-block;
       }
-      .filter-icon{
+      .filter-icon {
         position: relative;
         float: right;
         display: inline-block;
         cursor: pointer;
-        i{
+        i {
           vertical-align: text-bottom;
         }
       }
     }
 
-    .events{
-      & >span{
+    .events {
+      & > span {
         color: $text-color-warning;
         margin-top: 10px;
         display: block;
       }
-      .item{
+      .item {
         margin: 15px 0;
         height: 150px;
         cursor: pointer;
         text-align: left;
         width: 80%;
         display: inline-block;
-        .img-wrapper{
+        .img-wrapper {
           display: inline-block;
           width: 30%;
           height: 100%;
@@ -109,18 +113,18 @@
           vertical-align: middle;
           position: relative;
           background-position: center;
-          & >span{
+          & > span {
             display: block;
             font-weight: 800;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.2);
+            background-color: rgba(0, 0, 0, 0.2);
             color: white;
             padding-top: 10px;
             //z-index: 1;
             position: absolute;
           }
-          img{
+          img {
             width: 100%;
             height: auto;
             position: absolute;
@@ -128,37 +132,36 @@
           }
         }
 
-        .info{
+        .info {
           display: inline-block;
           width: 58%;
           vertical-align: middle;
           margin-left: 1%;
-          h5{
-            margin:0;
+          h5 {
+            margin: 0;
             font-weight: 600;
             font-size: $font-size-default;
             color: $color-link-secondary;
-            &:hover{
+            &:hover {
               color: $color-link-secondary-hover;
             }
           }
-          span{
+          span {
             font-weight: 300;
             color: gray;
             font-size: $font-size-h6;
           }
-          p{
-            margin:5px 0;
+          p {
+            margin: 5px 0;
           }
         }
-
       }
     }
   }
 }
 
-:host /deep/ .calendar-wrapper{
-  .cal-header{
+:host /deep/ .calendar-wrapper {
+  .cal-header {
     font-weight: 400 !important;
     font-size: $font-size-h7;
   }
@@ -167,33 +170,30 @@
     min-height: 50px !important;
   }
 }
-:host /deep/ .cal-month-view .cal-cell-top{
+:host /deep/ .cal-month-view .cal-cell-top {
   min-height: 50px !important;
 }
-:host /deep/ .cal-month-view .cal-day-cell.cal-today .cal-day-number{
+:host /deep/ .cal-month-view .cal-day-cell.cal-today .cal-day-number {
   font-size: 1.2em !important;
 }
 
-::-webkit-scrollbar
-{
-  width: 2px;  /* for vertical scrollbars */
+::-webkit-scrollbar {
+  width: 2px; /* for vertical scrollbars */
   height: 2px; /* for horizontal scrollbars */
 }
 
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
   background: #a8a8a8;
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: rgb(102, 101, 101);
   border-radius: 10px;
 }
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
-  .mobile{
+  .mobile {
     display: inline-block !important;
   }
   .title {
@@ -206,18 +206,18 @@
   }
   #events-calendar {
     width: 100%;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    .events-wrapper{
-      .events{
-        .item{
+    .events-wrapper {
+      .events {
+        .item {
           width: 95%;
           height: auto;
           max-height: 150px;
-          .img-wrapper{
+          .img-wrapper {
             height: 80px;
-            img{
+            img {
               z-index: -1;
             }
           }
@@ -225,13 +225,13 @@
       }
     }
   }
-  .exit-popup-btn-mobile{
+  .exit-popup-btn-mobile {
     padding: 7px 20px;
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
-  .mobile{
+  .mobile {
     display: inline-block !important;
   }
   .title {
@@ -244,18 +244,18 @@
   }
   #events-calendar {
     width: 100%;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    .events-wrapper{
-      .events{
-        .item{
+    .events-wrapper {
+      .events {
+        .item {
           width: 95%;
           height: auto;
           max-height: 150px;
-          .img-wrapper{
+          .img-wrapper {
             height: 150px;
-            img{
+            img {
               z-index: -1;
             }
           }
@@ -263,13 +263,13 @@
       }
     }
   }
-  .exit-popup-btn-mobile{
+  .exit-popup-btn-mobile {
     padding: 7px 20px;
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
-  .mobile{
+  .mobile {
     display: inline-block !important;
   }
   .title {
@@ -280,26 +280,26 @@
     text-align: left;
     box-shadow: 0 2px 1px 0px #b1b1b1;
   }
-  .cal-popup{
-    .calendar-wrapper{
+  .cal-popup {
+    .calendar-wrapper {
       width: 80%;
       margin-left: 10%;
     }
   }
   #events-calendar {
     width: 100%;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    .events-wrapper{
-      .events{
-        .item{
+    .events-wrapper {
+      .events {
+        .item {
           width: 95%;
           height: auto;
           max-height: 150px;
-          .img-wrapper{
+          .img-wrapper {
             height: 150px;
-            img{
+            img {
               z-index: -1;
             }
           }
@@ -307,17 +307,17 @@
       }
     }
   }
-  .exit-popup-btn-mobile{
+  .exit-popup-btn-mobile {
     padding: 7px 20px;
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #events-calendar {
-    .events-wrapper{
-      .events{
-        .item{
-          .img-wrapper{
+    .events-wrapper {
+      .events {
+        .item {
+          .img-wrapper {
             height: 130px;
           }
         }
@@ -327,5 +327,4 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

@@ -1,22 +1,24 @@
 @import "../../../../style/utilities";
-.freeze-submenu-bar{
+.freeze-submenu-bar {
   @include freeze-submenu-bar;
 }
-.submenu-bar{
+.submenu-bar {
   @include submenu-bar;
 }
-.mobile{
+.mobile {
   display: none;
 }
-#content-container{
+#content-container {
   @include container-size($main-container);
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
-  .larger-devices{
+  max-width: 1600px;
+  margin: 0 auto;
+  .larger-devices {
     display: inline-block;
   }
-  #page{
+  #page {
     margin-top: 10px;
     .heading {
       position: relative;
@@ -38,47 +40,47 @@
       }
     }
 
-    .side-bar{
+    .side-bar {
       width: 25%;
       display: inline-block;
       text-align: right;
 
-      .submenu{
+      .submenu {
         margin-bottom: 20px;
-        .submenu-item{
+        .submenu-item {
           padding: 15px 5px;
           position: relative;
           font-weight: 600;
           cursor: pointer;
           border-bottom: 1px solid lightgrey;
-          a{
+          a {
             text-decoration: none;
             color: $text-color-default;
           }
-          &:hover{
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+          &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
           }
-          &:last-child{
+          &:last-child {
             border: 0;
           }
         }
       }
     }
-    .content-container{
+    .content-container {
       width: 70%;
       display: inline-block;
       position: relative;
       vertical-align: top;
       line-height: 1.2;
       margin-left: 4%;
-      .divider{
-        border-top:1px solid gray;
+      .divider {
+        border-top: 1px solid gray;
       }
-      .submenu-bar{
+      .submenu-bar {
         text-align: center;
         position: relative;
         padding: 10px 0;
-        .submenu-item{
+        .submenu-item {
           width: 20%;
           height: 80px;
           background-color: lightgrey;
@@ -86,7 +88,7 @@
           margin: 20px 5%;
           position: relative;
           cursor: pointer;
-          span{
+          span {
             @include center-content(50%, 50%);
           }
         }
@@ -97,7 +99,8 @@
         border-top: 1px solid #cac8c8;
         padding: 25px 0;
         margin: 0;
-        dt, dd {
+        dt,
+        dd {
           line-height: 1.42857;
         }
         dt {
@@ -105,7 +108,7 @@
         }
         dd {
           margin-left: 0;
-          a{
+          a {
             text-decoration: none;
             color: $color-link-secondary;
             &:hover {
@@ -123,88 +126,88 @@
         .dl-horizontal dd {
           margin-bottom: 12px;
         }
-
       }
-      .article-footer .dl-in-article-footer dt, .article-footer-news .dl-in-article-footer dt {
+      .article-footer .dl-in-article-footer dt,
+      .article-footer-news .dl-in-article-footer dt {
         width: 100px;
       }
-      .content{
+      .content {
         margin-bottom: 40px;
       }
     }
   }
 }
 
-:host /deep/ .content-container{
-  .content{
-    >h1{
+:host /deep/ .content-container {
+  .content {
+    > h1 {
       font-size: $font-size-h3;
     }
-    a{
+    a {
       text-decoration: none;
       color: $color-link-secondary;
-      &:hover{
+      &:hover {
         color: $color-link-secondary-hover;
       }
     }
-    & >h2{
+    & > h2 {
       font-size: $font-size-h2;
     }
-    & >p{
-      & >h2{
+    & > p {
+      & > h2 {
         font-weight: 600;
       }
     }
-    video{
+    video {
       width: 100% !important;
       height: auto !important;
     }
   }
 }
 
-:host /deep/ table{
+:host /deep/ table {
   width: 100%;
   margin: 10px 0;
   border-collapse: collapse;
-  td{
+  td {
     border: 1px solid lightgray;
     padding: 10px;
   }
 }
 
-:host /deep/ .showbox{
+:host /deep/ .showbox {
   padding-bottom: 200px !important;
   padding-top: 250px !important;
 }
 
-:host /deep/ #join-us{
+:host /deep/ #join-us {
   margin-bottom: 35px;
 }
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
-  .mobile{
+  .mobile {
     display: block;
   }
   #content-container {
     width: 100%;
     margin-top: 0;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    #page{
+    #page {
       width: 90%;
       margin-left: 5%;
-      .heading{
+      .heading {
         margin-bottom: 0;
-        .title{
+        .title {
           width: 100%;
-          h2{
+          h2 {
             font-size: $font-size-h3;
           }
         }
       }
-      .content-container{
+      .content-container {
         width: 100%;
         margin-left: 0;
         left: 0;
@@ -214,100 +217,100 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
-  .mobile{
+  .mobile {
     display: block;
   }
   #content-container {
     width: 100%;
     margin-top: 0;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    #page{
+    #page {
       width: 90%;
       margin-left: 5%;
-      .heading{
+      .heading {
         margin-bottom: 0;
-        .title{
+        .title {
           width: 100%;
-          h2{
+          h2 {
             font-size: $font-size-h3;
           }
         }
       }
-      .content-container{
+      .content-container {
         width: 100%;
         margin-left: 0;
         left: 0;
       }
     }
   }
-  .submenu-bar{
-    .selected-item{
+  .submenu-bar {
+    .selected-item {
       width: 60%;
     }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
-  .mobile{
+  .mobile {
     display: none;
   }
   #content-container {
     width: 95%;
-    .larger-devices{
+    .larger-devices {
       display: inline-block !important;
     }
-    #page{
-      .heading{
-        .title{
+    #page {
+      .heading {
+        .title {
           width: 100%;
-          h2{
+          h2 {
             font-size: $font-size-h3;
           }
         }
       }
-      .side-bar{
+      .side-bar {
         width: 30%;
       }
-      .content-container{
+      .content-container {
         width: 65%;
       }
     }
   }
-  :host /deep/ #join-us{
+  :host /deep/ #join-us {
     font-size: $font-size-h6;
-    h1{
+    h1 {
       font-size: $font-size-h2;
     }
-    .button{
+    .button {
       font-size: $font-size-h6;
     }
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
-  .mobile{
+  .mobile {
     display: none;
   }
   #content-container {
     width: 90%;
-    .larger-devices{
+    .larger-devices {
       display: inline-block !important;
     }
-    #page{
-      .heading{
-        .title{
+    #page {
+      .heading {
+        .title {
           width: 100%;
-          h2{
+          h2 {
             font-size: $font-size-h3;
           }
         }
       }
-      .side-bar{
+      .side-bar {
         width: 30%;
       }
-      .content-container{
+      .content-container {
         width: 65%;
         .article-footer {
           .dl-horizontal dt {
@@ -324,12 +327,12 @@
       }
     }
   }
-  :host /deep/ #join-us{
+  :host /deep/ #join-us {
     font-size: $font-size-h6;
-    h1{
+    h1 {
       font-size: $font-size-h2;
     }
-    .button{
+    .button {
       font-size: $font-size-h6;
     }
   }

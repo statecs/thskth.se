@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public searchTerm: string;
   public language_img: string;
   public signin_text: string;
+  public chapter_text: string;
   public language_text: string;
   public headerPosition: number;
   public tranparentHeader: boolean;
@@ -347,10 +348,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.language_text = "THS in swedish";
       this.language_img = "../../../assets/images/sweden_flag.png";
       this.signin_text = "Sign in";
+      this.chapter_text = "Chapters";
     } else if (this.lang === "sv") {
       this.language_text = "THS i engelska";
       this.language_img = "../../../assets/images/British_flag.png";
       this.signin_text = "Logga in";
+      this.chapter_text = "Sektioner";
     }
   }
 

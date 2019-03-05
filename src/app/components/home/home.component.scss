@@ -13,6 +13,8 @@
     height: 400px;
     margin-top: 50px;
     margin-bottom: 2px;
+    max-width: 1600px;
+
     @include container-size($main-container);
     & > div {
       display: inline-block;
@@ -32,6 +34,8 @@
   .faq-slider,
   .image-slider {
     @include container-size($main-container);
+    max-width: 1600px;
+    margin: 0 auto;
     margin-top: 50px;
     .title {
       font-size: $font-size-h2;
@@ -50,6 +54,8 @@
   }
   app-cards-social-container {
     @include container-size($main-container);
+    max-width: 1600px;
+    margin: 0 auto;
     display: block;
   }
 }
@@ -95,6 +101,8 @@ a.headerTitle:after {
     }
     .contact {
       @include container-size(80%);
+      max-width: 1600px;
+      margin: 0 auto;
       height: auto;
       .contact-info {
         width: 100%;
