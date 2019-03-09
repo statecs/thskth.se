@@ -207,7 +207,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
                   );
                 } else {
                   this.titleCommunicationService.setTitle(
-                    "Restaurants and Cafees"
+                    "Restaurant and Café"
                   );
                 }
               }

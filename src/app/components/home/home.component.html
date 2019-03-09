@@ -6,7 +6,7 @@
     <a
       routerLink="{{ lang === 'en' ? '/help' : '/sv/help' }}"
       class="title headerTitle"
-      >{{ lang === "en" ? "FAQs" : "Vanliga frågor" }}</a
+      >{{ lang === "en" ? "Help Center" : "Hjälpcenter" }}</a
     >
     <app-loader *ngIf="!showFAQSlider"></app-loader>
     <app-text-slider

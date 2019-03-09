@@ -70,7 +70,7 @@ const appRoutes: Routes = [
   {
     path: "restaurants",
     component: RestaurantsComponent,
-    data: { title: "Restaurants" }
+    data: { title: "Restaurant and Café" }
   },
   {
     path: "offers",
@@ -159,7 +159,7 @@ const appRoutes: Routes = [
   {
     path: ":lang/restaurants",
     component: RestaurantsComponent,
-    data: { title: "Restaurants" }
+    data: { title: "Restaurant and Café" }
   },
   {
     path: ":lang/offers",
