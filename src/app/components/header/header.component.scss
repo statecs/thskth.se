@@ -1,8 +1,71 @@
 @import "../../../style/utilities";
 .tranparentHeader {
   @include bg-linear-grad-to-top(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
-  .container {
-    border-bottom: 1px solid lightgray;
+}
+
+.open {
+  -webkit-appearance: none;
+  border-radius: 0;
+  background: transparent;
+  position: absolute;
+  border: 0;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  display: block;
+  cursor: pointer;
+  span {
+    display: block;
+    clear: both;
+    height: 1px;
+    width: 25px;
+    border-radius: 40px;
+    background-color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 13px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    &:nth-child(1) {
+      z-index: 9;
+    }
+    &:nth-child(2) {
+      margin-top: 7px;
+    }
+    &:nth-child(3) {
+      margin-top: 14px;
+    }
+  }
+}
+.js-open-nav {
+  background: white;
+}
+
+.js-open-nav {
+  .sub-menu {
+    opacity: 1;
+    border-radius: 0;
+  }
+  span.cls:nth-child(2) {
+    overflow: visible;
+    background-color: #000;
+  }
+  span.cls:nth-child(1),
+  span:nth-child(3) {
+    z-index: 100;
+    background-color: #000;
+    transform: rotate(45deg);
+  }
+  span.cls:nth-child(1) {
+    background-color: #000;
+    transform: rotate(45deg) translateY(5px) translateX(5px);
+  }
+  span.cls:nth-child(2) {
+    background-color: #fff;
+  }
+  span.cls:nth-child(3) {
+    transform: rotate(-45deg) translateY(-5px) translateX(5px);
   }
 }
 
@@ -68,15 +131,18 @@ header {
       display: block;
       background-color: white;
       text-align: left;
-      padding: 10px;
+      padding: 10px 5% 10px 2%;
+      font-size: 0.8em;
       .search-bar {
         > span {
           text-decoration: none;
           color: black;
           i {
-            font-size: $font-size-h1;
+            font-size: 2em;
             vertical-align: middle;
             color: #acacac;
+            float: right;
+            margin-top: 10px;
           }
         }
         > input {
@@ -93,6 +159,10 @@ header {
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .js-open-nav .chapters {
+    color: black !important;
+  }
+
   header {
     position: absolute !important;
     margin-top: 0 !important;
@@ -104,8 +174,10 @@ header {
         width: 100%;
         padding: 5px 0;
         .logo {
+          @include square(35px);
           float: left;
           margin-left: 10px;
+          margin-top: 5px;
         }
         .chapters {
           display: inline-block;
@@ -128,6 +200,11 @@ header {
             display: inline-block;
             margin-right: 10px;
             vertical-align: middle;
+          }
+          .menu-title {
+            font-size: 0.6em;
+            margin: 4px 13px;
+            position: absolute;
           }
           /*.chapters{
             .icon{
@@ -170,7 +247,30 @@ header {
             line-height: 1.3em;
             border-top: 1px solid #ebebeb;
             .selected {
-              background-color: #e7e7e7;
+              border-bottom: 2px solid #ccc;
+              font-weight: bolder;
+            }
+            label.subitem:after,
+            div.item-wrapper:after {
+              border-radius: 5px;
+              content: "+";
+              color: #505050;
+              float: right;
+              font-size: 2em;
+              font-weight: 200;
+              padding: 0;
+              margin-top: -14px;
+              text-align: center;
+              outline: 0;
+              transition: -webkit-transform 0.3s ease;
+              transition: transform 0.3s ease;
+            }
+            label.selected:after,
+            div.item-wrapper.selected:after {
+              -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
+              -ms-transform: rotate(45deg);
+              -o-transform: rotate(45deg);
             }
             .item-wrapper {
               overflow: hidden;
@@ -299,6 +399,10 @@ header {
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
+  .js-open-nav .chapters {
+    color: black !important;
+  }
+
   header {
     position: absolute !important;
     margin-top: 0 !important;
@@ -310,8 +414,10 @@ header {
         width: 100%;
         padding: 5px 0;
         .logo {
+          @include square(35px);
           float: left;
           margin-left: 10px;
+          margin-top: 5px;
         }
         .chapters {
           display: inline-block;
@@ -334,6 +440,11 @@ header {
             display: inline-block;
             margin-right: 10px;
             vertical-align: middle;
+          }
+          .menu-title {
+            font-size: 0.6em;
+            margin: 4px 13px;
+            position: absolute;
           }
           /*.chapters{
             .icon{
@@ -375,7 +486,30 @@ header {
             line-height: 1.3em;
             border-top: 1px solid #ebebeb;
             .selected {
-              background-color: #e7e7e7;
+              border-bottom: 2px solid #ccc;
+              font-weight: bolder;
+            }
+            label.subitem:after,
+            div.item-wrapper:after {
+              border-radius: 5px;
+              content: "+";
+              color: #505050;
+              float: right;
+              font-size: 2em;
+              font-weight: 200;
+              padding: 0;
+              margin-top: -14px;
+              text-align: center;
+              outline: 0;
+              transition: -webkit-transform 0.3s ease;
+              transition: transform 0.3s ease;
+            }
+            label.selected:after,
+            div.item-wrapper.selected:after {
+              -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
+              -ms-transform: rotate(45deg);
+              -o-transform: rotate(45deg);
             }
             .item-wrapper {
               overflow: hidden;
@@ -496,7 +630,12 @@ header {
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
+  .js-open-nav .chapters {
+    color: black !important;
+  }
   header {
+    position: absolute !important;
+    margin-top: 0 !important;
     .container {
       @include container-size(100%);
       overflow: hidden;
@@ -505,8 +644,10 @@ header {
         width: 100%;
         padding: 5px 0;
         .logo {
+          @include square(35px);
           float: left;
           margin-left: 10px;
+          margin-top: 5px;
         }
         .chapters {
           display: inline-block;
@@ -529,6 +670,11 @@ header {
             display: inline-block;
             margin-right: 10px;
             vertical-align: middle;
+          }
+          .menu-title {
+            font-size: 0.6em;
+            margin: 4px 13px;
+            position: absolute;
           }
           /*.chapters{
             .icon{
@@ -570,7 +716,30 @@ header {
             line-height: 1.3em;
             border-top: 1px solid #ebebeb;
             .selected {
-              background-color: #e7e7e7;
+              border-bottom: 2px solid #ccc;
+              font-weight: bolder;
+            }
+            label.subitem:after,
+            div.item-wrapper:after {
+              border-radius: 5px;
+              content: "+";
+              color: #505050;
+              float: right;
+              font-size: 2em;
+              font-weight: 200;
+              padding: 0;
+              margin-top: -14px;
+              text-align: center;
+              outline: 0;
+              transition: -webkit-transform 0.3s ease;
+              transition: transform 0.3s ease;
+            }
+            label.selected:after,
+            div.item-wrapper.selected:after {
+              -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
+              -ms-transform: rotate(45deg);
+              -o-transform: rotate(45deg);
             }
             .item-wrapper {
               overflow: hidden;
@@ -604,8 +773,9 @@ header {
                 border-top: 1px solid #ebebeb;
               }
               .sub_item {
+                height: 70px;
                 overflow: hidden;
-                padding: 20px 5% 20px 10%;
+                padding: 3% 5% 20px 10%;
                 color: #575757;
                 display: block;
                 background-color: #f7f7f7;

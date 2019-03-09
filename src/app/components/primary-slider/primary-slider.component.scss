@@ -187,11 +187,12 @@
         .slider-progress-bar {
           background-color: #636161;
           border-radius: 2px;
-          height: 4px;
+          height: 1px;
           @include container-size(100%);
           margin-bottom: 15px;
         }
         .text {
+          display: none;
           & div {
             display: inline-block;
           }
@@ -315,10 +316,15 @@
     .slider-bar-container {
       .slider-bar {
         margin-left: 4%;
+        margin-top: 30px;
         width: 92%;
         .item {
+          height: 30px;
           .text {
             .title {
+              display: none;
+            }
+            .number {
               display: none;
             }
           }
@@ -410,10 +416,15 @@
     .slider-bar-container {
       .slider-bar {
         margin-left: 4%;
+        margin-top: 30px;
         width: 92%;
         .item {
+          height: 30px;
           .text {
             .title {
+              display: none;
+            }
+            .number {
               display: none;
             }
           }
@@ -505,10 +516,15 @@
     .slider-bar-container {
       .slider-bar {
         margin-left: 4%;
+        margin-top: 30px;
         width: 92%;
         .item {
+          height: 30px;
           .text {
             .title {
+              display: none;
+            }
+            .number {
               display: none;
             }
           }
@@ -621,7 +637,7 @@
       width: 80%;
       display: block !important;
       max-width: 1600px !important;
-      margin: 0 auto !important;
+      margin: 30px auto !important;
 
       .item {
         .text {

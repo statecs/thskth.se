@@ -345,12 +345,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   displayActualLanguage() {
     if (this.lang === "en" || typeof this.lang === "undefined") {
-      this.language_text = "THS in swedish";
+      this.language_text = "Svenska";
       this.language_img = "../../../assets/images/sweden_flag.png";
       this.signin_text = "Sign in";
       this.chapter_text = "Chapters";
     } else if (this.lang === "sv") {
-      this.language_text = "THS i engelska";
+      this.language_text = "English";
       this.language_img = "../../../assets/images/British_flag.png";
       this.signin_text = "Logga in";
       this.chapter_text = "Sektioner";
