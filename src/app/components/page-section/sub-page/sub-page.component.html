@@ -1,5 +1,4 @@
 <app-loader *ngIf="loading && !show_single_page"></app-loader>
-
 <div
   #submenu_bar
   class="submenu-bar mobile"
@@ -7,7 +6,7 @@
 >
   <div *ngIf="subMenu?.length !== 0 && !loading && !show_single_page">
     <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
-      <span>{{ page?.name | cardText: 15 }}</span>
+      <span>{{ page?.name | cardText: 30 }}</span>
       <i class="material-icons">keyboard_arrow_down</i>
     </div>
     <div
@@ -30,15 +29,31 @@
 <div
   id="content-container"
   *ngIf="!pageNotFound && page && !loading && !show_single_page"
-  [style.paddingTop]="subMenu?.length !== 0 ? '125px' : '65px'"
 >
-  <div
-    *ngIf="subMenu?.length === 0"
-    class="larger-devices"
-    [style.paddingTop]="'60px'"
-  ></div>
-  <app-breadcrumb *ngIf="page"></app-breadcrumb>
+  <!--<app-breadcrumb class="mobile app-breadcrumb" *ngIf="page"></app-breadcrumb>-->
+  <div class="header-image">
+    <div *ngIf="page.header.header_image" class="default-header-height">
+      <img
+        *ngIf="page.header.header_image"
+        src="{{ page.header.header_image }}"
+        alt="Header image"
+      />
+    </div>
+
+    <div
+      *ngIf="!page.header.header_image && page.header.header_color"
+      class="header-color"
+      [ngStyle]="{ backgroundColor: page.header.header_color }"
+    ></div>
+    <div
+      *ngIf="!page.header.header_image && !page.header.header_color"
+      class="default-header"
+    ></div>
+  </div>
+  <div *ngIf="subMenu?.length === 0" class="larger-devices"></div>
+
   <div *ngIf="page" id="page">
+    <app-breadcrumb class="breacrumb-large"></app-breadcrumb>
     <div class="heading">
       <div class="title">
         <h2>{{ page?.name }}</h2>

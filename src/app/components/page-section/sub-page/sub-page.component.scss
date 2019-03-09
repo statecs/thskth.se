@@ -9,17 +9,43 @@
   display: none;
 }
 #content-container {
-  @include container-size($main-container);
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
-  max-width: 1600px;
-  margin: 0 auto;
   .larger-devices {
     display: block;
   }
+  .header-image {
+    max-height: 350px;
+    overflow: hidden;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    img {
+      min-width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+    .default-header {
+      width: 100%;
+      height: 270px;
+      background-color: #00406c;
+    }
+    .default-header-height {
+      width: 100%;
+      height: 270px;
+    }
+  }
   #page {
     margin-top: 10px;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+    background-color: white;
+    position: relative;
+    top: -170px;
+    border-radius: 15px;
+    width: 85%;
     .heading {
       position: relative;
       margin-bottom: 40px;
@@ -168,20 +194,43 @@
   .mobile {
     display: block;
   }
+  .submenu-bar {
+    font-size: 0.9em;
+    top: 110px;
+    width: 95%;
+    margin-left: 2.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+  .app-breadcrumb {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 130px;
+    width: 100%;
+  }
   #content-container {
+    padding: 0;
     width: 100%;
     margin-top: 0;
     .larger-devices {
       display: none !important;
     }
     #page {
-      width: 90%;
-      margin-left: 5%;
+      width: 95%;
+      padding: 50px 20px;
       .heading {
         margin-bottom: 0;
         .title {
           width: 100%;
         }
+      }
+      .divider {
+        border-top: 1px solid gray;
       }
       .content-container {
         width: 100%;
@@ -203,7 +252,25 @@
   .mobile {
     display: block;
   }
+  .submenu-bar {
+    font-size: 0.9em;
+    top: 110px;
+    width: 90%;
+    margin-left: 5%;
+    border-radius: 15px;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+  .app-breadcrumb {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 130px;
+    width: 100%;
+  }
   #content-container {
+    padding: 0;
     width: 100%;
     margin-top: 0;
     .larger-devices {
@@ -211,7 +278,7 @@
     }
     #page {
       width: 90%;
-      margin-left: 5%;
+      padding: 50px 20px;
       .heading {
         margin-bottom: 0;
         .title {
@@ -238,7 +305,21 @@
   .mobile {
     display: block;
   }
+  .submenu-bar {
+    top: 110px;
+    width: 90%;
+    margin-left: 5%;
+    border-radius: 15px;
+  }
+  .app-breadcrumb {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 130px;
+    width: 100%;
+  }
   #content-container {
+    padding: 0;
     width: 100%;
     margin-top: 0;
     .larger-devices {
@@ -246,7 +327,7 @@
     }
     #page {
       width: 90%;
-      margin-left: 5%;
+      padding: 50px 30px;
       .heading {
         margin-bottom: 0;
         .title {
@@ -305,4 +386,15 @@
       }
     }
   }
+  #breadcrumbs {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  /*  .app-breadcrumb {
+    margin-left: 5%;
+    display: block;
+    position: absolute;
+    top: 130px;
+    width: 100%;
+  }*/
 }

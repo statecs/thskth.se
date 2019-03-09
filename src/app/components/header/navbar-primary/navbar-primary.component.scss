@@ -195,6 +195,15 @@ nav {
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   nav {
+    .logo {
+      float: left;
+      cursor: pointer;
+      & img {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)
@@ -208,6 +217,15 @@ nav {
     .ths-icon,
     .language {
       margin-left: 5px !important;
+    }
+    .logo {
+      float: left;
+      cursor: pointer;
+      & img {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+      }
     }
   }
 }

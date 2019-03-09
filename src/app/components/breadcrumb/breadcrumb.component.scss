@@ -1,5 +1,9 @@
 @import "../../../style/utilities";
 
+/* #breadcrumbs::-webkit-scrollbar {
+  display: none;
+}*/
+
 #breadcrumbs {
   text-transform: capitalize;
   display: inline-block;
@@ -33,9 +37,9 @@
   height: 2px; /* for horizontal scrollbars */
 }
 
-::-webkit-scrollbar-track {
+/**::-webkit-scrollbar-track {
   background: rgb(102, 101, 101);
-}
+}**/
 
 ::-webkit-scrollbar-thumb {
   background: #2a2a2a;
@@ -45,26 +49,85 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #breadcrumbs {
+    position: absolute;
+    top: -65px;
+    width: 80%;
+    left: 0;
+    font-size: 0.8em;
+    width: 100%;
     display: block;
     overflow-x: scroll;
     ul {
-      padding: 10px 5px;
+      padding: 30px 5px;
+      color: #e1e1e1;
+      li {
+        display: inherit;
+        > a {
+          color: #e1e1e1;
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+        > span {
+          margin-right: 5px;
+        }
+      }
     }
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #breadcrumbs {
+    position: absolute;
+    top: -70px;
+    left: 0;
     display: block;
+    font-size: 0.9em;
+    width: 80%;
     overflow-x: scroll;
     ul {
-      padding: 10px 5px;
+      padding: 30px 5px;
+      color: #e1e1e1;
+      li {
+        display: inherit;
+        > a {
+          color: #e1e1e1;
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+        > span {
+          margin-right: 5px;
+        }
+      }
     }
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #breadcrumbs {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    ul {
+      color: #e1e1e1;
+      padding: 10px 5px;
+      li {
+        display: inherit;
+        > a {
+          color: #e1e1e1;
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+        > span {
+          margin-right: 5px;
+        }
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)

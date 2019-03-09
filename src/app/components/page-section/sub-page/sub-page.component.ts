@@ -107,11 +107,17 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
       } else {
         this.submenu_bar.nativeElement.style.top =
           this.notificationBarHeight + "px";
+        this.submenu_bar.nativeElement.style.width = "100%";
+        this.submenu_bar.nativeElement.style.margin = "0";
+        this.submenu_bar.nativeElement.style.borderRadius = "0px";
       }
     } else {
       if (this.freeze_submenu_bar) {
         this.freeze_submenu_bar = false;
-        this.submenu_bar.nativeElement.style.top = this.submenu_bar_pos + "px";
+        this.submenu_bar.nativeElement.style.top = "110px";
+        this.submenu_bar.nativeElement.style.width = "";
+        this.submenu_bar.nativeElement.style.margin = "";
+        this.submenu_bar.nativeElement.style.borderRadius = "";
       }
     }
   }

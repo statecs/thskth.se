@@ -13,7 +13,7 @@ header {
   text-align: center;
   transition: top 0.5s ease;
   z-index: 1;
-  background-color: $bg-color-primary;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0), black);
   color: white !important;
   .container {
     border-bottom: 0;
@@ -649,6 +649,8 @@ header {
         .nav-item {
           padding: 5px 10px;
           .logo {
+            float: left;
+            margin-left: 10px;
             background-color: rgba(0, 0, 0, 0.25);
             display: inline-block;
             vertical-align: middle;
@@ -691,19 +693,24 @@ header {
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
+}
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+}
+
+@media (max-width: 1546px) and (min-width: 992px) {
   header {
     .container {
-      width: 90%;
+      height: 75px;
       .search {
         font-size: $font-size-h6;
       }
       .logo {
-        width: 40px;
-        height: 40px;
+        float: left;
+      }
+      .search {
+        margin: 0px 60px;
       }
     }
   }
-}
-// Extra large devices (large desktops, 1200px and up)
-@include media-breakpoint-only(xl) {
 }
