@@ -97,12 +97,11 @@
     display: flex;
     flex: 0 1 auto;
     margin-bottom: 15px;
-    border-radius: 8px !important;
     margin-right: 1%;
     margin-left: 1%;
     height: 300px;
+    border-radius: 15px;
     position: relative;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;
     overflow: hidden;
     animation-name: slidein;
     animation-duration: 0.7s;
@@ -113,12 +112,10 @@
     }
 
     .masonry-layout_panel-content {
-      border-radius: 8px !important;
       overflow: hidden;
       background-size: 140%;
       width: 100%;
       height: 100%;
-      box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;
       background-position: center;
       transition: background-size 0.5s ease-out;
       cursor: pointer;

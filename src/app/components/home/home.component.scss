@@ -38,7 +38,8 @@
     margin: 0 auto;
     margin-top: 50px;
     .title {
-      font-size: $font-size-h2;
+      font-size: 1.5em;
+      padding: 7px 25px 10px 10px;
       margin-bottom: 10px;
       color: $color-link-secondary;
       &:hover {
@@ -100,7 +101,7 @@ a.headerTitle:after {
       display: block;
     }
     .contact {
-      @include container-size(80%);
+      @include container-size(90%);
       max-width: 1600px;
       margin: 0 auto;
       height: auto;
@@ -108,6 +109,7 @@ a.headerTitle:after {
         width: 100%;
         height: 100%;
         float: none;
+        padding-bottom: 30px;
       }
       .maps {
         width: 100%;

@@ -1,4 +1,9 @@
-<div #slides_container id="text-slider">
+<div
+  #slides_container
+  id="text-slider"
+  (touchstart)="swipe($event, 'start')"
+  (touchend)="swipe($event, 'end')"
+>
   <div class="slides-container">
     <div class="slides" [style.width]="slides_items?.length * 100 + '%'">
       <div
