@@ -1,6 +1,11 @@
 <div #primary_slider id="primary-slider" (mousemove)="mouseMovingOnPlayer()">
   <div #slides_container class="slides">
-    <div *ngFor="let slide of slides" class="slide">
+    <div
+      *ngFor="let slide of slides"
+      class="slide"
+      (touchstart)="swipe($event, 'start', slide.link_to_page)"
+      (touchend)="swipe($event, 'end', slide.link_to_page)"
+    >
       <!-- ----- Text center template ----->
       <div
         *ngIf="slide.template === 'text-center-template'"

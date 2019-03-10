@@ -30,6 +30,8 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   public controlsOpacity: number;
   public mousemove_timer: any;
   public mainSlide_timer: any;
+  private swipeCoord: [number, number];
+  private swipeTime: number;
   public slideIndex: number;
   public slides: Slide[];
   public slideshow_play_btn: string;
@@ -47,12 +49,55 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     private primarySlidesService: PrimarySlidesService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private notificationBarCommunicationService: NotificationBarCommunicationService,
+    private notificationBarCommunicationService: NotificationBarCommunicationService
   ) {
     this.slides_img_base = "../../../assets/images/main_slider/";
     this.slideIndex = 1;
     this.slideshow_play_btn = "pause";
     this.deviceSize = window.screen.width;
+  }
+
+  swipe(e: TouchEvent, when: string, link: string): void {
+    const coord: [number, number] = [
+      e.changedTouches[0].pageX,
+      e.changedTouches[0].pageY
+    ];
+    const time = new Date().getTime();
+
+    if (when === "start") {
+      this.swipeCoord = coord;
+      this.swipeTime = time;
+    } else if (when === "end") {
+      const direction = [
+        coord[0] - this.swipeCoord[0],
+        coord[1] - this.swipeCoord[1]
+      ];
+      const duration = time - this.swipeTime;
+
+      if (
+        duration < 1000 && // Short enough
+        Math.abs(direction[1]) < Math.abs(direction[0]) && // Horizontal enough
+        Math.abs(direction[0]) > 30
+      ) {
+        // Long enough
+        if (direction[0] < 0) {
+          this.hideAllSlides();
+          this.slideIndex++;
+          if (this.slideIndex > this.slides.length) {
+            this.slideIndex = 1;
+          }
+          this.showSlide();
+        } else {
+          this.hideAllSlides();
+          if (this.slideIndex == 1) {
+            this.slideIndex--;
+            this.slideIndex = 5;
+          }
+          this.slideIndex--;
+          this.showSlide();
+        }
+      }
+    }
   }
 
   goToPage(slug): void {
@@ -168,7 +213,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       this.video.play();
       el.innerHTML = "pause_circle_outline";
       this.hideControls();
-    }else {
+    } else {
       this.pauseVideo();
     }
   }
@@ -218,18 +263,18 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
 
   private stopHidingVideoControlsTimer(): void {
     if (this.video && !this.video.paused) {
-        clearTimeout(this.mousemove_timer);
+      clearTimeout(this.mousemove_timer);
     }
   }
 
   private startHidingVideoControlsTimer(): void {
-      const mouseStopped = () => {
-          this.hideControls();
-      };
-      if (this.video && !this.video.paused) {
-          clearTimeout(this.mousemove_timer);
-          this.mousemove_timer = setTimeout(mouseStopped, 1500);
-      }
+    const mouseStopped = () => {
+      this.hideControls();
+    };
+    if (this.video && !this.video.paused) {
+      clearTimeout(this.mousemove_timer);
+      this.mousemove_timer = setTimeout(mouseStopped, 1500);
+    }
   }
 
   showSelectedSlide(slideNumber): void {
@@ -296,13 +341,15 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
         );
     }
 
-    this.headerCommunicationSub =  this.headerCommunicationService.onMenuDropDownObservable$.subscribe((arg) => {
-      if (arg === 'stopHidingVideoControlsTimer') {
-        this.stopHidingVideoControlsTimer();
-      }else if (arg === 'startHidingVideoControlsTimer') {
-        this.startHidingVideoControlsTimer();
+    this.headerCommunicationSub = this.headerCommunicationService.onMenuDropDownObservable$.subscribe(
+      arg => {
+        if (arg === "stopHidingVideoControlsTimer") {
+          this.stopHidingVideoControlsTimer();
+        } else if (arg === "startHidingVideoControlsTimer") {
+          this.startHidingVideoControlsTimer();
+        }
       }
-    });
+    );
   }
 
   ngOnDestroy() {
@@ -326,7 +373,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       this.headerSubscription.unsubscribe();
     }
     if (this.headerCommunicationSub) {
-        this.headerCommunicationSub.unsubscribe();
+      this.headerCommunicationSub.unsubscribe();
     }
   }
 }
