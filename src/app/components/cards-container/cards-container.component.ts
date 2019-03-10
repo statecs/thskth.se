@@ -37,7 +37,8 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   private cardsUpdater: Subscription;
   protected config: AppConfig;
 
-  public events: Event[];
+  public events: any;
+  public fetched_events: any;
 
   public selected_event_title: string;
   public selected_event_text: string;
@@ -226,11 +227,20 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   switchCalendar(calendarId, index) {
-    this.getCalendar(calendarId);
-    this.selected_event_category = index;
+    this.selected_event_category = calendarId;
+    let cal_Id = "";
+    if (calendarId === null) {
+      cal_Id = "all";
+      this.getAllEvents();
+    } else {
+      this.getCalendar(calendarId);
+      this.selected_event_category = index;
+    }
   }
 
   getCalendar(calendarId): void {
+    this.selected_event_title = "";
+    this.selected_event_text = "";
     this.eventsSubscription = this.googleCalendarService
       .getUpcomingEvents(calendarId, 3)
       .subscribe(
@@ -248,6 +258,20 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       );
   }
 
+  mergeArrays(arrays: any): Event[] {
+    let merged: Event[] = [];
+    arrays.forEach(event => {
+      merged = merged.concat(event);
+    });
+    return merged;
+  }
+
+  sortArrayByTime(a, b) {
+    a = new Date(a.start);
+    b = new Date(b.start);
+    return a < b ? -1 : a > b ? 1 : 0;
+  }
+
   getRestaurantMenu(): void {
     this.restaurantUpdater = this.restaurantService
       .getSingleRestaurant("nymble-restaurant", this.lang)
@@ -262,17 +286,49 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       );
   }
 
+  getAllEvents() {
+    this.selected_event_category = -1;
+    this.eventsSubscription = this.googleCalendarService
+      .getAllEvents(null, "")
+      .subscribe(res => {
+        const mergedArrays = this.mergeArrays(res);
+        const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+        if (sortedArrays.length > 4) {
+          this.events = sortedArrays.slice(0, 4);
+        } else {
+          this.events = sortedArrays;
+          this.fetched_events = localStorage.setItem(
+            "events_list",
+            JSON.stringify(this.events)
+          );
+        }
+      });
+  }
+
+  fetchEvents(): void {
+    if (this.fetched_events) {
+      this.events = localStorage.getItem("events_list");
+    } else {
+      this.getAllEvents();
+    }
+  }
+
   ngOnInit() {
     this.selected_event_title = "";
     this.selected_event_text = "";
     this.selected_event_index = 0;
+    this.selected_event_category = -1;
+    this.fetchEvents();
+    //this.fetchEvents();
+
     this.cardsUpdater = this.cardCategorizerCardContainerService.notifyObservable$.subscribe(
       arg => {
         this.displayCards(arg);
+        this.fetchEvents();
       }
     );
 
-    this.getCalendar(ths_calendars.events.calendarId);
+    // this.getCalendar(ths_calendars.events.calendarId);
     this.getRestaurantMenu();
   }
 

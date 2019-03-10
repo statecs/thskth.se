@@ -156,6 +156,13 @@
           <div class="categories">
             <div class="cat-wrapper">
               <div
+                class="item"
+                (click)="switchCalendar(null)"
+                [ngClass]="{ selected: selected_event_category === -1 }"
+              >
+                {{ lang === "en" ? "All" : "Alla" }}
+              </div>
+              <div
                 *ngFor="let c of ths_calendars; let i = index"
                 class="item"
                 (click)="switchCalendar(c.calendarId, i)"
