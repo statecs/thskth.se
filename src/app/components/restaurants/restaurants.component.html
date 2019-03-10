@@ -2,9 +2,6 @@
   <div class="default-header"></div>
 </div>
 <div *ngIf="!pageNotFound" id="restaurant">
-  <h1>
-    {{ lang === "en" ? "Restaurant and Café" : "Restauranger och Caféer" }}
-  </h1>
   <app-loader *ngIf="loading"></app-loader>
   <div *ngIf="!loading" class="gallery larger-devices">
     <div

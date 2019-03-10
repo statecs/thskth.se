@@ -2,18 +2,14 @@
   *ngIf="!item_exist && !pageNotFound"
   class="page-loader"
 ></app-loader>
+<div class="header">
+  <div class="default-header"></div>
+</div>
 <div
   *ngIf="item_exist && !pageNotFound && !showingPopup"
   id="content-container"
 >
   <div class="search-bar">
-    <h2>
-      {{
-        lang === "en"
-          ? "Search THS associations and chapters"
-          : "Sök efter THS föreningar och sektioner"
-      }}
-    </h2>
     <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
       <div class="search" [ngClass]="{ onFocus: searchOnFocus }">
         <input

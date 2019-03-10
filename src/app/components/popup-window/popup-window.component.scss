@@ -1,8 +1,35 @@
 @import "../../../style/utilities";
 
 .exit-popup-btn-mobile {
-  @include exit-popup-btn-mobile;
+  //@include exit-popup-btn-mobile;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  bottom: 20px;
   display: none;
+  .svg-close svg {
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+    fill: currentColor;
+    stroke: none;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    display: inline-block;
+    color: inherit;
+    margin: 17px;
+  }
+  .text-white {
+    color: #fff;
+  }
+  .w-18 {
+    border-radius: 9999px;
+    width: 3.6rem;
+    height: 3.6rem;
+    background-color: #53565a;
+  }
 }
 
 .container {
@@ -210,6 +237,7 @@
       }
       .faq {
         .content-container {
+          padding-top: 100px !important;
           .description {
             width: 100% !important;
           }
@@ -312,7 +340,7 @@
           .contact {
             width: 25%;
             min-height: 200px;
-            background-color: lightgray;
+            background-color: #ededed;
             vertical-align: top;
             margin-left: 50px;
             text-align: center;
@@ -417,7 +445,7 @@
         }
         .event-layout {
           .header-image {
-            min-height: 300px;
+            min-height: 220px;
             max-height: 300px;
             .default-header {
               height: 200px;
@@ -440,7 +468,7 @@
         }
         .association-layout {
           .header-image {
-            min-height: 300px;
+            min-height: 220px;
             max-height: 300px;
           }
           .content-container {
