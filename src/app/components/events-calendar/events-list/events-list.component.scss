@@ -1,7 +1,6 @@
 @import "../../../../style/utilities";
 
 #event-list {
-  background-color: $bg-color-default;
   .sections-wrapper {
     width: 96%;
     display: inline-block;
@@ -9,13 +8,13 @@
     margin-top: 20px;
     padding: 0 50px 40px;
     text-align: left;
-    .section{
-      .event{
+    .section {
+      .event {
         position: relative;
         padding: 15px 0;
         border-bottom: 1px solid #f0f0f0;
         cursor: pointer;
-        >div {
+        > div {
           display: inline-block;
         }
         .date {
@@ -34,19 +33,19 @@
             color: gray;
           }
         }
-        .info{
+        .info {
           text-align: left;
           padding: 0 10px;
-          h2{
+          h2 {
             font-size: 1em;
             margin: 0 0 5px;
           }
-          label{
+          label {
             color: gray;
             align-items: center;
             display: flex;
             font-size: 0.85em;
-            i{
+            i {
               font-size: 1.25em;
             }
           }

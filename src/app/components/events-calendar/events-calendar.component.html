@@ -1,22 +1,38 @@
+<div class="header">
+  <div class="default-header"></div>
+</div>
+
 <div *ngIf="showCalendar" class="cal-popup mobile">
   <div class="calendar-wrapper">
     <div class="title">
-      <h2>{{(lang === 'en' ? 'Events calendar' : 'Evenemangskalender')}}</h2>
+      <h2>{{ lang === "en" ? "Events calendar" : "Evenemangskalender" }}</h2>
     </div>
     <app-calendar></app-calendar>
   </div>
 </div>
 
-<div *ngIf="showCalendar" class="exit-popup-btn-mobile" (click)="hide_popup_window()"><i class="fa fa-times-circle"></i> Done</div>
+<div
+  *ngIf="showCalendar"
+  class="exit-popup-btn-mobile"
+  (click)="hide_popup_window()"
+>
+  <i class="fa fa-times-circle"></i> Done
+</div>
 
 <div *ngIf="!pageNotFound" id="events-calendar">
-  <div *ngIf="!showCalendar" class="display-cal-btn mobile" (click)="toggleCalendar()">More events</div>
+  <div
+    *ngIf="!showCalendar"
+    class="display-cal-btn mobile"
+    (click)="toggleCalendar()"
+  >
+    More events
+  </div>
   <div class="title mobile">
-    <h2>{{(lang === 'en' ? 'Events' : 'Evenemang')}}</h2>
+    <h2>{{ lang === "en" ? "Events" : "Evenemang" }}</h2>
   </div>
   <div class="calendar-wrapper larger-devices">
     <div class="title">
-      <h2>{{(lang === 'en' ? 'Events calendar' : 'Evenemangskalender')}}</h2>
+      <h2>{{ lang === "en" ? "Events calendar" : "Evenemangskalender" }}</h2>
     </div>
     <app-calendar></app-calendar>
   </div>
@@ -41,8 +57,9 @@
     </div>
   </div>-->
   <app-events-cards
-          [title]="(lang === 'en' ? 'Upcoming events' : 'Kommande evenemang')"
-          [events]="earliest_events">
+    [title]="lang === 'en' ? 'Upcoming events' : 'Kommande evenemang'"
+    [events]="earliest_events"
+  >
   </app-events-cards>
   <app-events-list [events]="earliest_events"></app-events-list>
 </div>

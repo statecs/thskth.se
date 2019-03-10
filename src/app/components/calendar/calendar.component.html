@@ -1,26 +1,45 @@
 <div class="categories">
-    <div *ngIf="calendar_names" class="cat-wrapper">
-        <div class="item" (click)="switchCalendar(null)" [ngClass]="{'selected': selected_event_category === -1}">{{(lang === 'en' ? 'All' : 'Alla')}}</div>
-        <div *ngFor="let cName of calendar_names, let i = index" class="item" (click)="switchCalendar(cName)" [ngClass]="{'selected': selected_event_category === cName}">{{(lang === 'en' ? ths_calendars[cName].title.en : ths_calendars[cName].title.sv)}}</div>
+  <div *ngIf="calendar_names" class="cat-wrapper">
+    <div
+      class="item"
+      (click)="switchCalendar(null)"
+      [ngClass]="{ selected: selected_event_category === -1 }"
+    >
+      {{ lang === "en" ? "All" : "Alla" }}
     </div>
+    <div
+      *ngFor="let cName of calendar_names; let i = index"
+      class="item"
+      (click)="switchCalendar(cName)"
+      [ngClass]="{ selected: selected_event_category === cName }"
+    >
+      {{
+        lang === "en"
+          ? ths_calendars[cName].title.en
+          : ths_calendars[cName].title.sv
+      }}
+    </div>
+  </div>
 </div>
 
 <app-calendar-header
-        [(view)]="view"
-        [(viewDate)]="viewDate"
-        [(lang)]="lang"
-        (updateEvents)="fetchEvents()">
+  [(view)]="view"
+  [(viewDate)]="viewDate"
+  [(lang)]="lang"
+  (updateEvents)="fetchEvents()"
+>
 </app-calendar-header>
 <app-loader *ngIf="e_loading"></app-loader>
-<div class="scheme" *ngIf="events$ | async; else loading; let events">
-    <div [ngSwitch]="view">
-        <mwl-calendar-month-view
-                *ngSwitchCase="'month'"
-                [viewDate]="viewDate"
-                [events]="events"
-                [activeDayIsOpen]="activeDayIsOpen"
-                (dayClicked)="dayClicked($event.day)"
-                (eventClicked)="eventClicked($event.event)">
-        </mwl-calendar-month-view>
-    </div>
+<div class="scheme" *ngIf="(events$ | async); else loading; let events">
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="eventClicked($event.event)"
+    >
+    </mwl-calendar-month-view>
+  </div>
 </div>

@@ -1,8 +1,10 @@
+<div class="header">
+  <div class="default-header"></div>
+</div>
 <div *ngIf="!pageNotFound" id="content-container">
   <div class="search-bar" [ngClass]="{ 'center-vertically': !showResults }">
-    <h2>{{ lang === "en" ? "Search ..." : "Sök ..." }}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
-      <div class="search" [ngClass]="{ onFocus: searchOnFocus }">
+      <div class="search" [ngClass]="{ onFocus: searchOnFocus }" tabindex="-1">
         <input
           class="searchInput"
           #searchField
@@ -10,6 +12,7 @@
             lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord'
           }}"
           [(ngModel)]="searchTerm"
+          id="searchField"
           name="searchInput"
           (focus)="toggleSearchFocus()"
           (blur)="toggleSearchFocus()"

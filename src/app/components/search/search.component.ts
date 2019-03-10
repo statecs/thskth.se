@@ -313,6 +313,8 @@ export class SearchComponent implements OnInit, OnDestroy {
           typeof this.searchTerm !== "undefined"
         ) {
           this.submitSearch();
+        } else {
+          window.location.hash = "#searchField";
         }
       }
     );

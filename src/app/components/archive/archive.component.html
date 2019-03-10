@@ -1,6 +1,8 @@
+<div class="header">
+  <div class="default-header"></div>
+</div>
 <div *ngIf="!pageNotFound" id="content-container">
   <div class="search-bar">
-    <h2>{{ lang === "en" ? "Search THS Documents" : "Sök THS Dokument" }}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
       <div class="search" [ngClass]="{ onFocus: searchOnFocus }">
         <input
