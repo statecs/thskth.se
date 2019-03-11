@@ -4,10 +4,10 @@ export interface ISlide {
   description: string;
   template: string;
   link_to_page: string;
-  image: any;
   video: string;
   menu_order: number;
   bg_image: any;
+  bg_color: any;
 }
 
 export class Slide implements ISlide {
@@ -16,10 +16,10 @@ export class Slide implements ISlide {
   description: string;
   template: string;
   link_to_page: string;
-  image: any;
   video: string;
   menu_order: number;
   bg_image: any;
+  bg_color: any;
 
   static convertToSlideType(res) {
     const slides: Slide[] = [];
@@ -34,10 +34,10 @@ export class Slide implements ISlide {
         description: slide.content.rendered,
         template: slide.acf.template,
         link_to_page: slide.acf.link_to_page,
-        image: slide.acf.image.sizes,
         video: slide.acf.video,
         menu_order: slide.menu_order,
-        bg_image: bg_image
+        bg_image: bg_image,
+        bg_color: slide.acf.background_color
       });
     });
     return slides;

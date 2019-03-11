@@ -21,7 +21,8 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   @ViewChild("primary_slider") primary_slider: ElementRef;
   @ViewChild("slides_container") slides_container: ElementRef;
   @ViewChild("video_player") video_player: ElementRef;
-  @ViewChild("slider_bar_container") slider_bar_container: ElementRef;
+  @ViewChild("slider_bar_container_fluid")
+  slider_bar_container_fluid: ElementRef;
   @ViewChild("playButton") playButton: ElementRef;
 
   public slides_img_base: string;
@@ -30,6 +31,8 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   public controlsOpacity: number;
   public mousemove_timer: any;
   public mainSlide_timer: any;
+  public bg_image: any;
+  public bg_image_last: any;
   private swipeCoord: [number, number];
   private swipeTime: number;
   public slideIndex: number;
@@ -52,7 +55,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     private notificationBarCommunicationService: NotificationBarCommunicationService
   ) {
     this.slides_img_base = "../../../assets/images/main_slider/";
-    this.slideIndex = 1;
+    this.slideIndex = 0;
     this.slideshow_play_btn = "pause";
     this.deviceSize = window.screen.width;
   }
@@ -82,18 +85,22 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
         // Long enough
         if (direction[0] < 0) {
           this.hideAllSlides();
+          clearInterval(this.mainSlide_timer);
+          this.slideshow_play_btn = "play_arrow";
           this.slideIndex++;
-          if (this.slideIndex > this.slides.length) {
-            this.slideIndex = 1;
+          if (this.slideIndex >= this.slides.length) {
+            this.slideIndex = 0;
           }
           this.showSlide();
         } else {
           this.hideAllSlides();
-          if (this.slideIndex == 1) {
-            this.slideIndex--;
-            this.slideIndex = 5;
-          }
+          clearInterval(this.mainSlide_timer);
+          this.slideshow_play_btn = "play_arrow";
           this.slideIndex--;
+          if (this.slideIndex < 0) {
+            this.slideIndex = 4;
+          }
+
           this.showSlide();
         }
       }
@@ -117,11 +124,11 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     this.mainSlide_timer = setInterval(function() {
       self.hideAllSlides();
       self.slideIndex++;
-      if (self.slideIndex > self.slides.length) {
-        self.slideIndex = 1;
+      if (self.slideIndex >= self.slides.length) {
+        self.slideIndex = 0;
       }
       self.showSlide();
-    }, 10000);
+    }, 15000);
   }
 
   toggleMainSlider(): void {
@@ -135,7 +142,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   hideAllSlides(): void {
-    this.slider_progress_bars = this.primary_slider.nativeElement.getElementsByClassName(
+    this.slider_progress_bars = this.slider_bar_container_fluid.nativeElement.getElementsByClassName(
       "slider-progress-bar"
     );
     this.slideElements = this.slides_container.nativeElement.getElementsByClassName(
@@ -145,14 +152,11 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       typeof this.slider_progress_bars !== "undefined" &&
       typeof this.slideElements !== "undefined"
     ) {
-      if (typeof this.slideElements[this.slideIndex - 1] !== "undefined") {
-        this.slideElements[this.slideIndex - 1].style.right = 0;
-        this.slideElements[this.slideIndex - 1].style.opacity = 0;
+      if (typeof this.slideElements[this.slideIndex] !== "undefined") {
+        this.slideElements[this.slideIndex].style.right = 0;
+        this.slideElements[this.slideIndex].style.opacity = 0;
       }
-      for (let i = 0; i < this.slideElements.length; i++) {
-        this.slideElements[i].style.visibility = "hidden";
-        this.slider_progress_bars[i].style.backgroundColor = "gray";
-      }
+      this.slider_progress_bars[this.slideIndex].style.backgroundColor = "gray";
     }
   }
 
@@ -174,34 +178,45 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   showSlide(): void {
-    this.slider_progress_bars = this.primary_slider.nativeElement.getElementsByClassName(
+    this.slider_progress_bars = this.slider_bar_container_fluid.nativeElement.getElementsByClassName(
       "slider-progress-bar"
     );
-    this.slideElements = this.slides_container.nativeElement.getElementsByClassName(
-      "slide"
-    );
+    if (typeof this.slides_container !== "undefined") {
+      this.slideElements = this.slides_container.nativeElement.getElementsByClassName(
+        "slide"
+      );
+    }
+
     if (
       typeof this.slider_progress_bars !== "undefined" &&
       typeof this.slideElements !== "undefined"
     ) {
-      this.slideElements[this.slideIndex - 1].style.visibility = "visible";
-      this.slideElements[this.slideIndex - 1].style.opacity = 1;
-      let bg_image = "";
-      const image = this.slides[this.slideIndex - 1].bg_image;
-      if (this.deviceSize < 768) {
-        bg_image = image.image640;
-      } else if (this.deviceSize >= 768 && this.deviceSize < 992) {
-        bg_image = image.image960;
-      } else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
-        bg_image = image.image1280;
-      } else if (this.deviceSize >= 1200) {
-        bg_image = image.image1920;
+      if (typeof this.slideElements[this.slideIndex] !== "undefined") {
+        this.slideElements[this.slideIndex].style.visibility = "visible";
+        this.slideElements[this.slideIndex].style.opacity = 1;
       }
+
+      const image = this.slides[this.slideIndex].bg_image;
+      if (this.deviceSize < 768) {
+        this.bg_image = image.image640;
+      } else if (this.deviceSize >= 768 && this.deviceSize < 992) {
+        this.bg_image = image.image960;
+      } else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
+        this.bg_image = image.image1280;
+      } else if (this.deviceSize >= 1200) {
+        this.bg_image = image.image1920;
+      }
+
       this.primary_slider.nativeElement.style.background =
-        'url("' + bg_image + '") no-repeat center center';
-      this.primary_slider.nativeElement.style.backgroundSize = "cover";
-      this.slider_progress_bars[this.slideIndex - 1].style.backgroundColor =
-        "white";
+        'url("' + this.bg_image + '") no-repeat center / cover';
+      this.primary_slider.nativeElement.style.transition =
+        "opacity 1s ease-in-out";
+      this.primary_slider.nativeElement.style.opacity = "1";
+
+      if (typeof this.slider_progress_bars[this.slideIndex] !== "undefined") {
+        this.slider_progress_bars[this.slideIndex].style.backgroundColor =
+          "white";
+      }
     }
   }
 
@@ -223,20 +238,30 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     this.video.pause();
     el.innerHTML = "play_circle_outline";
     this.showControls();
-    this.startMainSlider();
+    if (this.slideshow_play_btn === "play_arrow") {
+      this.slideshow_play_btn = "pause";
+      this.startMainSlider();
+    } else {
+      this.slideshow_play_btn = "play_arrow";
+      clearInterval(this.mainSlide_timer);
+    }
   }
 
   hideControls() {
-    this.slider_bar_container.nativeElement.style.bottom = "-100px";
-    this.headerCommunicationService.collapseHeader();
-    this.playButton.nativeElement.style.opacity = "0";
-    this.controlsOpacity = 0;
+    if (typeof this.playButton !== "undefined") {
+      this.slider_bar_container_fluid.nativeElement.style.top = "50vh";
+      this.slider_bar_container_fluid.nativeElement.style.opacity = "0";
+      this.headerCommunicationService.collapseHeader();
+      this.playButton.nativeElement.style.opacity = "0";
+      this.controlsOpacity = 0;
+    }
   }
 
   showControls() {
-    this.slider_bar_container.nativeElement.style.bottom = "0";
+    this.slider_bar_container_fluid.nativeElement.style.top = "46.5vh";
     this.headerCommunicationService.expendHeader();
     this.playButton.nativeElement.style.opacity = "1";
+    this.slider_bar_container_fluid.nativeElement.style.opacity = "1";
     this.controlsOpacity = 1;
   }
 
@@ -278,19 +303,17 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   showSelectedSlide(slideNumber): void {
+    this.hideAllSlides();
     this.slideIndex = slideNumber;
-    if (!this.video.paused) {
-      this.pauseVideo();
+    if (this.video) {
+      if (!this.video.paused) {
+        this.pauseVideo();
+      }
     }
     clearInterval(this.mainSlide_timer);
-    if (this.slideshow_play_btn === "pause") {
-      this.hideAllSlides();
-      this.showSlide();
-      this.startMainSlider();
-    } else {
-      this.hideAllSlides();
-      this.showSlide();
-    }
+    this.slideshow_play_btn = "play_arrow";
+    this.hideAllSlides();
+    this.showSlide();
   }
 
   ngOnInit() {
@@ -333,6 +356,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
           slides => {
             clearInterval(this.mainSlide_timer);
             this.slides = slides;
+            this.showSlide();
             this.startMainSlider();
           },
           error => {

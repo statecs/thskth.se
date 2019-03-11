@@ -194,8 +194,8 @@
 
 @mixin capsule-button($padding-horizontal, $padding-vertical) {
   padding: $padding-vertical $padding-horizontal;
-  border: 1px solid white;
-  border-radius: $padding-vertical/2 + 15px;
+  border: 1.5px solid white;
+  border-radius: 5px;
   background-color: transparent;
   color: white;
   display: inline-block;
