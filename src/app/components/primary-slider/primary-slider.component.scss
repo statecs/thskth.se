@@ -31,6 +31,10 @@
     z-index: 1;
     display: inline-block;
     margin-left: 10%;
+    display: inherit;
+    margin-left: 10%;
+    max-width: 1600px;
+    margin: 0 auto;
 
     .item {
       width: (100%)/5 - 0.3%;
@@ -75,7 +79,7 @@
   }
 
   .slideshow-play-button {
-    padding: 65px 15px;
+    padding: 15px 15px;
     color: white;
     display: inline-block;
     border-radius: 3px;
@@ -852,7 +856,7 @@
     top: 60vh !important;
     .slideshow-play-button {
       position: absolute;
-      margin: -10px 2%;
+      margin: -55px 1%;
       padding: 0;
       left: 0;
     }
@@ -1006,7 +1010,7 @@
     top: 60vh !important;
     .slideshow-play-button {
       position: absolute;
-      margin: -10px 5%;
+      margin: -55px 5%;
       padding: 0;
       left: 0;
     }
@@ -1141,7 +1145,7 @@
     top: 60vh !important;
     .slideshow-play-button {
       position: absolute;
-      margin: -10px 5%;
+      margin: -55px 5%;
       padding: 0;
       left: 0;
     }
@@ -1277,7 +1281,7 @@
     top: 60vh !important;
     .slideshow-play-button {
       position: absolute;
-      margin: -10px 5%;
+      margin: -55px 5%;
       padding: 0;
       left: 0;
     }
