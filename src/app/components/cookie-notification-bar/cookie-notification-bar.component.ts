@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CookieService } from "ngx-cookie";
+import { CookieService, CookieOptions } from "ngx-cookie";
 import { Subscription } from "rxjs/Subscription";
 import { Router, RoutesRecognized } from "@angular/router";
 
@@ -17,15 +17,17 @@ export class CookieNotificationBarComponent implements OnInit {
 
   constructor(private cookieService: CookieService, private router: Router) {
     this.en_text =
-      "At thskth.se, we use cookies (cookies) to make your website work well for you. By browsing further, you agree that we use cookies.";
+      "We use cookies (cookies) to make your website work well for you. By browsing further, you agree that we use cookies.";
     this.sv_text =
-      "På thskth.se använder vi kakor (cookies) för att webbplatsen ska fungera på ett bra sätt för dig. Genom att surfa vidare godkänner du att vi använder kakor.";
+      "Vi kakor (cookies) för att webbplatsen ska fungera på ett bra sätt för dig. Genom att surfa vidare godkänner du att vi använder kakor.";
     //this.showNotification = true;
   }
 
   closeBar(): void {
     this.showNotification = false;
-    this.cookieService.put("turnOffCNB", "true");
+    let exp = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+    let cookieOptions = { expires: exp } as CookieOptions;
+    this.cookieService.put("turnOffCNB", "true", cookieOptions);
   }
 
   ngOnInit() {

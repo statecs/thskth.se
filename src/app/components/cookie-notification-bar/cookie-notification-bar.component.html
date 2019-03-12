@@ -1,11 +1,9 @@
 <div *ngIf="showNotification" id="cookie-notification-bar">
   <p>
-    {{(lang === 'en' ? en_text : sv_text)}}
-    <a *ngIf="lang === 'en'" href="https://en.wikipedia.org/wiki/HTTP_cookie" target="_blank">What are cookies?</a>
-    <a *ngIf="lang === 'sv'" href="https://sv.wikipedia.org/wiki/Webbkaka" target="_blank">Vad är kakor?</a>
+    {{ lang === "en" ? en_text : sv_text }}
   </p>
   <span class="close-btn" (click)="closeBar()">
     <i class="fa fa-check" aria-hidden="true"></i>
-    {{(lang === 'en' ? 'I understand' : 'Jag förstår')}}
+    {{ lang === "en" ? "I understand" : "Jag förstår" }}
   </span>
 </div>

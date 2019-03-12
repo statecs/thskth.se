@@ -163,7 +163,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     if (this.language === "en") {
       this.language = "sv";
       this._cookieService.put("language", "sv");
-      console.log("cookie", this._cookieService.get("language"));
     } else if (this.language === "sv") {
       this.language = "en";
       this._cookieService.put("language", "en");

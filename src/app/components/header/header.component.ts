@@ -116,6 +116,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.showMenuMobile) {
       this.showMenuMobile = false;
     }
+    this.lang = this._cookieService.get("language");
+    if (this.lang == "sv") {
+      this.router.navigate(["/sv"]);
+    } else {
+      this.router.navigate(["/en"]);
+    }
   }
 
   openInNewTab(link): void {

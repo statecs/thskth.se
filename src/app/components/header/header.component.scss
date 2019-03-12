@@ -113,7 +113,7 @@ header {
     }
 
     .logo {
-      @include square(45px);
+      @include square(35px);
       overflow: hidden;
       position: relative;
       display: inline-block;

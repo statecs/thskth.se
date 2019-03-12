@@ -30,7 +30,6 @@ export class PagesService extends WordpressBaseDataService<Page> {
   }
 
   getPageBySlug(slug, lang): Observable<Page> {
-    console.log("getPage", lang);
     return this.getDataBySlug("slug=" + slug + "&lang=" + lang).map(
       (res: any) => {
         return Page.convertToPageType(res[0]);
