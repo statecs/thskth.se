@@ -450,14 +450,11 @@ a.headerTitle:after {
       display: inline-block;
       h3 {
         font-size: $font-size-h3;
-        color: $color-link-secondary;
+        color: white;
         font-weight: 600;
         cursor: pointer;
         margin: 0;
         text-shadow: 2px 2px rgba(0, 0, 0, 0.22);
-        &:hover {
-          color: $color-link-secondary-hover;
-        }
       }
       span {
         color: lightgrey;
