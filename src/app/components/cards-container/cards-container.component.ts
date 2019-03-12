@@ -107,7 +107,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
         slug_to_page.substring(0, 8) === "https://"
       ) {
         if (window_type === "same-page") {
-          window.open(slug_to_page);
+          window.open(slug_to_page, "_self");
         } else {
           window.open(slug_to_page, "_blank");
         }

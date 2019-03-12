@@ -32,7 +32,7 @@
   }
 
   .o-whole {
-    width: 100%;
+    width: 97%;
   }
 
   .one-sixth {
@@ -117,6 +117,13 @@
           .content {
             height: 100px;
           }
+          &:hover {
+            .content {
+              height: 170px;
+              padding: 0;
+              padding: 35px 20px;
+            }
+          }
         }
       }
     }
@@ -149,9 +156,9 @@
             color: white;
             right: 0;
             position: absolute;
-            bottom: 10px;
+            bottom: 24px;
             i {
-              font-size: 3em;
+              font-size: 2em;
             }
           }
         }
@@ -507,7 +514,7 @@
       .masonry-layout_panel-content {
         .standard-card {
           .content {
-            padding: 40px 20px;
+            padding: 50px 20px;
             height: 0 !important;
             h4 {
               margin: 5px 0;
@@ -520,7 +527,7 @@
             transform: scale(1) !important;
             border-radius: 15px;
             .content {
-              padding: 40px 20px !important;
+              padding: 50px 20px !important;
               height: 0 !important;
             }
           }
@@ -533,6 +540,13 @@
               display: inline;
               font-size: 0.8em;
             }
+          }
+        }
+      }
+      .masonry-layout_panel-content.noLink {
+        .standard-card {
+          .content {
+            padding: 50px 20px;
           }
         }
       }

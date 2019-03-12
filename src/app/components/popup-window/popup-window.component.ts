@@ -17,6 +17,7 @@ import { Association } from "../../interfaces-and-classes/chapters_associations"
 import { Archive } from "../../interfaces-and-classes/archive";
 import { FAQ } from "../../interfaces-and-classes/faq";
 import { Router, RoutesRecognized } from "@angular/router";
+import { CookieService } from "ngx-cookie";
 import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
 import { PagesService } from "../../services/wordpress/pages.service";
 import { SanitizeHtmlPipe } from "../../pipes/sanitizeHtml.pipe";
@@ -70,6 +71,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     private popupWindowCommunicationService: PopupWindowCommunicationService,
     private appCommunicationService: AppCommunicationService,
     private location: Location,
+    private _cookieService: CookieService,
     private router: Router,
     private domSanitizer: DomSanitizer,
     private notificationBarCommunicationService: NotificationBarCommunicationService
@@ -217,13 +219,18 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   }
 
   show_page_in_popup(slug_to_page): void {
+    let lang = "";
+    lang = this._cookieService.get("language");
+    if (lang == undefined) {
+      lang = this.lang;
+    }
     this.loading = true;
     this.setPosition();
     this.showEvent = false;
     this.showPage = true;
     this.show_popup_window();
     this.pageSubscription = this.pagesService
-      .getPageBySlug(slug_to_page, this.lang)
+      .getPageBySlug(slug_to_page, lang)
       .subscribe(
         res => {
           if (res) {

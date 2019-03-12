@@ -385,11 +385,32 @@
               <button
                 type="button"
                 class="card-btn"
-                *ngIf="card.slug_to_page !== ''"
+                *ngIf="card.window_type == 'popup-window'"
                 (click)="showPage(card.slug_to_page)"
               >
-                <i class="material-icons">arrow_forward</i>
+              <i class="material-icons">arrow_forward</i>
               </button>
+              <button
+                type="button"
+                class="card-btn"
+                *ngIf="card.window_type === 'same-page'"
+                (click)="showPage(card.slug_to_page)"
+              >
+              <i class="material-icons">
+                  open_in_browser
+                </i>
+                
+              </button>
+              <button
+              type="button"
+              class="card-btn"
+              *ngIf="card.window_type === 'new-tab'"
+              (click)="showPage(card.slug_to_page)"
+            >
+            <i class="material-icons">
+                open_in_new
+                </i>
+            </button>
             </div>
           </div>
           <div

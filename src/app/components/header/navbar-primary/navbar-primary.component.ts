@@ -9,6 +9,7 @@ import {
   Params,
   RoutesRecognized
 } from "@angular/router";
+import { CookieService } from "ngx-cookie";
 import { RemoveLangParamPipe } from "../../../pipes/remove-lang-param.pipe";
 import { AddLangToSlugPipe } from "../../../pipes/add-lang-to-slug.pipe";
 import { NotificationBarCommunicationService } from "../../../services/component-communicators/notification-bar-communication.service";
@@ -49,6 +50,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     injector: Injector,
     private router: Router,
     private menusService: MenusService,
+    private _cookieService: CookieService,
     private activatedRoute: ActivatedRoute,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
     private chaptersMenuService: ChaptersMenuService,
@@ -160,8 +162,11 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   switchLanguage() {
     if (this.language === "en") {
       this.language = "sv";
+      this._cookieService.put("language", "sv");
+      console.log("cookie", this._cookieService.get("language"));
     } else if (this.language === "sv") {
       this.language = "en";
+      this._cookieService.put("language", "en");
     }
   }
 
