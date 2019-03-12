@@ -340,7 +340,8 @@
           .contact {
             width: 25%;
             min-height: 200px;
-            background-color: #ededed;
+            box-shadow: 0 1px 2px #b2b2b2;
+            border-radius: 15px;
             vertical-align: top;
             margin-left: 50px;
             text-align: center;
@@ -472,7 +473,7 @@
             max-height: 300px;
           }
           .content-container {
-            padding: 20px;
+            padding: 40px 20px;
             .description,
             .contact {
               margin-left: 0;

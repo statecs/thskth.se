@@ -106,6 +106,7 @@
     animation-name: slidein;
     animation-duration: 0.7s;
     display: block;
+    box-shadow: 0 1px 2px #b2b2b2;
 
     .noLink {
       cursor: default !important;
@@ -156,7 +157,7 @@
             color: white;
             right: 0;
             position: absolute;
-            bottom: 24px;
+            bottom: 22px;
             i {
               font-size: 2em;
             }
@@ -216,11 +217,14 @@
         }
       }
       .standard-card.restrictions-card {
+        .content {
+          padding: 5px 20px;
+        }
         &:hover {
           transform: scale(1) !important;
           border-radius: 15px;
           .content {
-            padding: 35px 20px !important;
+            padding: 5px 20px !important;
             height: 100% !important;
           }
         }
@@ -345,7 +349,11 @@
     max-height: 180px !important;
   }
 }
-
+.centered-content-card {
+  .content {
+    bottom: 60px;
+  }
+}
 // ---------- Event Calendar card ---------- //
 :host /deep/ .event-calendar-card {
   height: 300px;
@@ -518,6 +526,7 @@
             height: 0 !important;
             h4 {
               margin: 5px 0;
+              padding-bottom: 10px;
             }
             p {
               display: none;
@@ -533,12 +542,13 @@
           }
         }
         .restrictions-card {
+          height: 350px !important;
           .content {
-            padding: 0px 20px !important;
+            padding: 30px 20px !important;
             height: 100% !important;
             p {
               display: inline;
-              font-size: 0.8em;
+              font-size: 0.9em;
             }
           }
         }
@@ -547,6 +557,24 @@
         .standard-card {
           .content {
             padding: 50px 20px;
+          }
+        }
+      }
+    }
+    .one-sixth {
+      .masonry-layout_panel-content {
+        .standard-card {
+          padding: 0px;
+          height: 100%;
+        }
+      }
+    }
+    .masonry-layout-sub {
+      .one-third-half {
+        .masonry-layout_panel-content.one-third-half {
+          .standard-card {
+            padding: 60px 20px;
+            height: 100% !important;
           }
         }
       }
@@ -612,7 +640,12 @@
       }
     }
     .masonry-layout_panel {
-      height: 230px;
+      height: 100%;
+      max-height: 430px;
+    }
+    .video-card,
+    .standard-card {
+      height: 250px;
     }
   }
   :host /deep/ .video-card {
@@ -642,6 +675,14 @@
     }
   }
   :host /deep/ .standard-card {
+    &:hover {
+      .content {
+        > a {
+          margin-top: 40px !important;
+        }
+      }
+    }
+
     .content {
       h2 {
         font-size: $font-size-h3;
@@ -654,6 +695,7 @@
         margin-bottom: 10px !important;
       }
       > a {
+        margin-top: 40px !important;
         padding: 10px 30px !important;
       }
     }

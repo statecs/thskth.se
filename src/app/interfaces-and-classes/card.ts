@@ -55,7 +55,7 @@ export class Card implements Card {
     if (res) {
       res.forEach(c => {
         const cardOrder = {
-          order_id: c.acf.item_id,
+          order_id: c.menu_order,
           template: c.acf.template
         };
 

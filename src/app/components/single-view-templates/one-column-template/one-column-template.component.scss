@@ -33,6 +33,7 @@
   }
 
   .content-container {
+    box-shadow: 0 1px 2px #b2b2b2;
     @include container-size(85%);
     padding: 50px;
     background-color: white;

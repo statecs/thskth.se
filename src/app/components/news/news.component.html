@@ -2,7 +2,6 @@
   <div class="default-header"></div>
 </div>
 <div id="content-container">
-  <h1>{{ lang === "sv" ? "THS Nyheter" : "THS News" }}</h1>
   <app-loader *ngIf="!posts"></app-loader>
   <div
     *ngFor="let article of posts"

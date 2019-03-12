@@ -42,6 +42,7 @@
   display: none !important;
 }
 #events-calendar {
+  box-shadow: 0 1px 2px #b2b2b2;
   @include container-size($main-container);
   padding-top: 100px;
   position: relative;

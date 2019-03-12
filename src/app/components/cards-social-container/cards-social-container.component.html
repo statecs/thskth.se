@@ -1,7 +1,7 @@
 <a
   routerLink="{{ lang === 'en' ? '/live' : '/sv/live' }}"
   class="title headerTitle"
-  >{{ lang === "en" ? "Social Media" : "Sociala Medier" }}</a
+  >{{ lang === "en" ? "Social Media" : "Sociala medier" }}</a
 >
 <div *ngIf="viewModel" id="cards-container" class="masonry-layout">
   <div
@@ -18,8 +18,16 @@
     >
       <div class="featured-card">
         <div class="host" [ngSwitch]="post.host">
-          <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-          <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+          <i
+            (click)="goToUserProfile(post.user.link)"
+            *ngSwitchCase="'Facebook'"
+            class="fa fa-facebook-official"
+          ></i>
+          <i
+            (click)="goToUserProfile(post.user.link)"
+            *ngSwitchCase="'Instagram'"
+            class="fa fa-instagram"
+          ></i>
         </div>
         <div class="user">
           <img
@@ -36,9 +44,6 @@
         </div>
         <p class="large-devices">{{ post?.message | cardText: 250 }}</p>
         <p class="mobile">{{ post?.message | cardText: 100 }}</p>
-        <a href="{{ post.link }}" target="_blank" type="button">{{
-          read_more
-        }}</a>
       </div>
     </div>
 
@@ -52,14 +57,22 @@
     >
       <div class="standard-card">
         <div class="host" [ngSwitch]="post?.host">
-          <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-          <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+          <i
+            (click)="goToUserProfile(post?.user.link)"
+            *ngSwitchCase="'Facebook'"
+            class="fa fa-facebook-official"
+          ></i>
+          <i
+            (click)="goToUserProfile(post?.user.link)"
+            *ngSwitchCase="'Instagram'"
+            class="fa fa-instagram"
+          ></i>
         </div>
         <div class="user">
           <img
             src="{{ post?.user.profile_image }}"
             alt="User profile image"
-            (click)="goToUserProfile(post.user.link)"
+            (click)="ggoToUserProfile(post?.user.link)"
           />
           <div>
             <h3 (click)="goToUserProfile(post?.user.link)">
@@ -69,10 +82,7 @@
           </div>
         </div>
         <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
-        <p class="mobile">{{ post?.message | cardText: 70 }}</p>
-        <a href="{{ post.link }}" target="_blank" type="button">{{
-          read_more
-        }}</a>
+        <p class="mobile">{{ post?.message | cardText: 100 }}</p>
       </div>
     </div>
 
@@ -97,7 +107,7 @@
             </div>
           </div>
           <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
-          <p class="mobile">{{ post?.message | cardText: 70 }}</p>
+          <p class="mobile">{{ post?.message | cardText: 100 }}</p>
         </div>
         <div
           class="right-content"
@@ -107,12 +117,17 @@
         >
           <div>
             <div class="host" [ngSwitch]="post.host">
-              <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-              <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+              <i
+                (click)="goToUserProfile(post.user.link)"
+                *ngSwitchCase="'Facebook'"
+                class="fa fa-facebook-official"
+              ></i>
+              <i
+                (click)="goToUserProfile(post.user.link)"
+                *ngSwitchCase="'Instagram'"
+                class="fa fa-instagram"
+              ></i>
             </div>
-            <a href="{{ post.link }}" target="_blank" type="button">{{
-              read_more
-            }}</a>
           </div>
         </div>
       </div>
@@ -125,8 +140,16 @@
         class="standard-card"
       >
         <div class="host" [ngSwitch]="thirdCard?.host">
-          <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-          <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+          <i
+            (click)="goToUserProfile(viewModel.thirdCard?.user.link)"
+            *ngSwitchCase="'Facebook'"
+            class="fa fa-facebook-official"
+          ></i>
+          <i
+            (click)="goToUserProfile(viewModel.thirdCard?.user.link)"
+            *ngSwitchCase="'Instagram'"
+            class="fa fa-instagram"
+          ></i>
         </div>
         <div class="user">
           <img
@@ -144,13 +167,7 @@
         <p class="large-devices">
           {{ viewModel.thirdCard?.message | cardText: 150 }}
         </p>
-        <p class="mobile">{{ viewModel.thirdCard?.message | cardText: 70 }}</p>
-        <a
-          href="{{ viewModel.thirdCard?.link }}"
-          target="_blank"
-          type="button"
-          >{{ read_more }}</a
-        >
+        <p class="mobile">{{ viewModel.thirdCard?.message | cardText: 100 }}</p>
       </div>
       <div
         *ngIf="i !== 0 && viewModel.thirdCard?.full_picture"
@@ -174,7 +191,7 @@
             {{ viewModel.thirdCard?.message | cardText: 150 }}
           </p>
           <p class="mobile">
-            {{ viewModel.thirdCard?.message | cardText: 70 }}
+            {{ viewModel.thirdCard?.message | cardText: 100 }}
           </p>
         </div>
         <div
@@ -187,15 +204,17 @@
         >
           <div>
             <div class="host" [ngSwitch]="viewModel.thirdCard?.host">
-              <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-              <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+              <i
+                (click)="goToUserProfile(viewModel.thirdCard?.user.link)"
+                *ngSwitchCase="'Facebook'"
+                class="fa fa-facebook-official"
+              ></i>
+              <i
+                (click)="goToUserProfile(viewModel.thirdCard?.user.link)"
+                *ngSwitchCase="'Instagram'"
+                class="fa fa-instagram"
+              ></i>
             </div>
-            <a
-              href="{{ viewModel.thirdCard?.link }}"
-              target="_blank"
-              type="button"
-              >{{ read_more }}</a
-            >
           </div>
         </div>
       </div>
@@ -215,8 +234,16 @@
     >
       <div class="featured-card">
         <div class="host" [ngSwitch]="post.host">
-          <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-          <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+          <i
+            (click)="goToUserProfile(post.user.link)"
+            *ngSwitchCase="'Facebook'"
+            class="fa fa-facebook-official"
+          ></i>
+          <i
+            (click)="goToUserProfile(post.user.link)"
+            *ngSwitchCase="'Instagram'"
+            class="fa fa-instagram"
+          ></i>
         </div>
         <div class="user">
           <img
@@ -232,10 +259,7 @@
           </div>
         </div>
         <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
-        <p class="mobile">{{ post?.message | cardText: 70 }}</p>
-        <a href="{{ post.link }}" target="_blank" type="button">{{
-          read_more
-        }}</a>
+        <p class="mobile">{{ post?.message | cardText: 100 }}</p>
       </div>
     </div>
 
@@ -249,8 +273,16 @@
     >
       <div class="featured-card">
         <div class="host" [ngSwitch]="post?.host">
-          <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-          <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
+          <i
+            (click)="goToUserProfile(post?.user.link)"
+            *ngSwitchCase="'Facebook'"
+            class="fa fa-facebook-official"
+          ></i>
+          <i
+            (click)="goToUserProfile(post?.user.link)"
+            *ngSwitchCase="'Instagram'"
+            class="fa fa-instagram"
+          ></i>
         </div>
         <div class="user">
           <img
@@ -266,10 +298,7 @@
           </div>
         </div>
         <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
-        <p class="mobile">{{ post?.message | cardText: 70 }}</p>
-        <a href="{{ post.link }}" target="_blank" type="button">{{
-          read_more
-        }}</a>
+        <p class="mobile">{{ post?.message | cardText: 100 }}</p>
       </div>
     </div>
   </div>

@@ -21,7 +21,7 @@
 }
 #content-container {
   @include container-size(82%);
-  padding-top: 100px;
+  padding-top: 50px;
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
@@ -35,6 +35,8 @@
   }
 
   .article {
+    box-shadow: 0 1px 2px #b2b2b2;
+    border-radius: 15px;
     width: 31.33%;
     //border: 1px solid;
     height: 370px;
@@ -79,7 +81,6 @@
     .article {
       width: 98%;
       height: 350px;
-      box-shadow: 0 0 5px #888888;
       margin-bottom: 15px;
     }
   }
@@ -91,7 +92,6 @@
     .article {
       width: 98%;
       height: 320px;
-      box-shadow: 0 0 5px #888888;
       margin-bottom: 15px;
     }
   }
@@ -103,7 +103,6 @@
     .article {
       width: 48%;
       height: 350px;
-      box-shadow: 0 0 5px #888888;
       margin-bottom: 15px;
     }
   }

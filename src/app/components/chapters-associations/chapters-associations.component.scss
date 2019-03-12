@@ -29,6 +29,7 @@
 }
 
 #content-container {
+  box-shadow: 0 1px 2px #b2b2b2;
   @include container-size($main-container);
   position: relative;
   line-height: 1;
@@ -222,7 +223,7 @@
             margin: 25px 2%;
             background-size: cover;
             position: relative;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 2px #b2b2b2;
             border-radius: 15px;
             cursor: pointer;
             padding-bottom: 20px;

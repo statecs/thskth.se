@@ -385,32 +385,31 @@
               <button
                 type="button"
                 class="card-btn"
-                *ngIf="card.window_type == 'popup-window'"
+                *ngIf="card.window_type == 'popup-window' && card.slug_to_page"
                 (click)="showPage(card.slug_to_page)"
               >
-              <i class="material-icons">arrow_forward</i>
+                <i class="material-icons">arrow_forward</i>
               </button>
               <button
                 type="button"
                 class="card-btn"
-                *ngIf="card.window_type === 'same-page'"
+                *ngIf="card.window_type === 'same-page' && card.slug_to_page"
                 (click)="showPage(card.slug_to_page)"
               >
-              <i class="material-icons">
+                <i class="material-icons">
                   open_in_browser
                 </i>
-                
               </button>
               <button
-              type="button"
-              class="card-btn"
-              *ngIf="card.window_type === 'new-tab'"
-              (click)="showPage(card.slug_to_page)"
-            >
-            <i class="material-icons">
-                open_in_new
+                type="button"
+                class="card-btn"
+                *ngIf="card.window_type === 'new-tab' && card.slug_to_page"
+                (click)="showPage(card.slug_to_page)"
+              >
+                <i class="material-icons">
+                  open_in_new
                 </i>
-            </button>
+              </button>
             </div>
           </div>
           <div
@@ -436,7 +435,7 @@
               <p
                 *ngIf="restaurant && getDayIndex() <= 5 && getDayIndex() > 0"
                 [innerHTML]="
-                  restaurant.menu[getDayIndex() - 1]?.full_text | cardText: 200
+                  restaurant.menu[getDayIndex() - 1]?.full_text | cardText: 270
                 "
               ></p>
               <p
