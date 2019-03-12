@@ -111,19 +111,112 @@
       cursor: default !important;
     }
 
+    .one-sixth {
+      .masonry-layout_panel-content {
+        .standard-card {
+          .content {
+            height: 100px;
+          }
+        }
+      }
+    }
     .masonry-layout_panel-content {
       overflow: hidden;
       background-size: 140%;
       width: 100%;
       height: 100%;
       background-position: center;
-      transition: background-size 0.5s ease-out;
+      // transition: background-size 0.5s ease-out;
       cursor: pointer;
-      &:hover {
-        background-size: 145%;
+      border-radius: 15px;
+      transform: scale(1);
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+        opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+        filter 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+      .standard-card {
+        transform: scale(1);
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+          opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+          filter 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        .content {
+          width: 95%;
+          height: 100px;
+          .card-btn {
+            background: 0;
+            border: none;
+            margin: 0px;
+            color: white;
+            right: 0;
+            position: absolute;
+            bottom: 10px;
+            i {
+              font-size: 3em;
+            }
+          }
+        }
+        &:hover {
+          transform: scale(1.1);
+          border-radius: 15px;
+          .content {
+            padding: 0 40px;
+            height: 200px;
+          }
+        }
+      }
+      .restrictions-card {
+        .content {
+          height: 100%;
+        }
+        &:hover {
+          transform: scale(1);
+          border-radius: 15px;
+          .content {
+            padding: 35px 20px;
+            height: 100%;
+          }
+        }
       }
       a {
         cursor: pointer;
+      }
+    }
+    .masonry-layout_panel-content.one-third-half {
+      .standard-card {
+        &:hover {
+          transform: scale(1.1);
+          border-radius: 15px;
+          .content {
+            padding: 0 40px;
+            height: 130px;
+          }
+        }
+      }
+    }
+
+    .masonry-layout_panel-content.noLink {
+      .standard-card {
+        .content {
+          padding: 35px 20px;
+        }
+        &:hover {
+          transform: scale(1) !important;
+          border-radius: 15px;
+          .content {
+            //width: 100% !important;
+            height: 100px;
+          }
+        }
+      }
+      .standard-card.restrictions-card {
+        &:hover {
+          transform: scale(1) !important;
+          border-radius: 15px;
+          .content {
+            padding: 35px 20px !important;
+            height: 100% !important;
+          }
+        }
       }
     }
 
@@ -187,7 +280,7 @@
 
 // ---------- Standard card ---------- //
 :host /deep/ .standard-card {
-  @include standard-card(5% 7%, left);
+  @include standard-card(35px 20px, left);
   position: relative !important;
 }
 
@@ -409,6 +502,65 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .masonry-layout {
+    .masonry-layout_panel {
+      .masonry-layout_panel-content {
+        .standard-card {
+          .content {
+            padding: 40px 20px;
+            height: 0 !important;
+            h4 {
+              margin: 5px 0;
+            }
+            p {
+              display: none;
+            }
+          }
+          &:hover {
+            transform: scale(1) !important;
+            border-radius: 15px;
+            .content {
+              padding: 40px 20px !important;
+              height: 0 !important;
+            }
+          }
+        }
+        .restrictions-card {
+          .content {
+            padding: 0px 20px !important;
+            height: 100% !important;
+            p {
+              display: inline;
+              font-size: 0.8em;
+            }
+          }
+        }
+      }
+    }
+  }
+  .masonry-layout {
+    .masonry-layout_panel {
+      .one-sixth {
+        .masonry-layout_panel-content {
+          .standard-card {
+            .content {
+              height: 100px;
+            }
+          }
+          &:hover {
+            transform: scale(1);
+            border-radius: 15px;
+            .standard-card {
+              .content {
+                padding: 40px 20px;
+                height: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   .masonry-layout {
     width: 90%;
     .o-third {

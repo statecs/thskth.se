@@ -34,6 +34,8 @@ export interface Card {
   title: string;
   content: string;
   link: string;
+  link_text: string;
+  link_url: string;
   item_id: string;
   background_color: string;
   background_image: any;
@@ -61,13 +63,17 @@ export class Card implements Card {
         let oneSixthSubCards: SubCard[] = [];
         let oneThirdHalfSubCards: SubCard[] = [];
 
+        let link_text = "";
+        let link_url = "";
         if (c.acf.card_primary_buttons) {
-          c.acf.card_primary_buttons.forEach(b => {
+          link_text = c.acf.card_primary_buttons[0].text;
+          link_url = c.acf.card_primary_buttons[0].link;
+          /*   c.acf.card_primary_buttons.forEach(b => {
             cardPrimaryButtons.push({
               text: b.text,
               link: b.link
             });
-          });
+          });*/
         }
 
         if (c.acf.one_sixth_sub_cards) {
@@ -93,6 +99,8 @@ export class Card implements Card {
           c.title.rendered,
           c.content.rendered,
           c.link,
+          c.link_text,
+          c.link_url,
           c.acf.item_id,
           c.acf.background_color,
           bg_img,
@@ -145,6 +153,8 @@ export class Card implements Card {
     public title: string,
     public content: string,
     public link: string,
+    public link_text: string,
+    public link_url: string,
     public item_id: string,
     public background_color: string,
     public background_image: any,

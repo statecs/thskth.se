@@ -853,7 +853,7 @@
     height: 65vh;
   }
   .slider-bar-container-fluid {
-    top: 60vh !important;
+    //  top: 60vh !important;
     .slideshow-play-button {
       position: absolute;
       margin: -55px 1%;
@@ -872,7 +872,8 @@
       position: static;
       .slide {
         position: absolute;
-        bottom: 5vh;
+        //bottom: 5vh;
+        bottom: 60px;
         .text-wrapper {
           width: 80%;
         }
@@ -882,7 +883,7 @@
       font-size: 2em !important;
     }
     p {
-      font-size: 0.7em !important;
+      font-size: 0.9em !important;
     }
   }
   /*.image-on-left-template,
@@ -1000,6 +1001,16 @@
       }
     }
   }
+
+  .slider-bar-container-fluid {
+    top: 420px !important;
+  }
+  #primary-video,
+  #primary,
+  #primary-slider {
+    height: 450px;
+    max-height: 100%;
+  }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
@@ -1007,7 +1018,7 @@
     height: 65vh;
   }
   .slider-bar-container-fluid {
-    top: 60vh !important;
+    //top: 60vh !important;
     .slideshow-play-button {
       position: absolute;
       margin: -55px 5%;
@@ -1024,7 +1035,7 @@
       position: static;
       .slide {
         position: absolute;
-        bottom: 0vh;
+        bottom: 50px;
         .text-wrapper {
           width: 80%;
         }
@@ -1134,6 +1145,15 @@
         display: none !important;
       }
     }
+  }
+  .slider-bar-container-fluid {
+    top: 480px !important;
+  }
+  #primary-video,
+  #primary,
+  #primary-slider {
+    height: 500px;
+    max-height: 100%;
   }
 }
 // Medium devices (tablets, 768px and up)
@@ -1271,6 +1291,15 @@
       }
     }
   }
+  .slider-bar-container-fluid {
+    top: 480px !important;
+  }
+  #primary-video,
+  #primary,
+  #primary-slider {
+    height: 500px;
+    max-height: 100%;
+  }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
@@ -1399,6 +1428,15 @@
         padding: 5px;
       }
     }
+  }
+  .slider-bar-container-fluid {
+    top: 480px !important;
+  }
+  #primary-video,
+  #primary,
+  #primary-slider {
+    height: 500px;
+    max-height: 100%;
   }
 }
 // Extra large devices (large desktops, 1200px and up)

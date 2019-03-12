@@ -24,7 +24,7 @@
             ? 'url(' + getBgUrl(card) + ')'
             : 'none'
         }"
-        (click)="showPage(card.slug, card.window_type, card.slug_to_page)"
+        (click)="showPage(card.window_type, card.slug_to_page)"
       >
         <div class="video-card">
           <div class="text">
@@ -49,14 +49,14 @@
             ? 'url(' + getBgUrl(card) + ')'
             : 'none'
         }"
-        (click)="showPage(card.slug, card.window_type, card.slug_to_page)"
+        (click)="showPage(card.window_type, card.slug_to_page)"
       >
         <div class="centered-content-card" [ngStyle]="changeBGColor(card)">
           <div class="content">
             <h2>{{ card.title }}</h2>
             <p [innerHTML]="card.content | cardText: 120"></p>
             <a *ngIf="card.slug_to_page !== ''" type="button"
-              >{{ lang === "en" ? "> Read more" : "> Läs mer" }}
+              >{{ lang === "en" ? "Read more" : "Läs mer" }}
             </a>
           </div>
         </div>
@@ -74,15 +74,15 @@
             ? 'url(' + getBgUrl(card) + ')'
             : 'none'
         }"
-        (click)="showPage(card.slug, card.window_type, card.slug_to_page)"
+        (click)="showPage(card.window_type, card.slug_to_page)"
       >
         <div class="standard-card" [ngStyle]="changeBGColor(card)">
           <div class="content">
-            <h2>{{ card.title }}</h2>
+            <h4>{{ card.title }}</h4>
             <p [innerHTML]="card.content | cardText: 10"></p>
             <!--<a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>-->
             <a *ngIf="card.slug_to_page !== ''" type="button"
-              >{{ lang === "en" ? "> Read more" : "> Läs mer" }}
+              >{{ lang === "en" ? "Read more" : "Läs mer" }}
             </a>
           </div>
         </div>
@@ -100,7 +100,7 @@
             ? 'url(' + getBgUrl(card) + ')'
             : 'none'
         }"
-        (click)="showPage(card.slug, card.window_type, card.slug_to_page)"
+        (click)="showPage(card.window_type, card.slug_to_page)"
       >
         <div class="membership-card" [ngStyle]="changeBGColor(card)">
           <div class="content">
@@ -128,7 +128,7 @@
             ? 'url(' + getBgUrl(card) + ')'
             : 'none'
         }"
-        (click)="showPage(card.slug, card.window_type, card.slug_to_page)"
+        (click)="showPage(card.window_type, card.slug_to_page)"
       >
         <div
           class="membership-card restrictions-card"
@@ -241,7 +241,7 @@
         <!-- ---------- Standard sub card ---------- -->
         <div
           *ngIf="sub_c.card_type !== 'video-card' && sub_c"
-          (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)"
+          (click)="showPage(sub_c.window_type, sub_c.slug_to_page)"
           class="masonry-layout_panel-content one-third-half"
           [ngClass]="{
             noLink: card.window_type === 'none' || card.slug_to_page === ''
@@ -254,7 +254,7 @@
         >
           <div class="standard-card" [ngStyle]="changeBGColor(sub_c)">
             <div class="content">
-              <h2>{{ sub_c.title }}</h2>
+              <h4>{{ sub_c.title }}</h4>
               <p [innerHTML]="sub_c.content | cardText: 100"></p>
             </div>
           </div>
@@ -262,7 +262,7 @@
         <!-- ---------- Video sub card ---------- -->
         <div
           *ngIf="sub_c.card_type === 'video-card' && sub_c"
-          (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)"
+          (click)="showPage(sub_c.window_type, sub_c.slug_to_page)"
           class="masonry-layout_panel-content one-sixth"
           [ngClass]="{
             noLink: card.window_type === 'none' || card.slug_to_page === ''
@@ -275,7 +275,7 @@
         >
           <div class="video-card">
             <div class="text">
-              <h2>{{ sub_c.title | cardText: 25 }}</h2>
+              <h4>{{ sub_c.title | cardText: 25 }}</h4>
             </div>
             <div class="video-wrapper" [innerHTML]="sub_c.content"></div>
             <div class="video-controller">
@@ -287,7 +287,7 @@
 
       <div
         *ngFor="let sub_c of card.one_sixth_sub_cards"
-        (click)="showPage(sub_c.slug, sub_c.window_type, sub_c.slug_to_page)"
+        (click)="showPage(sub_c.window_type, sub_c.slug_to_page)"
         class="one-sixth"
       >
         <!-- ---------- Standard card ---------- -->
@@ -308,7 +308,7 @@
         >
           <div class="standard-card" [ngStyle]="changeBGColor(sub_c)">
             <div class="content">
-              <h2>{{ sub_c.title }}</h2>
+              <h4>{{ sub_c.title }}</h4>
               <p [innerHTML]="sub_c.content | cardText: 50"></p>
             </div>
           </div>
@@ -331,7 +331,7 @@
         >
           <div class="video-card">
             <div class="text">
-              <h2>{{ sub_c.title | cardText: 25 }}</h2>
+              <h4>{{ sub_c.title | cardText: 25 }}</h4>
             </div>
             <div class="video-wrapper" [innerHTML]="sub_c.content"></div>
             <div class="video-controller">
@@ -346,10 +346,7 @@
           card.one_sixth_sub_cards?.length === 0 &&
           card.one_third_half_sub_cards?.length === 0
         "
-        (click)="
-          card.card_primary_buttons.length != 0 ||
-            showPage(card.slug, card.window_type, card.slug_to_page)
-        "
+        (click)="showPage(card.window_type, card.slug_to_page)"
       >
         <!-- ---------- Standard card ---------- -->
         <div
@@ -372,24 +369,27 @@
             "
             class="standard-card"
             [ngStyle]="changeBGColor(card)"
+            (click)="showPage(card.slug_to_page)"
           >
             <div class="content">
-              <h2>{{ card.title }}</h2>
-              <p [innerHTML]="card.content | cardText: 50"></p>
-              <a
+              <h4>{{ card.title }}</h4>
+              <p [innerHTML]="card.content | cardText: 150"></p>
+              <!--<a
                 *ngIf="
                   card.card_primary_buttons.length === 0 &&
                   card.slug_to_page !== ''
                 "
                 type="button"
-                >{{ lang === "en" ? "> Read more" : "> Läs mer" }}</a
-              >
-              <a
+                >{{ lang === "en" ? "Read more" : "Läs mer" }}</a
+              >-->
+              <button
                 type="button"
-                *ngFor="let b of card.card_primary_buttons"
-                (click)="goToPage(b.link)"
-                >{{ b.text }}</a
+                class="card-btn"
+                *ngIf="card.slug_to_page !== ''"
+                (click)="showPage(card.slug_to_page)"
               >
+                <i class="material-icons">arrow_forward</i>
+              </button>
             </div>
           </div>
           <div
@@ -398,9 +398,9 @@
             [ngStyle]="changeBGColor(card)"
           >
             <div class="content">
-              <h2>{{ card.title }}</h2>
+              <h4>{{ card.title }}</h4>
               <p [innerHTML]="card.content"></p>
-              <!--<a *ngIf="card.card_primary_buttons.length === 0" type="button">{{(lang === 'en' ? '> Read more' : '> Läs mer')}}</a>-->
+              <!--<a *ngIf="card.card_primary_buttons.length === 0" type="button">{{(lang === 'en' ? 'Read more' : 'Läs mer')}}</a>-->
               <!--<a type="button" *ngFor="let b of card.card_primary_buttons" (click)="goToPage(b.link)">{{b.text}}</a>-->
             </div>
           </div>
@@ -411,11 +411,11 @@
             routerLink="/restaurants"
           >
             <div class="content">
-              <h2>{{ card.title + " - " + getDate() }}</h2>
+              <h4>{{ card.title + " - " + getDate() }}</h4>
               <p
                 *ngIf="restaurant && getDayIndex() <= 5 && getDayIndex() > 0"
                 [innerHTML]="
-                  restaurant.menu[getDayIndex()]?.full_text | cardText: 200
+                  restaurant.menu[getDayIndex() - 1]?.full_text | cardText: 200
                 "
               ></p>
               <p
@@ -453,7 +453,7 @@
         >
           <div class="video-card">
             <div class="text">
-              <h2>{{ card.title }}</h2>
+              <h4>{{ card.title }}</h4>
             </div>
             <div class="video-wrapper" [innerHTML]="card.content"></div>
             <div class="video-controller">
