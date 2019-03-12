@@ -16,7 +16,7 @@ import { AddLangToSlugPipe } from "../../pipes/add-lang-to-slug.pipe";
 import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
 import { Subscription } from "rxjs/Subscription";
 import { HrefToSlugPipe } from "../../pipes/href-to-slug.pipe";
-import { CookieService } from "ngx-cookie";
+import { CookieService, CookieOptions } from "ngx-cookie";
 import { HideUICommunicationService } from "../../services/component-communicators/hide-ui-communication.service";
 
 @Component({
@@ -233,11 +233,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   switchLanguage() {
     if (this.lang === "en") {
-      this._cookieService.put("language", "sv");
+      let exp = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+      let cookieOptions = { expires: exp } as CookieOptions;
+      this._cookieService.put("language", "sv", cookieOptions);
       this.lang = "sv";
     } else if (this.lang === "sv") {
+      let exp = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+      let cookieOptions = { expires: exp } as CookieOptions;
       this.lang = "en";
-      this._cookieService.put("language", "en");
+      this._cookieService.put("language", "en", cookieOptions);
     }
   }
 

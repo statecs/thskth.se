@@ -12,7 +12,7 @@ import { TextSliderCommunicationService } from "../../services/component-communi
 import { FaqsService } from "../../services/wordpress/faqs.service";
 import { PostsService } from "../../services/wordpress/posts.service";
 import { ImageSliderCommunicationService } from "../../services/component-communicators/image-slider-communication.service";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
 import { Subscription } from "rxjs/Subscription";
 import { TitleCommunicationService } from "../../services/component-communicators/title-communication.service";
@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private textSliderCommunicationService: TextSliderCommunicationService,
     private faqsService: FaqsService,
+    private router: Router,
     private postsService: PostsService,
     private imageSliderCommunicationService: ImageSliderCommunicationService,
     private activatedRoute: ActivatedRoute,
@@ -133,6 +134,14 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log(this._cookieService.get("language"));
+    if (this._cookieService.get("language") == "sv") {
+      console.log("lang");
+      this.router.navigate(["/sv"]);
+    } else {
+      this.router.navigate(["/en"]);
+    }
+
     this.titleCommunicationService.setTitle("THS");
     this.headerCommunicationService.tranparentHeader(true);
   }

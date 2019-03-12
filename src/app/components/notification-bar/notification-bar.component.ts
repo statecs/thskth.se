@@ -1,22 +1,27 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { WordpressApiService } from '../../services/wordpress/wordpress-api.service';
-import {Router, RoutesRecognized} from '@angular/router';
-import {Notification} from '../../interfaces-and-classes/notification';
-import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
-import {notificationMessages} from '../../utils/notification-messages';
-import {Subscription} from 'rxjs/Subscription';
-import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
-import { CookieService } from 'ngx-cookie';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from "@angular/core";
+import { WordpressApiService } from "../../services/wordpress/wordpress-api.service";
+import { Router, RoutesRecognized } from "@angular/router";
+import { Notification } from "../../interfaces-and-classes/notification";
+import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
+import { notificationMessages } from "../../utils/notification-messages";
+import { Subscription } from "rxjs/Subscription";
+import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
+import { CookieService, CookieOptions } from "ngx-cookie";
 
 @Component({
-  selector: 'app-notification-bar',
-  templateUrl: './notification-bar.component.html',
-  styleUrls: ['./notification-bar.component.scss']
+  selector: "app-notification-bar",
+  templateUrl: "./notification-bar.component.html",
+  styleUrls: ["./notification-bar.component.scss"]
 })
-export class NotificationBarComponent implements OnInit, OnDestroy{
-
-  @ViewChild('bar') bar: ElementRef;
-  public notification: Notification;
+export class NotificationBarComponent implements OnInit, OnDestroy {
+  @ViewChild("bar") bar: ElementRef;
+  public notification: any;
   private lang: string;
   public notificationMessages: object;
   public paramsSubscription: Subscription;
@@ -24,44 +29,52 @@ export class NotificationBarComponent implements OnInit, OnDestroy{
   public errorSubscription: Subscription;
   public closeBarSubscription: Subscription;
 
-  constructor(private wordpressApiService: WordpressApiService,
-              private router: Router,
-              private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private headerCommunicationService: HeaderCommunicationService,
-              private cookieService: CookieService) {
+  constructor(
+    private wordpressApiService: WordpressApiService,
+    private router: Router,
+    private notificationBarCommunicationService: NotificationBarCommunicationService,
+    private headerCommunicationService: HeaderCommunicationService,
+    private cookieService: CookieService
+  ) {
     this.notificationMessages = notificationMessages;
   }
 
   closeBar(): void {
-    this.notification = null;
-    this.cookieService.put('turnOffNB', 'true');
+    let exp = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1);
+    let cookieOptions = { expires: exp } as CookieOptions;
+    this.cookieService.put(
+      "turnOffNB",
+      this.notification.bg_color,
+      cookieOptions
+    );
     this.headerCommunicationService.positionHeader(0);
+    this.notification = null;
   }
 
   notifyError(error: any): void {
-    let message = '';
-    let color = '';
+    let message = "";
+    let color = "";
     if (error.status === 400) {
-      if (this.lang === 'en') {
-        message = this.notificationMessages['error400'].en;
-      }else {
-        message = this.notificationMessages['error400'].sv;
+      if (this.lang === "en") {
+        message = this.notificationMessages["error400"].en;
+      } else {
+        message = this.notificationMessages["error400"].sv;
       }
-      color = 'red';
-    }else if (error.status === 500) {
-      if (this.lang === 'en') {
-        message = this.notificationMessages['error500'].en;
-      }else {
-        message = this.notificationMessages['error500'].sv;
+      color = "red";
+    } else if (error.status === 500) {
+      if (this.lang === "en") {
+        message = this.notificationMessages["error500"].en;
+      } else {
+        message = this.notificationMessages["error500"].sv;
       }
-      color = 'red';
-    }else {
-      if (this.lang === 'en') {
-        message = 'There was an error loading the page.';
-      }else {
-        message = 'Det gick inte att läsa in sidan.';
+      color = "red";
+    } else {
+      if (this.lang === "en") {
+        message = "There was an error loading the page.";
+      } else {
+        message = "Det gick inte att läsa in sidan.";
       }
-      color = 'red';
+      color = "red";
     }
     this.notification = {
       message: message,
@@ -70,52 +83,59 @@ export class NotificationBarComponent implements OnInit, OnDestroy{
   }
 
   getNotification() {
-    this.notificationSubscription = this.wordpressApiService.getNotification(this.lang).subscribe(
-        (res) => {
+    this.notificationSubscription = this.wordpressApiService
+      .getNotification(this.lang)
+      .subscribe(
+        res => {
           this.notification = res;
           const self = this;
-          setTimeout(function () {
+          setTimeout(function() {
             const barHeight = self.bar.nativeElement.clientHeight;
             self.bar.nativeElement.style.top = 0;
             self.headerCommunicationService.positionHeader(barHeight);
           }, 200);
         },
-        (error) => {
+        error => {
           if (error) {
-              this.notifyError(error);
+            this.notifyError(error);
           }
-
-        });
+        }
+      );
   }
 
   ngOnInit() {
     this.paramsSubscription = this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
-        this.lang = val.state.root.firstChild.data['lang'];
-        if (typeof this.lang === 'undefined') {
-          this.lang = val.state.root.firstChild.params['lang'];
-          if (typeof this.lang === 'undefined') {
-            this.lang = 'en';
-          }else if (this.lang !== 'en' && this.lang !== 'sv') {
-            this.lang = 'en';
+        this.lang = val.state.root.firstChild.data["lang"];
+        if (typeof this.lang === "undefined") {
+          this.lang = val.state.root.firstChild.params["lang"];
+          if (typeof this.lang === "undefined") {
+            this.lang = "en";
+          } else if (this.lang !== "en" && this.lang !== "sv") {
+            this.lang = "en";
           }
         }
-        if (this.cookieService.get('turnOffNB') !== 'true') {
+        if (this.cookieService.get("turnOffNB") == "red") {
+          this.getNotification();
+        } else if (this.cookieService.get("turnOffNB") == "light-blue") {
+        } else {
           this.getNotification();
         }
-
       }
     });
 
-    this.errorSubscription =  this.notificationBarCommunicationService.notifyObservable$.subscribe((error) => {
-      if (error) {
+    this.errorSubscription = this.notificationBarCommunicationService.notifyObservable$.subscribe(
+      error => {
+        if (error) {
           this.notifyError(error);
+        }
       }
-
-    });
-    this.closeBarSubscription = this.notificationBarCommunicationService.closeNotifyObservable$.subscribe(() => {
-      this.closeBar();
-    });
+    );
+    this.closeBarSubscription = this.notificationBarCommunicationService.closeNotifyObservable$.subscribe(
+      () => {
+        this.closeBar();
+      }
+    );
   }
 
   ngOnDestroy() {

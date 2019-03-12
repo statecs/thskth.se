@@ -42,7 +42,6 @@ export class AppComponent implements OnInit {
     public router: Router,
     private location: Location
   ) {
-    this._cookieService.put("turnOffNB", "false");
     window.addEventListener("online", () => {
       this.online = true;
     });

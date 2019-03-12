@@ -9,7 +9,7 @@ import {
   Params,
   RoutesRecognized
 } from "@angular/router";
-import { CookieService } from "ngx-cookie";
+import { CookieService, CookieOptions } from "ngx-cookie";
 import { RemoveLangParamPipe } from "../../../pipes/remove-lang-param.pipe";
 import { AddLangToSlugPipe } from "../../../pipes/add-lang-to-slug.pipe";
 import { NotificationBarCommunicationService } from "../../../services/component-communicators/notification-bar-communication.service";
@@ -162,10 +162,14 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   switchLanguage() {
     if (this.language === "en") {
       this.language = "sv";
-      this._cookieService.put("language", "sv");
+      let exp = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+      let cookieOptions = { expires: exp } as CookieOptions;
+      this._cookieService.put("language", "sv", cookieOptions);
     } else if (this.language === "sv") {
       this.language = "en";
-      this._cookieService.put("language", "en");
+      let exp = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+      let cookieOptions = { expires: exp } as CookieOptions;
+      this._cookieService.put("language", "en", cookieOptions);
     }
   }
 

@@ -9,7 +9,7 @@ import {
 import { CardCategorizerCardContainerService } from "../../services/component-communicators/card-categorizer-card-container.service";
 import { APP_CONFIG } from "../../app.config";
 import { AppConfig } from "../../interfaces-and-classes/appConfig";
-import { CookieService } from "ngx-cookie";
+import { CookieService, CookieOptions } from "ngx-cookie";
 import { CardsService } from "../../services/wordpress/cards.service";
 import { CardCategory } from "../../interfaces-and-classes/card";
 import { ActivatedRoute } from "@angular/router";
@@ -86,10 +86,16 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
   }
 
   updateCardsContainer(): void {
-    this.cards_filter = this._cookieService.putObject("cards_filter", {
-      profession: this.selected_profession,
-      interest: this.selected_interest
-    });
+    let exp = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+    let cookieOptions = { expires: exp } as CookieOptions;
+    this.cards_filter = this._cookieService.putObject(
+      "cards_filter",
+      {
+        profession: this.selected_profession,
+        interest: this.selected_interest
+      },
+      cookieOptions
+    );
     this.cardCategorizerCardContainerService.updateCards({
       profession: this.selected_profession,
       interest: this.selected_interest
@@ -154,10 +160,18 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
               this.int_cats = int_cats;
               this.selected_interest_name = int_cats[0].name;
               this.selected_interest = int_cats[0].id;
-              this._cookieService.putObject("cards_filter", {
-                profession: this.selected_profession,
-                interest: this.selected_interest
-              });
+              let exp = new Date(
+                new Date().setFullYear(new Date().getFullYear() + 1)
+              );
+              let cookieOptions = { expires: exp } as CookieOptions;
+              this._cookieService.putObject(
+                "cards_filter",
+                {
+                  profession: this.selected_profession,
+                  interest: this.selected_interest
+                },
+                cookieOptions
+              );
               this.cardCategorizerCardContainerService.updateCards({
                 profession: this.selected_profession,
                 interest: this.selected_interest
