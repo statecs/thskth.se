@@ -136,7 +136,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     console.log(this._cookieService.get("language"));
     if (this._cookieService.get("language") == "sv") {
-      console.log("lang");
       this.router.navigate(["/sv"]);
     } else {
       this.router.navigate(["/en"]);
