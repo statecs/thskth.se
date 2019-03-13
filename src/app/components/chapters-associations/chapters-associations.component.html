@@ -44,6 +44,13 @@
     </div>
     <div
       class="item"
+      [ngClass]="{ selected: showOthers }"
+      (click)="displayOthers()"
+    >
+      {{ lang === "en" ? "Others" : "Övrigt" }}
+    </div>
+    <div
+      class="item"
       [ngClass]="{ selected: showChapters }"
       (click)="displayChapters()"
     >
@@ -129,6 +136,48 @@
           <div class="items">
             <div
               *ngFor="let item of chapterResults"
+              class="item"
+              (click)="showAssociationInPopup(item)"
+            >
+              <div
+                class="image-wrapper"
+                [style.backgroundImage]="
+                  'url(' + item.header_slides[0]?.imageUrl + ')'
+                "
+              ></div>
+              <div class="text">
+                <h3>{{ item.title }}</h3>
+                <p [innerHTML]="item.description | cardText: 75"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="layout_list" class="list">
+        <div class="section">
+          <div class="items">
+            <div
+              *ngFor="let item of chapterResults"
+              class="item"
+              (click)="showAssociationInPopup(item)"
+            >
+              <h4>{{ item.title }}</h4>
+              <i class="material-icons">forward</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="showOthers && !documentsLoading">
+      <h1 class="section_header">
+        {{ lang === "en" ? "Others" : "Övrigt" }}
+      </h1>
+      <div *ngIf="layout_grid" class="grid">
+        <div class="section">
+          <div class="items">
+            <div
+              *ngFor="let item of otherResults"
               class="item"
               (click)="showAssociationInPopup(item)"
             >

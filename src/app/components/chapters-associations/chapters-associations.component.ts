@@ -10,7 +10,8 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { HrefToSlugPipe } from "../../pipes/href-to-slug.pipe";
 import {
   Association,
-  Chapter
+  Chapter,
+  Other
 } from "../../interfaces-and-classes/chapters_associations";
 import { PopupWindowCommunicationService } from "../../services/component-communicators/popup-window-communication.service";
 import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
@@ -20,6 +21,7 @@ import { HeaderCommunicationService } from "../../services/component-communicato
 import { CookieService } from "ngx-cookie";
 import { Location } from "@angular/common";
 import { ChaptersService } from "../../services/wordpress/chapters.service";
+import { OthersService } from "../../services/wordpress/others.service";
 import { AssociationsService } from "../../services/wordpress/associations.service";
 
 @Component({
@@ -45,6 +47,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   public social_associations: Association[];
   public associationResults: Association[];
   public chapterResults: Chapter[];
+  public otherResults: Other[];
   private hrefToSlugPipeFilter: HrefToSlugPipe;
   public showResultsDropdown: boolean;
   public documentsLoading: boolean;
@@ -54,6 +57,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   public layout_list: boolean;
   public showAssociations: boolean;
   public showChapters: boolean;
+  public showOthers: boolean;
   public noResults: boolean;
   public slug: string;
   public pageNotFound: boolean;
@@ -68,11 +72,15 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   public chaptersSubscription: Subscription;
   public chaptersSubscription2: Subscription;
   public chaptersSubscription3: Subscription;
+  public othersSubscription: Subscription;
+  public othersSubscription2: Subscription;
+  public othersSubscription3: Subscription;
   public showingPopup: boolean;
 
   constructor(
     private chaptersService: ChaptersService,
     private associationsService: AssociationsService,
+    private othersService: OthersService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location,
@@ -111,6 +119,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.social_associations = [];
     this.showAssociations = true;
     this.showChapters = false;
+    this.showOthers = false;
     this.noResults = false;
     this.pageNotFound = false;
     this.showingPopup = false;
@@ -159,7 +168,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   checkResults(): void {
     if (
       this.associationResults.length === 0 &&
-      this.chapterResults.length === 0
+      this.chapterResults.length === 0 &&
+      this.otherResults.length === 0
     ) {
       this.noResults = true;
     } else {
@@ -192,10 +202,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     });
     if (this.lang === "sv") {
       this.location.go("sv/associations-and-chapters/" + item.slug);
-      //this.router.navigate(['sv/associations-and-chapters/' + item.slug]);
     } else {
       this.location.go("en/associations-and-chapters/" + item.slug);
-      //this.router.navigate(['en/associations-and-chapters/' + item.slug]);
     }
   }
 
@@ -285,6 +293,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   displayChapters(): void {
     this.showAssociations = false;
     this.showChapters = true;
+    this.showOthers = false;
     this.cookieService.put("selectedFilter", "chapters");
     if (
       (this.searchTerm !== "" && this.searchTerm === "undefined") ||
@@ -311,9 +320,59 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       );
   }
 
+  searchOthers(): void {
+    this.otherResults = [];
+    this.othersSubscription = this.othersService
+      .searchOthers(this.searchTerm, this.lang)
+      .subscribe(
+        res => {
+          this.chapterResults = res;
+          this.showOthers = true;
+          this.checkResults();
+        },
+        error => {
+          this.showOthers = false;
+          this.documentsLoading = false;
+          this.notificationBarCommunicationService.send_data(error);
+        }
+      );
+  }
+
+  displayOthers(): void {
+    this.showAssociations = false;
+    this.showChapters = false;
+    this.showOthers = true;
+    this.cookieService.put("selectedFilter", "others");
+    if (
+      (this.searchTerm !== "" && this.searchTerm === "undefined") ||
+      typeof this.searchTerm === "undefined"
+    ) {
+      this.getOthers();
+    }
+  }
+
+  getOthers(): void {
+    this.documentsLoading = true;
+    this.showOthers = true;
+    this.othersSubscription2 = this.othersService
+      .getOthers(this.lang)
+      .subscribe(
+        res => {
+          this.otherResults = res;
+          console.log(this.otherResults);
+          this.checkResults();
+        },
+        error => {
+          this.documentsLoading = false;
+          this.notificationBarCommunicationService.send_data(error);
+        }
+      );
+  }
+
   displayAssociations(): void {
     this.showAssociations = true;
     this.showChapters = false;
+    this.showOthers = false;
     this.cookieService.put("selectedFilter", "associations");
     if (
       (this.searchTerm !== "" && this.searchTerm === "undefined") ||
@@ -550,6 +609,15 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     }
     if (this.chaptersSubscription3) {
       this.chaptersSubscription3.unsubscribe();
+    }
+    if (this.othersSubscription) {
+      this.othersSubscription.unsubscribe();
+    }
+    if (this.othersSubscription2) {
+      this.othersSubscription2.unsubscribe();
+    }
+    if (this.othersSubscription3) {
+      this.othersSubscription3.unsubscribe();
     }
   }
 }

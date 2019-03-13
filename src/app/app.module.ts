@@ -120,6 +120,7 @@ import { EventsListComponent } from "./components/events-calendar/events-list/ev
 import { SanitizeUrlPipe } from "./pipes/sanitizeUrl.pipe";
 import { ChaptersService } from "./services/wordpress/chapters.service";
 import { AssociationsService } from "./services/wordpress/associations.service";
+import { OthersService } from "./services/wordpress/others.service";
 
 @NgModule({
   declarations: [
@@ -238,6 +239,7 @@ import { AssociationsService } from "./services/wordpress/associations.service";
     ChaptersService,
     AssociationsService,
     ChaptersMenuService,
+    OthersService,
     { provide: APP_CONFIG, useValue: appConfig }
   ],
   bootstrap: [AppComponent]
