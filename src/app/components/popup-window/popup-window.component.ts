@@ -188,9 +188,9 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     }
     if (this.showAssociation) {
       if (this.lang === "sv") {
-        this.router.navigate(["sv/associations-and-chapters"]);
+        this.location.go("sv/associations-and-chapters/");
       } else {
-        this.router.navigate(["en/associations-and-chapters"]);
+        this.location.go("en/associations-and-chapters/");
       }
     }
     if (this.showNews) {
