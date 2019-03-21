@@ -53,7 +53,10 @@ export class GoogleCalendarService {
       const startDate = new Date();
       params.set("timeMin", format(startDate, "YYYY-MM-DDTHH:mm:ss.SSSz"));
     } else {
-      params.set("timeMin", format(viewDate, "YYYY-MM-DDTHH:mm:ss.SSSz"));
+      params.set(
+        "timeMin",
+        format(this.getStart(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
+      );
       params.set(
         "timeMax",
         format(this.getEnd(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")

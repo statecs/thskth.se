@@ -124,13 +124,15 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     if (calendarId === "all" && event_category == "all") {
       this.dayView = false;
       this._switchCalendar(calendarId, viewDate, event_category);
-      this.allEventsSubscription2 = this.googleCalendarService
+      this.allEventsSubscription = this.googleCalendarService
         .getAllEvents(viewDate, "month")
         .subscribe(
           res => {
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
           },
           error => {
             this.earliest_events = [];
@@ -225,7 +227,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   _switchCalendarGet() {
     if (this.calendarNameSwitch == "all") {
       this.dayView = false;
-      this.allEventsSubscription2 = this.googleCalendarService
+      this.allEventsSubscription = this.googleCalendarService
         .getAllEvents(this.calendarDateSwitch, "month")
         .subscribe(
           res => {
@@ -278,7 +280,6 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         this.actualDate = format(arg.viewDate, "DD MMM YYYY");
         if (arg.noActivity) {
           this.dayView = true;
-          this.earliest_events = CalendarComponent.calendar_events;
           this.showFeaturedEvents = false;
         } else {
           this.getEventsPerDay(
@@ -297,21 +298,6 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
       this.ths_calendars.events.event_category,
       this.ths_calendars.events.calendarName
     );
-
-    this.allEventsSubscription2 = this.googleCalendarService
-      .getAllEvents(null, "month")
-      .subscribe(
-        res => {
-          this.dayView = false;
-          const mergedArrays = this.mergeArrays(res);
-          const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
-        },
-        error => {
-          this.earliest_events = [];
-          this.showFeaturedEvents = false;
-          this.notificationBarCommunicationService.send_data(error);
-        }
-      );
   }
 
   ngOnDestroy() {
