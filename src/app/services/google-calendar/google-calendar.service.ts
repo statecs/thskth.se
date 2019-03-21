@@ -19,13 +19,10 @@ import * as subDays from "date-fns/sub_days";
 import { DataFetcherService } from "../utility/data-fetcher.service";
 import * as _ from "lodash";
 import { EventsCalendarService } from "./events.calendar.service";
-import { AssociationsCalendarService } from "./associations.calendar.service";
-import { CentralCalendarService } from "./central.calendar.service";
-import { ChaptersCalendarService } from "./chapters.calendar.service";
+import { GeneralCalendarService } from "./general.calendar.service";
 import { EducationCalendarService } from "./education.calendar.service";
 import { FutureCalendarService } from "./future.calendar.service";
 import { InternationalCalendarService } from "./international.calendar.service";
-import { ReceptionCalendarService } from "./reception.calendar.service";
 import { ths_calendars, THSCalendar } from "../../utils/ths-calendars";
 
 @Injectable()
@@ -39,13 +36,10 @@ export class GoogleCalendarService {
     protected dataFetcherService: DataFetcherService,
     private injector: Injector,
     private eventsCalendarService: EventsCalendarService,
-    private associationsCalendarService: AssociationsCalendarService,
-    private centralCalendarService: CentralCalendarService,
-    private chaptersCalendarService: ChaptersCalendarService,
+    private generalCalendarService: GeneralCalendarService,
     private educationCalendarService: EducationCalendarService,
     private futureCalendarService: FutureCalendarService,
-    private internationalCalendarService: InternationalCalendarService,
-    private receptionCalendarService: ReceptionCalendarService
+    private internationalCalendarService: InternationalCalendarService //private receptionCalendarService: ReceptionCalendarService
   ) {
     this.config = injector.get(APP_CONFIG);
     this.view = "";
@@ -59,10 +53,7 @@ export class GoogleCalendarService {
       const startDate = new Date();
       params.set("timeMin", format(startDate, "YYYY-MM-DDTHH:mm:ss.SSSz"));
     } else {
-      params.set(
-        "timeMin",
-        format(this.getStart(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
-      );
+      params.set("timeMin", format(viewDate, "YYYY-MM-DDTHH:mm:ss.SSSz"));
       params.set(
         "timeMax",
         format(this.getEnd(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
@@ -71,16 +62,13 @@ export class GoogleCalendarService {
     params.set("key", this.config.GOOGLE_CALENDAR_KEY);
     params.set("singleEvents", "true");
     params.set("orderBy", "startTime");
-    params.set("maxResults", "4");
+    params.set("maxResults", "10");
     const observables: Observable<any>[] = [];
     observables.push(this.eventsCalendarService.getCalendar(params));
-    observables.push(this.associationsCalendarService.getCalendar(params));
-    observables.push(this.centralCalendarService.getCalendar(params));
-    observables.push(this.chaptersCalendarService.getCalendar(params));
+    observables.push(this.generalCalendarService.getCalendar(params));
     observables.push(this.educationCalendarService.getCalendar(params));
     observables.push(this.futureCalendarService.getCalendar(params));
     observables.push(this.internationalCalendarService.getCalendar(params));
-    observables.push(this.receptionCalendarService.getCalendar(params));
     return Observable.combineLatest(observables).map(values => {
       let events: Event[] = [];
       _.each(values, value => {
@@ -90,7 +78,7 @@ export class GoogleCalendarService {
     });
   }
 
-  fetchEvents(calendarId, viewDate, view): Observable<Event[]> {
+  fetchEvents(calendarId, viewDate, view, calendarName): Observable<Event[]> {
     this.view = view;
     const params: URLSearchParams = new URLSearchParams();
     params.set(
@@ -151,7 +139,7 @@ export class GoogleCalendarService {
   getStart(viewDate: any): any {
     switch (this.view) {
       case "month":
-        return subDays(startOfMonth(viewDate), 7);
+        return startOfMonth(viewDate);
       case "week":
         return startOfWeek(viewDate);
       case "day":
@@ -164,7 +152,7 @@ export class GoogleCalendarService {
   getEnd(viewDate: any): any {
     switch (this.view) {
       case "month":
-        return addDays(endOfMonth(viewDate), 7);
+        return endOfMonth(viewDate);
       case "week":
         return endOfWeek(viewDate);
       case "day":

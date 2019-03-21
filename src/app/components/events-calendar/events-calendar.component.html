@@ -4,9 +4,7 @@
 
 <div *ngIf="showCalendar" class="cal-popup mobile">
   <div class="calendar-wrapper">
-    <div class="title">
-      <h2>{{ lang === "en" ? "Events calendar" : "Evenemangskalender" }}</h2>
-    </div>
+    <div class="title"></div>
     <app-calendar></app-calendar>
   </div>
 </div>
@@ -31,36 +29,34 @@
     <h2>{{ lang === "en" ? "Events" : "Evenemang" }}</h2>
   </div>
   <div class="calendar-wrapper larger-devices">
-    <div class="title">
-      <h2>{{ lang === "en" ? "Events calendar" : "Evenemangskalender" }}</h2>
-    </div>
     <app-calendar></app-calendar>
   </div>
-  <!--<div *ngIf="!showFeaturedEvents" class="events-wrapper larger-devices">
-    <div class="events-header">
-      <h2>{{(lang === 'en' ? 'Events on' : 'Evenemang på')}} {{actualDate}}</h2>
-    </div>
-    <div class="events">
-      <div *ngFor="let e of events" class="item" (click)="showInPopup(e)">
-        <div class="img-wrapper" [ngStyle]="{'background-image': 'url(' + getBGimage(e) + ')'}">
-          <span>
-            {{formatTime(e.start, e.end)}}
-          </span>
-        </div>
-        <div class="info">
-          <h5>{{e.title}}</h5>
-          <span>{{formatDate(e.start, e.end)}}</span>
-          <p>{{e.description | cardText:100}}</p>
-        </div>
-      </div>
-      <span *ngIf="events.length === 0">{{(lang === 'en' ? 'There are no events.' : 'Det finns inga evenemang.')}}</span>
-    </div>
-  </div>-->
+
+  <div>
+    <a (click)="_switchCalendarGet()" *ngIf="dayView == true">
+      {{
+        lang === "en"
+          ? "Go back to month view -" + calendarNameSwitch
+          : "Gå tillbaka till månadsvyn"
+      }}
+    </a>
+  </div>
   <app-events-cards
-    [title]="lang === 'en' ? 'Upcoming events' : 'Kommande evenemang'"
+    [title]="
+      lang === 'en'
+        ? 'Upcoming events - ' + calendarNameSwitch
+        : 'Kommande evenemang - ' + calendarNameSwitch
+    "
     [events]="earliest_events"
   >
+    <app-calendar></app-calendar>
   </app-events-cards>
+
+  <span *ngIf="earliest_events == 0">{{
+    lang === "en"
+      ? "There are no upcoming events at this time"
+      : "Det finns inga kommande evenemang"
+  }}</span>
   <app-events-list [events]="earliest_events"></app-events-list>
 </div>
 

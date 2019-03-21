@@ -9,9 +9,8 @@ import { Observable } from "rxjs/Observable";
 import { URLSearchParams } from "@angular/http";
 
 @Injectable()
-export class EducationCalendarService extends BaseDataService<Event> {
+export class GeneralCalendarService extends BaseDataService<Event> {
   protected config: AppConfig;
-
   constructor(
     protected dataFetcherService: DataFetcherService,
     private injector: Injector
@@ -19,7 +18,7 @@ export class EducationCalendarService extends BaseDataService<Event> {
     super(
       dataFetcherService,
       injector.get(APP_CONFIG).GOOGLE_CALENDAR_BASE_URL +
-        ths_calendars.education.calendarId +
+        ths_calendars.general.calendarId +
         "/events"
     );
     this.config = injector.get(APP_CONFIG);
@@ -29,16 +28,16 @@ export class EducationCalendarService extends BaseDataService<Event> {
     return this.dataFetcherService
       .get(
         this.config.GOOGLE_CALENDAR_BASE_URL +
-          ths_calendars.education.calendarId +
+          ths_calendars.general.calendarId +
           "/events",
         params
       )
       .map(res =>
         Event.convertToEventType(
           res,
-          ths_calendars.education.calendarId,
+          ths_calendars.general.calendarId,
           this.injector.get(APP_CONFIG).EVENT_IMAGE_BASE_URL,
-          ths_calendars.education.calendarName
+          ths_calendars.general.calendarName
         )
       );
   }

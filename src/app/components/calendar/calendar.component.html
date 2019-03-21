@@ -3,7 +3,7 @@
     <div
       class="item"
       (click)="switchCalendar(null)"
-      [ngClass]="{ selected: selected_event_category === -1 }"
+      [ngClass]="{ selected: selected_event_category == null }"
     >
       {{ lang === "en" ? "All" : "Alla" }}
     </div>
@@ -22,6 +22,37 @@
   </div>
 </div>
 
+<ng-template
+  #customCellTemplate
+  let-day="day"
+  let-openDay="openDay"
+  let-locale="locale"
+  let-tooltipPlacement="tooltipPlacement"
+  let-highlightDay="highlightDay"
+  let-unhighlightDay="unhighlightDay"
+  let-eventClicked="eventClicked"
+  let-tooltipTemplate="tooltipTemplate"
+  let-tooltipAppendToBody="tooltipAppendToBody"
+>
+  <div class="cal-cell-top">
+    <span class="cal-day-number"> {{ day.date | date: "d" }}</span>
+  </div>
+  <div class="cal-events" *ngIf="day.events.length > 0">
+    <div
+      class="cal-event"
+      *ngFor="let event of day.events; trackBy: trackByEventId"
+      [style.backgroundColor]="event.color?.primary"
+      [ngClass]="event?.cssClass"
+      (mouseenter)="highlightDay.emit({ event: event })"
+      (mouseleave)="unhighlightDay.emit({ event: event })"
+      [mwlCalendarTooltip]="
+        event.title | calendarEventTitle: 'monthTooltip':event
+      "
+      (mwlClick)="eventClicked.emit({ event: event })"
+    ></div>
+  </div>
+</ng-template>
+
 <app-calendar-header
   [(view)]="view"
   [(viewDate)]="viewDate"
@@ -33,9 +64,11 @@
 <div class="scheme" *ngIf="(events$ | async); else loading; let events">
   <div [ngSwitch]="view">
     <mwl-calendar-month-view
+      [cellTemplate]="customCellTemplate"
       *ngSwitchCase="'month'"
       [viewDate]="viewDate"
       [events]="events"
+      weekStartsOn="1"
       [activeDayIsOpen]="activeDayIsOpen"
       (dayClicked)="dayClicked($event.day)"
       (eventClicked)="eventClicked($event.event)"
