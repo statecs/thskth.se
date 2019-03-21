@@ -197,7 +197,8 @@ a.headerTitle:after {
   .left-content {
     width: 58%;
     position: relative;
-    padding: 20px;
+    padding: 0 20px;
+    top: 25%;
     .large-devices {
       display: block;
     }
@@ -595,7 +596,7 @@ a.headerTitle:after {
     .user {
       margin-bottom: 0;
       bottom: 0;
-      margin-top: 50%;
+      margin-top: 45%;
       > div {
         width: 70%;
         h3 {
@@ -737,7 +738,7 @@ a.headerTitle:after {
     .user {
       margin-bottom: 0;
       bottom: 0;
-      margin-top: 40%;
+      //margin-top: 40%;
       > div {
         width: 70%;
         span {
