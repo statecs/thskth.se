@@ -8,6 +8,14 @@
     border-bottom: 0 !important;
   }
 }
+.display-cal-container {
+  width: 100%;
+  overflow-x: scroll;
+  padding: 0 15px 15px;
+}
+.display-cal-container-width {
+  width: 300%;
+}
 .header {
   max-height: 350px;
   overflow: hidden;
@@ -65,6 +73,16 @@
     color: white;
     border-radius: 25px;
   }
+  .display-cal-btn-select {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f7f7f7;
+    color: #575757;
+    border-radius: 25px;
+    float: left;
+    margin: 0px 5px;
+  }
+
   .calendar-wrapper {
     width: 55%;
     border: 1px solid lightgrey;

@@ -54,16 +54,23 @@
           <div *ngIf="!event?.imageUrl" class="default-header"></div>
         </div>
         <div class="content-container">
-          <div class="date">{{ getDate(event?.start) }}</div>
+          <h2 [innerHTML]="event?.title"></h2>
+          <p class="location">{{ event?.location }}</p>
+          <!--<div class="date">{{ getDate(event?.start) }}</div>-->
           <div class="description">
-            <h2 [innerHTML]="event?.title"></h2>
             <span class="time">{{ formatDate(event?.start, event?.end) }}</span>
-            <p class="location"><span>Location:</span> {{ event?.location }}</p>
+
             <div class="text">{{ event?.description }}</div>
             <br />
-            <p>
-              Created by <span class="creator">{{ event?.creator.email }}</span>
-            </p>
+            <label>
+              <i
+                class="material-icons"
+                [ngStyle]="{ color: event.color.primary }"
+                >fiber_manual_record</i
+              >
+              {{ event.calendarName }}
+            </label>
+            <p class="creator">Created by {{ event?.creator.email }}</p>
           </div>
         </div>
       </div>

@@ -21,7 +21,7 @@
           @include circle(50px);
           display: inline-flex;
           flex-direction: column;
-          background-color: lightgray;
+          background-color: #f7f7f7;
           justify-content: center;
           vertical-align: top;
           text-align: center;
@@ -51,6 +51,39 @@
           }
         }
       }
+    }
+  }
+}
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #event-list {
+    .sections-wrapper {
+      padding: 0 20px 40px;
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #event-list {
+    .sections-wrapper {
+      padding: 0 0 40px;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #event-list {
+    .sections-wrapper {
+      padding: 0 0 40px;
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #event-list {
+    .sections-wrapper {
+      padding: 0 0 40px;
     }
   }
 }

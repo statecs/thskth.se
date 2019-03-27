@@ -76,7 +76,6 @@
       position: relative;
       background-color: $bg-color-default;
       transition: margin 0.5s ease;
-      box-shadow: 0 1px 2px #b2b2b2;
       border-radius: 7px;
       cursor: auto;
       .exit-popup-btn {
@@ -209,8 +208,21 @@
             font-weight: $font-weight-bold;
           }
           .description {
-            width: 70%;
-            margin-left: 50px;
+            width: 100%;
+            margin-left: 0px;
+            text-align: left;
+            label {
+              text-transform: capitalize;
+              color: gray;
+              -ms-flex-align: center;
+              align-items: center;
+              display: -ms-flexbox;
+              display: flex;
+              font-size: 0.85em;
+              i {
+                font-size: 1.25em;
+              }
+            }
             h2 {
               margin-top: 0;
             }
@@ -231,7 +243,9 @@
               }
             }
             .creator {
-              font-weight: 600;
+              color: gray;
+              font-size: 0.8em;
+              font-weight: 400;
             }
           }
         }
@@ -393,6 +407,16 @@
     width: 100% !important;
     height: auto !important;
   }
+  h2 {
+    font-weight: 400;
+    font-size: 2em;
+    text-align: left;
+    margin-top: 10px;
+  }
+  .location {
+    text-align: left;
+    margin-top: 10px;
+  }
   .description {
     img {
       width: 100%;
@@ -458,7 +482,7 @@
             padding: 30px 20px;
             text-align: center;
             .description {
-              width: 90%;
+              width: 100%;
               text-align: left;
               margin-left: 0;
               margin-top: 10px;
@@ -531,7 +555,7 @@
         }
         .event-layout {
           .header-image {
-            min-height: 300px;
+            min-height: 220px;
             max-height: 300px;
             .default-header {
               height: 200px;
@@ -542,7 +566,7 @@
             padding: 20px 15px;
             text-align: center;
             .description {
-              width: 90%;
+              width: 100%;
               text-align: left;
               margin-left: 0;
               margin-top: 10px;
@@ -612,7 +636,7 @@
         }
         .event-layout {
           .header-image {
-            min-height: 300px;
+            min-height: 220px;
             max-height: 300px;
             .default-header {
               height: 200px;
@@ -623,7 +647,7 @@
             padding: 20px 15px;
             text-align: center;
             .description {
-              width: 90%;
+              width: 100%;
               text-align: left;
               margin-left: 0;
               margin-top: 10px;
@@ -704,7 +728,7 @@
             padding: 20px 15px;
             text-align: center;
             .description {
-              width: 90%;
+              width: 100%;
               text-align: left;
               margin-left: 0;
               margin-top: 10px;

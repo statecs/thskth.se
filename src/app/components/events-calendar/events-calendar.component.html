@@ -18,15 +18,33 @@
 </div>
 
 <div *ngIf="!pageNotFound" id="events-calendar">
-  <div
+  <div class="display-cal-container mobile">
+    <div class="display-cal-container-width">
+      <div class="display-cal-btn-select  mobile">
+        Today
+      </div>
+      <div class="display-cal-btn-select  mobile">
+        Tomorrow
+      </div>
+      <div class="display-cal-btn-select  mobile">
+        Next week
+      </div>
+      <div class="display-cal-btn-select  mobile">
+        Next month
+      </div>
+    </div>
+  </div>
+  <!--<div
     *ngIf="!showCalendar"
     class="display-cal-btn mobile"
     (click)="toggleCalendar()"
   >
     More events
-  </div>
+  </div>-->
   <div class="title mobile">
-    <h2>{{ lang === "en" ? "Events" : "Evenemang" }}</h2>
+    <h2>
+      {{ actualDate | date: "EEEE, MMM dd" }}
+    </h2>
   </div>
   <div class="calendar-wrapper larger-devices">
     <app-calendar></app-calendar>

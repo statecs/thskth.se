@@ -1,45 +1,45 @@
 @import "../../../../style/utilities";
 
-.event-wrapper{
+.event-wrapper {
   text-align: left;
-  & >h4{
+  & > h4 {
     margin: 15px 0;
     border-bottom: 1px solid lightgray;
     padding-bottom: 5px;
   }
-  & >span{
+  & > span {
     cursor: pointer;
     color: $color-link;
-    &:hover{
+    &:hover {
       color: $color-link-hover;
     }
   }
-  .no-events{
+  .no-events {
     color: $text-color-brown;
   }
-  .event{
+  .event {
     margin-bottom: 7px;
-    h6{
+    h6 {
       margin: 0 0 5px 15px;
     }
-    .date{
+    .date {
       @include circle(50px);
       display: inline-block;
       position: relative;
       background-color: lightgray;
       vertical-align: middle;
       cursor: pointer;
-      span{
+      span {
         @include center-content(50%, 50%);
       }
     }
-    .excerpt{
+    .excerpt {
       display: inline-block;
       width: 70%;
-      right:0;
+      right: 0;
       margin-left: 10px;
       vertical-align: middle;
-      span{
+      span {
         font-size: $font-size-h6;
         font-weight: 600;
         color: $color-link;
@@ -53,28 +53,23 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   .event-wrapper {
-
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   .event-wrapper {
-
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   .event-wrapper {
-
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   .event-wrapper {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }
