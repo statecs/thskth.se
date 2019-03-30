@@ -18,6 +18,7 @@ import * as addDays from "date-fns/add_days";
 import * as subDays from "date-fns/sub_days";
 import { DataFetcherService } from "../utility/data-fetcher.service";
 import * as _ from "lodash";
+import { EventsTHSService } from "./eventsTHS.calendar.service";
 import { EventsCalendarService } from "./events.calendar.service";
 import { GeneralCalendarService } from "./general.calendar.service";
 import { EducationCalendarService } from "./education.calendar.service";
@@ -31,10 +32,12 @@ export class GoogleCalendarService {
   protected search: URLSearchParams = new URLSearchParams();
   view: string;
   private ths_calendars: { [key: string]: THSCalendar };
+  private ths_events: any[];
 
   constructor(
     protected dataFetcherService: DataFetcherService,
     private injector: Injector,
+    private eventsTHSService: EventsTHSService,
     private eventsCalendarService: EventsCalendarService,
     private generalCalendarService: GeneralCalendarService,
     private educationCalendarService: EducationCalendarService,
@@ -48,7 +51,6 @@ export class GoogleCalendarService {
 
   getAllEvents(viewDate, view): Observable<Event[]> {
     this.view = view;
-    console.log(viewDate, "hej");
     const params: URLSearchParams = new URLSearchParams();
     if (viewDate === null) {
       const startDate = new Date();
@@ -73,6 +75,43 @@ export class GoogleCalendarService {
     observables.push(this.educationCalendarService.getCalendar(params));
     observables.push(this.futureCalendarService.getCalendar(params));
     observables.push(this.internationalCalendarService.getCalendar(params));
+    // observables.push(this.eventsTHSService.getCalendar());
+    return Observable.combineLatest(observables).map(values => {
+      let events: Event[] = [];
+      _.each(values, value => {
+        events = events.concat(value);
+      });
+      return events;
+    });
+  }
+
+  getAllEventsCard(viewDate, view): Observable<Event[]> {
+    this.view = view;
+    const params: URLSearchParams = new URLSearchParams();
+    if (viewDate === null) {
+      const startDate = new Date();
+      params.set("timeMin", format(startDate, "YYYY-MM-DDTHH:mm:ss.SSSz"));
+    } else {
+      params.set(
+        "timeMin",
+        format(this.getStart(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
+      );
+      params.set(
+        "timeMax",
+        format(this.getEnd(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
+      );
+    }
+    params.set("key", this.config.GOOGLE_CALENDAR_KEY);
+    params.set("singleEvents", "true");
+    params.set("orderBy", "startTime");
+    params.set("maxResults", "10");
+    const observables: Observable<any>[] = [];
+    observables.push(this.eventsCalendarService.getCalendar(params));
+    observables.push(this.generalCalendarService.getCalendar(params));
+    observables.push(this.educationCalendarService.getCalendar(params));
+    observables.push(this.futureCalendarService.getCalendar(params));
+    observables.push(this.internationalCalendarService.getCalendar(params));
+    observables.push(this.eventsTHSService.getCalendar());
     return Observable.combineLatest(observables).map(values => {
       let events: Event[] = [];
       _.each(values, value => {
@@ -83,7 +122,6 @@ export class GoogleCalendarService {
   }
 
   getAllEventsUpcoming(viewDate, view): Observable<Event[]> {
-    console.log(viewDate);
     this.view = view;
     const startDate = new Date();
     const params: URLSearchParams = new URLSearchParams();
@@ -99,6 +137,8 @@ export class GoogleCalendarService {
     observables.push(this.generalCalendarService.getCalendar(params));
     observables.push(this.educationCalendarService.getCalendar(params));
     observables.push(this.futureCalendarService.getCalendar(params));
+    observables.push(this.internationalCalendarService.getCalendar(params));
+    observables.push(this.eventsTHSService.getCalendar());
     observables.push(this.internationalCalendarService.getCalendar(params));
     return Observable.combineLatest(observables).map(values => {
       let events: Event[] = [];

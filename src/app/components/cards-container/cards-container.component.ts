@@ -306,7 +306,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   getAllEvents() {
     this.selected_event_category = -1;
     this.eventsSubscription = this.googleCalendarService
-      .getAllEvents(null, "")
+      .getAllEventsCard(null, "")
       .subscribe(res => {
         const mergedArrays = this.mergeArrays(res);
         const sortedArrays = mergedArrays.sort(this.sortArrayByTime);

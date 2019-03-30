@@ -5,6 +5,7 @@ import { EducationCalendarService } from "./education.calendar.service";
 import { EventsCalendarService } from "./events.calendar.service";
 import { FutureCalendarService } from "./future.calendar.service";
 import { InternationalCalendarService } from "./international.calendar.service";
+import { EventsTHSService } from "./eventsTHS.calendar.service";
 
 @NgModule({
   declarations: [],
@@ -15,7 +16,8 @@ import { InternationalCalendarService } from "./international.calendar.service";
     EducationCalendarService,
     EventsCalendarService,
     FutureCalendarService,
-    InternationalCalendarService
+    InternationalCalendarService,
+    EventsTHSService
   ],
   bootstrap: []
 })
