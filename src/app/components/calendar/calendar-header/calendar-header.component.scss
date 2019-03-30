@@ -1,12 +1,21 @@
 @import "../../../../style/utilities";
 
-#calendar-header{
+.display-cal-btn-select {
+  display: inline-block;
+  padding: 10px 20px;
+  color: #575757;
+  box-shadow: 0 1px 2px #b2b2b2;
+  border-radius: 25px;
+  margin: 0px 5px;
+  font-size: 0.8em;
+}
+#calendar-header {
   position: relative;
   text-align: center;
-  .view{
+  .view {
     width: 100%;
     color: white;
-    .btn{
+    .btn {
       display: inline-block;
       background-color: $bg-color-primary;
       padding: 5px 10px;
@@ -14,69 +23,69 @@
       border-bottom-right-radius: 10px;
       cursor: pointer;
 
-      &:hover{
+      &:hover {
         background-color: #1880c9;
       }
     }
-    .active{
+    .active {
       background-color: #1880c9;
     }
   }
-  .date{
+  .date {
     display: inline-block;
-    h3{
+    h3 {
       margin: 0;
     }
   }
-  .previous-btn, .next-btn{
+
+  .previous-btn,
+  .next-btn {
     color: black;
     display: inline-block;
     position: absolute;
     bottom: 20px;
     cursor: pointer;
-    .btn{
+    .btn {
       @include circle(40px);
-      border: 1px solid black;
       display: inline-block;
       text-align: center;
       vertical-align: middle;
-      i{
+      i {
         @include center-vertically(50%);
         position: relative;
       }
     }
   }
 
-  .previous-btn{
-    left: 15px;
+  .previous-btn {
+    left: 5px;
   }
 
-  .next-btn{
-    right: 15px;
+  .next-btn {
+    right: 5px;
   }
 
-  .date-control{
+  .date-control {
     height: 50px;
     margin-top: 20px;
   }
 }
 
-
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #calendar-header {
-    .previous-btn, .next-btn{
+    .previous-btn,
+    .next-btn {
       color: black;
-      .btn{
-        border: 1px solid lightgray;
+      .btn {
         width: 30px;
         height: 30px;
       }
     }
-    .previous-btn{
+    .previous-btn {
       left: 0;
     }
-    .next-btn{
+    .next-btn {
       right: 0;
     }
   }
@@ -84,18 +93,18 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #calendar-header {
-    .previous-btn, .next-btn{
+    .previous-btn,
+    .next-btn {
       color: black;
-      .btn{
-        border: 1px solid lightgray;
+      .btn {
         width: 30px;
         height: 30px;
       }
     }
-    .previous-btn{
+    .previous-btn {
       left: 0;
     }
-    .next-btn{
+    .next-btn {
       right: 0;
     }
   }
@@ -103,18 +112,18 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #calendar-header {
-    .previous-btn, .next-btn{
+    .previous-btn,
+    .next-btn {
       color: black;
-      .btn{
-        border: 1px solid lightgray;
+      .btn {
         width: 30px;
         height: 30px;
       }
     }
-    .previous-btn{
+    .previous-btn {
       left: 0;
     }
-    .next-btn{
+    .next-btn {
       right: 0;
     }
   }
@@ -122,10 +131,8 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #calendar-header {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

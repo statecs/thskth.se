@@ -20,7 +20,14 @@ import { CalendarComponent } from "../../components/calendar/calendar.component"
 })
 export class EventsCalendarComponent implements OnInit, OnDestroy {
   events: Event[];
-  actualDate: string;
+  public actualDate: any;
+  public tomorrowDate: string;
+  public nextMonthDate: string;
+  public nextWeekDate: string;
+  public selectToday: boolean;
+  public selectTomorrow: boolean;
+  public selectNextWeek: boolean;
+  public selectNextMonth: boolean;
   public ths_calendars: any;
   public showFeaturedEvents: boolean;
   public earliest_events: Event[];
@@ -28,6 +35,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   public calendarNameSwitch: string;
   public calendarIdSwitch: string;
   public calendarDateSwitch: string;
+  public calendarEventSwitch: string;
   public pageNotFound: boolean;
   public dayView: boolean;
   public sum: any;
@@ -48,7 +56,22 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     private headerCommunicationService: HeaderCommunicationService
   ) {
     this.events = [];
-    this.actualDate = format(new Date(), "DD MMM YYYY");
+    this.actualDate = new Date();
+    this.tomorrowDate = format(
+      new Date(this.actualDate.getTime() + 24 * 60 * 60 * 1000),
+      "DD MMM YYYY"
+    );
+    this.nextWeekDate = format(
+      new Date(this.actualDate.getTime() + 7 * 24 * 60 * 60 * 1000),
+      "W"
+    );
+    this.nextMonthDate = format(
+      new Date(this.actualDate.getFullYear(), this.actualDate.getMonth() + 1, 1)
+    );
+    this.selectToday = false;
+    this.selectTomorrow = false;
+    this.selectNextWeek = false;
+    this.selectNextMonth = false;
     this.ths_calendars = ths_calendars;
     this.showFeaturedEvents = true;
     this.dayView = false;
@@ -121,11 +144,29 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     event_category,
     calendarName
   ): void {
-    if (calendarId === "all" && event_category == "all") {
+    if (calendarId === "all" && event_category == "allMonth") {
+      this._switchCalendar(calendarId, viewDate, calendarName, event_category);
       this.dayView = false;
-      this._switchCalendar(calendarId, viewDate, event_category);
       this.allEventsSubscription = this.googleCalendarService
         .getAllEvents(viewDate, "month")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.events = sortedArrays;
+            this.earliest_events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    } else if (calendarId === "all" && event_category == "all") {
+      this.dayView = false;
+      this._switchCalendar(calendarId, viewDate, calendarName, event_category);
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsUpcoming(viewDate, "month")
         .subscribe(
           res => {
             const mergedArrays = this.mergeArrays(res);
@@ -141,7 +182,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
           }
         );
     } else if (calendarId === "all") {
-      this._switchCalendar(calendarId, viewDate, calendarName);
+      this._switchCalendar(calendarId, viewDate, calendarName, event_category);
       this.dayView = true;
       this.allEventsSubscription = this.googleCalendarService
         .getAllEvents(viewDate, "month")
@@ -158,7 +199,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
           }
         );
     } else if (event_category) {
-      this._switchCalendar(calendarId, viewDate, event_category);
+      this._switchCalendar(calendarId, viewDate, calendarName, event_category);
       this.dayView = false;
       this.eventsSubscription = this.googleCalendarService
         .fetchEvents(calendarId, viewDate, "month", calendarName)
@@ -173,7 +214,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         );
     } else if (calendarName == "events") {
       this.dayView = true;
-      this._switchCalendar(calendarId, viewDate, calendarName);
+      this._switchCalendar(calendarId, viewDate, calendarName, event_category);
       this.eventsSubscription = this.googleCalendarService
         .getAllEvents(viewDate, "month")
         .subscribe(
@@ -195,7 +236,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         );
     } else {
       this.dayView = true;
-      this._switchCalendar(calendarId, viewDate, calendarName);
+      this._switchCalendar(calendarId, viewDate, calendarName, event_category);
       this.eventsSubscription = this.googleCalendarService
         .fetchEvents(calendarId, viewDate, "month", calendarName)
         .subscribe(
@@ -225,10 +266,32 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   }
 
   _switchCalendarGet() {
-    if (this.calendarNameSwitch == "all") {
+    this.selectNextMonth = false;
+    this.selectNextWeek = false;
+    this.selectTomorrow = false;
+    this.selectToday = false;
+    this.actualDate = new Date();
+
+    if (this.calendarEventSwitch == "allMonth") {
       this.dayView = false;
       this.allEventsSubscription = this.googleCalendarService
-        .getAllEvents(this.calendarDateSwitch, "month")
+        .getAllEventsUpcoming(this.calendarDateSwitch, "month")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    } else if (this.calendarNameSwitch == "all") {
+      this.dayView = false;
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsUpcoming(this.calendarDateSwitch, "month")
         .subscribe(
           res => {
             const mergedArrays = this.mergeArrays(res);
@@ -261,10 +324,174 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         );
     }
   }
-  _switchCalendar(calendarId, viewDate, calendarName) {
+  _switchCalendar(calendarId, viewDate, calendarName, event_category) {
     this.calendarNameSwitch = calendarName;
     this.calendarIdSwitch = calendarId;
     this.calendarDateSwitch = viewDate;
+    this.calendarEventSwitch = event_category;
+  }
+
+  getEventsPerToday() {
+    this.selectTomorrow = false;
+    this.selectNextWeek = false;
+    this.selectNextMonth = false;
+    if (this.selectToday !== true) {
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsToday(null, "day")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    } else {
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsUpcoming(null, "month")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
+  }
+
+  getEventsPerTomorrow() {
+    this.selectToday = false;
+    this.selectNextWeek = false;
+    this.selectNextMonth = false;
+    if (this.selectTomorrow !== true) {
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsTomorrow(null, "day")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    } else {
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsUpcoming(null, "month")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
+  }
+  getEventsPerWeek() {
+    this.selectTomorrow = false;
+    this.selectNextMonth = false;
+    this.selectToday = false;
+    if (this.selectNextWeek !== true) {
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsNextWeek(null, "week")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    } else {
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsUpcoming(null, "month")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
+  }
+
+  getEventsPerMonth() {
+    this.selectNextWeek = false;
+    this.selectTomorrow = false;
+    this.selectToday = false;
+    if (this.selectNextMonth !== true) {
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsNextMonth(null, "month")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    } else {
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsUpcoming(null, "month")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
   }
 
   sortArrayByTime(a, b) {

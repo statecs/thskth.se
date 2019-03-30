@@ -45,13 +45,9 @@
 
       <!-- ---------- Event layout ---------- -->
       <div *ngIf="showEvent && !loading" class="event-layout">
-        <div class="header-image">
-          <img
-            *ngIf="event?.imageUrl"
-            src="{{ event?.imageUrl }}"
-            alt="Header image"
-          />
-          <div *ngIf="!event?.imageUrl" class="default-header"></div>
+        <div *ngIf="event?.imageUrl" class="header-image">
+          <img src="{{ event?.imageUrl }}" alt="Header image" />
+          <!--<div *ngIf="!event?.imageUrl"></div>-->
         </div>
         <div class="content-container">
           <h2 [innerHTML]="event?.title"></h2>
@@ -59,17 +55,15 @@
           <!--<div class="date">{{ getDate(event?.start) }}</div>-->
           <div class="description">
             <span class="time">{{ formatDate(event?.start, event?.end) }}</span>
-
-            <div class="text">{{ event?.description }}</div>
-            <br />
-            <label>
+            <br /><br /><label>
               <i
                 class="material-icons"
                 [ngStyle]="{ color: event.color.primary }"
                 >fiber_manual_record</i
               >
-              {{ event.calendarName }}
-            </label>
+              {{ event.calendarName }} </label
+            ><br />
+            <div class="text">{{ event?.description }}</div>
             <p class="creator">Created by {{ event?.creator.email }}</p>
           </div>
         </div>

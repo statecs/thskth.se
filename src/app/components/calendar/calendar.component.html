@@ -1,6 +1,8 @@
 <div class="categories">
   <div *ngIf="calendar_names" class="cat-wrapper">
     <div
+      mwlCalendarToday
+      [(viewDate)]="viewDate"
       class="item"
       (click)="switchCalendar(null)"
       [ngClass]="{ selected: selected_event_category == null }"
@@ -57,7 +59,7 @@
   [(view)]="view"
   [(viewDate)]="viewDate"
   [(lang)]="lang"
-  (updateEvents)="fetchEvents()"
+  (updateEvents)="changeMonth()"
 >
 </app-calendar-header>
 <app-loader *ngIf="e_loading"></app-loader>

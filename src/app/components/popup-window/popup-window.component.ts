@@ -139,10 +139,10 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   formatDate(start, end) {
     return (
       format(start, "dddd, MMM DD") +
-      " at " +
-      format(start, "hh:mm a") +
-      " - " +
-      format(end, "hh:mm a")
+      " from " +
+      format(start, "H:mm") +
+      " to " +
+      format(end, "H:mm")
     );
   }
 

@@ -130,6 +130,50 @@ export class CalendarComponent implements OnInit, OnDestroy {
     }
   }
 
+  changeMonth(): void {
+    this.e_loading = true;
+    if (this.selected_event_category === null) {
+      this.getAllEvents(this.viewDate);
+
+      this.calendarCommunicationService.updateEventItemsList({
+        noActivity: false,
+        monthView: true,
+        viewDate: this.viewDate,
+        calendarId: "all",
+        event_category: "allMonth"
+      });
+    } else {
+      this.events$ = this.googleCalendarService
+        .fetchEvents(
+          this.ths_calendars[this.selected_event_category].calendarId,
+          this.viewDate,
+          this.view,
+          this.ths_calendars[this.selected_event_category].calendarName
+        )
+        .map(
+          res => {
+            this._events = res;
+            const mergedArrays = this.mergeArrays(res);
+            this.e_loading = false;
+            CalendarComponent.calendar_events = mergedArrays.sort(
+              this.sortArrayByTime
+            );
+            return mergedArrays.sort(this.sortArrayByTime);
+          },
+          error => {
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+      this.calendarCommunicationService.updateEventItemsList({
+        noActivity: false,
+        monthView: true,
+        viewDate: this.viewDate,
+        calendarId: this.ths_calendars[this.selected_event_category].calendarId,
+        event_category: this.ths_calendars[this.selected_event_category]
+          .calendarName
+      });
+    }
+  }
   dayClicked({
     date,
     events

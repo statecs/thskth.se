@@ -59,6 +59,16 @@
   #event-list {
     .sections-wrapper {
       padding: 0 20px 40px;
+      .section {
+        .event {
+          .info {
+            padding: 10px 10px;
+            h2 {
+              font-size: 0.9em;
+            }
+          }
+        }
+      }
     }
   }
 }
