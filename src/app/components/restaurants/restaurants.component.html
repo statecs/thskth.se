@@ -40,38 +40,43 @@
     <div class="schedule">
       <div class="description">
         <h2 class="mobile" *ngIf="restaurants">
-          {{ restaurants[item_onfocus_index]?.title }}
+          {{ title }}
         </h2>
-        <p [innerHTML]="restaurants[item_onfocus_index]?.description"></p>
+        <p [innerHTML]="description"></p>
       </div>
       <div class="menu-wrapper">
         <div *ngIf="menuFullText !== null" class="menu-calendar">
-          <div>
+          <div class="menu-select-container">
             <div
+              class="menu-select"
               [ngClass]="{ selected: selected_day === 'Monday' }"
               (click)="changeDay('Monday')"
             >
               {{ lang === "en" ? "Monday" : "Måndag" }}
             </div>
             <div
+              class="menu-select"
               [ngClass]="{ selected: selected_day === 'Tuesday' }"
               (click)="changeDay('Tuesday')"
             >
               {{ lang === "en" ? "Tuesday" : "Tisdag" }}
             </div>
             <div
+              class="menu-select"
               [ngClass]="{ selected: selected_day === 'Wednesday' }"
               (click)="changeDay('Wednesday')"
             >
               {{ lang === "en" ? "Wednesday" : "Onsdag" }}
             </div>
             <div
+              class="menu-select"
               [ngClass]="{ selected: selected_day === 'Thursday' }"
               (click)="changeDay('Thursday')"
             >
               {{ lang === "en" ? "Thursday" : "Torsdag" }}
             </div>
             <div
+              class="menu-select"
               [ngClass]="{ selected: selected_day === 'Friday' }"
               (click)="changeDay('Friday')"
             >
@@ -84,12 +89,28 @@
           <div>A la carté {{a_la_carte?.serving_time}}</div>
         </div>-->
         <div class="menu-container">
-          <h2 *ngIf="menuFullText !== null">
-            Lunch
+          <h2 *ngIf="menuFullText !== null && lang === 'en'">
+            Lunch:
+            {{ selected_day === "Friday" ? "Friday," : "" }}
+            {{ selected_day === "Thursday" ? "Thursday," : "" }}
+            {{ selected_day === "Wednesday" ? "Wednesday," : "" }}
+            {{ selected_day === "Tuesday" ? "Tuesday," : "" }}
+            {{ selected_day === "Monday" ? "Monday," : "" }}
             {{
               lang === "en"
-                ? "Week " + getWeekNumber()
-                : "Vecka " + getWeekNumber()
+                ? "week " + getWeekNumber()
+                : "v. " + getWeekNumber()
+            }}
+          </h2>
+          <h2 *ngIf="menuFullText !== null && lang === 'sv'">
+            Lunch:
+            {{ selected_day === "Friday" ? "Fredag," : "" }}
+            {{ selected_day === "Thursday" ? "Torsdag," : "" }}
+            {{ selected_day === "Wednesday" ? "Onsdag," : "" }}
+            {{ selected_day === "Tuesday" ? "Tisdag," : "" }}
+            {{ selected_day === "Monday" ? "Måndag," : "" }}
+            {{
+              lang === "en" ? "week " + getWeekNumber() : "v." + getWeekNumber()
             }}
           </h2>
           <p [innerHTML]="menuFullText"></p>
@@ -111,7 +132,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="showSchedule && !loading" class="schedule larger-devices">
+  <div *ngIf="!loading" class="schedule larger-devices">
     <!--<div class="options">
       <div>Lunch {{lunch?.serving_time}}</div>
       <div>A la carté {{a_la_carte?.serving_time}}</div>
@@ -124,30 +145,35 @@
     <div class="menu-wrapper">
       <div *ngIf="menuFullText !== null" class="menu-calendar">
         <div
+          class="menu-select"
           [ngClass]="{ selected: selected_day === 'Monday' }"
           (click)="changeDay('Monday')"
         >
           {{ lang === "en" ? "Monday" : "Måndag" }}
         </div>
         <div
+          class="menu-select"
           [ngClass]="{ selected: selected_day === 'Tuesday' }"
           (click)="changeDay('Tuesday')"
         >
           {{ lang === "en" ? "Tuesday" : "Tisdag" }}
         </div>
         <div
+          class="menu-select"
           [ngClass]="{ selected: selected_day === 'Wednesday' }"
           (click)="changeDay('Wednesday')"
         >
           {{ lang === "en" ? "Wednesday" : "Onsdag" }}
         </div>
         <div
+          class="menu-select"
           [ngClass]="{ selected: selected_day === 'Thursday' }"
           (click)="changeDay('Thursday')"
         >
           {{ lang === "en" ? "Thursday" : "Torsdag" }}
         </div>
         <div
+          class="menu-select"
           [ngClass]="{ selected: selected_day === 'Friday' }"
           (click)="changeDay('Friday')"
         >
@@ -155,12 +181,26 @@
         </div>
       </div>
       <div class="menu-container">
-        <h2 *ngIf="menuFullText !== null">
-          Lunch
+        <h2 *ngIf="menuFullText !== null && lang === 'en'">
+          Lunch:
+          {{ selected_day === "Friday" ? "Friday," : "" }}
+          {{ selected_day === "Thursday" ? "Thursday," : "" }}
+          {{ selected_day === "Wednesday" ? "Wednesday," : "" }}
+          {{ selected_day === "Tuesday" ? "Tuesday," : "" }}
+          {{ selected_day === "Monday" ? "Monday," : "" }}
           {{
-            lang === "en"
-              ? "Week " + getWeekNumber()
-              : "Vecka " + getWeekNumber()
+            lang === "en" ? "week " + getWeekNumber() : "v. " + getWeekNumber()
+          }}
+        </h2>
+        <h2 *ngIf="menuFullText !== null && lang === 'sv'">
+          Lunch:
+          {{ selected_day === "Friday" ? "Fredag," : "" }}
+          {{ selected_day === "Thursday" ? "Torsdag," : "" }}
+          {{ selected_day === "Wednesday" ? "Onsdag," : "" }}
+          {{ selected_day === "Tuesday" ? "Tisdag," : "" }}
+          {{ selected_day === "Monday" ? "Måndag," : "" }}
+          {{
+            lang === "en" ? "week " + getWeekNumber() : "v." + getWeekNumber()
           }}
         </h2>
         <p [innerHTML]="menuFullText"></p>

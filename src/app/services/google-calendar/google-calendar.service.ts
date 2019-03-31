@@ -292,7 +292,6 @@ export class GoogleCalendarService {
       calendarId ==
       "ths.kth.se_uj2mnoprtjqmfkgth7u55tcjvo@group.calendar.google.com"
     ) {
-      console.log("hejsan");
       this.view = view;
       const params: URLSearchParams = new URLSearchParams();
       if (viewDate === null) {

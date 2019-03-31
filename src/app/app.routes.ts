@@ -25,83 +25,83 @@ const appRoutes: Routes = [
   {
     path: "login",
     component: LoginComponent,
-    data: { title: "Login" }
+    data: { title: "Login", lang: "en" }
   },
   {
     path: "user/:username",
     component: UserProfileComponent,
-    data: { title: "User profile" }
+    data: { title: "User profile", lang: "en" }
   },
   {
     path: "associations-and-chapters",
     component: ChaptersAssociationsComponent,
-    data: { title: "Chapters and Associations" }
+    data: { title: "Chapters and Associations", lang: "en" }
   },
   {
     path: "associations-and-chapters/:slug",
     component: ChaptersAssociationsComponent,
-    data: { title: "Chapters and Associations" }
+    data: { title: "Chapters and Associations", lang: "en" }
   },
   {
     path: "documents",
     component: ArchiveComponent,
-    data: { title: "Documnets" }
+    data: { title: "Documnets", lang: "en" }
   },
   {
     path: "search",
     component: SearchComponent,
-    data: { title: "Search" }
+    data: { title: "Search", lang: "en" }
   },
   {
     path: "help",
     component: SupportComponent,
-    data: { title: "Help" }
+    data: { title: "Help", lang: "en" }
   },
   {
     path: "help/faqs/:slug",
     component: SupportComponent,
-    data: { title: "Help" }
+    data: { title: "Help", lang: "en" }
   },
   {
     path: "help/:category",
     component: SupportComponent,
-    data: { title: "Help" }
+    data: { title: "Help", lang: "en" }
   },
   {
     path: "restaurants",
     component: RestaurantsComponent,
-    data: { title: "Restaurant and Café" }
+    data: { title: "Restaurant and Café", lang: "en" }
   },
   {
     path: "offers",
     component: OffersComponent,
-    data: { title: "Offers" }
+    data: { title: "Offers", lang: "en" }
   },
   {
     path: "news",
     component: NewsComponent,
-    data: { title: "News" }
+    data: { title: "News", lang: "en" }
   },
   {
     path: "news/:slug",
     component: NewsComponent,
-    data: { title: "News" }
+    data: { title: "News", lang: "en" }
   },
   {
     path: "events",
     component: EventsCalendarComponent,
-    data: { title: "Events" }
+    data: { title: "Events", lang: "en" }
   },
   {
     path: "live",
     component: LiveSectionComponent,
-    data: { title: "Live section" },
+    data: { title: "Live section", lang: "en" },
     children: [{ path: "", component: LiveComponent, data: { title: "Live" } }]
   },
   {
     path: "contact",
     component: ContactSectionComponent,
-    data: { title: "Contact" },
+    data: { title: "Contact", lang: "en" },
     children: [
       { path: "", component: ContactComponent, data: { title: "Contact" } },
       {

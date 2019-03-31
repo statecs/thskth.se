@@ -33,6 +33,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   public language: string;
   public language_text: string;
   public language_img: string;
+  public lang: string;
   protected config: AppConfig;
   public showSubmenuIndex: number;
   public ths_chapters: ChapterMenu[];
@@ -214,16 +215,16 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   }
 
   displayActualLanguage() {
-    if (this.language === "en" || typeof this.language === "undefined") {
+    if (this.language === "sv") {
+      this.language_text = "English";
+      this.language_img = "../../../assets/images/British_flag.png";
+      this.signin_text = "Logga in";
+      this.chapter_text = "Sektioner";
+    } else if (this.language === "en" || typeof this.language === "undefined") {
       this.language_text = "Svenska";
       this.language_img = "../../../../assets/images/sweden_flag.png";
       this.signin_text = "Sign in";
       this.chapter_text = "Chapters";
-    } else if (this.language === "sv") {
-      this.language_text = "English";
-      this.language_img = "../../../../assets/images/British_flag.png";
-      this.signin_text = "Logga in";
-      this.chapter_text = "Sektioner";
     }
   }
 
@@ -254,39 +255,40 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.language = this.activatedRoute.snapshot.data["lang"];
-
     if (typeof this.language === "undefined") {
       this.paramsSubscription = this.router.events.subscribe(val => {
         if (val instanceof RoutesRecognized) {
-          this.language = val.state.root.firstChild.data["lang"];
-          if (typeof this.language === "undefined") {
+          if (val.state.root.firstChild.data["lang"] == "en") {
+            this.language = val.state.root.firstChild.data["lang"];
+            this.lang = val.state.root.firstChild.data["lang"];
+          } else if (val.state.root.firstChild.params["lang"] == "en") {
             this.language = val.state.root.firstChild.params["lang"];
-            if (typeof this.language === "undefined") {
-              this.language = "en";
-            } else if (this.language !== "en" && this.language !== "sv") {
+            this.lang = val.state.root.firstChild.params["lang"];
+          } else if (val.state.root.firstChild.data["lang"] == "sv") {
+            this.language = val.state.root.firstChild.data["lang"];
+            this.lang = val.state.root.firstChild.data["lang"];
+          } else if (val.state.root.firstChild.params["lang"] == "sv") {
+            this.language = val.state.root.firstChild.params["lang"];
+            this.lang = val.state.root.firstChild.params["lang"];
+          } else {
+            if (this._cookieService.get("language") == "sv") {
+              this.lang = "sv";
+              this.language = "sv";
+            } else {
+              this.lang = "en";
               this.language = "en";
             }
           }
+          let exp = new Date(
+            new Date().setFullYear(new Date().getFullYear() + 1)
+          );
+          let cookieOptions = { expires: exp } as CookieOptions;
+          this._cookieService.put("language", this.language, cookieOptions);
           this.getTopLevelMenu();
           this.getChapterMenu();
           this.displayActualLanguage();
         }
       });
-      /*this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-                this.language = params['lang'];
-                if (typeof this.language === 'undefined') {
-                    this.language = 'en';
-                }else if (this.language !== 'en' && this.language !== 'sv') {
-                    this.language = 'en';
-                }
-                this.getTopLevelMenu();
-                this.displayActualLanguage();
-            });*/
-    } else {
-      this.getTopLevelMenu();
-      this.getChapterMenu();
-      this.displayActualLanguage();
     }
   }
 

@@ -11,7 +11,12 @@ import { SearchMenubarCommunicationService } from "../../services/component-comm
 import { MenusService } from "../../services/wordpress/menus.service";
 import { MenuItem } from "../../interfaces-and-classes/menu";
 import { ths_chapters } from "../../utils/ths-chapters";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+  RoutesRecognized
+} from "@angular/router";
 import { RemoveLangParamPipe } from "../../pipes/remove-lang-param.pipe";
 import { AddLangToSlugPipe } from "../../pipes/add-lang-to-slug.pipe";
 import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
@@ -54,6 +59,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public headerSubscription: Subscription;
   public menuSubscription: Subscription;
   public hideOverlappingUIsSubscription: Subscription;
+  public parentParamsSubscription: Subscription;
   public searchTerm: string;
   public language_img: string;
   public signin_text: string;
@@ -286,13 +292,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.lang === "en") {
       let exp = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
       let cookieOptions = { expires: exp } as CookieOptions;
-      this._cookieService.put("language", "sv", cookieOptions);
-      this.lang = "sv";
+      this._cookieService.put("language", "en", cookieOptions);
+      this.lang = "en";
     } else if (this.lang === "sv") {
       let exp = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
       let cookieOptions = { expires: exp } as CookieOptions;
-      this.lang = "en";
-      this._cookieService.put("language", "en", cookieOptions);
+      this.lang = "sv";
+      this._cookieService.put("language", "sv", cookieOptions);
     }
   }
 
@@ -409,16 +415,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   displayActualLanguage() {
-    if (this.lang === "en" || typeof this.lang === "undefined") {
-      this.language_text = "Svenska";
-      this.language_img = "../../../assets/images/sweden_flag.png";
-      this.signin_text = "Sign in";
-      this.chapter_text = "Chapters";
-    } else if (this.lang === "sv") {
+    if (this.lang === "sv" || typeof this.lang === "undefined") {
       this.language_text = "English";
       this.language_img = "../../../assets/images/British_flag.png";
       this.signin_text = "Logga in";
       this.chapter_text = "Sektioner";
+    } else if (this.lang === "en") {
+      this.language_text = "Svenska";
+      this.language_img = "../../../assets/images/sweden_flag.png";
+      this.signin_text = "Sign in";
+      this.chapter_text = "Chapters";
     }
   }
 
@@ -431,7 +437,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.headerSubscription = this.headerCommunicationService.positionHeaderObservable$.subscribe(
       arg => {
         this.headerPosition = arg;
-        this.app_header.nativeElement.style.marginTop = arg + "px";
       }
     );
 
@@ -444,27 +449,37 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.lang = this.activatedRoute.snapshot.data["lang"];
-    console.log(this.lang);
     if (typeof this.lang === "undefined") {
-      this.paramsSubscription = this.activatedRoute.params.subscribe(
-        (params: Params) => {
-          this.lang = params["lang"];
-          if (typeof this.lang === "undefined") {
-            this.lang = "en";
-          } else if (this.lang !== "en" && this.lang !== "sv") {
-            this.lang = "en";
+      this.paramsSubscription = this.router.events.subscribe(val => {
+        if (val instanceof RoutesRecognized) {
+          if (val.state.root.firstChild.data["lang"] == "en") {
+            this.lang = val.state.root.firstChild.data["lang"];
+          } else if (val.state.root.firstChild.params["lang"] == "en") {
+            this.lang = val.state.root.firstChild.params["lang"];
+          } else if (val.state.root.firstChild.data["lang"] == "sv") {
+            this.lang = val.state.root.firstChild.data["lang"];
+          } else if (val.state.root.firstChild.params["lang"] == "sv") {
+            this.lang = val.state.root.firstChild.params["lang"];
+          } else {
+            if (this._cookieService.get("language") == "sv") {
+              this.lang = "sv";
+            } else {
+              this.lang = "en";
+            }
           }
-          this.setPlaceholder();
+          let exp = new Date(
+            new Date().setFullYear(new Date().getFullYear() + 1)
+          );
+          let cookieOptions = { expires: exp } as CookieOptions;
+          this._cookieService.put("language", this.lang, cookieOptions);
+
           this.getTopLevelMenu();
+          this.setPlaceholder();
+          this.displayActualLanguage();
         }
-      );
-    } else {
-      this.setPlaceholder();
-      this.getTopLevelMenu();
+      });
     }
 
-    this.displayActualLanguage();
     this.headerSubscription = this.headerCommunicationService.notifyObservable$.subscribe(
       arg => {
         if (arg === "expend") {
