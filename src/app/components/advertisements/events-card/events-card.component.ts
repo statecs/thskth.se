@@ -35,6 +35,10 @@ export class EventsCardComponent implements OnInit, OnDestroy {
         this.lang = params2["lang"];
         if (typeof this.lang === "undefined") {
           this.lang = "en";
+        } else if (this.lang === "sv") {
+          this.lang = "sv";
+        } else {
+          this.lang = "en";
         }
       }
     );

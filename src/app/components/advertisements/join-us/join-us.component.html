@@ -1,8 +1,26 @@
 <div id="join-us">
-  <h1>{{(lang === 'en' ? 'Join us!' : 'Bli med oss!')}}</h1>
+  <h1>{{ lang === "en" ? "Join us!" : "Bli medlem!" }}</h1>
   <p>
-    {{(lang === 'en' ? 'You need to be semester registered at KTH to receive all the membership benefits including the student union card and continue to accumulate credit days in the SSSB housing queue.' : 'Du måste vara semesterregistrerad på KTH för att få alla medlemsförmåner inklusive studentkårskortet och fortsätt att ackumulera kreditdagar i SSSB-bostadskön.')}}
+    {{
+      lang === "en"
+        ? "A course registration at KTH is a prerequisite in order to become an active member at THS."
+        : "En kursregistrering på KTH är en förutsättning för att bli en aktiv medlem hos THS."
+    }}
   </p>
-  <span class="button" (click)="goToPage('student-life/new-at-kth')">{{(lang === 'en' ? 'New student?' : 'Ny student?')}}</span>
-  <a class="button" href="http://thstudent.upright.se/" target="_blank">{{(lang === 'en' ? 'Renew your membership' : 'Förnya ditt medlemskap')}}</a>
+  <span
+    class="button"
+    *ngIf="lang === 'sv'"
+    (click)="goToPage('/sv/general/membership')"
+    >{{ lang === "en" ? "Become a member" : "Bli medlem" }}</span
+  >
+  <span
+    class="button"
+    *ngIf="lang === 'en'"
+    (click)="goToPage('/en/general/membership')"
+    >{{ lang === "en" ? "Become a member" : "Bli medlem" }}</span
+  >
+
+  <a class="button" href="http://ths.kth.se/login" target="_blank">{{
+    lang === "en" ? "Sign In" : "Logga in"
+  }}</a>
 </div>
