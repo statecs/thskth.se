@@ -42,7 +42,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public showChaptersMobile: boolean;
   public ths_chapters: object[];
   public placeholder: string;
-  public notificationBarHeight: number;
   public lang: string;
   public subMenu: MenuItem[];
   public subMenu_slug: string;
@@ -59,7 +58,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public headerSubscription: Subscription;
   public menuSubscription: Subscription;
   public hideOverlappingUIsSubscription: Subscription;
-  public parentParamsSubscription: Subscription;
   public searchTerm: string;
   public language_img: string;
   public signin_text: string;
@@ -70,7 +68,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public menu_clickCount: number;
   public chapters_clickCount: number;
   public lastScrollTop: number;
-
   constructor(
     private headerCommunicationService: HeaderCommunicationService,
     private searchMenubarCommunicationService: SearchMenubarCommunicationService,
@@ -92,16 +89,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.hrefToSlugPipe = new HrefToSlugPipe();
     this.topLevelMainMenu = [];
     this.tranparentHeader = true;
-    this.freeze_submenu_bar = false;
     localStorage.clear();
     this.menu_clickCount = 0;
     this.chapters_clickCount = 0;
     this.showSubmenuIndex = -1;
     this.showSubmenuIndex2 = -1;
-    this.notificationBarHeight = 0;
-    this.lastScrollTop = 0;
   }
-
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
     this.toggle_freeze_submenu_bar();
@@ -174,7 +167,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.showMenuMobile) {
       this.showMenuMobile = false;
     }
-    if (this._cookieService.get("language") == "sv") {
+    this.lang = this._cookieService.get("language");
+    if (this.lang == "sv") {
       this.router.navigate(["/sv"]);
     } else {
       this.router.navigate(["/en"]);
@@ -292,13 +286,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.lang === "en") {
       let exp = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
       let cookieOptions = { expires: exp } as CookieOptions;
-      this._cookieService.put("language", "en", cookieOptions);
-      this.lang = "en";
+      this._cookieService.put("language", "sv", cookieOptions);
+      this.lang = "sv";
     } else if (this.lang === "sv") {
       let exp = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
       let cookieOptions = { expires: exp } as CookieOptions;
-      this.lang = "sv";
-      this._cookieService.put("language", "sv", cookieOptions);
+      this.lang = "en";
+      this._cookieService.put("language", "en", cookieOptions);
     }
   }
 
@@ -415,28 +409,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   displayActualLanguage() {
-    if (this.lang === "sv" || typeof this.lang === "undefined") {
+    if (this.lang === "sv") {
       this.language_text = "English";
       this.language_img = "../../../assets/images/British_flag.png";
       this.signin_text = "Logga in";
       this.chapter_text = "Sektioner";
-    } else if (this.lang === "en") {
+    } else if (this.lang === "en" || typeof this.lang === "undefined") {
       this.language_text = "Svenska";
-      this.language_img = "../../../assets/images/sweden_flag.png";
+      this.language_img = "../../../../assets/images/sweden_flag.png";
       this.signin_text = "Sign in";
       this.chapter_text = "Chapters";
     }
   }
 
   ngOnInit() {
-    const self = this;
-    setTimeout(function() {
-      self.toggle_freeze_submenu_bar();
-    }, 1000);
-
     this.headerSubscription = this.headerCommunicationService.positionHeaderObservable$.subscribe(
       arg => {
         this.headerPosition = arg;
+        this.app_header.nativeElement.style.marginTop = arg + "px";
       }
     );
 
@@ -452,29 +442,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (typeof this.lang === "undefined") {
       this.paramsSubscription = this.router.events.subscribe(val => {
         if (val instanceof RoutesRecognized) {
-          if (val.state.root.firstChild.data["lang"] == "en") {
-            this.lang = val.state.root.firstChild.data["lang"];
+          if (this._cookieService.get("language") == "sv") {
+            this.lang = "sv";
+          } else if (val.state.root.firstChild.data["lang"] == "en") {
+            this.lang = "en";
           } else if (val.state.root.firstChild.params["lang"] == "en") {
-            this.lang = val.state.root.firstChild.params["lang"];
-          } else if (val.state.root.firstChild.data["lang"] == "sv") {
-            this.lang = val.state.root.firstChild.data["lang"];
-          } else if (val.state.root.firstChild.params["lang"] == "sv") {
-            this.lang = val.state.root.firstChild.params["lang"];
+            this.lang = "en";
           } else {
-            if (this._cookieService.get("language") == "sv") {
-              this.lang = "sv";
-            } else {
-              this.lang = "en";
-            }
+            this.lang = "en";
           }
-          let exp = new Date(
-            new Date().setFullYear(new Date().getFullYear() + 1)
-          );
-          let cookieOptions = { expires: exp } as CookieOptions;
-          this._cookieService.put("language", this.lang, cookieOptions);
-
-          this.getTopLevelMenu();
           this.setPlaceholder();
+          this.getTopLevelMenu();
           this.displayActualLanguage();
         }
       });
@@ -495,45 +473,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.showMenuMobile = false;
       }
     );
-
-    /*this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe((event) => {
-      if (this.menu_clickCount === 0 && this.submenu_item) {
-        console.log(event.target);
-        console.log(this.menuDropdown.nativeElement);
-        console.log(this.menuDropdown.nativeElement !== event.target);
-        console.log(this.submenu_item.nativeElement.contains(event.target));
-        const plus_minus_btns = this.submenu_item.nativeElement.getElementsByClassName('fa');
-        if (this.menuDropdown.nativeElement !== event.target && !this.menuDropdown.nativeElement.contains(event.target)) {
-          let matched = false;
-          let count = 0;
-          for (const btn of plus_minus_btns) {
-            console.log(btn);
-            if (btn === event.target) {
-              console.log("matched");
-              matched = true;
-            }
-            count += 1;
-            if ( plus_minus_btns.length === count - 1 && !matched) {
-              this.showMenuMobile = false;
-              this.menu_clickCount += 1;
-            }
-          }
-
-        }
-      }else {
-        this.menu_clickCount = 0;
-      }
-
-      if (this.chapters_clickCount === 0 && this.chaptersMobile) {
-        if (this.chaptersMobile.nativeElement !== event.target && !this.chaptersMobile.nativeElement.contains(event.target)) {
-          this.showChaptersMobile = false;
-          this.chapter_icon.nativeElement.style.transform = 'rotate(0deg)';
-          this.chapters_clickCount += 1;
-        }
-      }else {
-        this.chapters_clickCount = 0;
-      }
-    });*/
   }
 
   ngOnDestroy() {

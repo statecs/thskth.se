@@ -6,6 +6,7 @@ import { Event } from "../../../interfaces-and-classes/event";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { PopupWindowCommunicationService } from "../../../services/component-communicators/popup-window-communication.service";
 import { Subscription } from "rxjs/Subscription";
+import { CookieService, CookieOptions } from "ngx-cookie";
 
 @Component({
   selector: "app-events-card",
@@ -26,22 +27,16 @@ export class EventsCardComponent implements OnInit, OnDestroy {
   constructor(
     private googleCalendarService: GoogleCalendarService,
     private router: Router,
+    private _cookieService: CookieService,
     private popupWindowCommunicationService: PopupWindowCommunicationService,
     private activatedRoute: ActivatedRoute
   ) {
     this.ths_calendars = ths_calendars;
-    this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe(
-      (params2: Params) => {
-        this.lang = params2["lang"];
-        if (typeof this.lang === "undefined") {
-          this.lang = "en";
-        } else if (this.lang === "sv") {
-          this.lang = "sv";
-        } else {
-          this.lang = "en";
-        }
-      }
-    );
+    if (this._cookieService.get("language") == "sv") {
+      this.lang = "sv";
+    } else {
+      this.lang = "en";
+    }
   }
 
   displayEventInPopup(event: Event) {

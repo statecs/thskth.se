@@ -258,18 +258,21 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     if (typeof this.language === "undefined") {
       this.paramsSubscription = this.router.events.subscribe(val => {
         if (val instanceof RoutesRecognized) {
-          if (val.state.root.firstChild.data["lang"] == "en") {
-            this.language = val.state.root.firstChild.data["lang"];
-            this.lang = val.state.root.firstChild.data["lang"];
+          if (this._cookieService.get("language") == "sv") {
+            this.lang = "sv";
+            this.language = "sv";
+          } else if (val.state.root.firstChild.data["lang"] == "en") {
+            this.lang = "en";
+            this.language = "en";
           } else if (val.state.root.firstChild.params["lang"] == "en") {
-            this.language = val.state.root.firstChild.params["lang"];
-            this.lang = val.state.root.firstChild.params["lang"];
+            this.lang = "en";
+            this.language = "en";
           } else if (val.state.root.firstChild.data["lang"] == "sv") {
-            this.language = val.state.root.firstChild.data["lang"];
-            this.lang = val.state.root.firstChild.data["lang"];
+            this.lang = "sv";
+            this.language = "sv";
           } else if (val.state.root.firstChild.params["lang"] == "sv") {
-            this.language = val.state.root.firstChild.params["lang"];
-            this.lang = val.state.root.firstChild.params["lang"];
+            this.lang = "sv";
+            this.language = "sv";
           } else {
             if (this._cookieService.get("language") == "sv") {
               this.lang = "sv";

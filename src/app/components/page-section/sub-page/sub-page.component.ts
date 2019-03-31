@@ -17,6 +17,7 @@ import { AddLangToSlugPipe } from "../../../pipes/add-lang-to-slug.pipe";
 import { NotificationBarComponent } from "../../notification-bar/notification-bar.component";
 import { NotificationBarCommunicationService } from "../../../services/component-communicators/notification-bar-communication.service";
 import { Subscription } from "rxjs/Subscription";
+import { CookieService, CookieOptions } from "ngx-cookie";
 import { MenuItem } from "../../../interfaces-and-classes/menu";
 import { HrefToSlugPipe } from "../../../pipes/href-to-slug.pipe";
 import { TitleCommunicationService } from "../../../services/component-communicators/title-communication.service";
@@ -64,6 +65,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
     private domSanitizer: DomSanitizer,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private _cookieService: CookieService,
     private menusService: MenusService,
     private notificationBarComponent: NotificationBarComponent,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
@@ -293,10 +295,17 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
         this.loading = true;
         this.slug = params["subpage"];
         if (typeof params["subpage"] === "undefined") {
-          this.lang = "en";
-          this.slug = params["lang"];
-          this.getSubmenu();
-          this.getPageBySlug();
+          if (this._cookieService.get("language") == "sv") {
+            this.lang = "sv";
+            this.slug = params["lang"];
+            this.getSubmenu();
+            this.getPageBySlug();
+          } else {
+            this.lang = "en";
+            this.slug = params["lang"];
+            this.getSubmenu();
+            this.getPageBySlug();
+          }
         } else {
           this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe(
             (params2: Params) => {
