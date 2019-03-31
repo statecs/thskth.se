@@ -103,23 +103,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   toggle_freeze_submenu_bar() {
     const pos = document.documentElement.scrollTop || document.body.scrollTop;
-    if (pos >= 80) {
+    if (pos >= 110) {
       if (pos > this.lastScrollTop) {
         this.app_header.nativeElement.style.position = "absolute";
         this.app_mobile_header.nativeElement.style.position = "absolute";
-        this.app_header.nativeElement.style.transition = "opacity 0.1s linear";
         this.app_header.nativeElement.style.opacity = "0";
+        this.app_header.nativeElement.style.transition =
+          "opacity 0.1s ease-in-out";
       } else {
         if (!this.freeze_submenu_bar) {
           this.freeze_submenu_bar = true;
           this.app_mobile_header.nativeElement.style.background = "#ffffff";
           this.app_header.nativeElement.style.opacity = "0";
           this.app_header.nativeElement.style.transition =
-            "opacity 0.4s linear";
+            "opacity 0.4s ease-in-out";
         } else {
           this.app_header.nativeElement.style.opacity = "1";
           this.app_header.nativeElement.style.transition =
-            "opacity 0.1s linear";
+            "opacity 0.1s ease-in-out";
           this.app_header.nativeElement.style.position = "fixed";
           this.app_mobile_header.nativeElement.style.position = "fixed";
           this.app_mobile_header.nativeElement.style.background = "#ffffff";
@@ -132,7 +133,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.app_header.nativeElement.style.background =
           "linear-gradient(to top, rgba(0, 0, 0, 0), black)";
         this.app_header.nativeElement.style.opacity = "1";
-        this.app_header.nativeElement.style.transition = "opacity 0.1s linear";
+        this.app_header.nativeElement.style.transition =
+          "opacity 0.1s ease-in-out";
         this.app_mobile_header.nativeElement.style.background = "";
       }
     }
