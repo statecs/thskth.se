@@ -1,6 +1,9 @@
 <header
   #app_header
-  [ngClass]="{ tranparentHeader: tranparentHeader }"
+  [ngClass]="{
+    tranparentHeader: tranparentHeader,
+    'freeze-submenu-bar': freeze_submenu_bar
+  }"
   [class.js-open-nav]="showMenuMobile == true || showChaptersMobile == true"
 >
   <div class="container bigger-device">
@@ -92,7 +95,7 @@
 
     <app-navbar-primary></app-navbar-primary>
   </div>
-  <div class="container mobile">
+  <div #app_mobile_header class="container mobile">
     <div class="menu-wrapper">
       <div class="logo">
         <a

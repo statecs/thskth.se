@@ -141,7 +141,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       this._cookieService.put("language", this.lang);
       this.router.navigate(["/en"]);
     }
-    this.headerCommunicationService.tranparentHeader(true);
   }
 
   ngAfterViewInit() {}

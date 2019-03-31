@@ -3,7 +3,8 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  OnDestroy
+  OnDestroy,
+  HostListener
 } from "@angular/core";
 import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
 import { SearchMenubarCommunicationService } from "../../services/component-communicators/search-menubar-communication.service";
@@ -25,6 +26,7 @@ import { HideUICommunicationService } from "../../services/component-communicato
   styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  @ViewChild("app_mobile_header") app_mobile_header: ElementRef;
   @ViewChild("app_header") app_header: ElementRef;
   @ViewChild("menuDropdown") menuDropdown: ElementRef;
   @ViewChild("chaptersMobile") chaptersMobile: ElementRef;
@@ -35,12 +37,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public showChaptersMobile: boolean;
   public ths_chapters: object[];
   public placeholder: string;
+  public notificationBarHeight: number;
   public lang: string;
   public subMenu: MenuItem[];
   public subMenu_slug: string;
   public subMenu2: MenuItem[];
   private showSubmenuIndex: number;
   private showSubmenuIndex2: number;
+  public freeze_submenu_bar: boolean;
   private removeLangParamPipe: RemoveLangParamPipe;
   private addLangToSlugPipe: AddLangToSlugPipe;
   private hrefToSlugPipe: HrefToSlugPipe;
@@ -59,6 +63,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public tranparentHeader: boolean;
   public menu_clickCount: number;
   public chapters_clickCount: number;
+  public lastScrollTop: number;
 
   constructor(
     private headerCommunicationService: HeaderCommunicationService,
@@ -81,11 +86,56 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.hrefToSlugPipe = new HrefToSlugPipe();
     this.topLevelMainMenu = [];
     this.tranparentHeader = true;
+    this.freeze_submenu_bar = false;
     localStorage.clear();
     this.menu_clickCount = 0;
     this.chapters_clickCount = 0;
     this.showSubmenuIndex = -1;
     this.showSubmenuIndex2 = -1;
+    this.notificationBarHeight = 0;
+    this.lastScrollTop = 0;
+  }
+
+  @HostListener("window:scroll", ["$event"])
+  onWindowScroll() {
+    this.toggle_freeze_submenu_bar();
+  }
+
+  toggle_freeze_submenu_bar() {
+    const pos = document.documentElement.scrollTop || document.body.scrollTop;
+    if (pos >= 80) {
+      if (pos > this.lastScrollTop) {
+        this.app_header.nativeElement.style.position = "absolute";
+        this.app_mobile_header.nativeElement.style.position = "absolute";
+        this.app_header.nativeElement.style.transition = "opacity 0.1s linear";
+        this.app_header.nativeElement.style.opacity = "0";
+      } else {
+        if (!this.freeze_submenu_bar) {
+          this.freeze_submenu_bar = true;
+          this.app_mobile_header.nativeElement.style.background = "#ffffff";
+          this.app_header.nativeElement.style.opacity = "0";
+          this.app_header.nativeElement.style.transition =
+            "opacity 0.4s linear";
+        } else {
+          this.app_header.nativeElement.style.opacity = "1";
+          this.app_header.nativeElement.style.transition =
+            "opacity 0.1s linear";
+          this.app_header.nativeElement.style.position = "fixed";
+          this.app_mobile_header.nativeElement.style.position = "fixed";
+          this.app_mobile_header.nativeElement.style.background = "#ffffff";
+        }
+      }
+      this.lastScrollTop = pos <= 0 ? 0 : pos; // For Mobile or negative scrolling
+    } else {
+      if (this.freeze_submenu_bar) {
+        this.freeze_submenu_bar = false;
+        this.app_header.nativeElement.style.background =
+          "linear-gradient(to top, rgba(0, 0, 0, 0), black)";
+        this.app_header.nativeElement.style.opacity = "1";
+        this.app_header.nativeElement.style.transition = "opacity 0.1s linear";
+        this.app_mobile_header.nativeElement.style.background = "";
+      }
+    }
   }
 
   toggleSubmenu(object_slug, i): void {
@@ -371,6 +421,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const self = this;
+    setTimeout(function() {
+      self.toggle_freeze_submenu_bar();
+    }, 1000);
+
     this.headerSubscription = this.headerCommunicationService.positionHeaderObservable$.subscribe(
       arg => {
         this.headerPosition = arg;
