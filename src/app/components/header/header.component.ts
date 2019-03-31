@@ -116,8 +116,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.showMenuMobile) {
       this.showMenuMobile = false;
     }
-    this.lang = this._cookieService.get("language");
-    if (this.lang == "sv") {
+    if (this._cookieService.get("language") == "sv") {
       this.router.navigate(["/sv"]);
     } else {
       this.router.navigate(["/en"]);
@@ -389,6 +388,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     );
     this.lang = this.activatedRoute.snapshot.data["lang"];
+    console.log(this.lang);
     if (typeof this.lang === "undefined") {
       this.paramsSubscription = this.activatedRoute.params.subscribe(
         (params: Params) => {
