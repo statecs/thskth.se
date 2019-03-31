@@ -45,7 +45,7 @@ export class Event implements IEvent {
         }
         let eventEnd: any;
         if (event.end_time) {
-          eventEnd = format(event.start_time, "ddd MMM DD YYYY HH:MM:ss Z");
+          eventEnd = format(event.end_time, "ddd MMM DD YYYY HH:mm:ss Z");
         }
 
         let locationPlace: string;
@@ -63,7 +63,7 @@ export class Event implements IEvent {
           description: event.description,
           imageUrl: event.cover.source,
           location: locationPlace,
-          color: colors.transparent,
+          color: colors.gray,
           creator: event.owner.name,
           meta: {
             event

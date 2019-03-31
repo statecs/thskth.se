@@ -288,35 +288,73 @@ export class GoogleCalendarService {
   }
 
   fetchEvents(calendarId, viewDate, view, calendarName): Observable<Event[]> {
-    this.view = view;
-    const params: URLSearchParams = new URLSearchParams();
-    params.set(
-      "timeMin",
-      format(this.getStart(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
-    );
-    params.set(
-      "timeMax",
-      format(this.getEnd(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
-    );
-    params.set("key", this.config.GOOGLE_CALENDAR_KEY);
-    params.set("singleEvents", "true");
-    params.set("orderBy", "startTime");
-    const calendar: THSCalendar = _.find(this.ths_calendars, c => {
-      return c.calendarId === calendarId;
-    });
-    return this.dataFetcherService
-      .get(
-        this.config.GOOGLE_CALENDAR_BASE_URL + calendarId + "/events",
-        params
-      )
-      .map(res =>
-        Event.convertToEventType(
-          res,
-          calendarId,
-          this.config.EVENT_IMAGE_BASE_URL,
-          calendar.calendarName
-        )
+    if (
+      calendarId ==
+      "ths.kth.se_uj2mnoprtjqmfkgth7u55tcjvo@group.calendar.google.com"
+    ) {
+      console.log("hejsan");
+      this.view = view;
+      const params: URLSearchParams = new URLSearchParams();
+      if (viewDate === null) {
+        const startDate = new Date();
+        params.set("timeMin", format(startDate, "YYYY-MM-DDTHH:mm:ss.SSSz"));
+      } else {
+        params.set(
+          "timeMin",
+          format(this.getStart(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
+        );
+        params.set(
+          "timeMax",
+          format(this.getEnd(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
+        );
+      }
+      params.set("key", this.config.GOOGLE_CALENDAR_KEY);
+      params.set("singleEvents", "true");
+      params.set("orderBy", "startTime");
+      params.set("maxResults", "10");
+      const observables: Observable<any>[] = [];
+      observables.push(this.eventsCalendarService.getCalendar(params));
+      observables.push(this.eventsTHSService.getCalendar());
+      return Observable.combineLatest(observables).map(values => {
+        const mergedArrays = this.mergeArrays(values);
+        let events: Event[] = [];
+        _.each(values, value => {
+          events = events.concat(value);
+          events = mergedArrays.sort(this.sortArrayByTime);
+        });
+        return events;
+      });
+    } else {
+      this.view = view;
+      const params: URLSearchParams = new URLSearchParams();
+      params.set(
+        "timeMin",
+        format(this.getStart(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
       );
+      params.set(
+        "timeMax",
+        format(this.getEnd(viewDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
+      );
+      params.set("key", this.config.GOOGLE_CALENDAR_KEY);
+      params.set("singleEvents", "true");
+      params.set("orderBy", "startTime");
+      const calendar: THSCalendar = _.find(this.ths_calendars, c => {
+        return c.calendarId === calendarId;
+      });
+      return this.dataFetcherService
+        .get(
+          this.config.GOOGLE_CALENDAR_BASE_URL + calendarId + "/events",
+          params
+        )
+        .map(res =>
+          Event.convertToEventType(
+            res,
+            calendarId,
+            this.config.EVENT_IMAGE_BASE_URL,
+            calendar.calendarName
+          )
+        );
+    }
   }
 
   getUpcomingEvents(calendarId, amount): Observable<Event[]> {
@@ -343,6 +381,20 @@ export class GoogleCalendarService {
           calendar.calendarName
         )
       );
+  }
+
+  sortArrayByTime(a, b) {
+    a = new Date(a.start);
+    b = new Date(b.start);
+    return a < b ? -1 : a > b ? 1 : 0;
+  }
+
+  mergeArrays(arrays: any): Event[] {
+    let merged: Event[] = [];
+    arrays.forEach(event => {
+      merged = merged.concat(event);
+    });
+    return merged;
   }
 
   getStart(viewDate: any): any {

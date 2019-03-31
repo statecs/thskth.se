@@ -1,7 +1,7 @@
 export const colors: any = {
-  transparent: {
-    primary: "",
-    secondary: ""
+  gray: {
+    primary: "gray",
+    secondary: "gray"
   },
   red: {
     primary: "#ad2121",

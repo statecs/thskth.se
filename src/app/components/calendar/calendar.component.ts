@@ -107,12 +107,13 @@ export class CalendarComponent implements OnInit, OnDestroy {
         )
         .map(
           res => {
-            this._events = res;
             const mergedArrays = this.mergeArrays(res);
             this.e_loading = false;
             CalendarComponent.calendar_events = mergedArrays.sort(
               this.sortArrayByTime
             );
+            res = mergedArrays.sort(this.sortArrayByTime);
+            this.events = mergedArrays.sort(this.sortArrayByTime);
             return mergedArrays.sort(this.sortArrayByTime);
           },
           error => {
@@ -152,12 +153,12 @@ export class CalendarComponent implements OnInit, OnDestroy {
         )
         .map(
           res => {
-            this._events = res;
             const mergedArrays = this.mergeArrays(res);
             this.e_loading = false;
             CalendarComponent.calendar_events = mergedArrays.sort(
               this.sortArrayByTime
             );
+            this.events = mergedArrays.sort(this.sortArrayByTime);
             return mergedArrays.sort(this.sortArrayByTime);
           },
           error => {
