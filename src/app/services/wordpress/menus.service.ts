@@ -23,7 +23,6 @@ export class MenusService extends WordpressBaseDataService<MenuItem> {
     super(dataFetcherService, injector.get(APP_CONFIG).PRIMARY_MENU_URL);
     this.config = injector.get(APP_CONFIG);
 
-    console.log(this.language);
     if (typeof this._cookieService.get("language") === "undefined") {
       this.language = "en";
     } else {
@@ -52,7 +51,6 @@ export class MenusService extends WordpressBaseDataService<MenuItem> {
   }
 
   getTopLevel_mainMenu(lang: string): Observable<MenuItem[]> {
-    console.log(lang);
     if (lang === "sv") {
       this.menus_meta = localStorage.getItem("menus_meta_sv");
     } else {
