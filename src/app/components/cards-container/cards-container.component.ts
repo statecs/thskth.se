@@ -310,8 +310,8 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         const mergedArrays = this.mergeArrays(res);
         const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
-        if (sortedArrays.length > 4) {
-          this.events = sortedArrays.slice(0, 4);
+        if (sortedArrays.length > 5) {
+          this.events = sortedArrays.slice(0, 5);
         } else {
           this.events = sortedArrays;
           this.fetched_events = localStorage.setItem(

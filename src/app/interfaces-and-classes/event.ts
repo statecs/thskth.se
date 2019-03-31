@@ -49,8 +49,8 @@ export class Event implements IEvent {
         }
 
         let locationPlace: string;
-        if (event.place.location) {
-          locationPlace = event.place.location.street;
+        if (event.place) {
+          locationPlace = event.place.name;
         } else {
           locationPlace = "";
         }

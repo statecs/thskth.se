@@ -20,7 +20,7 @@
     overflow-x: scroll;
     padding: 0 0 15px;
     .f_events-wrapper {
-      width: 900%;
+      width: 2000%;
       .event {
         width: 29%;
         margin: 0 10px;
@@ -49,12 +49,15 @@
           background-position: center;
           background-size: cover;
           .date {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(255, 255, 255, 0.67);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.77);
             float: left;
-            font-weight: $font-weight-bold;
-            padding-top: 5px;
+            font-weight: 600;
+            padding: 5px;
+            border-radius: 45px;
+            margin: 5px;
+            font-size: 0.8em;
           }
           img {
             width: 100%;
@@ -141,7 +144,7 @@
           margin: 0 10px;
           float: left;
           max-width: 250px;
-          height: 200px;
+          height: 210px;
           .image-wrapper {
             border-top-right-radius: 15px;
             border-top-left-radius: 15px;
@@ -182,7 +185,7 @@
       overflow-x: scroll;
       padding: 0 0 15px;
       .f_events-wrapper {
-        width: 900%;
+        width: 2000%;
         .event {
           width: 29%;
           margin: 0 10px;
@@ -204,7 +207,7 @@
           .info {
             font-size: $font-size-h6;
             h2 {
-              font-size: $font-size-h5;
+              font-size: $font-size-h6;
             }
           }
         }
@@ -231,7 +234,7 @@
       overflow-x: scroll;
       padding: 0 0 15px;
       .f_events-wrapper {
-        width: 900%;
+        width: 2000%;
         .event {
           width: 29%;
           margin: 0 10px;
@@ -253,7 +256,7 @@
           .info {
             font-size: $font-size-default;
             h2 {
-              font-size: $font-size-h4;
+              font-size: $font-size-h6;
             }
           }
         }
@@ -269,7 +272,7 @@
       overflow-x: scroll;
       padding: 0 15px 15px;
       .f_events-wrapper {
-        width: 900%;
+        width: 2000%;
         .event {
           width: 29%;
           margin: 0 10px;
