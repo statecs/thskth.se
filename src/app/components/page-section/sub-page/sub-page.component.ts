@@ -5,7 +5,8 @@ import {
   HostListener,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
+  Input
 } from "@angular/core";
 import { PagesService } from "../../../services/wordpress/pages.service";
 import { MenusService } from "../../../services/wordpress/menus.service";
@@ -22,6 +23,8 @@ import { TitleCommunicationService } from "../../../services/component-communica
 import { HideUICommunicationService } from "../../../services/component-communicators/hide-ui-communication.service";
 import * as format from "date-fns/format";
 import { HeaderCommunicationService } from "../../../services/component-communicators/header-communication.service";
+import { SanitizeHtmlPipe } from "../../../pipes/sanitizeHtml.pipe";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-sub-page",
@@ -54,9 +57,11 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   public show_single_page: boolean;
   public infoBoxClickCount: number;
   public notificationBarHeight: number;
+  sanitizeHtmlPipe: SanitizeHtmlPipe;
 
   constructor(
     private pagesService: PagesService,
+    private domSanitizer: DomSanitizer,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private menusService: MenusService,
@@ -76,6 +81,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
     this.show_single_page = false;
     this.infoBoxClickCount = 0;
     this.notificationBarHeight = 0;
+    this.sanitizeHtmlPipe = new SanitizeHtmlPipe(domSanitizer);
   }
   /*
   getOffsetTop(elem): number {
@@ -257,6 +263,11 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
           this.loading = false;
           if (page) {
             this.page = page;
+            if (page.content) {
+              this.page.content = this.sanitizeHtmlPipe.transform(
+                this.page.content
+              );
+            }
             this.titleCommunicationService.setTitle(page.name);
           } else {
             this.pageNotFound = true;
