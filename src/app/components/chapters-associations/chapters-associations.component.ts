@@ -359,7 +359,6 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           this.otherResults = res;
-          console.log(this.otherResults);
           this.checkResults();
         },
         error => {
