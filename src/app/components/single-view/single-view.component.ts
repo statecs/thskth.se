@@ -115,8 +115,6 @@ export class SingleViewComponent implements OnInit, OnDestroy {
             this.lang = params2["lang"];
             if (typeof params["single_page_slug"] === "undefined") {
               this.lang = "en";
-              this.lang = params2["lang"];
-              // this.parent_parent_slug =  params2['lang'];
               this.parent_parent_slug = params["subpage"];
             } else {
               this.parent_parent_slug = params["subpage"];
