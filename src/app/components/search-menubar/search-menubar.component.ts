@@ -8,7 +8,9 @@ import { CookieService } from "ngx-cookie";
 import { PostsService } from "../../services/wordpress/posts.service";
 import { PagesService } from "../../services/wordpress/pages.service";
 import { FaqsService } from "../../services/wordpress/faqs.service";
+import { AddLangToSlugPipe } from "../../pipes/add-lang-to-slug.pipe";
 import { ArchiveService } from "../../services/wordpress/archive.service";
+import { RemoveLangParamPipe } from "../../pipes/remove-lang-param.pipe";
 
 @Component({
   selector: "app-search-menubar",
@@ -33,6 +35,8 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   public postSubscription: Subscription;
   public pageSubscription: Subscription;
   public faqsSubscription: Subscription;
+  private addLangToSlugPipe: AddLangToSlugPipe;
+  private removeLangParamPipe: RemoveLangParamPipe;
   public documentsSubscription: Subscription;
   public menuBarSubscription: Subscription;
 
@@ -68,6 +72,8 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
         }
       }
     );
+    this.removeLangParamPipe = new RemoveLangParamPipe();
+    this.addLangToSlugPipe = new AddLangToSlugPipe();
   }
 
   goToPage(link, type): void {
@@ -81,8 +87,26 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
     if (type === "post") {
       this.router.navigate([this.lang + "/news/" + link]);
     }
-    if (type === "page") {
+    /*  if (type === "page") {
       this.router.navigate(["/" + link]);
+    }*/
+
+    if (type === "page") {
+      let slug = link;
+      if (
+        slug.substring(slug.length - 9) === "/?lang=en" ||
+        slug.substring(slug.length - 9) === "/?lang=sv"
+      ) {
+        slug = this.removeLangParamPipe.transform(slug);
+      }
+      if (
+        slug.substring(slug.length - 8) === "?lang=en" ||
+        slug.substring(slug.length - 8) === "?lang=sv"
+      ) {
+        slug = this.removeLangParamPipe.transform(slug);
+      }
+      slug = this.addLangToSlugPipe.transform(slug, this.lang);
+      this.router.navigate([slug]);
     }
   }
 

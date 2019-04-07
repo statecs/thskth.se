@@ -200,10 +200,13 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
           this.location.back();
         }
       } else if (this.page_location === "news") {
+        if (this.navigateBack) {
+          this.location.back();
+        }
         if (this.lang === "sv") {
-          this.router.navigate(["sv/news"]);
+          this.location.go("sv/news");
         } else {
-          this.router.navigate(["en/news"]);
+          this.location.go("en/news");
         }
       } else if (this.page_location === "offers") {
         if (this.lang === "sv") {
