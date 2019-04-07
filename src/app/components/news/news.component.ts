@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import {Component, HostListener, OnDestroy, OnInit} from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { PostsService } from "../../services/wordpress/posts.service";
@@ -18,8 +18,11 @@ export class NewsComponent implements OnInit, OnDestroy {
   public pageNotFound: boolean;
   public paramsSubscription: Subscription;
   public paramsSubscription2: Subscription;
+  public fetchMorePostsSub: Subscription;
   public posts: Post[];
   public slug: string;
+  public fetching: boolean;
+  public moreDocumentsExist = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -47,6 +50,34 @@ export class NewsComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  @HostListener("window:scroll", ["$event"])
+  onWindowScroll() {
+      if (this.posts && !this.fetching && this.moreDocumentsExist) {
+          const pos =
+              (document.documentElement.scrollTop || document.body.scrollTop) +
+              document.documentElement.offsetHeight;
+          const max = document.documentElement.scrollHeight;
+          if (pos > max - 500) {
+              this.fetchMorePosts();
+          }
+      }
+  }
+
+  fetchMorePosts(): void {
+      this.fetching = true;
+      const lastPostDate = this.posts[this.posts.length - 1].published_date;
+      if (this.fetchMorePostsSub) {
+          this.fetchMorePostsSub.unsubscribe();
+      }
+      this.fetchMorePostsSub = this.postsService.getPostsBySinceDateTime(15, this.lang, lastPostDate).subscribe(res => {
+          this.posts = this.posts.concat(res);
+          this.fetching = false;
+          if (!res.length) {
+              this.moreDocumentsExist = false;
+          }
+      });
   }
 
   goToPage(slug): void {

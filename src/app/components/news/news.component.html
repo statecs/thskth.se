@@ -12,5 +12,6 @@
     <p class="content" [innerHTML]="article.content | cardText:150"></p>
   </div>
 </div>
+<app-loader *ngIf="fetching"></app-loader>
 
 <app-page-not-found *ngIf="pageNotFound"></app-page-not-found>

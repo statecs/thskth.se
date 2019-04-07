@@ -34,6 +34,13 @@ export class PostsService extends WordpressBaseDataService<Post> {
         .map((res: any) => { return Post.convertToPostType(res); });
   }
 
+  getPostsBySinceDateTime(amount, lang: string, sinceDateTime: string): Observable<Post[]> {
+      this.language = lang;
+      return this.getData(null, '_embed&per_page=' + amount + '&before=' + sinceDateTime + '&lang=' + this.language )
+      // Cast response data to FAQ Category type
+          .map((res: any) => { return Post.convertToPostType(res); });
+  }
+
   getOffers(amount, lang: string): Observable<Post[]> {
     this.language = lang;
     return this.getDataById('_embed&sticky=true&per_page=' + amount + '&lang=' + this.language)
