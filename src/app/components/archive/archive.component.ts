@@ -66,7 +66,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   public hideOverlappingUIsSubscription: Subscription;
   public slug: string;
   public showMostSearchTerms: boolean;
-  public fetchMorePostsSub: Subscription;
+  public fetchMoreDocumentsSub: Subscription;
   public fetching: boolean;
   public moreDocumentsExist = true;
 
@@ -147,10 +147,10 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   fetchMorePosts(): void {
       this.fetching = true;
       const lastPostDate = this.latestDocuments[this.latestDocuments.length - 1].date;
-      if (this.fetchMorePostsSub) {
-          this.fetchMorePostsSub.unsubscribe();
+      if (this.fetchMoreDocumentsSub) {
+          this.fetchMoreDocumentsSub.unsubscribe();
       }
-      this.fetchMorePostsSub = this.archiveService.getDocumentsBySinceDateTime(10, this.lang, lastPostDate).subscribe(res => {
+      this.fetchMoreDocumentsSub = this.archiveService.getDocumentsBySinceDateTime(10, this.lang, lastPostDate).subscribe(res => {
           this.documentResults = this.documentResults.concat(res);
           this.latestDocuments = this.latestDocuments.concat(res);
           this.fetching = false;
@@ -444,6 +444,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     }
     if (this.hideOverlappingUIsSubscription) {
       this.hideOverlappingUIsSubscription.unsubscribe();
+    }
+    if (this.fetchMoreDocumentsSub) {
+        this.fetchMoreDocumentsSub.unsubscribe();
     }
   }
 }

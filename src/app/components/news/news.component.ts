@@ -121,5 +121,8 @@ export class NewsComponent implements OnInit, OnDestroy {
     if (this.paramsSubscription2) {
       this.paramsSubscription2.unsubscribe();
     }
+    if (this.fetchMorePostsSub) {
+      this.fetchMorePostsSub.unsubscribe();
+    }
   }
 }
