@@ -13,7 +13,7 @@ import { CookieService } from "ngx-cookie";
 import * as format from "date-fns/format";
 import { DataFetcherService } from "../utility/data-fetcher.service";
 import { WordpressBaseDataService } from "../abstract-services/wordpress-base-data.service";
-import {Post} from '../../interfaces-and-classes/post';
+import { Post } from "../../interfaces-and-classes/post";
 import { SearchResult } from "../../interfaces-and-classes/search";
 
 @Injectable()
@@ -58,15 +58,28 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
     );
   }
 
-  getDocumentsBySinceDateTime(amount, lang: string, sinceDateTime: string): Observable<Archive[]> {
-      this.language = lang;
-      return (
-          this.getData(null, "_embed&per_page=" + amount + '&before=' + sinceDateTime + "&lang=" + this.language)
-          // Cast response data to FAQ Category type
-          .map((res: any) => {
-              return this.castPostsTo_SearchResultType(res);
-          })
-      );
+  getDocumentsBySinceDateTime(
+    amount,
+    lang: string,
+    sinceDateTime: string
+  ): Observable<Archive[]> {
+    this.language = lang;
+    return (
+      this.getData(
+        null,
+        "_embed&per_page=" +
+          amount +
+          "&before=" +
+          sinceDateTime +
+          "&lang=" +
+          this.language
+      )
+        // Cast response data to FAQ Category type
+        .map((res: any) => {
+          return this.castPostsTo_SearchResultType(res);
+        })
+    );
+  }
 
   searchDocumentsPage(
     search_term: string,
@@ -88,7 +101,6 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
           return SearchResult.convertDocumentsToSearchResultType(res);
         })
     );
-
   }
 
   searchDocuments(
@@ -124,10 +136,10 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
   castPostsTo_SearchResultType(data: any) {
     const archives: Archive[] = [];
     data.forEach(c => {
-        let categories: any[] = [];
-        if (c.pure_taxonomies && c.pure_taxonomies.categories) {
-            categories = c.pure_taxonomies.categories;
-        }
+      let categories: any[] = [];
+      if (c.pure_taxonomies && c.pure_taxonomies.categories) {
+        categories = c.pure_taxonomies.categories;
+      }
       archives.push({
         id: c.id,
         slug: c.slug,
@@ -136,14 +148,12 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
         lastModified: this.formatDate(c.modified),
         description: c.content.rendered,
         documents: this.castDataToDocumentType(c.acf.documents),
-        categories: this.castDataToArchiveCategoryType(
-            categories
-        ),
+        categories: this.castDataToArchiveCategoryType(categories),
         author: {
           name: c["_embedded"].author[0].name,
           avatar_url: c["_embedded"].author[0].avatar_urls["96"]
         },
-        date: c.date,
+        date: c.date
       });
     });
     return archives;
