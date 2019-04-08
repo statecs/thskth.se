@@ -34,4 +34,5 @@ export interface Archive {
     documents: Document[];
     categories: ArchiveCategory[];
     author: Author;
+    date: string;
 }

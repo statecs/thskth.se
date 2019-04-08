@@ -1,10 +1,10 @@
 import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  Renderer2,
-  ViewChild
+    Component,
+    ElementRef, HostListener,
+    OnDestroy,
+    OnInit,
+    Renderer2,
+    ViewChild
 } from "@angular/core";
 import { ArchiveService } from "../../services/wordpress/archive.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
@@ -66,6 +66,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   public hideOverlappingUIsSubscription: Subscription;
   public slug: string;
   public showMostSearchTerms: boolean;
+  public fetchMoreDocumentsSub: Subscription;
+  public fetching: boolean;
+  public moreDocumentsExist = true;
 
   constructor(
     private archiveService: ArchiveService,
@@ -126,6 +129,35 @@ export class ArchiveComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  @HostListener("window:scroll", ["$event"])
+  onWindowScroll() {
+      if (this.latestDocuments && !this.fetching && !this.searchResults.length && this.moreDocumentsExist) {
+          const pos =
+              (document.documentElement.scrollTop || document.body.scrollTop) +
+              document.documentElement.offsetHeight;
+          const max = document.documentElement.scrollHeight;
+          if (pos > max - 500) {
+              this.fetchMorePosts();
+          }
+      }
+  }
+
+  fetchMorePosts(): void {
+      this.fetching = true;
+      const lastPostDate = this.latestDocuments[this.latestDocuments.length - 1].date;
+      if (this.fetchMoreDocumentsSub) {
+          this.fetchMoreDocumentsSub.unsubscribe();
+      }
+      this.fetchMoreDocumentsSub = this.archiveService.getDocumentsBySinceDateTime(10, this.lang, lastPostDate).subscribe(res => {
+          this.documentResults = this.documentResults.concat(res);
+          this.latestDocuments = this.latestDocuments.concat(res);
+          this.fetching = false;
+          if (!res.length) {
+            this.moreDocumentsExist = false;
+          }
+      });
   }
 
   showDocumentInPopup(item): void {
@@ -412,6 +444,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     }
     if (this.hideOverlappingUIsSubscription) {
       this.hideOverlappingUIsSubscription.unsubscribe();
+    }
+    if (this.fetchMoreDocumentsSub) {
+        this.fetchMoreDocumentsSub.unsubscribe();
     }
   }
 }
