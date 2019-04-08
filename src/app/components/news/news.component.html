@@ -6,7 +6,7 @@
   <div
     *ngFor="let article of posts"
     class="article"
-    (click)="goToPage(article.slug)"
+    (click)="goToPage(article, article.slug)"
   >
     <div class="date">
       <span>{{ formatDate(article.last_modified) }}</span>

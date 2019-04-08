@@ -1,9 +1,10 @@
-import {Component, HostListener, OnDestroy, OnInit} from "@angular/core";
+import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { PostsService } from "../../services/wordpress/posts.service";
 import { Post } from "../../interfaces-and-classes/post";
 import * as format from "date-fns/format";
+import { Location } from "@angular/common";
 import { PopupWindowCommunicationService } from "../../services/component-communicators/popup-window-communication.service";
 import { TitleCommunicationService } from "../../services/component-communicators/title-communication.service";
 import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
@@ -28,6 +29,7 @@ export class NewsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private postsService: PostsService,
     private router: Router,
+    private location: Location,
     private popupWindowCommunicationService: PopupWindowCommunicationService,
     private titleCommunicationService: TitleCommunicationService,
     private headerCommunicationService: HeaderCommunicationService
@@ -54,34 +56,46 @@ export class NewsComponent implements OnInit, OnDestroy {
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
-      if (this.posts && !this.fetching && this.moreDocumentsExist) {
-          const pos =
-              (document.documentElement.scrollTop || document.body.scrollTop) +
-              document.documentElement.offsetHeight;
-          const max = document.documentElement.scrollHeight;
-          if (pos > max - 500) {
-              this.fetchMorePosts();
-          }
+    if (this.posts && !this.fetching && this.moreDocumentsExist) {
+      const pos =
+        (document.documentElement.scrollTop || document.body.scrollTop) +
+        document.documentElement.offsetHeight;
+      const max = document.documentElement.scrollHeight;
+      if (pos > max - 500) {
+        this.fetchMorePosts();
       }
+    }
   }
 
   fetchMorePosts(): void {
-      this.fetching = true;
-      const lastPostDate = this.posts[this.posts.length - 1].published_date;
-      if (this.fetchMorePostsSub) {
-          this.fetchMorePostsSub.unsubscribe();
-      }
-      this.fetchMorePostsSub = this.postsService.getPostsBySinceDateTime(15, this.lang, lastPostDate).subscribe(res => {
-          this.posts = this.posts.concat(res);
-          this.fetching = false;
-          if (!res.length) {
-              this.moreDocumentsExist = false;
-          }
+    this.fetching = true;
+    const lastPostDate = this.posts[this.posts.length - 1].published_date;
+    if (this.fetchMorePostsSub) {
+      this.fetchMorePostsSub.unsubscribe();
+    }
+    this.fetchMorePostsSub = this.postsService
+      .getPostsBySinceDateTime(15, this.lang, lastPostDate)
+      .subscribe(res => {
+        this.posts = this.posts.concat(res);
+        this.fetching = false;
+        if (!res.length) {
+          this.moreDocumentsExist = false;
+        }
       });
   }
 
-  goToPage(slug): void {
-    this.router.navigate([this.lang + "/news/" + slug]);
+  goToPage(item, slug): void {
+    const arg = {
+      article: item,
+      page_location: "news"
+    };
+
+    this.popupWindowCommunicationService.showNewsInPopup(arg);
+    if (this.lang === "sv") {
+      this.location.go("sv/news/" + slug);
+    } else {
+      this.location.go("en/news/" + slug);
+    }
   }
 
   formatDate(date) {
