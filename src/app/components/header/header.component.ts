@@ -129,6 +129,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       if (this.freeze_submenu_bar) {
         this.freeze_submenu_bar = false;
+        this.app_header.nativeElement.style.position = "absolute";
         this.app_header.nativeElement.style.background =
           "linear-gradient(to top, rgba(0, 0, 0, 0), black)";
         this.app_header.nativeElement.style.opacity = "1";
@@ -426,7 +427,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.headerSubscription = this.headerCommunicationService.positionHeaderObservable$.subscribe(
       arg => {
         this.headerPosition = arg;
-        this.app_header.nativeElement.style.marginTop = arg + "px";
       }
     );
 
