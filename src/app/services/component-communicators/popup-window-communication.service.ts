@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Event } from '../../interfaces-and-classes/event';
-import {Archive} from '../../interfaces-and-classes/archive';
-import {FAQ} from '../../interfaces-and-classes/faq';
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs/Subject";
+import { Event } from "../../interfaces-and-classes/event";
+import { Archive } from "../../interfaces-and-classes/archive";
+import { FAQ } from "../../interfaces-and-classes/faq";
 
 @Injectable()
 export class PopupWindowCommunicationService {
@@ -23,7 +23,7 @@ export class PopupWindowCommunicationService {
   private news_notify = new Subject<any>();
   newsNotifyObservable$ = this.news_notify.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   showPageInPopup(page_slug: string) {
     this.page_notify.next(page_slug);

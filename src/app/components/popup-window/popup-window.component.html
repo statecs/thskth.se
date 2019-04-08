@@ -2,38 +2,69 @@
   <div class="background_layer" (click)="hide_popup_window()"></div>
   <div id="popup-window">
     <div #layouts_container class="layouts-container">
-      <div class="exit-popup-btn" (click)="hide_popup_window()"><i class="material-icons">arrow_forward</i><i class="material-icons">arrow_back</i></div>
+      <div class="exit-popup-btn" (click)="hide_popup_window()">
+        <i class="material-icons">arrow_forward</i
+        ><i class="material-icons">arrow_back</i>
+      </div>
       <app-loader *ngIf="loading"></app-loader>
       <!-- ---------- Page layout ---------- -->
       <div *ngIf="showPage && page_data && !loading" class="default-layout">
         <div class="header-image">
-          <img *ngIf="page_data?.header.header_image" src="{{page_data?.header.header_image}}" alt="Header image">
-          <div *ngIf="!page_data?.header.header_image && page_data?.header.header_color" class="header-color" [ngStyle]="{backgroundColor: page_data?.header.header_color}"></div>
-          <div *ngIf="!page_data?.header.header_image && !page_data?.header.header_color" class="default-header"></div>
+          <img
+            *ngIf="page_data?.header.header_image"
+            src="{{ page_data?.header.header_image }}"
+            alt="Header image"
+          />
+          <div
+            *ngIf="
+              !page_data?.header.header_image && page_data?.header.header_color
+            "
+            class="header-color"
+            [ngStyle]="{ backgroundColor: page_data?.header.header_color }"
+          ></div>
+          <div
+            *ngIf="
+              !page_data?.header.header_image && !page_data?.header.header_color
+            "
+            class="default-header"
+          ></div>
         </div>
         <div class="content-container">
           <h2 [innerHTML]="page_data?.name"></h2>
           <p [innerHTML]="page_data?.content"></p>
-          <app-image-gallery *ngIf="page_data?.image_gallery" [imageGallery]="page_data?.image_gallery"></app-image-gallery>
-          <app-text-gallery *ngIf="page_data?.text_gallery" [textGallery]="page_data?.text_gallery"></app-text-gallery>
+          <app-image-gallery
+            *ngIf="page_data?.image_gallery"
+            [imageGallery]="page_data?.image_gallery"
+          ></app-image-gallery>
+          <app-text-gallery
+            *ngIf="page_data?.text_gallery"
+            [textGallery]="page_data?.text_gallery"
+          ></app-text-gallery>
         </div>
       </div>
 
       <!-- ---------- Event layout ---------- -->
       <div *ngIf="showEvent && !loading" class="event-layout">
-        <div class="header-image">
-          <img *ngIf="event?.imageUrl" src="{{event?.imageUrl}}" alt="Header image">
-          <div *ngIf="!event?.imageUrl" class="default-header"></div>
+        <div *ngIf="event?.imageUrl" class="header-image">
+          <img src="{{ event?.imageUrl }}" alt="Header image" />
+          <!--<div *ngIf="!event?.imageUrl"></div>-->
         </div>
         <div class="content-container">
-          <div class="date">{{getDate(event?.start)}}</div>
+          <h2 [innerHTML]="event?.title"></h2>
+          <p class="location">{{ event?.location }}</p>
+          <!--<div class="date">{{ getDate(event?.start) }}</div>-->
           <div class="description">
-            <h2 [innerHTML]="event?.title"></h2>
-            <span class="time">{{formatDate(event?.start, event?.end)}}</span>
-            <p class="location"><span>Location:</span> {{event?.location}}</p>
-            <div class="text">{{event?.description}}</div>
-            <br/>
-            <p>Created by <span class="creator">{{event?.creator.email}}</span></p>
+            <span class="time">{{ formatDate(event?.start, event?.end) }}</span>
+            <br /><br /><label>
+              <i
+                class="material-icons"
+                [ngStyle]="{ color: event.color.primary }"
+                >fiber_manual_record</i
+              >
+              {{ event.calendarName }} </label
+            ><br />
+            <div class="text">{{ event?.description }}</div>
+            <p class="creator">Created by {{ event?.creator }}</p>
           </div>
         </div>
       </div>
@@ -41,9 +72,15 @@
       <!-- ---------- Associations layout ---------- -->
       <div *ngIf="showAssociation && !loading" class="association-layout">
         <div class="header-image">
-          <app-header-slider *ngIf="association?.header_slides.length !== 0" [slides_items]="association.header_slides"></app-header-slider>
+          <app-header-slider
+            *ngIf="association?.header_slides.length !== 0"
+            [slides_items]="association.header_slides"
+          ></app-header-slider>
           <!--<img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">-->
-          <div *ngIf="association?.header_slides.length === 0" class="default-header"></div>
+          <div
+            *ngIf="association?.header_slides.length === 0"
+            class="default-header"
+          ></div>
         </div>
         <div class="content-container">
           <div class="description">
@@ -52,13 +89,19 @@
           </div>
           <div class="contact">
             <h2>Contact</h2>
-            <p>{{association.contact?.title}} {{association.contact?.name}}</p>
-            <p>email: {{association.contact?.email}}</p>
-            <p>phone: {{association.contact?.phone}}</p>
-            <p>website: {{association.contact?.website}}</p>
-            <p>Alternative website: {{association.contact?.website2}}</p>
+            <p>
+              {{ association.contact?.title }} {{ association.contact?.name }}
+            </p>
+            <p>email: {{ association.contact?.email }}</p>
+            <p>phone: {{ association.contact?.phone }}</p>
+            <p>website: {{ association.contact?.website }}</p>
+            <p>Alternative website: {{ association.contact?.website2 }}</p>
           </div>
-          <app-image-slider-secondary *ngIf="relatedAssociations?.items.length != 0" [data]="relatedAssociations" [lang]="lang"></app-image-slider-secondary>
+          <app-image-slider-secondary
+            *ngIf="relatedAssociations?.items.length != 0"
+            [data]="relatedAssociations"
+            [lang]="lang"
+          ></app-image-slider-secondary>
         </div>
       </div>
 
@@ -68,32 +111,27 @@
           <div class="description">
             <h2 [innerHTML]="archive?.title"></h2>
             <div class="categories">
-              <span *ngFor="let c of archive?.categories">{{c.name}}</span>
+              <span *ngFor="let c of archive?.categories">{{ c.name }}</span>
             </div>
             <p [innerHTML]="archive?.description"></p>
             <div class="files">
               <div *ngFor="let f of archive?.documents" class="link_container">
-                <h5>{{f.filename}}</h5>
-                <div *ngIf="f.mime_type ==='pdf'" class="download_link" (click)="downloadFile(f.url)">
-                  <span>PDF </span>
+                <h5 class="download_link" (click)="downloadFile(f.url)">
+                  {{ f.filename }}
                   <i class="material-icons">file_download</i>
-                </div>
-                <div *ngIf="f.mime_type ==='docx'" class="download_link" (click)="downloadFile(f.url)">
-                  <span>DOC </span>
-                  <i class="material-icons">file_download</i>
-                </div>
-                <div *ngIf="f.mime_type ==='zip'" class="download_link" (click)="downloadFile(f.url)">
-                  <span>Zip </span>
-                  <i class="material-icons">file_download</i>
-                </div>
+                </h5>
               </div>
             </div>
           </div>
           <div class="contact">
             <h2>Author</h2>
-            <img src="{{archive?.author.avatar_url}}">
-            <p>name: <span>{{archive?.author.name}}</span></p>
-            <p>last modified: <span>{{archive?.lastModified}}</span></p>
+            <img src="{{ archive?.author.avatar_url }}" />
+            <p>
+              Name: <span>{{ archive?.author.name }}</span>
+            </p>
+            <p>
+              Last modified: <span>{{ archive?.lastModified }}</span>
+            </p>
           </div>
         </div>
       </div>
@@ -114,16 +152,26 @@
           <div class="description">
             <h2 [innerHTML]="news?.title"></h2>
             <div class="label">
-              <label>{{(lang === 'sv' ? 'THS Nyheter' : 'THS News')}}</label>
+              <label>{{ lang === "sv" ? "THS Nyheter" : "THS News" }}</label>
             </div>
             <p [innerHTML]="news?.content"></p>
           </div>
           <div class="contact">
             <h2>Author</h2>
-            <img src="{{news?.author.avatar_url.thumbnail}}">
-            <p>name: <span>{{news?.author.name}}</span></p>
-            <p>email: <a href="mailto:{{news?.author.email}}" class="email">{{news?.author.email}}</a></p>
-            <p>last modified: <span>{{formatDate_News(news?.last_modified)}}</span></p>
+            <img src="{{ news?.author.avatar_url.thumbnail }}" />
+            <p>
+              name: <span>{{ news?.author.name }}</span>
+            </p>
+            <p>
+              email:
+              <a href="mailto:{{ news?.author.email }}" class="email">{{
+                news?.author.email
+              }}</a>
+            </p>
+            <p>
+              last modified:
+              <span>{{ formatDate_News(news?.last_modified) }}</span>
+            </p>
           </div>
         </div>
       </div>
@@ -131,9 +179,39 @@
       <!-- ---------- Page not found ---------- -->
       <app-page-not-found *ngIf="show_page_not_found"></app-page-not-found>
     </div>
-
   </div>
-
 </div>
-<div *ngIf="showPopupWindow && exit_btn1" class="exit-popup-btn-mobile" (click)="hide_popup_window()">X</div>
-<div *ngIf="showPopupWindow && exit_btn2" class="exit-popup-btn-mobile" (click)="hide_popup_window()"><i class="fa fa-times-circle"></i> Close</div>
+<div
+  *ngIf="showPopupWindow && exit_btn1"
+  class="exit-popup-btn-mobile"
+  (click)="hide_popup_window()"
+>
+  <div class="svg-close w-18 text-white">
+    <svg
+      data-v-06449926=""
+      version="1.1"
+      viewBox="0 0 25 25"
+      class="rotate-45 svg-icon svg-fill"
+      style="width: 24px; height: 24px;"
+    >
+      <path pid="0" d="M25 11.5H13.5V0h-2v11.5H0v2h11.5V25h2V13.5H25z"></path>
+    </svg>
+  </div>
+</div>
+<div
+  *ngIf="showPopupWindow && exit_btn2"
+  class="exit-popup-btn-mobile"
+  (click)="hide_popup_window()"
+>
+  <div class="svg-close w-18 text-white">
+    <svg
+      data-v-06449926=""
+      version="1.1"
+      viewBox="0 0 25 25"
+      class="rotate-45 svg-icon svg-fill"
+      style="width: 24px; height: 24px;"
+    >
+      <path pid="0" d="M25 11.5H13.5V0h-2v11.5H0v2h11.5V25h2V13.5H25z"></path>
+    </svg>
+  </div>
+</div>

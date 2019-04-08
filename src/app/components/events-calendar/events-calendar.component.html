@@ -1,49 +1,155 @@
+<div class="header">
+  <div class="default-header"></div>
+</div>
+
 <div *ngIf="showCalendar" class="cal-popup mobile">
+  <div class="header">
+    <div class="default-header-ical"></div>
+  </div>
   <div class="calendar-wrapper">
-    <div class="title">
-      <h2>{{(lang === 'en' ? 'Events calendar' : 'Evenemangskalender')}}</h2>
-    </div>
+    <div class="title"></div>
     <app-calendar></app-calendar>
   </div>
 </div>
 
-<div *ngIf="showCalendar" class="exit-popup-btn-mobile" (click)="hide_popup_window()"><i class="fa fa-times-circle"></i> Done</div>
+<div
+  *ngIf="showCalendar"
+  class="exit-popup-btn-mobile"
+  (click)="hide_popup_window()"
+>
+  <div class="svg-close w-18 text-white">
+    <svg
+      data-v-06449926=""
+      version="1.1"
+      viewBox="0 0 25 25"
+      class="rotate-45 svg-icon svg-fill"
+      style="width: 24px; height: 24px;"
+    >
+      <path pid="0" d="M25 11.5H13.5V0h-2v11.5H0v2h11.5V25h2V13.5H25z"></path>
+    </svg>
+  </div>
+</div>
 
 <div *ngIf="!pageNotFound" id="events-calendar">
-  <div *ngIf="!showCalendar" class="display-cal-btn mobile" (click)="toggleCalendar()">More events</div>
+  <div class="display-cal-container mobile">
+    <div class="display-cal-container-width">
+      <label
+        (click)="getEventsPerToday()"
+        for="selectToday"
+        class="display-cal-btn-select "
+        [class.selected]="selectToday"
+      >
+        Today
+      </label>
+      <input
+        [(ngModel)]="selectToday"
+        name="selectToday"
+        id="selectToday"
+        type="checkbox"
+      />
+
+      <label
+        (click)="getEventsPerTomorrow()"
+        for="selectTomorrow"
+        class="display-cal-btn-select "
+        [class.selected]="selectTomorrow"
+      >
+        Tomorrow
+      </label>
+      <input
+        [(ngModel)]="selectTomorrow"
+        name="selectTomorrow"
+        id="selectTomorrow"
+        type="checkbox"
+      />
+      <label
+        (click)="getEventsPerWeek()"
+        for="selectNextWeek"
+        class="display-cal-btn-select "
+        [class.selected]="selectNextWeek"
+      >
+        Next week
+      </label>
+      <input
+        [(ngModel)]="selectNextWeek"
+        name="selectNextWeek"
+        id="selectNextWeek"
+        type="checkbox"
+      />
+
+      <label
+        (click)="getEventsPerMonth()"
+        for="selectNextMonth"
+        class="display-cal-btn-select "
+        [class.selected]="selectNextMonth"
+      >
+        Next month
+      </label>
+      <input
+        [(ngModel)]="selectNextMonth"
+        name="selectNextMonth"
+        id="selectNextMonth"
+        type="checkbox"
+      />
+    </div>
+  </div>
+
   <div class="title mobile">
-    <h2>{{(lang === 'en' ? 'Events' : 'Evenemang')}}</h2>
+    <div
+      class="display-cal-btn"
+      *ngIf="!showCalendar"
+      (click)="toggleCalendar()"
+    >
+      <i class="material-icons">
+        calendar_today
+      </i>
+    </div>
+    <h2
+      *ngIf="
+        selectToday == false &&
+        selectTomorrow == false &&
+        selectNextWeek == false &&
+        selectNextMonth == false
+      "
+    >
+      {{ lang === "en" ? "Upcoming events" : " Kommande kalenderhändelser" }}
+    </h2>
+    <h2 *ngIf="selectToday">
+      {{ actualDate | date: "EEEE, MMM d" }}
+    </h2>
+    <h2 *ngIf="selectTomorrow">
+      {{ tomorrowDate | date: "EEEE, MMM d" }}
+    </h2>
+    <h2 *ngIf="selectNextWeek">Week {{ nextWeekDate }}</h2>
+    <h2 *ngIf="selectNextMonth">
+      {{ nextMonthDate | date: "MMMM" }}
+    </h2>
   </div>
   <div class="calendar-wrapper larger-devices">
-    <div class="title">
-      <h2>{{(lang === 'en' ? 'Events calendar' : 'Evenemangskalender')}}</h2>
-    </div>
     <app-calendar></app-calendar>
   </div>
-  <!--<div *ngIf="!showFeaturedEvents" class="events-wrapper larger-devices">
-    <div class="events-header">
-      <h2>{{(lang === 'en' ? 'Events on' : 'Evenemang på')}} {{actualDate}}</h2>
-    </div>
-    <div class="events">
-      <div *ngFor="let e of events" class="item" (click)="showInPopup(e)">
-        <div class="img-wrapper" [ngStyle]="{'background-image': 'url(' + getBGimage(e) + ')'}">
-          <span>
-            {{formatTime(e.start, e.end)}}
-          </span>
-        </div>
-        <div class="info">
-          <h5>{{e.title}}</h5>
-          <span>{{formatDate(e.start, e.end)}}</span>
-          <p>{{e.description | cardText:100}}</p>
-        </div>
-      </div>
-      <span *ngIf="events.length === 0">{{(lang === 'en' ? 'There are no events.' : 'Det finns inga evenemang.')}}</span>
-    </div>
-  </div>-->
-  <app-events-cards
-          [title]="(lang === 'en' ? 'Upcoming events' : 'Kommande evenemang')"
-          [events]="earliest_events">
+
+  <div class="calendar-view">
+    <a
+      class="display-cal-btn-select"
+      (click)="_switchCalendarGet()"
+      *ngIf="dayView == true"
+    >
+      {{
+        lang === "en" ? "Go back to month view" : "Gå tillbaka till månadsvyn"
+      }}
+    </a>
+  </div>
+  <app-events-cards [events]="earliest_events">
+    <!--Change title to date when clicked-->
+    <app-calendar></app-calendar>
   </app-events-cards>
+
+  <span *ngIf="earliest_events == 0">{{
+    lang === "en"
+      ? "There are no upcoming events at this time"
+      : "Det finns inga kommande evenemang"
+  }}</span>
   <app-events-list [events]="earliest_events"></app-events-list>
 </div>
 

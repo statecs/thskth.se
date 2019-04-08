@@ -3,37 +3,43 @@
 #homePage {
   position: relative;
   overflow: hidden;
-  .larger-devices{
+  .larger-devices {
     display: block;
   }
-  .mobile-devices{
+  .mobile-devices {
     display: none;
   }
-  .contact{
+  .contact {
     height: 400px;
     margin-top: 50px;
     margin-bottom: 2px;
+    max-width: 1600px;
+
     @include container-size($main-container);
-    & >div{
+    & > div {
       display: inline-block;
     }
-    .contact-info{
+    .contact-info {
       width: 34%;
       height: 100%;
       float: left;
     }
-    .maps{
+    .maps {
       width: 64.65%;
       height: 100%;
       float: right;
     }
   }
 
-  .faq-slider, .image-slider {
+  .faq-slider,
+  .image-slider {
     @include container-size($main-container);
+    max-width: 1600px;
+    margin: 0 auto;
     margin-top: 50px;
-    .title{
-      font-size:$font-size-h2;
+    .title {
+      font-size: 1.5em;
+      padding: 7px 25px 10px 10px;
       margin-bottom: 10px;
       color: $color-link-secondary;
       &:hover {
@@ -41,36 +47,71 @@
       }
     }
 
-    & >a{
+    & > a {
       margin-bottom: 0;
       text-decoration: none;
       font-size: $font-size-h2;
     }
   }
-  app-cards-social-container{
+  app-cards-social-container {
     @include container-size($main-container);
+    max-width: 1600px;
+    margin: 0 auto;
     display: block;
   }
+}
+
+a.headerTitle {
+  padding: 7px 25px 10px 10px;
+  position: relative;
+}
+
+a.headerTitle:before,
+a.headerTitle:after {
+  border-right: 2px solid;
+  content: "";
+  display: block;
+  height: 8px;
+  margin-top: -6px;
+  position: absolute;
+  -moz-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+  right: 10px;
+  top: 50%;
+  width: 0;
+}
+
+a.headerTitle:after {
+  margin-top: -1px;
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #homePage {
-    .larger-devices{
+    .larger-devices {
       display: none;
     }
-    .mobile-devices{
+    .mobile-devices {
       display: block;
     }
-    .contact{
-      @include container-size(80%);
+    .contact {
+      @include container-size(90%);
+      max-width: 1600px;
+      margin: 0 auto;
       height: auto;
-      .contact-info{
+      .contact-info {
         width: 100%;
         height: 100%;
         float: none;
+        padding-bottom: 30px;
       }
-      .maps{
+      .maps {
         width: 100%;
         height: 300px;
         float: none;
@@ -78,18 +119,18 @@
     }
     .faq-slider {
       width: 95%;
-      & >div{
+      & > div {
         font-size: $font-size-h3;
       }
     }
     .image-slider {
       width: 100%;
-      & >div{
+      & > div {
         font-size: $font-size-h3;
         margin-left: 2.5%;
       }
     }
-    app-cards-social-container{
+    app-cards-social-container {
       width: 90%;
       display: block;
     }
@@ -98,21 +139,21 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #homePage {
-    .larger-devices{
+    .larger-devices {
       display: none;
     }
-    .mobile-devices{
+    .mobile-devices {
       display: block;
     }
-    .contact{
+    .contact {
       @include container-size(80%);
       height: auto;
-      .contact-info{
+      .contact-info {
         width: 100%;
         height: 100%;
         float: none;
       }
-      .maps{
+      .maps {
         width: 100%;
         height: 300px;
         float: none;
@@ -120,18 +161,18 @@
     }
     .faq-slider {
       width: 95%;
-      & >div{
+      & > div {
         font-size: $font-size-h3;
       }
     }
     .image-slider {
       width: 100%;
-      & >div{
+      & > div {
         font-size: $font-size-h3;
         margin-left: 2.5%;
       }
     }
-    app-cards-social-container{
+    app-cards-social-container {
       width: 90%;
       display: block;
     }
@@ -140,25 +181,25 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #homePage {
-    .contact{
+    .contact {
       height: 300px;
       margin-top: 50px;
       width: 95%;
     }
     .faq-slider {
       width: 95%;
-      & >div{
+      & > div {
         font-size: $font-size-h3;
       }
     }
     .image-slider {
       width: 95%;
-      & >div{
+      & > div {
         font-size: $font-size-h3;
         margin-left: 2.5%;
       }
     }
-    app-cards-social-container{
+    app-cards-social-container {
       width: 95%;
       display: block;
     }
@@ -167,24 +208,24 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #homePage {
-    .contact{
+    .contact {
       height: 300px;
       margin-top: 50px;
     }
     .faq-slider {
       width: 90%;
-      & >div{
+      & > div {
         font-size: $font-size-h3;
       }
     }
     .image-slider {
       width: 90%;
-      & >div{
+      & > div {
         font-size: $font-size-h3;
         margin-left: 2.5%;
       }
     }
-    app-cards-social-container{
+    app-cards-social-container {
       width: 90%;
       display: block;
     }
@@ -192,5 +233,4 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

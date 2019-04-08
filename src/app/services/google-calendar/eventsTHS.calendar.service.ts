@@ -9,37 +9,19 @@ import { Observable } from "rxjs/Observable";
 import { URLSearchParams } from "@angular/http";
 
 @Injectable()
-export class EducationCalendarService extends BaseDataService<Event> {
+export class EventsTHSService extends BaseDataService<Event> {
   protected config: AppConfig;
-
   constructor(
     protected dataFetcherService: DataFetcherService,
     private injector: Injector
   ) {
-    super(
-      dataFetcherService,
-      injector.get(APP_CONFIG).GOOGLE_CALENDAR_BASE_URL +
-        ths_calendars.education.calendarId +
-        "/events"
-    );
+    super(dataFetcherService, injector.get(APP_CONFIG).EVENTS_URL + "?lang=en");
     this.config = injector.get(APP_CONFIG);
   }
 
-  getCalendar(params: URLSearchParams): Observable<Event[]> {
+  getCalendar(): Observable<Event[]> {
     return this.dataFetcherService
-      .get(
-        this.config.GOOGLE_CALENDAR_BASE_URL +
-          ths_calendars.education.calendarId +
-          "/events",
-        params
-      )
-      .map(res =>
-        Event.convertToEventType(
-          res,
-          ths_calendars.education.calendarId,
-          this.injector.get(APP_CONFIG).EVENT_IMAGE_BASE_URL,
-          ths_calendars.education.calendarName
-        )
-      );
+      .get(this.config.EVENTS_URL + "?lang=en")
+      .map(res => Event.convertFBToEventType(res));
   }
 }

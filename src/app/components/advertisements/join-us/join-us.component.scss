@@ -1,11 +1,12 @@
 @import "../../../../style/utilities";
 
-#join-us{
+#join-us {
   color: white;
   background-color: rgb(0, 64, 108);
   text-align: left;
   padding: 5px 20px 25px;
-  .button{
+  border-radius: 15px;
+  .button {
     display: inline-block;
     text-decoration: none;
     border: 1px solid white;
@@ -20,28 +21,23 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #join-us {
-
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #join-us {
-
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #join-us {
-
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #join-us {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

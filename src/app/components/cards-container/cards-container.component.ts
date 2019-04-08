@@ -37,7 +37,8 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   private cardsUpdater: Subscription;
   protected config: AppConfig;
 
-  public events: Event[];
+  public events: any;
+  public fetched_events: any;
 
   public selected_event_title: string;
   public selected_event_text: string;
@@ -53,6 +54,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   public deviceSize: number;
   public restaurant: Restaurant;
   public date: Date;
+  public dateDay: any;
 
   constructor(
     private cardsService: CardsService,
@@ -73,6 +75,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     this.lang = activatedRoute.snapshot.data["lang"];
     this.deviceSize = window.screen.width;
     this.date = new Date();
+    this.dateDay = format(new Date(), "d");
   }
 
   @HostListener("window:scroll", ["$event"])
@@ -97,26 +100,43 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  showPage(slug, window_type, slug_to_page): void {
+  showPage(window_type, slug_to_page): void {
     if (slug_to_page) {
-      if (this.lang === "sv") {
-        slug_to_page =
-          "sv" +
-          (slug_to_page.substring(0, 1) === "/" ? "" : "/") +
-          slug_to_page;
+      if (
+        slug_to_page.substring(0, 7) === "http://" ||
+        slug_to_page.substring(0, 8) === "https://"
+      ) {
+        if (window_type === "same-page") {
+          window.open(slug_to_page, "_self");
+        } else {
+          window.open(slug_to_page, "_blank");
+        }
       } else {
-        slug_to_page =
-          "en" +
-          (slug_to_page.substring(0, 1) === "/" ? "" : "/") +
-          slug_to_page;
-      }
-      if (window_type === "popup-window") {
-        this.popupWindowCommunicationService.showPageInPopup(slug);
-        this.location.go(slug_to_page);
-      } else if (window_type === "new-tab") {
-        window.open("/" + slug_to_page, "_blank");
-      } else if (window_type === "same-page") {
-        this.router.navigate(["/" + slug_to_page]);
+        if (window_type === "popup-window") {
+          var last = slug_to_page.substring(
+            slug_to_page.lastIndexOf("/") + 1,
+            slug_to_page.length
+          );
+          this.popupWindowCommunicationService.showPageInPopup(last);
+          this.location.go(slug_to_page);
+        }
+
+        if (this.lang === "sv") {
+          slug_to_page =
+            "sv" +
+            (slug_to_page.substring(0, 1) === "/" ? "" : "/") +
+            slug_to_page;
+        } else {
+          slug_to_page =
+            "en" +
+            (slug_to_page.substring(0, 1) === "/" ? "" : "/") +
+            slug_to_page;
+        }
+        if (window_type === "new-tab") {
+          window.open("/" + slug_to_page, "_blank");
+        } else if (window_type === "same-page") {
+          this.router.navigate(["/" + slug_to_page]);
+        }
       }
     }
   }
@@ -212,11 +232,11 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   getDate(): string {
-    return format(this.date, "ddd DD/MM");
+    return format(this.date, "ddd D/M");
   }
 
   getDayIndex(): number {
-    return parseInt(format(this.date, "d"), 10) - 1;
+    return parseInt(format(this.date, "d"), 10);
   }
 
   getWeekNumber(): string {
@@ -224,11 +244,20 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   switchCalendar(calendarId, index) {
-    this.getCalendar(calendarId);
-    this.selected_event_category = index;
+    this.selected_event_category = calendarId;
+    let cal_Id = "";
+    if (calendarId === null) {
+      cal_Id = "all";
+      this.getAllEvents();
+    } else {
+      this.getCalendar(calendarId);
+      this.selected_event_category = index;
+    }
   }
 
   getCalendar(calendarId): void {
+    this.selected_event_title = "";
+    this.selected_event_text = "";
     this.eventsSubscription = this.googleCalendarService
       .getUpcomingEvents(calendarId, 3)
       .subscribe(
@@ -246,6 +275,20 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       );
   }
 
+  mergeArrays(arrays: any): Event[] {
+    let merged: Event[] = [];
+    arrays.forEach(event => {
+      merged = merged.concat(event);
+    });
+    return merged;
+  }
+
+  sortArrayByTime(a, b) {
+    a = new Date(a.start);
+    b = new Date(b.start);
+    return a < b ? -1 : a > b ? 1 : 0;
+  }
+
   getRestaurantMenu(): void {
     this.restaurantUpdater = this.restaurantService
       .getSingleRestaurant("nymble-restaurant", this.lang)
@@ -260,17 +303,49 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       );
   }
 
+  getAllEvents() {
+    this.selected_event_category = -1;
+    this.eventsSubscription = this.googleCalendarService
+      .getAllEventsCard(null, "")
+      .subscribe(res => {
+        const mergedArrays = this.mergeArrays(res);
+        const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+        if (sortedArrays.length > 5) {
+          this.events = sortedArrays.slice(0, 5);
+        } else {
+          this.events = sortedArrays;
+          this.fetched_events = localStorage.setItem(
+            "events_list",
+            JSON.stringify(this.events)
+          );
+        }
+      });
+  }
+
+  fetchEvents(): void {
+    if (this.fetched_events) {
+      this.events = localStorage.getItem("events_list");
+    } else {
+      this.getAllEvents();
+    }
+  }
+
   ngOnInit() {
     this.selected_event_title = "";
     this.selected_event_text = "";
     this.selected_event_index = 0;
+    this.selected_event_category = -1;
+    this.fetchEvents();
+    //this.fetchEvents();
+
     this.cardsUpdater = this.cardCategorizerCardContainerService.notifyObservable$.subscribe(
       arg => {
         this.displayCards(arg);
+        this.fetchEvents();
       }
     );
 
-    this.getCalendar(ths_calendars.events.calendarId);
+    // this.getCalendar(ths_calendars.events.calendarId);
     this.getRestaurantMenu();
   }
 

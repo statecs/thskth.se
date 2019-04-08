@@ -1,26 +1,80 @@
 <div class="categories">
-    <div *ngIf="calendar_names" class="cat-wrapper">
-        <div class="item" (click)="switchCalendar(null)" [ngClass]="{'selected': selected_event_category === -1}">{{(lang === 'en' ? 'All' : 'Alla')}}</div>
-        <div *ngFor="let cName of calendar_names, let i = index" class="item" (click)="switchCalendar(cName)" [ngClass]="{'selected': selected_event_category === cName}">{{(lang === 'en' ? ths_calendars[cName].title.en : ths_calendars[cName].title.sv)}}</div>
+  <div *ngIf="calendar_names" class="cat-wrapper">
+    <div
+      mwlCalendarToday
+      [(viewDate)]="viewDate"
+      class="item"
+      (click)="switchCalendar(null)"
+      [ngClass]="{ selected: selected_event_category == null }"
+    >
+      {{ lang === "en" ? "All" : "Alla" }}
     </div>
+    <div
+      *ngFor="let cName of calendar_names; let i = index"
+      class="item"
+      (click)="switchCalendar(cName)"
+      [ngClass]="{ selected: selected_event_category === cName }"
+    >
+      {{
+        lang === "en"
+          ? ths_calendars[cName].title.en
+          : ths_calendars[cName].title.sv
+      }}
+    </div>
+  </div>
 </div>
 
+<ng-template
+  #customCellTemplate
+  let-day="day"
+  let-openDay="openDay"
+  let-locale="locale"
+  let-tooltipPlacement="tooltipPlacement"
+  let-highlightDay="highlightDay"
+  let-unhighlightDay="unhighlightDay"
+  let-eventClicked="eventClicked"
+  let-tooltipTemplate="tooltipTemplate"
+  let-tooltipAppendToBody="tooltipAppendToBody"
+>
+  <div class="cal-cell-top">
+    <span class="cal-day-number"> {{ day.date | date: "d" }}</span>
+  </div>
+  <div class="cal-events" *ngIf="day.events.length > 0">
+    <div
+      class="cal-event"
+      *ngFor="let event of day.events; trackBy: trackByEventId"
+      [style.backgroundColor]="event.color?.primary"
+      [ngClass]="event?.cssClass"
+      (mouseenter)="highlightDay.emit({ event: event })"
+      (mouseleave)="unhighlightDay.emit({ event: event })"
+      [mwlCalendarTooltip]="
+        event.title | calendarEventTitle: 'monthTooltip':event
+      "
+      (mwlClick)="eventClicked.emit({ event: event })"
+    ></div>
+  </div>
+</ng-template>
+
 <app-calendar-header
-        [(view)]="view"
-        [(viewDate)]="viewDate"
-        [(lang)]="lang"
-        (updateEvents)="fetchEvents()">
+  [(view)]="view"
+  [(viewDate)]="viewDate"
+  [(lang)]="lang"
+  (updateEvents)="changeMonth()"
+>
 </app-calendar-header>
 <app-loader *ngIf="e_loading"></app-loader>
-<div class="scheme" *ngIf="events$ | async; else loading; let events">
-    <div [ngSwitch]="view">
-        <mwl-calendar-month-view
-                *ngSwitchCase="'month'"
-                [viewDate]="viewDate"
-                [events]="events"
-                [activeDayIsOpen]="activeDayIsOpen"
-                (dayClicked)="dayClicked($event.day)"
-                (eventClicked)="eventClicked($event.event)">
-        </mwl-calendar-month-view>
-    </div>
+<div class="scheme" *ngIf="(events$ | async); else loading; let events">
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      [cellTemplate]="customCellTemplate"
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      [events]="events"
+      weekStartsOn="1"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="eventClicked($event.event)"
+    >
+    </mwl-calendar-month-view>
+  </div>
 </div>

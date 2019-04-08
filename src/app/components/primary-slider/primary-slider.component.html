@@ -1,71 +1,112 @@
-<div #primary_slider id="primary-slider" (mousemove)="mouseMovingOnPlayer()">
-  <div #slides_container class="slides">
-    <div *ngFor="let slide of slides" class="slide">
-      <!-- ----- Text center template ----->
-      <div *ngIf="slide.template === 'text-center-template'" class="text-center-template">
-        <h2>{{slide.title}}</h2>
-        <p class="larger-devices" [innerHTML]="slide.description | cardText:350"></p>
-        <p class="mobile" [innerHTML]="slide.description | cardText:150"></p>
-        <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> {{read_more_text}}</button>
-      </div>
-
-      <!-- ----- Video template ----->
-      <div *ngIf="slide.template === 'video-template'" class="video-template" (click)="togglePlay()" [style.backgroundImage]="'url(' + getBgUrl(slide) + ')'">
-        <video #video_player [src]="slide.video" preload="metadata" (pause)="pauseVideo()" (ended)="pauseVideo()">
-          <source src="{{slide.video}}">
-          Your browser does not support HTML5 video player.
-        </video>
-        <div class="video-controller">
-          <i #playButton class="material-icons">play_circle_outline</i>
+<div class="slider-bar-container-fluid" #slider_bar_container_fluid>
+  <div class="slider-bar">
+    <div
+      *ngFor="let slide of slides; let i = index"
+      class="item"
+      (click)="showSelectedSlide(i)"
+    >
+      <div class="slider-progress-bar"></div>
+      <div class="text">
+        <div class="number">
+          <span>{{ i + 1 }}</span>
         </div>
-      </div>
-
-      <!-- ----- Image on right template ----->
-      <div *ngIf="slide.template === 'image-on-right-template'" class="image-on-right-template">
-        <div class="text-wrapper">
-          <h2>{{slide.title}}</h2>
-          <p class="larger-devices" [innerHTML]="slide.description | cardText:350"></p>
-          <p class="mobile" [innerHTML]="slide.description | cardText:150"></p>
-          <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> {{read_more_text}}</button>
-        </div>
-        <div class="img-wrapper">
-          <img *ngIf="deviceSize < 768" src="{{slide.image.thumbnail}}">
-          <img *ngIf="deviceSize >= 768 && deviceSize < 992" src="{{slide.image.medium}}">
-          <img *ngIf="deviceSize >= 992 && deviceSize < 1200" src="{{slide.image.medium_large}}">
-          <img *ngIf="deviceSize >= 1200" src="{{slide.image.large}}">
-        </div>
-      </div>
-
-      <!-- ----- Image on left template ----->
-      <div *ngIf="slide.template === 'image-on-left-template'" class="image-on-left-template">
-        <div class="img-wrapper">
-          <img *ngIf="deviceSize < 768" src="{{slide.image.thumbnail}}">
-          <img *ngIf="deviceSize >= 768 && deviceSize < 992" src="{{slide.image.medium}}">
-          <img *ngIf="deviceSize >= 992 && deviceSize < 1200" src="{{slide.image.medium_large}}">
-          <img *ngIf="deviceSize >= 1200" src="{{slide.image.large}}">
-        </div>
-        <div class="text-wrapper">
-          <h2>{{slide.title}}</h2>
-          <p class="larger-devices" [innerHTML]="slide.description | cardText:350"></p>
-          <p class="mobile" [innerHTML]="slide.description | cardText:150"></p>
-          <button *ngIf="slide.link_to_page" type="button" (click)="goToPage(slide.link_to_page)">> {{read_more_text}}</button>
-        </div>
+        <span class="title">{{ slide.title | cardText: 20 }}</span>
       </div>
     </div>
-
   </div>
-  <div class="slider-bar-container" #slider_bar_container>
-    <div class="slider-bar">
-      <div *ngFor="let slide of slides, let i = index" class="item" (click)="showSelectedSlide(i+1)">
-        <div class="slider-progress-bar"></div>
-        <div class="text">
-          <div class="number">
-            <span>{{i+1}}</span>
-          </div>
-          <span class="title">{{slide.title | cardText:20}}</span>
-        </div>
-      </div>
-    </div>
-    <div class="slideshow-play-button" (click)="toggleMainSlider()"><i class="material-icons">{{slideshow_play_btn}}</i></div>
+  <div class="slideshow-play-button" (click)="toggleMainSlider()">
+    <i class="material-icons">{{ slideshow_play_btn }}</i>
   </div>
 </div>
+<ng-container *ngFor="let slide of slides; let i = index; let first = first">
+  <div class="flexbox" [class.first]="first">
+    <div
+      #primary_video
+      id="primary-video"
+      (mousemove)="mouseMovingOnPlayer()"
+      (touchstart)="swipe($event, 'start')"
+      (touchend)="swipe($event, 'end')"
+      *ngIf="slide.template === 'video-template'"
+      [class.special]="slideIndex == i"
+    >
+      <div class="slides">
+        <!-- ----- Video template ----->
+        <div
+          class="video-template"
+          (click)="togglePlay()"
+          [style.backgroundImage]="'url(' + getBgUrl(slide) + ')'"
+        >
+          <video
+            *ngIf="slideIndex == i"
+            #video_player
+            [src]="slide.video"
+            preload="metadata"
+            (pause)="pauseVideo()"
+            (ended)="pauseVideo()"
+          >
+            <source src="{{ slide.video }}" />
+            Your browser does not support HTML5 video player.
+          </video>
+          <div class="video-controller">
+            <i *ngIf="slideIndex == i" #playButton class="material-icons"
+              >play_circle_outline</i
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      #primary_slider
+      id="primary-slider"
+      (mousemove)="mouseMovingOnPlayer()"
+      (touchstart)="swipe($event, 'start')"
+      (touchend)="swipe($event, 'end')"
+    >
+      <div class="slider-bar-container">
+        <div class="slider-bar"></div>
+      </div>
+    </div>
+    <ng-container *ngFor="let slide of slides; let l = index">
+      <div
+        #primary
+        id="primary"
+        (mousemove)="mouseMovingOnPlayer()"
+        (touchstart)="swipe($event, 'start')"
+        (touchend)="swipe($event, 'end')"
+        *ngIf="slideIndex == l"
+        [class.image-on-left-template]="
+          slide.template === 'image-on-left-template'
+        "
+        [class.image-on-right-template]="
+          slide.template === 'image-on-right-template'
+        "
+        [class.text-center-template]="slide.template === 'text-center-template'"
+        [style.background]="slide.bg_color ? slide.bg_color : '#000000'"
+      >
+        <div #slides_container class="slides">
+          <div class="slide">
+            <div class="text-wrapper">
+              <h2>{{ slide.title }}</h2>
+              <p
+                class="larger-devices"
+                [innerHTML]="slide.description | cardText: 150"
+              ></p>
+              <p
+                class="mobile"
+                [innerHTML]="slide.description | cardText: 150"
+              ></p>
+              <button
+                *ngIf="slide.link_to_page"
+                type="button"
+                (click)="goToPage(slide.link_to_page)"
+              >
+                {{ read_more_text }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

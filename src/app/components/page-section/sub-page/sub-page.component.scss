@@ -1,23 +1,52 @@
 @import "../../../../style/_utilities";
-.freeze-submenu-bar{
+.freeze-submenu-bar {
   @include freeze-submenu-bar;
 }
-.submenu-bar{
+.submenu-bar {
   @include submenu-bar;
 }
-.mobile{
+.mobile {
   display: none;
 }
-#content-container{
-  @include container-size($main-container);
+#content-container {
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
-  .larger-devices{
+  .larger-devices {
     display: block;
   }
-  #page{
+  .header-image {
+    max-height: 350px;
+    overflow: hidden;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    img {
+      min-width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+    .default-header {
+      width: 100%;
+      height: 270px;
+      background-color: #00406c;
+    }
+    .default-header-height {
+      width: 100%;
+      height: 270px;
+    }
+  }
+  #page {
+    box-shadow: 0 1px 2px #b2b2b2;
     margin-top: 10px;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+    background-color: white;
+    position: relative;
+    top: -170px;
+    border-radius: 15px;
+    width: 85%;
     .heading {
       position: relative;
       margin-bottom: 40px;
@@ -38,32 +67,32 @@
       }
     }
 
-    .side-bar{
+    .side-bar {
       width: 25%;
       display: inline-block;
-      text-align: right;
-      .submenu{
+      text-align: left;
+      .submenu {
         margin-bottom: 20px;
-        .submenu-item{
+        .submenu-item {
           padding: 15px 5px;
           position: relative;
           font-weight: 600;
           cursor: pointer;
           border-bottom: 1px solid lightgrey;
-          a{
+          a {
             text-decoration: none;
             color: $text-color-default;
           }
-          &:hover{
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+          &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
           }
-          &:last-child{
+          &:last-child {
             border: 0;
           }
         }
       }
     }
-    .content-container{
+    .content-container {
       width: 66%;
       display: inline-block;
       position: relative;
@@ -76,7 +105,8 @@
         border-top: 1px solid #cac8c8;
         padding: 25px 0;
         margin: 0;
-        dt, dd {
+        dt,
+        dd {
           line-height: 1.42857;
         }
         dt {
@@ -84,7 +114,7 @@
         }
         dd {
           margin-left: 0;
-          a{
+          a {
             text-decoration: none;
             color: $color-link-secondary;
             &:hover {
@@ -102,58 +132,58 @@
         .dl-horizontal dd {
           margin-bottom: 12px;
         }
-
       }
-      .article-footer .dl-in-article-footer dt, .article-footer-news .dl-in-article-footer dt {
+      .article-footer .dl-in-article-footer dt,
+      .article-footer-news .dl-in-article-footer dt {
         width: 100px;
       }
-      .content{
+      .content {
         margin-bottom: 50px;
       }
     }
   }
 }
 
-:host /deep/ table{
+:host /deep/ table {
   width: 100%;
   margin: 10px 0;
   border-collapse: collapse;
-  td{
+  td {
     border: 1px solid lightgray;
     padding: 10px;
   }
 }
 
-:host /deep/ .showbox{
+:host /deep/ .showbox {
   padding-bottom: 200px !important;
   padding-top: 250px !important;
 }
 
-:host /deep/ #join-us{
+:host /deep/ #join-us {
   margin-bottom: 35px;
 }
 
-:host /deep/ .content-container{
-  .content{
-    >h1{
+:host /deep/ .content-container {
+  .content {
+    > h1 {
       font-size: $font-size-h3;
     }
-    a{
+    a {
       text-decoration: none;
       color: $color-link-secondary;
-      &:hover{
+      &:hover {
         color: $color-link-secondary-hover;
       }
     }
-    & >h2{
+    & > h2 {
       font-size: $font-size-h2;
     }
-    & >p{
-      & >h2{
+    & > p {
+      & > h2 {
         font-weight: 600;
       }
     }
-    video{
+    video {
       width: 100% !important;
       height: auto !important;
     }
@@ -162,25 +192,48 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
-  .mobile{
+  .mobile {
     display: block;
   }
+  .submenu-bar {
+    font-size: 0.9em;
+    top: 110px;
+    width: 95%;
+    margin-left: 2.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+  .app-breadcrumb {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 130px;
+    width: 100%;
+  }
   #content-container {
+    padding: 0;
     width: 100%;
     margin-top: 0;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    #page{
-      width: 90%;
-      margin-left: 5%;
-      .heading{
+    #page {
+      width: 95%;
+      padding: 50px 20px;
+      .heading {
         margin-bottom: 0;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
+      .divider {
+        border-top: 1px solid gray;
+      }
+      .content-container {
         width: 100%;
         margin-left: 0;
         left: 0;
@@ -188,8 +241,8 @@
     }
   }
 
-  :host /deep/ .content{
-    img{
+  :host /deep/ .content {
+    img {
       width: 100%;
       height: auto;
     }
@@ -197,25 +250,43 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
-  .mobile{
+  .mobile {
     display: block;
   }
+  .submenu-bar {
+    font-size: 0.9em;
+    top: 110px;
+    width: 90%;
+    margin-left: 5%;
+    border-radius: 15px;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+  .app-breadcrumb {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 130px;
+    width: 100%;
+  }
   #content-container {
+    padding: 0;
     width: 100%;
     margin-top: 0;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    #page{
+    #page {
       width: 90%;
-      margin-left: 5%;
-      .heading{
+      padding: 50px 20px;
+      .heading {
         margin-bottom: 0;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
+      .content-container {
         width: 100%;
         margin-left: 0;
         left: 0;
@@ -223,8 +294,8 @@
     }
   }
 
-  :host /deep/ .content{
-    img{
+  :host /deep/ .content {
+    img {
       width: 100%;
       height: auto;
     }
@@ -232,25 +303,39 @@
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
-  .mobile{
+  .mobile {
     display: block;
   }
+  .submenu-bar {
+    top: 110px;
+    width: 90%;
+    margin-left: 5%;
+    border-radius: 15px;
+  }
+  .app-breadcrumb {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 130px;
+    width: 100%;
+  }
   #content-container {
+    padding: 0;
     width: 100%;
     margin-top: 0;
-    .larger-devices{
+    .larger-devices {
       display: none !important;
     }
-    #page{
+    #page {
       width: 90%;
-      margin-left: 5%;
-      .heading{
+      padding: 50px 30px;
+      .heading {
         margin-bottom: 0;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
+      .content-container {
         width: 100%;
         margin-left: 0;
         left: 0;
@@ -258,8 +343,8 @@
     }
   }
 
-  :host /deep/ .content{
-    img{
+  :host /deep/ .content {
+    img {
       max-width: 100%;
       height: auto;
     }
@@ -302,4 +387,15 @@
       }
     }
   }
+  #breadcrumbs {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  /*  .app-breadcrumb {
+    margin-left: 5%;
+    display: block;
+    position: absolute;
+    top: 130px;
+    width: 100%;
+  }*/
 }

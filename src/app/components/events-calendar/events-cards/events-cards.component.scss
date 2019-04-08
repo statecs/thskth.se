@@ -1,69 +1,84 @@
 @import "../../../../style/utilities";
 
-
-.mobile{
+.mobile {
   display: none !important;
 }
 
-.featured-events{
+.featured-events {
   margin-top: 40px;
-  background-color: $bg-color-default;
-  .heading{
+  .heading {
     text-align: left;
     padding: 0 30px;
-    h2{
-      border-bottom: 1px solid lightgrey;
+    h2 {
       padding-bottom: 10px;
       width: 60%;
       display: inline-block;
     }
   }
-  .events-container{
-    .f_events-wrapper{
-      .event{
+  .events-container {
+    width: 100%;
+    overflow-x: scroll;
+    padding: 0 0 15px;
+    .f_events-wrapper {
+      width: 2000%;
+      .event {
+        width: 29%;
+        margin: 0 10px;
+        float: left;
+        max-width: 250px;
+        height: 250px;
+        box-shadow: 0 1px 2px #b2b2b2;
+        border-radius: 15px;
+        cursor: pointer;
+        /*  max-width: 250px;
         width: 25%;
         display: inline-block;
-        margin: 0 2%;
+        margin: 0 10px;
         vertical-align: top;
-        box-shadow: 1px 2px 10px rgba(114, 114, 114, 0.35);
+        box-shadow: 0 1px 2px #b2b2b2;
         height: 250px;
         border-radius: 3px;
+        border-radius: 15px;
         overflow: hidden;
-        cursor: pointer;
-        .image-wrapper{
+        cursor: pointer;*/
+        .image-wrapper {
+          border-top-right-radius: 15px;
+          border-top-left-radius: 15px;
           height: 170px;
-          background-color: #e2e2e2;
           position: relative;
           background-position: center;
           background-size: cover;
-          .date{
-            width: 50px;
-            height: 50px;
-            background-color: rgba(255, 255, 255, 0.67);
+          .date {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.77);
             float: left;
-            font-weight: $font-weight-bold;
-            padding-top: 5px;
+            font-weight: 600;
+            padding: 5px;
+            border-radius: 45px;
+            margin: 5px;
+            font-size: 0.8em;
           }
-          img{
+          img {
             width: 100%;
             height: auto;
             position: absolute;
             left: 0;
           }
         }
-        .info{
+        .info {
           text-align: left;
           padding: 0 10px;
-          h2{
-            font-size: $font-size-h4;
+          h2 {
+            font-size: 1em;
             margin: 10px 0;
           }
-          label{
+          label {
             color: gray;
             align-items: center;
             display: flex;
             font-size: 0.85em;
-            i{
+            i {
               font-size: 1.25em;
             }
           }
@@ -73,8 +88,8 @@
   }
 }
 
-:host /deep/ .calendar-wrapper{
-  .cal-header{
+:host /deep/ .calendar-wrapper {
+  .cal-header {
     font-weight: 400 !important;
     font-size: $font-size-h7;
   }
@@ -83,67 +98,68 @@
     min-height: 50px !important;
   }
 }
-:host /deep/ .cal-month-view .cal-cell-top{
+:host /deep/ .cal-month-view .cal-cell-top {
   min-height: 50px !important;
 }
-:host /deep/ .cal-month-view .cal-day-cell.cal-today .cal-day-number{
+:host /deep/ .cal-month-view .cal-day-cell.cal-today .cal-day-number {
   font-size: 1.2em !important;
 }
 
-::-webkit-scrollbar
-{
-  width: 2px;  /* for vertical scrollbars */
+::-webkit-scrollbar {
+  width: 2px; /* for vertical scrollbars */
   height: 2px; /* for horizontal scrollbars */
 }
 
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
   background: #a8a8a8;
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: rgb(102, 101, 101);
   border-radius: 10px;
 }
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
-  .mobile{
+  .mobile {
     display: inline-block !important;
   }
 
-  .featured-events{
-    margin-top: 20px;
-    .heading{
-      h2{
+  .featured-events {
+    margin-top: 80px;
+    .heading {
+      h2 {
+        display: none;
         width: 100%;
       }
     }
     .events-container {
       width: 100%;
       overflow-x: scroll;
-      padding: 0 0 15px;
+      padding: 0 15px 15px;
       .f_events-wrapper {
-        width: 150%;
+        width: 2000%;
         .event {
           width: 29%;
-          margin: 0 1.5%;
+          margin: 0 10px;
           float: left;
-          height: 200px;
-          .image-wrapper{
+          max-width: 250px;
+          height: 210px;
+          .image-wrapper {
+            border-top-right-radius: 15px;
+            border-top-left-radius: 15px;
             height: 140px;
-            .date{
+            .date {
               width: 40px;
               height: 40px;
               font-size: 0.9em;
               padding-top: 0;
             }
           }
-          .info{
+          .info {
             font-size: $font-size-h6;
-            h2{
-              font-size: $font-size-h5;
+            h2 {
+              font-size: $font-size-h6;
             }
           }
         }
@@ -153,13 +169,14 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
-  .mobile{
+  .mobile {
     display: inline-block !important;
   }
-  .featured-events{
+  .featured-events {
     margin-top: 20px;
-    .heading{
-      h2{
+    .heading {
+      h2 {
+        display: none;
         width: 100%;
       }
     }
@@ -168,28 +185,29 @@
       overflow-x: scroll;
       padding: 0 0 15px;
       .f_events-wrapper {
-        width: 150%;
+        width: 2000%;
         .event {
           width: 29%;
-          margin: 0 1.5%;
+          margin: 0 10px;
+          max-width: 250px;
           float: left;
           height: 200px;
-          .image-wrapper{
+          .image-wrapper {
             height: 140px;
-            .date{
+            .date {
               width: 40px;
               height: 40px;
               font-size: 0.9em;
               padding-top: 0;
             }
-            img{
+            img {
               top: -10%;
             }
           }
-          .info{
+          .info {
             font-size: $font-size-h6;
-            h2{
-              font-size: $font-size-h5;
+            h2 {
+              font-size: $font-size-h6;
             }
           }
         }
@@ -199,14 +217,15 @@
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
-  .mobile{
+  .mobile {
     display: inline-block !important;
   }
 
-  .featured-events{
+  .featured-events {
     margin-top: 20px;
-    .heading{
-      h2{
+    .heading {
+      h2 {
+        display: none;
         width: 100%;
       }
     }
@@ -215,28 +234,29 @@
       overflow-x: scroll;
       padding: 0 0 15px;
       .f_events-wrapper {
-        width: 150%;
+        width: 2000%;
         .event {
           width: 29%;
-          margin: 0 1.5%;
+          margin: 0 10px;
           float: left;
+          max-width: 250px;
           height: 250px;
-          .image-wrapper{
+          .image-wrapper {
             height: 170px;
-            .date{
+            .date {
               width: 40px;
               height: 40px;
               font-size: 0.9em;
               padding-top: 0;
             }
-            img{
+            img {
               top: -20%;
             }
           }
-          .info{
+          .info {
             font-size: $font-size-default;
-            h2{
-              font-size: $font-size-h4;
+            h2 {
+              font-size: $font-size-h6;
             }
           }
         }
@@ -246,11 +266,20 @@
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
-  .featured-events{
-    .events-container{
-      .f_events-wrapper{
-        .event{
-          .info{
+  .featured-events {
+    .events-container {
+      width: 100%;
+      overflow-x: scroll;
+      padding: 0 15px 15px;
+      .f_events-wrapper {
+        width: 2000%;
+        .event {
+          width: 29%;
+          margin: 0 10px;
+          float: left;
+          max-width: 250px;
+          height: 250px;
+          .info {
             font-size: $font-size-h6;
           }
         }
@@ -260,5 +289,4 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

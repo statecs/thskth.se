@@ -3,19 +3,23 @@
 .masonry-layout {
   height: auto;
   @include container-size($main-container + 2%);
+  max-width: 1600px;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 
-  .no-cards{
+  .no-cards {
     text-align: center;
     width: 100%;
+    font-weight: 600;
+    font-size: 2em;
   }
 
-  app-loader{
+  app-loader {
     width: 100%;
   }
-  .loader{
+  .loader {
     color: $text-color-brown;
   }
 
@@ -28,7 +32,7 @@
   }
 
   .o-whole {
-    width: 100%;
+    width: 97%;
   }
 
   .one-sixth {
@@ -40,24 +44,24 @@
     border-radius: 10px;
     margin-bottom: 10px;
 
-    h2{
+    h2 {
       margin-top: 10px !important;
       margin-bottom: 15px !important;
       padding: 0;
       font-size: $font-size-h5;
     }
-    p{
+    p {
       margin: -5px 0 0 0;
       font-weight: 300;
       text-align: left;
     }
-    .video-card{
-      h2{
+    .video-card {
+      h2 {
         font-size: $font-size-default !important;
         margin: 0 !important;
       }
-      .video-controller{
-        i{
+      .video-controller {
+        i {
           font-size: $font-size-h1 !important;
         }
       }
@@ -68,15 +72,24 @@
     width: 100%;
     height: 145px !important;
     margin-bottom: 10px;
-    h2{
+    h2 {
       margin-top: 0 !important;
       margin-bottom: 15px !important;
       padding: 0;
       font-size: $font-size-h4;
     }
-    p{
+    p {
       margin: -5px 0 0 0;
       font-weight: 300;
+    }
+  }
+
+  @keyframes slidein {
+    0% {
+      margin-top: 500px;
+    }
+    100% {
+      margin-top: 0px;
     }
   }
 
@@ -84,37 +97,141 @@
     display: flex;
     flex: 0 1 auto;
     margin-bottom: 15px;
-    border-radius: 8px !important;
     margin-right: 1%;
     margin-left: 1%;
     height: 300px;
+    border-radius: 15px;
     position: relative;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;
     overflow: hidden;
+    animation-name: slidein;
+    animation-duration: 0.7s;
+    display: block;
+    box-shadow: 0 1px 2px #b2b2b2;
 
-    .noLink{
+    .noLink {
       cursor: default !important;
     }
 
+    .one-sixth {
+      .masonry-layout_panel-content {
+        .standard-card {
+          .content {
+            height: 100px;
+          }
+          &:hover {
+            .content {
+              height: 170px;
+              padding: 0;
+              padding: 35px 20px;
+            }
+          }
+        }
+      }
+    }
     .masonry-layout_panel-content {
-      border-radius: 8px !important;
       overflow: hidden;
       background-size: 140%;
       width: 100%;
       height: 100%;
-      box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;
       background-position: center;
-      transition: background-size 0.5s ease-out;
+      // transition: background-size 0.5s ease-out;
       cursor: pointer;
-      &:hover {
-        background-size: 145%;
+      border-radius: 15px;
+      transform: scale(1);
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+        opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+        filter 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+      .standard-card {
+        transform: scale(1);
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+          opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+          filter 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        .content {
+          width: 95%;
+          height: 100px;
+          .card-btn {
+            background: 0;
+            border: none;
+            margin: 0px;
+            color: white;
+            right: 0;
+            position: absolute;
+            bottom: 22px;
+            i {
+              font-size: 2em;
+            }
+          }
+        }
+        &:hover {
+          transform: scale(1.1);
+          border-radius: 15px;
+          .content {
+            padding: 0 40px;
+            height: 200px;
+          }
+        }
       }
-      a{
+      .restrictions-card {
+        .content {
+          height: 100%;
+        }
+        &:hover {
+          transform: scale(1);
+          border-radius: 15px;
+          .content {
+            padding: 35px 20px;
+            height: 100%;
+          }
+        }
+      }
+      a {
         cursor: pointer;
       }
     }
+    .masonry-layout_panel-content.one-third-half {
+      .standard-card {
+        &:hover {
+          transform: scale(1.1);
+          border-radius: 15px;
+          .content {
+            //padding: 0 40px;
+            height: 130px;
+          }
+        }
+      }
+    }
 
-    .disabled{
+    .masonry-layout_panel-content.noLink {
+      .standard-card {
+        .content {
+          padding: 35px 20px;
+        }
+        &:hover {
+          transform: scale(1) !important;
+          border-radius: 15px;
+          .content {
+            //width: 100% !important;
+            height: 100px;
+          }
+        }
+      }
+      .standard-card.restrictions-card {
+        .content {
+          padding: 5px 20px;
+        }
+        &:hover {
+          transform: scale(1) !important;
+          border-radius: 15px;
+          .content {
+            padding: 5px 20px !important;
+            height: 100% !important;
+          }
+        }
+      }
+    }
+
+    .disabled {
       cursor: default;
     }
 
@@ -124,42 +241,39 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      >div{
+      > div {
         width: 100%;
         height: 100%;
       }
     }
 
-    & >div{
+    & > div {
       width: 100%;
       height: 100%;
     }
   }
 
-  .box-shadow-none{
+  .box-shadow-none {
     box-shadow: none !important;
   }
 }
-::-webkit-scrollbar
-{
-  width: 0;  /* for vertical scrollbars */
+::-webkit-scrollbar {
+  width: 0; /* for vertical scrollbars */
   height: 0; /* for horizontal scrollbars */
 }
 
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0);
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0);
   border-radius: 10px;
 }
 
-:host /deep/ .content{
-  >p{
-    p{
+:host /deep/ .content {
+  > p {
+    p {
       margin: 0;
     }
   }
@@ -177,7 +291,7 @@
 
 // ---------- Standard card ---------- //
 :host /deep/ .standard-card {
-  @include standard-card(5% 7%, left);
+  @include standard-card(35px 20px, left);
   position: relative !important;
 }
 
@@ -186,32 +300,34 @@
   @include standard-card(5% 7%, left);
   position: relative !important;
 
-  .content{
+  .content {
     padding-top: 0;
-    h2{
+    h2 {
       margin-top: 15px;
       margin-bottom: 5px;
     }
-    p{font-weight: 300;}
+    p {
+      font-weight: 300;
+    }
   }
 }
 
 // ---------- Membership card ---------- //
 :host /deep/ .restrictions-card {
   .content {
-    h2{
+    h2 {
       padding: 10px 0;
       font-size: 1.7em;
     }
-    & >p{
+    & > p {
       opacity: 1;
       margin-top: 0 !important;
-      >p{
-        margin: 6px 0;
+      > p {
+        line-height: 1.8em;
         font-weight: 300;
       }
     }
-    >a{
+    > a {
       opacity: 1;
       margin-top: 10px !important;
     }
@@ -221,144 +337,153 @@
 :host /deep/ .nymble-card {
   .content {
     color: #222;
-    >a{
+    > a {
       color: #00406c;
       border: 1px solid #00406c;
       font-weight: 500;
     }
   }
 }
-:host /deep/ .one-sixth{
-  video{
+:host /deep/ .one-sixth {
+  video {
     max-height: 180px !important;
   }
 }
-
+.centered-content-card {
+  .content {
+    bottom: 60px;
+  }
+}
 // ---------- Event Calendar card ---------- //
 :host /deep/ .event-calendar-card {
   height: 300px;
   cursor: default;
-  & >div{
+  & > div {
     height: 100%;
     //border: 1px solid;
     display: inline-block;
   }
 
-  .event-arrow-index1{
-    &::after{
+  .event-arrow-index1 {
+    &::after {
       top: 28% !important;
     }
   }
-  .event-arrow-index2{
-    &::after{
+  .event-arrow-index2 {
+    &::after {
       top: 56% !important;
     }
   }
-  .event-arrow-index3{
-    &::after{
+  .event-arrow-index3 {
+    &::after {
       top: 82% !important;
     }
   }
-  .categories{
+  .categories {
     background: $bg-color-primary;
     height: auto;
     display: block;
     color: darkgray;
     font-size: $font-size-h6;
     overflow: hidden;
-    .item{
+    .item {
       display: inline-block;
-      padding:5px 7px;
+      padding: 10px;
       height: 100%;
       float: left;
       cursor: pointer;
       border-bottom: 2px solid rgba(255, 255, 255, 0);
-      &:hover{
-        border-bottom:2px solid white;
+      &:hover {
+        border-bottom: 2px solid white;
       }
     }
-    .selected{
+    .eventsLink {
+      float: right;
+      color: white;
+      text-decoration: none;
+    }
+    .selected {
       color: #fff;
-      border-bottom:2px solid white;
+      border-bottom: 2px solid white;
     }
   }
 
-  .left-content{
+  .left-content {
     width: 43%;
     vertical-align: top;
     background-color: lightgray;
     position: relative;
     padding: 0 20px;
 
-    &::after{
+    &::after {
       @include arrow-right(15px, #d3d3d3);
     }
-    h3{
+    h3 {
       font-size: $font-size-h3;
     }
-    span{
+    span {
       @include capsule-button(10px, 5px);
       cursor: pointer;
       margin-top: 10px;
     }
-    .large-devices{
+    .large-devices {
       display: block;
     }
-    .mobile{
+    .mobile {
       display: none;
     }
-    p{
+    p {
       white-space: pre-wrap !important;
     }
   }
-  .right-content{
+  .right-content {
     width: 50%;
     position: relative;
     float: right;
-    .event-wrapper{
+    .event-wrapper {
       //@include center-vertically(50%);
       position: absolute;
       width: 95%;
-      & >h4{
+      & > h4 {
         margin: 15px 0;
       }
-      & >a{
+      & > a {
         position: absolute;
         bottom: 0;
         right: 0;
         cursor: pointer;
         text-decoration: none;
         color: $color-link;
-        &:hover{
+        &:hover {
           color: $color-link-hover;
         }
       }
-      .no-events{
-        color: $text-color-brown;
+      .no-events {
+        color: $color-link;
       }
-      .event{
+      .event {
         margin-bottom: 7px;
-        h6{
+        h6 {
           margin: 0 0 5px 15px;
         }
-        .date{
+        .date {
           @include circle(50px);
           display: inline-block;
           position: relative;
           background-color: lightgray;
           vertical-align: middle;
           cursor: pointer;
-          span{
+          span {
             @include center-content(50%, 50%);
           }
         }
-        .excerpt{
+        .excerpt {
           display: inline-block;
           width: 70%;
-          right:0;
+          right: 0;
           margin-left: 10px;
           vertical-align: middle;
-          span{
+          span {
             font-size: $font-size-h6;
             font-weight: 600;
             color: $color-link;
@@ -390,9 +515,94 @@
   border-radius: 10px;
 }*/
 
-
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .masonry-layout {
+    .masonry-layout_panel {
+      .masonry-layout_panel-content {
+        .standard-card {
+          .content {
+            padding: 50px 20px;
+            height: 0 !important;
+            h4 {
+              margin: 5px 0;
+              padding-bottom: 10px;
+            }
+            p {
+              display: none;
+            }
+          }
+          &:hover {
+            transform: scale(1) !important;
+            border-radius: 15px;
+            .content {
+              padding: 50px 20px !important;
+              height: 0 !important;
+            }
+          }
+        }
+        .restrictions-card {
+          height: 350px !important;
+          .content {
+            padding: 30px 20px !important;
+            height: 100% !important;
+            p {
+              display: inline;
+              font-size: 0.9em;
+            }
+          }
+        }
+      }
+      .masonry-layout_panel-content.noLink {
+        .standard-card {
+          .content {
+            padding: 50px 20px;
+          }
+        }
+      }
+    }
+    .one-sixth {
+      .masonry-layout_panel-content {
+        .standard-card {
+          padding: 0px;
+          height: 100%;
+        }
+      }
+    }
+    .masonry-layout-sub {
+      .one-third-half {
+        .masonry-layout_panel-content.one-third-half {
+          .standard-card {
+            padding: 60px 20px;
+            height: 100% !important;
+          }
+        }
+      }
+    }
+  }
+  .masonry-layout {
+    .masonry-layout_panel {
+      .one-sixth {
+        .masonry-layout_panel-content {
+          .standard-card {
+            .content {
+              height: 100px;
+            }
+          }
+          &:hover {
+            transform: scale(1);
+            border-radius: 15px;
+            .standard-card {
+              .content {
+                padding: 40px 20px;
+                height: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   .masonry-layout {
     width: 90%;
     .o-third {
@@ -403,18 +613,18 @@
     }
     .one-sixth {
       height: 110px !important;
-      h2{
+      h2 {
         margin-bottom: 0 !important;
       }
-      p{
+      p {
         font-size: 0.85em;
       }
-      .video-card{
-        h2{
+      .video-card {
+        h2 {
           font-size: $font-size-h6 !important;
         }
-        .video-controller{
-          i{
+        .video-controller {
+          i {
             font-size: $font-size-h1 !important;
           }
         }
@@ -422,19 +632,24 @@
     }
     .one-third-half {
       height: 110px !important;
-      h2{
+      h2 {
         margin-bottom: 5px !important;
       }
-      p{
+      p {
         font-size: 0.85em;
       }
     }
     .masonry-layout_panel {
-      height: 230px;
+      height: 100%;
+      max-height: 430px;
+    }
+    .video-card,
+    .standard-card {
+      height: 250px;
     }
   }
   :host /deep/ .video-card {
-    .text h2{
+    .text h2 {
       font-size: $font-size-h3;
     }
     .video-controller i {
@@ -451,7 +666,8 @@
         padding: 10px 30px;
         margin-top: 10px;
       }
-      >p, >a{
+      > p,
+      > a {
         opacity: 1;
         margin-top: 0 !important;
         margin-bottom: 10px !important;
@@ -459,68 +675,78 @@
     }
   }
   :host /deep/ .standard-card {
-    .content{
-      h2{
+    &:hover {
+      .content {
+        > a {
+          margin-top: 40px !important;
+        }
+      }
+    }
+
+    .content {
+      h2 {
         font-size: $font-size-h3;
         padding: 15px 0;
       }
-      >p, >a{
+      > p,
+      > a {
         opacity: 1;
         margin-top: 0 !important;
         margin-bottom: 10px !important;
       }
-      >a{
+      > a {
+        margin-top: 40px !important;
         padding: 10px 30px !important;
       }
     }
   }
   :host /deep/ .event-calendar-card {
-    .event-arrow-index1{
-      &::after{
+    .event-arrow-index1 {
+      &::after {
         top: 20% !important;
       }
     }
-    .event-arrow-index2{
-      &::after{
+    .event-arrow-index2 {
+      &::after {
         top: 40% !important;
       }
     }
-    .categories{
+    .categories {
       overflow-x: scroll;
       font-size: $font-size-default;
-      .item{
+      .item {
         font-size: $font-size-h6;
-        border-bottom: 0 solid rgba(0,0,0,0) !important;
+        border-bottom: 0 solid rgba(0, 0, 0, 0) !important;
       }
-      .selected{
+      .selected {
         color: #000;
-        border-bottom: 0 solid rgba(0,0,0,0) !important;
+        border-bottom: 0 solid rgba(0, 0, 0, 0) !important;
         background-color: #efefef;
         font-weight: 700;
       }
     }
-    .left-content{
+    .left-content {
       display: none;
     }
-    .right-content{
+    .right-content {
       float: left;
       padding: 20px 10px;
       width: 100%;
-      .event-wrapper{
+      .event-wrapper {
         padding-bottom: 20px;
-        >h4{
+        > h4 {
           display: none;
         }
-        .event{
-          .date{
+        .event {
+          .date {
             width: 40px;
             height: 40px;
           }
-          .excerpt{
+          .excerpt {
             width: 60%;
           }
         }
-        .event:nth-child(3){
+        .event:nth-child(3) {
           display: none !important;
         }
       }
@@ -539,18 +765,18 @@
     }
     .one-sixth {
       height: 110px !important;
-      h2{
+      h2 {
         margin-bottom: 0 !important;
       }
-      p{
+      p {
         font-size: 0.85em;
       }
-      .video-card{
-        h2{
+      .video-card {
+        h2 {
           font-size: $font-size-h6 !important;
         }
-        .video-controller{
-          i{
+        .video-controller {
+          i {
             font-size: $font-size-h1 !important;
           }
         }
@@ -558,10 +784,10 @@
     }
     .one-third-half {
       height: 110px !important;
-      h2{
+      h2 {
         margin-bottom: 5px !important;
       }
-      p{
+      p {
         font-size: 0.85em;
       }
     }
@@ -570,7 +796,7 @@
     }
   }
   :host /deep/ .video-card {
-    .text h2{
+    .text h2 {
       font-size: $font-size-h3;
     }
     .video-controller i {
@@ -587,7 +813,8 @@
         padding: 10px 30px;
         margin-top: 10px;
       }
-      >p, >a{
+      > p,
+      > a {
         opacity: 1;
         margin-top: 0 !important;
         margin-bottom: 10px !important;
@@ -595,68 +822,69 @@
     }
   }
   :host /deep/ .standard-card {
-    .content{
-      h2{
+    .content {
+      h2 {
         font-size: $font-size-h3;
         padding: 15px 0;
       }
-      >p, >a{
+      > p,
+      > a {
         opacity: 1;
         margin-top: 0 !important;
         margin-bottom: 10px !important;
       }
-      >a{
+      > a {
         padding: 10px 30px !important;
       }
     }
   }
   :host /deep/ .event-calendar-card {
-    .event-arrow-index1{
-      &::after{
+    .event-arrow-index1 {
+      &::after {
         top: 20% !important;
       }
     }
-    .event-arrow-index2{
-      &::after{
+    .event-arrow-index2 {
+      &::after {
         top: 40% !important;
       }
     }
-    .categories{
+    .categories {
       overflow-x: scroll;
       font-size: 1.1em;
-      .item{
+      .item {
         font-size: $font-size-h6;
-        border-bottom: 0 solid rgba(0,0,0,0) !important;
+        border-bottom: 0 solid rgba(0, 0, 0, 0) !important;
       }
-      .selected{
+      .selected {
         color: #000;
-        border-bottom: 0 solid rgba(0,0,0,0) !important;
+        border-bottom: 0 solid rgba(0, 0, 0, 0) !important;
         background-color: #efefef;
         font-weight: 700;
       }
     }
-    .left-content{
+    .left-content {
       display: none;
     }
-    .right-content{
+    .right-content {
       float: left;
       padding: 20px 10px;
       width: 100%;
-      .event-wrapper{
+      .event-wrapper {
         padding-bottom: 20px;
-        >h4{
+        > h4 {
           display: none;
         }
-        .event{
-          .date{
+        .event {
+          .date {
             width: 40px;
             height: 40px;
           }
-          .excerpt{
+          .excerpt {
             width: 60%;
           }
         }
-        .event:nth-child(3){
+        .event:nth-child(3) {
           display: none !important;
         }
       }
@@ -675,18 +903,18 @@
     }
     .one-sixth {
       height: 110px !important;
-      h2{
+      h2 {
         margin-bottom: 0 !important;
       }
-      p{
+      p {
         font-size: 0.85em;
       }
-      .video-card{
-        h2{
+      .video-card {
+        h2 {
           font-size: $font-size-h6 !important;
         }
-        .video-controller{
-          i{
+        .video-controller {
+          i {
             font-size: $font-size-h1 !important;
           }
         }
@@ -694,10 +922,10 @@
     }
     .one-third-half {
       height: 110px !important;
-      h2{
+      h2 {
         margin-bottom: 5px !important;
       }
-      p{
+      p {
         font-size: 0.85em;
       }
     }
@@ -706,7 +934,7 @@
     }
   }
   :host /deep/ .video-card {
-    .text h2{
+    .text h2 {
       font-size: $font-size-h3;
     }
     .video-controller i {
@@ -723,7 +951,8 @@
         padding: 10px 30px;
         margin-top: 10px;
       }
-      >p, >a{
+      > p,
+      > a {
         opacity: 1;
         margin-top: 0 !important;
         margin-bottom: 10px !important;
@@ -731,68 +960,69 @@
     }
   }
   :host /deep/ .standard-card {
-    .content{
-      h2{
+    .content {
+      h2 {
         font-size: $font-size-h3;
         padding: 15px 0;
       }
-      >p, >a{
+      > p,
+      > a {
         opacity: 1;
         margin-top: 0 !important;
         margin-bottom: 10px !important;
       }
-      >a{
+      > a {
         padding: 10px 30px !important;
       }
     }
   }
   :host /deep/ .event-calendar-card {
-    .event-arrow-index1{
-      &::after{
+    .event-arrow-index1 {
+      &::after {
         top: 20% !important;
       }
     }
-    .event-arrow-index2{
-      &::after{
+    .event-arrow-index2 {
+      &::after {
         top: 40% !important;
       }
     }
-    .categories{
+    .categories {
       overflow-x: scroll;
       font-size: 1.1em;
-      .item{
+      .item {
         font-size: $font-size-h6;
-        border-bottom: 0 solid rgba(0,0,0,0) !important;
+        border-bottom: 0 solid rgba(0, 0, 0, 0) !important;
       }
-      .selected{
+      .selected {
         color: #000;
-        border-bottom: 0 solid rgba(0,0,0,0) !important;
+        border-bottom: 0 solid rgba(0, 0, 0, 0) !important;
         background-color: #efefef;
         font-weight: 700;
       }
     }
-    .left-content{
+    .left-content {
       display: none;
     }
-    .right-content{
+    .right-content {
       float: left;
       padding: 20px 10px;
       width: 100%;
-      .event-wrapper{
+      .event-wrapper {
         padding-bottom: 20px;
-        >h4{
+        > h4 {
           display: none;
         }
-        .event{
-          .date{
+        .event {
+          .date {
             width: 40px;
             height: 40px;
           }
-          .excerpt{
+          .excerpt {
             width: 60%;
           }
         }
-        .event:nth-child(3){
+        .event:nth-child(3) {
           display: none !important;
         }
       }
@@ -802,10 +1032,8 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   .masonry-layout {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

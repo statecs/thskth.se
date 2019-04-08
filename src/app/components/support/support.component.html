@@ -1,89 +1,173 @@
+<div class="header">
+  <div class="default-header"></div>
+</div>
 <div *ngIf="!pageNotFound" id="support">
   <app-loader *ngIf="!exist_category"></app-loader>
   <div *ngIf="exist_category" class="heading">
     <div class="title">
-      <h2>{{lang === 'en' ? 'Frequestly Asked Questions' : 'Vanliga frågor'}}</h2>
-      <span>{{lang === 'en' ? 'Read our frequestly asked questions for fast answers' : 'Läs våra vanliga frågor för snabba svar'}}</span>
-    </div>
-    <div class="search">
-      <form (ngSubmit)="searchFAQs()" autocomplete="off">
-        <label>
-          <i class="material-icons" (click)="searchFAQs()">search</i>
-        </label>
-        <input #searchField type="search" placeholder="{{lang === 'en' ? 'Search FAQs' : 'Sök FAQs'}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="onFocus()" (keyup)="searchFAQs()">
-      </form>
+      <a routerLink="{{ lang === 'en' ? '/help' : '/sv/help' }}"
+        ><h2>{{ lang === "en" ? "Help Center" : "Hjälp Center" }}</h2></a
+      >
+      <span>{{
+        lang === "en"
+          ? "Read our frequently asked questions for fast answers"
+          : "Läs våra vanliga frågor för snabbare hjälp"
+      }}</span>
     </div>
   </div>
+  <app-chatbot></app-chatbot>
+  <div class="search">
+    <form (ngSubmit)="searchFAQs()" autocomplete="off">
+      <label>
+        <i class="material-icons" (click)="searchFAQs()">search</i>
+      </label>
+      <input
+        #searchField
+        type="search"
+        placeholder="{{ lang === 'en' ? 'Ask a question' : 'Ställ en fråga' }}"
+        [(ngModel)]="searchTerm"
+        name="searchInput"
+        (focus)="onFocus()"
+        (keyup)="searchFAQs()"
+      />
+    </form>
+  </div>
   <div *ngIf="!show_single_view" class="content-container">
-    <app-featured-faqs></app-featured-faqs>
     <div class="faqs-categories">
-      <h2>{{lang === 'en' ? 'FAQ categories' : 'FAQ kategorier'}}</h2>
-      <a *ngFor="let c of parent_categories" routerLink="{{c.slug}}" class="category">{{c.name}}</a>
+      <h2>{{ lang === "en" ? "FAQ categories" : "FAQ kategorier" }}</h2>
+      <a
+        *ngFor="let c of parent_categories"
+        routerLink="{{ c.slug }}"
+        class="category"
+        >{{ c.name }}</a
+      >
       <app-loader *ngIf="parent_categories.length === 0"></app-loader>
     </div>
   </div>
   <div *ngIf="exist_category && show_single_view" class="faqs-single-view">
     <div class="submenu">
-      <label>{{lang === 'en' ? 'FAQ categories' : 'FAQ kategorier'}}</label>
+      <label>{{ lang === "en" ? "FAQ categories" : "FAQ kategorier" }}</label>
       <div class="cat-container">
         <div class="cat-wrapper larger-devices">
-          <div *ngFor="let c of parent_categories, let i = index" class="submenu-item" [ngClass]="{selected: i === selected_cat_index}" (click)="displayCategory(i)">{{c.name}}</div>
+          <div
+            *ngFor="let c of parent_categories; let i = index"
+            class="submenu-item"
+            [ngClass]="{ selected: i === selected_cat_index }"
+            (click)="displayCategory(i)"
+          >
+            {{ c.name }}
+          </div>
         </div>
-        <div class="cat-wrapper mobile" [style.width]="parent_categories.length * 50 + '%'">
-          <div *ngFor="let c of parent_categories, let i = index" class="submenu-item" [ngClass]="{selected: i === selected_cat_index}" (click)="displayCategory(i)">{{c.name}}</div>
+        <div class="cat-wrapper mobile">
+          <div
+            *ngFor="let c of parent_categories; let i = index"
+            class="submenu-item"
+            [ngClass]="{ selected: i === selected_cat_index }"
+            (click)="displayCategory(i)"
+          >
+            {{ c.name }}
+          </div>
         </div>
       </div>
     </div>
     <div class="faqs-container">
       <div *ngIf="selected_category" class="selected_faqs">
-        <h3>{{selected_category.name}}</h3>
+        <h3>{{ selected_category.name }}</h3>
         <div *ngIf="showFaqs">
           <div *ngFor="let submenu of faq_subMenus">
             <div *ngIf="submenu?.faqs.length !== 0" class="faq-section">
-              <label>{{submenu.name}}</label>
+              <label>{{ submenu.name }}</label>
               <div *ngFor="let faq of submenu.faqs">
-                <div #faqElement class="faq submenu-faq" (click)="toggleAnswer(faqElement)">
+                <div
+                  #faqElement
+                  class="faq submenu-faq"
+                  (click)="toggleAnswer(faqElement)"
+                  [ngClass]="status ? 'active' : ''"
+                >
                   <span>+</span>
                   <div class="question" [innerHTML]="faq.question"></div>
-                  <div data-collapsed="true" class="answer" [innerHTML]="faq.answer"></div>
+                  <div
+                    data-collapsed="true"
+                    class="answer"
+                    [innerHTML]="faq.answer"
+                  ></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div *ngFor="let faq of faqs">
-            <div #faqElement class="faq" (click)="toggleAnswer(faqElement)">
+          <div *ngFor="let faq of faqs; let i = index">
+            <div
+              #faqElement
+              class="faq"
+              (click)="toggleAnswer(faqElement, i)"
+              [ngClass]="{ selected: i == selected_cat_toggle }"
+            >
               <span>+</span>
               <div class="question" [innerHTML]="faq.question"></div>
-              <div data-collapsed="true" class="answer" [innerHTML]="faq.answer"></div>
+              <div
+                data-collapsed="true"
+                class="answer"
+                [innerHTML]="faq.answer"
+              ></div>
             </div>
           </div>
 
-          <div *ngIf="noResult" class="noItems">There are no FAQs regarding {{selected_category.name}}.</div>
+          <div *ngIf="noResult" class="noItems">
+            There are no FAQs regarding {{ selected_category.name }}.
+          </div>
         </div>
       </div>
 
       <div *ngIf="searchOnActive && searchTerm" class="search-results">
-        <h3>{{lang === 'en' ? 'Search results of' : 'Sökresultat av'}} "{{searchTerm}}"</h3>
+        <h3>
+          {{ lang === "en" ? "Search results of" : "Sökresultat av" }} "{{
+            searchTerm
+          }}"
+        </h3>
         <div *ngFor="let faq of search_results">
-          <div #faqElement class="faq" (click)="toggleAnswer(faqElement)">
+          <div
+            #faqElement
+            class="faq"
+            (click)="toggleAnswer(faqElement)"
+            [ngClass]="{ active: faq.active }"
+          >
             <span>+</span>
-            <div class="question" [innerHTML]="faq.title | markMatchedWords:searchTerm"></div>
-            <div data-collapsed="true" class="answer" [innerHTML]="faq.content | markMatchedWords:searchTerm"></div>
+            <div
+              class="question"
+              [innerHTML]="faq.title | markMatchedWords: searchTerm"
+            ></div>
+            <div
+              data-collapsed="true"
+              class="answer"
+              [innerHTML]="faq.content | markMatchedWords: searchTerm"
+            ></div>
           </div>
         </div>
-        <div *ngIf="noResult" class="noItems">No FAQs found matching "{{searchTerm}}"</div>
+        <div *ngIf="noResult" class="noItems">
+          No FAQs found matching "{{ searchTerm }}"
+        </div>
       </div>
 
       <div *ngIf="faq_slug" class="search-results">
         <div *ngIf="!loading && selected_faq">
           <div #faqElement class="faq" (click)="toggleAnswer(faqElement)">
             <span>+</span>
-            <div class="question" [innerHTML]="selected_faq.question | markMatchedWords:searchTerm"></div>
-            <div #selected_faq_el data-collapsed="true" class="answer" [innerHTML]="selected_faq.answer | markMatchedWords:searchTerm"></div>
+            <div
+              class="question"
+              [innerHTML]="selected_faq.question | markMatchedWords: searchTerm"
+            ></div>
+            <div
+              #selected_faq_el
+              data-collapsed="true"
+              class="answer"
+              [innerHTML]="selected_faq.answer | markMatchedWords: searchTerm"
+            ></div>
           </div>
         </div>
-        <div *ngIf="!loading && !selected_faq" class="noItems">No requested FAQ found!</div>
+        <div *ngIf="!loading && !selected_faq" class="noItems">
+          No requested FAQ found!
+        </div>
       </div>
 
       <div *ngIf="loading">Loading........</div>

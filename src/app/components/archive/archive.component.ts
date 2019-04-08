@@ -123,9 +123,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           this.lang = "en";
         }
         if (this.lang === "sv") {
-          this.titleCommunicationService.setTitle("Arkiv");
+          this.titleCommunicationService.setTitle("Dokument");
         } else {
-          this.titleCommunicationService.setTitle("Archives");
+          this.titleCommunicationService.setTitle("Documents");
         }
       }
     );
@@ -163,9 +163,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   showDocumentInPopup(item): void {
     this.popupWindowCommunicationService.showArchiveInPopup(item);
     if (this.lang === "sv") {
-      this.location.go("sv/archive/" + item.slug);
+      this.location.go("sv/documents/" + item.slug);
     } else {
-      this.location.go("en/archive/" + item.slug);
+      this.location.go("en/documents/" + item.slug);
     }
   }
 
@@ -236,9 +236,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.searchResults = [];
       this.showMostSearchTerms = true;
       if (this.lang === "sv") {
-        this.location.go("sv/archive?q=");
+        this.location.go("sv/documents?q=");
       } else {
-        this.location.go("en/archive?q=");
+        this.location.go("en/documents?q=");
       }
       this.documentsLoading = false;
       this.showResultsDropdown = false;
@@ -250,9 +250,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.searchDocuments();
     }
     if (this.lang === "sv") {
-      this.location.go("sv/archive?q=" + this.searchTerm);
+      this.location.go("sv/documents?q=" + this.searchTerm);
     } else {
-      this.location.go("en/archive?q=" + this.searchTerm);
+      this.location.go("en/documents?q=" + this.searchTerm);
     }
   }
 
@@ -392,9 +392,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           self.renderer.listen(self.searchField.nativeElement, "search", () => {
             if (self.searchTerm === "") {
               if (self.lang === "sv") {
-                self.location.go("sv/archive?q=" + self.searchTerm);
+                self.location.go("sv/documents?q=" + self.searchTerm);
               } else {
-                self.location.go("en/archive?q=" + self.searchTerm);
+                self.location.go("en/documents?q=" + self.searchTerm);
               }
               self.showFilters = true;
               self.showResults = false;

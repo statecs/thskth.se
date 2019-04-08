@@ -1,7 +1,6 @@
 @import "../../../../style/utilities";
 
 #event-list {
-  background-color: $bg-color-default;
   .sections-wrapper {
     width: 96%;
     display: inline-block;
@@ -9,20 +8,20 @@
     margin-top: 20px;
     padding: 0 50px 40px;
     text-align: left;
-    .section{
-      .event{
+    .section {
+      .event {
         position: relative;
         padding: 15px 0;
         border-bottom: 1px solid #f0f0f0;
         cursor: pointer;
-        >div {
+        > div {
           display: inline-block;
         }
         .date {
           @include circle(50px);
           display: inline-flex;
           flex-direction: column;
-          background-color: lightgray;
+          background-color: #f7f7f7;
           justify-content: center;
           vertical-align: top;
           text-align: center;
@@ -34,24 +33,68 @@
             color: gray;
           }
         }
-        .info{
+        .info {
           text-align: left;
           padding: 0 10px;
-          h2{
+          h2 {
             font-size: 1em;
             margin: 0 0 5px;
           }
-          label{
+          label {
             color: gray;
             align-items: center;
             display: flex;
             font-size: 0.85em;
-            i{
+            i {
               font-size: 1.25em;
             }
           }
         }
       }
+    }
+  }
+}
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+  #event-list {
+    .sections-wrapper {
+      padding: 0 20px 40px;
+      .section {
+        .event {
+          .info {
+            padding: 10px 10px;
+            max-width: 190px;
+            h2 {
+              font-size: 0.9em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  #event-list {
+    .sections-wrapper {
+      padding: 0 0 40px;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+  #event-list {
+    .sections-wrapper {
+      padding: 0 0 40px;
+    }
+  }
+}
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+  #event-list {
+    .sections-wrapper {
+      padding: 0 0 40px;
     }
   }
 }

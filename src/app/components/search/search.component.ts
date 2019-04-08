@@ -1,38 +1,45 @@
-import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
-import { SearchResult } from '../../interfaces-and-classes/search';
-import { Router, ActivatedRoute, Params} from '@angular/router';
-import { HrefToSlugPipe } from '../../pipes/href-to-slug.pipe';
-import {Location} from '@angular/common';
-import { FaqsService } from '../../services/wordpress/faqs.service';
-import { FAQ, FAQCategory } from '../../interfaces-and-classes/faq';
-import { most_asked_questions } from '../../utils/most-asked-questions';
-import {NotificationBarCommunicationService} from '../../services/component-communicators/notification-bar-communication.service';
-import {Subscription} from 'rxjs/Subscription';
-import {TitleCommunicationService} from '../../services/component-communicators/title-communication.service';
-import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
-import {HideUICommunicationService} from '../../services/component-communicators/hide-ui-communication.service';
-import {RemoveLangParamPipe} from '../../pipes/remove-lang-param.pipe';
-import {AddLangToSlugPipe} from '../../pipes/add-lang-to-slug.pipe';
-import {PostsService} from '../../services/wordpress/posts.service';
-import {PagesService} from '../../services/wordpress/pages.service';
-import {FaqCategoriesService} from '../../services/wordpress/faq-categories.service';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild
+} from "@angular/core";
+import { SearchResult } from "../../interfaces-and-classes/search";
+import { Router, ActivatedRoute, Params } from "@angular/router";
+import { HrefToSlugPipe } from "../../pipes/href-to-slug.pipe";
+import { Location } from "@angular/common";
+import { FaqsService } from "../../services/wordpress/faqs.service";
+import { ArchiveService } from "../../services/wordpress/archive.service";
+import { FAQ, FAQCategory } from "../../interfaces-and-classes/faq";
+import { most_asked_questions } from "../../utils/most-asked-questions";
+import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
+import { Subscription } from "rxjs/Subscription";
+import { TitleCommunicationService } from "../../services/component-communicators/title-communication.service";
+import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
+import { HideUICommunicationService } from "../../services/component-communicators/hide-ui-communication.service";
+import { RemoveLangParamPipe } from "../../pipes/remove-lang-param.pipe";
+import { AddLangToSlugPipe } from "../../pipes/add-lang-to-slug.pipe";
+import { PostsService } from "../../services/wordpress/posts.service";
+import { PagesService } from "../../services/wordpress/pages.service";
+import { FaqCategoriesService } from "../../services/wordpress/faq-categories.service";
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  selector: "app-search",
+  templateUrl: "./search.component.html",
+  styleUrls: ["./search.component.scss"]
 })
 export class SearchComponent implements OnInit, OnDestroy {
-
-
-  @ViewChild('searchForm') searchForm: ElementRef;
-  @ViewChild('filter_icon') filter_icon: ElementRef;
-  @ViewChild('searchField') searchField: ElementRef;
-  @ViewChild('resultsDropdownList') resultsDropdownList: ElementRef;
+  @ViewChild("searchForm") searchForm: ElementRef;
+  @ViewChild("filter_icon") filter_icon: ElementRef;
+  @ViewChild("searchField") searchField: ElementRef;
+  @ViewChild("resultsDropdownList") resultsDropdownList: ElementRef;
 
   public postsChecked: boolean;
   public pageChecked: boolean;
   public faqChecked: boolean;
+  public documentChecked: boolean;
   public showFilterOptions: boolean;
   public searchOnFocus: boolean;
   public searchTerm: string;
@@ -40,6 +47,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public pageResults: SearchResult[];
   public postsResults: SearchResult[];
   public faqResults: SearchResult[];
+  public documentResultsSearch: SearchResult[];
   private hrefToSlugPipeFilter: HrefToSlugPipe;
   private removeLangParamPipe: RemoveLangParamPipe;
   private addLangToSlugPipe: AddLangToSlugPipe;
@@ -47,6 +55,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public postsLoading: boolean;
   public pagesLoading: boolean;
   public faqsLoading: boolean;
+  public documentLoading: boolean;
   public showResults: boolean;
 
   public parent_categories: FAQCategory[];
@@ -59,6 +68,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public postSubscription: Subscription;
   public pageSubscription: Subscription;
   public faqsSubscription: Subscription;
+  public documentsSubscription: Subscription;
   public queryParamsSubscription: Subscription;
   public faqCatSubscription: Subscription;
   public faqsSubscription2: Subscription;
@@ -67,25 +77,28 @@ export class SearchComponent implements OnInit, OnDestroy {
   public hideUiSubscription: Subscription;
   public timer: any;
 
-  constructor(private postsService: PostsService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private location: Location,
-              private faqsService: FaqsService,
-              private renderer: Renderer2,
-              private notificationBarCommunicationService: NotificationBarCommunicationService,
-              private titleCommunicationService: TitleCommunicationService,
-              private headerCommunicationService: HeaderCommunicationService,
-              private hideUiCommunicationService: HideUICommunicationService,
-              private pagesService: PagesService,
-              private faqCategoriesService: FaqCategoriesService) {
+  constructor(
+    private postsService: PostsService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private location: Location,
+    private faqsService: FaqsService,
+    private archiveService: ArchiveService,
+    private renderer: Renderer2,
+    private notificationBarCommunicationService: NotificationBarCommunicationService,
+    private titleCommunicationService: TitleCommunicationService,
+    private headerCommunicationService: HeaderCommunicationService,
+    private hideUiCommunicationService: HideUICommunicationService,
+    private pagesService: PagesService,
+    private faqCategoriesService: FaqCategoriesService
+  ) {
     this.postsChecked = true;
     this.pageChecked = true;
     this.faqChecked = true;
+    this.documentChecked = true;
     this.showFilterOptions = false;
     this.searchOnFocus = false;
-    this.searchTerm = '';
-    this.mostSearchTerms = ['Membership', 'THS card', 'Career', 'Student', 'Contact', 'News'];
+    this.searchTerm = "";
     this.hrefToSlugPipeFilter = new HrefToSlugPipe();
     this.pageResults = [];
     this.postsResults = [];
@@ -98,39 +111,50 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.most_asked_questions_slugs = most_asked_questions;
     this.parent_categories = [];
     this.most_asked_faqs = [];
-    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      this.pageNotFound = false;
-      this.lang = params['lang'];
-      if (typeof this.lang === 'undefined') {
-        this.lang = 'en';
-      }else if (this.lang !== 'en' && this.lang !== 'sv') {
-        this.pageNotFound = true;
-        this.lang = 'en';
+    this.paramsSubscription = this.activatedRoute.params.subscribe(
+      (params: Params) => {
+        this.pageNotFound = false;
+        this.lang = params["lang"];
+        if (typeof this.lang === "undefined") {
+          this.lang = "en";
+        } else if (this.lang !== "en" && this.lang !== "sv") {
+          this.pageNotFound = true;
+          this.lang = "en";
+        }
+        if (this.lang === "sv") {
+          this.titleCommunicationService.setTitle("Sök");
+        } else {
+          this.titleCommunicationService.setTitle("Search");
+        }
       }
-      if (this.lang === 'sv') {
-        this.titleCommunicationService.setTitle('Sök');
-      }else {
-        this.titleCommunicationService.setTitle('Search');
-      }
-    });
+    );
 
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
   }
 
   goToPage(link, type): void {
-    if (type === 'faq') {
-      this.router.navigate([this.lang + '/support/faqs/' + link]);
+    if (type === "document") {
+      this.router.navigate([this.lang + "/documents/" + link]);
     }
-    if (type === 'post') {
-      this.router.navigate([this.lang + '/news/' + link]);
+    if (type === "faq") {
+      this.router.navigate([this.lang + "/help/faqs/" + link]);
     }
-    if (type === 'page') {
+    if (type === "post") {
+      this.router.navigate([this.lang + "/news/" + link]);
+    }
+    if (type === "page") {
       let slug = link;
-      if (slug.substring(slug.length - 9) === '/?lang=en' || slug.substring(slug.length - 9) === '/?lang=sv') {
+      if (
+        slug.substring(slug.length - 9) === "/?lang=en" ||
+        slug.substring(slug.length - 9) === "/?lang=sv"
+      ) {
         slug = this.removeLangParamPipe.transform(slug);
       }
-      if (slug.substring(slug.length - 8) === '?lang=en' || slug.substring(slug.length - 8) === '?lang=sv') {
+      if (
+        slug.substring(slug.length - 8) === "?lang=en" ||
+        slug.substring(slug.length - 8) === "?lang=sv"
+      ) {
         slug = this.removeLangParamPipe.transform(slug);
       }
       slug = this.addLangToSlugPipe.transform(slug, this.lang);
@@ -168,46 +192,76 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.faqChecked) {
       this.searchFAQs();
     }
-    if (this.searchTerm !== '' && typeof this.searchTerm !== 'undefined') {
-      if (this.lang === 'sv') {
-        this.location.go('sv/search?q=' + this.searchTerm);
-      }else {
-        this.location.go('en/search?q=' + this.searchTerm);
+    if (this.documentChecked) {
+      this.searchDocuments();
+    }
+    if (this.searchTerm !== "" && typeof this.searchTerm !== "undefined") {
+      if (this.lang === "sv") {
+        this.location.go("sv/search?q=" + this.searchTerm);
+      } else {
+        this.location.go("en/search?q=" + this.searchTerm);
       }
     }
   }
 
   searchPosts(): void {
-    this.postSubscription = this.postsService.searchPosts(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.postSubscription = this.postsService
+      .searchPosts(this.searchTerm, 4, this.lang)
+      .subscribe(
+        res => {
           this.postsLoading = false;
           this.postsResults = res;
         },
-        (error) => {
+        error => {
           this.postsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
-        });
+        }
+      );
   }
 
   searchPages(): void {
-    this.pageSubscription = this.pagesService.searchPages(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.pageSubscription = this.pagesService
+      .searchPages(this.searchTerm, 4, this.lang)
+      .subscribe(
+        res => {
           this.pagesLoading = false;
           this.pageResults = res;
         },
-        (error) => {
+        error => {
           this.pagesLoading = false;
           this.notificationBarCommunicationService.send_data(error);
-        });
+        }
+      );
   }
 
   searchFAQs(): void {
-    this.faqsSubscription = this.faqsService.searchFAQs(this.searchTerm, 4, this.lang).subscribe((res) => {
+    this.faqsSubscription = this.faqsService
+      .searchFAQs(this.searchTerm, 4, this.lang)
+      .subscribe(
+        res => {
           this.faqsLoading = false;
           this.faqResults = res;
         },
-        (error) => {
+        error => {
           this.faqsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
-        });
+        }
+      );
+  }
+
+  searchDocuments(): void {
+    this.documentsSubscription = this.archiveService
+      .searchDocumentsPage(this.searchTerm, 4, this.lang)
+      .subscribe(
+        res => {
+          this.documentLoading = false;
+          this.documentResultsSearch = res;
+        },
+        error => {
+          this.documentLoading = false;
+          this.notificationBarCommunicationService.send_data(error);
+        }
+      );
   }
 
   selectTerm(term): void {
@@ -217,77 +271,108 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   toggleSearchFocus(): void {
-    (this.searchOnFocus ? this.searchOnFocus = false : this.searchOnFocus = true);
+    this.searchOnFocus
+      ? (this.searchOnFocus = false)
+      : (this.searchOnFocus = true);
   }
 
   toggleFilter(): void {
     if (this.showFilterOptions) {
       this.showFilterOptions = false;
-      this.filter_icon.nativeElement.style.color = 'lightgray';
-    }else {
+      this.filter_icon.nativeElement.style.color = "lightgray";
+    } else {
       this.showFilterOptions = true;
-      this.filter_icon.nativeElement.style.color = 'rgba(0, 108, 170, 0.62)';
+      this.filter_icon.nativeElement.style.color = "rgba(0, 108, 170, 0.62)";
     }
   }
 
   toggleCheckbox(optId): void {
-    if (optId === 'posts') {
-      (this.postsChecked ? this.postsChecked = false : this.postsChecked = true);
-    }else if (optId === 'page') {
-      (this.pageChecked ? this.pageChecked = false : this.pageChecked = true);
-    }else if (optId === 'faq') {
-      (this.faqChecked ? this.faqChecked = false : this.faqChecked = true);
+    if (optId === "posts") {
+      this.postsChecked
+        ? (this.postsChecked = false)
+        : (this.postsChecked = true);
+    } else if (optId === "page") {
+      this.pageChecked ? (this.pageChecked = false) : (this.pageChecked = true);
+    } else if (optId === "faq") {
+      this.faqChecked ? (this.faqChecked = false) : (this.faqChecked = true);
+    } else if (optId === "document") {
+      this.documentChecked
+        ? (this.documentChecked = false)
+        : (this.documentChecked = true);
     }
     this.search();
   }
 
   ngOnInit() {
     this.headerCommunicationService.tranparentHeader(false);
-    this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.searchTerm = params['q'];
-      if (this.searchTerm !== 'undefined' && typeof this.searchTerm !== 'undefined') {
-        this.submitSearch();
+    this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe(
+      (params: Params) => {
+        this.searchTerm = params["q"];
+        if (
+          this.searchTerm !== "undefined" &&
+          typeof this.searchTerm !== "undefined"
+        ) {
+          this.submitSearch();
+        } else {
+          window.location.hash = "#searchField";
+        }
       }
-    });
+    );
 
-    this.faqCatSubscription = this.faqCategoriesService.getFAQParentCategories(this.lang).subscribe((categories) => {
+    this.faqCatSubscription = this.faqCategoriesService
+      .getFAQParentCategories(this.lang)
+      .subscribe(
+        categories => {
           this.parent_categories = categories;
         },
-        (error) => {
+        error => {
           this.notificationBarCommunicationService.send_data(error);
-        });
+        }
+      );
 
-    this.faqsSubscription2 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[0], this.lang).subscribe((faq) => {
-      const faqs: FAQ[] = [];
-      faqs.push(faq);
-      this.faqsSubscription3 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[1], this.lang).subscribe((faq2) => {
-        faqs.push(faq2);
-        this.faqsSubscription4 = this.faqsService.getFAQs_BySlug(this.most_asked_questions_slugs[2], this.lang).subscribe((faq3) => {
-          faqs.push(faq3);
-          this.most_asked_faqs = faqs;
+    this.faqsSubscription2 = this.faqsService
+      .getFAQs_BySlug(this.most_asked_questions_slugs[0], this.lang)
+      .subscribe(
+        faq => {
+          const faqs: FAQ[] = [];
+          faqs.push(faq);
+          this.faqsSubscription3 = this.faqsService
+            .getFAQs_BySlug(this.most_asked_questions_slugs[1], this.lang)
+            .subscribe(
+              faq2 => {
+                faqs.push(faq2);
+                this.faqsSubscription4 = this.faqsService
+                  .getFAQs_BySlug(this.most_asked_questions_slugs[2], this.lang)
+                  .subscribe(
+                    faq3 => {
+                      faqs.push(faq3);
+                      this.most_asked_faqs = faqs;
+                    },
+                    error => {
+                      this.notificationBarCommunicationService.send_data(error);
+                    }
+                  );
+              },
+              error => {
+                this.notificationBarCommunicationService.send_data(error);
+              }
+            );
         },
-        (error) => {
+        error => {
           this.notificationBarCommunicationService.send_data(error);
-        });
-      },
-      (error) => {
-        this.notificationBarCommunicationService.send_data(error);
-      });
-    },
-    (error) => {
-      this.notificationBarCommunicationService.send_data(error);
-    });
+        }
+      );
 
     const self = this;
-    this.timer = setInterval(function () {
+    this.timer = setInterval(function() {
       if (self.searchTerm) {
         clearInterval(self.timer);
-        self.renderer.listen(self.searchField.nativeElement, 'search', () => {
-          if (self.searchTerm === '') {
-            if (self.lang === 'sv') {
-              self.location.go('sv/search');
-            }else {
-              self.location.go('en/search');
+        self.renderer.listen(self.searchField.nativeElement, "search", () => {
+          if (self.searchTerm === "") {
+            if (self.lang === "sv") {
+              self.location.go("sv/search");
+            } else {
+              self.location.go("en/search");
             }
             self.showResults = false;
           }
@@ -295,13 +380,18 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     }, 100);
 
-    this.hideUiSubscription = this.hideUiCommunicationService.hideUIObservable$.subscribe((event) => {
-      if (this.resultsDropdownList) {
-        if (this.resultsDropdownList.nativeElement !== event.target && !this.resultsDropdownList.nativeElement.contains(event.target)) {
-          this.showResultsDropdown = false;
+    this.hideUiSubscription = this.hideUiCommunicationService.hideUIObservable$.subscribe(
+      event => {
+        if (this.resultsDropdownList) {
+          if (
+            this.resultsDropdownList.nativeElement !== event.target &&
+            !this.resultsDropdownList.nativeElement.contains(event.target)
+          ) {
+            this.showResultsDropdown = false;
+          }
         }
       }
-    });
+    );
   }
 
   ngOnDestroy() {
@@ -314,6 +404,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
     if (this.pageSubscription) {
       this.pageSubscription.unsubscribe();
+    }
+    if (this.documentsSubscription) {
+      this.documentsSubscription.unsubscribe();
     }
     if (this.faqsSubscription) {
       this.faqsSubscription.unsubscribe();

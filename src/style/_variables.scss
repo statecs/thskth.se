@@ -19,8 +19,8 @@ $color-link: #1b8ba8;
 $color-link-hover: #32d5ff;
 $color-link-secondary: #05a5cf;
 $color-link-secondary-hover: #00caff;
-$color-a-link: #00406C;
-$color-a-hover: #00406C;
+$color-a-link: #00406c;
+$color-a-hover: #00406c;
 
 // Other colors
 $color-blue: #00406c;
@@ -29,7 +29,8 @@ $color-main-view-bg: #f2f2f2;
 
 /* ----------- Typography ----------- */
 // Font types
-$font-family-primary: BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+$font-family-primary: BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+  Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 $font-family-regular: "Times New Roman", Times, serif;
 $font-family-title: CenturyGothic, sans-serif;
 
@@ -49,11 +50,10 @@ $font-size-h8: 0.75em;
 $font-weight-regular: 600;
 $font-weight-title: 800;
 
-
 /* ----------- Layout ----------- */
 
 // Container
-$main-container: 80%;
+$main-container: 85%;
 
 // Header
 $header-height: 200px;
@@ -65,7 +65,5 @@ $footer-height: 350px;
 $card-size-width: 25%;
 $card-size-height: 30%;
 
-
 /* ----------- Others ----------- */
 $box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;
-

@@ -1,14 +1,14 @@
 @import "../../../style/variables";
 
-:host /deep/ header{
+:host /deep/ header {
   background: none !important;
   background-color: $bg-color-primary !important;
   color: white !important;
-  .container{
+  .container {
     border-bottom: 0 !important;
   }
 }
 
-#page-section{
+#page-section {
   position: relative;
 }

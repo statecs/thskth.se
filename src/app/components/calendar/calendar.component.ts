@@ -27,13 +27,16 @@ import { Subscription } from "rxjs/Subscription";
 export class CalendarComponent implements OnInit, OnDestroy {
   view: string;
   viewDate: Date;
+  public static calendar_events;
   events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
+  events: CalendarEvent[] = [];
   activeDayIsOpen: boolean;
   public ths_calendars: any;
   public calendar_names: any[];
   public selected_event_category: string;
   public e_loading: boolean;
   public lang: string;
+  public _events: any;
   public loading: boolean;
   public paramsSubscription: Subscription;
 
@@ -67,8 +70,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.selected_event_category = calendar_name;
     let cal_Id = "";
     if (calendar_name === null) {
+      calendar_name = "all";
       cal_Id = "all";
-      this.getAllEvents();
+      this.getAllEvents(this.viewDate);
     } else {
       cal_Id = this.ths_calendars[this.selected_event_category].calendarId;
       this.fetchEvents();
@@ -76,25 +80,41 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.calendarCommunicationService.updateEventItemsList({
       noActivity: false,
       viewDate: this.viewDate,
-      calendarId: cal_Id
+      calendarId: cal_Id,
+      event_category: calendar_name
     });
   }
 
   fetchEvents(): void {
     this.e_loading = true;
     if (this.selected_event_category === null) {
-      this.getAllEvents();
+      this.getAllEvents(this.viewDate);
+
+      this.calendarCommunicationService.updateEventItemsList({
+        noActivity: false,
+        monthView: true,
+        viewDate: this.viewDate,
+        calendarId: "all",
+        event_category: "all"
+      });
     } else {
       this.events$ = this.googleCalendarService
         .fetchEvents(
           this.ths_calendars[this.selected_event_category].calendarId,
           this.viewDate,
-          this.view
+          this.view,
+          this.ths_calendars[this.selected_event_category].calendarName
         )
         .map(
           res => {
+            const mergedArrays = this.mergeArrays(res);
             this.e_loading = false;
-            return res;
+            CalendarComponent.calendar_events = mergedArrays.sort(
+              this.sortArrayByTime
+            );
+            res = mergedArrays.sort(this.sortArrayByTime);
+            this.events = mergedArrays.sort(this.sortArrayByTime);
+            return mergedArrays.sort(this.sortArrayByTime);
           },
           error => {
             this.notificationBarCommunicationService.send_data(error);
@@ -102,12 +122,59 @@ export class CalendarComponent implements OnInit, OnDestroy {
         );
       this.calendarCommunicationService.updateEventItemsList({
         noActivity: false,
+        monthView: true,
         viewDate: this.viewDate,
-        calendarId: this.ths_calendars[this.selected_event_category].calendarId
+        calendarId: this.ths_calendars[this.selected_event_category].calendarId,
+        event_category: this.ths_calendars[this.selected_event_category]
+          .calendarName
       });
     }
   }
 
+  changeMonth(): void {
+    this.e_loading = true;
+    if (this.selected_event_category === null) {
+      this.getAllEvents(this.viewDate);
+
+      this.calendarCommunicationService.updateEventItemsList({
+        noActivity: false,
+        monthView: true,
+        viewDate: this.viewDate,
+        calendarId: "all",
+        event_category: "allMonth"
+      });
+    } else {
+      this.events$ = this.googleCalendarService
+        .fetchEvents(
+          this.ths_calendars[this.selected_event_category].calendarId,
+          this.viewDate,
+          this.view,
+          this.ths_calendars[this.selected_event_category].calendarName
+        )
+        .map(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            this.e_loading = false;
+            CalendarComponent.calendar_events = mergedArrays.sort(
+              this.sortArrayByTime
+            );
+            this.events = mergedArrays.sort(this.sortArrayByTime);
+            return mergedArrays.sort(this.sortArrayByTime);
+          },
+          error => {
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+      this.calendarCommunicationService.updateEventItemsList({
+        noActivity: false,
+        monthView: true,
+        viewDate: this.viewDate,
+        calendarId: this.ths_calendars[this.selected_event_category].calendarId,
+        event_category: this.ths_calendars[this.selected_event_category]
+          .calendarName
+      });
+    }
+  }
   dayClicked({
     date,
     events
@@ -115,12 +182,17 @@ export class CalendarComponent implements OnInit, OnDestroy {
     date: Date;
     events: Array<CalendarEvent<{ event: Event }>>;
   }): void {
+    let calendarName = "";
+    CalendarComponent.calendar_events = events;
     if (isSameMonth(date, this.viewDate)) {
       let cal_Id = "";
       if (this.selected_event_category === null) {
         cal_Id = "all";
+        calendarName = "all";
       } else {
         cal_Id = this.ths_calendars[this.selected_event_category].calendarId;
+        calendarName = this.ths_calendars[this.selected_event_category]
+          .calendarName;
       }
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -129,14 +201,16 @@ export class CalendarComponent implements OnInit, OnDestroy {
         this.calendarCommunicationService.updateEventItemsList({
           noActivity: true,
           viewDate: date,
-          calendarId: cal_Id
+          calendarId: cal_Id,
+          calendarName: calendarName
         });
       } else {
         this.viewDate = date;
         this.calendarCommunicationService.updateEventItemsList({
           noActivity: false,
           viewDate: date,
-          calendarId: cal_Id
+          calendarId: cal_Id,
+          calendarName: calendarName
         });
       }
     }
@@ -161,9 +235,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
     return a < b ? -1 : a > b ? 1 : 0;
   }
 
-  getAllEvents() {
+  getAllEvents(viewDate) {
     this.events$ = this.googleCalendarService
-      .getAllEvents(this.viewDate, "month")
+      .getAllEvents(viewDate, "month")
       .map(
         res => {
           const mergedArrays = this.mergeArrays(res);

@@ -5,7 +5,8 @@ import {
   HostListener,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
+  Input
 } from "@angular/core";
 import { PagesService } from "../../../services/wordpress/pages.service";
 import { MenusService } from "../../../services/wordpress/menus.service";
@@ -16,12 +17,15 @@ import { AddLangToSlugPipe } from "../../../pipes/add-lang-to-slug.pipe";
 import { NotificationBarComponent } from "../../notification-bar/notification-bar.component";
 import { NotificationBarCommunicationService } from "../../../services/component-communicators/notification-bar-communication.service";
 import { Subscription } from "rxjs/Subscription";
+import { CookieService, CookieOptions } from "ngx-cookie";
 import { MenuItem } from "../../../interfaces-and-classes/menu";
 import { HrefToSlugPipe } from "../../../pipes/href-to-slug.pipe";
 import { TitleCommunicationService } from "../../../services/component-communicators/title-communication.service";
 import { HideUICommunicationService } from "../../../services/component-communicators/hide-ui-communication.service";
 import * as format from "date-fns/format";
 import { HeaderCommunicationService } from "../../../services/component-communicators/header-communication.service";
+import { SanitizeHtmlPipe } from "../../../pipes/sanitizeHtml.pipe";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-sub-page",
@@ -54,11 +58,14 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   public show_single_page: boolean;
   public infoBoxClickCount: number;
   public notificationBarHeight: number;
+  sanitizeHtmlPipe: SanitizeHtmlPipe;
 
   constructor(
     private pagesService: PagesService,
+    private domSanitizer: DomSanitizer,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private _cookieService: CookieService,
     private menusService: MenusService,
     private notificationBarComponent: NotificationBarComponent,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
@@ -76,6 +83,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
     this.show_single_page = false;
     this.infoBoxClickCount = 0;
     this.notificationBarHeight = 0;
+    this.sanitizeHtmlPipe = new SanitizeHtmlPipe(domSanitizer);
   }
   /*
   getOffsetTop(elem): number {
@@ -107,11 +115,17 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
       } else {
         this.submenu_bar.nativeElement.style.top =
           this.notificationBarHeight + "px";
+        this.submenu_bar.nativeElement.style.width = "100%";
+        this.submenu_bar.nativeElement.style.margin = "0";
+        this.submenu_bar.nativeElement.style.borderRadius = "0px";
       }
     } else {
       if (this.freeze_submenu_bar) {
         this.freeze_submenu_bar = false;
-        this.submenu_bar.nativeElement.style.top = this.submenu_bar_pos + "px";
+        this.submenu_bar.nativeElement.style.top = "110px";
+        this.submenu_bar.nativeElement.style.width = "";
+        this.submenu_bar.nativeElement.style.margin = "";
+        this.submenu_bar.nativeElement.style.borderRadius = "";
       }
     }
   }
@@ -251,6 +265,11 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
           this.loading = false;
           if (page) {
             this.page = page;
+            if (page.content) {
+              this.page.content = this.sanitizeHtmlPipe.transform(
+                this.page.content
+              );
+            }
             this.titleCommunicationService.setTitle(page.name);
           } else {
             this.pageNotFound = true;
@@ -276,10 +295,17 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
         this.loading = true;
         this.slug = params["subpage"];
         if (typeof params["subpage"] === "undefined") {
-          this.lang = "en";
-          this.slug = params["lang"];
-          this.getSubmenu();
-          this.getPageBySlug();
+          if (this._cookieService.get("language") == "sv") {
+            this.lang = "sv";
+            this.slug = params["lang"];
+            this.getSubmenu();
+            this.getPageBySlug();
+          } else {
+            this.lang = "en";
+            this.slug = params["lang"];
+            this.getSubmenu();
+            this.getPageBySlug();
+          }
         } else {
           this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe(
             (params2: Params) => {

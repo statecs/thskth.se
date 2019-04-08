@@ -14,6 +14,7 @@ import * as format from "date-fns/format";
 import { DataFetcherService } from "../utility/data-fetcher.service";
 import { WordpressBaseDataService } from "../abstract-services/wordpress-base-data.service";
 import {Post} from '../../interfaces-and-classes/post';
+import { SearchResult } from "../../interfaces-and-classes/search";
 
 @Injectable()
 export class ArchiveService extends WordpressBaseDataService<Archive> {
@@ -66,6 +67,28 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
               return this.castPostsTo_SearchResultType(res);
           })
       );
+
+  searchDocumentsPage(
+    search_term: string,
+    amount: number,
+    lang: string
+  ): Observable<SearchResult[]> {
+    this.language = lang;
+    return (
+      this.searchData(
+        "order=asc&per_page=" +
+          amount +
+          "&search=" +
+          search_term +
+          "&lang=" +
+          this.language
+      )
+        // Cast response data to FAQ Category type
+        .map((res: Array<any>) => {
+          return SearchResult.convertDocumentsToSearchResultType(res);
+        })
+    );
+
   }
 
   searchDocuments(

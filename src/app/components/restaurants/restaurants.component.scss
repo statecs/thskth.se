@@ -1,28 +1,45 @@
 @import "../../../style/utilities";
 
-:host /deep/ header{
+:host /deep/ header {
   background: none !important;
   background-color: $bg-color-primary !important;
   color: white !important;
-  .container{
+  .container {
     border-bottom: 0 !important;
   }
 }
-
-#restaurant{
+.header {
+  max-height: 350px;
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  .default-header {
+    width: 100%;
+    height: 270px;
+    background-color: $bg-color-primary;
+  }
+}
+#restaurant {
+  box-shadow: 0 1px 2px #b2b2b2;
   @include container-size(80%);
   margin-bottom: 50px;
-  padding-top: 100px;
-  .larger-devices{
+  max-width: 1600px;
+  margin: 0 auto;
+  background: white;
+  margin-top: -150px;
+  border-radius: 15px;
+  padding: 50px;
+  margin-bottom: 40px;
+  .larger-devices {
     display: block;
   }
-  .mobile{
+  .mobile {
     display: none;
   }
 
-  >h1{
+  > h1 {
     text-align: center;
-    margin-top: 50px;
+    margin-bottom: 50px;
   }
   #text-slider {
     //@include container-size($main-container);
@@ -32,7 +49,7 @@
     overflow: hidden;
     height: 280px;
 
-    .opening-hour{
+    .opening-hour {
       position: absolute;
       right: 50px;
       bottom: 0;
@@ -61,13 +78,13 @@
         display: inline-block;
         text-align: center;
         height: 100%;
-        background-color: rgba(0,0,0,0.20);
+        background-color: rgba(0, 0, 0, 0.2);
 
-        h2{
+        h2 {
           font-size: $font-size-h2;
           color: white;
         }
-        p{
+        p {
           font-size: $font-size-default;
           text-align: justify;
         }
@@ -86,12 +103,13 @@
       }
     }
 
-    .text-slider-navBefore, .text-slider-navNext {
+    .text-slider-navBefore,
+    .text-slider-navNext {
       display: inline-block;
       @include center-vertically(50%);
       color: lightgrey;
 
-      i{
+      i {
         font-size: $font-size-extraLarge;
         font-weight: $font-weight-title;
         cursor: pointer;
@@ -108,14 +126,14 @@
 
     .slider-progress-bar {
       //border: 1px solid;
-      padding:15px 0;
-      top:230px;
+      padding: 15px 0;
+      top: 230px;
       position: relative;
       .bar-item {
         @include circle(17px);
         //border: 1px solid blue;
         display: inline-block;
-        margin:0 20px;
+        margin: 0 20px;
         background-color: gray;
         & ~ .bar-item {
           background-color: lightgray;
@@ -124,20 +142,21 @@
     }
   }
 
-  .schedule{
+  .schedule {
     margin-top: 50px;
-    .options{
+    padding: 0 20px;
+    .options {
       text-align: center;
       padding: 15px 0;
-      div{
+      div {
         display: inline-block;
-        border:1px solid gray;
+        border: 1px solid gray;
         color: black;
         padding: 15px 20px;
         margin-bottom: 5px;
       }
     }
-    .description{
+    .description {
       width: 35%;
       display: inline-block;
       text-align: left;
@@ -148,52 +167,61 @@
       display: inline-block;
       margin-left: 3%;
       vertical-align: top;
-      .menu-calendar{
-        text-align: center;
-        border-bottom:1px solid gray;
-        h2{
+      .menu-calendar {
+        text-align: left;
+        h2 {
           float: left;
           position: absolute;
         }
-        div{
+        .menu-select {
+          transform: translate3d(0px, 0px, 0px);
+          display: inline-block;
+          padding: 10px 15px;
+          box-shadow: 0 1px 2px #b2b2b2;
+          color: black;
+          border-radius: 20px;
+          margin: 5px 5px;
+          cursor: pointer;
+          text-align: center;
           display: inline-block;
           color: black;
           padding: 10px 20px;
           cursor: pointer;
-          &:hover{
-            border-bottom:4px solid gray;
+          &:hover {
           }
         }
-        .selected{
-          border-bottom:4px solid gray;
+        .selected {
+          background-color: #00406c;
+          color: #f7f7f7;
         }
       }
 
-      .menu-container{
-        @include container-size(70%);
+      .menu-container {
+        text-align: left;
         overflow: hidden;
-        >h2{
+        > h2 {
           border-bottom: 1px solid lightgray;
+          padding: 10px 0;
         }
-        .dish{
+        .dish {
           width: 40%;
           overflow: hidden;
           display: inline-block;
           margin: 10px 20px;
-          div{
+          div {
             display: inline-block;
             float: left;
           }
-          span{
+          span {
             display: inline-block;
           }
-          .fl{
+          .fl {
             float: left;
           }
-          .fr{
+          .fr {
             float: right;
           }
-          img{
+          img {
             display: inline-block;
             float: right;
             width: 100px;
@@ -202,14 +230,13 @@
         }
       }
     }
-
   }
 
-  .gallery{
+  .gallery {
     overflow: hidden;
     text-align: center;
     margin-top: 20px;
-    .g-item{
+    .g-item {
       width: 25%;
       height: 400px;
       display: inline-block;
@@ -217,53 +244,60 @@
       background-size: cover;
       position: relative;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.25);
+      border-radius: 15px;
       cursor: pointer;
-      .text{
+      .text {
         position: absolute;
         bottom: 0;
         width: 100%;
-        background-color: rgba(0,0,0,0.4);
-        color: lightgray;
+        color: white;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
         text-align: left;
         padding: 0 10px 15px;
+        background-color: rgba(0, 0, 0, 0.25);
+        p {
+          font-size: 1em;
+        }
       }
-      &:hover{
-        box-shadow: 0 2px 15px #0ae6c9;
+      &:hover {
+        box-shadow: 0 2px 15px grey;
       }
     }
-    .selected{
-      box-shadow: 0 2px 15px #0ae6c9;
+    .selected {
+      box-shadow: 0 2px 15px grey;
     }
   }
 }
 
-::-webkit-scrollbar
-{
-  width: 0;  /* for vertical scrollbars */
+::-webkit-scrollbar {
+  width: 0; /* for vertical scrollbars */
   height: 0; /* for horizontal scrollbars */
 }
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #restaurant {
+    padding: 20px 0;
     width: 100%;
-    .larger-devices{
+    .larger-devices {
       display: none;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
-    .gallery{
-      .g-item{
+    .gallery {
+      .g-item {
         width: 31%;
         margin: 0 1%;
-        .text{
-          p{
+        .text {
+          p {
             font-size: $font-size-h4;
           }
         }
       }
-      .slides-wrapper{
+      .slides-wrapper {
         width: 260%;
         //border: 1px solid;
         text-align: left;
@@ -273,28 +307,28 @@
         padding-bottom: 10px;
       }
     }
-    .schedule{
-      .description{
+    .schedule {
+      .description {
         width: 100%;
       }
       .menu-wrapper {
         width: 100%;
-        .menu-container{
+        .menu-container {
           width: 90%;
-          .dish{
+          .dish {
             width: 90%;
-            h4{
+            h4 {
               margin: 0;
             }
           }
         }
-        .menu-calendar{
+        .menu-calendar {
           overflow-x: scroll;
-          >div{
+          .menu-select-container {
             width: 600px;
           }
-          .selected{
-            box-shadow: 0 2px 15px rgba(0,0,0,0);
+          .selected {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0);
           }
         }
       }
@@ -306,23 +340,23 @@
 @include media-breakpoint-only(sm) {
   #restaurant {
     width: 100%;
-    .larger-devices{
+    .larger-devices {
       display: none;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
-    .gallery{
-      .g-item{
+    .gallery {
+      .g-item {
         width: 31%;
         margin: 0 1%;
-        .text{
-          p{
+        .text {
+          p {
             font-size: $font-size-h4;
           }
         }
       }
-      .slides-wrapper{
+      .slides-wrapper {
         width: 260%;
         //border: 1px solid;
         text-align: left;
@@ -332,28 +366,28 @@
         padding-bottom: 10px;
       }
     }
-    .schedule{
-      .description{
+    .schedule {
+      .description {
         width: 100%;
       }
       .menu-wrapper {
         width: 100%;
-        .menu-container{
+        .menu-container {
           width: 90%;
-          .dish{
+          .dish {
             width: 90%;
-            h4{
+            h4 {
               margin: 0;
             }
           }
         }
-        .menu-calendar{
+        .menu-calendar {
           overflow-x: scroll;
-          >div{
+          .menu-select-container {
             width: 600px;
           }
-          .selected{
-            box-shadow: 0 2px 15px rgba(0,0,0,0);
+          .selected {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0);
           }
         }
       }
@@ -364,23 +398,23 @@
 @include media-breakpoint-only(md) {
   #restaurant {
     width: 100%;
-    .larger-devices{
+    .larger-devices {
       display: none;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
-    .gallery{
-      .g-item{
+    .gallery {
+      .g-item {
         width: 31%;
         margin: 0 1%;
-        .text{
-          p{
+        .text {
+          p {
             font-size: $font-size-h4;
           }
         }
       }
-      .slides-wrapper{
+      .slides-wrapper {
         width: 260%;
         //border: 1px solid;
         text-align: left;
@@ -390,28 +424,28 @@
         padding-bottom: 10px;
       }
     }
-    .schedule{
-      .description{
+    .schedule {
+      .description {
         width: 100%;
       }
       .menu-wrapper {
         width: 100%;
-        .menu-container{
+        .menu-container {
           width: 90%;
-          .dish{
+          .dish {
             width: 90%;
-            h4{
+            h4 {
               margin: 0;
             }
           }
         }
-        .menu-calendar{
+        .menu-calendar {
           overflow-x: scroll;
-          >div{
+          .menu-select-container {
             width: 600px;
           }
-          .selected{
-            box-shadow: 0 2px 15px rgba(0,0,0,0);
+          .selected {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0);
           }
         }
       }
@@ -434,5 +468,4 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }
