@@ -249,6 +249,40 @@ export class GoogleCalendarService {
     });
   }
 
+  getAllEventsThisMonth(viewDate, view): Observable<Event[]> {
+    this.view = view;
+    const todayDate = new Date();
+    var startDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+    const params: URLSearchParams = new URLSearchParams();
+
+    params.set(
+      "timeMin",
+      format(this.getStart(startDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
+    );
+    params.set(
+      "timeMax",
+      format(this.getEnd(startDate), "YYYY-MM-DDTHH:mm:ss.SSSz")
+    );
+
+    params.set("key", this.config.GOOGLE_CALENDAR_KEY);
+    params.set("singleEvents", "true");
+    params.set("orderBy", "startTime");
+    params.set("maxResults", "10");
+    const observables: Observable<any>[] = [];
+    observables.push(this.eventsCalendarService.getCalendar(params));
+    observables.push(this.generalCalendarService.getCalendar(params));
+    observables.push(this.educationCalendarService.getCalendar(params));
+    observables.push(this.futureCalendarService.getCalendar(params));
+    observables.push(this.internationalCalendarService.getCalendar(params));
+    return Observable.combineLatest(observables).map(values => {
+      let events: Event[] = [];
+      _.each(values, value => {
+        events = events.concat(value);
+      });
+      return events;
+    });
+  }
+
   getAllEventsNextMonth(viewDate, view): Observable<Event[]> {
     this.view = view;
     const todayDate = new Date();

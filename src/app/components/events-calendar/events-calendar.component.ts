@@ -23,11 +23,13 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   public actualDate: any;
   public tomorrowDate: string;
   public nextMonthDate: string;
+  public thisMonthDate: string;
   public nextWeekDate: string;
   public selectToday: boolean;
   public selectTomorrow: boolean;
   public selectNextWeek: boolean;
   public selectNextMonth: boolean;
+  public selectThisMonth: boolean;
   public ths_calendars: any;
   public showFeaturedEvents: boolean;
   public earliest_events: Event[];
@@ -67,6 +69,9 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     );
     this.nextMonthDate = format(
       new Date(this.actualDate.getFullYear(), this.actualDate.getMonth() + 1, 1)
+    );
+    this.thisMonthDate = format(
+      new Date(this.actualDate.getFullYear(), this.actualDate.getMonth(), 1)
     );
     this.selectToday = false;
     this.selectTomorrow = false;
@@ -335,6 +340,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     this.selectTomorrow = false;
     this.selectNextWeek = false;
     this.selectNextMonth = false;
+    this.selectThisMonth = false;
     if (this.selectToday !== true) {
       this.allEventsSubscription = this.googleCalendarService
         .getAllEventsToday(null, "day")
@@ -376,6 +382,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     this.selectToday = false;
     this.selectNextWeek = false;
     this.selectNextMonth = false;
+    this.selectThisMonth = false;
     if (this.selectTomorrow !== true) {
       this.allEventsSubscription = this.googleCalendarService
         .getAllEventsTomorrow(null, "day")
@@ -416,6 +423,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     this.selectTomorrow = false;
     this.selectNextMonth = false;
     this.selectToday = false;
+    this.selectThisMonth = false;
     if (this.selectNextWeek !== true) {
       this.allEventsSubscription = this.googleCalendarService
         .getAllEventsNextWeek(null, "week")
@@ -457,9 +465,52 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     this.selectNextWeek = false;
     this.selectTomorrow = false;
     this.selectToday = false;
+    this.selectThisMonth = false;
     if (this.selectNextMonth !== true) {
       this.allEventsSubscription = this.googleCalendarService
         .getAllEventsNextMonth(null, "month")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    } else {
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsUpcoming(null, "month")
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+            this.earliest_events = sortedArrays;
+            this.events = sortedArrays;
+            CalendarComponent.calendar_events = sortedArrays;
+          },
+          error => {
+            this.earliest_events = [];
+            this.showFeaturedEvents = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
+  }
+
+  getEventsPerFirstMonth() {
+    this.selectNextWeek = false;
+    this.selectTomorrow = false;
+    this.selectToday = false;
+    this.selectNextMonth = false;
+    if (this.selectThisMonth !== true) {
+      this.allEventsSubscription = this.googleCalendarService
+        .getAllEventsThisMonth(null, "month")
         .subscribe(
           res => {
             const mergedArrays = this.mergeArrays(res);

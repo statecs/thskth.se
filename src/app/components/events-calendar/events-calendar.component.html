@@ -76,6 +76,20 @@
         id="selectNextWeek"
         type="checkbox"
       />
+      <label
+        (click)="getEventsPerFirstMonth()"
+        for="selectThisMonth"
+        class="display-cal-btn-select "
+        [class.selected]="selectThisMonth"
+      >
+        This month
+      </label>
+      <input
+        [(ngModel)]="selectThisMonth"
+        name="selectThisMonth"
+        id="selectThisMonth"
+        type="checkbox"
+      />
 
       <label
         (click)="getEventsPerMonth()"
@@ -109,7 +123,8 @@
         selectToday == false &&
         selectTomorrow == false &&
         selectNextWeek == false &&
-        selectNextMonth == false
+        selectNextMonth == false &&
+        selectThisMonth == false
       "
     >
       {{ lang === "en" ? "Upcoming events" : " Kommande kalenderhändelser" }}
@@ -123,6 +138,9 @@
     <h2 *ngIf="selectNextWeek">Week {{ nextWeekDate }}</h2>
     <h2 *ngIf="selectNextMonth">
       {{ nextMonthDate | date: "MMMM" }}
+    </h2>
+    <h2 *ngIf="selectThisMonth">
+      {{ thisMonthDate | date: "MMMM" }}
     </h2>
   </div>
   <div class="calendar-wrapper larger-devices">
