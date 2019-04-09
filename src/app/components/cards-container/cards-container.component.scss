@@ -167,7 +167,6 @@
           transform: scale(1.1);
           border-radius: 15px;
           .content {
-            padding: 0 40px;
             height: 200px;
           }
         }
@@ -224,7 +223,6 @@
           transform: scale(1) !important;
           border-radius: 15px;
           .content {
-            padding: 5px 20px !important;
             height: 100% !important;
           }
         }
@@ -536,7 +534,6 @@
             transform: scale(1) !important;
             border-radius: 15px;
             .content {
-              padding: 50px 20px !important;
               height: 0 !important;
             }
           }
@@ -1031,9 +1028,23 @@
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
-  .masonry-layout {
+  .standard-card {
+    &:hover {
+      .content {
+        padding: 0 40px;
+        height: 200px;
+      }
+    }
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
+  .standard-card {
+    &:hover {
+      .content {
+        padding: 0 40px;
+        height: 200px;
+      }
+    }
+  }
 }

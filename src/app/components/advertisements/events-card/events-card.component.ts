@@ -77,7 +77,7 @@ export class EventsCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.eventsSubscription = this.googleCalendarService
-      .getAllEvents(null, "")
+      .getAllEventsCard(null, "")
       .subscribe(res => {
         const mergedArrays = this.mergeArrays(res);
         const sortedArrays = mergedArrays.sort(this.sortArrayByTime);

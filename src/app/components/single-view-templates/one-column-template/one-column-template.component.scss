@@ -317,31 +317,60 @@
 @include media-breakpoint-only(sm) {
   #one-column-template {
     #page {
+      width: 95%;
+      padding: 50px 20px;
       .larger-devices {
         display: none;
       }
-      .mobile {
-        display: block;
-      }
-      > app-breadcrumb {
-        position: absolute;
-        top: 65px;
-        width: 100%;
-      }
-      .header-image {
-        max-height: 300px;
+      .heading {
+        margin-bottom: 0;
+        .title {
+          width: 100%;
+        }
       }
       .content-container {
-        width: 90%;
-        padding: 30px;
-        .title {
-          padding-top: 10px;
-          font-size: $font-size-h3;
-        }
-        .content {
-          > h2 {
-            font-size: $font-size-h4;
-          }
+        width: 100%;
+        margin-left: 0;
+        left: 0;
+      }
+    }
+  }
+  #one-column-template {
+    .larger-devices {
+      display: none;
+    }
+    .submenu-bar {
+      font-size: 0.9em;
+      top: 0px;
+      position: absolute;
+      width: 100%;
+      margin-left: 0;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      box-shadow: 0px 24px 1px -24px #b2b2b2;
+      left: 0;
+      .material-icons {
+        font-size: 20px;
+      }
+    }
+    .mobile {
+      display: block;
+    }
+    > app-breadcrumb {
+      position: absolute;
+      top: 65px;
+      width: 100%;
+    }
+    .header-image {
+      max-height: 300px;
+    }
+    .content-container {
+      .title {
+        font-size: $font-size-h3;
+      }
+      .content {
+        > h2 {
+          font-size: $font-size-h4;
         }
       }
     }
@@ -351,31 +380,60 @@
 @include media-breakpoint-only(md) {
   #one-column-template {
     #page {
+      width: 95%;
+      padding: 50px 20px;
       .larger-devices {
         display: none;
       }
-      .mobile {
-        display: block;
-      }
-      > app-breadcrumb {
-        position: absolute;
-        top: 65px;
-        width: 100%;
-      }
-      .header-image {
-        max-height: 300px;
+      .heading {
+        margin-bottom: 0;
+        .title {
+          width: 100%;
+        }
       }
       .content-container {
-        width: 90%;
-        padding: 30px;
-        .title {
-          padding-top: 10px;
-          font-size: $font-size-h3;
-        }
-        .content {
-          > h2 {
-            font-size: $font-size-h4;
-          }
+        width: 100%;
+        margin-left: 0;
+        left: 0;
+      }
+    }
+  }
+  #one-column-template {
+    .larger-devices {
+      display: none;
+    }
+    .submenu-bar {
+      font-size: 0.9em;
+      top: 0px;
+      position: absolute;
+      width: 100%;
+      margin-left: 0;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      box-shadow: 0px 24px 1px -24px #b2b2b2;
+      left: 0;
+      .material-icons {
+        font-size: 20px;
+      }
+    }
+    .mobile {
+      display: block;
+    }
+    > app-breadcrumb {
+      position: absolute;
+      top: 65px;
+      width: 100%;
+    }
+    .header-image {
+      max-height: 300px;
+    }
+    .content-container {
+      .title {
+        font-size: $font-size-h3;
+      }
+      .content {
+        > h2 {
+          font-size: $font-size-h4;
         }
       }
     }
