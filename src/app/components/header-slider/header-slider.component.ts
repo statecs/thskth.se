@@ -96,6 +96,25 @@ export class HeaderSliderComponent implements OnInit {
   showActualSlide(): void {
     this.slides[this.slideIndex].style.left = "0";
   }
+  clickActualSlide(index): void {
+    console.log(index);
+    this.selectSlideElements();
+    if (index < this.slides.length) {
+      this.slideIndex++;
+      if (this.slideIndex >= this.slides.length) {
+        this.slideIndex = this.slides.length - 1;
+      }
+      this.slides[this.slideIndex - 1].style.left = "-101%";
+      this.showActualSlide();
+    } else {
+      this.slideIndex--;
+      if (this.slideIndex < 0) {
+        this.slideIndex = 0;
+      }
+      this.slides[this.slideIndex + 1].style.left = "101%";
+      this.showActualSlide();
+    }
+  }
 
   ngOnInit() {
     this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName(
