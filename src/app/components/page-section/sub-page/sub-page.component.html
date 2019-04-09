@@ -73,9 +73,9 @@
           <span>{{ m.title }}</span>
         </div>
       </div>
+      <app-related-links [links]="page.related_links"></app-related-links>
       <app-join-us></app-join-us>
       <app-events-card></app-events-card>
-      <app-related-links [links]="page.related_links"></app-related-links>
     </div>
     <div class="content-container">
       <div class="content" [innerHTML]="page?.content"></div>
@@ -109,9 +109,9 @@
       </footer>
 
       <div class="mobile">
+        <app-related-links [links]="page.related_links"></app-related-links>
         <app-join-us></app-join-us>
         <app-events-card></app-events-card>
-        <app-related-links [links]="page.related_links"></app-related-links>
       </div>
     </div>
   </div>

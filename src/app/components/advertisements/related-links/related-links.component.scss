@@ -1,16 +1,16 @@
 #related_links {
-  margin-top: 50px;
+  margin-bottom: 50px;
 
-  >h2{
+  > h2 {
     text-align: left;
   }
 
-  >a {
+  > a {
     color: #00406c;
     display: block;
     margin: 0 0 17px -15px;
     text-align: left;
-    letter-spacing: .25px;
+    letter-spacing: 0.25px;
     line-height: 1.2;
     cursor: pointer;
 
@@ -19,9 +19,10 @@
     }
 
     &:before {
-      background: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDA0MDZjIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTAgNkw4LjU5IDcuNDEgMTMuMTcgMTJsLTQuNTggNC41OUwxMCAxOGw2LTZ6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==) no-repeat 9px center;
+      background: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDA0MDZjIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTAgNkw4LjU5IDcuNDEgMTMuMTcgMTJsLTQuNTggNC41OUwxMCAxOGw2LTZ6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==)
+        no-repeat 9px center;
       padding: 0 18px;
-      content: '';
+      content: "";
     }
   }
 }
