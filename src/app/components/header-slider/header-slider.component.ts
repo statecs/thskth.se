@@ -97,7 +97,6 @@ export class HeaderSliderComponent implements OnInit {
     this.slides[this.slideIndex].style.left = "0";
   }
   clickActualSlide(index): void {
-    console.log(index);
     this.selectSlideElements();
     if (index < this.slides.length) {
       this.slideIndex++;
