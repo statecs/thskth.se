@@ -18,31 +18,79 @@
       class="default-header"
     ></div>
   </div>
-  <div class="content-container">
+  <div id="page">
+    <div
+      #submenu_bar
+      class="submenu-bar mobile"
+      [ngClass]="{ 'freeze-submenu-bar': freeze_submenu_bar }"
+    >
+      <div *ngIf="subMenu?.length !== 0">
+        <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
+          <span>{{ page_data?.name | cardText: 30 }}</span>
+          <i class="material-icons">keyboard_arrow_down</i>
+        </div>
+        <div
+          #submenuBarDropdown
+          *ngIf="showSubmenuBarDropdown"
+          class="submenu-bar-dropdown"
+        >
+          <div
+            *ngFor="let m of subMenu; let i = index"
+            (click)="goToPage(m)"
+            class="submenu-item"
+          >
+            <span>{{ m.title }}</span>
+            <div *ngIf="i !== subMenu?.length - 1" class="divider"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <app-breadcrumb class="breadcrumb-large"></app-breadcrumb>
     <h2 [innerHTML]="page_data.name" class="title"></h2>
-    <div [innerHTML]="page_data.content" class="content"></div>
+    <div class="side-bar larger-devices">
+      <div class="submenu">
+        <div
+          *ngFor="let m of subMenu; let i = index"
+          (click)="goToPage(m)"
+          class="submenu-item"
+          [ngClass]="{ selected: m[i] == i }"
+        >
+          <span>{{ m.title }}</span>
+        </div>
+      </div>
+      <app-related-links [links]="page_data.related_links"></app-related-links>
+      <app-join-us></app-join-us>
+      <app-events-card></app-events-card>
+    </div>
+    <div class="content-container">
+      <div [innerHTML]="page_data.content" class="content"></div>
 
-    <footer class="article-footer">
-      <dl class="dl-horizontal dl-in-article-footer">
-        <dt>Last modified</dt>
-        <dd>
-          <time
-            datetime="{{formatDate(page_data.last_modifiled)}"
-            class="ng-binding"
-            >{{ formatDate(page_data.last_modifiled) }}</time
-          >
-        </dd>
+      <footer class="article-footer">
+        <dl class="dl-horizontal dl-in-article-footer">
+          <dt>Last modified</dt>
+          <dd>
+            <time
+              datetime="{{formatDate(page_data.last_modifiled)}"
+              class="ng-binding"
+              >{{ formatDate(page_data.last_modifiled) }}</time
+            >
+          </dd>
 
-        <dt>Responsible</dt>
-        <dd>
-          <a href="mailto:{{ page_data.author.email }}" class="ng-binding">{{
-            page_data.author.name
-          }}</a>
-        </dd>
-      </dl>
-    </footer>
-
-    <app-related-links [links]="page_data.related_links"></app-related-links>
+          <dt>Responsible</dt>
+          <dd>
+            <a href="mailto:{{ page_data.author.email }}" class="ng-binding">{{
+              page_data.author.name
+            }}</a>
+          </dd>
+        </dl>
+      </footer>
+      <div class="mobile">
+        <app-related-links
+          [links]="page_data.related_links"
+        ></app-related-links>
+        <app-join-us></app-join-us>
+        <app-events-card></app-events-card>
+      </div>
+    </div>
   </div>
 </div>

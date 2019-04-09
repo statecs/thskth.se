@@ -51,12 +51,14 @@
   #breadcrumbs {
     position: absolute;
     top: -65px;
-    width: 80%;
+    width: 100%;
     left: 0;
     font-size: 0.8em;
-    width: 100%;
     display: block;
     overflow-x: scroll;
+    .container {
+      width: 120%;
+    }
     ul {
       padding: 30px 5px;
       color: #e1e1e1;
