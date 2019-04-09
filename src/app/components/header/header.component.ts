@@ -102,7 +102,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   toggle_freeze_submenu_bar() {
     const pos = document.documentElement.scrollTop || document.body.scrollTop;
-    if (pos >= 110) {
+    if (pos >= 110 && !this.showMenuMobile) {
       if (pos > this.lastScrollTop) {
         this.app_header.nativeElement.style.position = "absolute";
         this.app_mobile_header.nativeElement.style.position = "absolute";
@@ -411,12 +411,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   displayActualLanguage() {
     if (this.lang === "sv") {
-      this.language_text = "English";
+      this.language_text = "In English";
       this.language_img = "../../../assets/images/British_flag.png";
       this.signin_text = "Logga in";
       this.chapter_text = "Sektioner";
     } else if (this.lang === "en" || typeof this.lang === "undefined") {
-      this.language_text = "Svenska";
+      this.language_text = "På Svenska";
       this.language_img = "../../../../assets/images/sweden_flag.png";
       this.signin_text = "Sign in";
       this.chapter_text = "Chapters";

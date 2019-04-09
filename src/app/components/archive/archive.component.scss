@@ -20,7 +20,7 @@
   }
 }
 #content-container {
-  box-shadow: 0 1px 2px #b2b2b2;
+  box-shadow: 0 1px 3px #b2b2b2;
   @include container-size($main-container);
   position: relative;
   line-height: 1;
@@ -49,27 +49,28 @@
       position: relative;
       .search {
         height: 50px;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 1px 3px #b2b2b2;
+        border-radius: 8px;
         .searchInput {
           font-size: 1em;
           width: 75%;
           padding: 0 5px 0 15px;
-          border: 0;
           display: inline-block;
           float: left;
           height: 50px;
+          -webkit-appearance: none;
+          box-shadow: none !important;
+          border: 0;
         }
         .submit {
           display: inline-block;
           float: right;
-          padding: 17px 38px;
+          padding: 13px 38px;
           border: 0;
           background: none;
           cursor: pointer;
-          width: 25%;
-          &:hover {
-            box-shadow: 0 0 15px rgba(0, 108, 170, 0.62);
-          }
+          width: 10px;
+          color: lightgrey;
         }
       }
       .sendToBack {
@@ -83,9 +84,14 @@
         height: 400px;
         overflow-y: scroll;
         background-color: white;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 1px 3px #b2b2b2;
         text-align: left;
         padding: 10px 20px;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        margin-top: -5px;
         .section {
           > h3 {
             border-bottom: 1px solid lightgray;
@@ -109,6 +115,7 @@
             margin-bottom: 22px;
             overflow: hidden;
             .left-content {
+              padding: 0 10px;
               width: 15%;
               height: auto;
               display: inline-block;
@@ -148,9 +155,9 @@
             .right-content {
               display: inline-block;
               vertical-align: top;
-              padding: 0 10px;
               width: 79%;
               float: left;
+              padding: 1px;
               h4 {
                 color: $color-link-secondary;
                 cursor: pointer;
@@ -350,7 +357,7 @@
         overflow: hidden;
         margin: 20px 0;
         border-top: 1px solid gray;
-        padding: 10px 0;
+        padding-top: 30px;
         .left-content {
           width: 15%;
           height: auto;
@@ -369,7 +376,7 @@
           .dates {
             margin-top: 25px;
             .date {
-              margin-top: 5px;
+              margin-top: 15px;
               span {
                 color: gray;
               }
@@ -390,9 +397,9 @@
         .right-content {
           display: inline-block;
           vertical-align: top;
-          padding: 0 10px;
           width: 79%;
           float: left;
+          padding: 1px;
           h4 {
             color: $color-link-secondary;
             cursor: pointer;
@@ -408,12 +415,13 @@
               }
               .download_link {
                 padding: 5px 15px;
-                border: 1px solid gray;
+                box-shadow: 0 1px 3px #b2b2b2;
                 border-radius: 20px;
                 display: inline-block;
                 margin-right: 10px;
                 cursor: pointer;
                 i {
+                  color: lightgrey;
                   vertical-align: middle;
                 }
               }
@@ -452,17 +460,12 @@
         font-size: $font-size-h4;
       }
       form {
-        width: 90%;
-        margin: 0 5%;
+        width: 95%;
         .search {
           width: 100%;
           display: inline-block;
           .searchInput {
             width: 70%;
-          }
-          .submit {
-            width: 30%;
-            padding: 17px 0;
           }
         }
         .resultsDropdownList {
@@ -470,12 +473,15 @@
           padding: 10px;
           .section {
             .item {
-              margin-bottom: 15px;
+              margin-bottom: 0px;
               .left-content {
                 display: none;
               }
               .right-content {
                 padding: 0;
+                h4 {
+                  margin: 15px 0;
+                }
               }
             }
           }
@@ -512,8 +518,11 @@
           }
         }
         .item {
+          padding-top: 30px;
+          padding-left: 1px;
           .left-content {
-            width: 25%;
+            width: 100%;
+            padding-top: 10px;
             > span {
               font-size: $font-size-h6;
             }
@@ -527,7 +536,7 @@
             }
           }
           .right-content {
-            width: 72%;
+            width: 100%;
             p {
               font-size: $font-size-h6;
             }
@@ -562,10 +571,6 @@
           display: inline-block;
           .searchInput {
             width: 70%;
-          }
-          .submit {
-            width: 30%;
-            padding: 17px 0;
           }
         }
         .resultsDropdownList {
@@ -665,10 +670,6 @@
           display: inline-block;
           .searchInput {
             width: 75%;
-          }
-          .submit {
-            width: 25%;
-            padding: 17px 0;
           }
         }
         .resultsDropdownList {

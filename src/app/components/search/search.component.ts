@@ -182,6 +182,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
+  replaceLineBreak(s: string) {
+    return s && s.replace(/<[^>]+>/gm, "");
+  }
+
   search(): void {
     if (this.postsChecked) {
       this.searchPosts();

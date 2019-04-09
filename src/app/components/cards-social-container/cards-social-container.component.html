@@ -29,21 +29,23 @@
             class="fa fa-instagram"
           ></i>
         </div>
-        <div class="user">
-          <!--<img
+        <div class="content">
+          <div class="user">
+            <!--<img
             src="{{ post.user.profile_image }}"
             alt="User profile image"
             (click)="goToUserProfile(post.user.link)"
           />-->
-          <div>
-            <h3 (click)="goToUserProfile(post.user.link)">
-              {{ post.user.name }}
-            </h3>
-            <span>{{ formatDate(post.created_time) }}</span>
+            <div>
+              <h3 (click)="goToUserProfile(post.user.link)">
+                {{ post.user.name }}
+              </h3>
+              <span>{{ formatDate(post.created_time) }}</span>
+            </div>
           </div>
+          <p class="large-devices">{{ post?.message | cardText: 250 }}</p>
+          <p class="mobile">{{ post?.message | cardText: 100 }}</p>
         </div>
-        <p class="large-devices">{{ post?.message | cardText: 250 }}</p>
-        <p class="mobile">{{ post?.message | cardText: 100 }}</p>
       </div>
     </div>
 
@@ -245,21 +247,23 @@
             class="fa fa-instagram"
           ></i>
         </div>
-        <div class="user">
-          <!-- <img
+        <div class="content">
+          <div class="user">
+            <!-- <img
             src="{{ post.user.profile_image }}"
             alt="User profile image"
             (click)="goToUserProfile(post.user.link)"
           />-->
-          <div>
-            <h3 (click)="goToUserProfile(post.user.link)">
-              {{ post.user.name }}
-            </h3>
-            <span>{{ formatDate(post.created_time) }}</span>
+            <div>
+              <h3 (click)="goToUserProfile(post.user.link)">
+                {{ post.user.name }}
+              </h3>
+              <span>{{ formatDate(post.created_time) }}</span>
+            </div>
           </div>
+          <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
+          <p class="mobile">{{ post?.message | cardText: 100 }}</p>
         </div>
-        <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
-        <p class="mobile">{{ post?.message | cardText: 100 }}</p>
       </div>
     </div>
 
@@ -284,21 +288,23 @@
             class="fa fa-instagram"
           ></i>
         </div>
-        <div class="user">
-          <!--  <img
+        <div class="content">
+          <div class="user">
+            <!--  <img
             src="{{ post?.user.profile_image }}"
             alt="User profile image"
             (click)="goToUserProfile(post.user.link)"
           />-->
-          <div>
-            <h3 (click)="goToUserProfile(post?.user.link)">
-              {{ post.user.name }}
-            </h3>
-            <span>{{ formatDate(post?.created_time) }}</span>
+            <div>
+              <h3 (click)="goToUserProfile(post?.user.link)">
+                {{ post.user.name }}
+              </h3>
+              <span>{{ formatDate(post?.created_time) }}</span>
+            </div>
           </div>
+          <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
+          <p class="mobile">{{ post?.message | cardText: 100 }}</p>
         </div>
-        <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
-        <p class="mobile">{{ post?.message | cardText: 100 }}</p>
       </div>
     </div>
   </div>

@@ -59,7 +59,8 @@
         (mouseover)="showSubMenu('chapters', -1, submenu_chapter)"
         target="_blank"
       >
-        {{ chapter_text }}</a
+        <i class="material-icons">more_vert</i>
+        <span>{{ chapter_text }}</span></a
       >
     </div>
     <div
@@ -78,13 +79,15 @@
           }}</span>
         </div>
       </div>
-      <div
-        *ngFor="let chapter of ths_chapters"
-        class="nav-section"
-        (click)="openInNewTab(chapter.url)"
-      >
-        <div class="logo"><img src="{{ chapter.image }}" /></div>
-        <label>{{ chapter.title }}</label>
+      <div class="chapter-list">
+        <div
+          *ngFor="let chapter of ths_chapters"
+          class="nav-section"
+          (click)="openInNewTab(chapter.url)"
+        >
+          <div class="logo"><img src="{{ chapter.image }}" /></div>
+          <label>{{ chapter.title }}</label>
+        </div>
       </div>
     </div>
   </div>

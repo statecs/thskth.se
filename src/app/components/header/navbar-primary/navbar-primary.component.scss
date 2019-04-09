@@ -19,10 +19,16 @@ nav {
   }
 
   .chapter-btn {
-    border-radius: 40px;
-    padding: 8px 13px;
-    border: 1px solid;
+    width: 50px;
+    margin-right: 55px;
     cursor: pointer;
+    i {
+      margin-top: 3px;
+    }
+    span {
+      position: absolute;
+      padding: 7px 0px;
+    }
     > a {
       text-decoration: none;
       color: white;
@@ -55,7 +61,10 @@ nav {
     }
     .dropdownList {
       height: 350px;
-      overflow-y: scroll;
+      .chapter-list {
+        overflow-y: scroll;
+        height: 240px;
+      }
       .d-header-bg {
         border-top-right-radius: 0 !important;
       }
@@ -221,6 +230,7 @@ nav {
     .logo {
       float: left;
       cursor: pointer;
+      margin-top: 5px;
       & img {
         width: 30px;
         height: 30px;
@@ -231,4 +241,15 @@ nav {
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
+  nav {
+    .chapter-btn {
+      i {
+        margin-top: 4px;
+      }
+      span {
+        position: absolute;
+        padding: 7px 0px;
+      }
+    }
+  }
 }

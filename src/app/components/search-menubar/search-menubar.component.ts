@@ -126,7 +126,6 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   }
 
   closeBar(): void {
-    this._cookieService.remove("search-menubar-terms");
     this.hideBar();
   }
 
@@ -147,6 +146,9 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
     }
   }
 
+  replaceLineBreak(s: string) {
+    return s && s.replace(/<[^>]+>/gm, "");
+  }
   searchPosts(): void {
     this.postSubscription = this.postsService
       .searchPosts(this.searchTerm, 2, this.lang)
@@ -194,7 +196,7 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
 
   searchDocuments(): void {
     this.documentsSubscription = this.archiveService
-      .searchDocumentsPage(this.searchTerm, 4, this.lang)
+      .searchDocumentsPage(this.searchTerm, 2, this.lang)
       .subscribe(
         res => {
           this.documentLoading = false;

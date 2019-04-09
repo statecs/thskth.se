@@ -135,9 +135,7 @@
       (click)="_switchCalendarGet()"
       *ngIf="dayView == true"
     >
-      {{
-        lang === "en" ? "Go back to month view" : "Gå tillbaka till månadsvyn"
-      }}
+      {{ lang === "en" ? "Show all events" : "Visa alla händelser" }}
     </a>
   </div>
   <app-events-cards [events]="earliest_events">

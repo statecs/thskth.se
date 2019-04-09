@@ -239,6 +239,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     if (this.searchTerm !== "" && typeof this.searchTerm !== "undefined") {
       this.searchAssociations();
       this.searchChapters();
+      this.searchOthers();
       if (this.lang === "sv") {
         this.router.navigate(["sv/associations-and-chapters"], {
           queryParams: { q: this.searchTerm }
@@ -326,7 +327,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       .searchOthers(this.searchTerm, this.lang)
       .subscribe(
         res => {
-          this.chapterResults = res;
+          this.otherResults = res;
           this.showOthers = true;
           this.checkResults();
         },

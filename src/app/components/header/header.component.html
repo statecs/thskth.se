@@ -441,22 +441,6 @@
       </div>
     </div>
     <div #menuDropdown *ngIf="showMenuMobile" class="menu-dropdown">
-      <div *ngIf="showMenuMobile" class="search-bar-mobile">
-        <form autocomplete="off">
-          <div class="search-bar">
-            <span (click)="navToSearchPage('/search')"
-              ><i class="material-icons">search</i></span
-            >
-            <input
-              placeholder="{{ lang === 'en' ? 'Search' : 'Sök' }}"
-              [(ngModel)]="searchTerm"
-              name="searchInput"
-              type="search"
-              (keyup)="submitSearch($event)"
-            />
-          </div>
-        </form>
-      </div>
       <app-loader *ngIf="topLevelMainMenu?.length === 0"></app-loader>
       <div *ngIf="showMenuMobile" class="menu-items">
         <div
@@ -513,12 +497,22 @@
         </div>
       </div>
 
-      <div class="signin-btn">
-        <a href="https://ths.kth.se/login" target="_blank"
-          >{{ signin_text }} <i class="fa fa-lock fa-fw"></i
-        ></a>
+      <div *ngIf="showMenuMobile" class="search-bar-mobile">
+        <form autocomplete="off">
+          <div class="search-bar">
+            <span (click)="navToSearchPage('/search')"
+              ><i class="material-icons">arrow_forward</i></span
+            >
+            <input
+              placeholder="{{ lang === 'en' ? 'Search..' : 'Sök..' }}"
+              [(ngModel)]="searchTerm"
+              name="searchInput"
+              type="search"
+              (keyup)="submitSearch($event)"
+            />
+          </div>
+        </form>
       </div>
-
       <div class="language" (click)="changeLanguage()">
         <span>{{ language_text }} </span>
         <img width="25" height="17" src="{{ language_img }}" />

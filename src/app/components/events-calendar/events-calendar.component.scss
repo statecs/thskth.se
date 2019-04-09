@@ -11,7 +11,7 @@
 .display-cal-container {
   width: 100%;
   overflow-x: scroll;
-  padding: 0 15px 15px;
+  padding: 5px 15px 15px;
 }
 .display-cal-container-width {
   width: 300%;
@@ -78,7 +78,7 @@
   display: none !important;
 }
 #events-calendar {
-  box-shadow: 0 1px 2px #b2b2b2;
+  box-shadow: 0 1px 3px #b2b2b2;
   @include container-size($main-container);
   padding-top: 100px;
   position: relative;
@@ -109,7 +109,7 @@
     display: inline-block;
     padding: 10px 20px;
     color: #575757;
-    box-shadow: 0 1px 2px #b2b2b2;
+    box-shadow: 0 1px 3px #b2b2b2;
     border-radius: 25px;
     float: left;
     margin: 0px 5px;
@@ -122,7 +122,7 @@
   }
   .calendar-wrapper {
     width: 55%;
-    box-shadow: 0 1px 2px #b2b2b2;
+    box-shadow: 0 1px 3px #b2b2b2;
     border-radius: 5px;
     display: inline-block;
     min-height: 466px;
@@ -261,8 +261,8 @@
   border-bottom: 1px solid #e1e1e11f;
 }
 :host /deep/ .cal-month-view .cal-day-cell:not(:last-child) {
-  border-bottom: 1px solid #e1e1e11f;
-  border-right: 1px solid #e1e1e11f;
+  border-bottom: 2px solid #e1e1e11f;
+  border-right: 2px solid #e1e1e11f;
 }
 
 ::-webkit-scrollbar {

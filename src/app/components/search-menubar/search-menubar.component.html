@@ -21,14 +21,19 @@
     *ngIf="showResultsDropdown && searchTerm !== ''"
     class="resultsDropdownList"
   >
-    <app-loader
+    <div
       *ngIf="
-        postsResults?.length === 0 &&
-        pageResults?.length === 0 &&
-        faqResults?.length === 0 &&
-        documentResultsSearch?.length === 0
+        !documentLoading &&
+        documentResultsSearch?.length === 0 &&
+        (!faqsLoading && faqResults.length === 0) &&
+        (!pagesLoading && pageResults.length === 0) &&
+        (!postsLoading && postsResults.length === 0)
       "
-    ></app-loader>
+      class="notResult"
+    >
+      {{ lang === "en" ? "No results for" : "Inga resultat för" }}
+      "{{ searchTerm }}"
+    </div>
     <div class="section">
       <div *ngFor="let p of documentResultsSearch" class="item">
         <div class="left-content">
@@ -41,7 +46,6 @@
         </div>
         <div class="right-content">
           <h4 (click)="goToPage(p.slug, 'document')">{{ p.title }}</h4>
-          <p [innerHTML]="p.content | cardText: 100"></p>
         </div>
       </div>
       <p *ngIf="faqsLoading">Loading...</p>
@@ -58,7 +62,7 @@
         </div>
         <div class="right-content">
           <h4 (click)="goToPage(p.slug, 'faq')">{{ p.title }}</h4>
-          <p [innerHTML]="p.content | cardText: 100"></p>
+          <p [innerHTML]="replaceLineBreak(p.content | cardText: 100)"></p>
         </div>
       </div>
       <p *ngIf="faqsLoading">Loading...</p>
@@ -70,7 +74,7 @@
         </div>
         <div class="right-content">
           <h4 (click)="goToPage(p.link, 'page')">{{ p.title }}</h4>
-          <p [innerHTML]="p.content | cardText: 100"></p>
+          <p [innerHTML]="replaceLineBreak(p.content | cardText: 100)"></p>
         </div>
       </div>
       <p *ngIf="pagesLoading">Loading...</p>
@@ -88,14 +92,27 @@
           </div>
           <div class="right-content">
             <h4 (click)="goToPage(p.slug, 'post')">{{ p.title }}</h4>
-            <p [innerHTML]="p.content | cardText: 100"></p>
+            <p [innerHTML]="replaceLineBreak(p.content | cardText: 100)"></p>
           </div>
         </div>
         <p *ngIf="postsLoading">Loading...</p>
       </div>
     </div>
-    <div class="seeAll">
-      <span (click)="goToSearchPage()" class="seeAll">SEE ALL RESULTS >></span>
+    <div
+      class="seeAll"
+      *ngIf="
+        (!documentLoading && documentResultsSearch?.length !== 0) ||
+        (!faqsLoading && faqResults.length !== 0) ||
+        (!pagesLoading && pageResults.length !== 0) ||
+        (!postsLoading && postsResults.length !== 0)
+      "
+    >
+      <span (click)="goToSearchPage()" class="seeAll"
+        >ALL RESULTS
+        <i class="material-icons">
+          arrow_forward
+        </i></span
+      >
     </div>
   </div>
 </div>

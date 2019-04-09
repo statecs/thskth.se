@@ -20,7 +20,7 @@
   }
 }
 #restaurant {
-  box-shadow: 0 1px 2px #b2b2b2;
+  box-shadow: 0 1px 3px #b2b2b2;
   @include container-size(80%);
   margin-bottom: 50px;
   max-width: 1600px;
@@ -177,7 +177,7 @@
           transform: translate3d(0px, 0px, 0px);
           display: inline-block;
           padding: 10px 15px;
-          box-shadow: 0 1px 2px #b2b2b2;
+          box-shadow: 0 1px 3px #b2b2b2;
           color: black;
           border-radius: 20px;
           margin: 5px 5px;
@@ -257,6 +257,7 @@
         text-align: left;
         padding: 0 10px 15px;
         background-color: rgba(0, 0, 0, 0.25);
+        border-radius: 15px;
         p {
           font-size: 1em;
         }
@@ -291,9 +292,11 @@
       .g-item {
         width: 31%;
         margin: 0 1%;
+        height: 130px;
         .text {
+          height: 100%;
           p {
-            font-size: $font-size-h4;
+            font-size: 1em;
           }
         }
       }
@@ -350,6 +353,7 @@
       .g-item {
         width: 31%;
         margin: 0 1%;
+        height: 250px;
         .text {
           p {
             font-size: $font-size-h4;

@@ -25,36 +25,36 @@
           type="search"
           (keyup)="liveSearch($event)"
         />
-        <input
-          class="submit"
-          type="submit"
-          value="{{ lang === 'en' ? 'Search' : 'Sök' }}"
-        />
+        <i (click)="submitSearch()" class="material-icons submit">
+          arrow_forward
+        </i>
       </div>
     </form>
   </div>
+  <div class="filters-container">
+    <div class="filters">
+      <div
+        class="item"
+        [ngClass]="{ selected: showAssociations }"
+        (click)="displayAssociations()"
+      >
+        {{ lang === "en" ? "Associations" : "Föreningar" }}
+      </div>
 
-  <div class="filters">
-    <div
-      class="item"
-      [ngClass]="{ selected: showAssociations }"
-      (click)="displayAssociations()"
-    >
-      {{ lang === "en" ? "Associations" : "Föreningar" }}
-    </div>
-    <div
-      class="item"
-      [ngClass]="{ selected: showOthers }"
-      (click)="displayOthers()"
-    >
-      {{ lang === "en" ? "Others" : "Övrigt" }}
-    </div>
-    <div
-      class="item"
-      [ngClass]="{ selected: showChapters }"
-      (click)="displayChapters()"
-    >
-      {{ lang === "en" ? "Chapters" : "Sektioner" }}
+      <div
+        class="item"
+        [ngClass]="{ selected: showChapters }"
+        (click)="displayChapters()"
+      >
+        {{ lang === "en" ? "Chapters" : "Sektioner" }}
+      </div>
+      <div
+        class="item"
+        [ngClass]="{ selected: showOthers }"
+        (click)="displayOthers()"
+      >
+        {{ lang === "en" ? "Others" : "Övrigt" }}
+      </div>
     </div>
   </div>
 
@@ -125,17 +125,15 @@
       </div>
     </div>
 
-    <div
-      *ngIf="showChapters && chapterResults.length !== 0 && !documentsLoading"
-    >
+    <div *ngIf="showOthers && otherResults !== '' && !documentsLoading">
       <h1 class="section_header">
-        {{ lang === "en" ? "Chapters" : "Sektioner" }}
+        {{ lang === "en" ? "Others" : "Övrigt" }}
       </h1>
       <div *ngIf="layout_grid" class="grid">
         <div class="section">
           <div class="items">
             <div
-              *ngFor="let item of chapterResults"
+              *ngFor="let item of otherResults"
               class="item"
               (click)="showAssociationInPopup(item)"
             >
@@ -157,7 +155,7 @@
         <div class="section">
           <div class="items">
             <div
-              *ngFor="let item of chapterResults"
+              *ngFor="let item of otherResults"
               class="item"
               (click)="showAssociationInPopup(item)"
             >
@@ -168,16 +166,17 @@
         </div>
       </div>
     </div>
-
-    <div *ngIf="showOthers && otherResults && !documentsLoading">
+    <div
+      *ngIf="showChapters && chapterResults.length !== 0 && !documentsLoading"
+    >
       <h1 class="section_header">
-        {{ lang === "en" ? "Others" : "Övrigt" }}
+        {{ lang === "en" ? "Chapters" : "Sektioner" }}
       </h1>
       <div *ngIf="layout_grid" class="grid">
         <div class="section">
           <div class="items">
             <div
-              *ngFor="let item of otherResults"
+              *ngFor="let item of chapterResults"
               class="item"
               (click)="showAssociationInPopup(item)"
             >

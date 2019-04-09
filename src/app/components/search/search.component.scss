@@ -20,7 +20,7 @@
   }
 }
 #content-container {
-  box-shadow: 0 1px 2px #b2b2b2;
+  box-shadow: 0 1px 3px #b2b2b2;
   @include container-size($main-container);
   position: relative;
   line-height: 1;
@@ -51,23 +51,35 @@
       display: inline-block;
       margin: 10px 0 0;
       position: relative;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       .search {
+        background: #fff;
+        display: flex;
+        z-index: 3;
         height: 50px;
+        margin: 0 auto;
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px #b2b2b2;
+        .arrow_forward {
+          margin-top: 13px;
+          color: lightgray;
+          cursor: pointer;
+        }
+        input {
+          -webkit-appearance: none;
+          box-shadow: none !important;
+          border: 0;
+        }
+
         .searchInput {
           font-size: 1em;
-          width: 75%;
+          width: 94%;
           padding: 0 5px 0 15px;
-          border: 0;
-          display: inline-block;
           float: left;
-          height: 50px;
         }
         .filter {
           display: inline-block;
           float: left;
-          background-color: white;
-          height: 50px;
           cursor: pointer;
           color: lightgrey;
           position: relative;
@@ -86,14 +98,17 @@
           }
           .options {
             position: absolute;
-            background-color: rgba(75, 75, 75, 0.66);
+            background-color: white;
             padding: 10px 20px;
             right: 0;
             text-align: left;
             width: 200px;
             top: 40px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            color: grey;
+            border-radius: 15px;
             z-index: 1;
+            margin-right: 15px;
             .option {
               margin: 15px 0;
               &:hover {
@@ -126,23 +141,23 @@
           background: none;
           cursor: pointer;
           width: 20%;
-          &:hover {
-            box-shadow: 0 0 15px rgba(0, 108, 170, 0.62);
-          }
         }
       }
       .resultsDropdownList {
-        position: absolute;
         left: 0;
-        top: 53px;
-        width: 100%;
-        height: 250px;
+        height: 350px;
         overflow-y: scroll;
         background-color: white;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
         text-align: left;
         padding: 10px 20px;
         z-index: 1;
+        border-radius: 8px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        box-shadow: 0 1px 3px #b2b2b2;
+        margin-top: -5px;
         .section {
           > h3 {
             border-bottom: 1px solid lightgray;
@@ -196,7 +211,7 @@
               display: inline-block;
               vertical-align: top;
               //padding: 0 10px;
-              width: 79%;
+              width: 100%;
               float: left;
               h4 {
                 color: $color-link-secondary;
@@ -246,20 +261,13 @@
         margin-bottom: 10px;
       }
       .item {
-        margin-bottom: 35px;
         overflow: hidden;
         .left-content {
-          width: 15%;
-          height: auto;
-          display: inline-block;
-          vertical-align: top;
-          margin-right: 3%;
-          float: left;
-          font-size: $font-size-h6;
+          font-size: $font-size-h8;
           > span {
+            margin-bottom: 10px;
             display: block;
             color: $color-link;
-            margin-bottom: 10px;
             line-height: 1;
           }
           > a {
@@ -285,12 +293,13 @@
           }
         }
         .right-content {
+          margin-bottom: 15px;
           display: inline-block;
           vertical-align: top;
-          padding: 0 10px;
-          width: 79%;
+          width: 100%;
           float: left;
           h4 {
+            margin: 15px 0px;
             color: $color-link-secondary;
             cursor: pointer;
             &:hover {
@@ -333,13 +342,11 @@
         font-size: $font-size-h4;
       }
       form {
-        width: 90%;
-        margin: 0 5%;
+        width: 95%;
         .search {
           width: 100%;
-          display: inline-block;
           .searchInput {
-            width: 70%;
+            width: 100%;
           }
           .submit {
             width: 20%;
@@ -350,9 +357,11 @@
           }
         }
         .resultsDropdownList {
-          height: 220px;
           padding: 10px;
           .section {
+            h3 {
+              font-size: 1em;
+            }
             .item {
               margin-bottom: 15px;
               .left-content {
@@ -380,7 +389,7 @@
             width: 25%;
           }
           .right-content {
-            width: 72%;
+            width: 100%;
             h4 {
               margin-top: 0;
             }
@@ -410,9 +419,8 @@
         margin: 0 5%;
         .search {
           width: 100%;
-          display: inline-block;
           .searchInput {
-            width: 70%;
+            width: 100%;
           }
           .submit {
             width: 20%;
@@ -453,7 +461,7 @@
             width: 25%;
           }
           .right-content {
-            width: 72%;
+            width: 100%;
             h4 {
               margin-top: 0;
             }
@@ -483,9 +491,8 @@
         margin: 0 5%;
         .search {
           width: 100%;
-          display: inline-block;
           .searchInput {
-            width: 70%;
+            width: 100%;
           }
           .submit {
             width: 20%;
@@ -504,7 +511,7 @@
                 width: 25%;
               }
               .right-content {
-                width: 72%;
+                width: 100%;
                 h4 {
                   margin-top: 0;
                 }
@@ -528,7 +535,7 @@
             width: 25%;
           }
           .right-content {
-            width: 72%;
+            width: 100%;
             h4 {
               margin-top: 0;
             }

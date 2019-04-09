@@ -9,6 +9,9 @@
     padding: 0 50px 40px;
     text-align: left;
     .section {
+      h3 {
+        text-transform: capitalize;
+      }
       .event {
         position: relative;
         padding: 15px 0;

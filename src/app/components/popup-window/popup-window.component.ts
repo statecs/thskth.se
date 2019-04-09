@@ -181,9 +181,16 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.show_page_not_found = false;
     this.page_data = null;
     this.appCommunicationService.collapseScrollOnPage("show");
-    if (this.showPage || this.showArchive) {
+    if (this.showPage) {
       if (this.navigateBack) {
         this.location.back();
+      }
+    }
+    if (this.showArchive) {
+      if (this.lang === "sv") {
+        this.location.go("sv/documents");
+      } else {
+        this.location.go("en/documents");
       }
     }
     if (this.showAssociation) {
@@ -202,9 +209,6 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
           this.location.back();
         }
       } else if (this.page_location === "news") {
-        if (this.navigateBack) {
-          this.location.back();
-        }
         if (this.lang === "sv") {
           this.location.go("sv/news");
         } else {

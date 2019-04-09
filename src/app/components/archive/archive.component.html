@@ -1,7 +1,11 @@
 <div class="header">
   <div class="default-header"></div>
 </div>
-<div *ngIf="!pageNotFound" id="content-container">
+<div
+  *ngIf="!pageNotFound"
+  id="content-container"
+  (click)="toggleSearchFocusHide()"
+>
   <div class="search-bar">
     <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
       <div class="search" [ngClass]="{ onFocus: searchOnFocus }">
@@ -13,16 +17,13 @@
           }}"
           [(ngModel)]="searchTerm"
           name="searchInput"
-          (focus)="toggleSearchFocus()"
-          (blur)="toggleSearchFocus()"
+          (focus)="liveSearch($event); toggleSearchFocus()"
           type="search"
           (keyup)="liveSearch($event)"
         />
-        <input
-          class="submit"
-          type="submit"
-          value="{{ lang === 'en' ? 'Search' : 'Sök' }}"
-        />
+        <i (click)="submitSearch()" class="material-icons submit">
+          arrow_forward
+        </i>
       </div>
       <div
         #resultsDropdownList
@@ -118,6 +119,17 @@
           </h3>
         </div>
         <div *ngFor="let d of documentResults" class="item">
+          <div class="right-content">
+            <h4 (click)="showDocumentInPopup(d)">{{ d.title }}</h4>
+            <p [innerHTML]="d.description | cardText: 200"></p>
+            <div class="files">
+              <div *ngFor="let f of d.documents" class="link_container">
+                <h5 (click)="downloadFile(f.url)" class="download_link">
+                  {{ f.filename }} <i class="material-icons">file_download</i>
+                </h5>
+              </div>
+            </div>
+          </div>
           <div class="left-content">
             <span *ngFor="let c of d.categories">{{ c.name }}</span>
             <div class="dates">
@@ -128,17 +140,6 @@
               <div class="date">
                 {{ lang === "en" ? "Last modified" : "Senast ändrad" }}:
                 <span>{{ d.lastModified }}</span>
-              </div>
-            </div>
-          </div>
-          <div class="right-content">
-            <h4 (click)="showDocumentInPopup(d)">{{ d.title }}</h4>
-            <p [innerHTML]="d.description | cardText: 100"></p>
-            <div class="files">
-              <div *ngFor="let f of d.documents" class="link_container">
-                <h5 (click)="downloadFile(f.url)" class="download_link">
-                  {{ f.filename }} <i class="material-icons">file_download</i>
-                </h5>
               </div>
             </div>
           </div>

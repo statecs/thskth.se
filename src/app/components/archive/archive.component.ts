@@ -1,10 +1,11 @@
 import {
-    Component,
-    ElementRef, HostListener,
-    OnDestroy,
-    OnInit,
-    Renderer2,
-    ViewChild
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild
 } from "@angular/core";
 import { ArchiveService } from "../../services/wordpress/archive.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
@@ -133,31 +134,46 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
-      if (this.latestDocuments && !this.fetching && !this.searchResults.length && this.moreDocumentsExist) {
-          const pos =
-              (document.documentElement.scrollTop || document.body.scrollTop) +
-              document.documentElement.offsetHeight;
-          const max = document.documentElement.scrollHeight;
-          if (pos > max - 500) {
-              this.fetchMorePosts();
-          }
+    if (
+      this.latestDocuments &&
+      !this.fetching &&
+      !this.searchResults.length &&
+      this.moreDocumentsExist
+    ) {
+      const pos =
+        (document.documentElement.scrollTop || document.body.scrollTop) +
+        document.documentElement.offsetHeight;
+      const max = document.documentElement.scrollHeight;
+      if (pos > max - 500) {
+        this.fetchMorePosts();
       }
+    }
   }
 
   fetchMorePosts(): void {
-      this.fetching = true;
-      const lastPostDate = this.latestDocuments[this.latestDocuments.length - 1].date;
+    this.fetching = true;
+    if (this.latestDocuments[this.latestDocuments.length - 1] !== undefined) {
+      const lastPostDate = this.latestDocuments[this.latestDocuments.length - 1]
+        .date;
       if (this.fetchMoreDocumentsSub) {
-          this.fetchMoreDocumentsSub.unsubscribe();
+        this.fetchMoreDocumentsSub.unsubscribe();
       }
-      this.fetchMoreDocumentsSub = this.archiveService.getDocumentsBySinceDateTime(10, this.lang, lastPostDate).subscribe(res => {
+      this.fetchMoreDocumentsSub = this.archiveService
+        .getDocumentsBySinceDateTime(15, this.lang, lastPostDate)
+        .subscribe(res => {
           this.documentResults = this.documentResults.concat(res);
           this.latestDocuments = this.latestDocuments.concat(res);
           this.fetching = false;
           if (!res.length) {
             this.moreDocumentsExist = false;
           }
-      });
+        });
+    } else {
+      this.moreDocumentsExist = false;
+      this.documentsLoading = false;
+      this.fetching = false;
+      this.getDocuments();
+    }
   }
 
   showDocumentInPopup(item): void {
@@ -215,7 +231,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.showResults = true;
     this.showFilters = true;
     this.documentResults = this.searchResults;
-    this.searchResults = [];
+    this.search();
   }
 
   liveSearch(event): void {
@@ -231,17 +247,25 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.showFilters = false;
       this.showResults = false;
       this.search();
-    }
-    if (this.searchTerm === "") {
+      this.documentsLoading = false;
+    } else if (this.searchTerm === "") {
       this.searchResults = [];
       this.showMostSearchTerms = true;
       if (this.lang === "sv") {
-        this.location.go("sv/documents?q=");
+        this.location.go("sv/documents");
       } else {
-        this.location.go("en/documents?q=");
+        this.location.go("en/documents");
       }
       this.documentsLoading = false;
       this.showResultsDropdown = false;
+      this.getDocuments();
+    } else {
+      this.searchResults = [];
+      this.showMostSearchTerms = false;
+      this.documentsLoading = false;
+      this.showFilters = false;
+      this.showResults = true;
+      this.search();
     }
   }
 
@@ -312,6 +336,11 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
 
   toggleSearchFocus(): void {
+    this.searchOnFocus
+      ? (this.searchOnFocus = true)
+      : (this.searchOnFocus = false);
+  }
+  toggleSearchFocusHide(): void {
     this.searchOnFocus
       ? (this.searchOnFocus = false)
       : (this.searchOnFocus = true);
@@ -417,7 +446,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
     this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(
       event => {
-        if (this.showResultsDropdown) {
+        if (this.showResultsDropdown && this.searchOnFocus !== true) {
           if (
             this.resultsDropdownList.nativeElement !== event.target &&
             !this.resultsDropdownList.nativeElement.contains(event.target)
@@ -446,7 +475,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.hideOverlappingUIsSubscription.unsubscribe();
     }
     if (this.fetchMoreDocumentsSub) {
-        this.fetchMoreDocumentsSub.unsubscribe();
+      this.fetchMoreDocumentsSub.unsubscribe();
     }
   }
 }

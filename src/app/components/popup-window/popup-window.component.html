@@ -124,10 +124,11 @@
             </div>
           </div>
           <div class="contact">
-            <h2>Author</h2>
-            <img src="{{ archive?.author.avatar_url }}" />
             <p>
               Name: <span>{{ archive?.author.name }}</span>
+            </p>
+            <p>
+              Published: <span>{{ archive?.published }}</span>
             </p>
             <p>
               Last modified: <span>{{ archive?.lastModified }}</span>
@@ -157,8 +158,6 @@
             <p [innerHTML]="news?.content"></p>
           </div>
           <div class="contact">
-            <h2>Author</h2>
-            <img src="{{ news?.author.avatar_url.thumbnail }}" />
             <p>
               name: <span>{{ news?.author.name }}</span>
             </p>

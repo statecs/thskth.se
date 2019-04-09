@@ -89,7 +89,7 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
     this.language = lang;
     return (
       this.searchData(
-        "order=asc&per_page=" +
+        "per_page=" +
           amount +
           "&search=" +
           search_term +

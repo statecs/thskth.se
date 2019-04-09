@@ -60,6 +60,7 @@
     right: 0;
     bottom: 0;
     left: 0;
+    background-color: white;
     .menu-wrapper {
       background-color: white;
       .menu-bar {
@@ -220,21 +221,26 @@ header {
     }
 
     .search-bar-mobile {
+      border-top: 1px solid #ebebeb;
       display: block;
       background-color: white;
       text-align: left;
-      padding: 10px 5% 10px 2%;
+      padding: 10px 3% 10px 3%;
       font-size: 0.8em;
+      form {
+        padding: 0 7px;
+        box-shadow: 0 1px 3px #b2b2b2;
+        border-radius: 8px;
+      }
       .search-bar {
         > span {
           text-decoration: none;
           color: black;
           i {
-            font-size: 2em;
             vertical-align: middle;
             color: #acacac;
             float: right;
-            margin-top: 10px;
+            margin-top: 12px;
           }
         }
         > input {
@@ -651,7 +657,7 @@ header {
         .signin-btn,
         .language {
           color: gray;
-          border-top: 1px solid #b0adad;
+          border-top: 1px solid #b0adad6e;
           font-size: 1.15em;
           text-align: left;
           padding: 10px 20px;
@@ -964,6 +970,7 @@ header {
       }
       .logo {
         float: left;
+        margin-top: 5px;
       }
       .search {
         margin: 0px 60px;

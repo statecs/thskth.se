@@ -221,6 +221,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   togglePlay(): void {
+    this.slideshow_play_btn = "hide";
     this.video = this.video_player.nativeElement;
     clearInterval(this.mainSlide_timer);
     const el = this.playButton.nativeElement;
@@ -229,6 +230,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       el.innerHTML = "pause_circle_outline";
       this.hideControls();
     } else {
+      this.slideshow_play_btn = "pause";
       this.pauseVideo();
     }
   }

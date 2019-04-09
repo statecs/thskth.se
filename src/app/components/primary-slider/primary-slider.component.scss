@@ -1441,6 +1441,27 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
+  .text-center-template,
+  .image-on-left-template,
+  .image-on-right-template {
+    .slides {
+      .slide {
+        .text-wrapper {
+          margin-top: 5%;
+        }
+      }
+    }
+  }
+  #primary-video,
+  #primary,
+  #primary-slider {
+    height: 600px;
+    max-height: 100%;
+  }
+  .slider-bar-container-fluid {
+    top: 570px !important;
+  }
+
   .slider-bar-container {
     .slider-bar {
       width: 80%;

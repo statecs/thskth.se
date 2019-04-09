@@ -29,7 +29,7 @@
 }
 
 #content-container {
-  box-shadow: 0 1px 2px #b2b2b2;
+  box-shadow: 0 1px 3px #b2b2b2;
   @include container-size($main-container);
   position: relative;
   line-height: 1;
@@ -51,16 +51,15 @@
       margin: 0;
       padding-top: 15px;
     }
-    .onFocus {
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.2) !important;
-    }
+
     form {
       width: 720px;
       display: inline-block;
       margin: 10px 0 0;
       .search {
         height: 50px;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 1px 4px #b2b2b2;
+        border-radius: 8px;
         .searchInput {
           width: 75%;
           padding: 0 5px 0 15px;
@@ -70,16 +69,14 @@
           height: 50px;
         }
         .submit {
+          color: lightgrey;
           display: inline-block;
           float: right;
-          padding: 17px 38px;
+          padding: 15px 38px;
           border: 0;
           background: none;
           cursor: pointer;
           width: 25%;
-          &:hover {
-            box-shadow: 0 0 15px rgba(0, 108, 170, 0.62);
-          }
         }
       }
       .filter {
@@ -157,23 +154,25 @@
   }
 
   .filters {
+    width: 100%;
     text-align: center;
+
     .item {
       display: inline-block;
-      margin: 10px;
+      margin: 0px 7px;
       padding: 10px 25px;
-      border: 1px solid gray;
+      box-shadow: 0 1px 3px #b2b2b2;
       border-radius: 35px;
       cursor: pointer;
       word-wrap: break-word;
       &:hover {
-        background-color: gray;
-        color: white;
+        background-color: #00406c;
+        color: #f7f7f7;
       }
     }
     .selected {
-      background-color: gray;
-      color: white;
+      background-color: #00406c;
+      color: #f7f7f7;
     }
   }
 
@@ -181,7 +180,7 @@
     margin: 30px 0 70px;
     min-height: 300px;
     .noResult {
-      color: $text-color-brown;
+      color: grey;
       font-size: $font-size-h3;
     }
     .section_header {
@@ -223,7 +222,7 @@
             margin: 25px 2%;
             background-size: cover;
             position: relative;
-            box-shadow: 0 1px 2px #b2b2b2;
+            box-shadow: 0 1px 3px #b2b2b2;
             border-radius: 15px;
             cursor: pointer;
             padding-bottom: 20px;
@@ -309,6 +308,10 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .filters-container {
+    width: 100%;
+    overflow-x: scroll;
+  }
   #content-container {
     width: 100%;
     padding: 50px 10px;
@@ -328,10 +331,6 @@
           .searchInput {
             width: 70%;
           }
-          .submit {
-            width: 30%;
-            padding: 17px 0;
-          }
         }
         .mostSearchTerms {
           width: 100%;
@@ -342,8 +341,13 @@
       }
     }
     .filters {
+      width: 125%;
+      margin-left: 10px;
+      margin-bottom: 5px;
+      margin-top: 5px;
+      text-align: left;
       .item {
-        padding: 7px 20px;
+        padding: 10px 20px;
       }
     }
     .results-container {

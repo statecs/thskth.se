@@ -45,7 +45,7 @@ export class PagesService extends WordpressBaseDataService<Page> {
     this.language = lang;
     return (
       this.searchData(
-        "?per_page=" +
+        "per_page=" +
           amount +
           "&search=" +
           searchTerm +
