@@ -77,6 +77,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     this.selectTomorrow = false;
     this.selectNextWeek = false;
     this.selectNextMonth = false;
+    this.selectThisMonth = false;
     this.ths_calendars = ths_calendars;
     this.showFeaturedEvents = true;
     this.dayView = false;

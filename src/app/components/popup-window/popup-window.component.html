@@ -63,6 +63,12 @@
               >
               {{ event.calendarName }} </label
             ><br />
+            <div *ngIf="event.meta.event.htmlLink">
+              <a target="blank" href="{{ event?.meta?.event?.htmlLink }}">
+                Add to Google Calendar</a
+              >
+            </div>
+            <br />
             <div class="text">{{ event?.description }}</div>
             <p class="creator">Created by {{ event?.creator }}</p>
           </div>
