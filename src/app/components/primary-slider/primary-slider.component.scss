@@ -858,7 +858,7 @@
       position: absolute;
       margin: -55px 1%;
       padding: 0;
-      left: 0;
+      right: 0;
     }
   }
   #primary {
@@ -1023,7 +1023,7 @@
       position: absolute;
       margin: -55px 5%;
       padding: 0;
-      left: 0;
+      right: 0;
     }
   }
   #primary {
@@ -1167,7 +1167,7 @@
       position: absolute;
       margin: -55px 5%;
       padding: 0;
-      left: 0;
+      right: 0;
     }
   }
   #primary {
@@ -1312,7 +1312,7 @@
       position: absolute;
       margin: -55px 5%;
       padding: 0;
-      left: 0;
+      right: 0;
     }
   }
   #primary {
@@ -1455,11 +1455,11 @@
   #primary-video,
   #primary,
   #primary-slider {
-    height: 600px;
+    height: 500px;
     max-height: 100%;
   }
   .slider-bar-container-fluid {
-    top: 570px !important;
+    top: 470px !important;
   }
 
   .slider-bar-container {
