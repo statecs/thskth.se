@@ -139,7 +139,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     if (
       this.latestDocuments &&
       !this.fetching &&
-      !this.searchResults.length &&
+      this.searchResults &&
       this.moreDocumentsExist
     ) {
       const pos =
@@ -160,8 +160,14 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       if (this.fetchMoreDocumentsSub) {
         this.fetchMoreDocumentsSub.unsubscribe();
       }
+      const searchParams: SearchParams = {
+        searchTerm: "",
+        categoryID: this.categoryID,
+        start_date: this.start_date,
+        end_date: this.end_date
+      };
       this.fetchMoreDocumentsSub = this.archiveService
-        .getDocumentsBySinceDateTime(15, this.lang, lastPostDate)
+        .getDocumentsBySinceDateTime(searchParams, 15, this.lang, lastPostDate)
         .subscribe(res => {
           this.documentResults = this.documentResults.concat(res);
           this.latestDocuments = this.latestDocuments.concat(res);
@@ -186,18 +192,23 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.showResults = true;
       this.showMeetingDocuments = true;
     } else {
+      this.categoryID = 0;
+      this.moreDocumentsExist = true;
       this.getDocuments();
       this.showMeetingDocuments = false;
     }
   }
   displayPolicyDocuments(): void {
     this.showMeetingDocuments = false;
+    this.moreDocumentsExist = false;
     if (this.showPolicyDocuments !== true) {
       this.categoryID = 441;
       this.searchDocuments();
       this.showResults = true;
       this.showPolicyDocuments = true;
     } else {
+      this.categoryID = 0;
+      this.moreDocumentsExist = true;
       this.getDocuments();
       this.showPolicyDocuments = false;
     }
@@ -309,7 +320,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
   searchDocuments(): void {
     if (this.searchTerm === undefined) {
-      this.searchResults = [];
       const searchParams: SearchParams = {
         searchTerm: "",
         categoryID: this.categoryID,
@@ -321,7 +331,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
         .subscribe(
           res => {
             this.documentsLoading = false;
-            this.searchResults = [];
             this.searchResults = res;
             this.documentResults = this.searchResults;
           },
@@ -331,7 +340,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           }
         );
     } else {
-      this.searchResults = [];
       const searchParams: SearchParams = {
         searchTerm: this.searchTerm,
         categoryID: this.categoryID,
@@ -344,7 +352,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
         .subscribe(
           res => {
             this.documentsLoading = false;
-            this.searchResults = [];
             this.searchResults = res;
             this.documentResults = this.searchResults;
           },

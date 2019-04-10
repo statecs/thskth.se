@@ -59,16 +59,22 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
   }
 
   getDocumentsBySinceDateTime(
+    searchParams: SearchParams,
     amount,
     lang: string,
     sinceDateTime: string
   ): Observable<Archive[]> {
     this.language = lang;
+    let params = "";
+    if (searchParams.categoryID !== 0) {
+      params = "&categories=" + searchParams.categoryID;
+    }
     return (
       this.getData(
         null,
         "_embed&per_page=" +
           amount +
+          params +
           "&before=" +
           sinceDateTime +
           "&lang=" +
