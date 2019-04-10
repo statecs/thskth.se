@@ -70,6 +70,8 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   public fetchMoreDocumentsSub: Subscription;
   public fetching: boolean;
   public moreDocumentsExist = true;
+  public showMeetingDocuments: boolean;
+  public showPolicyDocuments: boolean;
 
   constructor(
     private archiveService: ArchiveService,
@@ -173,6 +175,31 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.documentsLoading = false;
       this.fetching = false;
       this.getDocuments();
+    }
+  }
+
+  displayMeetingDocuments(): void {
+    this.showPolicyDocuments = false;
+    if (this.showMeetingDocuments !== true) {
+      this.categoryID = 354;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showMeetingDocuments = true;
+    } else {
+      this.getDocuments();
+      this.showMeetingDocuments = false;
+    }
+  }
+  displayPolicyDocuments(): void {
+    this.showMeetingDocuments = false;
+    if (this.showPolicyDocuments !== true) {
+      this.categoryID = 441;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showPolicyDocuments = true;
+    } else {
+      this.getDocuments();
+      this.showPolicyDocuments = false;
     }
   }
 
@@ -281,26 +308,52 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
 
   searchDocuments(): void {
-    this.searchResults = [];
-    const searchParams: SearchParams = {
-      searchTerm: this.searchTerm,
-      categoryID: this.categoryID,
-      start_date: this.start_date,
-      end_date: this.end_date
-    };
-    this.documentsSubscription = this.archiveService
-      .searchDocuments(searchParams, this.lang)
-      .subscribe(
-        res => {
-          this.documentsLoading = false;
-          this.searchResults = [];
-          this.searchResults = res;
-        },
-        error => {
-          this.documentsLoading = false;
-          this.notificationBarCommunicationService.send_data(error);
-        }
-      );
+    if (this.searchTerm === undefined) {
+      this.searchResults = [];
+      const searchParams: SearchParams = {
+        searchTerm: "",
+        categoryID: this.categoryID,
+        start_date: this.start_date,
+        end_date: this.end_date
+      };
+      this.documentsSubscription = this.archiveService
+        .searchDocuments(searchParams, this.lang)
+        .subscribe(
+          res => {
+            this.documentsLoading = false;
+            this.searchResults = [];
+            this.searchResults = res;
+            this.documentResults = this.searchResults;
+          },
+          error => {
+            this.documentsLoading = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    } else {
+      this.searchResults = [];
+      const searchParams: SearchParams = {
+        searchTerm: this.searchTerm,
+        categoryID: this.categoryID,
+        start_date: this.start_date,
+        end_date: this.end_date
+      };
+
+      this.documentsSubscription = this.archiveService
+        .searchDocuments(searchParams, this.lang)
+        .subscribe(
+          res => {
+            this.documentsLoading = false;
+            this.searchResults = [];
+            this.searchResults = res;
+            this.documentResults = this.searchResults;
+          },
+          error => {
+            this.documentsLoading = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
   }
 
   getDocument(): void {

@@ -21,7 +21,7 @@
           <h5>{{ formatDate(item.published_date) }} | {{ news_text }}</h5>
           <h3>{{ item.title | cardText: 50 }}</h3>
 
-          <p [innerHTML]="item.content | cardText: 200" class="description"></p>
+          <p [innerHTML]="item.content | cardText: 100" class="description"></p>
         </div>
         <!-- <div class="readMoreBtn">{{(lang === 'sv' ? 'Läs mer' : 'Read more')}}</div>-->
         <div class="category">

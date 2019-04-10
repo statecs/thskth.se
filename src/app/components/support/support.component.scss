@@ -257,6 +257,15 @@
   #support {
     padding: 40px 10px;
     width: 100%;
+    .search {
+      input {
+        border: 0;
+        box-shadow: 0;
+      }
+      form {
+        border-bottom: 1px solid lightgrey;
+      }
+    }
     .larger-devices {
       display: none;
     }
@@ -282,11 +291,6 @@
           font-size: $font-size-default;
         }
       }
-      .search {
-        input {
-          width: 90%;
-        }
-      }
     }
     .content-container {
       .faqs-categories {
@@ -297,7 +301,8 @@
           text-align: left;
           padding-top: 10px;
           .container {
-            width: 250%;
+            width: 400%;
+            height: 50px;
           }
         }
         .category {
@@ -325,7 +330,7 @@
               text-align: left;
               padding-top: 10px;
               .container {
-                width: 250%;
+                width: 400%;
                 font-size: 0.6em;
               }
             }

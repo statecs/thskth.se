@@ -309,7 +309,17 @@
     </div>
   </div>
 </div>
-<app-loader *ngIf="viewModel?.fetching"></app-loader>
-<div *ngIf="existMorePosts && showFetchMoreBtn" class="fetcher">
-  <span class="plus-button" (click)="fetchMorePosts()"><span>+</span></span>
+
+<div
+  *ngIf="existMorePosts && showFetchMoreBtn"
+  class="fetcher"
+  (click)="fetchMorePosts()"
+>
+  <i class="material-icons">
+    keyboard_arrow_down
+  </i>
+  <p>
+    More results
+  </p>
 </div>
+<app-loader *ngIf="viewModel?.fetching"></app-loader>

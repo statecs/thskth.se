@@ -25,6 +25,26 @@
           arrow_forward
         </i>
       </div>
+      <div class="filters-container">
+        <div class="filters">
+          <div
+            class="item"
+            [class.selected]="showMeetingDocuments"
+            (click)="displayMeetingDocuments()"
+          >
+            {{ lang === "en" ? "Meeting documents" : "Mötesanteckningar" }}
+          </div>
+
+          <div
+            class="item"
+            [class.selected]="showPolicyDocuments"
+            (click)="displayPolicyDocuments()"
+          >
+            {{ lang === "en" ? "Policy documents" : "Policydokument" }}
+          </div>
+        </div>
+      </div>
+
       <div
         #resultsDropdownList
         *ngIf="showResultsDropdown && searchTerm !== ''"
@@ -103,20 +123,19 @@
     <div>
       <div class="section">
         <div class="heading">
-          <h3 *ngIf="showResults" class="numberOfResults">
+          <h4 *ngIf="showResults" class="numberOfResults">
             Showing {{ documentResults.length !== 0 ? 1 : 0 }}-{{
               documentResults.length
             }}
             of {{ documentResults.length }} hits
-          </h3>
-          <!--<span class="sortBy">Sort by <strong>Published</strong> Relevance</span>-->
-          <h3 *ngIf="!showResults">
+          </h4>
+          <h4 *ngIf="!showResults">
             {{
               lang === "en"
                 ? "Latest published documents"
                 : "Senast publicerade dokument"
             }}
-          </h3>
+          </h4>
         </div>
         <div *ngFor="let d of documentResults" class="item">
           <div class="right-content">

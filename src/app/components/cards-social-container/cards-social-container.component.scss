@@ -104,11 +104,23 @@ a.headerTitle:after {
 }
 
 .fetcher {
-  height: 7px;
-  background-color: gray;
   text-align: center;
-  @include container-size($main-container);
+  width: 30%;
   position: relative;
+  box-shadow: 0 1px 3px #b2b2b2;
+  height: 40px;
+  background-color: #ffffff85;
+  border-radius: 35px;
+  margin: 0 auto;
+  i {
+    color: grey;
+    float: left;
+    padding: 10px;
+  }
+  p {
+    padding-top: 10px;
+    padding-right: 35px;
+  }
   .plus-button {
     @include circle(50px);
     color: white;
@@ -631,8 +643,7 @@ a.headerTitle:after {
     }
   }
   .fetcher {
-    height: 5px;
-    width: 100%;
+    width: 60%;
     .plus-button {
       width: 35px;
       height: 35px;
@@ -776,8 +787,7 @@ a.headerTitle:after {
     }
   }
   .fetcher {
-    height: 5px;
-    width: 100%;
+    width: 70%;
     .plus-button {
       width: 35px;
       height: 35px;
@@ -916,8 +926,6 @@ a.headerTitle:after {
     }
   }
   .fetcher {
-    height: 5px;
-    width: 100%;
     .plus-button {
       width: 35px;
       height: 35px;

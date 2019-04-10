@@ -65,7 +65,7 @@
             <div class="container">
               <div
                 *ngFor="let c of parent_categories; let i = index"
-                class="submenu-item category"
+                class="submenu-itemcategory"
                 [ngClass]="{ selected: i === selected_cat_index }"
                 (click)="displayCategory(i)"
               >

@@ -1,7 +1,7 @@
 <div id="cards-container" class="masonry-layout">
   <!--    <div *ngIf="!cardsLoaded" class="loader">Loading cards...</div>-->
   <app-loader *ngIf="!cardsLoaded"></app-loader>
-  <div class="no-cards" *ngIf="cards?.length === 0">Not found</div>
+  <div class="no-cards" *ngIf="cards?.length === 0">No cards found</div>
   <div
     *ngFor="let card of cards"
     class="masonry-layout_panel {{

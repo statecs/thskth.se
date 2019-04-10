@@ -72,7 +72,7 @@
           color: lightgrey;
           display: inline-block;
           float: right;
-          padding: 15px 38px;
+          padding: 15px 18px;
           border: 0;
           background: none;
           cursor: pointer;
@@ -328,7 +328,7 @@
           width: 100%;
           display: inline-block;
           .searchInput {
-            width: 70%;
+            width: 60%;
           }
         }
         .mostSearchTerms {
@@ -433,10 +433,6 @@
           .searchInput {
             width: 70%;
           }
-          .submit {
-            width: 30%;
-            padding: 17px 0;
-          }
         }
         .mostSearchTerms {
           width: 100%;
@@ -478,6 +474,14 @@
     }
   }
 }
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select,
+  textarea,
+  input {
+    font-size: 16px;
+  }
+}
+
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #content-container {
@@ -498,10 +502,6 @@
           display: inline-block;
           .searchInput {
             width: 75%;
-          }
-          .submit {
-            width: 25%;
-            padding: 17px 0;
           }
         }
         .mostSearchTerms {

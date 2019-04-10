@@ -36,7 +36,8 @@
       left: 15%;
       .readMore {
         padding: 10px 15px;
-        border: 1px solid gray;
+        box-shadow: 0 1px 3px #b2b2b2;
+        background-color: #ffffff6b;
         border-radius: 20px;
         margin-top: 20px;
       }
@@ -80,8 +81,8 @@
     @include center-vertically(50%);
 
     i {
-      font-size: $font-size-extraLarge;
-      font-weight: $font-weight-title;
+      font-size: 3em;
+      font-weight: 400;
       cursor: pointer;
     }
   }
