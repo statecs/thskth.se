@@ -13,7 +13,7 @@
     </div>
     <h2>{{ article.title | cardText: 50 }}</h2>
     <div class="label">
-      <label>{{ lang === "sv" ? "THS Nyheter" : "THS News" }}</label>
+      <label *ngFor="let c of article.categories">{{ c.name }} </label>
     </div>
     <p class="content" [innerHTML]="article.content | cardText: 150"></p>
   </div>

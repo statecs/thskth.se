@@ -175,7 +175,7 @@
           <div class="description">
             <h2 [innerHTML]="news?.title"></h2>
             <div class="label">
-              <label>{{ lang === "sv" ? "THS Nyheter" : "THS News" }}</label>
+              <label *ngFor="let c of news?.categories">{{ c.name }} </label>
             </div>
             <p [innerHTML]="news?.content"></p>
           </div>
