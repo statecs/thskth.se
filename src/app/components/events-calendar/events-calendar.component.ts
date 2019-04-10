@@ -34,6 +34,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   public showFeaturedEvents: boolean;
   public earliest_events: Event[];
   private lang: string;
+  public fetching: boolean;
   public calendarNameSwitch: string;
   public calendarIdSwitch: string;
   public calendarDateSwitch: string;
@@ -141,9 +142,6 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
       format(end, "hh:mm a")
     );
   }
-
-  // Select - next month update view?
-  // CSS IOS? INspired
   getEventsPerDay(
     calendarId,
     viewDate: Date,
@@ -162,6 +160,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             this.events = sortedArrays;
             this.earliest_events = sortedArrays;
             CalendarComponent.calendar_events = sortedArrays;
+            this.fetching = false;
           },
           error => {
             this.showFeaturedEvents = false;
@@ -180,6 +179,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             this.earliest_events = sortedArrays;
             this.events = sortedArrays;
             CalendarComponent.calendar_events = sortedArrays;
+            this.fetching = false;
           },
           error => {
             this.earliest_events = [];
@@ -198,6 +198,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.events = sortedArrays;
             this.earliest_events = CalendarComponent.calendar_events;
+            this.fetching = false;
           },
           error => {
             this.showFeaturedEvents = false;
@@ -212,6 +213,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         .subscribe(
           res => {
             this.earliest_events = res;
+            this.fetching = false;
           },
           error => {
             this.showFeaturedEvents = false;
@@ -234,6 +236,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             if (this.events.length !== 0) {
               this.showFeaturedEvents = false;
             }
+            this.fetching = false;
           },
           error => {
             this.showFeaturedEvents = false;
@@ -254,6 +257,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             if (this.events.length !== 0) {
               this.showFeaturedEvents = false;
             }
+            this.fetching = false;
           },
           error => {
             this.showFeaturedEvents = false;
@@ -553,6 +557,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.fetching = true;
     this.headerCommunicationService.tranparentHeader(false);
     this.calendarSubscription = this.calendarCommunicationService.notifyObservable$.subscribe(
       arg => {

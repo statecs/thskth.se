@@ -161,7 +161,8 @@
     <app-calendar></app-calendar>
   </app-events-cards>
 
-  <span *ngIf="earliest_events == 0">{{
+  <app-loader *ngIf="fetching"></app-loader>
+  <span *ngIf="earliest_events == 0 && !fetching">{{
     lang === "en"
       ? "There are no upcoming events at this time"
       : "Det finns inga kommande evenemang"

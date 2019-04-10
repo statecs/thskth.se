@@ -118,6 +118,7 @@ export class OneColumnTemplateComponent implements OnInit {
       );
   }
   goToPage(item): void {
+    this.hideDropdown();
     if (this._cookieService.get("language") == "sv") {
       this.lang = "sv";
     } else {

@@ -94,25 +94,8 @@
   }
 
   .content-container {
-    margin-bottom: 100px;
-    margin-top: 50px;
     .faqs-categories {
       text-align: center;
-      .category {
-        width: 30%;
-        padding: 20px 0;
-        box-shadow: 0 1px 3px #b2b2b2;
-        border-radius: 15px;
-        display: inline-block;
-        margin: 10px 1%;
-        cursor: pointer;
-        text-decoration: none;
-        color: $color-link-secondary;
-        border-radius: 15px;
-        &:hover {
-          color: $color-link-secondary-hover;
-        }
-      }
     }
   }
 
@@ -138,6 +121,13 @@
         &:hover {
           box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
+      }
+      .submenu-itemcategory {
+        text-decoration: none;
+        margin-right: 15px;
+        border-radius: 15px;
+        box-shadow: 0 1px 3px #b2b2b2;
+        padding: 10px 15px;
       }
       .selected {
         background-color: #00406c;
@@ -192,6 +182,7 @@
         margin: 4px 0;
         padding: 5px 15px;
         box-shadow: 0 1px 3px #b2b2b2;
+        border-radius: 15px;
         cursor: pointer;
         span {
           float: right;
@@ -297,12 +288,17 @@
         .categories {
           width: 100%;
           overflow-x: scroll;
-
           text-align: left;
-          padding-top: 10px;
           .container {
-            width: 400%;
-            height: 50px;
+            width: 500%;
+            padding: 20px;
+            a {
+              text-decoration: none;
+              margin-right: 15px;
+              border-radius: 15px;
+              box-shadow: 0 1px 3px #b2b2b2;
+              font-size: 0.7em !important;
+            }
           }
         }
         .category {
@@ -328,10 +324,9 @@
               overflow-x: scroll;
               height: 50px;
               text-align: left;
-              padding-top: 10px;
+              padding: 10px;
               .container {
                 width: 400%;
-                font-size: 0.6em;
               }
             }
             .category {

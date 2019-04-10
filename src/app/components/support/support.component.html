@@ -51,26 +51,26 @@
     <div class="submenu">
       <div class="cat-container">
         <div class="cat-wrapper larger-devices">
-          <div
+          <a
             *ngFor="let c of parent_categories; let i = index"
             class="submenu-item"
             [ngClass]="{ selected: i === selected_cat_index }"
             (click)="displayCategory(i)"
           >
             {{ c.name }}
-          </div>
+          </a>
         </div>
         <div class="cat-wrapper mobile">
           <div class="categories">
             <div class="container">
-              <div
+              <a
                 *ngFor="let c of parent_categories; let i = index"
                 class="submenu-itemcategory"
                 [ngClass]="{ selected: i === selected_cat_index }"
                 (click)="displayCategory(i)"
               >
                 {{ c.name }}
-              </div>
+              </a>
             </div>
           </div>
         </div>
