@@ -449,7 +449,7 @@
                     : "Restaurangen är stängd under helgen."
                 }}
               </p>
-              <a routerLink="/restaurants">{{
+              <a routerLink="/{{ lang }}/restaurants">{{
                 lang === "en"
                   ? "Menu week " + getWeekNumber()
                   : "Veckans meny " + getWeekNumber()
