@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       if (pos > 10 && !this.newsFetched) {
         this.newsFetched = true;
         this.postsSubscription = this.postsService
-          .getPosts(5, this.lang)
+          .getPosts(4, this.lang)
           .subscribe(
             posts => {
               this.showNewsSlider = true;

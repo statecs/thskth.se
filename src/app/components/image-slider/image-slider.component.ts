@@ -45,7 +45,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     private popupWindowCommunicationService: PopupWindowCommunicationService,
     private location: Location
   ) {
-    this.item_onfocus_index = 1;
+    this.item_onfocus_index = 0;
     this.dragging = false;
     this.lang = this.activatedRoute.snapshot.data["lang"];
     this.deviceSize = window.screen.width;
