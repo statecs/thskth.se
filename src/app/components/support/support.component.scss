@@ -69,6 +69,7 @@
       position: absolute;
       cursor: pointer;
       i {
+        color: lightgrey;
         left: 10px;
         font-size: 2em;
         top: 20px;
@@ -80,6 +81,7 @@
     }
     input {
       @include capsule-form-search(100%, 20px);
+      border: 0;
       border-bottom: 1px solid #ccc;
       padding-left: 50px;
       padding-right: 10px;
@@ -131,14 +133,15 @@
         padding: 12px 15px;
         position: relative;
         font-weight: 500;
+        border-radius: 8px;
         cursor: pointer;
         &:hover {
           box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
       }
       .selected {
-        color: black;
-        box-shadow: 0 1px 3px #b2b2b2;
+        background-color: #00406c;
+        color: #f7f7f7;
         cursor: default;
         &:hover {
           box-shadow: 0 1px 3px #b2b2b2;
@@ -287,8 +290,19 @@
     }
     .content-container {
       .faqs-categories {
+        .categories {
+          width: 100%;
+          overflow-x: scroll;
+
+          text-align: left;
+          padding-top: 10px;
+          .container {
+            width: 250%;
+          }
+        }
         .category {
-          width: 80%;
+          display: inline;
+          padding: 10px 15px;
         }
       }
     }
@@ -304,12 +318,25 @@
           overflow-x: scroll;
           .cat-wrapper {
             background-color: white;
-            .submenu-item {
-              display: block;
-              color: $color-link-secondary;
+            .categories {
+              width: 100%;
+              overflow-x: scroll;
+              height: 50px;
+              text-align: left;
+              padding-top: 10px;
+              .container {
+                width: 250%;
+                font-size: 0.6em;
+              }
+            }
+            .category {
+              display: inline;
+              padding: 10px 15px;
+              border-radius: 8px;
             }
             .selected {
-              color: white;
+              background-color: #00406c;
+              color: #f7f7f7;
             }
           }
         }
@@ -364,10 +391,21 @@
         }
       }
     }
+
     .content-container {
       .faqs-categories {
+        .categories {
+          width: 100%;
+          overflow-x: scroll;
+          text-align: left;
+          padding-top: 10px;
+          .container {
+            width: 150%;
+          }
+        }
         .category {
-          width: 80%;
+          display: inline;
+          padding: 10px 15px;
         }
       }
     }
@@ -383,10 +421,23 @@
           overflow-x: scroll;
           .cat-wrapper {
             background-color: white;
-            .submenu-item {
-              display: block;
-              color: $color-link-secondary;
+            .categories {
+              width: 100%;
+              overflow-x: scroll;
+              height: 50px;
+              text-align: left;
+              padding-top: 10px;
+              .container {
+                width: 150%;
+                font-size: 0.6em;
+              }
             }
+            .category {
+              display: inline;
+              padding: 10px 15px;
+              border-radius: 8px;
+            }
+
             .selected {
               color: white;
             }
@@ -444,8 +495,18 @@
     }
     .content-container {
       .faqs-categories {
+        .categories {
+          width: 100%;
+          overflow-x: scroll;
+          text-align: left;
+          padding-top: 10px;
+          .container {
+            width: 120%;
+          }
+        }
         .category {
-          width: 80%;
+          display: inline;
+          padding: 10px 15px;
         }
       }
     }
@@ -461,10 +522,23 @@
           overflow-x: scroll;
           .cat-wrapper {
             background-color: white;
-            .submenu-item {
-              display: block;
-              color: $color-link-secondary;
+            .categories {
+              width: 100%;
+              overflow-x: scroll;
+              height: 50px;
+              text-align: left;
+              padding-top: 10px;
+              .container {
+                width: 150%;
+                font-size: 0.6em;
+              }
             }
+            .category {
+              display: inline;
+              padding: 10px 15px;
+              border-radius: 8px;
+            }
+
             .selected {
               color: white;
             }

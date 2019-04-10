@@ -34,19 +34,21 @@
   </div>
   <div *ngIf="!show_single_view" class="content-container">
     <div class="faqs-categories">
-      <h2>{{ lang === "en" ? "FAQ categories" : "FAQ kategorier" }}</h2>
-      <a
-        *ngFor="let c of parent_categories"
-        routerLink="{{ c.slug }}"
-        class="category"
-        >{{ c.name }}</a
-      >
+      <div class="categories">
+        <div class="container">
+          <a
+            *ngFor="let c of parent_categories"
+            routerLink="{{ c.slug }}"
+            class="category"
+            >{{ c.name }}</a
+          >
+        </div>
+      </div>
       <app-loader *ngIf="parent_categories.length === 0"></app-loader>
     </div>
   </div>
   <div *ngIf="exist_category && show_single_view" class="faqs-single-view">
     <div class="submenu">
-      <label>{{ lang === "en" ? "FAQ categories" : "FAQ kategorier" }}</label>
       <div class="cat-container">
         <div class="cat-wrapper larger-devices">
           <div
@@ -59,13 +61,17 @@
           </div>
         </div>
         <div class="cat-wrapper mobile">
-          <div
-            *ngFor="let c of parent_categories; let i = index"
-            class="submenu-item"
-            [ngClass]="{ selected: i === selected_cat_index }"
-            (click)="displayCategory(i)"
-          >
-            {{ c.name }}
+          <div class="categories">
+            <div class="container">
+              <div
+                *ngFor="let c of parent_categories; let i = index"
+                class="submenu-item category"
+                [ngClass]="{ selected: i === selected_cat_index }"
+                (click)="displayCategory(i)"
+              >
+                {{ c.name }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
