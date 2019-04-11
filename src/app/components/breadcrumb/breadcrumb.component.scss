@@ -50,23 +50,24 @@
 @include media-breakpoint-only(xs) {
   #breadcrumbs {
     position: absolute;
-    top: -65px;
-    width: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding-left: 5%;
+    padding-top: 20px;
     left: 0;
     font-size: 0.8em;
     display: block;
     overflow-x: scroll;
+    width: 100%;
     .container {
       width: 120%;
     }
     ul {
-      padding: 30px 5px;
-      color: #e1e1e1;
       li {
         display: inherit;
         > a {
-          color: #e1e1e1;
-          text-decoration: underline;
+          text-decoration: none;
           &:hover {
             text-decoration: none;
           }
@@ -81,16 +82,16 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #breadcrumbs {
+    top: 0;
     position: absolute;
-    top: -70px;
     left: 0;
-    display: block;
+    margin: 0;
+    padding-left: 5%;
+    padding-top: 20px;
     font-size: 0.9em;
-    width: 80%;
+    width: 100%;
     overflow-x: scroll;
     ul {
-      padding: 30px 5px;
-      color: #e1e1e1;
       li {
         display: inherit;
         > a {
@@ -110,12 +111,13 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #breadcrumbs {
+    top: 0;
     position: absolute;
-    top: -50px;
     left: 0;
+    margin: 0;
+    padding-left: 5%;
+    padding-top: 20px;
     ul {
-      color: #e1e1e1;
-      padding: 10px 5px;
       li {
         display: inherit;
         > a {

@@ -132,12 +132,6 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   showInPopup(event: Event): void {
     if (event !== undefined) {
       this.popupWindowCommunicationService.showEventInPopup(event);
-    } else {
-      if (this.lang === "sv") {
-        this.location.go("sv/events");
-      } else {
-        this.location.go("en/events");
-      }
     }
   }
 

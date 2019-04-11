@@ -13,7 +13,7 @@
     height: 400px;
     margin-top: 50px;
     margin-bottom: 2px;
-    max-width: 1600px;
+    max-width: 1400px;
 
     @include container-size($main-container);
     & > div {
@@ -34,7 +34,7 @@
   .faq-slider,
   .image-slider {
     @include container-size($main-container);
-    max-width: 1600px;
+    max-width: 1400px;
     margin: 0 auto;
     margin-top: 50px;
     .title {
@@ -55,7 +55,7 @@
   }
   app-cards-social-container {
     @include container-size($main-container);
-    max-width: 1600px;
+    max-width: 1400px;
     margin: 0 auto;
     display: block;
   }
@@ -102,7 +102,7 @@ a.headerTitle:after {
     }
     .contact {
       @include container-size(90%);
-      max-width: 1600px;
+      max-width: 1400px;
       margin: 0 auto;
       height: auto;
       padding-top: 40px;

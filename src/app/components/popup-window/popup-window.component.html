@@ -21,7 +21,7 @@
             <i aria-hidden="true" class="material-icons icon">close</i>
           </button>
         </div>
-        <div class="header-image">
+        <div class="header-image" *ngIf="page_data?.header.header_image">
           <img
             *ngIf="page_data?.header.header_image"
             src="{{ page_data?.header.header_image }}"

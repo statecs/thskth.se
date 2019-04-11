@@ -122,7 +122,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
     } else {
       if (this.freeze_submenu_bar) {
         this.freeze_submenu_bar = false;
-        this.submenu_bar.nativeElement.style.top = "110px";
+        this.submenu_bar.nativeElement.style.top = "";
         this.submenu_bar.nativeElement.style.width = "";
         this.submenu_bar.nativeElement.style.margin = "";
         this.submenu_bar.nativeElement.style.borderRadius = "";
