@@ -143,9 +143,9 @@
             <p [innerHTML]="d.description | cardText: 200"></p>
             <div class="files">
               <div *ngFor="let f of d.documents" class="link_container">
-                <h5 (click)="downloadFile(f.url)" class="download_link">
+                <p (click)="downloadFile(f.url)" class="download_link">
                   {{ f.filename }} <i class="material-icons">file_download</i>
-                </h5>
+                </p>
               </div>
             </div>
           </div>

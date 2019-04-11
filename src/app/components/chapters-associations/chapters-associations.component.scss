@@ -165,13 +165,13 @@
       cursor: pointer;
       word-wrap: break-word;
       &:hover {
-        background-color: #00406c;
-        color: #f7f7f7;
+        background-color: #f7f7f7;
+        box-shadow: 0px -1px 3px #b2b2b2;
       }
     }
     .selected {
-      background-color: #00406c;
-      color: #f7f7f7;
+      background-color: #f7f7f7;
+      box-shadow: 0px -1px 3px #b2b2b2;
     }
   }
 

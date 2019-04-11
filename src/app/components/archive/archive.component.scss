@@ -290,9 +290,10 @@
         margin-bottom: 10px;
       }
       .item {
+        border-top: 1px solid #b2b2b2;
+        padding: 20px;
         overflow: hidden;
         margin: 20px 0;
-        border-top: 1px solid gray;
         padding-top: 30px;
         .left-content {
           width: 15%;
@@ -345,12 +346,13 @@
           .files {
             margin-top: 20px;
             .link_container {
-              display: block;
+              display: inline-block;
               margin-bottom: 15px;
               h5 {
                 margin: 0 0 5px;
               }
               .download_link {
+                margin: 3px 0px;
                 padding: 5px 15px;
                 box-shadow: 0 1px 3px #b2b2b2;
                 border-radius: 20px;
