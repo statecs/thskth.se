@@ -32,24 +32,32 @@ export class Association implements IAssociation {
 
   static convertToAssociationType(data: any): Association[] {
     const associations: Association[] = [];
-    data.forEach(c => {
-      associations.push({
-        id: c.id,
-        title: c.title.rendered,
-        description: c.content.rendered,
-        category: c.pure_taxonomies.ths_associations[0].name,
-        contact: {
-          name: c.acf.name,
-          title: c.acf.title,
-          email: c.acf.email,
-          phone: c.acf.phone,
-          website: c.acf.website,
-          website2: c.acf.website_2
-        },
-        slug: c.slug,
-        header_slides: this.getHeaderSlides(c.acf.slides)
+    if (data) {
+      data.forEach(c => {
+        let category: string;
+        if (c.pure_taxonomies.ths_associations) {
+          category = c.pure_taxonomies.ths_associations[0].name;
+        } else {
+          category = "other";
+        }
+        associations.push({
+          id: c.id,
+          title: c.title.rendered,
+          description: c.content.rendered,
+          category: category,
+          contact: {
+            name: c.acf.name,
+            title: c.acf.title,
+            email: c.acf.email,
+            phone: c.acf.phone,
+            website: c.acf.website,
+            website2: c.acf.website_2
+          },
+          slug: c.slug,
+          header_slides: this.getHeaderSlides(c.acf.slides)
+        });
       });
-    });
+    }
     return associations;
   }
 

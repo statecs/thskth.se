@@ -50,7 +50,7 @@ export class AssociationsService extends WordpressBaseDataService<Association> {
   ): Observable<Association[]> {
     return (
       this.searchData(
-        "?per_page=100&_embed&search=" + searchTerm + "&lang=" + lang
+        "per_page=100&_embed&search=" + searchTerm + "&lang=" + lang
       )
         // Cast response data to FAQ Category type
         .map((res: any) => {

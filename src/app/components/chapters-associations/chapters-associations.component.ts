@@ -45,9 +45,10 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   public career_associations: Association[];
   public sport_associations: Association[];
   public social_associations: Association[];
-  public associationResults: Association[];
-  public chapterResults: Chapter[];
-  public otherResults: Other[];
+  public other_associations: Association[];
+  public associationResults: any;
+  public chapterResults: any;
+  public otherResults: any;
   private hrefToSlugPipeFilter: HrefToSlugPipe;
   public showResultsDropdown: boolean;
   public documentsLoading: boolean;
@@ -117,6 +118,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
+    this.other_associations = [];
     this.showAssociations = true;
     this.showChapters = false;
     this.showOthers = false;
@@ -144,6 +146,13 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
           sv: "Sociala aktiviteter"
         },
         associations: this.social_associations
+      },
+      {
+        category: {
+          en: "Other activities",
+          sv: "Andra aktiviteter"
+        },
+        associations: this.other_associations
       }
     ];
     this.paramsSubscription = this.activatedRoute.params.subscribe(
@@ -241,13 +250,9 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       this.searchChapters();
       this.searchOthers();
       if (this.lang === "sv") {
-        this.router.navigate(["sv/associations-and-chapters"], {
-          queryParams: { q: this.searchTerm }
-        });
+        this.location.go("sv/associations-and-chapters?q=" + this.searchTerm);
       } else {
-        this.router.navigate(["en/associations-and-chapters"], {
-          queryParams: { q: this.searchTerm }
-        });
+        this.location.go("en/associations-and-chapters?q=" + this.searchTerm);
       }
     }
   }
@@ -311,7 +316,10 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       .getChapters(this.lang)
       .subscribe(
         res => {
-          this.chapterResults = res;
+          const mergedArrays = this.mergeArrays(res);
+          const sortedArrays = mergedArrays.sort(this.sortArrayByName);
+
+          this.chapterResults = sortedArrays;
           this.checkResults();
         },
         error => {
@@ -359,7 +367,10 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       .getOthers(this.lang)
       .subscribe(
         res => {
-          this.otherResults = res;
+          const mergedArrays = this.mergeArrays(res);
+          const sortedArrays = mergedArrays.sort(this.sortArrayByName);
+
+          this.otherResults = sortedArrays;
           this.checkResults();
         },
         error => {
@@ -391,8 +402,10 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       .getAssociations(this.lang)
       .subscribe(
         res => {
-          this.associationResults = res;
-          this.allocateAssociations(res);
+          const mergedArrays = this.mergeArrays(res);
+          const sortedArrays = mergedArrays.sort(this.sortArrayByName);
+          this.associationResults = sortedArrays;
+          this.allocateAssociations(sortedArrays);
           this.checkResults();
         },
         error => {
@@ -406,9 +419,11 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
+    this.other_associations = [];
     this.associations[0].associations = [];
     this.associations[1].associations = [];
     this.associations[2].associations = [];
+    this.associations[3].associations = [];
     data.forEach(a => {
       if (
         a.category === this.associations[0].category.en ||
@@ -428,6 +443,9 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       ) {
         this.social_associations.push(a);
         this.associations[2].associations = this.social_associations;
+      } else {
+        this.other_associations.push(a);
+        this.associations[3].associations = this.other_associations;
       }
     });
   }
@@ -489,6 +507,20 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
           this.notificationBarCommunicationService.send_data(error);
         }
       );
+  }
+
+  sortArrayByName(a, b) {
+    a = a.title;
+    b = b.title;
+    return a < b ? -1 : a > b ? 1 : 0;
+  }
+
+  mergeArrays(arrays: any): Event[] {
+    let merged: Event[] = [];
+    arrays.forEach(event => {
+      merged = merged.concat(event);
+    });
+    return merged;
   }
 
   ngOnInit() {

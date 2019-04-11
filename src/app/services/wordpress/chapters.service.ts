@@ -48,7 +48,7 @@ export class ChaptersService extends WordpressBaseDataService<Chapter> {
   searchChapters(searchTerm: string, lang: string): Observable<Chapter[]> {
     return (
       this.searchData(
-        "?per_page=100&_embed&search=" + searchTerm + "&lang=" + lang
+        "per_page=100&_embed&search=" + searchTerm + "&lang=" + lang
       )
         // Cast response data to FAQ Category type
         .map((res: any) => {
