@@ -2,13 +2,25 @@
   <div class="background_layer" (click)="hide_popup_window()"></div>
   <div id="popup-window">
     <div #layouts_container class="layouts-container">
-      <div class="exit-popup-btn" (click)="hide_popup_window()">
-        <i class="material-icons">arrow_forward</i
-        ><i class="material-icons">arrow_back</i>
-      </div>
       <app-loader *ngIf="loading"></app-loader>
       <!-- ---------- Page layout ---------- -->
       <div *ngIf="showPage && page_data && !loading" class="default-layout">
+        <div class="detailsTopNav">
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Back"
+            data-automation="goBack"
+          >
+            <i aria-hidden="true" class="material-icons icon">arrow_back</i>
+          </button>
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Close"
+            data-automation="closeModal"
+          >
+            <i aria-hidden="true" class="material-icons icon">close</i>
+          </button>
+        </div>
         <div class="header-image">
           <img
             *ngIf="page_data?.header.header_image"
@@ -62,6 +74,22 @@
 
       <!-- ---------- Event layout ---------- -->
       <div *ngIf="showEvent && !loading" class="event-layout">
+        <div class="detailsTopNav">
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Back"
+            data-automation="goBack"
+          >
+            <i aria-hidden="true" class="material-icons icon">arrow_back</i>
+          </button>
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Close"
+            data-automation="closeModal"
+          >
+            <i aria-hidden="true" class="material-icons icon">close</i>
+          </button>
+        </div>
         <div *ngIf="event?.imageUrl" class="header-image">
           <img src="{{ event?.imageUrl }}" alt="Header image" />
           <!--<div *ngIf="!event?.imageUrl"></div>-->
@@ -94,6 +122,22 @@
 
       <!-- ---------- Associations layout ---------- -->
       <div *ngIf="showAssociation && !loading" class="association-layout">
+        <div class="detailsTopNav">
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Back"
+            data-automation="goBack"
+          >
+            <i aria-hidden="true" class="material-icons icon">arrow_back</i>
+          </button>
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Close"
+            data-automation="closeModal"
+          >
+            <i aria-hidden="true" class="material-icons icon">close</i>
+          </button>
+        </div>
         <div class="header-image">
           <app-header-slider
             *ngIf="association?.header_slides.length !== 0"
@@ -129,6 +173,22 @@
 
       <!-- ---------- Archive layout ---------- -->
       <div *ngIf="showArchive && !loading" class="association-layout">
+        <div class="detailsTopNav">
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Back"
+            data-automation="goBack"
+          >
+            <i aria-hidden="true" class="material-icons icon">arrow_back</i>
+          </button>
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Close"
+            data-automation="closeModal"
+          >
+            <i aria-hidden="true" class="material-icons icon">close</i>
+          </button>
+        </div>
         <div class="content-container">
           <div class="description">
             <h2 [innerHTML]="archive?.title"></h2>
@@ -161,6 +221,22 @@
 
       <!-- ---------- FAQ layout ---------- -->
       <div *ngIf="showFaq && !loading" class="association-layout faq">
+        <div class="detailsTopNav">
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Back"
+            data-automation="goBack"
+          >
+            <i aria-hidden="true" class="material-icons icon">arrow_back</i>
+          </button>
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Close"
+            data-automation="closeModal"
+          >
+            <i aria-hidden="true" class="material-icons icon">close</i>
+          </button>
+        </div>
         <div class="content-container">
           <div class="description">
             <h2 [innerHTML]="faq?.question"></h2>
@@ -171,6 +247,22 @@
 
       <!-- ---------- News layout ---------- -->
       <div *ngIf="showNews && !loading" class="association-layout">
+        <div class="detailsTopNav">
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Back"
+            data-automation="goBack"
+          >
+            <i aria-hidden="true" class="material-icons icon">arrow_back</i>
+          </button>
+          <button
+            (click)="hide_popup_window()"
+            aria-label="Close"
+            data-automation="closeModal"
+          >
+            <i aria-hidden="true" class="material-icons icon">close</i>
+          </button>
+        </div>
         <div class="content-container">
           <div class="description">
             <h2 [innerHTML]="news?.title"></h2>
@@ -200,39 +292,5 @@
       <!-- ---------- Page not found ---------- -->
       <app-page-not-found *ngIf="show_page_not_found"></app-page-not-found>
     </div>
-  </div>
-</div>
-<div
-  *ngIf="showPopupWindow && exit_btn1"
-  class="exit-popup-btn-mobile"
-  (click)="hide_popup_window()"
->
-  <div class="svg-close w-18 text-white">
-    <svg
-      data-v-06449926=""
-      version="1.1"
-      viewBox="0 0 25 25"
-      class="rotate-45 svg-icon svg-fill"
-      style="width: 24px; height: 24px;"
-    >
-      <path pid="0" d="M25 11.5H13.5V0h-2v11.5H0v2h11.5V25h2V13.5H25z"></path>
-    </svg>
-  </div>
-</div>
-<div
-  *ngIf="showPopupWindow && exit_btn2"
-  class="exit-popup-btn-mobile"
-  (click)="hide_popup_window()"
->
-  <div class="svg-close w-18 text-white">
-    <svg
-      data-v-06449926=""
-      version="1.1"
-      viewBox="0 0 25 25"
-      class="rotate-45 svg-icon svg-fill"
-      style="width: 24px; height: 24px;"
-    >
-      <path pid="0" d="M25 11.5H13.5V0h-2v11.5H0v2h11.5V25h2V13.5H25z"></path>
-    </svg>
   </div>
 </div>

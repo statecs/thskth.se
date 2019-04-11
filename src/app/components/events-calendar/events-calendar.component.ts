@@ -592,9 +592,6 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
                   .fetchSingleEvents(this.slug)
                   .subscribe(
                     res => {
-                      this.popupWindowCommunicationService.showEventInPopup(
-                        null
-                      );
                       this.showInPopup(res[0]);
                       this.slug = null;
                     },

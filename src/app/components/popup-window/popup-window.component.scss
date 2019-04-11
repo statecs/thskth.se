@@ -99,12 +99,38 @@
       }
 
       .default-layout {
+        .detailsTopNav {
+          color: #fff;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+          justify-content: space-between;
+          padding: 20px 20px;
+          position: relative;
+          background-color: #00406c;
+          i {
+            color: white;
+          }
+          button {
+            border: none;
+            margin: 0;
+            padding: 0;
+            width: auto;
+            overflow: visible;
+            background: transparent;
+
+            line-height: normal;
+            -webkit-font-smoothing: inherit;
+            -moz-osx-font-smoothing: inherit;
+            -webkit-appearance: none;
+          }
+        }
         .header-image {
           max-height: 450px;
           min-height: 400px;
           overflow: hidden;
-          border-top-left-radius: 5px;
-          border-top-right-radius: 5px;
           img {
             min-width: 100%;
             max-width: 100%;
@@ -207,12 +233,38 @@
       }
 
       .event-layout {
+        .detailsTopNav {
+          color: #fff;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+          justify-content: space-between;
+          padding: 20px 20px;
+          position: relative;
+          background-color: #00406c;
+          i {
+            color: white;
+          }
+          button {
+            border: none;
+            margin: 0;
+            padding: 0;
+            width: auto;
+            overflow: visible;
+            background: transparent;
+
+            line-height: normal;
+            -webkit-font-smoothing: inherit;
+            -moz-osx-font-smoothing: inherit;
+            -webkit-appearance: none;
+          }
+        }
         .header-image {
           max-height: 430px;
           min-height: 400px;
           overflow: hidden;
-          border-top-left-radius: 5px;
-          border-top-right-radius: 5px;
           img {
             min-width: 100%;
             max-width: 100%;
@@ -295,12 +347,39 @@
         }
       }
       .association-layout {
+        .detailsTopNav {
+          color: #fff;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+          justify-content: space-between;
+          padding: 20px 20px;
+          position: relative;
+          background-color: #00406c;
+          i {
+            color: white;
+          }
+          button {
+            border: none;
+            margin: 0;
+            padding: 0;
+            width: auto;
+            overflow: visible;
+            background: transparent;
+
+            line-height: normal;
+            -webkit-font-smoothing: inherit;
+            -moz-osx-font-smoothing: inherit;
+            -webkit-appearance: none;
+          }
+        }
         .header-image {
           max-height: 430px;
           min-height: 400px;
           overflow: hidden;
-          border-top-left-radius: 5px;
-          border-top-right-radius: 5px;
+
           img {
             min-width: 100%;
             max-width: 100%;
