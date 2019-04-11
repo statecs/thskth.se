@@ -205,11 +205,23 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       );
   }
 
-  displayEventInPopup(index) {
-    this.selected_event_index = index;
-    this.popupWindowCommunicationService.showEventInPopup(
-      this.events[this.selected_event_index]
-    );
+  displayEventInPopup(event) {
+    this.popupWindowCommunicationService.showEventInPopup(event);
+    if (this.lang === "sv") {
+      this.location.go("sv/events/" + this.stringify(event.title));
+    } else {
+      this.location.go("en/events/" + this.stringify(event.title));
+    }
+  }
+  stringify(input) {
+    return input
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+      .replace(/\-\-+/g, "-") // Replace multiple - with single -
+      .replace(/^-+/, "") // Trim - from start of text
+      .replace(/-+$/, ""); // Trim - from end of text
   }
 
   selectEvent(i) {
@@ -312,6 +324,10 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
         const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
         if (sortedArrays.length > 5) {
           this.events = sortedArrays.slice(0, 5);
+          this.fetched_events = localStorage.setItem(
+            "events_list",
+            JSON.stringify(this.events)
+          );
         } else {
           this.events = sortedArrays;
           this.fetched_events = localStorage.setItem(
@@ -323,8 +339,8 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   fetchEvents(): void {
-    if (this.fetched_events) {
-      this.events = localStorage.getItem("events_list");
+    if (localStorage.getItem("events_list")) {
+      this.events = JSON.parse(localStorage.getItem("events_list"));
     } else {
       this.getAllEvents();
     }

@@ -389,6 +389,28 @@ export class GoogleCalendarService {
         );
     }
   }
+  fetchSingleEvents(slug): Observable<Event[]> {
+    const params: URLSearchParams = new URLSearchParams();
+
+    params.set("key", this.config.GOOGLE_CALENDAR_KEY);
+    params.set("singleEvents", "true");
+    params.set("orderBy", "startTime");
+    params.set("maxResults", "1");
+    params.set("q", slug);
+    const observables: Observable<any>[] = [];
+    observables.push(this.eventsCalendarService.getCalendar(params));
+    observables.push(this.generalCalendarService.getCalendar(params));
+    observables.push(this.educationCalendarService.getCalendar(params));
+    observables.push(this.futureCalendarService.getCalendar(params));
+    observables.push(this.internationalCalendarService.getCalendar(params));
+    return Observable.combineLatest(observables).map(values => {
+      let events: Event[] = [];
+      _.each(values, value => {
+        events = events.concat(value);
+      });
+      return events;
+    });
+  }
 
   getUpcomingEvents(calendarId, amount): Observable<Event[]> {
     const params: URLSearchParams = new URLSearchParams();

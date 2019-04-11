@@ -48,6 +48,11 @@ const appRoutes: Routes = [
     data: { title: "Documnets", lang: "en" }
   },
   {
+    path: "documents/:slug",
+    component: ArchiveComponent,
+    data: { title: "Documents", lang: "en" }
+  },
+  {
     path: "search",
     component: SearchComponent,
     data: { title: "Search", lang: "en" }
@@ -89,6 +94,11 @@ const appRoutes: Routes = [
   },
   {
     path: "events",
+    component: EventsCalendarComponent,
+    data: { title: "Events", lang: "en" }
+  },
+  {
+    path: "events/:slug",
     component: EventsCalendarComponent,
     data: { title: "Events", lang: "en" }
   },
@@ -180,6 +190,11 @@ const appRoutes: Routes = [
     path: ":lang/events",
     component: EventsCalendarComponent,
     data: { title: "Events" }
+  },
+  {
+    path: ":lang/events/:slug",
+    component: EventsCalendarComponent,
+    data: { title: "Events", lang: "en" }
   },
   {
     path: ":lang/live",

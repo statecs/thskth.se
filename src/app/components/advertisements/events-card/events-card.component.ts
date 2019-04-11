@@ -6,6 +6,7 @@ import { Event } from "../../../interfaces-and-classes/event";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { PopupWindowCommunicationService } from "../../../services/component-communicators/popup-window-communication.service";
 import { Subscription } from "rxjs/Subscription";
+import { Location } from "@angular/common";
 import { CookieService, CookieOptions } from "ngx-cookie";
 
 @Component({
@@ -14,17 +15,19 @@ import { CookieService, CookieOptions } from "ngx-cookie";
   styleUrls: ["./events-card.component.scss"]
 })
 export class EventsCardComponent implements OnInit, OnDestroy {
-  public events: Event[];
+  public events: any;
   public selected_event_title: string;
   public selected_event_text: string;
   public ths_calendars: { [key: string]: THSCalendar };
   public selected_event_index: number;
   public lang: string;
+  public fetched_events: any;
   public parentParamsSubscription: Subscription;
   public calendarSubscription: Subscription;
   public eventsSubscription: Subscription;
 
   constructor(
+    private location: Location,
     private googleCalendarService: GoogleCalendarService,
     private router: Router,
     private _cookieService: CookieService,
@@ -41,6 +44,21 @@ export class EventsCardComponent implements OnInit, OnDestroy {
 
   displayEventInPopup(event: Event) {
     this.popupWindowCommunicationService.showEventInPopup(event);
+    if (this.lang === "sv") {
+      this.location.go("sv/events/" + this.stringify(event.title));
+    } else {
+      this.location.go("en/events/" + this.stringify(event.title));
+    }
+  }
+  stringify(input) {
+    return input
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+      .replace(/\-\-+/g, "-") // Replace multiple - with single -
+      .replace(/^-+/, "") // Trim - from start of text
+      .replace(/-+$/, ""); // Trim - from end of text
   }
 
   goToPage(slug): void {
@@ -75,7 +93,7 @@ export class EventsCardComponent implements OnInit, OnDestroy {
     return a < b ? -1 : a > b ? 1 : 0;
   }
 
-  ngOnInit() {
+  getAllEvents() {
     this.eventsSubscription = this.googleCalendarService
       .getAllEventsCard(null, "")
       .subscribe(res => {
@@ -83,10 +101,30 @@ export class EventsCardComponent implements OnInit, OnDestroy {
         const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
         if (sortedArrays.length > 4) {
           this.events = sortedArrays.slice(0, 4);
+          this.fetched_events = localStorage.setItem(
+            "events_list_card",
+            JSON.stringify(sortedArrays)
+          );
         } else {
           this.events = sortedArrays;
+          this.fetched_events = localStorage.setItem(
+            "events_list_card",
+            JSON.stringify(sortedArrays)
+          );
         }
       });
+  }
+
+  fetchEvents(): void {
+    if (localStorage.getItem("events_list_card")) {
+      this.events = JSON.parse(localStorage.getItem("events_list_card"));
+    } else {
+      this.getAllEvents();
+    }
+  }
+
+  ngOnInit() {
+    this.fetchEvents();
   }
 
   ngOnDestroy() {

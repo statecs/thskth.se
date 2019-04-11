@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, NgModule, Input } from "@angular/core";
 import { Event } from "../../interfaces-and-classes/event";
+import { Location } from "@angular/common";
 import { CalendarCommunicationService } from "../../services/component-communicators/calendar-communication.service";
 import { GoogleCalendarService } from "../../services/google-calendar/google-calendar.service";
 import * as format from "date-fns/format";
@@ -21,6 +22,7 @@ import { CalendarComponent } from "../../components/calendar/calendar.component"
 export class EventsCalendarComponent implements OnInit, OnDestroy {
   events: Event[];
   public actualDate: any;
+  public slug: string;
   public tomorrowDate: string;
   public nextMonthDate: string;
   public thisMonthDate: string;
@@ -48,8 +50,10 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   public eventsSubscription: Subscription;
   public allEventsSubscription2: Subscription;
   public calendarSubscription: Subscription;
+  public paramsSubscription2: Subscription;
 
   constructor(
+    private location: Location,
     private calendarCommunicationService: CalendarCommunicationService,
     private googleCalendarService: GoogleCalendarService,
     private popupWindowCommunicationService: PopupWindowCommunicationService,
@@ -126,7 +130,15 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   }
 
   showInPopup(event: Event): void {
-    this.popupWindowCommunicationService.showEventInPopup(event);
+    if (event !== undefined) {
+      this.popupWindowCommunicationService.showEventInPopup(event);
+    } else {
+      if (this.lang === "sv") {
+        this.location.go("sv/events");
+      } else {
+        this.location.go("en/events");
+      }
+    }
   }
 
   formatTime(start, end) {
@@ -556,12 +568,46 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     return a < b ? -1 : a > b ? 1 : 0;
   }
 
+  unStringify(input) {
+    return input
+      .toLowerCase()
+      .split("-")
+      .map(i => i[0].toUpperCase() + i.substr(1))
+      .join(" ");
+  }
+
   ngOnInit() {
     this.fetching = true;
     this.headerCommunicationService.tranparentHeader(false);
     this.calendarSubscription = this.calendarCommunicationService.notifyObservable$.subscribe(
       arg => {
         this.actualDate = format(arg.viewDate, "DD MMM YYYY");
+        this.paramsSubscription2 = this.activatedRoute.params.subscribe(
+          (params: Params) => {
+            if (this.slug !== null) {
+              this.slug = params["slug"];
+              if (this.slug) {
+                this.slug = this.unStringify(this.slug);
+                this.allEventsSubscription = this.googleCalendarService
+                  .fetchSingleEvents(this.slug)
+                  .subscribe(
+                    res => {
+                      this.popupWindowCommunicationService.showEventInPopup(
+                        null
+                      );
+                      this.showInPopup(res[0]);
+                      this.slug = null;
+                    },
+                    error => {
+                      this.earliest_events = [];
+                      this.showFeaturedEvents = false;
+                      this.notificationBarCommunicationService.send_data(error);
+                    }
+                  );
+              }
+            }
+          }
+        );
         if (arg.noActivity) {
           this.dayView = true;
           this.showFeaturedEvents = false;
@@ -587,6 +633,9 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.paramsSubscription) {
       this.paramsSubscription.unsubscribe();
+    }
+    if (this.paramsSubscription2) {
+      this.paramsSubscription2.unsubscribe();
     }
     if (this.allEventsSubscription) {
       this.allEventsSubscription.unsubscribe();

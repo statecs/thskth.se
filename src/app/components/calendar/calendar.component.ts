@@ -17,6 +17,7 @@ import { ths_calendars } from "../../utils/ths-calendars";
 import { ActivatedRoute, Params } from "@angular/router";
 import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
 import { Subscription } from "rxjs/Subscription";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-calendar",
@@ -46,7 +47,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
     private popupWindowCommunicationService: PopupWindowCommunicationService,
     private activatedRoute: ActivatedRoute,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private location: Location
   ) {
     this.view = "month";
     this.activeDayIsOpen = false;
@@ -219,6 +221,21 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   eventClicked(event: Event): void {
     this.popupWindowCommunicationService.showEventInPopup(event);
+    if (this.lang === "sv") {
+      this.location.go("sv/events/" + this.stringify(event.title));
+    } else {
+      this.location.go("en/events/" + this.stringify(event.title));
+    }
+  }
+  stringify(input) {
+    return input
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+      .replace(/\-\-+/g, "-") // Replace multiple - with single -
+      .replace(/^-+/, "") // Trim - from start of text
+      .replace(/-+$/, ""); // Trim - from end of text
   }
 
   mergeArrays(arrays: any): Event[] {

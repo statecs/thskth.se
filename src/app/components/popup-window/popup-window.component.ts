@@ -202,6 +202,13 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
         this.location.go("en/associations-and-chapters/");
       }
     }
+    if (this.page_location === "events") {
+      if (this.lang === "sv") {
+        this.location.go("sv/events");
+      } else {
+        this.location.go("en/events");
+      }
+    }
     if (this.showNews) {
       if (this.page_location === "home") {
         /*this.location.back();*/
@@ -213,12 +220,6 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
           this.location.go("sv/news");
         } else {
           this.location.go("en/news");
-        }
-      } else if (this.page_location === "offers") {
-        if (this.lang === "sv") {
-          this.router.navigate(["sv/offers"]);
-        } else {
-          this.router.navigate(["en/offers"]);
         }
       }
     }
@@ -308,6 +309,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.popup_window_event_updater = this.popupWindowCommunicationService.eventNotifyObservable$.subscribe(
       event => {
         this.loading = false;
+        this.page_location = "events";
         this.show_event_in_popup(event);
       }
     );

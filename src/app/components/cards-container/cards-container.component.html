@@ -213,11 +213,11 @@
               </h4>
               <div *ngFor="let e of events; let i = index" class="event">
                 <h6>{{ getMonth(e.start) }}</h6>
-                <div class="date" (click)="selectEvent(i)">
+                <div class="date" (click)="selectEvent(e)">
                   <span>{{ getDay(e.start) }}</span>
                 </div>
                 <div class="excerpt">
-                  <span (click)="displayEventInPopup(i)">{{
+                  <span (click)="displayEventInPopup(e)">{{
                     e.title | cardText: 25
                   }}</span>
                 </div>
