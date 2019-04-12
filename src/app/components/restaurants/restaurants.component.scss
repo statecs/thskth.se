@@ -262,12 +262,6 @@
           font-size: 1em;
         }
       }
-      &:hover {
-        box-shadow: 0 2px 15px grey;
-      }
-    }
-    .selected {
-      box-shadow: 0 2px 15px grey;
     }
   }
 }
@@ -281,7 +275,10 @@
 @include media-breakpoint-only(xs) {
   #restaurant {
     padding: 20px 0;
-    width: 100%;
+    width: 97%;
+    .schedule {
+      margin-top: 20px;
+    }
     .larger-devices {
       display: none;
     }
@@ -292,9 +289,14 @@
       .g-item {
         width: 31%;
         margin: 0 1%;
-        height: 130px;
+        height: 150px;
         .text {
           height: 100%;
+          padding-top: 10%;
+          background-color: rgba(0, 0, 0, 0.25);
+          h3 {
+            margin: 5px 0;
+          }
           p {
             font-size: 1em;
           }
@@ -312,7 +314,7 @@
     }
     .schedule {
       .description {
-        width: 100%;
+        display: none;
       }
       .menu-wrapper {
         width: 100%;
@@ -343,6 +345,9 @@
 @include media-breakpoint-only(sm) {
   #restaurant {
     width: 100%;
+    .schedule {
+      margin-top: 20px;
+    }
     .larger-devices {
       display: none;
     }
@@ -402,6 +407,9 @@
 @include media-breakpoint-only(md) {
   #restaurant {
     width: 100%;
+    .schedule {
+      margin-top: 20px;
+    }
     .larger-devices {
       display: none;
     }

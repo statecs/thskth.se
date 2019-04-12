@@ -138,7 +138,10 @@
             <i aria-hidden="true" class="material-icons icon">close</i>
           </button>
         </div>
-        <div class="header-image">
+        <div
+          class="header-image"
+          *ngIf="association?.header_slides.length !== 0"
+        >
           <app-header-slider
             *ngIf="association?.header_slides.length !== 0"
             [slides_items]="association.header_slides"

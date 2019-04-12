@@ -16,7 +16,7 @@
     display: block;
   }
   .header-image {
-    max-height: 350px;
+    max-height: 224px;
     overflow: hidden;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -32,7 +32,7 @@
     }
     .default-header-height {
       width: 100%;
-      height: 270px;
+      height: 224px;
     }
   }
   #page {
@@ -198,8 +198,8 @@
   .submenu-bar {
     font-size: 0.9em;
     // top: 110px;
-    width: 95%;
-    margin-left: 2.5%;
+    width: 97%;
+    margin-left: 1.5%;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     box-shadow: 0px 24px 1px -24px #b2b2b2;
@@ -222,7 +222,7 @@
       display: none !important;
     }
     #page {
-      width: 95%;
+      width: 97%;
       padding: 50px 20px;
       .heading {
         margin-bottom: 0;

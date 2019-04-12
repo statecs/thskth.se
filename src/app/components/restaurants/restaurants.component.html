@@ -13,7 +13,7 @@
     >
       <div class="text">
         <h2>{{ item.title }}</h2>
-        <p [innerHTML]="item.description | cardText: 50"></p>
+        <p [innerHTML]="item.description | cardText: 70"></p>
       </div>
     </div>
   </div>
@@ -32,8 +32,8 @@
         [style.backgroundImage]="'url(' + item.imageUrl + ')'"
       >
         <div class="text">
-          <h2>{{ item.title }}</h2>
-          <p [innerHTML]="item.description | cardText: 50"></p>
+          <h3>{{ item.title }}</h3>
+          <p [innerHTML]="item.description | cardText: 70"></p>
         </div>
       </div>
     </div>
@@ -90,7 +90,6 @@
         </div>-->
         <div class="menu-container">
           <h2 *ngIf="menuFullText !== null && lang === 'en'">
-            Lunch:
             {{ selected_day === "Friday" ? "Friday," : "" }}
             {{ selected_day === "Thursday" ? "Thursday," : "" }}
             {{ selected_day === "Wednesday" ? "Wednesday," : "" }}
@@ -103,7 +102,6 @@
             }}
           </h2>
           <h2 *ngIf="menuFullText !== null && lang === 'sv'">
-            Lunch:
             {{ selected_day === "Friday" ? "Fredag," : "" }}
             {{ selected_day === "Thursday" ? "Torsdag," : "" }}
             {{ selected_day === "Wednesday" ? "Onsdag," : "" }}
@@ -182,7 +180,6 @@
       </div>
       <div class="menu-container">
         <h2 *ngIf="menuFullText !== null && lang === 'en'">
-          Lunch:
           {{ selected_day === "Friday" ? "Friday," : "" }}
           {{ selected_day === "Thursday" ? "Thursday," : "" }}
           {{ selected_day === "Wednesday" ? "Wednesday," : "" }}
@@ -193,7 +190,6 @@
           }}
         </h2>
         <h2 *ngIf="menuFullText !== null && lang === 'sv'">
-          Lunch:
           {{ selected_day === "Friday" ? "Fredag," : "" }}
           {{ selected_day === "Thursday" ? "Torsdag," : "" }}
           {{ selected_day === "Wednesday" ? "Onsdag," : "" }}

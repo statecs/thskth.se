@@ -329,7 +329,7 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #content-container {
-    width: 100%;
+    width: 97%;
     padding: 50px 10px;
     .center-vertically {
       margin: 100px 0;

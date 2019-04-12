@@ -33,7 +33,7 @@
     }
     .default-header-height {
       width: 100%;
-      height: 260px;
+      height: 224px;
     }
   }
 
@@ -254,7 +254,8 @@
 @include media-breakpoint-only(xs) {
   #one-column-template {
     #page {
-      width: 95%;
+      top: -160px;
+      width: 97%;
       padding: 50px 20px;
       .larger-devices {
         display: none;
