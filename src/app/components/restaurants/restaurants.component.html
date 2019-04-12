@@ -22,8 +22,8 @@
       #slides_wrapper
       class="slides-wrapper mobile"
       [style.width]="restaurants?.length * 86.66 + '%'"
-      (touchstart)="swipe($event, 'start')"
-      (touchend)="swipe($event, 'end')"
+      (touchstart)="swipe($event, 'start', '')"
+      (touchend)="swipe($event, 'end', '')"
     >
       <div
         *ngFor="let item of restaurants; let i = index"

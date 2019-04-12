@@ -1,8 +1,8 @@
 <div
   #slides_container
   id="header-slider"
-  (touchstart)="swipe($event, 'start')"
-  (touchend)="swipe($event, 'end')"
+  (touchstart)="swipe($event, 'start', '')"
+  (touchend)="swipe($event, 'end', '')"
 >
   <div *ngFor="let item of slides_items" class="slide-wrapper">
     <div

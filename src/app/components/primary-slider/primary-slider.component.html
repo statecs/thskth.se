@@ -28,8 +28,8 @@
       #primary_video
       id="primary-video"
       (mousemove)="mouseMovingOnPlayer()"
-      (touchstart)="swipe($event, 'start')"
-      (touchend)="swipe($event, 'end')"
+      (touchstart)="swipe($event, 'start', '')"
+      (touchend)="swipe($event, 'end', '')"
       *ngIf="slide.template === 'video-template'"
       [class.special]="slideIndex == i"
     >
@@ -64,8 +64,8 @@
       #primary_slider
       id="primary-slider"
       (mousemove)="mouseMovingOnPlayer()"
-      (touchstart)="swipe($event, 'start')"
-      (touchend)="swipe($event, 'end')"
+      (touchstart)="swipe($event, 'start', '')"
+      (touchend)="swipe($event, 'end', '')"
     >
       <div class="slider-bar-container">
         <div class="slider-bar"></div>
@@ -76,8 +76,8 @@
         #primary
         id="primary"
         (mousemove)="mouseMovingOnPlayer()"
-        (touchstart)="swipe($event, 'start')"
-        (touchend)="swipe($event, 'end')"
+        (touchstart)="swipe($event, 'start', '')"
+        (touchend)="swipe($event, 'end', '')"
         *ngIf="slideIndex == l"
         [class.image-on-left-template]="
           slide.template === 'image-on-left-template'
