@@ -38,16 +38,25 @@
     text-align: center;
     position: relative;
     padding-top: 5px;
+    .date_input {
+      display: inline;
+      input {
+        margin-top: 15px;
+        padding: 7px 10px;
+      }
+    }
     > h2 {
       margin: 0;
       padding-top: 15px;
     }
     form {
-      width: 720px;
+      width: 100%;
       display: inline-block;
       margin: 10px 0 0;
       position: relative;
       .search {
+        max-width: 1000px;
+        margin: 0 auto;
         height: 50px;
         box-shadow: 0 1px 3px #b2b2b2;
         border-radius: 8px;

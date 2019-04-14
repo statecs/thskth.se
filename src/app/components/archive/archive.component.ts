@@ -285,7 +285,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.showFilters = false;
       this.showResults = false;
       this.search();
-      this.documentsLoading = false;
     } else if (this.searchTerm === "") {
       this.searchResults = [];
       this.showMostSearchTerms = true;
@@ -294,13 +293,11 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       } else {
         this.location.go("en/documents");
       }
-      this.documentsLoading = false;
       this.showResultsDropdown = false;
       this.getDocuments();
     } else {
       this.searchResults = [];
       this.showMostSearchTerms = false;
-      this.documentsLoading = false;
       this.showFilters = false;
       this.showResults = true;
       this.search();

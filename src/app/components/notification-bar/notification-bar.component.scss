@@ -34,6 +34,18 @@
       @include center-vertically(50%);
       font-weight: 600;
       cursor: pointer;
+      .svg-close svg {
+        -webkit-transition: -webkit-transform 0.3s ease;
+        transition: -webkit-transform 0.3s ease;
+        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+        fill: currentColor;
+        stroke: none;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        display: inline-block;
+        color: inherit;
+      }
     }
   }
 }

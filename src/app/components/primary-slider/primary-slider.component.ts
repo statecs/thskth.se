@@ -128,7 +128,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
         self.slideIndex = 0;
       }
       self.showSlide();
-    }, 15000);
+    }, 10000);
   }
 
   toggleMainSlider(): void {

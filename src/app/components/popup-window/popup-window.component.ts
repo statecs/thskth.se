@@ -84,7 +84,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.showFaq = false;
     this.showPage = false;
     this.loading = false;
-    this.navigateBack = true;
+    this.navigateBack = false;
     this.exit_btn1 = true;
     this.exit_btn2 = false;
     this.paramsSubscription = this.router.events.subscribe(val => {
@@ -183,6 +183,9 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       }
     }
     if (this.showArchive) {
+      if (this.navigateBack) {
+        this.location.back();
+      }
       if (this.lang === "sv") {
         this.location.go("sv/documents");
       } else {
@@ -190,6 +193,10 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       }
     }
     if (this.showAssociation) {
+      console.log(this.navigateBack);
+      if (this.navigateBack) {
+        this.location.back();
+      }
       if (this.lang === "sv") {
         this.router.navigate(["sv/associations-and-chapters/"]);
         this.location.go("sv/associations-and-chapters/");
@@ -202,7 +209,8 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       if (this.navigateBack) {
         this.location.back();
       }
-      /*  if (this.lang === "sv") {
+      //this.location.back();
+      /* if (this.lang === "sv") {
         this.location.go("sv/events");
       } else {
         this.location.go("en/events");
@@ -215,6 +223,9 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
           this.location.back();
         }
       } else if (this.page_location === "news") {
+        if (this.navigateBack) {
+          this.location.back();
+        }
         if (this.lang === "sv") {
           this.location.go("sv/news");
         } else {
@@ -222,7 +233,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
         }
       }
     }
-    this.navigateBack = true;
+    //this.navigateBack = true;
     this.hide_all_layouts();
     this.showPopupWindow = false;
   }

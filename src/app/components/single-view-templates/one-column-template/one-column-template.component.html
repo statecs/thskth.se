@@ -47,6 +47,7 @@
     </div>
     <app-breadcrumb class="breadcrumb-large"></app-breadcrumb>
     <h2 [innerHTML]="page_data.name" class="title"></h2>
+    <app-loader *ngIf="loading"></app-loader>
     <div class="side-bar larger-devices">
       <div class="submenu">
         <div

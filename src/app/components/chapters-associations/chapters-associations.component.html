@@ -94,6 +94,7 @@
             >
               <div
                 class="image-wrapper"
+                *ngIf="item.header_slides[0]?.imageUrl"
                 [style.backgroundImage]="
                   'url(' + item.header_slides[0]?.imageUrl + ')'
                 "
@@ -139,6 +140,7 @@
             >
               <div
                 class="image-wrapper"
+                *ngIf="item.header_slides[0]?.imageUrl"
                 [style.backgroundImage]="
                   'url(' + item.header_slides[0]?.imageUrl + ')'
                 "
@@ -182,6 +184,7 @@
             >
               <div
                 class="image-wrapper"
+                *ngIf="item.header_slides[0]?.imageUrl"
                 [style.backgroundImage]="
                   'url(' + item.header_slides[0]?.imageUrl + ')'
                 "

@@ -105,12 +105,12 @@
     right: 0;
     .bar-item {
       @include circle(17px);
-      border: 1px solid lightgray;
+      border: 1px solid white;
       display: inline-block;
       margin: 0 10px;
     }
     .selected {
-      background-color: lightgray;
+      background-color: white;
     }
   }
 }

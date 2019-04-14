@@ -15,7 +15,7 @@
 #chatbot {
   position: relative;
   padding: 0;
-  max-width: 90%;
+  max-width: 100%;
   margin: 0 auto;
   .chat_flow {
     //min-height: calc(100vh - 80px);
@@ -29,7 +29,6 @@
       li {
         display: block;
         .response {
-          float: left;
           display: inline-block;
           width: 100%;
           .text {
@@ -113,7 +112,8 @@
     .reset-btn {
       position: absolute;
       margin: 10px;
-      bottom: 0;
+      top: 0;
+      margin-top: -85px;
       right: 0;
       padding: 10px 15px;
       border: 1px solid white;
@@ -141,9 +141,6 @@
     .chat_flow {
       min-height: 250px;
       font-size: $font-size-h6;
-      .reset-btn {
-        right: 10px;
-      }
       ol {
         li {
           .response {

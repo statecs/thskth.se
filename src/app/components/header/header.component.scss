@@ -21,6 +21,8 @@
 .freeze-submenu-bar {
   z-index: 4;
   .container.mobile {
+    position: fixed;
+    background-color: white;
     .logo {
       a {
         svg {
@@ -449,7 +451,6 @@ header {
         color: black;
         font-size: $font-size-h4;
         text-align: left;
-        height: 350px;
         overflow-y: scroll;
         .nav-item {
           padding: 5px 10px;

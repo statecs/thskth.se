@@ -39,7 +39,7 @@
         class="display-cal-btn-select "
         [class.selected]="selectToday"
       >
-        Today
+        {{ lang === "en" ? " Today" : "Idag" }}
       </label>
       <input
         [(ngModel)]="selectToday"
@@ -54,7 +54,7 @@
         class="display-cal-btn-select "
         [class.selected]="selectTomorrow"
       >
-        Tomorrow
+        {{ lang === "en" ? " Tomorrow" : "Imorgon" }}
       </label>
       <input
         [(ngModel)]="selectTomorrow"
@@ -68,7 +68,7 @@
         class="display-cal-btn-select "
         [class.selected]="selectNextWeek"
       >
-        Next week
+        {{ lang === "en" ? " Next week" : " Nästa vecka" }}
       </label>
       <input
         [(ngModel)]="selectNextWeek"
@@ -82,7 +82,7 @@
         class="display-cal-btn-select "
         [class.selected]="selectThisMonth"
       >
-        This month
+        {{ lang === "en" ? " This month" : " Denna månad" }}
       </label>
       <input
         [(ngModel)]="selectThisMonth"
@@ -97,7 +97,7 @@
         class="display-cal-btn-select "
         [class.selected]="selectNextMonth"
       >
-        Next month
+        {{ lang === "en" ? " Next month" : " Nästa månad" }}
       </label>
       <input
         [(ngModel)]="selectNextMonth"
@@ -156,6 +156,7 @@
       {{ lang === "en" ? "Show all events" : "Visa alla händelser" }}
     </a>
   </div>
+
   <app-events-cards [events]="earliest_events">
     <!--Change title to date when clicked-->
     <app-calendar></app-calendar>
@@ -167,6 +168,7 @@
       ? "There are no upcoming events at this time"
       : "Det finns inga kommande evenemang"
   }}</span>
+
   <app-events-list [events]="earliest_events"></app-events-list>
 </div>
 

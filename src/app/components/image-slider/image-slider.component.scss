@@ -143,11 +143,11 @@
     @include circle(17px);
     display: inline-block;
     margin: 0 20px;
-    background-color: lightgray;
+    background-color: white;
     cursor: pointer;
   }
   .selected {
-    background-color: gray;
+    background-color: white;
   }
 }
 

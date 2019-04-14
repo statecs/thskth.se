@@ -304,11 +304,9 @@ export class SupportComponent implements OnInit, OnDestroy {
     this.paramsSubscription3 = this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.faq_slug = params["slug"];
-        if (this.faq_slug) {
-          this.selected_cat_index = null;
-          this.getFAQs_BySlug();
-          this.loadFAQs();
-        }
+        this.selected_cat_index = null;
+        this.getFAQs_BySlug();
+        this.loadFAQs();
       }
     );
     if (!this.faq_slug) {

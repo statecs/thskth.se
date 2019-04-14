@@ -239,6 +239,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       } else {
         this.showAssociations = true;
         this.showChapters = false;
+        this.showOthers = false;
         this.getAssociations();
       }
     }
@@ -253,6 +254,12 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         this.location.go("sv/associations-and-chapters?q=" + this.searchTerm);
       } else {
         this.location.go("en/associations-and-chapters?q=" + this.searchTerm);
+      }
+    } else {
+      if (this.lang === "sv") {
+        this.location.go("sv/associations-and-chapters");
+      } else {
+        this.location.go("en/associations-and-chapters");
       }
     }
   }
@@ -491,8 +498,18 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
                     this.item_exist = true;
                     this.showingPopup = true;
                   } else {
-                    this.pageNotFound = true;
-                    this.item_exist = false;
+                    this.othersSubscription3 = this.othersService
+                      .getOtherBySlug(this.slug, this.lang)
+                      .subscribe(res3 => {
+                        if (res3.length > 0) {
+                          this.showAssociationInPopup(res3[0]);
+                          this.item_exist = true;
+                          this.showingPopup = true;
+                        } else {
+                          this.pageNotFound = true;
+                          this.item_exist = false;
+                        }
+                      });
                   }
                 },
                 error => {
@@ -541,7 +558,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
             const timer = setInterval(function() {
               if (
                 self.career_associations.length > 0 ||
-                self.chapterResults.length > 0
+                self.chapterResults.length > 0 ||
+                self.otherResults > 0
               ) {
                 clearInterval(timer);
                 self.getPostBySlug();
@@ -573,21 +591,18 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
                 }
               }
             }
+
             const arg = {
               hidden: true,
-              navigateBack: true
+              navigateBack: false
             };
             this.popupWindowCommunicationService.hidePopup(arg);
           } else {
             if (params["q"] && !this.pageNotFound) {
               if (this.lang === "sv") {
-                this.router.navigate([
-                  "sv/associations-and-chapters/" + this.slug
-                ]);
+                this.location.go("sv/associations-and-chapters/" + this.slug);
               } else {
-                this.router.navigate([
-                  "en/associations-and-chapters/" + this.slug
-                ]);
+                this.location.go("en/associations-and-chapters/" + this.slug);
               }
             }
           }
@@ -607,12 +622,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
               }
               self.showChapters = false;
               self.showAssociations = true;
-              /*if (this.cookieService.get('selectedFilter') === 'chapters') {
-                this.displayChapters();
-                this.getChapters();
-              }else {
-                this.getAssociations();
-              }*/
+              self.showOthers = false;
             }
           });
         }

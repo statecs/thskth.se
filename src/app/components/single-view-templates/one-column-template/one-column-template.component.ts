@@ -32,6 +32,7 @@ export class OneColumnTemplateComponent implements OnInit {
   public slug: string;
   public parent_slug: string;
   private lang: string;
+  public loading: boolean;
   public subMenu: MenuItem[];
   public showSubmenuBarDropdown: boolean;
   private removeLangParamPipe: RemoveLangParamPipe;
@@ -109,11 +110,11 @@ export class OneColumnTemplateComponent implements OnInit {
       .get_secondarySubMenu(this.parent_slug, this.slug, this.lang)
       .subscribe(
         submenu => {
+          this.loading = false;
           this.subMenu = submenu;
         },
         error => {
-          //this.loading = false;
-          //  this.notificationBarCommunicationService.send_data(error);
+          this.loading = false;
         }
       );
   }
@@ -180,6 +181,7 @@ export class OneColumnTemplateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     if (this._cookieService.get("language") == "sv") {
       this.lang = "sv";
     } else {
@@ -188,6 +190,7 @@ export class OneColumnTemplateComponent implements OnInit {
 
     this.paramsSubscription = this.activatedRoute.params.subscribe(
       (params: Params) => {
+        this.loading = true;
         this.parent_slug = params["subpage"];
         this.slug = params["slug"];
         this.getSubmenu();

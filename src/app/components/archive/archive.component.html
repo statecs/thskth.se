@@ -52,9 +52,6 @@
       >
         <div class="section">
           <div *ngFor="let d of searchResults" class="item">
-            <div class="left-content">
-              <span *ngFor="let c of d.categories">{{ c.name }}</span>
-            </div>
             <div class="right-content">
               <h4 (click)="showDocumentInPopup(d)">{{ d.title }}</h4>
             </div>
@@ -79,6 +76,22 @@
         <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
       </div>-->
     </form>
+    <div class="date_input">
+      <input
+        type="date"
+        id="startDate"
+        [(ngModel)]="start_date"
+        (change)="filterDate()"
+      />
+    </div>
+    <div class="date_input">
+      <input
+        type="date"
+        id="endDate"
+        [(ngModel)]="end_date"
+        (change)="filterDate()"
+      />
+    </div>
   </div>
 
   <!--<div #filters class="filters">
@@ -123,6 +136,7 @@
     <div>
       <div class="section">
         <div class="heading">
+          <app-loader *ngIf="documentsLoading"></app-loader>
           <h4 *ngIf="showResults" class="numberOfResults">
             Showing {{ documentResults.length !== 0 ? 1 : 0 }}-{{
               documentResults.length
@@ -162,7 +176,7 @@
               </div>
             </div>
           </div>
-          <app-loader *ngIf="documentsLoading"></app-loader>
+
           <p
             *ngIf="!documentsLoading && documentResults.length === 0"
             class="notResult"

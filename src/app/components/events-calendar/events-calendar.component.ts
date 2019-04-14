@@ -282,6 +282,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   }
 
   _switchCalendarGet() {
+    this.fetching = true;
     this.selectNextMonth = false;
     this.selectNextWeek = false;
     this.selectTomorrow = false;
@@ -297,8 +298,10 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
+            this.fetching = false;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -310,11 +313,13 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         .getAllEventsUpcoming(this.calendarDateSwitch, "month")
         .subscribe(
           res => {
+            this.fetching = false;
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -331,9 +336,11 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         )
         .subscribe(
           res => {
+            this.fetching = false;
             this.earliest_events = res;
           },
           error => {
+            this.fetching = false;
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
           }
@@ -348,6 +355,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   }
 
   getEventsPerToday() {
+    this.fetching = true;
     this.selectTomorrow = false;
     this.selectNextWeek = false;
     this.selectNextMonth = false;
@@ -362,8 +370,10 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             this.earliest_events = sortedArrays;
             this.events = sortedArrays;
             CalendarComponent.calendar_events = sortedArrays;
+            this.fetching = false;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -374,6 +384,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         .getAllEventsUpcoming(null, "month")
         .subscribe(
           res => {
+            this.fetching = false;
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
@@ -381,6 +392,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             CalendarComponent.calendar_events = sortedArrays;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -390,6 +402,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   }
 
   getEventsPerTomorrow() {
+    this.fetching = true;
     this.selectToday = false;
     this.selectNextWeek = false;
     this.selectNextMonth = false;
@@ -399,6 +412,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         .getAllEventsTomorrow(null, "day")
         .subscribe(
           res => {
+            this.fetching = false;
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
@@ -406,6 +420,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             CalendarComponent.calendar_events = sortedArrays;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -416,6 +431,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         .getAllEventsUpcoming(null, "month")
         .subscribe(
           res => {
+            this.fetching = false;
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
@@ -423,6 +439,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             CalendarComponent.calendar_events = sortedArrays;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -431,6 +448,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
     }
   }
   getEventsPerWeek() {
+    this.fetching = true;
     this.selectTomorrow = false;
     this.selectNextMonth = false;
     this.selectToday = false;
@@ -445,8 +463,10 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             this.earliest_events = sortedArrays;
             this.events = sortedArrays;
             CalendarComponent.calendar_events = sortedArrays;
+            this.fetching = false;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -457,6 +477,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         .getAllEventsUpcoming(null, "month")
         .subscribe(
           res => {
+            this.fetching = false;
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
@@ -464,6 +485,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             CalendarComponent.calendar_events = sortedArrays;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -473,6 +495,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   }
 
   getEventsPerMonth() {
+    this.fetching = true;
     this.selectNextWeek = false;
     this.selectTomorrow = false;
     this.selectToday = false;
@@ -482,6 +505,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         .getAllEventsNextMonth(null, "month")
         .subscribe(
           res => {
+            this.fetching = false;
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
@@ -489,6 +513,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             CalendarComponent.calendar_events = sortedArrays;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -499,6 +524,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         .getAllEventsUpcoming(null, "month")
         .subscribe(
           res => {
+            this.fetching = false;
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
@@ -506,6 +532,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             CalendarComponent.calendar_events = sortedArrays;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -515,6 +542,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
   }
 
   getEventsPerFirstMonth() {
+    this.fetching = true;
     this.selectNextWeek = false;
     this.selectTomorrow = false;
     this.selectToday = false;
@@ -524,6 +552,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         .getAllEventsThisMonth(null, "month")
         .subscribe(
           res => {
+            this.fetching = false;
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
@@ -531,6 +560,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             CalendarComponent.calendar_events = sortedArrays;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -541,6 +571,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
         .getAllEventsUpcoming(null, "month")
         .subscribe(
           res => {
+            this.fetching = false;
             const mergedArrays = this.mergeArrays(res);
             const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
             this.earliest_events = sortedArrays;
@@ -548,6 +579,7 @@ export class EventsCalendarComponent implements OnInit, OnDestroy {
             CalendarComponent.calendar_events = sortedArrays;
           },
           error => {
+            this.fetching = false;
             this.earliest_events = [];
             this.showFeaturedEvents = false;
             this.notificationBarCommunicationService.send_data(error);
