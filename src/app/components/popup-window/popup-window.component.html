@@ -138,19 +138,21 @@
             <i aria-hidden="true" class="material-icons icon">close</i>
           </button>
         </div>
-        <div
-          class="header-image"
-          *ngIf="(association?.header_slides)[0].imageUrl !== ''"
-        >
-          <app-header-slider
-            *ngIf="association?.header_slides.length !== 0"
-            [slides_items]="association.header_slides"
-          ></app-header-slider>
-          <!--<img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">-->
+        <div *ngIf="association.header_slides.length !== 0">
           <div
-            *ngIf="association?.header_slides.length === 0"
-            class="default-header"
-          ></div>
+            class="header-image"
+            *ngIf="association.header_slides[0].imageUrl"
+          >
+            <app-header-slider
+              *ngIf="association?.header_slides.length !== 0"
+              [slides_items]="association.header_slides"
+            ></app-header-slider>
+            <!--<img *ngIf="association?.image" src="{{association?.image}}" alt="Header image">-->
+            <div
+              *ngIf="association?.header_slides.length === 0"
+              class="default-header"
+            ></div>
+          </div>
         </div>
         <div class="content-container">
           <div class="description">

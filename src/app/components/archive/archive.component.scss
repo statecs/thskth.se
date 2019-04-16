@@ -399,6 +399,7 @@
 @include media-breakpoint-only(xs) {
   #content-container {
     width: 97%;
+    margin-top: -160px;
     padding: 50px 10px;
     .filters-container {
       width: 100%;
@@ -511,7 +512,7 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #content-container {
-    width: 100%;
+    width: 97%;
     padding-top: 60px;
     .search-bar {
       height: auto;
@@ -610,7 +611,7 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #content-container {
-    width: 100%;
+    width: 97%;
     padding-top: 60px;
     .search-bar {
       height: auto;

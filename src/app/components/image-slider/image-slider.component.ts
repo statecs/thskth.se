@@ -169,16 +169,16 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.slides_wrapper.length; i++) {
       this.slides_wrapper[i].style.marginLeft = margin_left;
     }
-    this.item_onfocus_index = index;
+    this.item_onfocus_index = index - 1;
   }
 
   getBgUrl(image: any): string {
     let url = "";
     if (image !== "") {
       if (this.deviceSize < 768) {
-        url = image.medium;
+        url = image.large;
       } else if (this.deviceSize >= 768 && this.deviceSize < 992) {
-        url = image.medium;
+        url = image.large;
       } else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
         url = image.large;
       } else if (this.deviceSize >= 1200) {

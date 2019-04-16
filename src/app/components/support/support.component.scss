@@ -272,6 +272,7 @@
   #support {
     padding: 40px 10px;
     width: 97%;
+    top: -160px;
     .search {
       input {
         border: 0;
@@ -400,7 +401,7 @@
 @include media-breakpoint-only(sm) {
   #support {
     padding: 40px 20px;
-    width: 100%;
+    width: 97%;
     .larger-devices {
       display: none;
     }
@@ -521,7 +522,7 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #support {
-    width: 100%;
+    width: 97%;
     .larger-devices {
       display: none;
     }

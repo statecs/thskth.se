@@ -7,7 +7,7 @@
         <span>{{ getDay(e.start) }}</span>
       </div>
       <div class="excerpt">
-        <span (click)="displayEventInPopup(e)">{{
+        <span (click)="displayEventInPopup(e, card)">{{
           e.title | cardText: 25
         }}</span>
       </div>

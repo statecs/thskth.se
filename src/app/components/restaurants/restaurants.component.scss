@@ -276,6 +276,7 @@
   #restaurant {
     padding: 20px 0;
     width: 97%;
+    margin-top: -160px;
     .schedule {
       margin-top: 20px;
     }
@@ -293,7 +294,7 @@
         .text {
           height: 100%;
           padding-top: 12%;
-          background-color: rgba(0, 0, 0, 0.25);
+          background-color: rgba(0, 0, 0, 0.5);
           h3 {
             margin: 5px 0;
           }
@@ -344,7 +345,7 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #restaurant {
-    width: 100%;
+    width: 97%;
     .schedule {
       margin-top: 20px;
     }
@@ -406,7 +407,7 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #restaurant {
-    width: 100%;
+    width: 97%;
     .schedule {
       margin-top: 20px;
     }

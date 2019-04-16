@@ -90,7 +90,7 @@
       *ngFor="let item of slide_items; let i = index"
       class="bar-item"
       [ngClass]="{ selected: item_onfocus_index === i }"
-      (click)="selectSlide(i + 1)"
+      (click)="selectSlide(i)"
     ></div>
   </div>
   <div class="mobile">
