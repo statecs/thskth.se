@@ -68,11 +68,18 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showFAQSlider = false;
     this.showNewsSlider = false;
     platformLocation.onPopState(() => {
-      const arg = {
-        hidden: true,
-        navigateBack: false
-      };
-      this.popupWindowCommunicationService.hidePopup(arg);
+      if (this.router.url.includes("/events")) {
+        const arg = {
+          hidden: true,
+          navigateBack: false
+        };
+        this.popupWindowCommunicationService.hidePopup(arg);
+      } else {
+        const arg = {
+          hidden: true
+        };
+        this.popupWindowCommunicationService.hidePopup(arg);
+      }
     });
   }
 

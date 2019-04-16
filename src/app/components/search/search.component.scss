@@ -553,4 +553,15 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
+  #content-container {
+    .search-bar {
+      form {
+        .resultsDropdownList {
+          position: relative;
+          margin: 0 auto;
+          max-width: 1000px;
+        }
+      }
+    }
+  }
 }

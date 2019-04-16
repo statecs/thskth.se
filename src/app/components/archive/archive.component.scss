@@ -721,5 +721,15 @@
         margin: 0 auto;
       }
     }
+
+    .search-bar {
+      form {
+        .resultsDropdownList {
+          position: sticky;
+          margin: -60px auto;
+          max-width: 1000px;
+        }
+      }
+    }
   }
 }

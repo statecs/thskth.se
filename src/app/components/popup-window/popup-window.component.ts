@@ -4,8 +4,7 @@ import {
   HostListener,
   ViewChild,
   ElementRef,
-  OnDestroy,
-  Input
+  OnDestroy
 } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
 import { PopupWindowCommunicationService } from "../../services/component-communicators/popup-window-communication.service";
@@ -16,7 +15,7 @@ import { Location } from "@angular/common";
 import { Association } from "../../interfaces-and-classes/chapters_associations";
 import { Archive } from "../../interfaces-and-classes/archive";
 import { FAQ } from "../../interfaces-and-classes/faq";
-import { Router, RoutesRecognized } from "@angular/router";
+import { Router, RoutesRecognized, NavigationStart } from "@angular/router";
 import { CookieService } from "ngx-cookie";
 import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
 import { PagesService } from "../../services/wordpress/pages.service";
@@ -41,6 +40,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   public popup_window_loader_updater: Subscription;
   public popup_window_news_updater: Subscription;
   public page_data: any;
+  public previousUrl: string;
   public showEvent: boolean;
   public event: Event;
   public top_position: number;
@@ -84,7 +84,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.showFaq = false;
     this.showPage = false;
     this.loading = false;
-    this.navigateBack = false;
+    this.navigateBack = true;
     this.exit_btn1 = true;
     this.exit_btn2 = false;
     this.paramsSubscription = this.router.events.subscribe(val => {
@@ -177,68 +177,66 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.show_page_not_found = false;
     this.page_data = null;
     this.appCommunicationService.collapseScrollOnPage("show");
-    if (this.showPage) {
+    if (this.showPage || this.showFaq) {
       if (this.navigateBack) {
         this.location.back();
       }
     }
     if (this.showArchive) {
-      if (this.navigateBack) {
-        this.location.back();
-      }
       if (this.lang === "sv") {
         this.location.go("sv/documents");
       } else {
         this.location.go("en/documents");
       }
     }
-    if (this.showAssociation) {
-      console.log(this.navigateBack);
-      if (this.navigateBack) {
+    if (this.showEvent) {
+      if (this.navigateBack && !this.previousUrl) {
         this.location.back();
-      }
-      if (this.lang === "sv") {
-        this.router.navigate(["sv/associations-and-chapters/"]);
-        this.location.go("sv/associations-and-chapters/");
+      } else if (this.navigateBack === undefined && !this.previousUrl) {
       } else {
-        this.router.navigate(["en/associations-and-chapters/"]);
-        this.location.go("en/associations-and-chapters/");
+        if (this.lang === "sv") {
+          this.location.go("sv/events");
+        } else {
+          this.location.go("en/events");
+        }
       }
     }
-    if (this.page_location === "events") {
-      if (this.navigateBack) {
-        this.location.back();
-      }
-      //this.location.back();
-      /* if (this.lang === "sv") {
-        this.location.go("sv/events");
+    if (this.showAssociation) {
+      if (this.lang === "sv") {
+        this.location.go("sv/associations-and-chapters/");
+        this.router.navigate(["sv/associations-and-chapters"]);
       } else {
-        this.location.go("en/events");
-      }*/
+        this.location.go("en/associations-and-chapters/");
+        this.router.navigate(["en/associations-and-chapters"]);
+      }
     }
     if (this.showNews) {
       if (this.page_location === "home") {
-        /*this.location.back();*/
         if (this.navigateBack) {
           this.location.back();
         }
       } else if (this.page_location === "news") {
-        if (this.navigateBack) {
-          this.location.back();
-        }
         if (this.lang === "sv") {
           this.location.go("sv/news");
+          this.router.navigate(["sv/news"]);
         } else {
           this.location.go("en/news");
+          this.router.navigate(["en/news"]);
+        }
+      } else if (this.page_location === "offers") {
+        if (this.lang === "sv") {
+          this.router.navigate(["sv/offers"]);
+        } else {
+          this.router.navigate(["en/offers"]);
         }
       }
     }
-    //this.navigateBack = true;
+    this.navigateBack = true;
     this.hide_all_layouts();
     this.showPopupWindow = false;
   }
 
-  show_page_in_popup(slug_to_page): void {
+  show_page_in_popup(slug): void {
     let lang = "";
     lang = this._cookieService.get("language");
     if (lang == undefined) {
@@ -250,7 +248,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.showPage = true;
     this.show_popup_window();
     this.pageSubscription = this.pagesService
-      .getPageBySlug(slug_to_page, lang)
+      .getPageBySlug(slug, lang)
       .subscribe(
         res => {
           if (res) {
@@ -309,17 +307,24 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.router.events
+      .filter(event => event instanceof RoutesRecognized)
+      .subscribe(e => {
+        if ((e as RoutesRecognized).state.root.firstChild.params) {
+          this.previousUrl = (e as RoutesRecognized).state.root.firstChild.params.slug;
+        }
+      });
+
     this.showPopupWindow = false;
     this.appCommunicationService.collapseScrollOnPage("show");
     this.popup_window_updater = this.popupWindowCommunicationService.pageNotifyObservable$.subscribe(
-      slug_to_page => {
-        this.show_page_in_popup(slug_to_page);
+      slug => {
+        this.show_page_in_popup(slug);
       }
     );
     this.popup_window_event_updater = this.popupWindowCommunicationService.eventNotifyObservable$.subscribe(
       event => {
         this.loading = false;
-        this.page_location = "events";
         this.show_event_in_popup(event);
       }
     );

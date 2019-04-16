@@ -8,6 +8,7 @@ import {
 } from "@angular/core";
 import { TextSliderCommunicationService } from "../../services/component-communicators/text-slider-communication.service";
 import { Subscription } from "rxjs/Subscription";
+import { Location } from "@angular/common";
 import { FAQ } from "../../interfaces-and-classes/faq";
 import { PopupWindowCommunicationService } from "../../services/component-communicators/popup-window-communication.service";
 
@@ -30,13 +31,19 @@ export class TextSliderComponent implements OnInit, OnDestroy {
 
   constructor(
     private textSliderCommunicationService: TextSliderCommunicationService,
-    private popupWindowCommunicationService: PopupWindowCommunicationService
+    private popupWindowCommunicationService: PopupWindowCommunicationService,
+    private location: Location
   ) {
     this.slideIndex = 0;
   }
 
   showInPopup(faq: FAQ): void {
     this.popupWindowCommunicationService.showFaqInPopup(faq);
+    if (this.lang === "sv") {
+      this.location.go("sv/help/faqs/" + faq.slug);
+    } else {
+      this.location.go("en/help/faqs/" + faq.slug);
+    }
   }
 
   selectSlide(index): void {
