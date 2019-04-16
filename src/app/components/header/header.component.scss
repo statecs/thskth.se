@@ -385,6 +385,14 @@ header {
                 }
               }
             }
+            .item-wrapper.selected {
+              .label {
+                span {
+                  font-weight: 600;
+                }
+              }
+            }
+
             i {
               float: right;
               font-size: $font-size-default;

@@ -93,7 +93,7 @@ export class SupportComponent implements OnInit, OnDestroy {
         if (this.lang === "sv") {
           this.titleCommunicationService.setTitle("Hjälp");
         } else {
-          this.titleCommunicationService.setTitle("Help");
+          this.titleCommunicationService.setTitle("Help Center");
         }
       }
     );

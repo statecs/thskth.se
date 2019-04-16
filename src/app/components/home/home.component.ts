@@ -141,6 +141,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.titleCommunicationService.setTitle("THS - Student Union at KTH");
+
     if (this._cookieService.get("language") === "sv") {
       this.router.navigate(["/sv"]);
     } else {

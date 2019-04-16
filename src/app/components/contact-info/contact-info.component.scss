@@ -1,6 +1,6 @@
 @import "../../../style/utilities";
 
-.contact-info{
+.contact-info {
   background-color: $bg-color-primary;
   color: white;
   height: 100%;
@@ -10,39 +10,41 @@
   border-radius: 5px;
   font-size: $font-size-h5;
 
-  h1{
+  h1 {
     margin-top: 0;
     padding-top: 40px;
   }
 
-  a{
+  a {
     @include capsule-button(0, 15px);
     text-decoration: none;
     width: 100% !important;
     text-align: center;
+    border-radius: 30px;
+    margin-top: 30px;
   }
 
-  .student, .booking {
+  .student,
+  .booking {
     margin: 15px 0;
-    p{
-      span{
+    p {
+      span {
         font-weight: $font-weight-regular;
       }
     }
   }
 }
 
-
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   .contact-info {
     font-size: $font-size-default;
-    h1{
+    h1 {
       font-size: $font-size-h3;
     }
-    a{
-      width: 50% !important;
-      margin-left: 25%;
+    a {
+      margin-top: 10px;
+      border-radius: 30px;
       padding: 10px 0;
     }
   }
@@ -51,12 +53,11 @@
 @include media-breakpoint-only(sm) {
   .contact-info {
     font-size: $font-size-default;
-    h1{
+    h1 {
       font-size: $font-size-h3;
     }
-    a{
-      width: 50% !important;
-      margin-left: 25%;
+    a {
+      border-radius: 30px;
       padding: 10px 0;
     }
   }
@@ -65,22 +66,21 @@
 @include media-breakpoint-only(md) {
   .contact-info {
     font-size: $font-size-h6;
-    h1{
+    h1 {
       font-size: $font-size-h3;
       padding-top: 25px;
       margin-bottom: 5px;
     }
-    .student{
+    .student {
       margin: 10px 0;
     }
-    .booking{
+    .booking {
       margin: 10px 0;
     }
-    a{
-      width: 50% !important;
-      margin-left: 25%;
+    a {
       padding: 10px 0;
       margin-top: 10px;
+      border-radius: 30px;
     }
   }
 }
@@ -88,20 +88,19 @@
 @include media-breakpoint-only(lg) {
   .contact-info {
     font-size: $font-size-h6;
-    h1{
+    h1 {
       font-size: $font-size-h3;
       padding-top: 25px;
       margin-bottom: 5px;
     }
-    .student{
+    .student {
       margin: 10px 0;
     }
-    .booking{
+    .booking {
       margin: 10px 0;
     }
-    a{
-      width: 50% !important;
-      margin-left: 25%;
+    a {
+      border-radius: 30px;
       padding: 10px 0;
       margin-top: 10px;
     }
@@ -109,5 +108,4 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

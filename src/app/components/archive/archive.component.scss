@@ -39,8 +39,19 @@
     position: relative;
     padding-top: 5px;
     .date_input {
-      display: inline;
+      display: inline-block;
       input {
+        appearance: none;
+        -webkit-appearance: none;
+        color: #717171;
+        font-family: "Helvetica", arial, sans-serif;
+        font-size: 18px;
+        border: 1px solid #ededed;
+        background: #ededed;
+        padding: 5px;
+        display: inline-block !important;
+        visibility: visible !important;
+
         margin-top: 15px;
         padding: 7px 10px;
       }

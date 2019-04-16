@@ -166,9 +166,9 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
           this.lang = "en";
         }
         if (this.lang === "sv") {
-          this.titleCommunicationService.setTitle("Föreningar och sektioner");
+          this.titleCommunicationService.setTitle("Föreningar och Sektioner");
         } else {
-          this.titleCommunicationService.setTitle("Associations and chapters");
+          this.titleCommunicationService.setTitle("Associations and Chapters");
         }
       }
     );
