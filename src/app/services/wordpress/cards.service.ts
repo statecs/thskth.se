@@ -85,12 +85,7 @@ export class CardsService extends WordpressBaseDataService<Card> {
   // Get cards
   getCards(arg, lang: string): Observable<Card[]> {
     let filter = "";
-    /*if (!arg.profession) {
-      filter = '&organization_type=' + arg.organization_type + '&user_interest=' + arg.interest;
-    }else {
-      filter = '&profession=' + arg.profession + '&user_interest=' + arg.interest;
-    }*/
-    filter = "&profession=" + arg.profession + "&user_interest=" + arg.interest;
+    filter = "&user_interest=" + arg.interest;
     return (
       this.getData(null, "order=asc&per_page=100" + filter + "&lang=" + lang)
         // Cast response data to card type

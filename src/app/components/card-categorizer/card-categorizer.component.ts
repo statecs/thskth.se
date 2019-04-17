@@ -23,17 +23,14 @@ import { HideUICommunicationService } from "../../services/component-communicato
   styleUrls: ["./card-categorizer.component.scss"]
 })
 export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
-  @ViewChild("profession") profession: ElementRef;
   @ViewChild("card_categorizer") card_categorizer: ElementRef;
 
   public displayedDropdown: boolean;
   public displayedDropdownID: number;
   public dropdowns: any;
 
-  public selected_profession: number;
   public selected_interest: number;
 
-  public selected_profession_name: string;
   public selected_interest_name: string;
 
   public pro_cats: CardCategory[];
@@ -66,17 +63,6 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.inter_selectedIndex = 0;
   }
 
-  /*  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    if (!this.showCardsContainer) {
-      const pos = (document.documentElement.scrollTop || document.body.scrollTop);
-      if (pos > 10) {
-        this.showCardsContainer = true;
-        this.cardCategorizerCardContainerService.updateCards({profession: this.selected_profession, interest: this.selected_interest});
-      }
-    }
-  }*/
-
   showSelectSlider(items, type): void {
     const data = {
       type: type,
@@ -91,13 +77,11 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.cards_filter = this._cookieService.putObject(
       "cards_filter",
       {
-        profession: this.selected_profession,
         interest: this.selected_interest
       },
       cookieOptions
     );
     this.cardCategorizerCardContainerService.updateCards({
-      profession: this.selected_profession,
       interest: this.selected_interest
     });
   }
@@ -126,11 +110,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
 
   updateFiltering(type, e, id, index): void {
     const el = e.target;
-    if (type === "profession") {
-      this.selected_profession = id;
-      this.selected_profession_name = el.innerHTML;
-      this.prof_selectedIndex = index;
-    } else if (type === "interest") {
+    if (type === "interest") {
       this.selected_interest = id;
       this.selected_interest_name = el.innerHTML;
       this.inter_selectedIndex = index;
@@ -149,44 +129,29 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
         this.cards_filter.constructor === Object)
     ) {
       this.cardsService
-        .getCardCategory("profession", this.lang)
-        .subscribe(pro_cats => {
-          this.pro_cats = pro_cats;
-          this.selected_profession_name = pro_cats[0].name;
-          this.selected_profession = pro_cats[0].id;
-          this.cardsService
-            .getCardCategory("interest", this.lang)
-            .subscribe(int_cats => {
-              this.int_cats = int_cats;
-              this.selected_interest_name = int_cats[0].name;
-              this.selected_interest = int_cats[0].id;
-              let exp = new Date(
-                new Date().setFullYear(new Date().getFullYear() + 1)
-              );
-              let cookieOptions = { expires: exp } as CookieOptions;
-              this._cookieService.putObject(
-                "cards_filter",
-                {
-                  profession: this.selected_profession,
-                  interest: this.selected_interest
-                },
-                cookieOptions
-              );
-              this.cardCategorizerCardContainerService.updateCards({
-                profession: this.selected_profession,
-                interest: this.selected_interest
-              });
-            });
+        .getCardCategory("interest", this.lang)
+        .subscribe(int_cats => {
+          this.int_cats = int_cats;
+          this.selected_interest_name = int_cats[0].name;
+          this.selected_interest = int_cats[0].id;
+          let exp = new Date(
+            new Date().setFullYear(new Date().getFullYear() + 1)
+          );
+          let cookieOptions = { expires: exp } as CookieOptions;
+          this._cookieService.putObject(
+            "cards_filter",
+            {
+              interest: this.selected_interest
+            },
+            cookieOptions
+          );
+          this.cardCategorizerCardContainerService.updateCards({
+            interest: this.selected_interest
+          });
         });
     } else {
       this.cards_filter = this._cookieService.getObject("cards_filter");
-      this.selected_profession = this.cards_filter.profession;
       this.selected_interest = this.cards_filter.interest;
-      this.cardsService
-        .getCardCategoryByID(this.selected_profession, "profession", this.lang)
-        .subscribe(cat => {
-          this.selected_profession_name = cat.name;
-        });
       this.cardsService
         .getCardCategoryByID(this.selected_interest, "interest", this.lang)
         .subscribe(cat => {
@@ -196,13 +161,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
         .getCardCategory("interest", this.lang)
         .subscribe(int_cats => {
           this.int_cats = int_cats;
-        });
-      this.cardsService
-        .getCardCategory("profession", this.lang)
-        .subscribe(pro_cats => {
-          this.pro_cats = pro_cats;
           this.cardCategorizerCardContainerService.updateCards({
-            profession: this.selected_profession,
             interest: this.selected_interest
           });
         });
@@ -210,15 +169,11 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
 
     this.selectSliderCommunicationService.transmitNotifyObservable$.subscribe(
       data => {
-        if (data.type === "profession") {
-          this.selected_profession_name = data.item.name;
-          this.selected_profession = data.item.id;
-        } else if (data.type === "interest") {
+        if (data.type === "interest") {
           this.selected_interest_name = data.item.name;
           this.selected_interest = data.item.id;
         }
         this.cardCategorizerCardContainerService.updateCards({
-          profession: this.selected_profession,
           interest: this.selected_interest
         });
       }
