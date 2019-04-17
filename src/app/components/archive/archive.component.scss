@@ -40,6 +40,11 @@
     padding-top: 5px;
     .date_input {
       display: inline-block;
+      span {
+        position: absolute;
+        margin-top: 10px;
+        font-size: 0.8em;
+      }
       input {
         appearance: none;
         -webkit-appearance: none;
@@ -52,7 +57,7 @@
         display: inline-block !important;
         visibility: visible !important;
 
-        margin-top: 15px;
+        margin-top: 30px;
         padding: 7px 10px;
       }
     }
@@ -358,10 +363,12 @@
           float: left;
           padding: 1px;
           h4 {
-            font-weight: 600;
+            font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+              "Open Sans", "Helvetica Neue", sans-serif;
+            font-weight: 500;
             cursor: pointer;
             margin-top: 0;
-            font-size: $font-size-h4;
+            font-size: 1.15em;
           }
           .files {
             margin-top: 20px;

@@ -159,14 +159,8 @@
             <h2 [innerHTML]="association?.title"></h2>
             <p [innerHTML]="association?.description"></p>
           </div>
-          <div class="contact">
-            <p>
-              {{ association.contact?.title }} {{ association.contact?.name }}
-            </p>
-            <p>email: {{ association.contact?.email }}</p>
-            <p>phone: {{ association.contact?.phone }}</p>
-            <p>website: {{ association.contact?.website }}</p>
-            <p>Alternative website: {{ association.contact?.website2 }}</p>
+          <div *ngIf="association?.contact" class="contact" [innerHTML]="association?.contact">
+           
           </div>
           <app-image-slider-secondary
             *ngIf="relatedAssociations?.items.length != 0"

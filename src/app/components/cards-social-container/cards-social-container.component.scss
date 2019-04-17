@@ -11,6 +11,8 @@
 }
 
 .masonry-layout {
+  animation-name: fadein;
+  animation-duration: 0.7s;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

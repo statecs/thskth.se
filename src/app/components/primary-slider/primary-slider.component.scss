@@ -3,6 +3,8 @@
 .flexbox.first {
   display: flex;
   flex-direction: row;
+  animation-name: fadein;
+  animation-duration: 0.7s;
 }
 .flexbox {
   display: none;

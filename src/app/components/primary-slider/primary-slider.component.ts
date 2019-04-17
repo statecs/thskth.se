@@ -32,6 +32,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   public mousemove_timer: any;
   public mainSlide_timer: any;
   public bg_image: any;
+  public fetching: boolean;
   public bg_image_last: any;
   private swipeCoord: [number, number];
   private swipeTime: number;
@@ -319,6 +320,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.fetching = true;
     this.lang = this.activatedRoute.snapshot.data["lang"];
     if (typeof this.lang === "undefined") {
       this.paramsSubscription = this.activatedRoute.params.subscribe(
@@ -332,18 +334,26 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
           } else {
             this.read_more_text = "Läs Mer";
           }
-          this.slideSubscription = this.primarySlidesService
-            .getAllPrimarySlides(this.lang)
-            .subscribe(
-              slides => {
-                clearInterval(this.mainSlide_timer);
-                this.slides = slides;
-                this.startMainSlider();
-              },
-              error => {
-                this.notificationBarCommunicationService.send_data(error);
-              }
-            );
+
+          if (localStorage.getItem("primarySlides")) {
+            this.slides = JSON.parse(localStorage.getItem("primarySlides"));
+            this.fetching = false;
+          } else {
+            this.slideSubscription = this.primarySlidesService
+              .getAllPrimarySlides(this.lang)
+              .subscribe(
+                slides => {
+                  this.fetching = false;
+                  clearInterval(this.mainSlide_timer);
+                  this.slides = slides;
+                  this.startMainSlider();
+                  localStorage.setItem("primarySlides", JSON.stringify(slides));
+                },
+                error => {
+                  this.notificationBarCommunicationService.send_data(error);
+                }
+              );
+          }
         }
       );
     } else {
@@ -352,19 +362,26 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       } else {
         this.read_more_text = "Läs Mer";
       }
-      this.slideSubscription = this.primarySlidesService
-        .getAllPrimarySlides(this.lang)
-        .subscribe(
-          slides => {
-            clearInterval(this.mainSlide_timer);
-            this.slides = slides;
-            this.showSlide();
-            this.startMainSlider();
-          },
-          error => {
-            this.notificationBarCommunicationService.send_data(error);
-          }
-        );
+      if (localStorage.getItem("primarySlides")) {
+        this.slides = JSON.parse(localStorage.getItem("primarySlides"));
+        this.fetching = false;
+      } else {
+        this.slideSubscription = this.primarySlidesService
+          .getAllPrimarySlides(this.lang)
+          .subscribe(
+            slides => {
+              this.fetching = false;
+              clearInterval(this.mainSlide_timer);
+              this.slides = slides;
+              this.showSlide();
+              this.startMainSlider();
+              localStorage.setItem("primarySlides", JSON.stringify(slides));
+            },
+            error => {
+              this.notificationBarCommunicationService.send_data(error);
+            }
+          );
+      }
     }
 
     this.headerCommunicationSub = this.headerCommunicationService.onMenuDropDownObservable$.subscribe(

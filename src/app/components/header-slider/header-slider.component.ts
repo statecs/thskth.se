@@ -99,18 +99,16 @@ export class HeaderSliderComponent implements OnInit {
   clickActualSlide(index): void {
     this.selectSlideElements();
     if (index < this.slides.length) {
-      this.slideIndex++;
-      if (this.slideIndex >= this.slides.length) {
-        this.slideIndex = this.slides.length - 1;
+      if (index < this.slideIndex) {
+        this.selectSlideElements();
+        this.slideIndex--;
+        if (this.slideIndex < 0) {
+          this.slideIndex = 0;
+        }
+        this.slides[this.slideIndex + 1].style.left = "101%";
+        this.showActualSlide();
       }
-      this.slides[this.slideIndex - 1].style.left = "-101%";
-      this.showActualSlide();
-    } else {
-      this.slideIndex--;
-      if (this.slideIndex < 0) {
-        this.slideIndex = 0;
-      }
-      this.slides[this.slideIndex + 1].style.left = "101%";
+      this.slideIndex = index;
       this.showActualSlide();
     }
   }

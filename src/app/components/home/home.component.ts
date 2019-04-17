@@ -91,50 +91,58 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       document.body.scrollTop ||
       0;
     if (!this.showFAQSlider) {
-      if (pos > 10 && !this.faqsFetched) {
+      if (pos > 0 && !this.faqsFetched) {
         this.faqsFetched = true;
-        this.faqCatSubscription = this.faqsService
-          .getFAQs_OfEachCategories(1, this.lang)
-          .subscribe(
-            faqs => {
-              this.showFAQSlider = true;
-              this.faqs = faqs;
-              //this.textSliderCommunicationService.send_data_to_textSlider(faqs);
-            },
-            error => {
-              this.showFAQSlider = false;
-              this.notificationBarCommunicationService.send_data(error);
-            }
-          );
-        // this.showFAQSlider = true;
+        if (localStorage.getItem("faq_list")) {
+          this.faqs = JSON.parse(localStorage.getItem("faq_list"));
+          this.showFAQSlider = true;
+        } else {
+          this.faqCatSubscription = this.faqsService
+            .getFAQs_OfEachCategories(1, this.lang)
+            .subscribe(
+              faqs => {
+                this.showFAQSlider = true;
+                this.faqs = faqs;
+                localStorage.setItem("faq_list", JSON.stringify(faqs));
+              },
+              error => {
+                this.showFAQSlider = false;
+                this.notificationBarCommunicationService.send_data(error);
+              }
+            );
+        }
       }
     }
     if (!this.showNewsSlider) {
-      if (pos > 10 && !this.newsFetched) {
+      if (pos > 100 && !this.newsFetched) {
         this.newsFetched = true;
-        this.postsSubscription = this.postsService
-          .getPosts(4, this.lang)
-          .subscribe(
-            posts => {
-              this.showNewsSlider = true;
-              this.news = posts;
-              //this.imageSliderCommunicationService.send_data_to_imageSlider(posts);
-            },
-            error => {
-              this.showNewsSlider = false;
-              this.notificationBarCommunicationService.send_data(error);
-            }
-          );
-        // this.showNewsSlider = true;
+        if (localStorage.getItem("posts_list")) {
+          this.news = JSON.parse(localStorage.getItem("posts_list"));
+          this.showNewsSlider = true;
+        } else {
+          this.postsSubscription = this.postsService
+            .getPosts(4, this.lang)
+            .subscribe(
+              posts => {
+                this.showNewsSlider = true;
+                this.news = posts;
+                localStorage.setItem("posts_list", JSON.stringify(posts));
+              },
+              error => {
+                this.showNewsSlider = false;
+                this.notificationBarCommunicationService.send_data(error);
+              }
+            );
+        }
       }
     }
     if (!this.showSocialMediaCards) {
-      if (pos > 10) {
+      if (pos > 150) {
         this.showSocialMediaCards = true;
       }
     }
     if (!this.showGoogleMap) {
-      if (pos > 10) {
+      if (pos > 200) {
         this.showGoogleMap = true;
       }
     }

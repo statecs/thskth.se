@@ -1,22 +1,12 @@
 export interface HeaderSlide {
   imageUrl: string;
 }
-
-export interface Contact {
-  name: string;
-  title: string;
-  email: string;
-  phone: string;
-  website: string;
-  website2: string;
-}
-
 interface IAssociation {
   id: number;
   title: string;
   description: string;
   category: string;
-  contact: Contact;
+  contact: string;
   slug: string;
   header_slides: HeaderSlide[];
 }
@@ -26,7 +16,7 @@ export class Association implements IAssociation {
   title: string;
   description: string;
   category: string;
-  contact: Contact;
+  contact: string;
   slug: string;
   header_slides: HeaderSlide[];
 
@@ -45,14 +35,7 @@ export class Association implements IAssociation {
           title: c.title.rendered,
           description: c.content.rendered,
           category: category,
-          contact: {
-            name: c.acf.name,
-            title: c.acf.title,
-            email: c.acf.email,
-            phone: c.acf.phone,
-            website: c.acf.website,
-            website2: c.acf.website_2
-          },
+          contact: c.acf.contact,
           slug: c.slug,
           header_slides: this.getHeaderSlides(c.acf.slides)
         });
@@ -78,9 +61,7 @@ interface IChapter {
   id: number;
   title: string;
   description: string;
-  year: string;
-  website: string;
-  section_local: string;
+  contact: string;
   slug: string;
   header_slides: HeaderSlide[];
 }
@@ -89,9 +70,7 @@ export class Chapter implements IChapter {
   id: number;
   title: string;
   description: string;
-  year: string;
-  website: string;
-  section_local: string;
+  contact: string;
   slug: string;
   header_slides: HeaderSlide[];
 
@@ -106,18 +85,23 @@ export class Chapter implements IChapter {
         id: c.id,
         title: c.title.rendered,
         description: c.content.rendered,
-        year: c.acf.year,
-        website: c.acf.website_url,
-        section_local: c.acf.section_local,
+        contact: c.acf.contact,
         slug: c.slug,
-        header_slides: [
-          {
-            imageUrl: image
-          }
-        ]
+        header_slides: this.getHeaderSlides(c.acf.slides)
       });
     });
     return chapters;
+  }
+  static getHeaderSlides(data: any) {
+    const slides: HeaderSlide[] = [];
+    if (data) {
+      data.forEach(s => {
+        slides.push({
+          imageUrl: s.image.url
+        });
+      });
+    }
+    return slides;
   }
 }
 
@@ -125,9 +109,7 @@ interface IOther {
   id: number;
   title: string;
   description: string;
-  year: string;
-  website: string;
-  section_local: string;
+  contact: string;
   slug: string;
   header_slides: HeaderSlide[];
 }
@@ -136,9 +118,7 @@ export class Other implements IOther {
   id: number;
   title: string;
   description: string;
-  year: string;
-  website: string;
-  section_local: string;
+  contact: string;
   slug: string;
   header_slides: HeaderSlide[];
 
@@ -153,17 +133,22 @@ export class Other implements IOther {
         id: c.id,
         title: c.title.rendered,
         description: c.content.rendered,
-        year: c.acf.year,
-        website: c.acf.website_url,
-        section_local: c.acf.section_local,
+        contact: c.acf.contact,
         slug: c.slug,
-        header_slides: [
-          {
-            imageUrl: image
-          }
-        ]
+        header_slides: this.getHeaderSlides(c.acf.slides)
       });
     });
     return others;
+  }
+  static getHeaderSlides(data: any) {
+    const slides: HeaderSlide[] = [];
+    if (data) {
+      data.forEach(s => {
+        slides.push({
+          imageUrl: s.image.url
+        });
+      });
+    }
+    return slides;
   }
 }
