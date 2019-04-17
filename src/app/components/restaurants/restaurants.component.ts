@@ -60,6 +60,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     if (this.selected_day === "Sunday" || this.selected_day === "Saturday") {
       this.selected_day = "Monday";
     }
+    this.restaurant_index = 0;
     this.item_onfocus_index = 0;
     this.date = new Date();
   }
@@ -128,6 +129,29 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
   getWeekNumber(): string {
     return format(this.date, "W");
+  }
+  getDate(): string {
+    var monday = new Date();
+    monday.setDate(monday.getDate() - monday.getDay() + 1);
+    var tuesday = new Date();
+    tuesday.setDate(tuesday.getDate() - tuesday.getDay() + 2);
+    var wednesday = new Date();
+    wednesday.setDate(wednesday.getDate() - wednesday.getDay() + 3);
+    var thursday = new Date();
+    thursday.setDate(thursday.getDate() - thursday.getDay() + 4);
+    var friday = new Date();
+    friday.setDate(friday.getDate() - friday.getDay() + 5);
+    if (this.selected_day === "Monday") {
+      return format(monday, "D/M");
+    } else if (this.selected_day === "Tuesday") {
+      return format(tuesday, "D/M");
+    } else if (this.selected_day === "Wednesday") {
+      return format(wednesday, "D/M");
+    } else if (this.selected_day === "Thursday") {
+      return format(thursday, "D/M");
+    } else if (this.selected_day === "Friday") {
+      return format(friday, "D/M");
+    }
   }
 
   changeDay(day) {

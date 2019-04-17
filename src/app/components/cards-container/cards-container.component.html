@@ -424,6 +424,7 @@
               <!--<a type="button" *ngFor="let b of card.card_primary_buttons" (click)="goToPage(b.link)">{{b.text}}</a>-->
             </div>
           </div>
+          <!-- ---------- Nymble Card ---------- -->
           <div
             *ngIf="card.card_type === 'nymble-card'"
             class="standard-card restrictions-card nymble-card"
@@ -431,12 +432,27 @@
             routerLink="/restaurants"
           >
             <div class="content">
-              <h4>{{ card.title + " - " + getDate() }}</h4>
+              <h4>
+                {{
+                  lang === "en"
+                    ? "Todays menu " + getDate()
+                    : "Dagens meny " + getDate()
+                }}
+              </h4>
               <p
                 *ngIf="restaurant && getDayIndex() <= 5 && getDayIndex() > 0"
-                [innerHTML]="
-                  restaurant.menu[getDayIndex() - 1]?.full_text | cardText: 270
-                "
+                [innerHTML]="restaurant.menu[getDayIndex() - 1]?.full_text"
+              ></p>
+              <h5 *ngIf="restaurant.weekly_menu">
+                {{
+                  lang === "en"
+                    ? "This week's menu week." + getWeekNumber()
+                    : "Veckans meny v." + getWeekNumber()
+                }}
+              </h5>
+              <p
+                *ngIf="restaurant.weekly_menu && getDayIndex() <= 5 && getDayIndex() > 0"
+                [innerHTML]="restaurant.weekly_menu"
               ></p>
               <p
                 *ngIf="

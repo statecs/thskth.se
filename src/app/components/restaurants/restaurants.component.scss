@@ -21,7 +21,7 @@
 }
 #restaurant {
   box-shadow: 0 1px 3px #b2b2b2;
-  @include container-size(80%);
+  @include container-size(85%);
   margin-bottom: 50px;
   max-width: 1600px;
   margin: 0 auto;
@@ -144,7 +144,7 @@
 
   .schedule {
     margin-top: 50px;
-    padding: 0 20px;
+    padding: 0 10px;
     .options {
       text-align: center;
       padding: 15px 0;
@@ -161,6 +161,9 @@
       display: inline-block;
       text-align: left;
       padding: 0 10px;
+      h2 {
+        margin: 10px 0;
+      }
     }
     .menu-wrapper {
       width: 60%;
@@ -199,6 +202,33 @@
       .menu-container {
         text-align: left;
         overflow: hidden;
+        p {
+          text-align: left;
+          padding: 10px 0;
+          font-size: 1.2em;
+          margin: 0 0 10px;
+          padding: 0 0 10px;
+          position: relative;
+        }
+        p:after {
+          background-color: #efefef;
+          bottom: 0;
+          content: "";
+          display: block;
+          height: 1px;
+          left: 0%;
+          position: absolute;
+          transform: translate(-50%, 0);
+          width: 150px;
+        }
+        .menuFullText {
+          font-size: 1em;
+          p {
+            br {
+              margin: 30px;
+            }
+          }
+        }
         > h2 {
           border-bottom: 1px solid lightgray;
           padding: 10px 0;
@@ -243,7 +273,7 @@
       margin: 10px;
       background-size: cover;
       position: relative;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 1px 3px #b2b2b2;
       background-color: rgba(0, 0, 0, 0.25);
       border-radius: 15px;
       cursor: pointer;
@@ -256,7 +286,7 @@
         border-bottom-right-radius: 15px;
         text-align: left;
         padding: 0 10px 15px;
-        background-color: rgba(0, 0, 0, 0.25);
+        background-color: rgba(0, 0, 0, 0.5);
         border-radius: 15px;
         p {
           font-size: 1em;
@@ -279,6 +309,9 @@
     margin-top: -160px;
     .schedule {
       margin-top: 20px;
+      .description {
+        width: 100%;
+      }
     }
     .larger-devices {
       display: none;
@@ -290,11 +323,12 @@
       .g-item {
         width: 31%;
         margin: 0 1%;
-        height: 150px;
+        height: 100px;
         .text {
           height: 100%;
-          padding-top: 12%;
-          background-color: rgba(0, 0, 0, 0.5);
+          padding-top: 7%;
+          text-align: center;
+          //background-color: rgba(0, 0, 0, 0.4);
           h3 {
             margin: 5px 0;
           }
@@ -314,13 +348,10 @@
       }
     }
     .schedule {
-      .description {
-        display: none;
-      }
       .menu-wrapper {
         width: 100%;
         .menu-container {
-          width: 90%;
+          width: 100%;
           .dish {
             width: 90%;
             h4 {

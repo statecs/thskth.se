@@ -244,7 +244,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   getDate(): string {
-    return format(this.date, "ddd D/M");
+    return format(this.date, "D/M");
   }
 
   getDayIndex(): number {
@@ -302,17 +302,22 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   getRestaurantMenu(): void {
-    this.restaurantUpdater = this.restaurantService
-      .getSingleRestaurant("nymble-restaurant", this.lang)
-      .subscribe(
-        res => {
-          this.restaurant = res;
-        },
-        error => {
-          this.restaurant = null;
-          this.notificationBarCommunicationService.send_data(error);
-        }
-      );
+    if (localStorage.getItem("getRestaurantMenu")) {
+      this.restaurant = JSON.parse(localStorage.getItem("getRestaurantMenu"));
+    } else {
+      this.restaurantUpdater = this.restaurantService
+        .getSingleRestaurant("nymble-restaurant", this.lang)
+        .subscribe(
+          res => {
+            localStorage.setItem("getRestaurantMenu", JSON.stringify(res));
+            this.restaurant = res;
+          },
+          error => {
+            this.restaurant = null;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
   }
 
   getAllEvents() {

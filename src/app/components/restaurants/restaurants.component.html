@@ -32,12 +32,14 @@
         [style.backgroundImage]="'url(' + item.imageUrl + ')'"
       >
         <div class="text">
-          <h3>{{ item.title }}</h3>
-          <p [innerHTML]="item.description | cardText: 70"></p>
+          <h2>{{ item.title }}</h2>
         </div>
       </div>
     </div>
     <div class="schedule">
+      <div class="description">
+        <p [innerHTML]="restaurants[restaurant_index]?.description"></p>
+      </div>
       <div class="description">
         <h2 class="mobile" *ngIf="restaurants">
           {{ title }}
@@ -95,23 +97,23 @@
             {{ selected_day === "Wednesday" ? "Wednesday," : "" }}
             {{ selected_day === "Tuesday" ? "Tuesday," : "" }}
             {{ selected_day === "Monday" ? "Monday," : "" }}
-            {{
-              lang === "en"
-                ? "week " + getWeekNumber()
-                : "v. " + getWeekNumber()
-            }}
+            {{ getDate() }}
           </h2>
+          <p *ngIf="menuFullText !== null && lang === 'en'">
+            {{ "week " + getWeekNumber() }}
+          </p>
           <h2 *ngIf="menuFullText !== null && lang === 'sv'">
             {{ selected_day === "Friday" ? "Fredag," : "" }}
             {{ selected_day === "Thursday" ? "Torsdag," : "" }}
             {{ selected_day === "Wednesday" ? "Onsdag," : "" }}
             {{ selected_day === "Tuesday" ? "Tisdag," : "" }}
             {{ selected_day === "Monday" ? "Måndag," : "" }}
-            {{
-              lang === "en" ? "week " + getWeekNumber() : "v." + getWeekNumber()
-            }}
+            {{ getDate() }}
           </h2>
-          <p [innerHTML]="menuFullText"></p>
+          <p *ngIf="menuFullText !== null && lang === 'sv'">
+            {{ "vecka " + getWeekNumber() }}
+          </p>
+          <div [innerHTML]="menuFullText"></div>
           <h2 *ngIf="restaurants[item_onfocus_index]?.weekly_menu !== null">
             {{ lang === "en" ? "This week's menu" : "Veckans meny" }}
           </h2>
@@ -185,21 +187,18 @@
           {{ selected_day === "Wednesday" ? "Wednesday," : "" }}
           {{ selected_day === "Tuesday" ? "Tuesday," : "" }}
           {{ selected_day === "Monday" ? "Monday," : "" }}
-          {{
-            lang === "en" ? "week " + getWeekNumber() : "v. " + getWeekNumber()
-          }}
+          {{ getDate() }}
         </h2>
+
         <h2 *ngIf="menuFullText !== null && lang === 'sv'">
           {{ selected_day === "Friday" ? "Fredag," : "" }}
           {{ selected_day === "Thursday" ? "Torsdag," : "" }}
           {{ selected_day === "Wednesday" ? "Onsdag," : "" }}
           {{ selected_day === "Tuesday" ? "Tisdag," : "" }}
           {{ selected_day === "Monday" ? "Måndag," : "" }}
-          {{
-            lang === "en" ? "week " + getWeekNumber() : "v." + getWeekNumber()
-          }}
+          {{ getDate() }}
         </h2>
-        <p [innerHTML]="menuFullText"></p>
+        <div class="menuFullText" [innerHTML]="menuFullText"></div>
         <h2 *ngIf="restaurants[restaurant_index]?.weekly_menu !== null">
           {{ lang === "en" ? "This week's menu" : "Veckans meny" }}
         </h2>
