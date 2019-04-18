@@ -299,6 +299,10 @@ export class SupportComponent implements OnInit, OnDestroy {
           this.selected_cat_index = null;
           this.getFAQs_BySlug();
           this.loadFAQs();
+        } else {
+          this.selected_cat_index = null;
+          this.getFAQs_BySlug();
+          this.loadFAQs();
         }
       }
     );

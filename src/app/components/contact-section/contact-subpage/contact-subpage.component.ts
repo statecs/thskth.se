@@ -81,11 +81,9 @@ export class ContactSubpageComponent
     if (pos >= this.submenu_bar_pos) {
       if (!this.freeze_submenu_bar) {
         this.freeze_submenu_bar = true;
-        this.submenu_bar.nativeElement.style.top =
-          this.notificationBarHeight + "px";
+        this.submenu_bar.nativeElement.style.top = "0px";
       } else {
-        this.submenu_bar.nativeElement.style.top =
-          this.notificationBarHeight + "px";
+        this.submenu_bar.nativeElement.style.top = "0px";
       }
     } else {
       if (this.freeze_submenu_bar) {
@@ -184,6 +182,24 @@ export class ContactSubpageComponent
       .subscribe(
         submenu => {
           this.subMenu = submenu;
+          if (this.subMenu.length === 0) {
+            console.log("hejsan,", this.subMenu);
+            this.getSubmenuEmpty();
+          }
+        },
+        error => {
+          this.loading = false;
+          this.notificationBarCommunicationService.send_data(error);
+        }
+      );
+  }
+
+  getSubmenuEmpty() {
+    this.mainMenuSubscription = this.menusService
+      .get_mainSubMenu("contact", this.lang)
+      .subscribe(
+        submenu => {
+          this.subMenu = submenu;
         },
         error => {
           this.loading = false;
@@ -234,7 +250,6 @@ export class ContactSubpageComponent
   ngOnInit() {
     const self = this;
     setTimeout(function() {
-      self.submenu_bar_pos = self.submenu_bar.nativeElement.offsetTop;
       self.toggle_freeze_submenu_bar();
     }, 1000);
 
@@ -288,6 +303,7 @@ export class ContactSubpageComponent
   ngAfterViewInit() {
     const self = this;
     setTimeout(function() {
+      console.log(self.submenu_bar.nativeElement.offsetTop);
       self.submenu_bar_pos = self.submenu_bar.nativeElement.offsetTop;
       self.toggle_freeze_submenu_bar();
     }, 1000);

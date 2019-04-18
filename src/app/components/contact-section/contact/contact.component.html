@@ -1,38 +1,75 @@
 <div class="header">
   <div class="default-header"></div>
 </div>
+<div #submenu_bar class="submenu-bar mobile">
+  <div *ngIf="subMenu?.length !== 0">
+    <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
+      <span [innerHTML]="page?.name"></span>
+      <i class="material-icons">keyboard_arrow_down</i>
+    </div>
+    <div
+      #submenuBarDropdown
+      *ngIf="showSubmenuBarDropdown"
+      class="submenu-bar-dropdown"
+    >
+      <div
+        *ngFor="let m of subMenu; let i = index"
+        (click)="goToPage(m)"
+        class="submenu-item"
+      >
+        <span>{{ m.title }}</span>
+        <div *ngIf="i !== subMenu?.length - 1" class="divider"></div>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="content-container">
   <app-loader *ngIf="!page"></app-loader>
   <div *ngIf="page" id="page">
-    <div class="heading">
-      <div class="title">
-        <h2>{{ page.name }}</h2>
-        <span *ngIf="page.name === 'Contact'"
-          >You'll find many ways to contact us right here.</span
-        >
-        <span *ngIf="page.name === 'Kontakt'"
-          >Du hittar många sätt att kontakta oss här.</span
-        >
-      </div>
-    </div>
-    <div class="content-container">
-      <div class="divider"></div>
-      <app-featured-faqs></app-featured-faqs>
-      <div class="divider"></div>
-      <div class="submenu-bar">
-        <div
-          *ngFor="let m of subMenu; let i = index"
-          (click)="goToPage(m)"
-          class="submenu-item"
-        >
-          <span>{{ m.title }}</span>
+    <div *ngIf="subMenu?.length === 0" class="larger-devices"></div>
+
+    <div *ngIf="page" id="page">
+      <app-breadcrumb class="breacrumb-large"></app-breadcrumb>
+      <div class="heading">
+        <div class="title">
+          <h2 [innerHTML]="page?.name"></h2>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="contact-form">
-        <app-contact-form
-          *ngIf="page.name === 'Contact' || page.name === 'Kontakt'"
-        ></app-contact-form>
+      <div class="side-bar larger-devices">
+        <div class="submenu">
+          <div
+            *ngFor="let m of subMenu; let i = index"
+            (click)="goToPage(m)"
+            class="submenu-item"
+          >
+            <span>{{ m.title }}</span>
+          </div>
+        </div>
+        <app-related-links [links]="page.related_links"></app-related-links>
+        <app-join-us></app-join-us>
+        <app-events-card></app-events-card>
+      </div>
+
+      <!-- <div class="heading">
+        <div class="title">
+          <h2>{{ page.name }}</h2>
+          <span *ngIf="page.name === 'Contact'"
+            >You'll find many ways to contact us right here.</span
+          >
+          <span *ngIf="page.name === 'Kontakt'"
+            >Du hittar många sätt att kontakta oss här.</span
+          >
+        </div>
+      </div>-->
+
+      <div class="content-container">
+        <app-featured-faqs></app-featured-faqs>
+
+        <div class="contact-form">
+          <app-contact-form
+            *ngIf="page.name === 'Contact' || page.name === 'Kontakt'"
+          ></app-contact-form>
+        </div>
       </div>
     </div>
   </div>

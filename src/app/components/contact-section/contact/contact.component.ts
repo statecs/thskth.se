@@ -20,6 +20,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   public subMenu: any;
   public slug: string;
   private lang: string;
+  public showSubmenuBarDropdown: boolean;
   private removeLangParamPipe: RemoveLangParamPipe;
   private addLangToSlugPipe: AddLangToSlugPipe;
   public paramsSubscription: Subscription;
@@ -39,6 +40,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
     this.hrefToSlugPipe = new HrefToSlugPipe();
+    this.showSubmenuBarDropdown = false;
   }
 
   goToPage(item): void {
@@ -95,6 +97,16 @@ export class ContactComponent implements OnInit, OnDestroy {
         "/" + this.lang + "/associations-and-chapters/" + slug
       ]);
     }
+  }
+
+  toggleSubmenuBarDropdown(): void {
+    this.showSubmenuBarDropdown
+      ? this.hideDropdown()
+      : (this.showSubmenuBarDropdown = true);
+  }
+
+  hideDropdown(): void {
+    this.showSubmenuBarDropdown = false;
   }
 
   getSecondarySubMenu() {

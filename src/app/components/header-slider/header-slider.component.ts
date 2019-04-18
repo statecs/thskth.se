@@ -128,7 +128,6 @@ export class HeaderSliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.slides_items);
     this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName(
       "bar-item"
     );

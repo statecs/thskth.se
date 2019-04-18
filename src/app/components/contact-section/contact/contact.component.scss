@@ -1,4 +1,7 @@
 @import "../../../../style/utilities";
+.submenu-bar {
+  @include submenu-bar;
+}
 .header {
   max-height: 350px;
   overflow: hidden;
@@ -23,6 +26,9 @@
   top: -150px;
   border-radius: 15px;
   padding: 50px;
+  .contact-form {
+    padding: 30px;
+  }
   #page {
     .heading {
       position: relative;
@@ -68,7 +74,7 @@
       }
     }
     .content-container {
-      width: 100%;
+      width: 66%;
       display: inline-block;
       position: relative;
       vertical-align: top;
@@ -121,17 +127,34 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+
   #content-container {
     width: 97%;
     padding: 40px 10px;
     #page {
+      .larger-devices {
+        display: none !important;
+      }
       .heading {
-        margin: 0 20px 10px;
+        margin: 20px 20px 10px;
         .title {
           width: 100%;
         }
       }
       .content-container {
+        width: 100%;
         .submenu-bar {
           .submenu-item {
             width: 80%;
@@ -140,6 +163,7 @@
           }
         }
         .contact-form {
+          padding: 15px;
           width: 90%;
           margin-left: 5%;
         }
@@ -149,16 +173,34 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+
   #content-container {
+    top: -160px;
     width: 97%;
     #page {
+      .larger-devices {
+        display: none !important;
+      }
       .heading {
-        margin: 0 20px 10px;
+        margin: 20px 20px 10px;
         .title {
           width: 100%;
         }
       }
       .content-container {
+        width: 100%;
         .submenu-bar {
           .submenu-item {
             width: 40%;
@@ -176,16 +218,33 @@
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+
   #content-container {
     width: 90%;
     #page {
+      .larger-devices {
+        display: none !important;
+      }
       .heading {
-        margin: 0 20px 10px;
+        margin: 20px 20px 10px;
         .title {
           width: 100%;
         }
       }
       .content-container {
+        width: 100%;
         .submenu-bar {
           .submenu-item {
             width: 40%;
@@ -203,6 +262,22 @@
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+
+  .mobile {
+    display: none;
+  }
   #content-container {
     width: 90%;
     #page {
@@ -230,4 +305,7 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
+  .mobile {
+    display: none;
+  }
 }

@@ -154,6 +154,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   }*/
 
   goToPage(item): void {
+    this.hideDropdown();
     let slug = "";
     if (item.type_label === "page") {
       slug = this.hrefToSlugPipe.transform(item.url);
@@ -212,6 +213,24 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
   getSecondarySubMenu() {
     this.secondaryMenuSubscription = this.menusService
       .get_secondarySubMenu(this.parent_slug, this.slug, this.lang)
+      .subscribe(
+        submenu => {
+          this.subMenu = submenu;
+          if (this.subMenu.length === 0) {
+            this.getSubmenuEmpty();
+            this.getPageBySlug()
+          }
+        },
+        error => {
+          this.loading = false;
+          this.notificationBarCommunicationService.send_data(error);
+        }
+      );
+  }
+
+  getSubmenuEmpty() {
+    this.mainMenuSubscription = this.menusService
+      .get_mainSubMenu(this.parent_slug, this.lang)
       .subscribe(
         submenu => {
           this.subMenu = submenu;

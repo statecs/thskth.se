@@ -6,7 +6,7 @@
 >
   <div *ngIf="subMenu?.length !== 0 && !loading">
     <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
-      <span>{{ page?.name | cardText: 15 }}</span>
+      <span>{{ page?.name }}</span>
       <i class="material-icons">keyboard_arrow_down</i>
     </div>
     <div *ngIf="showSubmenuBarDropdown" class="submenu-bar-dropdown">
@@ -42,7 +42,7 @@
       <div class="submenu">
         <div
           *ngFor="let m of subMenu; let i = index"
-          (click)="goToPage(m.slug)"
+          (click)="goToPage(m)"
           class="submenu-item"
         >
           <span>{{ m.title }}</span>

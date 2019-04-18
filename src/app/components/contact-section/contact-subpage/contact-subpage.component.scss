@@ -59,7 +59,7 @@
     .side-bar {
       width: 25%;
       display: inline-block;
-      text-align: right;
+      text-align: left;
 
       .submenu {
         margin-bottom: 20px;
@@ -202,6 +202,18 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
   .mobile {
     display: block;
   }
@@ -234,6 +246,18 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
   .mobile {
     display: block;
   }
@@ -270,6 +294,18 @@
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
   .mobile {
     display: none;
   }
@@ -307,6 +343,18 @@
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
   .mobile {
     display: none;
   }

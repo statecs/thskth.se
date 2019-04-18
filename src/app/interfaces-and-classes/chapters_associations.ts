@@ -42,13 +42,11 @@ export class Association implements IAssociation {
         });
       });
     }
-    console.log(associations);
     return associations;
   }
 
   static getHeaderSlides(data: any) {
     const slides: HeaderSlide[] = [];
-    console.log(data);
     if (data) {
       data.forEach(s => {
         if (s.video) {
