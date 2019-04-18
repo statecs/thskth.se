@@ -26,7 +26,7 @@
     >
       <div *ngIf="subMenu?.length !== 0">
         <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
-          <span>{{ page_data?.name | cardText: 30 }}</span>
+          <span [innerHTML]="page_data?.name"></span>
           <i class="material-icons">keyboard_arrow_down</i>
         </div>
         <div
@@ -39,7 +39,7 @@
             (click)="goToPage(m)"
             class="submenu-item"
           >
-            <span>{{ m.title }}</span>
+            <span [innerHTML]="m.title"></span>
             <div *ngIf="i !== subMenu?.length - 1" class="divider"></div>
           </div>
         </div>
@@ -56,7 +56,7 @@
           class="submenu-item"
           [ngClass]="{ selected: m[i] == i }"
         >
-          <span>{{ m.title }}</span>
+          <span [innerHTML]="m.title"></span>
         </div>
       </div>
       <app-related-links [links]="page_data.related_links"></app-related-links>

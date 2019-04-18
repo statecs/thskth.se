@@ -17,7 +17,7 @@
       >{{ lang === "en" ? "News" : "Nyheter" }}</a
     >
     <app-loader *ngIf="!showNewsSlider"></app-loader>
-    <app-image-slider [slide_items]="news"></app-image-slider>
+    <app-image-slider [lang]="lang" [slide_items]="news"></app-image-slider>
   </div>
   <app-cards-social-container
     *ngIf="showSocialMediaCards"

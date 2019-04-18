@@ -34,36 +34,10 @@ export class Post implements IPost {
     const posts: Post[] = [];
     data.forEach(p => {
       const image: any = {};
-      if (p["_embedded"]["wp:featuredmedia"]) {
-        if (p["_embedded"]["wp:featuredmedia"][0]) {
-          if (p["_embedded"]["wp:featuredmedia"][0].media_details.sizes) {
-            if (
-              p["_embedded"]["wp:featuredmedia"][0].media_details.sizes
-                .thumbnail
-            ) {
-              image.thumbnail =
-                p["_embedded"][
-                  "wp:featuredmedia"
-                ][0].media_details.sizes.thumbnail.source_url;
-            }
-            if (
-              p["_embedded"]["wp:featuredmedia"][0].media_details.sizes.medium
-            ) {
-              image.medium =
-                p["_embedded"][
-                  "wp:featuredmedia"
-                ][0].media_details.sizes.medium.source_url;
-            }
-            if (
-              p["_embedded"]["wp:featuredmedia"][0].media_details.sizes.large
-            ) {
-              image.large =
-                p["_embedded"][
-                  "wp:featuredmedia"
-                ][0].media_details.sizes.large.source_url;
-            }
-          }
-        }
+      if (p.featured_image_url) {
+        image.thumbnail = p.featured_image_url;
+        image.medium = p.featured_image_url;
+        image.large = p.featured_image_url;
       }
 
       const categories: Category[] = [];

@@ -32,6 +32,8 @@ import { FAQ } from "../../interfaces-and-classes/faq";
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild("homePage") homePage: ElementRef;
   private lang: string;
+  private langSelectFaq: string;
+  private langSelectPosts: string;
   public pageNotFound: boolean;
   public paramsSubscription: Subscription;
   public faqCatSubscription: Subscription;
@@ -93,10 +95,14 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.showFAQSlider) {
       if (pos > 0 && !this.faqsFetched) {
         this.faqsFetched = true;
-        if (localStorage.getItem("faq_list")) {
+        if (
+          localStorage.getItem("faq_list") &&
+          this.langSelectFaq === this.lang
+        ) {
           this.faqs = JSON.parse(localStorage.getItem("faq_list"));
           this.showFAQSlider = true;
         } else {
+          this.langSelectFaq = this.lang;
           this.faqCatSubscription = this.faqsService
             .getFAQs_OfEachCategories(1, this.lang)
             .subscribe(
@@ -116,10 +122,14 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.showNewsSlider) {
       if (pos > 100 && !this.newsFetched) {
         this.newsFetched = true;
-        if (localStorage.getItem("posts_list")) {
+        if (
+          localStorage.getItem("posts_list") &&
+          this.langSelectPosts === this.lang
+        ) {
           this.news = JSON.parse(localStorage.getItem("posts_list"));
           this.showNewsSlider = true;
         } else {
+          this.langSelectPosts = this.lang;
           this.postsSubscription = this.postsService
             .getPosts(4, this.lang)
             .subscribe(

@@ -6,7 +6,7 @@
 >
   <div *ngIf="subMenu?.length !== 0 && !loading && !show_single_page">
     <div class="selected-item" (click)="toggleSubmenuBarDropdown()">
-      <span>{{ page?.name | cardText: 30 }}</span>
+      <span [innerHTML]="page?.name"></span>
       <i class="material-icons">keyboard_arrow_down</i>
     </div>
     <div
@@ -56,7 +56,7 @@
     <app-breadcrumb class="breacrumb-large"></app-breadcrumb>
     <div class="heading">
       <div class="title">
-        <h2>{{ page?.name }}</h2>
+        <h2 [innerHTML]="page?.name"></h2>
       </div>
     </div>
     <div class="side-bar larger-devices">

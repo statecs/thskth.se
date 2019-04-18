@@ -34,6 +34,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   public language_text: string;
   public language_img: string;
   public lang: string;
+  public langSelect: string;
   protected config: AppConfig;
   public showSubmenuIndex: number;
   public ths_chapters: ChapterMenu[];
@@ -229,11 +230,15 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   }
 
   getTopLevelMenu(): void {
-    if (localStorage.getItem("getTopLevel_mainMenu")) {
+    if (
+      localStorage.getItem("getTopLevel_mainMenu") &&
+      this.langSelect === this.language
+    ) {
       this.topLevelMainMenu = JSON.parse(
         localStorage.getItem("getTopLevel_mainMenu")
       );
     } else {
+      this.langSelect = this.language;
       this.topLevelMenuSubscription = this.menusService
         .getTopLevel_mainMenu(this.language)
         .subscribe(
@@ -249,9 +254,13 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   }
 
   private getChapterMenu(): void {
-    if (localStorage.getItem("ths_chapters")) {
+    if (
+      localStorage.getItem("ths_chapters") &&
+      this.langSelect === this.language
+    ) {
       this.ths_chapters = JSON.parse(localStorage.getItem("ths_chapters"));
     } else {
+      this.langSelect = this.language;
       this.chaptersMenuSubscription = this.chaptersMenuService
         .getMenu(this.language)
         .subscribe(

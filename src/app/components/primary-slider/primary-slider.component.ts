@@ -41,6 +41,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   public slideshow_play_btn: string;
   public slideElements: any[];
   private lang: string;
+  private langSelect: string;
   public read_more_text: string;
   public paramsSubscription: Subscription;
   public slideSubscription: Subscription;
@@ -335,10 +336,14 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
             this.read_more_text = "Läs Mer";
           }
 
-          if (localStorage.getItem("primarySlides")) {
+          if (
+            localStorage.getItem("primarySlides") &&
+            this.langSelect === this.lang
+          ) {
             this.slides = JSON.parse(localStorage.getItem("primarySlides"));
             this.fetching = false;
           } else {
+            this.langSelect === this.lang;
             this.slideSubscription = this.primarySlidesService
               .getAllPrimarySlides(this.lang)
               .subscribe(

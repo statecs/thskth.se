@@ -86,6 +86,7 @@ export class NewsComponent implements OnInit, OnDestroy {
           }
         },
         error => {
+          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         }
       );
@@ -122,14 +123,15 @@ export class NewsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.headerCommunicationService.tranparentHeader(false);
-    this.postsService.getPosts(15, this.lang).subscribe(res => {
-      this.posts = res;
-    });
     this.paramsSubscription2 = this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.slug = params["slug"];
         if (this.slug) {
           this.showArticleInPopup();
+        } else {
+          this.postsService.getPosts(15, this.lang).subscribe(res => {
+            this.posts = res;
+          });
         }
       }
     );
