@@ -16,6 +16,7 @@ import { ActivatedRoute } from "@angular/router";
 import { SelectSliderCommunicationService } from "../../services/component-communicators/select-slider-communication.service";
 import { Subscription } from "rxjs/Subscription";
 import { HideUICommunicationService } from "../../services/component-communicators/hide-ui-communication.service";
+import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
 
 @Component({
   selector: "app-card-categorizer",
@@ -28,6 +29,7 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
   public displayedDropdown: boolean;
   public displayedDropdownID: number;
   public dropdowns: any;
+  public fetching: boolean;
 
   public selected_interest: number;
 
@@ -52,7 +54,8 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     private cardsService: CardsService,
     private route: ActivatedRoute,
     private selectSliderCommunicationService: SelectSliderCommunicationService,
-    private hideUICommunicationService: HideUICommunicationService
+    private hideUICommunicationService: HideUICommunicationService,
+    private notificationBarCommunicationService: NotificationBarCommunicationService
   ) {
     this.config = injector.get(APP_CONFIG);
     this.displayedDropdownID = 0;
@@ -118,6 +121,9 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.updateCardsContainer();
   }
 
+  ngOnInit() {
+    this.fetching = true;
+  }
   ngAfterViewInit() {
     this.dropdowns = this.card_categorizer.nativeElement.getElementsByClassName(
       "dropdown-container"
@@ -128,9 +134,9 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
       (Object.keys(this.cards_filter).length === 0 &&
         this.cards_filter.constructor === Object)
     ) {
-      this.cardsService
-        .getCardCategory("interest", this.lang)
-        .subscribe(int_cats => {
+      this.cardsService.getCardCategory("interest", this.lang).subscribe(
+        int_cats => {
+          this.fetching = false;
           this.int_cats = int_cats;
           this.selected_interest_name = int_cats[0].name;
           this.selected_interest = int_cats[0].id;
@@ -148,23 +154,36 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
           this.cardCategorizerCardContainerService.updateCards({
             interest: this.selected_interest
           });
-        });
+        },
+        error => {
+          this.notificationBarCommunicationService.send_data(error);
+        }
+      );
     } else {
       this.cards_filter = this._cookieService.getObject("cards_filter");
       this.selected_interest = this.cards_filter.interest;
       this.cardsService
         .getCardCategoryByID(this.selected_interest, "interest", this.lang)
-        .subscribe(cat => {
-          this.selected_interest_name = cat.name;
-        });
-      this.cardsService
-        .getCardCategory("interest", this.lang)
-        .subscribe(int_cats => {
+        .subscribe(
+          cat => {
+            this.fetching = false;
+            this.selected_interest_name = cat.name;
+          },
+          error => {
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+      this.cardsService.getCardCategory("interest", this.lang).subscribe(
+        int_cats => {
           this.int_cats = int_cats;
           this.cardCategorizerCardContainerService.updateCards({
             interest: this.selected_interest
           });
-        });
+        },
+        error => {
+          this.notificationBarCommunicationService.send_data(error);
+        }
+      );
     }
 
     this.selectSliderCommunicationService.transmitNotifyObservable$.subscribe(

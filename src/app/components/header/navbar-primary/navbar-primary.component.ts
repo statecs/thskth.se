@@ -229,29 +229,41 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   }
 
   getTopLevelMenu(): void {
-    this.topLevelMenuSubscription = this.menusService
-      .getTopLevel_mainMenu(this.language)
-      .subscribe(
-        res => {
-          this.topLevelMainMenu = res;
-        },
-        error => {
-          this.notificationBarCommunicationService.send_data(error);
-        }
+    if (localStorage.getItem("getTopLevel_mainMenu")) {
+      this.topLevelMainMenu = JSON.parse(
+        localStorage.getItem("getTopLevel_mainMenu")
       );
+    } else {
+      this.topLevelMenuSubscription = this.menusService
+        .getTopLevel_mainMenu(this.language)
+        .subscribe(
+          res => {
+            localStorage.setItem("getTopLevel_mainMenu", JSON.stringify(res));
+            this.topLevelMainMenu = res;
+          },
+          error => {
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
   }
 
   private getChapterMenu(): void {
-    this.chaptersMenuSubscription = this.chaptersMenuService
-      .getMenu(this.language)
-      .subscribe(
-        (ths_chapters: ChapterMenu[]) => {
-          this.ths_chapters = ths_chapters;
-        },
-        error => {
-          this.notificationBarCommunicationService.send_data(error);
-        }
-      );
+    if (localStorage.getItem("ths_chapters")) {
+      this.ths_chapters = JSON.parse(localStorage.getItem("ths_chapters"));
+    } else {
+      this.chaptersMenuSubscription = this.chaptersMenuService
+        .getMenu(this.language)
+        .subscribe(
+          (ths_chapters: ChapterMenu[]) => {
+            this.ths_chapters = ths_chapters;
+            localStorage.setItem("ths_chapters", JSON.stringify(ths_chapters));
+          },
+          error => {
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
   }
 
   ngOnInit() {

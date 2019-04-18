@@ -451,7 +451,11 @@
                 }}
               </h5>
               <p
-                *ngIf="restaurant.weekly_menu && getDayIndex() <= 5 && getDayIndex() > 0"
+                *ngIf="
+                  restaurant.weekly_menu &&
+                  getDayIndex() <= 5 &&
+                  getDayIndex() > 0
+                "
                 [innerHTML]="restaurant.weekly_menu"
               ></p>
               <p

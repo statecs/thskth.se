@@ -13,7 +13,7 @@
     color: rgb(27, 69, 127);
   }
   .interest {
-    color: rgb(73, 120, 8);
+    color: #01406c;
   }
   & > div {
     display: inline-block;
@@ -21,9 +21,10 @@
     position: relative;
 
     & > span {
-      //text-decoration: underline;
+      text-decoration: underline;
       margin: 0;
       font-weight: 700;
+      font-size: 1.1em;
     }
     & > i {
       vertical-align: middle;
