@@ -324,23 +324,28 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     this.selected_event_category = -1;
     this.eventsSubscription = this.googleCalendarService
       .getAllEventsCard(null, "")
-      .subscribe(res => {
-        const mergedArrays = this.mergeArrays(res);
-        const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
-        if (sortedArrays.length > 5) {
-          this.events = sortedArrays.slice(0, 5);
-          this.fetched_events = localStorage.setItem(
-            "events_list",
-            JSON.stringify(this.events)
-          );
-        } else {
-          this.events = sortedArrays;
-          this.fetched_events = localStorage.setItem(
-            "events_list",
-            JSON.stringify(this.events)
-          );
+      .subscribe(
+        res => {
+          const mergedArrays = this.mergeArrays(res);
+          const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+          if (sortedArrays.length > 5) {
+            this.events = sortedArrays.slice(0, 5);
+            this.fetched_events = localStorage.setItem(
+              "events_list",
+              JSON.stringify(this.events)
+            );
+          } else {
+            this.events = sortedArrays;
+            this.fetched_events = localStorage.setItem(
+              "events_list",
+              JSON.stringify(this.events)
+            );
+          }
+        },
+        error => {
+          this.notificationBarCommunicationService.send_data(error);
         }
-      });
+      );
   }
 
   fetchEvents(): void {

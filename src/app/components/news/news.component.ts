@@ -8,6 +8,7 @@ import { Location } from "@angular/common";
 import { PopupWindowCommunicationService } from "../../services/component-communicators/popup-window-communication.service";
 import { TitleCommunicationService } from "../../services/component-communicators/title-communication.service";
 import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
+import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
 
 @Component({
   selector: "app-news",
@@ -32,7 +33,8 @@ export class NewsComponent implements OnInit, OnDestroy {
     private location: Location,
     private popupWindowCommunicationService: PopupWindowCommunicationService,
     private titleCommunicationService: TitleCommunicationService,
-    private headerCommunicationService: HeaderCommunicationService
+    private headerCommunicationService: HeaderCommunicationService,
+    private notificationBarCommunicationService: NotificationBarCommunicationService
   ) {
     this.paramsSubscription = this.activatedRoute.params.subscribe(
       (params: Params) => {
@@ -75,13 +77,18 @@ export class NewsComponent implements OnInit, OnDestroy {
     }
     this.fetchMorePostsSub = this.postsService
       .getPostsBySinceDateTime(15, this.lang, lastPostDate)
-      .subscribe(res => {
-        this.posts = this.posts.concat(res);
-        this.fetching = false;
-        if (!res.length) {
-          this.moreDocumentsExist = false;
+      .subscribe(
+        res => {
+          this.posts = this.posts.concat(res);
+          this.fetching = false;
+          if (!res.length) {
+            this.moreDocumentsExist = false;
+          }
+        },
+        error => {
+          this.notificationBarCommunicationService.send_data(error);
         }
-      });
+      );
   }
 
   goToPage(item, slug): void {

@@ -168,14 +168,19 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       };
       this.fetchMoreDocumentsSub = this.archiveService
         .getDocumentsBySinceDateTime(searchParams, 15, this.lang, lastPostDate)
-        .subscribe(res => {
-          this.documentResults = this.documentResults.concat(res);
-          this.latestDocuments = this.latestDocuments.concat(res);
-          this.fetching = false;
-          if (!res.length) {
-            this.moreDocumentsExist = false;
+        .subscribe(
+          res => {
+            this.documentResults = this.documentResults.concat(res);
+            this.latestDocuments = this.latestDocuments.concat(res);
+            this.fetching = false;
+            if (!res.length) {
+              this.moreDocumentsExist = false;
+            }
+          },
+          error => {
+            this.notificationBarCommunicationService.send_data(error);
           }
-        });
+        );
     } else {
       this.moreDocumentsExist = false;
       this.documentsLoading = false;

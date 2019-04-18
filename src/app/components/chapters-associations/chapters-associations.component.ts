@@ -500,16 +500,23 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
                   } else {
                     this.othersSubscription3 = this.othersService
                       .getOtherBySlug(this.slug, this.lang)
-                      .subscribe(res3 => {
-                        if (res3.length > 0) {
-                          this.showAssociationInPopup(res3[0]);
-                          this.item_exist = true;
-                          this.showingPopup = true;
-                        } else {
-                          this.pageNotFound = true;
-                          this.item_exist = false;
+                      .subscribe(
+                        res3 => {
+                          if (res3.length > 0) {
+                            this.showAssociationInPopup(res3[0]);
+                            this.item_exist = true;
+                            this.showingPopup = true;
+                          } else {
+                            this.pageNotFound = true;
+                            this.item_exist = false;
+                          }
+                        },
+                        error => {
+                          this.notificationBarCommunicationService.send_data(
+                            error
+                          );
                         }
-                      });
+                      );
                   }
                 },
                 error => {

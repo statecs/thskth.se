@@ -8,6 +8,7 @@ import { PopupWindowCommunicationService } from "../../../services/component-com
 import { Subscription } from "rxjs/Subscription";
 import { Location } from "@angular/common";
 import { CookieService, CookieOptions } from "ngx-cookie";
+import { NotificationBarCommunicationService } from "../../../services/component-communicators/notification-bar-communication.service";
 
 @Component({
   selector: "app-events-card",
@@ -32,7 +33,8 @@ export class EventsCardComponent implements OnInit, OnDestroy {
     private router: Router,
     private _cookieService: CookieService,
     private popupWindowCommunicationService: PopupWindowCommunicationService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private notificationBarCommunicationService: NotificationBarCommunicationService
   ) {
     this.ths_calendars = ths_calendars;
     if (this._cookieService.get("language") == "sv") {
@@ -96,23 +98,28 @@ export class EventsCardComponent implements OnInit, OnDestroy {
   getAllEvents() {
     this.eventsSubscription = this.googleCalendarService
       .getAllEventsCard(null, "")
-      .subscribe(res => {
-        const mergedArrays = this.mergeArrays(res);
-        const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
-        if (sortedArrays.length > 4) {
-          this.events = sortedArrays.slice(0, 4);
-          this.fetched_events = localStorage.setItem(
-            "events_list_card",
-            JSON.stringify(sortedArrays)
-          );
-        } else {
-          this.events = sortedArrays;
-          this.fetched_events = localStorage.setItem(
-            "events_list_card",
-            JSON.stringify(sortedArrays)
-          );
+      .subscribe(
+        res => {
+          const mergedArrays = this.mergeArrays(res);
+          const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+          if (sortedArrays.length > 4) {
+            this.events = sortedArrays.slice(0, 4);
+            this.fetched_events = localStorage.setItem(
+              "events_list_card",
+              JSON.stringify(sortedArrays)
+            );
+          } else {
+            this.events = sortedArrays;
+            this.fetched_events = localStorage.setItem(
+              "events_list_card",
+              JSON.stringify(sortedArrays)
+            );
+          }
+        },
+        error => {
+          this.notificationBarCommunicationService.send_data(error);
         }
-      });
+      );
   }
 
   fetchEvents(): void {
