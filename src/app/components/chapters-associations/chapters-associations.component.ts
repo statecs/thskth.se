@@ -319,21 +319,39 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   getChapters(): void {
     this.documentsLoading = true;
     this.showChapters = true;
-    this.chaptersSubscription2 = this.chaptersService
-      .getChapters(this.lang)
-      .subscribe(
-        res => {
-          const mergedArrays = this.mergeArrays(res);
-          const sortedArrays = mergedArrays.sort(this.sortArrayByName);
-
-          this.chapterResults = sortedArrays;
-          this.checkResults();
-        },
-        error => {
-          this.documentsLoading = false;
-          this.notificationBarCommunicationService.send_data(error);
-        }
-      );
+    if (localStorage.getItem("getChapters_sv") && this.lang === "sv") {
+      this.chapterResults = JSON.parse(localStorage.getItem("getChapters_sv"));
+      this.checkResults();
+    } else if (localStorage.getItem("getChapters_en") && this.lang === "en") {
+      this.chapterResults = JSON.parse(localStorage.getItem("getChapters_en"));
+      this.checkResults();
+    } else {
+      this.chaptersSubscription2 = this.chaptersService
+        .getChapters(this.lang)
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByName);
+            if (this.lang === "sv") {
+              localStorage.setItem(
+                "getChapters_sv",
+                JSON.stringify(sortedArrays)
+              );
+            } else {
+              localStorage.setItem(
+                "getChapters_en",
+                JSON.stringify(sortedArrays)
+              );
+            }
+            this.chapterResults = sortedArrays;
+            this.checkResults();
+          },
+          error => {
+            this.documentsLoading = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
   }
 
   searchOthers(): void {
@@ -370,21 +388,42 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   getOthers(): void {
     this.documentsLoading = true;
     this.showOthers = true;
-    this.othersSubscription2 = this.othersService
-      .getOthers(this.lang)
-      .subscribe(
-        res => {
-          const mergedArrays = this.mergeArrays(res);
-          const sortedArrays = mergedArrays.sort(this.sortArrayByName);
 
-          this.otherResults = sortedArrays;
-          this.checkResults();
-        },
-        error => {
-          this.documentsLoading = false;
-          this.notificationBarCommunicationService.send_data(error);
-        }
-      );
+    if (localStorage.getItem("getOthers_sv") && this.lang === "sv") {
+      this.otherResults = JSON.parse(localStorage.getItem("getOthers_sv"));
+      this.checkResults();
+    } else if (localStorage.getItem("getOthers_en") && this.lang === "en") {
+      this.otherResults = JSON.parse(localStorage.getItem("getOthers_en"));
+      this.checkResults();
+    } else {
+      this.othersSubscription2 = this.othersService
+        .getOthers(this.lang)
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByName);
+
+            this.otherResults = sortedArrays;
+            this.checkResults();
+
+            if (this.lang === "sv") {
+              localStorage.setItem(
+                "getOthers_sv",
+                JSON.stringify(sortedArrays)
+              );
+            } else {
+              localStorage.setItem(
+                "getOthers_en",
+                JSON.stringify(sortedArrays)
+              );
+            }
+          },
+          error => {
+            this.documentsLoading = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
   }
 
   displayAssociations(): void {
@@ -405,21 +444,53 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
-    this.associationsSubsciption2 = this.associationsService
-      .getAssociations(this.lang)
-      .subscribe(
-        res => {
-          const mergedArrays = this.mergeArrays(res);
-          const sortedArrays = mergedArrays.sort(this.sortArrayByName);
-          this.associationResults = sortedArrays;
-          this.allocateAssociations(sortedArrays);
-          this.checkResults();
-        },
-        error => {
-          this.documentsLoading = false;
-          this.notificationBarCommunicationService.send_data(error);
-        }
+
+    if (localStorage.getItem("getAssociations_sv") && this.lang === "sv") {
+      this.associationResults = JSON.parse(
+        localStorage.getItem("getAssociations_sv")
       );
+
+      this.allocateAssociations(this.associationResults);
+      this.checkResults();
+    } else if (
+      localStorage.getItem("getAssociations_en") &&
+      this.lang === "en"
+    ) {
+      this.associationResults = JSON.parse(
+        localStorage.getItem("getAssociations_en")
+      );
+
+      this.allocateAssociations(this.associationResults);
+      this.checkResults();
+    } else {
+      this.associationsSubsciption2 = this.associationsService
+        .getAssociations(this.lang)
+        .subscribe(
+          res => {
+            const mergedArrays = this.mergeArrays(res);
+            const sortedArrays = mergedArrays.sort(this.sortArrayByName);
+            this.associationResults = sortedArrays;
+            if (this.lang === "sv") {
+              localStorage.setItem(
+                "getAssociations_sv",
+                JSON.stringify(sortedArrays)
+              );
+            } else {
+              localStorage.setItem(
+                "getAssociations_en",
+                JSON.stringify(sortedArrays)
+              );
+            }
+
+            this.allocateAssociations(sortedArrays);
+            this.checkResults();
+          },
+          error => {
+            this.documentsLoading = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
   }
 
   allocateAssociations(data): void {

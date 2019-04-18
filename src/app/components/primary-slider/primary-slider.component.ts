@@ -41,7 +41,6 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
   public slideshow_play_btn: string;
   public slideElements: any[];
   private lang: string;
-  private langSelect: string;
   public read_more_text: string;
   public paramsSubscription: Subscription;
   public slideSubscription: Subscription;
@@ -336,14 +335,20 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
             this.read_more_text = "Läs Mer";
           }
 
-          if (
-            localStorage.getItem("primarySlides") &&
-            this.langSelect === this.lang
-          ) {
-            this.slides = JSON.parse(localStorage.getItem("primarySlides"));
+          if (localStorage.getItem("primarySlides_sv") && this.lang === "sv") {
+            this.slides = JSON.parse(localStorage.getItem("primarySlides_sv"));
             this.fetching = false;
+            clearInterval(this.mainSlide_timer);
+            this.startMainSlider();
+          } else if (
+            localStorage.getItem("primarySlides_en") &&
+            this.lang === "en"
+          ) {
+            this.slides = JSON.parse(localStorage.getItem("primarySlides_en"));
+            this.fetching = false;
+            clearInterval(this.mainSlide_timer);
+            this.startMainSlider();
           } else {
-            this.langSelect === this.lang;
             this.slideSubscription = this.primarySlidesService
               .getAllPrimarySlides(this.lang)
               .subscribe(
@@ -352,7 +357,17 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
                   clearInterval(this.mainSlide_timer);
                   this.slides = slides;
                   this.startMainSlider();
-                  localStorage.setItem("primarySlides", JSON.stringify(slides));
+                  if (this.lang === "sv") {
+                    localStorage.setItem(
+                      "primarySlides_sv",
+                      JSON.stringify(slides)
+                    );
+                  } else {
+                    localStorage.setItem(
+                      "primarySlides_en",
+                      JSON.stringify(slides)
+                    );
+                  }
                 },
                 error => {
                   this.notificationBarCommunicationService.send_data(error);
@@ -367,9 +382,19 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
       } else {
         this.read_more_text = "Läs Mer";
       }
-      if (localStorage.getItem("primarySlides")) {
-        this.slides = JSON.parse(localStorage.getItem("primarySlides"));
+      if (localStorage.getItem("primarySlides_sv") && this.lang === "sv") {
+        this.slides = JSON.parse(localStorage.getItem("primarySlides_sv"));
         this.fetching = false;
+        clearInterval(this.mainSlide_timer);
+        this.startMainSlider();
+      } else if (
+        localStorage.getItem("primarySlides_en") &&
+        this.lang === "en"
+      ) {
+        this.slides = JSON.parse(localStorage.getItem("primarySlides_en"));
+        this.fetching = false;
+        clearInterval(this.mainSlide_timer);
+        this.startMainSlider();
       } else {
         this.slideSubscription = this.primarySlidesService
           .getAllPrimarySlides(this.lang)
@@ -380,7 +405,17 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
               this.slides = slides;
               this.showSlide();
               this.startMainSlider();
-              localStorage.setItem("primarySlides", JSON.stringify(slides));
+              if (this.lang === "sv") {
+                localStorage.setItem(
+                  "primarySlides_sv",
+                  JSON.stringify(slides)
+                );
+              } else {
+                localStorage.setItem(
+                  "primarySlides_en",
+                  JSON.stringify(slides)
+                );
+              }
             },
             error => {
               this.notificationBarCommunicationService.send_data(error);

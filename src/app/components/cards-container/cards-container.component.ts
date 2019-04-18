@@ -47,7 +47,6 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   public ths_calendars: any[];
   public cardsLoaded: boolean;
   public lang: string;
-  public langSelect: string;
   public paramsSubscription: Subscription;
   public cardsSubscription: Subscription;
   public eventsSubscription: Subscription;
@@ -303,19 +302,28 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   getRestaurantMenu(): void {
-    if (
-      localStorage.getItem("getRestaurantMenu") &&
-      this.langSelect === this.lang
+    if (localStorage.getItem("getRestaurantMenu_sv") && this.lang === "sv") {
+      this.restaurant = JSON.parse(
+        localStorage.getItem("getRestaurantMenu_sv")
+      );
+    } else if (
+      localStorage.getItem("getRestaurantMenu_en") &&
+      this.lang === "en"
     ) {
-      this.restaurant = JSON.parse(localStorage.getItem("getRestaurantMenu"));
+      this.restaurant = JSON.parse(
+        localStorage.getItem("getRestaurantMenu_en")
+      );
     } else {
-      this.langSelect = this.lang;
       this.restaurantUpdater = this.restaurantService
         .getSingleRestaurant("nymble-restaurant", this.lang)
         .subscribe(
           res => {
-            localStorage.setItem("getRestaurantMenu", JSON.stringify(res));
             this.restaurant = res;
+            if (this.lang === "sv") {
+              localStorage.setItem("getRestaurantMenu_sv", JSON.stringify(res));
+            } else {
+              localStorage.setItem("getRestaurantMenu_en", JSON.stringify(res));
+            }
           },
           error => {
             this.restaurant = null;

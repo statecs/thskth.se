@@ -283,7 +283,7 @@ export class SupportComponent implements OnInit, OnDestroy {
         this.selected_faq = faq;
         this.show_single_view = true;
         this.exist_category = true;
-        this.loading = false;
+        // this.loading = false;
         const self = this;
         const timer = setInterval(function() {
           if (self.selected_faq_el) {

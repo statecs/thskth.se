@@ -32,8 +32,6 @@ import { FAQ } from "../../interfaces-and-classes/faq";
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild("homePage") homePage: ElementRef;
   private lang: string;
-  private langSelectFaq: string;
-  private langSelectPosts: string;
   public pageNotFound: boolean;
   public paramsSubscription: Subscription;
   public faqCatSubscription: Subscription;
@@ -96,20 +94,39 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       if (pos > 0 && !this.faqsFetched) {
         this.faqsFetched = true;
         if (
-          localStorage.getItem("faq_list") &&
-          this.langSelectFaq === this.lang
+          localStorage.getItem("getFAQs_OfEachCategories_sv") &&
+          this.lang === "sv"
         ) {
-          this.faqs = JSON.parse(localStorage.getItem("faq_list"));
+          this.faqs = JSON.parse(
+            localStorage.getItem("getFAQs_OfEachCategories_sv")
+          );
+          this.showFAQSlider = true;
+        } else if (
+          localStorage.getItem("getFAQs_OfEachCategories_en") &&
+          this.lang === "en"
+        ) {
+          this.faqs = JSON.parse(
+            localStorage.getItem("getFAQs_OfEachCategories_en")
+          );
           this.showFAQSlider = true;
         } else {
-          this.langSelectFaq = this.lang;
           this.faqCatSubscription = this.faqsService
             .getFAQs_OfEachCategories(1, this.lang)
             .subscribe(
               faqs => {
                 this.showFAQSlider = true;
                 this.faqs = faqs;
-                localStorage.setItem("faq_list", JSON.stringify(faqs));
+                if (this.lang === "sv") {
+                  localStorage.setItem(
+                    "getFAQs_OfEachCategories_sv",
+                    JSON.stringify(faqs)
+                  );
+                } else {
+                  localStorage.setItem(
+                    "getFAQs_OfEachCategories_en",
+                    JSON.stringify(faqs)
+                  );
+                }
               },
               error => {
                 this.showFAQSlider = false;
@@ -122,21 +139,33 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.showNewsSlider) {
       if (pos > 100 && !this.newsFetched) {
         this.newsFetched = true;
-        if (
-          localStorage.getItem("posts_list") &&
-          this.langSelectPosts === this.lang
+        if (localStorage.getItem("getNewsPosts_sv") && this.lang === "sv") {
+          this.news = JSON.parse(localStorage.getItem("getNewsPosts_sv"));
+          this.showNewsSlider = true;
+        } else if (
+          localStorage.getItem("getNewsPosts_en") &&
+          this.lang === "en"
         ) {
-          this.news = JSON.parse(localStorage.getItem("posts_list"));
+          this.news = JSON.parse(localStorage.getItem("getNewsPosts_en"));
           this.showNewsSlider = true;
         } else {
-          this.langSelectPosts = this.lang;
           this.postsSubscription = this.postsService
             .getPosts(4, this.lang)
             .subscribe(
               posts => {
                 this.showNewsSlider = true;
                 this.news = posts;
-                localStorage.setItem("posts_list", JSON.stringify(posts));
+                if (this.lang === "sv") {
+                  localStorage.setItem(
+                    "getNewsPosts_sv",
+                    JSON.stringify(posts)
+                  );
+                } else {
+                  localStorage.setItem(
+                    "getNewsPosts_en",
+                    JSON.stringify(posts)
+                  );
+                }
               },
               error => {
                 this.showNewsSlider = false;

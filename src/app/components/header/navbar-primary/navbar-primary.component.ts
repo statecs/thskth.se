@@ -34,7 +34,6 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   public language_text: string;
   public language_img: string;
   public lang: string;
-  public langSelect: string;
   protected config: AppConfig;
   public showSubmenuIndex: number;
   public ths_chapters: ChapterMenu[];
@@ -230,20 +229,33 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   }
 
   getTopLevelMenu(): void {
-    if (
-      localStorage.getItem("getTopLevel_mainMenu") &&
-      this.langSelect === this.language
+    if (localStorage.getItem("getTopLevel_mainMenu_sv") && this.lang === "sv") {
+      this.topLevelMainMenu = JSON.parse(
+        localStorage.getItem("getTopLevel_mainMenu_sv")
+      );
+    } else if (
+      localStorage.getItem("getTopLevel_mainMenu_en") &&
+      this.lang === "en"
     ) {
       this.topLevelMainMenu = JSON.parse(
-        localStorage.getItem("getTopLevel_mainMenu")
+        localStorage.getItem("getTopLevel_mainMenu_en")
       );
     } else {
-      this.langSelect = this.language;
       this.topLevelMenuSubscription = this.menusService
         .getTopLevel_mainMenu(this.language)
         .subscribe(
           res => {
-            localStorage.setItem("getTopLevel_mainMenu", JSON.stringify(res));
+            if (this.lang === "sv") {
+              localStorage.setItem(
+                "getTopLevel_mainMenu_sv",
+                JSON.stringify(res)
+              );
+            } else {
+              localStorage.setItem(
+                "getTopLevel_mainMenu_en",
+                JSON.stringify(res)
+              );
+            }
             this.topLevelMainMenu = res;
           },
           error => {
@@ -254,19 +266,34 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
   }
 
   private getChapterMenu(): void {
-    if (
-      localStorage.getItem("ths_chapters") &&
-      this.langSelect === this.language
+    if (localStorage.getItem("getChaptersMenu_sv") && this.lang === "sv") {
+      this.ths_chapters = JSON.parse(
+        localStorage.getItem("getChaptersMenu_sv")
+      );
+    } else if (
+      localStorage.getItem("getChaptersMenu_en") &&
+      this.lang === "en"
     ) {
-      this.ths_chapters = JSON.parse(localStorage.getItem("ths_chapters"));
+      this.ths_chapters = JSON.parse(
+        localStorage.getItem("getChaptersMenu_en")
+      );
     } else {
-      this.langSelect = this.language;
       this.chaptersMenuSubscription = this.chaptersMenuService
         .getMenu(this.language)
         .subscribe(
           (ths_chapters: ChapterMenu[]) => {
             this.ths_chapters = ths_chapters;
-            localStorage.setItem("ths_chapters", JSON.stringify(ths_chapters));
+            if (this.lang === "sv") {
+              localStorage.setItem(
+                "getChaptersMenu_sv",
+                JSON.stringify(ths_chapters)
+              );
+            } else {
+              localStorage.setItem(
+                "getChaptersMenu_en",
+                JSON.stringify(ths_chapters)
+              );
+            }
           },
           error => {
             this.notificationBarCommunicationService.send_data(error);

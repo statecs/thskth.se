@@ -114,42 +114,70 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
   }
 
   getFAQs(): void {
-    this.faqsSubscription = this.faqsService
-      .getFAQs_BySlug(this.most_asked_questions_slugs[0], this.lang)
-      .subscribe(
-        faq => {
-          const faqs: FAQ[] = [];
-          faqs.push(faq);
-          this.faqsSubscription2 = this.faqsService
-            .getFAQs_BySlug(this.most_asked_questions_slugs[1], this.lang)
-            .subscribe(
-              faq2 => {
-                faqs.push(faq2);
-                this.faqsSubscription3 = this.faqsService
-                  .getFAQs_BySlug(this.most_asked_questions_slugs[2], this.lang)
-                  .subscribe(
-                    faq3 => {
-                      faqs.push(faq3);
-
-                      this.most_asked_faqs = faqs;
-                    },
-                    error => {
-                      this.most_asked_faqs = [];
-                      this.notificationBarCommunicationService.send_data(error);
-                    }
-                  );
-              },
-              error => {
-                this.most_asked_faqs = [];
-                this.notificationBarCommunicationService.send_data(error);
-              }
-            );
-        },
-        error => {
-          this.most_asked_faqs = [];
-          this.notificationBarCommunicationService.send_data(error);
-        }
+    if (localStorage.getItem("getFAQs_BySlug_sv") && this.lang === "sv") {
+      this.most_asked_faqs = JSON.parse(
+        localStorage.getItem("getFAQs_BySlug_sv")
       );
+    } else if (
+      localStorage.getItem("getFAQs_BySlug_en") &&
+      this.lang === "en"
+    ) {
+      this.most_asked_faqs = JSON.parse(
+        localStorage.getItem("getFAQs_BySlug_en")
+      );
+    } else {
+      this.faqsSubscription = this.faqsService
+        .getFAQs_BySlug(this.most_asked_questions_slugs[0], this.lang)
+        .subscribe(
+          faq => {
+            const faqs: FAQ[] = [];
+            faqs.push(faq);
+            this.faqsSubscription2 = this.faqsService
+              .getFAQs_BySlug(this.most_asked_questions_slugs[1], this.lang)
+              .subscribe(
+                faq2 => {
+                  faqs.push(faq2);
+                  this.faqsSubscription3 = this.faqsService
+                    .getFAQs_BySlug(
+                      this.most_asked_questions_slugs[2],
+                      this.lang
+                    )
+                    .subscribe(
+                      faq3 => {
+                        faqs.push(faq3);
+                        if (this.lang === "sv") {
+                          localStorage.setItem(
+                            "getFAQs_BySlug_sv",
+                            JSON.stringify(faqs)
+                          );
+                        } else {
+                          localStorage.setItem(
+                            "getFAQs_BySlug_en",
+                            JSON.stringify(faqs)
+                          );
+                        }
+                        this.most_asked_faqs = faqs;
+                      },
+                      error => {
+                        this.most_asked_faqs = [];
+                        this.notificationBarCommunicationService.send_data(
+                          error
+                        );
+                      }
+                    );
+                },
+                error => {
+                  this.most_asked_faqs = [];
+                  this.notificationBarCommunicationService.send_data(error);
+                }
+              );
+          },
+          error => {
+            this.most_asked_faqs = [];
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
   }
 
   ngOnInit() {

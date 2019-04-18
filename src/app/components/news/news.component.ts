@@ -86,7 +86,6 @@ export class NewsComponent implements OnInit, OnDestroy {
           }
         },
         error => {
-          console.log(error);
           this.notificationBarCommunicationService.send_data(error);
         }
       );
@@ -129,9 +128,23 @@ export class NewsComponent implements OnInit, OnDestroy {
         if (this.slug) {
           this.showArticleInPopup();
         } else {
-          this.postsService.getPosts(15, this.lang).subscribe(res => {
-            this.posts = res;
-          });
+          if (localStorage.getItem("getPosts_sv") && this.lang === "sv") {
+            this.posts = JSON.parse(localStorage.getItem("getPosts_sv"));
+          } else if (
+            localStorage.getItem("getPosts_en") &&
+            this.lang === "en"
+          ) {
+            this.posts = JSON.parse(localStorage.getItem("getPosts_en"));
+          } else {
+            this.postsService.getPosts(15, this.lang).subscribe(res => {
+              this.posts = res;
+              if (this.lang === "sv") {
+                localStorage.setItem("getPosts_sv", JSON.stringify(res));
+              } else {
+                localStorage.setItem("getPosts_en", JSON.stringify(res));
+              }
+            });
+          }
         }
       }
     );
