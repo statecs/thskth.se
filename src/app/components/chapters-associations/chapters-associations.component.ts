@@ -625,11 +625,31 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         (params: Params) => {
           this.pageNotFound = false;
           this.slug = params["slug"];
-          if (this.cookieService.get("selectedFilter") === "chapters") {
-            this.displayChapters();
-            this.getChapters();
+          this.popupWindowCommunicationService.showLoader();
+          if (this.slug !== "undefined" && typeof this.slug !== "undefined") {
+            if (this.cookieService.get("selectedFilter") === "chapters") {
+              this.displayChapters();
+              this.getChapters();
+            } else {
+              this.getAssociations();
+            }
+            const self = this;
+            const timer = setInterval(function() {
+              if (
+                self.career_associations.length > 0 ||
+                self.chapterResults.length > 0
+              ) {
+                clearInterval(timer);
+                self.getPostBySlug();
+              }
+            }, 100);
           } else {
-            this.getAssociations();
+            if (this.cookieService.get("selectedFilter") === "chapters") {
+              this.displayChapters();
+              this.getChapters();
+            } else {
+              this.getAssociations();
+            }
           }
         }
       );
@@ -655,18 +675,21 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
                 }
               }
             }
-
             const arg = {
               hidden: true,
-              navigateBack: false
+              navigateBack: true
             };
             this.popupWindowCommunicationService.hidePopup(arg);
           } else {
             if (params["q"] && !this.pageNotFound) {
               if (this.lang === "sv") {
-                this.location.go("sv/associations-and-chapters/" + this.slug);
+                this.router.navigate([
+                  "sv/associations-and-chapters/" + this.slug
+                ]);
               } else {
-                this.location.go("en/associations-and-chapters/" + this.slug);
+                this.router.navigate([
+                  "en/associations-and-chapters/" + this.slug
+                ]);
               }
             }
           }
@@ -686,7 +709,12 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
               }
               self.showChapters = false;
               self.showAssociations = true;
-              self.showOthers = false;
+              /*if (this.cookieService.get('selectedFilter') === 'chapters') {
+                this.displayChapters();
+                this.getChapters();
+              }else {
+                this.getAssociations();
+              }*/
             }
           });
         }

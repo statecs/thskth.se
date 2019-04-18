@@ -8,7 +8,8 @@ import { HeaderSlide } from "../../interfaces-and-classes/chapters_associations"
 })
 export class HeaderSliderComponent implements OnInit {
   @Input() slides_items: HeaderSlide[];
-
+  @ViewChild("video_player") video_player: ElementRef;
+  @ViewChild("playButton") playButton: ElementRef;
   @ViewChild("slides_container") slides_container: ElementRef;
   @ViewChild("slider_progress_bar") slider_progress_bar: ElementRef;
   public slides: any;
@@ -16,10 +17,12 @@ export class HeaderSliderComponent implements OnInit {
   public bar_items: any;
   private swipeCoord: [number, number];
   private swipeTime: number;
+  public video: any;
 
   constructor() {
     this.slideIndex = 0;
   }
+
   swipe(e: TouchEvent, when: string, link: string): void {
     const coord: [number, number] = [
       e.changedTouches[0].pageX,
@@ -65,6 +68,17 @@ export class HeaderSliderComponent implements OnInit {
     }
   }
 
+  togglePlay(): void {
+    this.video = this.video_player.nativeElement;
+    const el = this.playButton.nativeElement;
+    if (this.video.paused) {
+      this.video.play();
+      el.innerHTML = "pause_circle_outline";
+    } else {
+      el.innerHTML = "play_circle_outline";
+      this.video.pause();
+    }
+  }
   navBefore(): void {
     this.selectSlideElements();
     this.slideIndex--;
@@ -114,6 +128,7 @@ export class HeaderSliderComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.slides_items);
     this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName(
       "bar-item"
     );

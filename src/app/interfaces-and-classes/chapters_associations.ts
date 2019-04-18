@@ -1,5 +1,6 @@
 export interface HeaderSlide {
   imageUrl: string;
+  video: string;
 }
 interface IAssociation {
   id: number;
@@ -41,18 +42,29 @@ export class Association implements IAssociation {
         });
       });
     }
+    console.log(associations);
     return associations;
   }
 
   static getHeaderSlides(data: any) {
     const slides: HeaderSlide[] = [];
+    console.log(data);
     if (data) {
       data.forEach(s => {
-        slides.push({
-          imageUrl: s.image.url
-        });
+        if (s.video) {
+          slides.push({
+            video: s.video,
+            imageUrl: s.image.url
+          });
+        } else {
+          slides.push({
+            video: "",
+            imageUrl: s.image.url
+          });
+        }
       });
     }
+
     return slides;
   }
 }
@@ -96,9 +108,17 @@ export class Chapter implements IChapter {
     const slides: HeaderSlide[] = [];
     if (data) {
       data.forEach(s => {
-        slides.push({
-          imageUrl: s.image.url
-        });
+        if (s.video) {
+          slides.push({
+            video: s.video,
+            imageUrl: s.image.url
+          });
+        } else {
+          slides.push({
+            video: "",
+            imageUrl: s.image.url
+          });
+        }
       });
     }
     return slides;
@@ -144,9 +164,17 @@ export class Other implements IOther {
     const slides: HeaderSlide[] = [];
     if (data) {
       data.forEach(s => {
-        slides.push({
-          imageUrl: s.image.url
-        });
+        if (s.video) {
+          slides.push({
+            video: s.video,
+            imageUrl: s.image.url
+          });
+        } else {
+          slides.push({
+            video: "",
+            imageUrl: s.image.url
+          });
+        }
       });
     }
     return slides;

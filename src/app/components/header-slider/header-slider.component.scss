@@ -18,6 +18,18 @@
     & ~ .slide-wrapper {
       left: 101%;
     }
+    .video-template {
+      .video-controller {
+        position: absolute;
+        @include center-content(50%, 50%);
+        i {
+          color: white;
+          font-size: $font-size-extraLarge;
+          cursor: pointer;
+          transition: opacity 0.5s ease;
+        }
+      }
+    }
 
     .slide {
       width: 100%;

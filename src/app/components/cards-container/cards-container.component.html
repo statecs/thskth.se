@@ -1,4 +1,4 @@
-<div id="cards-container" class="masonry-layout">
+<div *ngIf="cardsLoaded" id="cards-container" class="masonry-layout">
   <!--    <div *ngIf="!cardsLoaded" class="loader">Loading cards...</div>-->
   <app-loader *ngIf="!cardsLoaded"></app-loader>
   <div class="no-cards" *ngIf="cards?.length === 0">No cards found</div>
@@ -429,7 +429,7 @@
             *ngIf="card.card_type === 'nymble-card'"
             class="standard-card restrictions-card nymble-card"
             [ngStyle]="changeBGColor(card)"
-            routerLink="/{{lang}}/restaurants"
+            routerLink="/{{ lang }}/restaurants"
           >
             <div class="content">
               <h4>
