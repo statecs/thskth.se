@@ -1,4 +1,4 @@
-<div *ngIf="cardsLoaded" id="cards-container" class="masonry-layout">
+<div id="cards-container" class="masonry-layout">
   <!--    <div *ngIf="!cardsLoaded" class="loader">Loading cards...</div>-->
   <app-loader *ngIf="!cardsLoaded"></app-loader>
   <div class="no-cards" *ngIf="cards?.length === 0">No cards found</div>

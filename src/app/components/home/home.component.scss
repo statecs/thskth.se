@@ -3,6 +3,17 @@
 #homePage {
   position: relative;
   overflow: hidden;
+  .container {
+    width: 97%;
+    max-width: 1700px;
+    background-color: white;
+    margin: 0 auto;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    box-shadow: 0 1px 3px #b2b2b2;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+  }
   .larger-devices {
     display: block;
   }
@@ -15,7 +26,7 @@
     height: 400px;
     margin-top: 50px;
     margin-bottom: 50px;
-    max-width: 1400px;
+    max-width: 1370px;
 
     @include container-size($main-container);
     & > div {
@@ -38,7 +49,7 @@
     animation-name: fadein;
     animation-duration: 0.7s;
     @include container-size($main-container);
-    max-width: 1400px;
+    max-width: 1370px;
     margin: 0 auto;
     margin-top: 50px;
     .title {
@@ -61,7 +72,7 @@
     animation-name: fadein;
     animation-duration: 0.7s;
     @include container-size($main-container);
-    max-width: 1400px;
+    max-width: 1370px;
     margin: 0 auto;
     display: block;
   }
@@ -108,7 +119,7 @@ a.headerTitle:after {
     }
     .contact {
       @include container-size(90%);
-      max-width: 1400px;
+      max-width: 1370px;
       margin: 0 auto;
       height: auto;
       padding-top: 40px;

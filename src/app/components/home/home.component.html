@@ -1,45 +1,47 @@
 <div #homePage *ngIf="!pageNotFound" id="homePage">
   <app-primary-slider></app-primary-slider>
-  <app-card-categorizer></app-card-categorizer>
-  <app-cards-container></app-cards-container>
-  <div class="faq-slider" *ngIf="showFAQSlider">
-    <a
-      routerLink="{{ lang === 'en' ? '/help' : '/sv/help' }}"
-      class="title headerTitle"
-      >{{ lang === "en" ? "Help Center" : "Hjälpcenter" }}</a
-    >
-    <app-text-slider [lang]="lang" [slides_items]="faqs"></app-text-slider>
-  </div>
-  <div class="image-slider" *ngIf="showNewsSlider">
-    <a
-      routerLink="{{ lang === 'en' ? '/news' : '/sv/news' }}"
-      class="title headerTitle"
-      >{{ lang === "en" ? "News" : "Nyheter" }}</a
-    >
-    <app-loader *ngIf="!showNewsSlider"></app-loader>
-    <app-image-slider [lang]="lang" [slide_items]="news"></app-image-slider>
-  </div>
-  <app-cards-social-container
-    *ngIf="showSocialMediaCards"
-    [showFetchMoreBtn]="true"
-  ></app-cards-social-container>
+  <div class="container">
+    <app-card-categorizer></app-card-categorizer>
+    <app-cards-container></app-cards-container>
+    <div class="faq-slider" *ngIf="showFAQSlider">
+      <a
+        routerLink="{{ lang === 'en' ? '/help' : '/sv/help' }}"
+        class="title headerTitle"
+        >{{ lang === "en" ? "Help Center" : "Hjälpcenter" }}</a
+      >
+      <app-text-slider [lang]="lang" [slides_items]="faqs"></app-text-slider>
+    </div>
+    <div class="image-slider" *ngIf="showNewsSlider">
+      <a
+        routerLink="{{ lang === 'en' ? '/news' : '/sv/news' }}"
+        class="title headerTitle"
+        >{{ lang === "en" ? "News" : "Nyheter" }}</a
+      >
+      <app-loader *ngIf="!showNewsSlider"></app-loader>
+      <app-image-slider [lang]="lang" [slide_items]="news"></app-image-slider>
+    </div>
+    <app-cards-social-container
+      *ngIf="showSocialMediaCards"
+      [showFetchMoreBtn]="true"
+    ></app-cards-social-container>
 
-  <div class="contact larger-devices" *ngIf="showGoogleMap">
-    <div class="contact-info">
-      <app-contact-info></app-contact-info>
+    <div class="contact larger-devices" *ngIf="showGoogleMap">
+      <div class="contact-info">
+        <app-contact-info></app-contact-info>
+      </div>
+      <div class="maps">
+        <app-loader *ngIf="!showGoogleMap"></app-loader>
+        <app-google-maps *ngIf="showGoogleMap"></app-google-maps>
+      </div>
     </div>
-    <div class="maps">
-      <app-loader *ngIf="!showGoogleMap"></app-loader>
-      <app-google-maps *ngIf="showGoogleMap"></app-google-maps>
-    </div>
-  </div>
-  <div class="contact mobile-devices" *ngIf="showGoogleMap">
-    <div class="maps">
-      <app-loader *ngIf="!showGoogleMap"></app-loader>
-      <app-google-maps *ngIf="showGoogleMap"></app-google-maps>
-    </div>
-    <div class="contact-info">
-      <app-contact-info></app-contact-info>
+    <div class="contact mobile-devices" *ngIf="showGoogleMap">
+      <div class="maps">
+        <app-loader *ngIf="!showGoogleMap"></app-loader>
+        <app-google-maps *ngIf="showGoogleMap"></app-google-maps>
+      </div>
+      <div class="contact-info">
+        <app-contact-info></app-contact-info>
+      </div>
     </div>
   </div>
 </div>
