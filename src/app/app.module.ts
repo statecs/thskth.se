@@ -98,6 +98,7 @@ import { LoaderMessageComponent } from "./components/loader-message/loader-messa
 import { JoinUsComponent } from "./components/advertisements/join-us/join-us.component";
 import { EventsCardComponent } from "./components/advertisements/events-card/events-card.component";
 import { LoaderComponent } from "./components/loader/loader.component";
+import { LoaderHomeComponent } from "./components/loader-home/loader-home.component";
 import { SelectSliderComponent } from "./components/select-slider/select-slider.component";
 import { SearchComponent } from "./components/search/search.component";
 import { HeaderSliderComponent } from "./components/header-slider/header-slider.component";
@@ -178,6 +179,7 @@ import { OthersService } from "./services/wordpress/others.service";
     JoinUsComponent,
     EventsCardComponent,
     LoaderComponent,
+    LoaderHomeComponent,
     SelectSliderComponent,
     SearchComponent,
     HeaderSliderComponent,

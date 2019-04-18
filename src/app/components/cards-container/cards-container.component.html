@@ -439,10 +439,10 @@
                     : "Dagens meny " + getDate()
                 }}
               </h4>
-              <p
+              <div
                 *ngIf="restaurant && getDayIndex() <= 5 && getDayIndex() > 0"
                 [innerHTML]="restaurant.menu[getDayIndex() - 1]?.full_text"
-              ></p>
+              ></div>
               <h5 *ngIf="restaurant.weekly_menu">
                 {{
                   lang === "en"
@@ -450,14 +450,15 @@
                     : "Veckans meny v." + getWeekNumber()
                 }}
               </h5>
-              <p
+              <div
                 *ngIf="
                   restaurant.weekly_menu &&
                   getDayIndex() <= 5 &&
                   getDayIndex() > 0
                 "
-                [innerHTML]="restaurant.weekly_menu"
-              ></p>
+                [innerHTML]="restaurant.weekly_menu | cardText: 100"
+              ></div>
+
               <p
                 *ngIf="
                   restaurant && (getDayIndex() === 6 || getDayIndex() === 0)
