@@ -204,9 +204,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
       ) {
         slug = this.removeLangParamPipe.transform(slug);
       }
-      this.router.navigate([
-        "/" + this.lang + "/associations-and-chapters/" + slug
-      ]);
+      this.router.navigate(["/" + this.lang + "/list/" + slug]);
     }
   }
 
@@ -218,7 +216,7 @@ export class SubPageComponent implements AfterViewInit, OnDestroy, OnInit {
           this.subMenu = submenu;
           if (this.subMenu.length === 0) {
             this.getSubmenuEmpty();
-            this.getPageBySlug()
+            this.getPageBySlug();
           }
         },
         error => {

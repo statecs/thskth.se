@@ -516,4 +516,20 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
+  #restaurant {
+    .gallery {
+      .g-item {
+        height: 400px;
+      }
+    }
+  }
+}
+@media only screen and (min-width: 1500px) {
+  #restaurant {
+    .gallery {
+      .g-item {
+        height: 500px;
+      }
+    }
+  }
 }

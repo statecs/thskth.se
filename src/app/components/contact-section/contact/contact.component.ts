@@ -93,9 +93,7 @@ export class ContactComponent implements OnInit, OnDestroy {
       ) {
         slug = this.removeLangParamPipe.transform(slug);
       }
-      this.router.navigate([
-        "/" + this.lang + "/associations-and-chapters/" + slug
-      ]);
+      this.router.navigate(["/" + this.lang + "/list/" + slug]);
     }
   }
 

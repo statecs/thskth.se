@@ -168,7 +168,7 @@
           }
         }
         &:hover {
-          transform: scale(1.1);
+          transform: scale(1);
           border-radius: 15px;
           .content {
             height: 200px;
@@ -195,7 +195,7 @@
     .masonry-layout_panel-content.one-third-half {
       .standard-card {
         &:hover {
-          transform: scale(1.1);
+          transform: scale(1);
           border-radius: 15px;
           .content {
             //padding: 0 40px;
@@ -1044,8 +1044,8 @@
   .standard-card {
     &:hover {
       .content {
-        padding: 0 40px;
-        height: 200px;
+        padding: 35px 20px;
+        height: 100px !important;
       }
     }
   }

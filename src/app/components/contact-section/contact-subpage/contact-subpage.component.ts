@@ -158,9 +158,7 @@ export class ContactSubpageComponent
       ) {
         slug = this.removeLangParamPipe.transform(slug);
       }
-      this.router.navigate([
-        "/" + this.lang + "/associations-and-chapters/" + slug
-      ]);
+      this.router.navigate(["/" + this.lang + "/list/" + slug]);
     }
   }
 
@@ -183,7 +181,6 @@ export class ContactSubpageComponent
         submenu => {
           this.subMenu = submenu;
           if (this.subMenu.length === 0) {
-            console.log("hejsan,", this.subMenu);
             this.getSubmenuEmpty();
           }
         },
@@ -303,7 +300,6 @@ export class ContactSubpageComponent
   ngAfterViewInit() {
     const self = this;
     setTimeout(function() {
-      console.log(self.submenu_bar.nativeElement.offsetTop);
       self.submenu_bar_pos = self.submenu_bar.nativeElement.offsetTop;
       self.toggle_freeze_submenu_bar();
     }, 1000);

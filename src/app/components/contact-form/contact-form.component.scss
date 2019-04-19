@@ -72,9 +72,11 @@ form {
   }
 
   button {
-    @include standard-button(10px 25px);
+    @include standard-button(15px 50px);
+    border-radius: 30px;
     margin-top: 20px;
     cursor: pointer;
+    font-size: 1em;
   }
 }
 

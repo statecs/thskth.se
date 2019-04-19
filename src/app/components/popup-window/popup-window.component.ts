@@ -22,6 +22,7 @@ import { PagesService } from "../../services/wordpress/pages.service";
 import { SanitizeHtmlPipe } from "../../pipes/sanitizeHtml.pipe";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Post } from "../../interfaces-and-classes/post";
+import { TitleCommunicationService } from "../../services/component-communicators/title-communication.service";
 
 @Component({
   selector: "app-popup-window",
@@ -74,6 +75,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     private _cookieService: CookieService,
     private router: Router,
     private domSanitizer: DomSanitizer,
+    private titleCommunicationService: TitleCommunicationService,
     private notificationBarCommunicationService: NotificationBarCommunicationService
   ) {
     this.sanitizeHtmlPipe = new SanitizeHtmlPipe(domSanitizer);
@@ -203,11 +205,11 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     }
     if (this.showAssociation) {
       if (this.lang === "sv") {
-        this.location.go("sv/associations-and-chapters/");
-        this.router.navigate(["sv/associations-and-chapters"]);
+        this.location.go("sv/list/");
+        this.router.navigate(["sv/list"]);
       } else {
-        this.location.go("en/associations-and-chapters/");
-        this.router.navigate(["en/associations-and-chapters"]);
+        this.location.go("en/list/");
+        this.router.navigate(["en/list"]);
       }
     }
     if (this.showNews) {
@@ -306,6 +308,14 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.show_popup_window();
   }
 
+  unStringify(input) {
+    return input
+      .toLowerCase()
+      .split("-")
+      .map(i => i[0].toUpperCase() + i.substr(1))
+      .join(" ");
+  }
+
   ngOnInit() {
     this.router.events
       .filter(event => event instanceof RoutesRecognized)
@@ -319,35 +329,41 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     this.appCommunicationService.collapseScrollOnPage("show");
     this.popup_window_updater = this.popupWindowCommunicationService.pageNotifyObservable$.subscribe(
       slug => {
+        this.titleCommunicationService.setTitle(this.unStringify(slug));
         this.show_page_in_popup(slug);
       }
     );
     this.popup_window_event_updater = this.popupWindowCommunicationService.eventNotifyObservable$.subscribe(
       event => {
         this.loading = false;
+        this.titleCommunicationService.setTitle(event.title);
         this.show_event_in_popup(event);
       }
     );
     this.popup_window_association_updater = this.popupWindowCommunicationService.associationNotifyObservable$.subscribe(
       arg => {
         this.loading = false;
+        this.titleCommunicationService.setTitle(arg.association.title);
         this.show_association_in_popup(arg);
       }
     );
     this.popup_window_archive_updater = this.popupWindowCommunicationService.archiveNotifyObservable$.subscribe(
       archive => {
         this.loading = false;
+        this.titleCommunicationService.setTitle(archive.title);
         this.show_archive_in_popup(archive);
       }
     );
     this.popup_window_faq_updater = this.popupWindowCommunicationService.faqNotifyObservable$.subscribe(
       faq => {
         this.loading = false;
+        this.titleCommunicationService.setTitle(faq.question);
         this.show_faq_in_popup(faq);
       }
     );
     this.popup_window_hide_updater = this.popupWindowCommunicationService.hideNotifyObservable$.subscribe(
       arg => {
+        this.titleCommunicationService.setTitle("THS - Student Union at KTH");
         if (this.showPopupWindow && arg.hidden === true) {
           this.navigateBack = arg.navigateBack;
           this.hide_popup_window();
@@ -363,6 +379,7 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
       arg => {
         this.loading = true;
         if (arg) {
+          this.titleCommunicationService.setTitle(arg.article.title);
           this.loading = false;
           this.page_location = arg.page_location;
           this.show_news_in_popup(arg.article);

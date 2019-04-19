@@ -118,9 +118,7 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
       ) {
         slug = this.removeLangParamPipe.transform(slug);
       }
-      this.router.navigate([
-        "/" + this.language + "/associations-and-chapters/" + slug
-      ]);
+      this.router.navigate(["/" + this.language + "/list/" + slug]);
     }
   }
 

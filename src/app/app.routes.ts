@@ -33,12 +33,12 @@ const appRoutes: Routes = [
     data: { title: "User profile", lang: "en" }
   },
   {
-    path: "associations-and-chapters",
+    path: "list",
     component: ChaptersAssociationsComponent,
     data: { title: "Chapters and Associations", lang: "en" }
   },
   {
-    path: "associations-and-chapters/:slug",
+    path: "list/:slug",
     component: ChaptersAssociationsComponent,
     data: { title: "Chapters and Associations", lang: "en" }
   },
@@ -127,12 +127,12 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: ":lang/associations-and-chapters",
+    path: ":lang/list",
     component: ChaptersAssociationsComponent,
     data: { title: "Chapters and Associations" }
   },
   {
-    path: ":lang/associations-and-chapters/:slug",
+    path: ":lang/list/:slug",
     component: ChaptersAssociationsComponent,
     data: { title: "Chapters and Associations" }
   },

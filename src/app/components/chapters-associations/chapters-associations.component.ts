@@ -210,9 +210,9 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       relatedAssociations: relatedAssociations
     });
     if (this.lang === "sv") {
-      this.location.go("sv/associations-and-chapters/" + item.slug);
+      this.location.go("sv/list/" + item.slug);
     } else {
-      this.location.go("en/associations-and-chapters/" + item.slug);
+      this.location.go("en/list/" + item.slug);
     }
   }
 
@@ -251,15 +251,15 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       this.searchChapters();
       this.searchOthers();
       if (this.lang === "sv") {
-        this.location.go("sv/associations-and-chapters?q=" + this.searchTerm);
+        this.location.go("sv/list?q=" + this.searchTerm);
       } else {
-        this.location.go("en/associations-and-chapters?q=" + this.searchTerm);
+        this.location.go("en/list?q=" + this.searchTerm);
       }
     } else {
       if (this.lang === "sv") {
-        this.location.go("sv/associations-and-chapters");
+        this.location.go("sv/list");
       } else {
-        this.location.go("en/associations-and-chapters");
+        this.location.go("en/list");
       }
     }
   }
@@ -683,13 +683,9 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
           } else {
             if (params["q"] && !this.pageNotFound) {
               if (this.lang === "sv") {
-                this.router.navigate([
-                  "sv/associations-and-chapters/" + this.slug
-                ]);
+                this.router.navigate(["sv/list/" + this.slug]);
               } else {
-                this.router.navigate([
-                  "en/associations-and-chapters/" + this.slug
-                ]);
+                this.router.navigate(["en/list/" + this.slug]);
               }
             }
           }
@@ -703,9 +699,9 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
           self.renderer.listen(self.searchField.nativeElement, "search", () => {
             if (self.searchTerm === "") {
               if (this.lang === "sv") {
-                self.router.navigate(["sv/associations-and-chapters"]);
+                self.router.navigate(["sv/list"]);
               } else {
-                self.router.navigate(["en/associations-and-chapters"]);
+                self.router.navigate(["en/list"]);
               }
               self.showChapters = false;
               self.showAssociations = true;
