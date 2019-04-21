@@ -418,8 +418,8 @@
             [ngStyle]="changeBGColor(card)"
           >
             <div class="content">
-              <h4>{{ card.title }}</h4>
-              <p [innerHTML]="card.content"></p>
+              <h4 [innerHTML]="restriction[0].title"></h4>
+              <p [innerHTML]="restriction[0].content"></p>
               <!--<a *ngIf="card.card_primary_buttons.length === 0" type="button">{{(lang === 'en' ? 'Read more' : 'Läs mer')}}</a>-->
               <!--<a type="button" *ngFor="let b of card.card_primary_buttons" (click)="goToPage(b.link)">{{b.text}}</a>-->
             </div>

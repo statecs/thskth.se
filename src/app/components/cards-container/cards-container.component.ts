@@ -20,6 +20,7 @@ import { ths_calendars } from "../../utils/ths-calendars";
 import { Location } from "@angular/common";
 import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
 import { RestaurantService } from "../../services/wordpress/restaurant.service";
+import { RestrictionService } from "../../services/wordpress/restriction.service";
 import { Restaurant } from "../../interfaces-and-classes/restaurant";
 import * as _ from "lodash";
 
@@ -51,8 +52,10 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   public cardsSubscription: Subscription;
   public eventsSubscription: Subscription;
   public restaurantUpdater: Subscription;
+  public restrictionUpdater: Subscription;
   public deviceSize: number;
   public restaurant: Restaurant;
+  public restriction: any;
   public date: Date;
   public dateDay: any;
 
@@ -66,7 +69,8 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
-    private restaurantService: RestaurantService
+    private restaurantService: RestaurantService,
+    private restrictionService: RestrictionService
   ) {
     this.config = injector.get(APP_CONFIG);
     this.selected_event_category = 0;
@@ -301,6 +305,33 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     return a < b ? -1 : a > b ? 1 : 0;
   }
 
+  getRestrictions(): void {
+    if (localStorage.getItem("getRestrictions_sv") && this.lang === "sv") {
+      this.restriction = JSON.parse(localStorage.getItem("getRestrictions_sv"));
+    } else if (
+      localStorage.getItem("getRestrictions_en") &&
+      this.lang === "en"
+    ) {
+      this.restriction = JSON.parse(localStorage.getItem("getRestrictions_en"));
+    } else {
+      this.restrictionUpdater = this.restrictionService
+        .getRestrictions(this.lang)
+        .subscribe(
+          res => {
+            this.restriction = res;
+            if (this.lang === "sv") {
+              localStorage.setItem("getRestrictions_sv", JSON.stringify(res));
+            } else {
+              localStorage.setItem("getRestrictions_en", JSON.stringify(res));
+            }
+          },
+          error => {
+            this.restriction = null;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
+  }
   getRestaurantMenu(): void {
     if (localStorage.getItem("getRestaurantMenu_sv") && this.lang === "sv") {
       this.restaurant = JSON.parse(
@@ -386,6 +417,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
 
     // this.getCalendar(ths_calendars.events.calendarId);
     this.getRestaurantMenu();
+    this.getRestrictions();
   }
 
   ngOnDestroy() {
@@ -403,6 +435,9 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     }
     if (this.restaurantUpdater) {
       this.restaurantUpdater.unsubscribe();
+    }
+    if (this.restrictionUpdater) {
+      this.restrictionUpdater.unsubscribe();
     }
   }
 }

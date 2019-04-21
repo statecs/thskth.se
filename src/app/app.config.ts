@@ -38,6 +38,7 @@ export let appConfig: AppConfig = {
   CHAPTER_URL: BASE_WP + "/api/wp/v2/chapter",
   OTHER_URL: BASE_WP + "/api/wp/v2/other",
   RESTAURANT_URL: BASE_WP + "/api/wp/v2/restaurant",
+  RESTRICTION_URL: BASE_WP + "/api/wp/v2/restriction",
   CATEGORIES_URL: BASE_WP + "/api/wp/v2/categories",
   RECAPTCHA_PUBLICKEY: "6Lf68iYTAAAAAIFMPKffFO9vYNJ7KRgQVWP9H_ac",
   XHR_CONTACT_FORM: "https://thskth.se/scripts/xhr-contact-form.php",

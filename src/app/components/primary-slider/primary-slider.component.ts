@@ -371,9 +371,6 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
                     }
                   }
                   this.fetching = false;
-                  this.notificationBarCommunicationService.send_data(
-                    "Error loading the page"
-                  );
                 },
                 error => {
                   this.fetching = false;
@@ -426,9 +423,6 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
                 }
               }
               this.fetching = false;
-              this.notificationBarCommunicationService.send_data(
-                "Error loading the page"
-              );
             },
             error => {
               this.fetching = false;

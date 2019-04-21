@@ -9,7 +9,14 @@
     }"
   >
     <div class="icon"><span>!</span></div>
-    <p [innerHTML]="notification?.message"></p>
+    <p
+      *ngIf="notification?.message === ''"
+      [innerHTML]="notification?.title"
+    ></p>
+    <p
+      *ngIf="notification?.message !== ''"
+      [innerHTML]="notification?.message"
+    ></p>
     <span class="close-btn" (click)="closeBar()"
       ><div class="svg-close w-18 text-white">
         <svg

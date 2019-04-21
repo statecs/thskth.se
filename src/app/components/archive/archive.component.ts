@@ -192,7 +192,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   displayMeetingDocuments(): void {
     this.showPolicyDocuments = false;
     if (this.showMeetingDocuments !== true) {
-      this.categoryID = 354;
+      this.categoryID = 445;
       this.searchDocuments();
       this.showResults = true;
       this.showMeetingDocuments = true;
@@ -207,7 +207,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.showMeetingDocuments = false;
     this.moreDocumentsExist = false;
     if (this.showPolicyDocuments !== true) {
-      this.categoryID = 441;
+      this.categoryID = 446;
       this.searchDocuments();
       this.showResults = true;
       this.showPolicyDocuments = true;

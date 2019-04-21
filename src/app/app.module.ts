@@ -28,6 +28,7 @@ import { CardsService } from "./services/wordpress/cards.service";
 import { SearchMenubarCommunicationService } from "./services/component-communicators/search-menubar-communication.service";
 import { ArchiveService } from "./services/wordpress/archive.service";
 import { RestaurantService } from "./services/wordpress/restaurant.service";
+import { RestrictionService } from "./services/wordpress/restriction.service";
 import { SelectSliderCommunicationService } from "./services/component-communicators/select-slider-communication.service";
 import { PostsService } from "./services/wordpress/posts.service";
 import { ImageSliderCommunicationService } from "./services/component-communicators/image-slider-communication.service";
@@ -226,6 +227,7 @@ import { OthersService } from "./services/wordpress/others.service";
     SearchMenubarCommunicationService,
     ArchiveService,
     RestaurantService,
+    RestrictionService,
     SelectSliderCommunicationService,
     PostsService,
     ImageSliderCommunicationService,
