@@ -175,9 +175,9 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       typeof card.background_color === "undefined" ||
       card.background_image !== ""
     ) {
-      return {};
+      return { color: card.color };
     } else {
-      return { "background-color": card.background_color };
+      return { "background-color": card.background_color, color: card.color };
     }
   }
 

@@ -17,6 +17,7 @@ export interface CardCategory {
 export interface SubCard {
   title: string;
   background_color: string;
+  color: string;
   background_image: any;
   slug: string;
   slug_to_page: string;
@@ -38,6 +39,7 @@ export interface Card {
   link_url: string;
   item_id: string;
   background_color: string;
+  color: string;
   background_image: any;
   card_type: string;
   menu_order: number;
@@ -103,6 +105,7 @@ export class Card implements Card {
           c.link_url,
           c.acf.item_id,
           c.acf.background_color,
+          c.acf.color,
           bg_img,
           c.acf.card_type,
           c.menu_order,
@@ -128,6 +131,7 @@ export class Card implements Card {
       subCards.push({
         title: c.title,
         background_color: c.background_color,
+        color: c.color,
         background_image: bg_image,
         slug: this.getSubCardSlug(c.slug_to_page),
         slug_to_page: c.slug_to_page,
@@ -157,6 +161,7 @@ export class Card implements Card {
     public link_url: string,
     public item_id: string,
     public background_color: string,
+    public color: string,
     public background_image: any,
     public card_type: string,
     public menu_order: number,

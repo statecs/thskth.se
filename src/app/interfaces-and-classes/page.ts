@@ -32,10 +32,6 @@ export interface IPage {
     number_of_columns: number;
     items: ImageGalleryItem[];
   };
-  text_gallery: {
-    number_of_columns: number;
-    items: TextGalleryItem[];
-  };
   related_links: RelatedLink[];
   author: Author;
 }
@@ -52,17 +48,12 @@ export class Page implements IPage {
     number_of_columns: number;
     items: ImageGalleryItem[];
   };
-  text_gallery: {
-    number_of_columns: number;
-    items: TextGalleryItem[];
-  };
   related_links: RelatedLink[];
   author: Author;
 
   static convertToPageType(res) {
     let page: Page;
     let header_image = "";
-    let text_gallery: TextGallery;
     let image_gallery: ImageGallery;
     let related_links: RelatedLink[];
     let author: Author = {
@@ -72,9 +63,6 @@ export class Page implements IPage {
     if (res) {
       if (res.featured_image_url) {
         header_image = res.featured_image_url;
-      }
-      if (res.acf.ths_text_gallery) {
-        text_gallery = this.castResToTextGalleryType(res);
       }
       if (res.acf.ths_image_gallery) {
         image_gallery = this.castResToImageGalleryType(res);
@@ -100,7 +88,6 @@ export class Page implements IPage {
         },
         template: res.acf.template,
         image_gallery: image_gallery,
-        text_gallery: text_gallery,
         related_links: related_links,
         author: author
       };
@@ -131,28 +118,6 @@ export class Page implements IPage {
     });
     return {
       number_of_columns: res.acf.ths_image_gallery[0].number_of_columns,
-      items: items
-    };
-  }
-
-  static castResToTextGalleryType(res) {
-    const items: TextGalleryItem[] = [];
-    let number_of_columns = 0;
-    if (res.acf.ths_text_gallery[0].gallery_items) {
-      res.acf.ths_text_gallery[0].gallery_items.forEach(item => {
-        items.push({
-          title: item.title,
-          url: item.url,
-          description: item.description
-        });
-      });
-    }
-
-    if (res.acf.ths_text_gallery[0]) {
-      number_of_columns = res.acf.ths_text_gallery[0].number_of_columns;
-    }
-    return {
-      number_of_columns: number_of_columns,
       items: items
     };
   }

@@ -45,7 +45,7 @@ add_action('acf/include_field_types', 'include_field_types_unique_id');*/
 /* add_shortcode('dummy', array( 'THS_Shortcode', 'seances') );
 add_filter('get_the_excerpt', 'do_shortcode', 99);*/
 
-/* add_filter( 'rest_url_prefix', function( $prefix ) { return 'api'; } );*/
+add_filter( 'rest_url_prefix', function( $prefix ) { return 'api'; } );
 
 /**
 * 1. WP API
@@ -979,3 +979,21 @@ update_option( 'link_manager_enabled', 0 );
     }
     
 
+    function sa_sanitize_spanish_chars($filename) {
+        $ext = end(explode('.',$filename));
+        $sanitized = preg_replace('/[^a-zA-Z0-9-_.]/','', substr($filename, 0, -(strlen($ext)+1)));
+        $sanitized = str_replace('.','-', $sanitized);
+        return strtolower($sanitized.'.'.$ext);
+    }
+    
+    add_filter('sanitize_file_name', 'sa_sanitize_spanish_chars', 10);
+
+    function my_rest_prepare_post( $data, $post, $request ) {
+        $_data = $data->data;
+        $thumbnail_id = get_post_thumbnail_id( $post->ID );
+        $thumbnail = wp_get_attachment_image_src( $thumbnail_id, 'full' );
+        $_data['featured_image_url'] = $thumbnail[0];
+        $data->data = $_data;
+        return $data;
+    }
+    add_filter( 'rest_prepare_post', 'my_rest_prepare_post', 10, 3 );
