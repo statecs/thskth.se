@@ -51,20 +51,22 @@ export class FaqsService extends WordpressBaseDataService<FAQ> {
                   this.language
               )
               .map(res => {
-                let cat_slug = "";
-                if (category.slug) {
-                  cat_slug = category.slug;
+                if (res.length !== 0) {
+                  let cat_slug = "";
+                  if (category.slug) {
+                    cat_slug = category.slug;
+                  }
+                  const faq: FAQ = {
+                    id: res[0].id,
+                    question: res[0].title.rendered,
+                    answer: res[0].content.rendered,
+                    slug: res[0].slug,
+                    category_name: category.name,
+                    category_slug: cat_slug,
+                    faq_category: res[0].faq_category
+                  };
+                  return faq;
                 }
-                const faq: FAQ = {
-                  id: res[0].id,
-                  question: res[0].title.rendered,
-                  answer: res[0].content.rendered,
-                  slug: res[0].slug,
-                  category_name: category.name,
-                  category_slug: cat_slug,
-                  faq_category: res[0].faq_category
-                };
-                return faq;
               });
           })
         );

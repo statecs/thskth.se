@@ -40,6 +40,7 @@ export class OthersService extends WordpressBaseDataService<Other> {
       this.getData(null, "per_page=100&order=asc&_embed" + "&lang=" + lang)
         // Cast response data to FAQ Category type
         .map((res: any) => {
+          console.log(res);
           return Other.convertToOtherType(res);
         })
     );

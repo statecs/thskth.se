@@ -99,7 +99,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
           this.slideshow_play_btn = "play_arrow";
           this.slideIndex--;
           if (this.slideIndex < 0) {
-            this.slideIndex = 4;
+            this.slideIndex = this.slides.length - 1;
           }
 
           this.showSlide();
@@ -353,23 +353,30 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
               .getAllPrimarySlides(this.lang)
               .subscribe(
                 slides => {
-                  this.fetching = false;
-                  clearInterval(this.mainSlide_timer);
-                  this.slides = slides;
-                  this.startMainSlider();
-                  if (this.lang === "sv") {
-                    localStorage.setItem(
-                      "primarySlides_sv",
-                      JSON.stringify(slides)
-                    );
-                  } else {
-                    localStorage.setItem(
-                      "primarySlides_en",
-                      JSON.stringify(slides)
-                    );
+                  if (slides.length !== 0) {
+                    this.fetching = false;
+                    clearInterval(this.mainSlide_timer);
+                    this.slides = slides;
+                    this.startMainSlider();
+                    if (this.lang === "sv") {
+                      localStorage.setItem(
+                        "primarySlides_sv",
+                        JSON.stringify(slides)
+                      );
+                    } else {
+                      localStorage.setItem(
+                        "primarySlides_en",
+                        JSON.stringify(slides)
+                      );
+                    }
                   }
+                  this.fetching = false;
+                  this.notificationBarCommunicationService.send_data(
+                    "Error loading the page"
+                  );
                 },
                 error => {
+                  this.fetching = false;
                   this.notificationBarCommunicationService.send_data(error);
                 }
               );
@@ -400,24 +407,31 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
           .getAllPrimarySlides(this.lang)
           .subscribe(
             slides => {
-              this.fetching = false;
-              clearInterval(this.mainSlide_timer);
-              this.slides = slides;
-              this.showSlide();
-              this.startMainSlider();
-              if (this.lang === "sv") {
-                localStorage.setItem(
-                  "primarySlides_sv",
-                  JSON.stringify(slides)
-                );
-              } else {
-                localStorage.setItem(
-                  "primarySlides_en",
-                  JSON.stringify(slides)
-                );
+              if (slides.length !== 0) {
+                this.fetching = false;
+                clearInterval(this.mainSlide_timer);
+                this.slides = slides;
+                this.showSlide();
+                this.startMainSlider();
+                if (this.lang === "sv") {
+                  localStorage.setItem(
+                    "primarySlides_sv",
+                    JSON.stringify(slides)
+                  );
+                } else {
+                  localStorage.setItem(
+                    "primarySlides_en",
+                    JSON.stringify(slides)
+                  );
+                }
               }
+              this.fetching = false;
+              this.notificationBarCommunicationService.send_data(
+                "Error loading the page"
+              );
             },
             error => {
+              this.fetching = false;
               this.notificationBarCommunicationService.send_data(error);
             }
           );

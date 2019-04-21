@@ -86,21 +86,19 @@ export class Chapter implements IChapter {
 
   static convertToChapterType(data: any) {
     const chapters: Chapter[] = [];
-    data.forEach(c => {
-      let image = "";
-      if (c._embedded) {
-        image = c._embedded["wp:featuredmedia"][0].source_url;
-      }
-      chapters.push({
-        id: c.id,
-        title: c.title.rendered,
-        description: c.content.rendered,
-        contact: c.acf.contact,
-        slug: c.slug,
-        header_slides: this.getHeaderSlides(c.acf.slides)
+    if (data) {
+      data.forEach(c => {
+        chapters.push({
+          id: c.id,
+          title: c.title.rendered,
+          description: c.content.rendered,
+          contact: c.acf.contact,
+          slug: c.slug,
+          header_slides: this.getHeaderSlides(c.acf.slides)
+        });
       });
-    });
-    return chapters;
+      return chapters;
+    }
   }
   static getHeaderSlides(data: any) {
     const slides: HeaderSlide[] = [];
@@ -142,21 +140,19 @@ export class Other implements IOther {
 
   static convertToOtherType(data: any) {
     const others: Other[] = [];
-    data.forEach(c => {
-      let image = "";
-      if (c._embedded) {
-        image = c._embedded["wp:featuredmedia"][0].source_url;
-      }
-      others.push({
-        id: c.id,
-        title: c.title.rendered,
-        description: c.content.rendered,
-        contact: c.acf.contact,
-        slug: c.slug,
-        header_slides: this.getHeaderSlides(c.acf.slides)
+    if (data) {
+      data.forEach(c => {
+        others.push({
+          id: c.id,
+          title: c.title.rendered,
+          description: c.content.rendered,
+          contact: c.acf.contact,
+          slug: c.slug,
+          header_slides: this.getHeaderSlides(c.acf.slides)
+        });
       });
-    });
-    return others;
+      return others;
+    }
   }
   static getHeaderSlides(data: any) {
     const slides: HeaderSlide[] = [];

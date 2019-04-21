@@ -11,7 +11,7 @@
         class="slide-wrapper"
         [style.width]="100 / slides_items?.length + '%'"
       >
-        <div class="slide">
+        <div class="slide" *ngIf="item">
           <a
             class="category"
             [innerHTML]="item.category_name"

@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" *ngIf="item_exist && !pageNotFound && !showingPopup">
   <div class="default-header"></div>
 </div>
 <app-loader
@@ -126,8 +126,8 @@
       </div>
     </div>
 
-    <div *ngIf="showOthers && otherResults !== '' && !documentsLoading">
-      <h1 class="section_header" *ngIf="otherResults.length !== 0">
+    <div *ngIf="showOthers && otherResults && !documentsLoading">
+      <h1 class="section_header" *ngIf="otherResults">
         {{ lang === "en" ? "Others" : "Övrigt" }}
       </h1>
       <div *ngIf="layout_grid" class="grid">

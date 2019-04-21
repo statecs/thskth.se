@@ -20,7 +20,7 @@ import { CookieService } from "ngx-cookie";
 import { SearchMenubarCommunicationService } from "../../services/component-communicators/search-menubar-communication.service";
 import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
 import { PopupWindowCommunicationService } from "../../services/component-communicators/popup-window-communication.service";
-import { PlatformLocation } from "@angular/common";
+import { PlatformLocation, Location } from "@angular/common";
 import { Post } from "../../interfaces-and-classes/post";
 import { FAQ } from "../../interfaces-and-classes/faq";
 
@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   private newsFetched: boolean;
 
   constructor(
+    private location: Location,
     private textSliderCommunicationService: TextSliderCommunicationService,
     private faqsService: FaqsService,
     private router: Router,
@@ -191,9 +192,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.titleCommunicationService.setTitle("THS - Student Union at KTH");
 
     if (this._cookieService.get("language") === "sv") {
-      this.router.navigate(["/sv"]);
+      this.location.go("/sv");
     } else {
-      this.router.navigate(["/en"]);
+      //  this.location.go("/en");
     }
   }
 

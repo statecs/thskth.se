@@ -13,6 +13,7 @@ import { Event } from "../../interfaces-and-classes/event";
 import { ths_calendars, THSCalendar } from "../../utils/ths-calendars";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
+import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
 import {
   CardsSocialContainerComponentService,
   CardsSocialContainerViewModel
@@ -42,6 +43,7 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
 
   constructor(
     private viewModelService: CardsSocialContainerComponentService,
+    private notificationBarCommunicationService: NotificationBarCommunicationService,
     private activatedRoute: ActivatedRoute
   ) {
     this.showEventCalendar = false;
@@ -78,7 +80,7 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
         this.viewModel = viewModel;
       },
       error => {
-        console.log(error);
+        this.notificationBarCommunicationService.send_data(error);
       }
     );
   }

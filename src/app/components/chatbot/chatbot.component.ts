@@ -79,7 +79,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
             response: {
               message: {
                 en:
-                  'Great! Was kind of help do you need? <a href="https://www.w3schools.com">Visit W3Schools.com!</a> <img src="https://wp.kths.se/wp-content/uploads/2016/08/2.png" alt="Smiley face" height="42" width="42">',
+                  'Great! Was kind of help do you need? <a href="https://www.w3schools.com">Visit W3Schools.com!</a> <img src="https://cdn.thskth.se/wp-content/uploads/2016/08/2.png" alt="Smiley face" height="42" width="42">',
                 sv: "Bra! Var är det du vill ha hjälp med?"
               },
               info: {
@@ -115,9 +115,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                   response: {
                     message: {
                       en:
-                        "Ok! Here comes some contact info: <img src='https://wp.kths.se/wp-content/uploads/2016/08/2.png'>",
+                        "Ok! Here comes some contact info: <img src='https://cdn.thskth.se/wp-content/uploads/2016/08/2.png'>",
                       sv:
-                        "Ok! Här följer lite kontaktinformation <img src='https://wp.kths.se/wp-content/uploads/2016/08/2.png'>"
+                        "Ok! Här följer lite kontaktinformation <img src='https://cdn.thskth.se/wp-content/uploads/2016/08/2.png'>"
                     },
                     info: null,
                     type: "response"

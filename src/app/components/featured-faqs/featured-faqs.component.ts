@@ -33,6 +33,7 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
   public faqsSubscription3: Subscription;
   public paramsSubscription: Subscription;
   public lang: string;
+  public fetching: boolean;
 
   constructor(
     private faqsService: FaqsService,
@@ -130,50 +131,60 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
         .getFAQs_BySlug(this.most_asked_questions_slugs[0], this.lang)
         .subscribe(
           faq => {
-            const faqs: FAQ[] = [];
-            faqs.push(faq);
-            this.faqsSubscription2 = this.faqsService
-              .getFAQs_BySlug(this.most_asked_questions_slugs[1], this.lang)
-              .subscribe(
-                faq2 => {
-                  faqs.push(faq2);
-                  this.faqsSubscription3 = this.faqsService
-                    .getFAQs_BySlug(
-                      this.most_asked_questions_slugs[2],
-                      this.lang
-                    )
-                    .subscribe(
-                      faq3 => {
-                        faqs.push(faq3);
-                        if (this.lang === "sv") {
-                          localStorage.setItem(
-                            "getFAQs_BySlug_sv",
-                            JSON.stringify(faqs)
-                          );
-                        } else {
-                          localStorage.setItem(
-                            "getFAQs_BySlug_en",
-                            JSON.stringify(faqs)
+            if (faq) {
+              const faqs: FAQ[] = [];
+              faqs.push(faq);
+              this.faqsSubscription2 = this.faqsService
+                .getFAQs_BySlug(this.most_asked_questions_slugs[1], this.lang)
+                .subscribe(
+                  faq2 => {
+                    faqs.push(faq2);
+                    this.faqsSubscription3 = this.faqsService
+                      .getFAQs_BySlug(
+                        this.most_asked_questions_slugs[2],
+                        this.lang
+                      )
+                      .subscribe(
+                        faq3 => {
+                          if (faq3) {
+                            faqs.push(faq3);
+                            if (this.lang === "sv") {
+                              localStorage.setItem(
+                                "getFAQs_BySlug_sv",
+                                JSON.stringify(faqs)
+                              );
+                            } else {
+                              localStorage.setItem(
+                                "getFAQs_BySlug_en",
+                                JSON.stringify(faqs)
+                              );
+                            }
+                            this.most_asked_faqs = faqs;
+                            this.fetching = false;
+                          }
+                        },
+                        error => {
+                          this.most_asked_faqs = [];
+                          this.fetching = false;
+                          this.notificationBarCommunicationService.send_data(
+                            error
                           );
                         }
-                        this.most_asked_faqs = faqs;
-                      },
-                      error => {
-                        this.most_asked_faqs = [];
-                        this.notificationBarCommunicationService.send_data(
-                          error
-                        );
-                      }
-                    );
-                },
-                error => {
-                  this.most_asked_faqs = [];
-                  this.notificationBarCommunicationService.send_data(error);
-                }
-              );
+                      );
+                  },
+                  error => {
+                    this.most_asked_faqs = [];
+                    this.fetching = false;
+                    this.notificationBarCommunicationService.send_data(error);
+                  }
+                );
+            }
+            this.fetching = false;
+            this.most_asked_faqs = [];
           },
           error => {
             this.most_asked_faqs = [];
+            this.fetching = false;
             this.notificationBarCommunicationService.send_data(error);
           }
         );
@@ -181,6 +192,7 @@ export class FeaturedFaqsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.fetching = true;
     this.paramsSubscription = this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.lang = params["lang"];

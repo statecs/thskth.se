@@ -205,9 +205,11 @@ export class PopupWindowComponent implements OnInit, OnDestroy {
     }
     if (this.showAssociation) {
       if (this.lang === "sv") {
+        this.titleCommunicationService.setTitle("Föreningar och Sektioner");
         this.location.go("sv/list/");
         this.router.navigate(["sv/list"]);
       } else {
+        this.titleCommunicationService.setTitle("Associations and Chapters");
         this.location.go("en/list/");
         this.router.navigate(["en/list"]);
       }

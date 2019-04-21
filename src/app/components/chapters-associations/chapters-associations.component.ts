@@ -128,8 +128,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.associations = [
       {
         category: {
-          en: "Career and consulting",
-          sv: "Karriär och rådgivning"
+          en: "Career opportunities",
+          sv: "Karriär möjligheter"
         },
         associations: this.career_associations
       },
@@ -175,14 +175,10 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   }
 
   checkResults(): void {
-    if (
-      this.associationResults.length === 0 &&
-      this.chapterResults.length === 0 &&
-      this.otherResults.length === 0
-    ) {
-      this.noResults = true;
-    } else {
+    if (this.associationResults && this.chapterResults && this.otherResults) {
       this.noResults = false;
+    } else {
+      this.noResults = true;
     }
     this.documentsLoading = false;
   }
@@ -386,6 +382,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   }
 
   getOthers(): void {
+    this.otherResults = [];
     this.documentsLoading = true;
     this.showOthers = true;
 
@@ -400,22 +397,24 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         .getOthers(this.lang)
         .subscribe(
           res => {
-            const mergedArrays = this.mergeArrays(res);
-            const sortedArrays = mergedArrays.sort(this.sortArrayByName);
+            if (res) {
+              const mergedArrays = this.mergeArrays(res);
+              const sortedArrays = mergedArrays.sort(this.sortArrayByName);
 
-            this.otherResults = sortedArrays;
-            this.checkResults();
+              this.otherResults = sortedArrays;
 
-            if (this.lang === "sv") {
-              localStorage.setItem(
-                "getOthers_sv",
-                JSON.stringify(sortedArrays)
-              );
-            } else {
-              localStorage.setItem(
-                "getOthers_en",
-                JSON.stringify(sortedArrays)
-              );
+              if (this.lang === "sv") {
+                localStorage.setItem(
+                  "getOthers_sv",
+                  JSON.stringify(sortedArrays)
+                );
+              } else {
+                localStorage.setItem(
+                  "getOthers_en",
+                  JSON.stringify(sortedArrays)
+                );
+              }
+              this.checkResults();
             }
           },
           error => {
@@ -481,11 +480,13 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
                 JSON.stringify(sortedArrays)
               );
             }
-
             this.allocateAssociations(sortedArrays);
+            this.otherResults = [];
+            this.chapterResults = [];
             this.checkResults();
           },
           error => {
+            this.noResults = true;
             this.documentsLoading = false;
             this.notificationBarCommunicationService.send_data(error);
           }

@@ -43,6 +43,21 @@ const appRoutes: Routes = [
     data: { title: "Chapters and Associations", lang: "en" }
   },
   {
+    path: "association/:slug",
+    component: ChaptersAssociationsComponent,
+    data: { title: "Chapters and Associations", lang: "en" }
+  },
+  {
+    path: "chapter/:slug",
+    component: ChaptersAssociationsComponent,
+    data: { title: "Chapters and Associations", lang: "en" }
+  },
+  {
+    path: "other/:slug",
+    component: ChaptersAssociationsComponent,
+    data: { title: "Chapters and Associations", lang: "en" }
+  },
+  {
     path: "documents",
     component: ArchiveComponent,
     data: { title: "Documnets", lang: "en" }
@@ -73,7 +88,22 @@ const appRoutes: Routes = [
     data: { title: "Help", lang: "en" }
   },
   {
+    path: "ths-faqs/:slug",
+    component: SupportComponent,
+    data: { title: "Help", lang: "en" }
+  },
+  {
     path: "restaurants",
+    component: RestaurantsComponent,
+    data: { title: "Restaurant and Café", lang: "en" }
+  },
+  {
+    path: "restaurant",
+    component: RestaurantsComponent,
+    data: { title: "Restaurant and Café", lang: "en" }
+  },
+  {
+    path: "restaurant/:slug",
     component: RestaurantsComponent,
     data: { title: "Restaurant and Café", lang: "en" }
   },
@@ -107,6 +137,11 @@ const appRoutes: Routes = [
     component: LiveSectionComponent,
     data: { title: "Live section", lang: "en" },
     children: [{ path: "", component: LiveComponent, data: { title: "Live" } }]
+  },
+  {
+    path: "card/:lang",
+    component: SubPageComponent,
+    data: { title: "Home page", lang: "sv" }
   },
   {
     path: "contact",

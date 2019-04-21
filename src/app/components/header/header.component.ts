@@ -10,7 +10,6 @@ import { HeaderCommunicationService } from "../../services/component-communicato
 import { SearchMenubarCommunicationService } from "../../services/component-communicators/search-menubar-communication.service";
 import { MenusService } from "../../services/wordpress/menus.service";
 import { MenuItem } from "../../interfaces-and-classes/menu";
-import { ths_chapters } from "../../utils/ths-chapters";
 import {
   ActivatedRoute,
   Params,
@@ -23,6 +22,10 @@ import { NotificationBarCommunicationService } from "../../services/component-co
 import { Subscription } from "rxjs/Subscription";
 import { HrefToSlugPipe } from "../../pipes/href-to-slug.pipe";
 import { CookieService, CookieOptions } from "ngx-cookie";
+import {
+  ChapterMenu,
+  ChaptersMenuService
+} from "../../services/wordpress/chapters-menu.service";
 import { HideUICommunicationService } from "../../services/component-communicators/hide-ui-communication.service";
 
 @Component({
@@ -53,6 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private addLangToSlugPipe: AddLangToSlugPipe;
   private hrefToSlugPipe: HrefToSlugPipe;
   public paramsSubscription: Subscription;
+  public chaptersMenuSubscription: Subscription;
   public mainMenuSubscription: Subscription;
   public topLevelMenuSubscription: Subscription;
   public headerSubscription: Subscription;
@@ -75,12 +79,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private _cookieService: CookieService,
     private activatedRoute: ActivatedRoute,
+    private chaptersMenuService: ChaptersMenuService,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
     private hideUICommunicationService: HideUICommunicationService
   ) {
     this.showMenuMobile = false;
     this.showChaptersMobile = false;
-    this.ths_chapters = ths_chapters;
     this.subMenu = [];
     this.subMenu2 = [];
     this.searchTerm = "";
@@ -406,6 +410,43 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  private getChapterMenu(): void {
+    if (localStorage.getItem("getChaptersMenu_sv") && this.lang === "sv") {
+      this.ths_chapters = JSON.parse(
+        localStorage.getItem("getChaptersMenu_sv")
+      );
+    } else if (
+      localStorage.getItem("getChaptersMenu_en") &&
+      this.lang === "en"
+    ) {
+      this.ths_chapters = JSON.parse(
+        localStorage.getItem("getChaptersMenu_en")
+      );
+    } else {
+      this.chaptersMenuSubscription = this.chaptersMenuService
+        .getMenu(this.lang)
+        .subscribe(
+          (ths_chapters: ChapterMenu[]) => {
+            this.ths_chapters = ths_chapters;
+            if (this.lang === "sv") {
+              localStorage.setItem(
+                "getChaptersMenu_sv",
+                JSON.stringify(ths_chapters)
+              );
+            } else {
+              localStorage.setItem(
+                "getChaptersMenu_en",
+                JSON.stringify(ths_chapters)
+              );
+            }
+          },
+          error => {
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
+  }
+
   ngOnInit() {
     this.headerSubscription = this.headerCommunicationService.positionHeaderObservable$.subscribe(
       arg => {
@@ -437,6 +478,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.setPlaceholder();
           this.getTopLevelMenu();
           this.displayActualLanguage();
+          this.getChapterMenu();
         }
       });
     }
@@ -473,6 +515,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     if (this.menuSubscription) {
       this.menuSubscription.unsubscribe();
+    }
+    if (this.chaptersMenuSubscription) {
+      this.chaptersMenuSubscription.unsubscribe();
     }
   }
 }

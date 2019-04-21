@@ -523,10 +523,10 @@
       <div
         *ngFor="let chapter of ths_chapters"
         class="nav-item"
-        (click)="openInNewTab(chapter.link)"
+        (click)="openInNewTab(chapter.url)"
       >
         <div class="logo"><img src="{{ chapter.image }}" /></div>
-        <label>{{ lang === "en" ? chapter.title.en : chapter.title.sv }}</label>
+        <label [innerHTML]="chapter.title"></label>
       </div>
     </div>
   </div>

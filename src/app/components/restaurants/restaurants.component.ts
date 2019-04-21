@@ -181,21 +181,23 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     } else if (this.selected_day === "Friday") {
       day_index = 4;
     }
-    if (this.restaurant_index) {
-      if (this.restaurants[this.restaurant_index].menu.length > 0) {
-        this.menuFullText = this.restaurants[this.restaurant_index].menu[
-          day_index
-        ].full_text;
+    if (this.restaurants[this.restaurant_index]) {
+      if (this.restaurant_index) {
+        if (this.restaurants[this.restaurant_index].menu.length > 0) {
+          this.menuFullText = this.restaurants[this.restaurant_index].menu[
+            day_index
+          ].full_text;
+        } else {
+          this.menuFullText = null;
+        }
       } else {
-        this.menuFullText = null;
-      }
-    } else {
-      if (this.restaurants[this.item_onfocus_index].menu.length > 0) {
-        this.menuFullText = this.restaurants[this.item_onfocus_index].menu[
-          day_index
-        ].full_text;
-      } else {
-        this.menuFullText = null;
+        if (this.restaurants[this.item_onfocus_index].menu.length > 0) {
+          this.menuFullText = this.restaurants[this.item_onfocus_index].menu[
+            day_index
+          ].full_text;
+        } else {
+          this.menuFullText = null;
+        }
       }
     }
   }
@@ -217,27 +219,30 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
           .getRestaurants(this.lang)
           .subscribe(
             res => {
-              this.loading = false;
-              this.restaurants = res;
-              this.updateDishes();
-              if (this.restaurant_index) {
-                this.titleCommunicationService.setTitle(
-                  this.restaurants[this.restaurant_index].title
-                );
-              } else {
-                if (this.lang === "sv") {
+              if (res) {
+                this.loading = false;
+                this.restaurants = res;
+                this.updateDishes();
+                if (this.restaurant_index) {
                   this.titleCommunicationService.setTitle(
-                    "Restaurang och Café"
+                    this.restaurants[this.restaurant_index].title
                   );
                 } else {
-                  this.titleCommunicationService.setTitle(
-                    "Restaurant and Café"
-                  );
+                  if (this.lang === "sv") {
+                    this.titleCommunicationService.setTitle(
+                      "Restaurang och Café"
+                    );
+                  } else {
+                    this.titleCommunicationService.setTitle(
+                      "Restaurant and Café"
+                    );
+                  }
                 }
               }
             },
             error => {
               this.loading = false;
+              this.pageNotFound = true;
               this.notificationBarCommunicationService.send_data(error);
             }
           );

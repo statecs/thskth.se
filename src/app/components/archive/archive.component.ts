@@ -422,6 +422,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           this.latestDocuments = res;
         },
         error => {
+          this.pageNotFound = true;
           this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         }
