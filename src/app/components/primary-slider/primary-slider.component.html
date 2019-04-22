@@ -79,15 +79,90 @@
         (mousemove)="mouseMovingOnPlayer()"
         (touchstart)="swipe($event, 'start', '')"
         (touchend)="swipe($event, 'end', '')"
-        *ngIf="slideIndex == l"
+        *ngIf="slideIndex == l && slide.template === 'text-center-template'"
+        class="text-center-template"
+        [style.background]="slide.bg_color ? slide.bg_color : ''"
+        [style.backgroundImage]="'url(' + getBgUrl(slide) + ') '"
+        [style.backgroundSize]="cover"
+      >
+        <div #slides_container class="slides">
+          <div class="slide">
+            <div class="text-wrapper">
+              <h2>{{ slide.title }}</h2>
+              <p
+                class="larger-devices"
+                [innerHTML]="slide.description | cardText: 150"
+              ></p>
+              <p
+                class="mobile"
+                [innerHTML]="slide.description | cardText: 150"
+              ></p>
+              <button
+                *ngIf="slide.link_to_page"
+                type="button"
+                (click)="goToPage(slide.link_to_page)"
+              >
+                {{ read_more_text }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        #primary_video
+        id="primary-video"
+        (mousemove)="mouseMovingOnPlayer()"
+        (touchstart)="swipe($event, 'start', '')"
+        (touchend)="swipe($event, 'end', '')"
+        *ngIf="
+          slideIndex == l &&
+          slide.template === 'video-template' &&
+          slideIndex != i
+        "
+        [style.background]="slide.bg_color ? slide.bg_color : ''"
+      >
+        <div #slides_container class="slides">
+          <!-- ----- Video template ----->
+          <div
+            class="video-template"
+            (click)="togglePlay()"
+            [style.backgroundImage]="'url(' + getBgUrl(slide) + ')'"
+          >
+            <video
+              #video_player
+              [src]="slide.video"
+              preload="metadata"
+              (pause)="pauseVideo()"
+              (ended)="pauseVideo()"
+            >
+              <source src="{{ slide.video }}" />
+              Your browser does not support HTML5 video player.
+            </video>
+            <div class="video-controller">
+              <i #playButton class="material-icons">play_circle_outline</i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        #primary
+        id="primary"
+        (mousemove)="mouseMovingOnPlayer()"
+        (touchstart)="swipe($event, 'start', '')"
+        (touchend)="swipe($event, 'end', '')"
+        *ngIf="
+          (slideIndex == l && slide.template === 'image-on-left-template') ||
+          (slideIndex == l && slide.template === 'image-on-right-template')
+        "
         [class.image-on-left-template]="
           slide.template === 'image-on-left-template'
         "
         [class.image-on-right-template]="
           slide.template === 'image-on-right-template'
         "
-        [class.text-center-template]="slide.template === 'text-center-template'"
-        [style.background]="slide.bg_color ? slide.bg_color : '#000000'"
+        [style.background]="slide.bg_color ? slide.bg_color : ''"
       >
         <div #slides_container class="slides">
           <div class="slide">

@@ -159,9 +159,9 @@
             border: none;
             margin: 0px;
             color: white;
-            right: 0;
+            right: 15px;
             position: absolute;
-            bottom: 22px;
+            bottom: 17px;
             i {
               font-size: 2em;
             }
@@ -418,20 +418,22 @@
   .left-content {
     width: 43%;
     vertical-align: top;
-    background-color: lightgray;
+    background-color: #f1f1f1;
     position: relative;
     padding: 0 20px;
 
     &::after {
-      @include arrow-right(15px, #d3d3d3);
+      @include arrow-right(15px, #f1f1f1);
     }
     h3 {
-      font-size: $font-size-h3;
+      font-size: 1.3em;
     }
     span {
       @include capsule-button(10px, 5px);
       cursor: pointer;
       margin-top: 10px;
+      border: 1.5px solid #c6c6c6;
+      color: black;
     }
     .large-devices {
       display: block;
@@ -477,7 +479,7 @@
           @include circle(50px);
           display: inline-block;
           position: relative;
-          background-color: lightgray;
+          background-color: #f1f1f1;
           vertical-align: middle;
           cursor: pointer;
           span {

@@ -16,6 +16,7 @@ import { Subscription } from "rxjs/Subscription";
 import { TitleCommunicationService } from "../../services/component-communicators/title-communication.service";
 import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
 import * as format from "date-fns/format";
+import { CookieService, CookieOptions } from "ngx-cookie";
 
 @Component({
   selector: "app-restaurants",
@@ -50,7 +51,8 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
     private titleCommunicationService: TitleCommunicationService,
-    private headerCommunicationService: HeaderCommunicationService
+    private headerCommunicationService: HeaderCommunicationService,
+    private _cookieService: CookieService
   ) {
     this.loading = true;
     this.slideIndex = 0;
@@ -208,13 +210,13 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       (params: Params) => {
         this.pageNotFound = false;
         this.loading = true;
-        this.lang = params["lang"];
-        if (typeof this.lang === "undefined") {
-          this.lang = "en";
-        } else if (this.lang !== "en" && this.lang !== "sv") {
-          this.pageNotFound = true;
+
+        if (this._cookieService.get("language") == "sv") {
+          this.lang = "sv";
+        } else {
           this.lang = "en";
         }
+
         this.restaurantSubscription = this.restaurantService
           .getRestaurants(this.lang)
           .subscribe(

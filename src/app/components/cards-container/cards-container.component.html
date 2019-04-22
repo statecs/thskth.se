@@ -78,7 +78,23 @@
       >
         <div
           class="standard-card"
+          [ngStyle]="changeBGBColor(card)"
+          *ngIf="card.background_image !== ''"
+        >
+          <div class="content">
+            <h4>{{ card.title }}</h4>
+            <p [innerHTML]="card.content | cardText: 10"></p>
+            <!--<a type="button" *ngFor="let b of card.card_primary_buttons" routerLink="{{b.link}}">{{b.text}}</a>-->
+            <a *ngIf="card.slug_to_page !== ''" type="button"
+              >{{ lang === "en" ? "Read more" : "Läs mer" }}
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="standard-card"
           [ngStyle]="changeBGColor(card)"
+          *ngIf="card.background_image === ''"
         >
           <div class="content">
             <h4>{{ card.title }}</h4>
@@ -190,15 +206,13 @@
             <p
               *ngIf="selected_event_text && events.length !== 0"
               class="large-devices"
-            >
-              {{ selected_event_text | cardText: 100 }}
-            </p>
+              [innerHTML]="selected_event_text | cardText: 50"
+            ></p>
             <p
               *ngIf="selected_event_text && events.length !== 0"
               class="mobile"
-            >
-              {{ selected_event_text | cardText: 50 }}
-            </p>
+              [innerHTML]="selected_event_text | cardText: 50"
+            ></p>
             <span
               *ngIf="selected_event_title && events.length !== 0"
               (click)="displayEventInPopup()"
@@ -368,10 +382,11 @@
           <div
             *ngIf="
               card.card_type !== 'restrictions-card' &&
-              card.card_type !== 'nymble-card'
+              card.card_type !== 'nymble-card' &&
+              card.background_image !== ''
             "
             class="standard-card"
-            [ngStyle]="changeBGColor(card)"
+            [ngStyle]="changeBGBColor(card)"
             (click)="showPage(card.slug_to_page)"
           >
             <div class="content">
@@ -415,6 +430,58 @@
               </button>
             </div>
           </div>
+          <div
+            *ngIf="
+              card.card_type !== 'restrictions-card' &&
+              card.card_type !== 'nymble-card' &&
+              card.background_image === ''
+            "
+            class="standard-card"
+            [ngStyle]="changeBGColor(card)"
+            (click)="showPage(card.slug_to_page)"
+          >
+            <div class="content">
+              <h4>{{ card.title }}</h4>
+              <p [innerHTML]="card.content | cardText: 150"></p>
+              <!--<a
+              *ngIf="
+                card.card_primary_buttons.length === 0 &&
+                card.slug_to_page !== ''
+              "
+              type="button"
+              >{{ lang === "en" ? "Read more" : "Läs mer" }}</a
+            >-->
+              <button
+                type="button"
+                class="card-btn"
+                *ngIf="card.window_type == 'popup-window' && card.slug_to_page"
+                (click)="showPage(card.slug_to_page)"
+              >
+                <i class="material-icons">arrow_forward</i>
+              </button>
+              <button
+                type="button"
+                class="card-btn"
+                *ngIf="card.window_type === 'same-page' && card.slug_to_page"
+                (click)="showPage(card.slug_to_page)"
+              >
+                <i class="material-icons">
+                  open_in_browser
+                </i>
+              </button>
+              <button
+                type="button"
+                class="card-btn"
+                *ngIf="card.window_type === 'new-tab' && card.slug_to_page"
+                (click)="showPage(card.slug_to_page)"
+              >
+                <i class="material-icons">
+                  open_in_new
+                </i>
+              </button>
+            </div>
+          </div>
+
           <div
             *ngIf="card.card_type === 'restrictions-card'"
             class="standard-card restrictions-card"

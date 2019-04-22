@@ -162,6 +162,86 @@ const appRoutes: Routes = [
     ]
   },
   {
+    path: "om-ths/restaurang-cafe/restaurang-nymble-meny/",
+    component: RestaurantsComponent,
+    data: { title: "Restaurang och Café", lang: "sv" }
+  },
+  {
+    path: "en/om-ths/restaurang-cafe/restaurang-nymble-meny/",
+    component: RestaurantsComponent,
+    data: { title: "Restaurant and Café", lang: "en" }
+  },
+  {
+    path: "sv/om-ths/restaurang-cafe/restaurang-nymble-meny/",
+    component: RestaurantsComponent,
+    data: { title: "Restaurang och Café", lang: "sv" }
+  },
+  {
+    path: "om-ths/restaurang-cafe/restaurang-nymble-meny",
+    component: RestaurantsComponent,
+    data: { title: "Restaurang och Café", lang: "sv" }
+  },
+  {
+    path: "en/om-ths/restaurang-cafe/restaurang-nymble-meny",
+    component: RestaurantsComponent,
+    data: { title: "Restaurant and Café", lang: "en" }
+  },
+  {
+    path: "sv/om-ths/restaurang-cafe/restaurang-nymble-meny",
+    component: RestaurantsComponent,
+    data: { title: "Restaurang och Café", lang: "sv" }
+  },
+  {
+    path: "om-ths/restaurang-cafe/",
+    component: RestaurantsComponent,
+    data: { title: "Restaurang och Café", lang: "sv" }
+  },
+  {
+    path: "en/om-ths/restaurang-cafe/",
+    component: RestaurantsComponent,
+    data: { title: "Restaurant and Café", lang: "en" }
+  },
+  {
+    path: "sv/om-ths/restaurang-cafe/",
+    component: RestaurantsComponent,
+    data: { title: "Restaurang och Café", lang: "sv" }
+  },
+  {
+    path: "om-ths/restaurang-cafe",
+    component: RestaurantsComponent,
+    data: { title: "Restaurang och Café", lang: "sv" }
+  },
+  {
+    path: "sv/om-ths/restaurang-cafe",
+    component: RestaurantsComponent,
+    data: { title: "Restaurang och Café", lang: "sv" }
+  },
+  {
+    path: "en/om-ths/restaurang-cafe",
+    component: RestaurantsComponent,
+    data: { title: "Restaurant and Café", lang: "en" }
+  },
+  {
+    path: "general/restaurant-and-cafe/",
+    component: RestaurantsComponent,
+    data: { title: "Restaurant and Café", lang: "en" }
+  },
+  {
+    path: "general/restaurant-and-cafe",
+    component: RestaurantsComponent,
+    data: { title: "Restaurang och Café", lang: "en" }
+  },
+  {
+    path: "general/nymble/nymble-restaurant/",
+    component: RestaurantsComponent,
+    data: { title: "Restaurant and Cafe", lang: "en" }
+  },
+  {
+    path: "general/nymble/nymble-restaurant",
+    component: RestaurantsComponent,
+    data: { title: "Restaurant and Cafe", lang: "en" }
+  },
+  {
     path: ":lang/list",
     component: ChaptersAssociationsComponent,
     data: { title: "Chapters and Associations" }

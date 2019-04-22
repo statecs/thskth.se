@@ -150,7 +150,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     if (card.background_image !== "") {
       const image = card.background_image;
       if (this.deviceSize < 768) {
-        url = image.image640;
+        url = image.image960;
       } else if (this.deviceSize >= 768 && this.deviceSize < 992) {
         url = image.image960;
       } else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
@@ -179,6 +179,9 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     } else {
       return { "background-color": card.background_color, color: card.color };
     }
+  }
+  changeBGBColor(card: any): any {
+    return { "background-color": "rgba(0, 0, 0, 0.27)", color: card.color };
   }
 
   displayCards(arg: any) {
@@ -378,12 +381,20 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
               "events_list",
               JSON.stringify(this.events)
             );
+            if (res.length !== 0) {
+              this.selected_event_title = sortedArrays[0].title;
+              this.selected_event_text = sortedArrays[0].description;
+            }
           } else {
             this.events = sortedArrays;
             this.fetched_events = localStorage.setItem(
               "events_list",
               JSON.stringify(this.events)
             );
+            if (res.length !== 0) {
+              this.selected_event_title = sortedArrays[0].title;
+              this.selected_event_text = sortedArrays[0].description;
+            }
           }
         },
         error => {

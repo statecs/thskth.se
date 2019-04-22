@@ -157,12 +157,11 @@ function acf_location_rules_match_cpa( $match, $rule, $options ){
 /**
  * Add automatic image sizes
  */
-if ( function_exists( 'add_image_size' ) ) { 
-      add_image_size( 'image640', 640, 640, true ); //(cropped)
-      add_image_size( 'image960', 960, 400, false ); //(scaled)
-      add_image_size( 'image1280', 1280, 400, false ); //(scaled)
-      add_image_size( 'image1600', 1600, 550, false ); //(scaled)
-       add_image_size( 'image1920', 1920, 550, false ); //(scaled)
+if ( function_exists( 'add_image_size' ) ) {
+      add_image_size( 'image960', 960, 960, true ); //(scaled)
+      add_image_size( 'image1280', 1280, 960, true ); //(scaled)
+      add_image_size( 'image1600', 1600, 1280, true ); //(scaled)
+       add_image_size( 'image1920', 1920, 1600, true ); //(scaled)
 }
 
 
@@ -752,7 +751,7 @@ update_option( 'link_manager_enabled', 0 );
                       'description'         => __( 'Cards', 'twentythirteen' ),
                       'labels'              => $labels,
                       // Features this CPT supports in Post Editor
-                      'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+                      'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', 'page-attributes', ),
                       // You can associate this CPT with a taxonomy or custom taxonomy.
                       'taxonomies'          => array( 'genres', 'user_interest'),
                       // You can create a custom slug
@@ -876,7 +875,7 @@ update_option( 'link_manager_enabled', 0 );
                       'description'         => __( 'Slides', 'twentythirteen' ),
                       'labels'              => $labels,
                       // Features this CPT supports in Post Editor
-                      'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+                      'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields',  'page-attributes',  ),
                       // You can associate this CPT with a taxonomy or custom taxonomy.
                       'taxonomies'          => array( 'genres' ),
                       // You can create a custom slug

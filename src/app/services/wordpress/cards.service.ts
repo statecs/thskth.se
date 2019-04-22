@@ -64,11 +64,8 @@ export class CardsService extends WordpressBaseDataService<Card> {
           const cats: CardCategory[] = [];
           res.forEach(c => {
             let order = 100;
-            if (
-              c.meta["wpcf-category-order"] &&
-              c.meta["wpcf-category-order"][0]
-            ) {
-              order = parseInt(c.meta["wpcf-category-order"][0], 10);
+            if (c.acf.order) {
+              order = parseInt(c.acf.order, 10);
             }
             cats.push({
               id: c.id,

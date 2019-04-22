@@ -166,7 +166,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     if (slide.bg_image !== "") {
       const image = slide.bg_image;
       if (this.deviceSize < 768) {
-        url = image.image640;
+        url = image.image960;
       } else if (this.deviceSize >= 768 && this.deviceSize < 992) {
         url = image.image960;
       } else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
@@ -199,7 +199,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
 
       const image = this.slides[this.slideIndex].bg_image;
       if (this.deviceSize < 768) {
-        this.bg_image = image.image640;
+        this.bg_image = image.image960;
       } else if (this.deviceSize >= 768 && this.deviceSize < 992) {
         this.bg_image = image.image960;
       } else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
