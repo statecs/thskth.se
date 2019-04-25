@@ -31,7 +31,7 @@
       (mousemove)="mouseMovingOnPlayer()"
       (touchstart)="swipe($event, 'start', '')"
       (touchend)="swipe($event, 'end', '')"
-      *ngIf="slide.template === 'video-template'"
+      *ngIf="slide.template === 'video-template' && slideIndex == i"
       [class.special]="slideIndex == i"
     >
       <div class="slides">

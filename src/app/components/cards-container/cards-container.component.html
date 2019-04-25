@@ -505,21 +505,14 @@
               <h4>
                 {{
                   lang === "en"
-                    ? "Todays menu " + getDate()
-                    : "Dagens meny " + getDate()
+                    ? "Nymble Restaurant - Today " + getDate()
+                    : "Restaurang Nymble - Idag " + getDate()
                 }}
               </h4>
               <div
                 *ngIf="restaurant && getDayIndex() <= 5 && getDayIndex() > 0"
                 [innerHTML]="restaurant.menu[getDayIndex() - 1]?.full_text"
               ></div>
-              <h5 *ngIf="restaurant.weekly_menu">
-                {{
-                  lang === "en"
-                    ? "This week's menu week." + getWeekNumber()
-                    : "Veckans meny v." + getWeekNumber()
-                }}
-              </h5>
               <div
                 *ngIf="
                   restaurant.weekly_menu &&

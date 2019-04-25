@@ -13,10 +13,10 @@ export let appConfig: AppConfig = {
   CARD_CATEGORY_INT: BASE_WP + "/api/wp/v2/user_interest",
   POSTS_PAGE: BASE_WP + "/api/wp/v2/posts",
   PAGES_URL: BASE_WP + "/api/wp/v2/pages",
-  PRIMARY_MENU_URL: BASE_WP + "/api/wp-api-menus/v2/menus/439",
+  PRIMARY_MENU_URL: BASE_WP + "/api/wp-api-menus/v2/menus/332",
   SECONDARY_MENU_URL: BASE_WP + "/api/wp-api-menus/v2/menus/348",
-  SECTIONS_MENU_URL: BASE_WP + "/api/wp-api-menus/v2/menus/354",
-  FOOTER_MENU_URL: BASE_WP + "/api/wp-api-menus/v2/menus/352",
+  SECTIONS_MENU_URL: BASE_WP + "/api/wp-api-menus/v2/menus/2",
+  FOOTER_MENU_URL: BASE_WP + "/api/wp-api-menus/v2/menus/333",
   LANGUAGE: "en",
   /*    PROFESSION: {student: 367, professor: 368, other: 377},
     ORGANIZATION_TYPE: {company: 375, institute: 376, other: 382},
@@ -42,5 +42,5 @@ export let appConfig: AppConfig = {
   CATEGORIES_URL: BASE_WP + "/api/wp/v2/categories",
   RECAPTCHA_PUBLICKEY: "6Lf68iYTAAAAAIFMPKffFO9vYNJ7KRgQVWP9H_ac",
   XHR_CONTACT_FORM: "https://thskth.se/scripts/xhr-contact-form.php",
-  CHAPTER_MENU_URL: BASE_WP + "/api/wp-api-menus/v2/menus/353"
+  CHAPTER_MENU_URL: BASE_WP + "/api/wp-api-menus/v2/menus/2"
 };

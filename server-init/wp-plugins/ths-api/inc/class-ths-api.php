@@ -71,7 +71,7 @@ class THS_API  {
     }
     return $jsonArr; //this is an array
     } else if ($type == facebook){
-       $string = file_get_contents("https://graph.facebook.com/v3.2/posts?ids=121470594571005,148731426526,126460727403918,113657678689023,199385490073014,279104938773217,160121967371342,38928295381,77067797676&access_token=EAANsk8zlaPgBAGhiJLEopICRFrgPReXsO4GSsGCkFFEcL2cKccfNjb9DMSGK7pfwCMca1nxmaV2IlNZAGd8B4e2PW3N91aFrqlOiHjzoUJ73xD7tsA2YoK59CMbuiuyajFXTvLrkal5aKbg6gaO0WYW6exrWWlAwF6XZCRDgZDZD&fields=id,message,story,created_time,full_picture,from,link,description,type,picture,object_id,updated_time&limit=5&locale=EN_en");
+       $string = file_get_contents("https://graph.facebook.com/v3.2/posts?ids=121470594571005,148731426526,126460727403918,113657678689023,199385490073014,279104938773217,160121967371342,38928295381,77067797676,349648738422499&access_token=EAANsk8zlaPgBAGhiJLEopICRFrgPReXsO4GSsGCkFFEcL2cKccfNjb9DMSGK7pfwCMca1nxmaV2IlNZAGd8B4e2PW3N91aFrqlOiHjzoUJ73xD7tsA2YoK59CMbuiuyajFXTvLrkal5aKbg6gaO0WYW6exrWWlAwF6XZCRDgZDZD&fields=id,message,story,created_time,full_picture,from,link,description,type,picture,object_id,updated_time&limit=5&locale=EN_en");
       // $string = file_get_contents("/storage/content/63/101063/ths.kth.se/public_html/wp-content/plugins/ths-api/facebook_mockup.json");
       return json_decode($string, true);
     } 

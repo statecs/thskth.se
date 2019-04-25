@@ -15,7 +15,10 @@
     <div class="label">
       <label *ngFor="let c of article.categories">{{ c.name }} </label>
     </div>
-    <p class="content" [innerHTML]="article.content | cardText: 150"></p>
+    <p
+      class="content"
+      [innerHTML]="replaceLineBreak(article.content | cardText: 150)"
+    ></p>
   </div>
 </div>
 <app-loader *ngIf="fetching"></app-loader>

@@ -250,18 +250,12 @@ update_option( 'link_manager_enabled', 0 );
                
     remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
     add_filter( 'rest_pre_serve_request', function( $value ) {
-    $origin = get_http_origin();
+ 
     
-               if ( $origin ) {
-               header('Cache-Control: public, max-age=86400');
-               header('access-control-allow-origin: *');
-               header( 'Access-Control-Allow-Methods: GET' );
                
-               
-               }
-               header('Cache-Control: public, max-age=86400');
+              header('Cache-Control: public, max-age=86400');
                header('access-control-allow-origin: *');
-               header( 'Access-Control-Allow-Methods: GET' );
+              header( 'Access-Control-Allow-Methods: GET' );
                
                return $value;
                           

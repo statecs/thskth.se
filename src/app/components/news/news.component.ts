@@ -91,6 +91,10 @@ export class NewsComponent implements OnInit, OnDestroy {
       );
   }
 
+  replaceLineBreak(s: string) {
+    return s && s.replace(/<[^>]+>/gm, "");
+  }
+
   goToPage(item, slug): void {
     const arg = {
       article: item,

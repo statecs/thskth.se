@@ -250,7 +250,11 @@ function wp_cache_serve_cache_file() {
 			//header( "Cache-Control: max-age=3, must-revalidate" );
 			$size = function_exists( 'mb_strlen' ) ? mb_strlen( $cachefiledata, '8bit' ) : strlen( $cachefiledata );
 			if ( $wp_cache_gzip_encoding ) {
+                
+              
                 header('Access-Control-Allow-Origin: *');
+                
+                
                 
                 header("Access-Control-Allow-Headers: X-Requested-With");
 				header( "WP-Super-Cache: Served supercache gzip file from PHP" );
@@ -311,7 +315,8 @@ function wp_cache_serve_cache_file() {
 	}
 	header( 'WP-Super-Cache: Served legacy cache file' );
     header('Cache-Control: public, max-age=86400');
-    header('access-control-allow-origin: *');
+    
+    header('Access-Control-Allow-Origin: *');
     header( 'Access-Control-Allow-Methods: GET' );
 
 	if ( $wp_cache_object_cache ) {

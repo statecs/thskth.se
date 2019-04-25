@@ -136,24 +136,27 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     ) {
       this.cardsService.getCardCategory("interest", this.lang).subscribe(
         int_cats => {
-          this.fetching = false;
-          this.int_cats = int_cats;
-          this.selected_interest_name = int_cats[0].name;
-          this.selected_interest = int_cats[0].id;
-          let exp = new Date(
-            new Date().setFullYear(new Date().getFullYear() + 1)
-          );
-          let cookieOptions = { expires: exp } as CookieOptions;
-          this._cookieService.putObject(
-            "cards_filter",
-            {
+          if (int_cats.length !== 0) {
+            this.fetching = false;
+            this.int_cats = int_cats;
+            this.selected_interest_name = int_cats[0].name;
+            this.selected_interest = int_cats[0].id;
+            let exp = new Date(
+              new Date().setFullYear(new Date().getFullYear() + 1)
+            );
+            let cookieOptions = { expires: exp } as CookieOptions;
+            this._cookieService.putObject(
+              "cards_filter",
+              {
+                interest: this.selected_interest
+              },
+              cookieOptions
+            );
+            this.cardCategorizerCardContainerService.updateCards({
               interest: this.selected_interest
-            },
-            cookieOptions
-          );
-          this.cardCategorizerCardContainerService.updateCards({
-            interest: this.selected_interest
-          });
+            });
+          }
+          this.fetching = false;
         },
         error => {
           this.notificationBarCommunicationService.send_data(error);

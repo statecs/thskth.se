@@ -175,7 +175,12 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   }
 
   checkResults(): void {
-    if (this.associationResults && this.chapterResults && this.otherResults) {
+    if (
+      (this.associationResults && this.chapterResults && this.otherResults) ||
+      (this.associationResults &&
+        this.chapterResults &&
+        this.otherResults === undefined)
+    ) {
       this.noResults = false;
     } else {
       this.noResults = true;
@@ -486,6 +491,7 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
             this.checkResults();
           },
           error => {
+            console.log(this.noResults, "2");
             this.noResults = true;
             this.documentsLoading = false;
             this.notificationBarCommunicationService.send_data(error);
@@ -631,19 +637,23 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
             if (this.cookieService.get("selectedFilter") === "chapters") {
               this.displayChapters();
               this.getChapters();
+              const self = this;
+              self.getPostBySlug();
             } else {
               this.getAssociations();
+              const self = this;
+              self.getPostBySlug();
             }
-            const self = this;
+            /*  const self = this;
             const timer = setInterval(function() {
               if (
                 self.career_associations.length > 0 ||
                 self.chapterResults.length > 0
               ) {
                 clearInterval(timer);
-                self.getPostBySlug();
+                //self.getPostBySlug();
               }
-            }, 100);
+            }, 100);*/
           } else {
             if (this.cookieService.get("selectedFilter") === "chapters") {
               this.displayChapters();
