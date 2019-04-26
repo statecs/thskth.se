@@ -491,7 +491,6 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
             this.checkResults();
           },
           error => {
-            console.log(this.noResults, "2");
             this.noResults = true;
             this.documentsLoading = false;
             this.notificationBarCommunicationService.send_data(error);

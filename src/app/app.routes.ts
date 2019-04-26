@@ -172,6 +172,11 @@ const appRoutes: Routes = [
     data: { title: "Restaurant and Café", lang: "en" }
   },
   {
+    path: "en/general/restaurant-and-cafe",
+    component: RestaurantsComponent,
+    data: { title: "Restaurant and Café", lang: "en" }
+  },
+  {
     path: "sv/om-ths/restaurang-cafe/restaurang-nymble-meny/",
     component: RestaurantsComponent,
     data: { title: "Restaurang och Café", lang: "sv" }
@@ -185,6 +190,11 @@ const appRoutes: Routes = [
     path: "en/om-ths/restaurang-cafe/restaurang-nymble-meny",
     component: RestaurantsComponent,
     data: { title: "Restaurant and Café", lang: "en" }
+  },
+  {
+    path: "sv/general/restaurant-and-cafe",
+    component: RestaurantsComponent,
+    data: { title: "Restaurang och Café", lang: "sv" }
   },
   {
     path: "sv/om-ths/restaurang-cafe/restaurang-nymble-meny",

@@ -56,7 +56,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.messages.welcome_en =
       "Hey, Nice to meet you!. What do you want help with?";
     this.messages.welcome_sv =
-      "Hej trevligt att träffas!. Vad vill du ha hjälp med?";
+      "Hej, trevligt att träffas!. Vad vill du ha hjälp med?";
 
     this.chatFlow = [
       {
@@ -72,85 +72,14 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         user_input: [
           {
             message: {
-              en: "I would like to get help.",
-              sv: "Jag skulle vilja få hjälp."
-            },
-            type: "user",
-            response: {
-              message: {
-                en:
-                  'Great! Was kind of help do you need? <a href="https://www.w3schools.com">Visit W3Schools.com!</a> <img src="https://cdn.thskth.se/wp-content/uploads/2016/08/2.png" alt="Smiley face" height="42" width="42">',
-                sv: "Bra! Var är det du vill ha hjälp med?"
-              },
-              info: {
-                en: "We would be appreciated to get feedback from you.",
-                sv: "Vi skulle uppskatta att få feedback från dig."
-              },
-              type: "response",
-              user_input: [
-                {
-                  message: {
-                    en: "Study support",
-                    sv: "Study support"
-                  },
-                  type: "user",
-                  response: {
-                    message: {
-                      en:
-                        'We understand! Here comes some contact info:   <input type="email" id="email" [(ngModel)]="email" name="email" required>',
-                      sv:
-                        "VI förstår din situation! Här följer kontaktinformation"
-                    },
-                    info: null,
-                    type: "response"
-                  }
-                },
-
-                {
-                  message: {
-                    en: "Report Harassments",
-                    sv: "Rapportera trakasserier"
-                  },
-                  type: "user",
-                  response: {
-                    message: {
-                      en:
-                        "Ok! Here comes some contact info: <img src='https://cdn.thskth.se/wp-content/uploads/2016/08/2.png'>",
-                      sv:
-                        "Ok! Här följer lite kontaktinformation <img src='https://cdn.thskth.se/wp-content/uploads/2016/08/2.png'>"
-                    },
-                    info: null,
-                    type: "response"
-                  }
-                },
-                {
-                  message: {
-                    en: "Great! Was it helpful?3",
-                    sv: this.messages.four.sv
-                  },
-                  type: "user",
-                  response: {
-                    message: {
-                      en: "Great! Was it helpful?3",
-                      sv: this.messages.two.sv
-                    },
-                    info: null,
-                    type: "response"
-                  }
-                }
-              ]
-            }
-          },
-          {
-            message: {
               en: "Where is KarX located?",
-              sv: "Var ligger KarX?"
+              sv: "Var ligger KårX?"
             },
             type: "user",
             response: {
               message: {
-                en: "It is located in Nymble. Was it helpful?",
-                sv: "Det ligger i Nymble. Var det till hjälp?"
+                en: "It is located in Nymble.",
+                sv: "Det ligger i Nymble. "
               },
               info: null,
               type: "response",
@@ -196,8 +125,10 @@ export class ChatbotComponent implements OnInit, OnDestroy {
             type: "user",
             response: {
               message: {
-                en: "Great! Have you semester registered?",
-                sv: "Bra! Har du registrerat semester?"
+                en:
+                  "Great! Have you registered for this semester? You can do it <a href='https://www.student.ladok.se/student/#/installningar'>here</a>",
+                sv:
+                  "Bra! Har du kursregistrerat dig? Du kan göra det här: <a href='https://www.student.ladok.se/student/#/installningar'>här</a>"
               },
               info: null,
               type: "response",
@@ -210,8 +141,10 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                   type: "user",
                   response: {
                     message: {
-                      en: "Have you paid the membership fee? (365kr)?",
-                      sv: "Har du betalat medlemsavgiften? (365kr)?"
+                      en:
+                        "Have you paid the membership fee? You can do it <a href='https://thskth.se/login'>here</a>",
+                      sv:
+                        "Har du betalat medlemsavgiften? Vi tar emot Swish eller kort. Du kan logga in <a href='https://thskth.se/login'>här</a>"
                     },
                     info: null,
                     type: "response",
@@ -225,9 +158,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                         response: {
                           message: {
                             en:
-                              "Have you checked that you use your kth-adress at SSSB?",
+                              "Have you updated your kth-email at SSSB? You can do it <a href='https://www.sssb.se/en/my-pages/my-contact-details'>here</a>",
                             sv:
-                              "Har du kontrollerat att du använder din kth-adress på SSSB?"
+                              "Använder du din kth-adress hos SSSB? Detta är ett krav för att systemen ska kunna synkronisera korrekt. Du kan göra det <a href='https://www.sssb.se/en/my-pages/my-contact-details'>här</a>"
                           },
                           info: null,
                           type: "response",
@@ -241,9 +174,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                               response: {
                                 message: {
                                   en:
-                                    "Perfect! It will take between 2-3 weeks until you get your card! Enjoy!",
+                                    "Perfect, within a few days, SSSB will get information about you and you can collect more queue days! Good luck!",
                                   sv:
-                                    "Perfekt! Det tar mellan 2-3 veckor tills du får ditt kort! Njut av!"
+                                    "Perfekt, Inom några dagar så kommer SSSB få information om dig och du kan samla fler ködagar! Lycka till!"
                                 },
                                 info: null,
                                 type: "response"
@@ -283,53 +216,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                         }
                       }
                     ]
-                  }
-                },
-                {
-                  message: {
-                    en: this.messages.four.en,
-                    sv: this.messages.four.sv
-                  },
-                  type: "user",
-                  response: {
-                    message: {
-                      en: this.messages.two.en,
-                      sv: this.messages.two.sv
-                    },
-                    info: null,
-                    type: "response"
-                  }
-                }
-              ]
-            }
-          },
-          {
-            message: {
-              en: "Who should I contact?",
-              sv: "Vem ska jag kontakta?"
-            },
-            type: "user",
-            response: {
-              message: {
-                en: "THS! Was it helpful?",
-                sv: "THS! Var det till hjälp?"
-              },
-              info: null,
-              type: "response",
-              user_input: [
-                {
-                  message: {
-                    en: this.messages.three.en,
-                    sv: this.messages.three.sv
-                  },
-                  type: "user",
-                  response: {
-                    message: {
-                      en: this.messages.one.en,
-                      sv: this.messages.one.sv
-                    },
-                    info: null,
-                    type: "response"
                   }
                 },
                 {
