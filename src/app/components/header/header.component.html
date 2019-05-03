@@ -409,6 +409,10 @@
             >{{ signin_text }}
           </a>
         </div>
+        <div class="language" (click)="changeLanguage()">
+          <img width="25" height="17" src="{{ language_img }}" />
+        </div>
+
         <a
           *ngIf="showChaptersMobile"
           class="icon-menu-o open "

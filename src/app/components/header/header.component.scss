@@ -71,7 +71,6 @@
           border-radius: 20px;
           padding: 8px 15px;
           border: 0.9px solid black;
-          margin-right: 65px !important;
           margin-top: 3px;
           cursor: pointer;
           > a {
@@ -88,7 +87,6 @@
   border-radius: 20px;
   padding: 8px 15px;
   border: 0.9px solid white;
-  margin-right: 65px !important;
   margin-top: 3px;
   cursor: pointer;
   > a {
@@ -301,6 +299,10 @@ header {
             display: inline-block;
             margin-right: 10px;
             vertical-align: middle;
+          }
+          .language {
+            padding-top: 7px;
+            padding-right: 50px;
           }
           .menu-title {
             font-size: 0.6em;
@@ -548,6 +550,10 @@ header {
             margin-right: 10px;
             vertical-align: middle;
           }
+          .language {
+            padding-top: 7px;
+            padding-right: 50px;
+          }
           .menu-title {
             font-size: 0.6em;
             margin: 4px 13px;
@@ -775,6 +781,10 @@ header {
             display: inline-block;
             margin-right: 10px;
             vertical-align: middle;
+          }
+          .language {
+            padding-top: 7px;
+            padding-right: 50px;
           }
           .menu-title {
             font-size: 0.6em;
