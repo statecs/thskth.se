@@ -5,7 +5,7 @@ export let APP_CONFIG = new InjectionToken<AppConfig>("app.config");
 let BASE_WP = "https://cdn.thskth.se";
 
 export let appConfig: AppConfig = {
-  BASE_URL: "https://thskth.se/",
+  BASE_URL: "https://ths.kth.se/",
   API_URL: BASE_WP + "/api/wp/v2/",
   CARDS_URL: BASE_WP + "/api/wp/v2/cards",
   CARD_CATEGORY_ORG: BASE_WP + "/api/wp/v2/organization_type",
@@ -41,6 +41,6 @@ export let appConfig: AppConfig = {
   RESTRICTION_URL: BASE_WP + "/api/wp/v2/restriction",
   CATEGORIES_URL: BASE_WP + "/api/wp/v2/categories",
   RECAPTCHA_PUBLICKEY: "6Lf68iYTAAAAAIFMPKffFO9vYNJ7KRgQVWP9H_ac",
-  XHR_CONTACT_FORM: "https://thskth.se/scripts/xhr-contact-form.php",
+  XHR_CONTACT_FORM: "https://ths.kth.se/scripts/xhr-contact-form.php",
   CHAPTER_MENU_URL: BASE_WP + "/api/wp-api-menus/v2/menus/2"
 };

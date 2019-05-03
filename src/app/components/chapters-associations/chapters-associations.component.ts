@@ -45,6 +45,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
   public career_associations: Association[];
   public sport_associations: Association[];
   public social_associations: Association[];
+  public party_associations: Association[];
+  public spex_associations: Association[];
   public other_associations: Association[];
   public associationResults: any;
   public chapterResults: any;
@@ -118,6 +120,8 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
+    this.party_associations = [];
+    this.spex_associations = [];
     this.other_associations = [];
     this.showAssociations = true;
     this.showChapters = false;
@@ -128,29 +132,44 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.associations = [
       {
         category: {
-          en: "Career opportunities",
-          sv: "Karriär möjligheter"
+          en: "Career",
+          sv: "Karriär"
         },
         associations: this.career_associations
       },
       {
         category: {
-          en: "Sports associations",
-          sv: "Idrottsföreningar"
+          en: "Party/events",
+          sv: "Fest/event"
+        },
+        associations: this.party_associations
+      },
+      {
+        category: {
+          en: "Spex",
+          sv: "Spex"
+        },
+        associations: this.spex_associations
+      },
+      {
+        category: {
+          en: "Sports",
+          sv: "Idrott"
         },
         associations: this.sport_associations
       },
       {
         category: {
-          en: "Social activities",
-          sv: "Sociala aktiviteter"
+          en: "Social",
+          sv: "Socialt"
         },
         associations: this.social_associations
       },
+
       {
         category: {
-          en: "Other activities",
-          sv: "Andra aktiviteter"
+          en: "Other",
+          sv: "Annat"
         },
         associations: this.other_associations
       }
@@ -199,12 +218,27 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
       item.category === this.associations[1].category.en ||
       item.category === this.associations[1].category.sv
     ) {
-      relatedAssociations = this.sport_associations;
+      relatedAssociations = this.party_associations;
     } else if (
       item.category === this.associations[2].category.en ||
       item.category === this.associations[2].category.sv
     ) {
+      relatedAssociations = this.spex_associations;
+    } else if (
+      item.category === this.associations[3].category.en ||
+      item.category === this.associations[3].category.sv
+    ) {
+      relatedAssociations = this.sport_associations;
+    } else if (
+      item.category === this.associations[4].category.en ||
+      item.category === this.associations[4].category.sv
+    ) {
       relatedAssociations = this.social_associations;
+    } else if (
+      item.category === this.associations[5].category.en ||
+      item.category === this.associations[5].category.sv
+    ) {
+      relatedAssociations = this.other_associations;
     }
     this.popupWindowCommunicationService.showAssociationInPopup({
       association: item,
@@ -269,6 +303,9 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
+    this.spex_associations = [];
+    this.party_associations = [];
+    this.other_associations = [];
     this.associationsSubsciption = this.associationsService
       .searchAssociations(this.searchTerm, this.lang)
       .subscribe(
@@ -448,6 +485,9 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
+    this.spex_associations = [];
+    this.party_associations = [];
+    this.other_associations = [];
 
     if (localStorage.getItem("getAssociations_sv") && this.lang === "sv") {
       this.associationResults = JSON.parse(
@@ -503,11 +543,15 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
     this.career_associations = [];
     this.sport_associations = [];
     this.social_associations = [];
+    this.party_associations = [];
+    this.spex_associations = [];
     this.other_associations = [];
     this.associations[0].associations = [];
     this.associations[1].associations = [];
     this.associations[2].associations = [];
     this.associations[3].associations = [];
+    this.associations[4].associations = [];
+    this.associations[5].associations = [];
     data.forEach(a => {
       if (
         a.category === this.associations[0].category.en ||
@@ -519,17 +563,29 @@ export class ChaptersAssociationsComponent implements OnInit, OnDestroy {
         a.category === this.associations[1].category.en ||
         a.category === this.associations[1].category.sv
       ) {
-        this.sport_associations.push(a);
-        this.associations[1].associations = this.sport_associations;
+        this.party_associations.push(a);
+        this.associations[1].associations = this.party_associations;
       } else if (
         a.category === this.associations[2].category.en ||
         a.category === this.associations[2].category.sv
       ) {
+        this.spex_associations.push(a);
+        this.associations[2].associations = this.spex_associations;
+      } else if (
+        a.category === this.associations[3].category.en ||
+        a.category === this.associations[3].category.sv
+      ) {
+        this.sport_associations.push(a);
+        this.associations[3].associations = this.sport_associations;
+      } else if (
+        a.category === this.associations[4].category.en ||
+        a.category === this.associations[4].category.sv
+      ) {
         this.social_associations.push(a);
-        this.associations[2].associations = this.social_associations;
+        this.associations[4].associations = this.social_associations;
       } else {
         this.other_associations.push(a);
-        this.associations[3].associations = this.other_associations;
+        this.associations[5].associations = this.other_associations;
       }
     });
   }

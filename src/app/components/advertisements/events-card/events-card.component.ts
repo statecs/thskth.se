@@ -104,16 +104,8 @@ export class EventsCardComponent implements OnInit, OnDestroy {
           const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
           if (sortedArrays.length > 4) {
             this.events = sortedArrays.slice(0, 4);
-            this.fetched_events = localStorage.setItem(
-              "events_list_card",
-              JSON.stringify(sortedArrays)
-            );
           } else {
             this.events = sortedArrays;
-            this.fetched_events = localStorage.setItem(
-              "events_list_card",
-              JSON.stringify(sortedArrays)
-            );
           }
         },
         error => {
@@ -123,11 +115,7 @@ export class EventsCardComponent implements OnInit, OnDestroy {
   }
 
   fetchEvents(): void {
-    if (localStorage.getItem("events_list_card")) {
-      this.events = JSON.parse(localStorage.getItem("events_list_card"));
-    } else {
-      this.getAllEvents();
-    }
+    this.getAllEvents();
   }
 
   ngOnInit() {

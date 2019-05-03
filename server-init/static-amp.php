@@ -5,8 +5,8 @@
  * For a full explanation see https://github.com/michaelbromley/angular-social-demo
  */
 
-$API_URL = "https://thskth.se/api/";
-$SITE_URL = "https://thskth.se/";
+$API_URL = "https://cdn.thskth.se/api/";
+$SITE_URL = "https://ths.kth.se/";
 $POST_PAGE = "%%POST_PAGE%%";
 
 $jsonData = getData($API_URL);
@@ -31,7 +31,7 @@ if( ($json = curl_exec($ch) ) === false)
 curl_close($ch);
 $decoded = json_decode($json);
 
-if (isset($decoded->data->status) && $decoded->data->status == '404') {
+if (isset($decoded->$data->status) && $decoded->$data->status == '404') {
     header("HTTP/1.0 404 Not Found");
     die('404 Not Found');
 }
@@ -71,7 +71,7 @@ function makePage($data) {
         "author": {"type": "Organization", "name": "THS - Student Union at KTH"},
          "image": {
            "@type": "ImageObject",
-            "url": "http://ths.kth.se/wp/wp-content/uploads/2015/09/35_kth_vlv_6y7b5608-640x640.jpg",
+            "url": "https://cdn.thskth.se/wp-content/uploads/2015/09/35_kth_vlv_6y7b5608-640x640.jpg",
             "height": 800,
             "width": 800
          }

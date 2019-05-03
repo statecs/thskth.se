@@ -68,6 +68,12 @@
         <i class="material-icons">list</i>
         {{ lang === "en" ? "List" : "Lista" }}
       </div>
+      <br /><br />
+      <a href="/{{ lang }}/student-life/start-a-new-ths-association">{{
+        lang === "en"
+          ? "Start a new THS association"
+          : "Starta din egna kårförening"
+      }}</a>
     </div>
     <app-loader *ngIf="documentsLoading"></app-loader>
     <div *ngIf="noResults && !documentsLoading" class="noResult">

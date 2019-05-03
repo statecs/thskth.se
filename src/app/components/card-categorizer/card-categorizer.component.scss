@@ -127,7 +127,6 @@
 @include media-breakpoint-only(sm) {
   #card-categorizer {
     @include container-size(90%);
-    padding: 10px 0;
     font-size: $font-size-h4;
     .large-devices {
       display: none;
@@ -141,7 +140,6 @@
 @include media-breakpoint-only(md) {
   #card-categorizer {
     @include container-size(95%);
-    padding: 10px 0;
     font-size: $font-size-h3;
     .large-devices {
       display: none;

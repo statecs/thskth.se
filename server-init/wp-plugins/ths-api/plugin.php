@@ -272,6 +272,17 @@ update_option( 'link_manager_enabled', 0 );
         add_filter('pre_option_update_core','__return_null');
         add_filter('pre_site_transient_update_core','__return_null');
     }
+    
+    
+    add_action( 'rest_api_init', function () {
+               register_rest_route( 'wp/v2', '/post/(?P<url>\S+)', array(
+                                                                         'methods' => WP_REST_Server::READABLE,
+                                                                         'callback' => array('THS_API', 'get_posts_from_url'),
+                                                                         'args'     => array(
+                                                                                             'url' => array( 'required' => true )
+                                                                                             ),
+                                                                         ));
+               });
 
     /*
      * Creating a notification_post_type to create our CPT
@@ -990,3 +1001,6 @@ update_option( 'link_manager_enabled', 0 );
         return $data;
     }
     add_filter( 'rest_prepare_post', 'my_rest_prepare_post', 10, 3 );
+
+
+   

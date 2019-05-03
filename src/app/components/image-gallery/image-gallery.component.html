@@ -14,7 +14,11 @@
       [style.backgroundImage]="item.image ? 'url(' + item.image + ')' : 'none'"
     ></div>
 
-    <h2>{{ item.title }}</h2>
+    <a *ngIf="item.url" href="{{ item.url }}">
+      <h3>{{ item.title }}</h3></a
+    >
+    <h3 *ngIf="!item.url">{{ item.title }}</h3>
+
     <p [innerHTML]="item.description"></p>
   </div>
 </div>

@@ -142,9 +142,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                   response: {
                     message: {
                       en:
-                        "Have you paid the membership fee? You can do it <a href='https://thskth.se/login'>here</a>",
+                        "Have you paid the membership fee? You can do it <a href='https://ths.kth.se/login'>here</a>",
                       sv:
-                        "Har du betalat medlemsavgiften? Vi tar emot Swish eller kort. Du kan logga in <a href='https://thskth.se/login'>här</a>"
+                        "Har du betalat medlemsavgiften? Vi tar emot Swish eller kort. Du kan logga in <a href='https://ths.kth.se/login'>här</a>"
                     },
                     info: null,
                     type: "response",

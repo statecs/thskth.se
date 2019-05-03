@@ -61,8 +61,8 @@ export class Page implements IPage {
       email: ""
     };
     if (res) {
-      if (res.featured_image_url) {
-        header_image = res.featured_image_url;
+      if (res.acf.header_image) {
+        header_image = res.acf.header_image.url;
       }
       if (res.acf.ths_image_gallery) {
         image_gallery = this.castResToImageGalleryType(res);

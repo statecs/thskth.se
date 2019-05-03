@@ -9,9 +9,12 @@
   }
 }
 .display-cal-container {
+  padding: 10px 30px;
+  text-align: center;
   width: 100%;
-  overflow-x: scroll;
-  padding: 5px 15px 15px;
+  margin: 0px auto;
+  max-width: 600px;
+  margin-bottom: 50px;
 }
 .display-cal-container-width {
   width: 300%;
@@ -19,6 +22,7 @@
     display: none;
   }
 }
+
 .header {
   max-height: 350px;
   overflow: hidden;
@@ -32,7 +36,6 @@
 }
 .cal-popup {
   position: absolute;
-  border: 1px solid red;
   height: 100%;
   z-index: 1;
   background: white;
@@ -282,6 +285,18 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .display-cal-container {
+    width: 100%;
+    overflow-x: scroll;
+    padding: 5px 15px 15px;
+    margin-bottom: 20px;
+  }
+  .display-cal-container-width {
+    width: 300%;
+    input {
+      display: none;
+    }
+  }
   .mobile {
     display: inline-block !important;
   }
@@ -321,6 +336,18 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
+  .display-cal-container {
+    width: 100%;
+    overflow-x: scroll;
+    padding: 5px 15px 15px;
+    margin-bottom: 20px;
+  }
+  .display-cal-container-width {
+    width: 300%;
+    input {
+      display: none;
+    }
+  }
   .mobile {
     display: inline-block !important;
   }
@@ -358,6 +385,18 @@
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
+  .display-cal-container {
+    width: 100%;
+    overflow-x: scroll;
+    padding: 5px 15px 15px;
+    margin-bottom: 20px;
+  }
+  .display-cal-container-width {
+    width: 300%;
+    input {
+      display: none;
+    }
+  }
   .mobile {
     display: inline-block !important;
   }

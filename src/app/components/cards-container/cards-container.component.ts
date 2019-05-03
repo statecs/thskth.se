@@ -309,62 +309,30 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   getRestrictions(): void {
-    if (localStorage.getItem("getRestrictions_sv") && this.lang === "sv") {
-      this.restriction = JSON.parse(localStorage.getItem("getRestrictions_sv"));
-    } else if (
-      localStorage.getItem("getRestrictions_en") &&
-      this.lang === "en"
-    ) {
-      this.restriction = JSON.parse(localStorage.getItem("getRestrictions_en"));
-    } else {
-      this.restrictionUpdater = this.restrictionService
-        .getRestrictions(this.lang)
-        .subscribe(
-          res => {
-            this.restriction = res;
-            if (this.lang === "sv") {
-              localStorage.setItem("getRestrictions_sv", JSON.stringify(res));
-            } else {
-              localStorage.setItem("getRestrictions_en", JSON.stringify(res));
-            }
-          },
-          error => {
-            this.restriction = null;
-            this.notificationBarCommunicationService.send_data(error);
-          }
-        );
-    }
+    this.restrictionUpdater = this.restrictionService
+      .getRestrictions(this.lang)
+      .subscribe(
+        res => {
+          this.restriction = res;
+        },
+        error => {
+          this.restriction = null;
+          this.notificationBarCommunicationService.send_data(error);
+        }
+      );
   }
   getRestaurantMenu(): void {
-    if (localStorage.getItem("getRestaurantMenu_sv") && this.lang === "sv") {
-      this.restaurant = JSON.parse(
-        localStorage.getItem("getRestaurantMenu_sv")
+    this.restaurantUpdater = this.restaurantService
+      .getSingleRestaurant("nymble-restaurant", this.lang)
+      .subscribe(
+        res => {
+          this.restaurant = res;
+        },
+        error => {
+          this.restaurant = null;
+          this.notificationBarCommunicationService.send_data(error);
+        }
       );
-    } else if (
-      localStorage.getItem("getRestaurantMenu_en") &&
-      this.lang === "en"
-    ) {
-      this.restaurant = JSON.parse(
-        localStorage.getItem("getRestaurantMenu_en")
-      );
-    } else {
-      this.restaurantUpdater = this.restaurantService
-        .getSingleRestaurant("nymble-restaurant", this.lang)
-        .subscribe(
-          res => {
-            this.restaurant = res;
-            if (this.lang === "sv") {
-              localStorage.setItem("getRestaurantMenu_sv", JSON.stringify(res));
-            } else {
-              localStorage.setItem("getRestaurantMenu_en", JSON.stringify(res));
-            }
-          },
-          error => {
-            this.restaurant = null;
-            this.notificationBarCommunicationService.send_data(error);
-          }
-        );
-    }
   }
 
   getAllEvents() {
@@ -377,20 +345,14 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
           const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
           if (sortedArrays.length > 5) {
             this.events = sortedArrays.slice(0, 5);
-            this.fetched_events = localStorage.setItem(
-              "events_list",
-              JSON.stringify(this.events)
-            );
+
             if (res.length !== 0) {
               this.selected_event_title = sortedArrays[0].title;
               this.selected_event_text = sortedArrays[0].description;
             }
           } else {
             this.events = sortedArrays;
-            this.fetched_events = localStorage.setItem(
-              "events_list",
-              JSON.stringify(this.events)
-            );
+
             if (res.length !== 0) {
               this.selected_event_title = sortedArrays[0].title;
               this.selected_event_text = sortedArrays[0].description;
@@ -404,11 +366,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
   }
 
   fetchEvents(): void {
-    if (localStorage.getItem("events_list")) {
-      this.events = JSON.parse(localStorage.getItem("events_list"));
-    } else {
-      this.getAllEvents();
-    }
+    this.getAllEvents();
   }
 
   ngOnInit() {

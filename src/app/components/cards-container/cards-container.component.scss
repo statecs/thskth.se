@@ -745,6 +745,9 @@
           display: none;
         }
         .event {
+          h6 {
+            margin: 0 0 5px 10px;
+          }
           .date {
             width: 40px;
             height: 40px;
@@ -752,9 +755,6 @@
           .excerpt {
             width: 60%;
           }
-        }
-        .event:nth-child(3) {
-          display: none !important;
         }
       }
     }
@@ -883,6 +883,9 @@
           display: none;
         }
         .event {
+          h6 {
+            margin: 0 0 5px 10px;
+          }
           .date {
             width: 40px;
             height: 40px;
@@ -890,9 +893,6 @@
           .excerpt {
             width: 60%;
           }
-        }
-        .event:nth-child(3) {
-          display: none !important;
         }
       }
     }
@@ -1021,6 +1021,9 @@
           display: none;
         }
         .event {
+          h6 {
+            margin: 0 0 5px 10px;
+          }
           .date {
             width: 40px;
             height: 40px;
@@ -1028,9 +1031,6 @@
           .excerpt {
             width: 60%;
           }
-        }
-        .event:nth-child(3) {
-          display: none !important;
         }
       }
     }

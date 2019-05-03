@@ -65,6 +65,7 @@
       <div class="content-container">
         <app-featured-faqs></app-featured-faqs>
 
+        <div [innerHTML]="page.content" class="content contact-form"></div>
         <div class="contact-form">
           <app-contact-form
             *ngIf="page.name === 'Contact' || page.name === 'Kontakt'"

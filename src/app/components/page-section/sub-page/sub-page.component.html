@@ -42,12 +42,12 @@
 
     <div
       *ngIf="!page.header.header_image && page.header.header_color"
-      class="header-color"
+      class="header-color default-header-height"
       [ngStyle]="{ backgroundColor: page.header.header_color }"
     ></div>
     <div
       *ngIf="!page.header.header_image && !page.header.header_color"
-      class="default-header"
+      class="default-header default-header-height"
     ></div>
   </div>
   <div *ngIf="subMenu?.length === 0" class="larger-devices"></div>
