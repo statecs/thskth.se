@@ -190,6 +190,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
 
   displayMeetingDocuments(): void {
+    this.moreDocumentsExist = true;
     this.showPolicyDocuments = false;
     if (this.showMeetingDocuments !== true) {
       this.categoryID = 334;
@@ -205,7 +206,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   }
   displayPolicyDocuments(): void {
     this.showMeetingDocuments = false;
-    this.moreDocumentsExist = false;
+    this.moreDocumentsExist = true;
     if (this.showPolicyDocuments !== true) {
       this.categoryID = 335;
       this.searchDocuments();

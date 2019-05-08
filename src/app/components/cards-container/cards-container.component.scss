@@ -151,6 +151,8 @@
         transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
           opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
           filter 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        background-color: rgba(0, 0, 0, 0.24);
+        color: white;
         .content {
           width: 100%;
           height: 100px;
@@ -294,6 +296,12 @@
 // ---------- Standard card ---------- //
 :host /deep/ .standard-card {
   @include standard-card(35px 20px, left);
+  position: relative !important;
+}
+
+// ---------- Restrictions card ---------- //
+:host /deep/ .nymble-card {
+  @include nymble-card(35px 20px, left);
   position: relative !important;
 }
 
