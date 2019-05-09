@@ -72,6 +72,12 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   public moreDocumentsExist = true;
   public showMeetingDocuments: boolean;
   public showPolicyDocuments: boolean;
+  public showCouncilDocuments: boolean;
+  public showBoardDocuments: boolean;
+  public showGeneralDocuments: boolean;
+  public showPoliciesDocuments: boolean;
+  public showOperationalDocuments: boolean;
+  public showPMDocuments: boolean;
 
   constructor(
     private archiveService: ArchiveService,
@@ -192,6 +198,12 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   displayMeetingDocuments(): void {
     this.moreDocumentsExist = true;
     this.showPolicyDocuments = false;
+    this.showGeneralDocuments = false;
+    this.showPoliciesDocuments = false;
+    this.showOperationalDocuments = false;
+    this.showPMDocuments = false;
+    this.showBoardDocuments = false;
+    this.showCouncilDocuments = false;
     if (this.showMeetingDocuments !== true) {
       this.categoryID = 334;
       this.searchDocuments();
@@ -205,7 +217,13 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     }
   }
   displayPolicyDocuments(): void {
+    this.showGeneralDocuments = false;
+    this.showPoliciesDocuments = false;
+    this.showOperationalDocuments = false;
+    this.showPMDocuments = false;
     this.showMeetingDocuments = false;
+    this.showBoardDocuments = false;
+    this.showCouncilDocuments = false;
     this.moreDocumentsExist = true;
     if (this.showPolicyDocuments !== true) {
       this.categoryID = 335;
@@ -217,6 +235,115 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.moreDocumentsExist = true;
       this.getDocuments();
       this.showPolicyDocuments = false;
+    }
+  }
+  /* Sub category */
+  displayCouncilDocuments(): void {
+    this.showBoardDocuments = false;
+    this.moreDocumentsExist = true;
+    if (this.showCouncilDocuments !== true) {
+      this.categoryID = 348;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showCouncilDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 334;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showCouncilDocuments = false;
+    }
+  }
+  displayBoardDocuments(): void {
+    this.showCouncilDocuments = false;
+    this.moreDocumentsExist = true;
+    if (this.showBoardDocuments !== true) {
+      this.categoryID = 349;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showBoardDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 334;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showBoardDocuments = false;
+    }
+  }
+  displayGeneralDocuments(): void {
+    this.showPoliciesDocuments = false;
+    this.showOperationalDocuments = false;
+    this.showPMDocuments = false;
+
+    this.moreDocumentsExist = true;
+    if (this.showGeneralDocuments !== true) {
+      this.categoryID = 347;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showGeneralDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 335;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showGeneralDocuments = false;
+    }
+  }
+  displayPoliciesDocuments(): void {
+    this.showGeneralDocuments = false;
+    this.showOperationalDocuments = false;
+    this.showPMDocuments = false;
+
+    this.moreDocumentsExist = true;
+    if (this.showPoliciesDocuments !== true) {
+      this.categoryID = 338;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showPoliciesDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 335;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showPoliciesDocuments = false;
+    }
+  }
+  displayOperationalDocuments(): void {
+    this.showGeneralDocuments = false;
+    this.showPoliciesDocuments = false;
+    this.showPMDocuments = false;
+
+    this.moreDocumentsExist = true;
+    if (this.showOperationalDocuments !== true) {
+      this.categoryID = 339;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showOperationalDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 335;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showOperationalDocuments = false;
+    }
+  }
+  displayPMDocuments(): void {
+    this.showGeneralDocuments = false;
+    this.showPoliciesDocuments = false;
+    this.showOperationalDocuments = false;
+
+    this.moreDocumentsExist = true;
+    if (this.showPMDocuments !== true) {
+      this.categoryID = 340;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showPMDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 335;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showPMDocuments = false;
     }
   }
 
@@ -333,6 +460,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
         .searchDocuments(searchParams, this.lang)
         .subscribe(
           res => {
+            this.latestDocuments = res;
             this.documentsLoading = false;
             this.searchResults = res;
             this.documentResults = this.searchResults;
@@ -356,6 +484,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           res => {
             this.documentsLoading = false;
             this.searchResults = res;
+            this.latestDocuments = res;
             this.documentResults = this.searchResults;
           },
           error => {

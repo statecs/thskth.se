@@ -83,6 +83,63 @@
         <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
       </div>-->
     </form>
+    <div
+      class="filters-container documents-btn"
+      *ngIf="showMeetingDocuments || showPolicyDocuments"
+    >
+      <div class="documents-btns filters" *ngIf="showMeetingDocuments">
+        <div
+          class="item"
+          [class.selected]="showCouncilDocuments"
+          (click)="displayCouncilDocuments()"
+        >
+          {{ lang === "en" ? "Student Union Council" : "Kårfullmäktige" }}
+        </div>
+        <div
+          class="item"
+          [class.selected]="showBoardDocuments"
+          (click)="displayBoardDocuments()"
+        >
+          {{ lang === "en" ? "Student Union Board" : "Kårstyrelse" }}
+        </div>
+      </div>
+      <div class="documents-btns filters" *ngIf="showPolicyDocuments">
+        <div
+          class="item"
+          [class.selected]="showGeneralDocuments"
+          (click)="displayGeneralDocuments()"
+        >
+          {{ lang === "en" ? "General" : "Allmänt" }}
+        </div>
+        <div
+          class="item"
+          [class.selected]="showPoliciesDocuments"
+          (click)="displayPoliciesDocuments()"
+        >
+          {{ lang === "en" ? "Policies" : "Policy dokument" }}
+        </div>
+
+        <div
+          class="item"
+          [class.selected]="showOperationalDocuments"
+          (click)="displayOperationalDocuments()"
+        >
+          {{
+            lang === "en"
+              ? "Operational plan and budget"
+              : "Verksamhetsplan och budget"
+          }}
+        </div>
+
+        <div
+          class="item"
+          [class.selected]="showPMDocuments"
+          (click)="displayPMDocuments()"
+        >
+          {{ lang === "en" ? "PMs" : "PM-dokument" }}
+        </div>
+      </div>
+    </div>
     <div class="date_input">
       <span>From: </span>
       <input
