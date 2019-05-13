@@ -64,14 +64,11 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
     this.pageResults = [];
     this.postsResults = [];
     this.faqResults = [];
-    this.paramsSubscription = this.activatedRoute.params.subscribe(
-      (params: Params) => {
-        this.lang = params["lang"];
-        if (typeof this.lang === "undefined") {
-          this.lang = "en";
-        }
-      }
-    );
+    if (this._cookieService.get("language") == "sv") {
+      this.lang = "sv";
+    } else {
+      this.lang = "en";
+    }
     this.removeLangParamPipe = new RemoveLangParamPipe();
     this.addLangToSlugPipe = new AddLangToSlugPipe();
   }
@@ -111,6 +108,11 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   }
 
   goToSearchPage(): void {
+    if (this._cookieService.get("language") == "sv") {
+      this.lang = "sv";
+    } else {
+      this.lang = "en";
+    }
     this.hideBar();
     let slug = "";
     if (this.lang === "sv") {
@@ -123,6 +125,10 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
 
   showBar(): void {
     this.showSearchBar = true;
+    this.searchPosts();
+    this.searchPages();
+    this.searchFAQs();
+    this.searchDocuments();
   }
 
   closeBar(): void {
@@ -212,6 +218,11 @@ export class SearchMenubarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.menuBarSubscription = this.searchMenubarCommunicationService.notifyObservable$.subscribe(
       () => {
+        if (this._cookieService.get("language") == "sv") {
+          this.lang = "sv";
+        } else {
+          this.lang = "en";
+        }
         this.showBar();
         const search_term = this._cookieService.get("search-menubar-terms");
         if (search_term) {

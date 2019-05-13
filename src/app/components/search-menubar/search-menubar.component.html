@@ -86,7 +86,7 @@
             <h3>{{ lang === "en" ? "Posts" : "Inlägg" }}</h3>
             <a
               *ngFor="let c of p.categories"
-              routerLink="/posts/{{ c.slug }}"
+              routerLink="{{ lang }}/posts/{{ c.slug }}"
               >{{ c.name }}</a
             >
           </div>
@@ -107,8 +107,8 @@
         (!postsLoading && postsResults.length !== 0)
       "
     >
-      <span (click)="goToSearchPage()" class="seeAll"
-        >ALL RESULTS
+      <span (click)="goToSearchPage()" class="seeAll">
+        {{ lang === "en" ? "ALL RESULTS" : "FLER RESULTAT" }}
         <i class="material-icons">
           arrow_forward
         </i></span
