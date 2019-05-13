@@ -72,111 +72,69 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         user_input: [
           {
             message: {
-              en: "Where is KarX located?",
-              sv: "Var ligger KårX?"
-            },
-            type: "user",
-            response: {
-              message: {
-                en: "It is located in Nymble.",
-                sv: "Det ligger i Nymble. "
-              },
-              info: null,
-              type: "response",
-              user_input: [
-                {
-                  message: {
-                    en: this.messages.three.en,
-                    sv: this.messages.three.sv
-                  },
-                  type: "user",
-                  response: {
-                    message: {
-                      en: this.messages.one.en,
-                      sv: this.messages.one.sv
-                    },
-                    info: null,
-                    type: "response"
-                  }
-                },
-                {
-                  message: {
-                    en: this.messages.four.en,
-                    sv: this.messages.four.sv
-                  },
-                  type: "user",
-                  response: {
-                    message: {
-                      en: this.messages.two.en,
-                      sv: this.messages.two.sv
-                    },
-                    info: null,
-                    type: "response"
-                  }
-                }
-              ]
-            }
-          },
-          {
-            message: {
-              en: "I want to become a member",
-              sv: "Jag vill bli medlem"
+              en: "I want to become a member!",
+              sv: "Jag vill bli medlem!"
             },
             type: "user",
             response: {
               message: {
                 en:
-                  "Great! Have you registered for this semester? You can do it <a href='https://www.student.ladok.se/student/#/installningar'>here</a>",
+                  "Great! Before we start. Have you registered for this semester? You can check it <a target='_blank' href='https://www.student.ladok.se/student/#/installningar'>here</a>",
                 sv:
-                  "Bra! Har du kursregistrerat dig? Du kan göra det här: <a href='https://www.student.ladok.se/student/#/installningar'>här</a>"
+                  "Vad roligt! Innan vi startar igång. Har du kursregistrerat dig? Du kan kontrollera det här: <a target='_blank' href='https://www.student.ladok.se/student/#/installningar'>här</a>"
               },
-              info: null,
+              info: {
+                en:
+                  "<a target='_blank' href='https://www.kth.se/en/student/kurs/kursregistrering-1.317058'> General information about course registration.</a> You can also contact your study counselor for more information",
+                sv:
+                  "Information om kursregistrering hittar du <a target='_blank' href='https://www.kth.se/student/kurs/kursregistrering-1.317058'>här</a>. Du kan också kontakta din studievägledare för mer information"
+              },
               type: "response",
               user_input: [
                 {
                   message: {
-                    en: this.messages.three.en,
-                    sv: this.messages.three.sv
+                    en: "Yes",
+                    sv: "Ja"
                   },
                   type: "user",
                   response: {
                     message: {
                       en:
-                        "Have you paid the membership fee? You can do it <a href='https://ths.kth.se/login'>here</a>",
+                        "Great! Have you paid the membership fee? The membership is for the full academic year. ",
                       sv:
-                        "Har du betalat medlemsavgiften? Vi tar emot Swish eller kort. Du kan logga in <a href='https://ths.kth.se/login'>här</a>"
+                        "Superbra! Har du betalat medlemsavgiften? Ett medlemskap gäller hela läsåret. Vi tar emot Swish eller kort. "
                     },
                     info: null,
                     type: "response",
                     user_input: [
                       {
                         message: {
-                          en: this.messages.three.en,
-                          sv: this.messages.three.sv
+                          en: "Yes",
+                          sv: "Ja"
                         },
                         type: "user",
                         response: {
                           message: {
                             en:
-                              "Have you updated your kth-email at SSSB? You can do it <a href='https://www.sssb.se/en/my-pages/my-contact-details'>here</a>",
+                              "Perfect! Now you are a registered THS Member. Do you have any further questions? ",
                             sv:
-                              "Använder du din kth-adress hos SSSB? Detta är ett krav för att systemen ska kunna synkronisera korrekt. Du kan göra det <a href='https://www.sssb.se/en/my-pages/my-contact-details'>här</a>"
+                              "Perfekt! Nu är du en fullvärdig THS-Medlem. Har du några flera frågor?"
                           },
                           info: null,
                           type: "response",
                           user_input: [
                             {
                               message: {
-                                en: this.messages.three.en,
-                                sv: this.messages.three.sv
+                                en: "I want to collect queue-days at SSSB",
+                                sv: "Jag vill samla ködagar hos SSSB"
                               },
                               type: "user",
                               response: {
                                 message: {
                                   en:
-                                    "Perfect, within a few days, SSSB will get information about you and you can collect more queue days! Good luck!",
+                                    "No problem! In order for the system to synchronize you need to use your KTH-email at SSSB website. You can change it <a target='_blank' href='https://www.sssb.se/en/my-pages/my-contact-details'>here</a>",
                                   sv:
-                                    "Perfekt, Inom några dagar så kommer SSSB få information om dig och du kan samla fler ködagar! Lycka till!"
+                                    "Inga problem! För att systemen ska synkronisera korrekt så behöver du använda din KTH mail hos SSSB. Du kan ändra det <a target='_blank' href='https://www.sssb.se/sv/my-pages/my-contact-details'>här</a>"
                                 },
                                 info: null,
                                 type: "response"
@@ -190,8 +148,10 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                               type: "user",
                               response: {
                                 message: {
-                                  en: this.messages.two.en,
-                                  sv: this.messages.two.sv
+                                  en:
+                                    "Perfect, within a few days, SSSB will get information about you and you can collect more queue days! Good luck!",
+                                  sv:
+                                    "Perfekt, Inom några dagar så kommer SSSB få information om dig och du kan samla fler ködagar! Lycka till!"
                                 },
                                 info: null,
                                 type: "response"
@@ -208,11 +168,69 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                         type: "user",
                         response: {
                           message: {
-                            en: this.messages.two.en,
-                            sv: this.messages.two.sv
+                            en:
+                              "Ok, no problem! You can do it <a target='_blank' href='https://ths.kth.se/login'>here</a>",
+                            sv:
+                              "Ok! Inga problem! Du kan betala medlemsavgiften <a target='_blank' href='https://ths.kth.se/login'>här</a>"
                           },
                           info: null,
-                          type: "response"
+                          type: "response",
+                          user_input: [
+                            {
+                              message: {
+                                en: "I have paid the membership fee",
+                                sv: "Jag har betalat medlemsavgiften"
+                              },
+                              type: "user",
+                              response: {
+                                message: {
+                                  en:
+                                    "Perfect! Now you are a registered THS Member. Do you have any further questions? ",
+                                  sv:
+                                    "Perfekt! Nu är du en fullvärdig THS-Medlem. Har du några flera frågor?"
+                                },
+                                info: null,
+                                type: "response",
+                                user_input: [
+                                  {
+                                    message: {
+                                      en:
+                                        "I want to collect queue-days at SSSB",
+                                      sv: "Jag vill samla ködagar hos SSSB"
+                                    },
+                                    type: "user",
+                                    response: {
+                                      message: {
+                                        en:
+                                          "No problem! In order for the system to synchronize you need to use your KTH-email at SSSB website. You can change it <a target='_blank' href='https://www.sssb.se/en/my-pages/my-contact-details'>here</a>",
+                                        sv:
+                                          "Inga problem! För att systemen ska synkronisera korrekt så behöver du använda din KTH mail hos SSSB. Du kan ändra det <a target='_blank' href='https://www.sssb.se/sv/my-pages/my-contact-details'>här</a>"
+                                      },
+                                      info: null,
+                                      type: "response"
+                                    }
+                                  },
+                                  {
+                                    message: {
+                                      en: "No",
+                                      sv: "Nej"
+                                    },
+                                    type: "user",
+                                    response: {
+                                      message: {
+                                        en:
+                                          "Ok! I hope this was helpful! Good luck with your studies ;)",
+                                        sv:
+                                          "Ok! Jag hoppas att jag lyckades besvara dina funderingar. Stort lycka till med studierna. ;)"
+                                      },
+                                      info: null,
+                                      type: "response"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
                         }
                       }
                     ]
@@ -220,20 +238,141 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                 },
                 {
                   message: {
-                    en: this.messages.four.en,
-                    sv: this.messages.four.sv
+                    en: "No",
+                    sv: "Nej"
                   },
                   type: "user",
                   response: {
                     message: {
-                      en: this.messages.two.en,
-                      sv: this.messages.two.sv
+                      en:
+                        "Okay! In order to become a student member of THS, you need to have an active course registration at KTH. If you are only admitted to a course, but not registered, then it is not sufficient. You can check your registration <a target='_blank' href='https://www.student.ladok.se/student/#/installningar'>here</a>.",
+                      sv:
+                        "Okej! För att bli THS-medlem måste du ha en aktiv kursregistrering på KTH. Om du bara är antagen till en kurs, men inte registrerad, är det inte tillräckligt. Du kan kontrollera din registrering  <a target='_blank' href='https://www.student.ladok.se/student/#/installningar'>här</a>."
                     },
                     info: null,
-                    type: "response"
+                    type: "response",
+                    user_input: [
+                      {
+                        message: {
+                          en: "I have registered for my courses this term",
+                          sv: "Jag har kursregistrerat mig denna termin"
+                        },
+                        type: "user",
+                        response: {
+                          message: {
+                            en:
+                              "Thank you! Next step is to pay the membership fee. The membership is valid for a full academic year. You can pay <a target='_blank' href='https://ths.kth.se/login'>here</a> ",
+                            sv:
+                              "Tack så mycket! Nästa steg är att betala medlemsavgiften. Medlemskapet gäller i ett läsår. Du kan betala <a target='_blank' href='https://ths.kth.se/login'>här</a>"
+                          },
+                          info: {
+                            en:
+                              "Our membership system is called arcMember and you can login with your KTH-id <a target='_blank' href='https://ths.kth.se/login'>here</a> ",
+                            sv:
+                              "Vårt medlemssytem heter arcMember och du kan logga in med ditt KTH-id <a target='_blank' href='https://ths.kth.se/login'>här</a>"
+                          },
+                          type: "response",
+                          user_input: [
+                            {
+                              message: {
+                                en: "I have paid the membership fee",
+                                sv: "Jag har betalat medlemsavgiften"
+                              },
+                              type: "user",
+                              response: {
+                                message: {
+                                  en:
+                                    "Perfect! Now you are a registered THS Member. Do you have any further questions? ",
+                                  sv:
+                                    "Perfekt! Nu är du en fullvärdig THS-Medlem. Har du några flera frågor?"
+                                },
+                                info: null,
+                                type: "response",
+                                user_input: [
+                                  {
+                                    message: {
+                                      en:
+                                        "I want to collect queue-days at SSSB",
+                                      sv: "Jag vill samla ködagar hos SSSB"
+                                    },
+                                    type: "user",
+                                    response: {
+                                      message: {
+                                        en:
+                                          "No problem! In order for the system to synchronize you need to use your KTH-email at SSSB website. You can change it <a target='_blank' href='https://www.sssb.se/en/my-pages/my-contact-details'>here</a>",
+                                        sv:
+                                          "Inga problem! För att systemen ska synkronisera korrekt så behöver du använda din KTH mail hos SSSB. Du kan ändra det <a target='_blank' href='https://www.sssb.se/sv/my-pages/my-contact-details'>här</a>"
+                                      },
+                                      info: null,
+                                      type: "response"
+                                    }
+                                  },
+                                  {
+                                    message: {
+                                      en: "No",
+                                      sv: "Nej"
+                                    },
+                                    type: "user",
+                                    response: {
+                                      message: {
+                                        en:
+                                          "Ok! I hope this was helpful! Good luck with your studies ;)",
+                                        sv:
+                                          "Ok! Jag hoppas att jag lyckades besvara dina funderingar. Stort lycka till med studierna. ;)"
+                                      },
+                                      info: null,
+                                      type: "response"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
                   }
                 }
               ]
+            }
+          },
+          {
+            message: {
+              en: "Why am I missing the SL-logo on my card?",
+              sv: "Varför saknar jag SL-loggan på mitt studentkort?"
+            },
+            type: "user",
+            response: {
+              message: {
+                en:
+                  "To be eligible for the SL discount, you must meet the following criteria: <p>– You must be registered for at least 75% activity at KTH. You can check your registrations <a href='https://www.student.ladok.se/student/#/installningar'>here.</a> If you are only admitted to the course, and not registered, then it is not sufficient for this requirement. <br> – If you are a PhD-student, your department must have registered your activity for your current semester in Ladok. This is done manually by KTH and therefore it might take some time. You can also provide us with a signed paper from your supervisor, stating your pace of study.<br> – You must have an email-address and current address registered in Ladok. You can check your information <a href='https://www.student.ladok.se/student/#/installningar'>here.</a></p>",
+                sv:
+                  "För att vara berättigad till SL-rabatten måste du uppfylla nedan kriterier: <p>– Du måste vara registrerad för minst 75% aktivitet på KTH. Du kan kontrollera dina registreringar <a href='https://www.student.ladok.se/student/#/installningar'>här.</a> Det räcker inte att vara antagen till en kurs, utan du måste också vara registrerad.<br> – Om du är Doktorand måste din avdelning registrera dig för aktuell termin i Ladok. Detta görs manuellt av KTH och därför kan det ta lite tid. Du kan också bifoga ett skriftligt underlag från din handledare som bevisar din aktivitet.<br> - Du måste ha en e-postadress och en adress registrerad i Ladok. Du kan kontrollera dina information <a href='https://www.student.ladok.se/student/#/installningar'>här.</a></p>"
+              },
+              info: {
+                en:
+                  "<a target='_blank' href='https://www.kth.se/en/student/kurs/kursregistrering-1.317058'> General information about course registration.</a> You can also contact your study counselor for more information",
+                sv:
+                  "Information om kursregistrering hittar du <a target='_blank' href='https://www.kth.se/student/kurs/kursregistrering-1.317058'>här</a>. Du kan också kontakta din studievägledare för mer information"
+              },
+              type: "response"
+            }
+          },
+          {
+            message: {
+              en: "I want to order a physical card",
+              sv: "Jag vill beställa ett fysiskt studentkort"
+            },
+            type: "user",
+            response: {
+              message: {
+                en:
+                  "No problem! You can order a physical card <a target='_blank' href='https://help.mecenat.com/hc/en-gb/articles/115005725326-I-want-a-physical-Mecenat-card'>here</a>",
+                sv:
+                  "Inga problem! Du kan beställa ett fysiskt studentkort <a target='_blank' href='https://help.mecenat.com/hc/sv/articles/115005725326-Jag-vill-ha-ett-fysiskt-Mecenatkort'>här</a>"
+              },
+              info: null,
+              type: "response"
             }
           }
         ]

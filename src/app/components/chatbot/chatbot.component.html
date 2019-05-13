@@ -5,21 +5,22 @@
         <div class="response" *ngIf="i.type === 'response'">
           <section
             class="text"
-            [innerHTML]="
-              (lang === 'en' ? i.message.en : i.message.sv) | keepHtml
-            "
+            [innerHTML]="lang === 'en' ? i.message.en : i.message.sv"
           ></section>
           <div *ngIf="i.info && i.info !== ''" class="info">
             <span (click)="showInfo(index)">?</span>
-            <div *ngIf="showedInfoIndex == index" class="info-text">
-              {{ lang === "en" ? i.info.en : i.info.sv }}
-            </div>
+            <div
+              *ngIf="showedInfoIndex == index"
+              class="info-text"
+              [innerHTML]="lang === 'en' ? i.info.en : i.info.sv"
+            ></div>
           </div>
         </div>
         <div class="user" *ngIf="i.type === 'user'">
-          <div class="message">
-            {{ lang === "en" ? i.message.en : i.message.sv }}
-          </div>
+          <div
+            class="message"
+            [innerHTML]="lang === 'en' ? i.message.en : i.message.sv"
+          ></div>
         </div>
       </li>
     </ol>
@@ -28,9 +29,8 @@
         *ngFor="let r of user_inputs; let i = index"
         class="res_item"
         (click)="addItemToChatFlow($event, i)"
-      >
-        {{ lang === "en" ? r.message.en : r.message.sv }}
-      </div>
+        [innerHTML]="lang === 'en' ? r.message.en : r.message.sv"
+      ></div>
     </div>
     <div
       *ngIf="responses.length > 1"
