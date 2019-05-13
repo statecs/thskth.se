@@ -1,40 +1,23 @@
 <div #card_categorizer id="card-categorizer">
-  <!--<span *ngIf="lang === 'en'">I am a</span>
-    <span *ngIf="lang === 'sv'">Jag är en</span>
-  <div #profession class="profession large-devices"  (click)="toggleDropdown(1)">
-    <span>{{selected_profession_name}}</span>
-    <i class="material-icons">keyboard_arrow_down</i>
-      <div class="dropdown-container">
-          <div class="dropdown-list">
-              <div *ngFor="let c of pro_cats, let i = index" class="dropdown-item" [ngClass]="{'selected-item': prof_selectedIndex === i}" (click)="updateFiltering('profession', $event, c.id, i)">{{c.name}}</div>
-          </div>
-      </div>
-  </div>-->
-  <!--<div class="profession mobile" (click)="showSelectSlider(pro_cats, 'profession')">
-        <span>{{selected_profession_name}}</span>
-        <i class="material-icons">keyboard_arrow_down</i>
-    </div>-->
-  <span *ngIf="lang === 'en'">I am interested in</span>
-  <span *ngIf="lang === 'sv'">Jag är intresserad av</span>
+  <ng-container *ngIf="!fetching">
+    <span *ngIf="lang === 'en'">I am interested in</span>
+    <span *ngIf="lang === 'sv'">Jag är intresserad av</span>
 
-  <div class="interest" (click)="toggleDropdown(1)">
-    <span>{{ selected_interest_name }}</span>
-    <i class="material-icons">keyboard_arrow_down</i>
-    <div class="dropdown-container">
-      <div class="dropdown-list">
-        <div
-          *ngFor="let c of int_cats; let i = index"
-          class="dropdown-item"
-          [ngClass]="{ 'selected-item': inter_selectedIndex === i }"
-          (click)="updateFiltering('interest', $event, c.id, i)"
-        >
-          {{ c.name }}
+    <div class="interest" (click)="toggleDropdown(1)">
+      <span>{{ selected_interest_name }}</span>
+      <i class="material-icons">keyboard_arrow_down</i>
+      <div class="dropdown-container">
+        <div class="dropdown-list">
+          <div
+            *ngFor="let c of int_cats; let i = index"
+            class="dropdown-item"
+            [ngClass]="{ 'selected-item': inter_selectedIndex === i }"
+            (click)="updateFiltering('interest', $event, c.id, i)"
+          >
+            {{ c.name }}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!----<div class="interest mobile" (click)="showSelectSlider(int_cats, 'interest')">
-    <span>{{ selected_interest_name }}</span>
-    <i class="material-icons">keyboard_arrow_down</i>
-  </div>-->
+  </ng-container>
 </div>

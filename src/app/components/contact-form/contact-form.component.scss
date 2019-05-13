@@ -1,83 +1,82 @@
 @import "../../../style/utilities";
 
-form{
-  h1{
-    padding: 20px;
-    background-color: $bg-color-primary;
-    color: white;
-  }
-  a{
+form {
+  a {
     text-decoration: none;
     color: $color-link-secondary;
-    &:hover{
+    &:hover {
       color: $color-link-secondary-hover;
     }
   }
-  .error{
+  .error {
     color: $text-color-danger;
     display: inline-block;
     margin-left: 10px;
   }
-  .success{
+  .success {
     color: $text-color-success;
     display: inline-block;
     margin-left: 10px;
   }
-  .heading{
+  .heading {
     font-size: $font-size-h3;
     font-weight: 600;
   }
-  .titles{
+  .titles {
     width: 50%;
-    .title{
+    .title {
       display: inline-block;
       border-radius: 25px;
       padding: 15px 40px;
       color: black;
       border: 1px solid #4a4a4a;
       margin: 10px 5px;
-      &:hover{
+      &:hover {
         background-color: #4a4a4a;
         color: white;
       }
     }
   }
-  select, textarea, input{
+  select,
+  textarea,
+  input {
     width: 100%;
     //height: 40px;
     border-radius: 5px;
     border: 0;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+    border: 1px solid lightgrey;
     padding: 10px;
     font-size: $font-size-h5;
   }
 
-  textarea{
+  textarea {
     height: auto;
   }
 
-  .standard-grid{
+  .standard-grid {
     @include standard-grid(2%);
     overflow: hidden;
-    >div{
+    > div {
       margin-left: -1%;
       width: 102%;
     }
   }
 
-  label{
+  label {
     display: block;
     margin: 15px 0 5px;
   }
 
-  .divider{
+  .divider {
     @include divider(100%, 10px);
   }
 
-  button{
-    @include standard-button(10px 25px);
+  button {
+    @include standard-button(15px 50px);
+    border-radius: 30px;
     margin-top: 20px;
     cursor: pointer;
+    font-size: 1em;
   }
 }
 
@@ -85,14 +84,14 @@ form{
 @include media-breakpoint-only(xs) {
   form {
     font-size: $font-size-h6;
-    >h1{
+    > h1 {
       font-size: $font-size-h3;
     }
-    .heading{
+    .heading {
       font-size: $font-size-h4;
     }
-    .standard-grid{
-      .o-half{
+    .standard-grid {
+      .o-half {
         width: 98%;
       }
     }
@@ -102,14 +101,14 @@ form{
 @include media-breakpoint-only(sm) {
   form {
     font-size: $font-size-h6;
-    >h1{
+    > h1 {
       font-size: $font-size-h3;
     }
-    .heading{
+    .heading {
       font-size: $font-size-h4;
     }
-    .standard-grid{
-      .o-half{
+    .standard-grid {
+      .o-half {
         width: 98%;
       }
     }
@@ -118,10 +117,10 @@ form{
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   form {
-    >h1{
+    > h1 {
       font-size: $font-size-h3;
     }
-    .heading{
+    .heading {
       font-size: $font-size-h4;
     }
   }
@@ -129,10 +128,8 @@ form{
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   form {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

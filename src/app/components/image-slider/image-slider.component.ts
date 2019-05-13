@@ -13,6 +13,7 @@ import { Subscription } from "rxjs/Subscription";
 import { PopupWindowCommunicationService } from "../../services/component-communicators/popup-window-communication.service";
 import { Location } from "@angular/common";
 import * as format from "date-fns/format";
+import { CookieService, CookieOptions } from "ngx-cookie";
 
 @Component({
   selector: "app-image-slider",
@@ -22,13 +23,13 @@ import * as format from "date-fns/format";
 export class ImageSliderComponent implements OnInit, OnDestroy {
   @ViewChild("slides_container") slides_container: ElementRef;
   @ViewChild("slider_progress_bar") slider_progress_bar: ElementRef;
+  @Input() lang: any;
   @Input() slide_items: any;
   public slides_wrapper: any;
   public item_onfocus_index: number;
   public bar_items: any;
   private swipeCoord: [number, number];
   private swipeTime: number;
-  public lang: string;
   public see_more: string;
   public news_text: string;
   public paramsSubscription: Subscription;
@@ -43,63 +44,26 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     private imageSliderCommunicationService: ImageSliderCommunicationService,
     private activatedRoute: ActivatedRoute,
     private popupWindowCommunicationService: PopupWindowCommunicationService,
-    private location: Location
+    private location: Location,
+    private _cookieService: CookieService
   ) {
-    this.item_onfocus_index = 1;
+    this.item_onfocus_index = 0;
     this.dragging = false;
-    this.lang = this.activatedRoute.snapshot.data["lang"];
+    // this.lang = this.activatedRoute.snapshot.data["lang"];
     this.deviceSize = window.screen.width;
-    if (typeof this.lang === "undefined") {
-      this.paramsSubscription = this.activatedRoute.params.subscribe(
-        (params: Params) => {
-          this.lang = params["lang"];
-          if (typeof this.lang === "undefined") {
-            this.lang = "en";
-          }
-          this.lang === "en"
-            ? (this.see_more = "See More")
-            : (this.see_more = "Se Mer");
-          this.lang === "en"
-            ? (this.news_text = "THS News")
-            : (this.news_text = "THS Nyheter");
-        }
-      );
+    if (this._cookieService.get("language") == "sv") {
+      this.lang = "sv";
     } else {
-      this.lang === "en"
-        ? (this.see_more = "See More")
-        : (this.see_more = "Se Mer");
-      this.lang === "en"
-        ? (this.news_text = "THS News")
-        : (this.news_text = "THS Nyheter");
+      this.lang = "en";
+    }
+    if (this.lang === "sv") {
+      this.news_text = "THS Nyheter";
+      this.see_more = "Se Mer";
+    } else {
+      this.news_text = "THS News";
+      this.see_more = "See More";
     }
   }
-  /*
-    @HostListener('mousemove', ['$event'])
-    moveSlide(e): void {
-        if (this.dragging) {
-            if (!this.draggedPosition) {
-                this.draggedPosition = e.clientX;
-            }
-            const distance = (e.clientX - this.draggedPosition) / this.slides_wrapper[0].clientWidth * 100;
-            if (this.slides_wrapper[0].style.marginLeft) {
-                this.margin_left = (parseFloat(this.slides_wrapper[0].style.marginLeft) + distance);
-            }else {
-                this.margin_left = (-2.05 + distance);
-            }
-            this.slides_wrapper[0].style.marginLeft = this.margin_left + '%';
-            this.draggedPosition = e.clientX;
-        }
-    }*/
-
-  /*    @HostListener('mouseleave', ['$event'])
-    mouseleave(): void {
-        this.dragend();
-    }
-
-    @HostListener('mouseup', ['$event'])
-    mouseup(): void {
-        this.dragend();
-    }*/
 
   @HostListener("document:touchmove", ["$event"])
   touchMoving(event) {
@@ -169,16 +133,16 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.slides_wrapper.length; i++) {
       this.slides_wrapper[i].style.marginLeft = margin_left;
     }
-    this.item_onfocus_index = index;
+    this.item_onfocus_index = index - 1;
   }
 
   getBgUrl(image: any): string {
     let url = "";
     if (image !== "") {
       if (this.deviceSize < 768) {
-        url = image.medium;
+        url = image.large;
       } else if (this.deviceSize >= 768 && this.deviceSize < 992) {
-        url = image.medium;
+        url = image.large;
       } else if (this.deviceSize >= 992 && this.deviceSize < 1200) {
         url = image.large;
       } else if (this.deviceSize >= 1200) {

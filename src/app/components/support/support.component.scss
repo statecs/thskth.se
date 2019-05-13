@@ -1,237 +1,268 @@
 @import "../../../style/utilities";
 
-:host /deep/ header{
+:host /deep/ header {
   background: none !important;
   background-color: $bg-color-primary !important;
   color: white !important;
-  .container{
+  .container {
     border-bottom: 0 !important;
   }
 }
-
+.faq.selected {
+  color: black;
+  background-color: #ebebeb;
+}
+.header {
+  max-height: 350px;
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  .default-header {
+    width: 100%;
+    height: 224px;
+    background-color: $bg-color-primary;
+  }
+}
 #support {
+  box-shadow: 0 1px 3px #b2b2b2;
   @include container-size($main-container);
-  padding-top: 100px;
+  max-width: 1600px;
+  margin: 0 auto;
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
   min-height: 200px;
-  .larger-devices{
+  background: white;
+  top: -150px;
+  border-radius: 15px;
+  padding: 50px;
+  .larger-devices {
     display: block;
   }
-  .mobile{
+  .mobile {
     display: none;
   }
-  .heading{
+  .heading {
     position: relative;
     text-align: center;
-    .title{
-      //width: 65%;
-      h2{
-        font-size: $font-size-h2;
-        margin:0 0 10px;
+    .title {
+      a {
+        text-decoration: none;
+        color: black;
+        h2 {
+          font-size: $font-size-h2;
+          margin: 0 0 10px;
+        }
       }
-      span{
+      span {
         color: gray;
         font-size: $font-size-h4;
       }
     }
-    .search{
-      /*bottom: 0;
-      right: 0;
-      position: absolute;*/
-      margin-top: 20px;
-      label{
+  }
+
+  .search {
+    /*bottom: 0;
+    right: 0;
+    position: absolute;*/
+    margin-top: 20px;
+    label {
+      position: absolute;
+      cursor: pointer;
+      i {
+        color: lightgrey;
+        left: 10px;
+        font-size: 2em;
+        top: 20px;
         position: absolute;
-        cursor: pointer;
-        i{
-          left: 10px;
-          font-size: 2em;
-          top: 20px;
-          position: absolute;
-          &:hover{
-            color: $color-link-hover;
-          }
+        &:hover {
+          color: $color-link-hover;
         }
       }
-      input{
-        @include capsule-form(720px, 20px);
-        box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
-        border: 1px solid #ccc;
-        background-color: $bg-color-default;
-        padding-left: 50px;
-        padding-right: 10px;
-        font-size: $font-size-h5;
-      }
+    }
+    input {
+      @include capsule-form-search(100%, 20px);
+      border: 0;
+      border-bottom: 1px solid #ccc;
+      padding-left: 50px;
+      padding-right: 10px;
+      font-size: $font-size-h5;
+      -webkit-appearance: textfield;
     }
   }
 
-  .noInput{
+  .noInput {
     color: $text-color-warning;
   }
 
-  .content-container{
-    border-top: 1px solid lightgray;
-    margin-bottom: 100px;
-    margin-top: 50px;
-    .faqs-categories{
-      border-top: 1px solid lightgray;
-      text-align: center;
-      .category{
-        width: 30%;
-        padding: 20px 0;
-        background-color: lightgray;
-        display: inline-block;
-        margin: 10px 1%;
-        cursor: pointer;
-        text-decoration: none;
-        color: $color-link-secondary;
-        border-radius: 5px;
-        box-shadow: 1px 1px 7px rgb(143, 143, 143);
-        &:hover{
-          color: $color-link-secondary-hover;
+  .content-container {
+    .faqs-categories {
+      .categories {
+        width: 100%;
+        overflow-x: scroll;
+        text-align: left;
+        .container {
+          width: 300%;
+          padding: 20px;
+          a {
+            text-decoration: none;
+            margin-right: 15px;
+            border-radius: 15px;
+            box-shadow: 0 1px 3px #b2b2b2;
+            color: black;
+          }
         }
+      }
+      .category {
+        display: inline;
+        padding: 10px 15px;
       }
     }
   }
 
-  .faqs-single-view{
+  .faqs-single-view {
     margin-top: 40px;
     position: relative;
-    .submenu{
+    .submenu {
+      .cat-container {
+        .cat-wrapper.larger-devices {
+          display: inline-grid;
+        }
+      }
+
       width: 30%;
       display: inline-block;
-      label{
-        border-bottom:1px solid lightgrey;
+      label {
+        border-bottom: 1px solid lightgrey;
         margin-bottom: 10px;
         display: block;
         font-weight: 800;
         padding-bottom: 5px;
       }
-      .submenu-item{
+      .submenu-item {
         padding: 12px 15px;
         position: relative;
         font-weight: 500;
+        border-radius: 8px;
         cursor: pointer;
-        &:hover{
-          box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        &:hover {
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
       }
-      .selected{
-        background-color: $bg-color-secondary;
-        color: white;
+      .submenu-itemcategory {
+        text-decoration: none;
+        margin-right: 15px;
+        border-radius: 15px;
+        box-shadow: 0 1px 3px #b2b2b2;
+        padding: 10px 15px;
+      }
+      .selected {
+        background-color: #00406c;
+        color: #f7f7f7;
         cursor: default;
-        &:hover{
-          box-shadow: 0 0 0 rgba(0,0,0,0.3);
-        }
-        &::after{
-          @include arrow-right(20px, $bg-color-secondary);
+        &:hover {
+          box-shadow: 0 1px 3px #b2b2b2;
         }
       }
     }
 
-    .faqs-container{
+    .faqs-container {
       width: 66%;
       display: inline-block;
       position: relative;
       vertical-align: top;
       left: 4%;
-      .selected_faqs{
-        & >h3{
+      .selected_faqs {
+        & > h3 {
           font-size: $font-size-h3;
           margin: 0 0 10px;
           color: $color-link;
           margin-bottom: 30px;
         }
-        .faq-section{
+        .faq-section {
           margin-bottom: 30px;
-          & >label{
+          & > label {
             font-size: $font-size-h4;
             font-weight: 700;
             margin-bottom: 15px;
             display: block;
           }
         }
-        .submenu-faq{
-          margin-left: 15px !important;
-        }
       }
 
-      .search-results{
-        & >h3{
+      .search-results {
+        & > h3 {
           margin: 0 0 20px;
           color: $text-color-brown;
         }
       }
 
-      .noItems{
+      .noItems {
         color: $text-color-warning;
       }
 
-      .faq{
+      .faq {
         border-bottom: 1px solid lightgrey;
-        box-shadow: 0 0 5px rgba(0,0,0,0.3);
         margin: 4px 0;
         padding: 5px 15px;
+        box-shadow: 0 1px 3px #b2b2b2;
+        border-radius: 15px;
         cursor: pointer;
-        span{
+        span {
           float: right;
           font-size: $font-size-h4;
           line-height: 0.6;
           font-weight: 500;
           margin-top: 10px;
         }
-        .question{
+        .question {
           font-weight: 500;
           margin: 10px 0;
         }
-        .answer{
+        .answer {
           display: none;
           color: black;
-          transition:height 0.5s ease-out;
-          height:0;
+          transition: height 0.5s ease-out;
+          height: 0;
           overflow: hidden;
           margin: 20px 0;
           line-height: 1.3;
         }
-        &:hover{
-          color: $color-link-hover;
-          box-shadow: 0 0 5px #0072c0;
+        &:hover {
+          color: black;
+          background-color: #ebebeb;
         }
       }
     }
   }
 }
 
-:host /deep/ .answer{
-  p{
+:host /deep/ .answer {
+  p {
     margin: 0;
   }
-  strong{
+  strong {
     font-weight: 800;
     color: #45b8da;
   }
 }
-:host /deep/ .question{
-  strong{
+:host /deep/ .question {
+  strong {
     font-weight: 800;
     color: #45b8da;
   }
 }
 
-::-webkit-scrollbar
-{
-  width: 2px;  /* for vertical scrollbars */
+::-webkit-scrollbar {
+  width: 2px; /* for vertical scrollbars */
   height: 2px; /* for horizontal scrollbars */
 }
 
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
   background: rgba(84, 84, 84, 0.2);
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: #b2b2b2;
   border-radius: 10px;
 }
@@ -239,71 +270,127 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #support {
-    width: 100%;
-    .larger-devices{
+    padding: 40px 10px;
+    width: 97%;
+    top: -160px;
+    .search {
+      input {
+        border: 0;
+        box-shadow: 0;
+      }
+      form {
+        border-bottom: 1px solid lightgrey;
+      }
+    }
+    .larger-devices {
       display: none;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
-    .heading{
-      .title{
-        h2{
-          line-height: 1.3;
-          font-size: $font-size-h3;
-          padding: 0 5%;
+    .heading {
+      .title {
+        a {
+          text-decoration: none;
+          color: black;
+          h2 {
+            line-height: 1.3;
+            font-size: $font-size-h3;
+            padding: 0 5%;
+          }
         }
-        span{
+
+        span {
           text-align: left;
           margin: 0 5%;
           display: block;
           font-size: $font-size-default;
         }
       }
-      .search{
-        input{
-          width: 90%;
-        }
-      }
     }
-    .content-container{
-      .faqs-categories{
-        .category{
-          width: 80%;
-        }
-      }
-    }
-    .faqs-single-view{
-      margin-top: 30px;
-      .submenu{
-        width: 100%;
-        label{
-          margin-bottom: 0;
-          padding-left: 4%;
-        }
-        .cat-container{
+    .content-container {
+      .faqs-categories {
+        .categories {
+          width: 100%;
           overflow-x: scroll;
-          .cat-wrapper{
-            background-color: white;
-            .submenu-item{
-              display: inline-block;
-              color: $color-link-secondary;
-            }
-            .selected{
-              color: white;
+          text-align: left;
+          .container {
+            width: 400%;
+            padding: 20px;
+            a {
+              text-decoration: none;
+              margin-right: 15px;
+              border-radius: 15px;
+              box-shadow: 0 1px 3px #b2b2b2;
+              color: black;
+              font-size: 0.5em;
             }
           }
         }
-        .selected{
-          &:after{
+        .category {
+          display: inline;
+          padding: 10px 15px;
+        }
+      }
+    }
+    .faqs-single-view {
+      margin-top: 30px;
+      .submenu {
+        width: 100%;
+        label {
+          margin-bottom: 0;
+          padding-left: 4%;
+        }
+        .cat-container {
+          .cat-wrapper.larger-devices {
+            display: none;
+          }
+          .cat-wrapper.mobile {
+            display: inline-grid;
+            .categories {
+              .container {
+                a {
+                  font-size: 11px !important;
+                }
+              }
+            }
+          }
+          //overflow-x: scroll;
+          .cat-wrapper {
+            background-color: white;
+            .categories {
+              width: 100%;
+              overflow-x: scroll;
+              height: 50px;
+              text-align: left;
+              padding: 10px;
+              .container {
+                width: 450%;
+                a {
+                  //  font-size: 12px !important;
+                }
+              }
+            }
+            .category {
+              display: inline;
+              padding: 10px 15px;
+              border-radius: 8px;
+            }
+            .selected {
+              background-color: #00406c;
+              color: #f7f7f7;
+            }
+          }
+        }
+        .selected {
+          &:after {
             display: none;
           }
         }
       }
-      .faqs-container{
-        width: 92%;
+      .faqs-container {
+        width: 100%;
         left: 0;
-        margin: 0 4%;
         top: 20px;
       }
     }
@@ -313,68 +400,117 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #support {
-    width: 100%;
-    .larger-devices{
+    padding: 40px 20px;
+    width: 97%;
+    .larger-devices {
       display: none;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
-    .heading{
-      .title{
-        h2{
-          line-height: 1.3;
-          font-size: $font-size-h3;
-          padding: 0 5%;
+    .heading {
+      .title {
+        a {
+          text-decoration: none;
+          color: black;
+          h2 {
+            line-height: 1.3;
+            font-size: $font-size-h3;
+            padding: 0 5%;
+          }
         }
-        span{
+        span {
           text-align: left;
           margin: 0 5%;
           display: block;
           font-size: $font-size-default;
         }
       }
-      .search{
-        input{
+      .search {
+        input {
           width: 90%;
         }
       }
     }
-    .content-container{
-      .faqs-categories{
-        .category{
-          width: 80%;
+
+    .content-container {
+      .faqs-categories {
+        .categories {
+          width: 100%;
+          overflow-x: scroll;
+          text-align: left;
+          padding-top: 10px;
+          .container {
+            width: 150%;
+            padding: 20px;
+            a {
+              text-decoration: none;
+              margin-right: 15px;
+              border-radius: 15px;
+              box-shadow: 0 1px 3px #b2b2b2;
+              color: black;
+            }
+          }
+        }
+        .category {
+          display: inline;
+          padding: 10px 15px;
         }
       }
     }
-    .faqs-single-view{
+    .faqs-single-view {
       margin-top: 30px;
-      .submenu{
+      .submenu {
         width: 100%;
-        label{
+        label {
           margin-bottom: 0;
           padding-left: 4%;
         }
-        .cat-container{
-          overflow-x: scroll;
-          .cat-wrapper{
-            background-color: white;
-            .submenu-item{
-              display: inline-block;
-              color: $color-link-secondary;
+        .cat-container {
+          .cat-wrapper.larger-devices {
+            display: none;
+          }
+          .cat-wrapper.mobile {
+            display: inline-grid;
+            .categories {
+              .container {
+                a {
+                  font-size: 11px !important;
+                }
+              }
             }
-            .selected{
+          }
+          // overflow-x: scroll;
+          .cat-wrapper {
+            background-color: white;
+            .categories {
+              width: 100%;
+              overflow-x: scroll;
+              height: 50px;
+              text-align: left;
+              padding-top: 10px;
+              .container {
+                width: 250%;
+              }
+            }
+            .category {
+              display: inline;
+              padding: 10px 15px;
+              border-radius: 8px;
+            }
+
+            .selected {
               color: white;
             }
           }
         }
-        .selected{
-          &:after{
+        .selected {
+          &:after {
             display: none;
           }
         }
       }
-      .faqs-container{
+      .faqs-container {
         width: 92%;
         left: 0;
         margin: 0 4%;
@@ -386,68 +522,98 @@
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   #support {
-    width: 100%;
-    .larger-devices{
+    width: 97%;
+    .larger-devices {
       display: none;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
-    .heading{
-      .title{
-        h2{
-          line-height: 1.3;
-          font-size: $font-size-h3;
-          padding: 0 5%;
+    .heading {
+      .title {
+        a {
+          text-decoration: none;
+          color: black;
+          h2 {
+            line-height: 1.3;
+            font-size: $font-size-h3;
+            padding: 0 5%;
+          }
         }
-        span{
+
+        span {
           text-align: left;
           margin: 0 5%;
           display: block;
           font-size: $font-size-default;
         }
       }
-      .search{
-        input{
+      .search {
+        input {
           width: 90%;
         }
       }
     }
-    .content-container{
-      .faqs-categories{
-        .category{
-          width: 80%;
+    .content-container {
+      .faqs-categories {
+        .categories {
+          width: 100%;
+          overflow-x: scroll;
+          text-align: left;
+          padding-top: 10px;
+          .container {
+            width: 120%;
+          }
+        }
+        .category {
+          display: inline;
+          padding: 10px 15px;
         }
       }
     }
-    .faqs-single-view{
+    .faqs-single-view {
       margin-top: 30px;
-      .submenu{
+      .submenu {
         width: 100%;
-        label{
+        label {
           margin-bottom: 0;
           padding-left: 4%;
         }
-        .cat-container{
-          overflow-x: scroll;
-          .cat-wrapper{
+        .cat-container {
+          .cat-wrapper.larger-devices {
+            display: none;
+          }
+          //  overflow-x: scroll;
+          .cat-wrapper {
             background-color: white;
-            .submenu-item{
-              display: inline-block;
-              color: $color-link-secondary;
+            .categories {
+              width: 100%;
+              overflow-x: scroll;
+              height: 50px;
+              text-align: left;
+              padding-top: 10px;
+              .container {
+                width: 200%;
+              }
             }
-            .selected{
+            .category {
+              display: inline;
+              padding: 10px 15px;
+              border-radius: 8px;
+            }
+
+            .selected {
               color: white;
             }
           }
         }
-        .selected{
-          &:after{
+        .selected {
+          &:after {
             display: none;
           }
         }
       }
-      .faqs-container{
+      .faqs-container {
         width: 92%;
         left: 0;
         margin: 0 4%;
@@ -459,10 +625,8 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #support {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

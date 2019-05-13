@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  HostListener,
   OnDestroy,
   OnInit,
   Renderer2,
@@ -66,6 +67,17 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   public hideOverlappingUIsSubscription: Subscription;
   public slug: string;
   public showMostSearchTerms: boolean;
+  public fetchMoreDocumentsSub: Subscription;
+  public fetching: boolean;
+  public moreDocumentsExist = true;
+  public showMeetingDocuments: boolean;
+  public showPolicyDocuments: boolean;
+  public showCouncilDocuments: boolean;
+  public showBoardDocuments: boolean;
+  public showGeneralDocuments: boolean;
+  public showPoliciesDocuments: boolean;
+  public showOperationalDocuments: boolean;
+  public showPMDocuments: boolean;
 
   constructor(
     private archiveService: ArchiveService,
@@ -120,20 +132,227 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           this.lang = "en";
         }
         if (this.lang === "sv") {
-          this.titleCommunicationService.setTitle("Arkiv");
+          this.titleCommunicationService.setTitle("Dokument");
         } else {
-          this.titleCommunicationService.setTitle("Archives");
+          this.titleCommunicationService.setTitle("Documents");
         }
       }
     );
   }
 
+  @HostListener("window:scroll", ["$event"])
+  onWindowScroll() {
+    if (
+      this.latestDocuments &&
+      !this.fetching &&
+      this.searchResults &&
+      this.moreDocumentsExist
+    ) {
+      const pos =
+        (document.documentElement.scrollTop || document.body.scrollTop) +
+        document.documentElement.offsetHeight;
+      const max = document.documentElement.scrollHeight;
+      if (pos > max - 500) {
+        this.fetchMorePosts();
+      }
+    }
+  }
+
+  fetchMorePosts(): void {
+    this.fetching = true;
+    if (this.latestDocuments[this.latestDocuments.length - 1] !== undefined) {
+      const lastPostDate = this.latestDocuments[this.latestDocuments.length - 1]
+        .date;
+      if (this.fetchMoreDocumentsSub) {
+        this.fetchMoreDocumentsSub.unsubscribe();
+      }
+      const searchParams: SearchParams = {
+        searchTerm: "",
+        categoryID: this.categoryID,
+        start_date: this.start_date,
+        end_date: this.end_date
+      };
+      this.fetchMoreDocumentsSub = this.archiveService
+        .getDocumentsBySinceDateTime(searchParams, 15, this.lang, lastPostDate)
+        .subscribe(
+          res => {
+            this.documentResults = this.documentResults.concat(res);
+            this.latestDocuments = this.latestDocuments.concat(res);
+            this.fetching = false;
+            if (!res.length) {
+              this.moreDocumentsExist = false;
+            }
+          },
+          error => {
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    } else {
+      this.moreDocumentsExist = false;
+      this.documentsLoading = false;
+      this.fetching = false;
+      this.getDocuments();
+    }
+  }
+
+  displayMeetingDocuments(): void {
+    this.moreDocumentsExist = true;
+    this.showPolicyDocuments = false;
+    this.showGeneralDocuments = false;
+    this.showPoliciesDocuments = false;
+    this.showOperationalDocuments = false;
+    this.showPMDocuments = false;
+    this.showBoardDocuments = false;
+    this.showCouncilDocuments = false;
+    if (this.showMeetingDocuments !== true) {
+      this.categoryID = 334;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showMeetingDocuments = true;
+    } else {
+      this.categoryID = 0;
+      this.moreDocumentsExist = true;
+      this.getDocuments();
+      this.showMeetingDocuments = false;
+    }
+  }
+  displayPolicyDocuments(): void {
+    this.showGeneralDocuments = false;
+    this.showPoliciesDocuments = false;
+    this.showOperationalDocuments = false;
+    this.showPMDocuments = false;
+    this.showMeetingDocuments = false;
+    this.showBoardDocuments = false;
+    this.showCouncilDocuments = false;
+    this.moreDocumentsExist = true;
+    if (this.showPolicyDocuments !== true) {
+      this.categoryID = 335;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showPolicyDocuments = true;
+    } else {
+      this.categoryID = 0;
+      this.moreDocumentsExist = true;
+      this.getDocuments();
+      this.showPolicyDocuments = false;
+    }
+  }
+  /* Sub category */
+  displayCouncilDocuments(): void {
+    this.showBoardDocuments = false;
+    this.moreDocumentsExist = true;
+    if (this.showCouncilDocuments !== true) {
+      this.categoryID = 348;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showCouncilDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 334;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showCouncilDocuments = false;
+    }
+  }
+  displayBoardDocuments(): void {
+    this.showCouncilDocuments = false;
+    this.moreDocumentsExist = true;
+    if (this.showBoardDocuments !== true) {
+      this.categoryID = 349;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showBoardDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 334;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showBoardDocuments = false;
+    }
+  }
+  displayGeneralDocuments(): void {
+    this.showPoliciesDocuments = false;
+    this.showOperationalDocuments = false;
+    this.showPMDocuments = false;
+
+    this.moreDocumentsExist = true;
+    if (this.showGeneralDocuments !== true) {
+      this.categoryID = 347;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showGeneralDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 335;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showGeneralDocuments = false;
+    }
+  }
+  displayPoliciesDocuments(): void {
+    this.showGeneralDocuments = false;
+    this.showOperationalDocuments = false;
+    this.showPMDocuments = false;
+
+    this.moreDocumentsExist = true;
+    if (this.showPoliciesDocuments !== true) {
+      this.categoryID = 338;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showPoliciesDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 335;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showPoliciesDocuments = false;
+    }
+  }
+  displayOperationalDocuments(): void {
+    this.showGeneralDocuments = false;
+    this.showPoliciesDocuments = false;
+    this.showPMDocuments = false;
+
+    this.moreDocumentsExist = true;
+    if (this.showOperationalDocuments !== true) {
+      this.categoryID = 339;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showOperationalDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 335;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showOperationalDocuments = false;
+    }
+  }
+  displayPMDocuments(): void {
+    this.showGeneralDocuments = false;
+    this.showPoliciesDocuments = false;
+    this.showOperationalDocuments = false;
+
+    this.moreDocumentsExist = true;
+    if (this.showPMDocuments !== true) {
+      this.categoryID = 340;
+      this.searchDocuments();
+      this.showResults = true;
+      this.showPMDocuments = true;
+    } else {
+      this.getDocuments();
+      this.categoryID = 335;
+      this.moreDocumentsExist = true;
+      this.searchDocuments();
+      this.showPMDocuments = false;
+    }
+  }
+
   showDocumentInPopup(item): void {
     this.popupWindowCommunicationService.showArchiveInPopup(item);
     if (this.lang === "sv") {
-      this.location.go("sv/archive/" + item.slug);
+      this.location.go("sv/documents/" + item.slug);
     } else {
-      this.location.go("en/archive/" + item.slug);
+      this.location.go("en/documents/" + item.slug);
     }
   }
 
@@ -183,7 +402,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     this.showResults = true;
     this.showFilters = true;
     this.documentResults = this.searchResults;
-    this.searchResults = [];
+    this.search();
   }
 
   liveSearch(event): void {
@@ -199,17 +418,22 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.showFilters = false;
       this.showResults = false;
       this.search();
-    }
-    if (this.searchTerm === "") {
+    } else if (this.searchTerm === "") {
       this.searchResults = [];
       this.showMostSearchTerms = true;
       if (this.lang === "sv") {
-        this.location.go("sv/archive?q=");
+        this.location.go("sv/documents");
       } else {
-        this.location.go("en/archive?q=");
+        this.location.go("en/documents");
       }
-      this.documentsLoading = false;
       this.showResultsDropdown = false;
+      this.getDocuments();
+    } else {
+      this.searchResults = [];
+      this.showMostSearchTerms = false;
+      this.showFilters = false;
+      this.showResults = true;
+      this.search();
     }
   }
 
@@ -218,33 +442,57 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       this.searchDocuments();
     }
     if (this.lang === "sv") {
-      this.location.go("sv/archive?q=" + this.searchTerm);
+      this.location.go("sv/documents?q=" + this.searchTerm);
     } else {
-      this.location.go("en/archive?q=" + this.searchTerm);
+      this.location.go("en/documents?q=" + this.searchTerm);
     }
   }
 
   searchDocuments(): void {
-    this.searchResults = [];
-    const searchParams: SearchParams = {
-      searchTerm: this.searchTerm,
-      categoryID: this.categoryID,
-      start_date: this.start_date,
-      end_date: this.end_date
-    };
-    this.documentsSubscription = this.archiveService
-      .searchDocuments(searchParams, this.lang)
-      .subscribe(
-        res => {
-          this.documentsLoading = false;
-          this.searchResults = [];
-          this.searchResults = res;
-        },
-        error => {
-          this.documentsLoading = false;
-          this.notificationBarCommunicationService.send_data(error);
-        }
-      );
+    if (this.searchTerm === undefined) {
+      const searchParams: SearchParams = {
+        searchTerm: "",
+        categoryID: this.categoryID,
+        start_date: this.start_date,
+        end_date: this.end_date
+      };
+      this.documentsSubscription = this.archiveService
+        .searchDocuments(searchParams, this.lang)
+        .subscribe(
+          res => {
+            this.latestDocuments = res;
+            this.documentsLoading = false;
+            this.searchResults = res;
+            this.documentResults = this.searchResults;
+          },
+          error => {
+            this.documentsLoading = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    } else {
+      const searchParams: SearchParams = {
+        searchTerm: this.searchTerm,
+        categoryID: this.categoryID,
+        start_date: this.start_date,
+        end_date: this.end_date
+      };
+
+      this.documentsSubscription = this.archiveService
+        .searchDocuments(searchParams, this.lang)
+        .subscribe(
+          res => {
+            this.documentsLoading = false;
+            this.searchResults = res;
+            this.latestDocuments = res;
+            this.documentResults = this.searchResults;
+          },
+          error => {
+            this.documentsLoading = false;
+            this.notificationBarCommunicationService.send_data(error);
+          }
+        );
+    }
   }
 
   getDocument(): void {
@@ -281,6 +529,11 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
   toggleSearchFocus(): void {
     this.searchOnFocus
+      ? (this.searchOnFocus = true)
+      : (this.searchOnFocus = false);
+  }
+  toggleSearchFocusHide(): void {
+    this.searchOnFocus
       ? (this.searchOnFocus = false)
       : (this.searchOnFocus = true);
   }
@@ -299,6 +552,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           this.latestDocuments = res;
         },
         error => {
+          this.pageNotFound = true;
           this.documentsLoading = false;
           this.notificationBarCommunicationService.send_data(error);
         }
@@ -330,6 +584,8 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           if (this.slug !== "undefined" && typeof this.slug !== "undefined") {
             this.getDocuments();
             this.getArchiveBySlug();
+          } else {
+            this.getDocuments();
           }
         }
       );
@@ -360,9 +616,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           self.renderer.listen(self.searchField.nativeElement, "search", () => {
             if (self.searchTerm === "") {
               if (self.lang === "sv") {
-                self.location.go("sv/archive?q=" + self.searchTerm);
+                self.location.go("sv/documents?q=" + self.searchTerm);
               } else {
-                self.location.go("en/archive?q=" + self.searchTerm);
+                self.location.go("en/documents?q=" + self.searchTerm);
               }
               self.showFilters = true;
               self.showResults = false;
@@ -385,7 +641,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
     this.hideOverlappingUIsSubscription = this.hideUICommunicationService.hideUIObservable$.subscribe(
       event => {
-        if (this.showResultsDropdown) {
+        if (this.showResultsDropdown && this.searchOnFocus !== true) {
           if (
             this.resultsDropdownList.nativeElement !== event.target &&
             !this.resultsDropdownList.nativeElement.contains(event.target)
@@ -412,6 +668,9 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     }
     if (this.hideOverlappingUIsSubscription) {
       this.hideOverlappingUIsSubscription.unsubscribe();
+    }
+    if (this.fetchMoreDocumentsSub) {
+      this.fetchMoreDocumentsSub.unsubscribe();
     }
   }
 }

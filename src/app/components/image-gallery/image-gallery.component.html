@@ -1,10 +1,24 @@
 <div class="image-gallery">
-  <div *ngFor="let item of imageGallery.items" class="item" [ngClass]="{'columns-1': imageGallery.number_of_columns == 1, 'columns-2': imageGallery.number_of_columns == 2, 'columns-3': imageGallery.number_of_columns == 3}">
-    <div *ngIf="item.image" class="img-wrapper" [style.backgroundImage]="(item.image ? 'url(' + item.image + ')' : 'none')">
-    </div>
-    <div *ngIf="!(item.image)" class="img-wrapper" [style.backgroundImage]="'url(../../../assets/images/placeholder-image.png)'">
-    </div>
-    <h2>{{item.title}}</h2>
+  <div
+    *ngFor="let item of imageGallery.items"
+    class="item"
+    [ngClass]="{
+      'columns-1': imageGallery.number_of_columns == 1,
+      'columns-2': imageGallery.number_of_columns == 2,
+      'columns-3': imageGallery.number_of_columns == 3
+    }"
+  >
+    <div
+      *ngIf="item.image"
+      class="img-wrapper"
+      [style.backgroundImage]="item.image ? 'url(' + item.image + ')' : 'none'"
+    ></div>
+
+    <a *ngIf="item.url" href="{{ item.url }}">
+      <h3>{{ item.title }}</h3></a
+    >
+    <h3 *ngIf="!item.url">{{ item.title }}</h3>
+
     <p [innerHTML]="item.description"></p>
   </div>
 </div>

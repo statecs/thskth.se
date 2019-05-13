@@ -1,0 +1,52 @@
+{
+    "bbox": [
+      18.0491733197085, 
+      59.33209946970849, 
+      18.0518712802915, 
+      59.3347974302915
+    ], 
+    "geometry": {
+      "coordinates": [
+        18.0505335, 
+        59.3334535
+      ], 
+      "type": "Point"
+    }, 
+    "properties": {
+      "accuracy": "GEOMETRIC_CENTER", 
+      "address": "V\u00e4stra Kungsbrokopplet, Stockholm, Sweden", 
+      "bbox": [
+        18.0491733197085, 
+        59.33209946970849, 
+        18.0518712802915, 
+        59.3347974302915
+      ], 
+      "city": "Stockholm", 
+      "confidence": 9, 
+      "country": "SE", 
+      "country_long": "Sweden", 
+      "encoding": "utf-8", 
+      "language": [
+        {
+          "iso639_1": "en", 
+          "iso639_2": "en", 
+          "name": "English", 
+          "nativeName": "english"
+        }
+      ], 
+      "lat": 59.3334535, 
+      "lng": 18.0505335, 
+      "location": "59.3333, 18.05", 
+      "ok": true, 
+      "place": "ChIJd3GI3WOdX0YRxNYJDvyDwqw", 
+      "postal_town": "Stockholm", 
+      "provider": "google", 
+      "quality": "route", 
+      "state": "Stockholms l\u00e4n", 
+      "status": "OK", 
+      "status_code": 200, 
+      "street": "V\u00e4stra Kungsbrokopplet", 
+      "sublocality": "Norrmalm"
+    }, 
+    "type": "Feature"
+  }

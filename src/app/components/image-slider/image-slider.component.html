@@ -1,58 +1,104 @@
 <div #slides_container id="img-slider">
   <div class="slides-wrapper large-devices">
+    <div class="slide empty"></div>
     <div class="slide empty">
       <div class="content-container">
-        <a routerLink="{{lang}}/news" class="more-btn">{{see_more}}</a>
+        <a routerLink="/{{ lang }}/news" class="more-btn">{{ see_more }}</a>
       </div>
     </div>
-    <div *ngFor="let item of slide_items, let i = index" class="slide"  [ngStyle]="{'background-image': (item.image.large ? 'url(' + getBgUrl(item.image) + ')' : 'none')}" (click)="switchSlide(item, i)" [ngClass]="{'item_onfocus': item_onfocus_index === i}">
+    <div
+      *ngFor="let item of slide_items; let i = index"
+      class="slide"
+      [ngStyle]="{
+        'background-image': item.image.large
+          ? 'url(' + getBgUrl(item.image) + ')'
+          : 'none'
+      }"
+      (click)="switchSlide(item, i)"
+      [ngClass]="{ item_onfocus: item_onfocus_index === i }"
+    >
       <div class="content-container">
         <div class="content">
-          <h2 *ngIf="item.title.length <= 70">{{item.title}}</h2>
-          <h2 *ngIf="item.title.length > 70">{{item.title | cardText:70}}</h2>
-          <h5>{{formatDate(item.published_date)}}</h5>
-          <p [innerHTML]="item.content | cardText:100" class="description"></p>
+          <h5>{{ formatDate(item.published_date) }}</h5>
+          <h3>{{ item.title | cardText: 50 }}</h3>
+
+          <p [innerHTML]="item.content | cardText: 100" class="description"></p>
         </div>
-        <div class="readMoreBtn">{{(lang === 'sv' ? 'Läs mer' : 'Read more')}}</div>
-        <div class="category">{{news_text}}</div>
+        <!-- <div class="readMoreBtn">{{(lang === 'sv' ? 'Läs mer' : 'Read more')}}</div>-->
+        <div class="category">
+          <button type="button" class="card-btn">
+            <i class="material-icons">
+              arrow_forward
+            </i>
+          </button>
+        </div>
       </div>
     </div>
     <div class="slide empty">
       <div class="content-container">
-        <a routerLink="{{lang}}/news" class="more-btn">{{see_more}}</a>
+        <a routerLink="{{ lang }}/news" class="more-btn">{{ see_more }}</a>
       </div>
     </div>
   </div>
 
-<!--  <div class="slides-wrapper mobile" (touchstart)="dragstart()" (touchend)="dragend()">-->
-  <div class="slides-wrapper mobile" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
+  <!--  <div class="slides-wrapper mobile" (touchstart)="dragstart()" (touchend)="dragend()">-->
+  <div
+    class="slides-wrapper mobile"
+    (touchstart)="swipe($event, 'start')"
+    (touchend)="swipe($event, 'end')"
+  >
+    <div class="slide empty"></div>
     <div class="slide empty">
       <div class="content-container">
-        <a routerLink="/news" class="more-btn">{{see_more}}</a>
+        <a routerLink="/{{ lang }}//news" class="more-btn">{{ see_more }}</a>
       </div>
     </div>
-    <div *ngFor="let item of slide_items, let i = index" (click)="goToPage(item, item.slug)" class="slide"  [ngStyle]="{'background-image': (item.image.large ? 'url(' + getBgUrl(item.image) + ')' : 'none')}">
+    <div
+      *ngFor="let item of slide_items; let i = index"
+      (click)="goToPage(item, item.slug)"
+      class="slide"
+      [ngStyle]="{
+        'background-image': item.image.large
+          ? 'url(' + getBgUrl(item.image) + ')'
+          : 'none'
+      }"
+    >
       <div class="content-container">
         <div class="content">
-          <h2>{{item.title | cardText:50}}</h2>
-          <h5>{{formatDate(item.published_date)}}</h5>
-          <p [innerHTML]="item.content | cardText:100" class="description"></p>
+          <h5>{{ formatDate(item.published_date) }}</h5>
+          <h3>{{ item.title | cardText: 50 }}</h3>
         </div>
-        <div class="category">{{news_text}}</div>
+        <div class="category">
+          <button type="button" class="card-btn">
+            <i class="material-icons">
+              arrow_forward
+            </i>
+          </button>
+        </div>
       </div>
     </div>
     <div class="slide empty">
       <div class="content-container">
-        <a routerLink="/news" class="more-btn">{{see_more}}</a>
+        <a routerLink="/news" class="more-btn">{{ see_more }}</a>
       </div>
     </div>
   </div>
 </div>
 <div #slider_progress_bar class="slider-progress-bar">
   <div class="large-devices">
-    <div *ngFor="let item of slide_items, let i = index" class="bar-item" [ngClass]="{'selected': item_onfocus_index === i}" (click)="selectSlide(i)"></div>
+    <div
+      *ngFor="let item of slide_items; let i = index"
+      class="bar-item"
+      [ngClass]="{ selected: item_onfocus_index === i }"
+      (click)="selectSlide(i)"
+    ></div>
   </div>
   <div class="mobile">
-    <div *ngFor="let item of slide_items, let i = index" class="bar-item" [ngClass]="{'selected': item_onfocus_index === i}" (click)="selectSlideMobile(i + 1)"></div>
+    <div
+      *ngFor="let item of slide_items; let i = index"
+      class="bar-item"
+      [ngClass]="{ selected: item_onfocus_index === i }"
+      (click)="selectSlideMobile(i + 1)"
+    ></div>
   </div>
 </div>

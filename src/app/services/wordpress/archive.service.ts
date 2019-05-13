@@ -13,6 +13,8 @@ import { CookieService } from "ngx-cookie";
 import * as format from "date-fns/format";
 import { DataFetcherService } from "../utility/data-fetcher.service";
 import { WordpressBaseDataService } from "../abstract-services/wordpress-base-data.service";
+import { Post } from "../../interfaces-and-classes/post";
+import { SearchResult } from "../../interfaces-and-classes/search";
 
 @Injectable()
 export class ArchiveService extends WordpressBaseDataService<Archive> {
@@ -56,6 +58,57 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
     );
   }
 
+  getDocumentsBySinceDateTime(
+    searchParams: SearchParams,
+    amount,
+    lang: string,
+    sinceDateTime: string
+  ): Observable<Archive[]> {
+    this.language = lang;
+    let params = "";
+    if (searchParams.categoryID !== 0) {
+      params = "&categories=" + searchParams.categoryID;
+    }
+    return (
+      this.getData(
+        null,
+        "_embed&per_page=" +
+          amount +
+          params +
+          "&before=" +
+          sinceDateTime +
+          "&lang=" +
+          this.language
+      )
+        // Cast response data to FAQ Category type
+        .map((res: any) => {
+          return this.castPostsTo_SearchResultType(res);
+        })
+    );
+  }
+
+  searchDocumentsPage(
+    search_term: string,
+    amount: number,
+    lang: string
+  ): Observable<SearchResult[]> {
+    this.language = lang;
+    return (
+      this.searchData(
+        "per_page=" +
+          amount +
+          "&search=" +
+          search_term +
+          "&lang=" +
+          this.language
+      )
+        // Cast response data to FAQ Category type
+        .map((res: Array<any>) => {
+          return SearchResult.convertDocumentsToSearchResultType(res);
+        })
+    );
+  }
+
   searchDocuments(
     searchParams: SearchParams,
     lang: string
@@ -89,6 +142,10 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
   castPostsTo_SearchResultType(data: any) {
     const archives: Archive[] = [];
     data.forEach(c => {
+      let categories: any[] = [];
+      if (c.pure_taxonomies && c.pure_taxonomies.categories) {
+        categories = c.pure_taxonomies.categories;
+      }
       archives.push({
         id: c.id,
         slug: c.slug,
@@ -97,13 +154,12 @@ export class ArchiveService extends WordpressBaseDataService<Archive> {
         lastModified: this.formatDate(c.modified),
         description: c.content.rendered,
         documents: this.castDataToDocumentType(c.acf.documents),
-        categories: this.castDataToArchiveCategoryType(
-          c.pure_taxonomies.categories
-        ),
+        categories: this.castDataToArchiveCategoryType(categories),
         author: {
           name: c["_embedded"].author[0].name,
           avatar_url: c["_embedded"].author[0].avatar_urls["96"]
-        }
+        },
+        date: c.date
       });
     });
     return archives;

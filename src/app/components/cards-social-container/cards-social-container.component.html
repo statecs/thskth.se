@@ -1,163 +1,325 @@
-<a routerLink="{{lang === 'en' ? '/live' : '/sv/live'}}" class="title">{{(lang === 'en' ? 'Social Media' : 'Sociala Media')}}</a>
+<a
+  routerLink="{{ lang === 'en' ? '/live' : '/sv/live' }}"
+  class="title headerTitle"
+  >{{ lang === "en" ? "Social Media" : "Sociala medier" }}</a
+>
 <div *ngIf="viewModel" id="cards-container" class="masonry-layout">
-
-    <div *ngFor="let post of viewModel.socialMediaPosts, let i = index" class="masonry-layout_panel two-fourth larger-devices">
-
-        <!-- ---------- Featured card ---------- -->
-        <div *ngIf="i === 0" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
-            <div class="featured-card">
-                <div class="host" [ngSwitch]="post.host">
-                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-                    <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
-                </div>
-                <div class="user">
-                    <img src="{{post.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
-                    <div>
-                        <h3 (click)="goToUserProfile(post.user.link)">{{post.user.name}}</h3>
-                        <span>{{formatDate(post.created_time)}}</span>
-                    </div>
-                </div>
-                <p class="large-devices">{{post?.message | cardText:250}}</p>
-                <p class="mobile">{{post?.message | cardText:100}}</p>
-                <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
-            </div>
+  <div
+    *ngFor="let post of viewModel.socialMediaPosts; let i = index"
+    class="masonry-layout_panel two-fourth larger-devices"
+  >
+    <!-- ---------- Featured card ---------- -->
+    <div
+      *ngIf="i === 0"
+      class="masonry-layout_panel-content"
+      [style.background-image]="
+        post.full_picture ? 'url(' + post.full_picture + ')' : none
+      "
+    >
+      <div class="featured-card">
+        <div class="host" [ngSwitch]="post.host">
+          <i
+            (click)="goToUserProfile(post.user.link)"
+            *ngSwitchCase="'Facebook'"
+            class="fa fa-facebook-official"
+          ></i>
+          <i
+            (click)="goToUserProfile(post.user.link)"
+            *ngSwitchCase="'Instagram'"
+            class="fa fa-instagram"
+          ></i>
         </div>
-
-        <!-- ---------- Only text card ---------- -->
-        <div *ngIf="i !== 0 && !(post?.full_picture)" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
-            <div class="standard-card">
-                <div class="host" [ngSwitch]="post?.host">
-                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-                    <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
-                </div>
-                <div class="user">
-                    <img src="{{post?.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
-                    <div>
-                        <h3 (click)="goToUserProfile(post?.user.link)">{{post.user.name}}</h3>
-                        <span>{{formatDate(post?.created_time)}}</span>
-                    </div>
-                </div>
-                <p class="large-devices">{{post?.message | cardText:150}}</p>
-                <p class="mobile">{{post?.message | cardText:70}}</p>
-                <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
+        <div class="content">
+          <div class="user">
+            <!--<img
+            src="{{ post.user.profile_image }}"
+            alt="User profile image"
+            (click)="goToUserProfile(post.user.link)"
+          />-->
+            <div>
+              <h3 (click)="goToUserProfile(post.user.link)">
+                {{ post.user.name }}
+              </h3>
+              <span>{{ formatDate(post.created_time) }}</span>
             </div>
+          </div>
+          <p class="large-devices">{{ post?.message | cardText: 250 }}</p>
+          <p class="mobile">{{ post?.message | cardText: 100 }}</p>
         </div>
-
-        <!-- ---------- Text with image card ---------- -->
-        <div *ngIf="i !== 0 && post?.full_picture" class="masonry-layout_panel-content" >
-            <div class="single-event-card">
-                <div class="left-content">
-                    <div class="user">
-                        <img src="{{post?.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
-                        <div>
-                            <h3 (click)="goToUserProfile(post.user.link)">{{post.user.name}}</h3>
-                            <span>{{formatDate(post?.created_time)}}</span>
-                        </div>
-                    </div>
-                    <p class="large-devices">{{post?.message | cardText:150}}</p>
-                    <p class="mobile">{{post?.message | cardText:70}}</p>
-                </div>
-                <div class="right-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
-                    <div>
-                        <div class="host" [ngSwitch]="post.host">
-                            <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-                            <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
-                        </div>
-                        <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- ---------- The third card ---------- -->
-        <div *ngIf="i === 1" class="masonry-layout_panel-content">
-            <div *ngIf="i !== 0 && !(viewModel.thirdCard?.full_picture)" class="standard-card">
-                <div class="host" [ngSwitch]="thirdCard?.host">
-                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-                    <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
-                </div>
-                <div class="user">
-                    <img src="{{viewModel.thirdCard?.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(viewModel.thirdCard?.user.link)">
-                    <div>
-                        <h3 (click)="goToUserProfile(viewModel.thirdCard?.user.link)">{{viewModel.thirdCard?.user.name}}</h3>
-                        <span>{{formatDate(viewModel.thirdCard?.created_time)}}</span>
-                    </div>
-                </div>
-                <p class="large-devices">{{viewModel.thirdCard?.message | cardText:150}}</p>
-                <p class="mobile">{{viewModel.thirdCard?.message | cardText:70}}</p>
-                <a href="{{viewModel.thirdCard?.link}}" target="_blank" type="button">{{read_more}}</a>
-            </div>
-            <div *ngIf="i !== 0 && viewModel.thirdCard?.full_picture" class="single-event-card">
-                <div class="left-content">
-                    <div class="user">
-                        <img src="{{viewModel.thirdCard?.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(viewModel.thirdCard?.user.link)">
-                        <div>
-                            <h3 (click)="goToUserProfile(viewModel.thirdCard?.user.link)">{{viewModel.thirdCard?.user.name}}</h3>
-                            <span>{{formatDate(viewModel.thirdCard?.created_time)}}</span>
-                        </div>
-                    </div>
-                    <p class="large-devices">{{viewModel.thirdCard?.message | cardText:150}}</p>
-                    <p class="mobile">{{viewModel.thirdCard?.message | cardText:70}}</p>
-                </div>
-                <div class="right-content" [style.background-image]="viewModel.thirdCard?.full_picture? ('url(' + viewModel.thirdCard?.full_picture + ')'): none">
-                    <div>
-                        <div class="host" [ngSwitch]="viewModel.thirdCard?.host">
-                            <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-                            <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
-                        </div>
-                        <a href="{{viewModel.thirdCard?.link}}" target="_blank" type="button">{{read_more}}</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-  </div>
-    <div *ngFor="let post of viewModel.socialMediaPosts, let i = index" class="masonry-layout_panel two-fourth mobile-devices">
-
-        <!-- ---------- Featured card ---------- -->
-        <div *ngIf="(post?.full_picture)" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
-            <div class="featured-card">
-                <div class="host" [ngSwitch]="post.host">
-                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-                    <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
-                </div>
-                <div class="user">
-                    <img src="{{post.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
-                    <div>
-                        <h3 (click)="goToUserProfile(post.user.link)">{{post.user.name}}</h3>
-                        <span>{{formatDate(post.created_time)}}</span>
-                    </div>
-                </div>
-                <p class="large-devices">{{post?.message | cardText:150}}</p>
-                <p class="mobile">{{post?.message | cardText:70}}</p>
-                <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
-            </div>
-        </div>
-
-        <!-- ---------- Only text card ---------- -->
-        <div *ngIf="i !== 0 && !(post?.full_picture)" class="masonry-layout_panel-content" [style.background-image]="post.full_picture? ('url(' + post.full_picture + ')'): none">
-            <div class="featured-card">
-                <div class="host" [ngSwitch]="post?.host">
-                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-official"></i>
-                    <i *ngSwitchCase="'Instagram'" class="fa fa-instagram"></i>
-                </div>
-                <div class="user">
-                    <img src="{{post?.user.profile_image}}" alt="User profile image" (click)="goToUserProfile(post.user.link)">
-                    <div>
-                        <h3 (click)="goToUserProfile(post?.user.link)">{{post.user.name}}</h3>
-                        <span>{{formatDate(post?.created_time)}}</span>
-                    </div>
-                </div>
-                <p class="large-devices">{{post?.message | cardText:150}}</p>
-                <p class="mobile">{{post?.message | cardText:70}}</p>
-                <a href="{{post.link}}" target="_blank" type="button">{{read_more}}</a>
-            </div>
-        </div>
+      </div>
     </div>
 
+    <!-- ---------- Only text card ---------- -->
+    <div
+      *ngIf="i !== 0 && !post?.full_picture"
+      class="masonry-layout_panel-content"
+      [style.background-image]="
+        post.full_picture ? 'url(' + post.full_picture + ')' : none
+      "
+    >
+      <div class="standard-card">
+        <div class="host" [ngSwitch]="post?.host">
+          <i
+            (click)="goToUserProfile(post?.user.link)"
+            *ngSwitchCase="'Facebook'"
+            class="fa fa-facebook-official"
+          ></i>
+          <i
+            (click)="goToUserProfile(post?.user.link)"
+            *ngSwitchCase="'Instagram'"
+            class="fa fa-instagram"
+          ></i>
+        </div>
+        <div class="user">
+          <!-- <img
+            src="{{ post?.user.profile_image }}"
+            alt="User profile image"
+            (click)="ggoToUserProfile(post?.user.link)"
+          />-->
+          <div>
+            <h3 (click)="goToUserProfile(post?.user.link)">
+              {{ post.user.name }}
+            </h3>
+            <span>{{ formatDate(post?.created_time) }}</span>
+          </div>
+        </div>
+        <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
+        <p class="mobile">{{ post?.message | cardText: 100 }}</p>
+      </div>
+    </div>
+
+    <!-- ---------- Text with image card ---------- -->
+    <div
+      *ngIf="i !== 0 && post?.full_picture"
+      class="masonry-layout_panel-content"
+    >
+      <div class="single-event-card">
+        <div class="left-content">
+          <div class="user">
+            <!-- <img
+              src="{{ post?.user.profile_image }}"
+              alt="User profile image"
+              (click)="goToUserProfile(post.user.link)"
+            />-->
+            <div>
+              <h3 (click)="goToUserProfile(post.user.link)">
+                {{ post.user.name }}
+              </h3>
+              <span>{{ formatDate(post?.created_time) }}</span>
+            </div>
+          </div>
+          <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
+          <p class="mobile">{{ post?.message | cardText: 100 }}</p>
+        </div>
+        <div
+          class="right-content"
+          [style.background-image]="
+            post.full_picture ? 'url(' + post.full_picture + ')' : none
+          "
+        >
+          <div>
+            <div class="host" [ngSwitch]="post.host">
+              <i
+                (click)="goToUserProfile(post.user.link)"
+                *ngSwitchCase="'Facebook'"
+                class="fa fa-facebook-official"
+              ></i>
+              <i
+                (click)="goToUserProfile(post.user.link)"
+                *ngSwitchCase="'Instagram'"
+                class="fa fa-instagram"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- The third card ---------- -->
+    <div *ngIf="i === 1" class="masonry-layout_panel-content">
+      <div
+        *ngIf="i !== 0 && !viewModel.thirdCard?.full_picture"
+        class="standard-card"
+      >
+        <div class="host" [ngSwitch]="thirdCard?.host">
+          <i
+            (click)="goToUserProfile(viewModel.thirdCard?.user.link)"
+            *ngSwitchCase="'Facebook'"
+            class="fa fa-facebook-official"
+          ></i>
+          <i
+            (click)="goToUserProfile(viewModel.thirdCard?.user.link)"
+            *ngSwitchCase="'Instagram'"
+            class="fa fa-instagram"
+          ></i>
+        </div>
+        <div class="user">
+          <!-- <img
+            src="{{ viewModel.thirdCard?.user.profile_image }}"
+            alt="User profile image"
+            (click)="goToUserProfile(viewModel.thirdCard?.user.link)"
+          />-->
+          <div>
+            <h3 (click)="goToUserProfile(viewModel.thirdCard?.user.link)">
+              {{ viewModel.thirdCard?.user.name }}
+            </h3>
+            <span>{{ formatDate(viewModel.thirdCard?.created_time) }}</span>
+          </div>
+        </div>
+        <p class="large-devices">
+          {{ viewModel.thirdCard?.message | cardText: 150 }}
+        </p>
+        <p class="mobile">{{ viewModel.thirdCard?.message | cardText: 100 }}</p>
+      </div>
+      <div
+        *ngIf="i !== 0 && viewModel.thirdCard?.full_picture"
+        class="single-event-card"
+      >
+        <div class="left-content">
+          <div class="user">
+            <!-- <img
+              src="{{ viewModel.thirdCard?.user.profile_image }}"
+              alt="User profile image"
+              (click)="goToUserProfile(viewModel.thirdCard?.user.link)"
+            />-->
+            <div>
+              <h3 (click)="goToUserProfile(viewModel.thirdCard?.user.link)">
+                {{ viewModel.thirdCard?.user.name }}
+              </h3>
+              <span>{{ formatDate(viewModel.thirdCard?.created_time) }}</span>
+            </div>
+          </div>
+          <p class="large-devices">
+            {{ viewModel.thirdCard?.message | cardText: 150 }}
+          </p>
+          <p class="mobile">
+            {{ viewModel.thirdCard?.message | cardText: 100 }}
+          </p>
+        </div>
+        <div
+          class="right-content"
+          [style.background-image]="
+            viewModel.thirdCard?.full_picture
+              ? 'url(' + viewModel.thirdCard?.full_picture + ')'
+              : none
+          "
+        >
+          <div>
+            <div class="host" [ngSwitch]="viewModel.thirdCard?.host">
+              <i
+                (click)="goToUserProfile(viewModel.thirdCard?.user.link)"
+                *ngSwitchCase="'Facebook'"
+                class="fa fa-facebook-official"
+              ></i>
+              <i
+                (click)="goToUserProfile(viewModel.thirdCard?.user.link)"
+                *ngSwitchCase="'Instagram'"
+                class="fa fa-instagram"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngFor="let post of viewModel.socialMediaPosts; let i = index"
+    class="masonry-layout_panel two-fourth mobile-devices"
+  >
+    <!-- ---------- Featured card ---------- -->
+    <div
+      *ngIf="post?.full_picture"
+      class="masonry-layout_panel-content"
+      [style.background-image]="
+        post.full_picture ? 'url(' + post.full_picture + ')' : none
+      "
+    >
+      <div class="featured-card">
+        <div class="host" [ngSwitch]="post.host">
+          <i
+            (click)="goToUserProfile(post.user.link)"
+            *ngSwitchCase="'Facebook'"
+            class="fa fa-facebook-official"
+          ></i>
+          <i
+            (click)="goToUserProfile(post.user.link)"
+            *ngSwitchCase="'Instagram'"
+            class="fa fa-instagram"
+          ></i>
+        </div>
+        <div class="content">
+          <div class="user">
+            <!-- <img
+            src="{{ post.user.profile_image }}"
+            alt="User profile image"
+            (click)="goToUserProfile(post.user.link)"
+          />-->
+            <div>
+              <h3 (click)="goToUserProfile(post.user.link)">
+                {{ post.user.name }}
+              </h3>
+              <span>{{ formatDate(post.created_time) }}</span>
+            </div>
+          </div>
+          <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
+          <p class="mobile">{{ post?.message | cardText: 100 }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- Only text card ---------- -->
+    <div
+      *ngIf="i !== 0 && !post?.full_picture"
+      class="masonry-layout_panel-content"
+      [style.background-image]="
+        post.full_picture ? 'url(' + post.full_picture + ')' : none
+      "
+    >
+      <div class="featured-card">
+        <div class="host" [ngSwitch]="post?.host">
+          <i
+            (click)="goToUserProfile(post?.user.link)"
+            *ngSwitchCase="'Facebook'"
+            class="fa fa-facebook-official"
+          ></i>
+          <i
+            (click)="goToUserProfile(post?.user.link)"
+            *ngSwitchCase="'Instagram'"
+            class="fa fa-instagram"
+          ></i>
+        </div>
+        <div class="content">
+          <div class="user">
+            <!--  <img
+            src="{{ post?.user.profile_image }}"
+            alt="User profile image"
+            (click)="goToUserProfile(post.user.link)"
+          />-->
+            <div>
+              <h3 (click)="goToUserProfile(post?.user.link)">
+                {{ post.user.name }}
+              </h3>
+              <span>{{ formatDate(post?.created_time) }}</span>
+            </div>
+          </div>
+          <p class="large-devices">{{ post?.message | cardText: 150 }}</p>
+          <p class="mobile">{{ post?.message | cardText: 100 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="existMorePosts && showFetchMoreBtn"
+  class="fetcher"
+  (click)="fetchMorePosts()"
+>
+  <i class="material-icons">
+    keyboard_arrow_down
+  </i>
+  <p>
+    More results
+  </p>
 </div>
 <app-loader *ngIf="viewModel?.fetching"></app-loader>
-<div *ngIf="existMorePosts && showFetchMoreBtn" class="fetcher">
-    <span class="plus-button" (click)="fetchMorePosts()"><span>+</span></span>
-</div>

@@ -1,12 +1,35 @@
 @import "../../../../style/utilities";
-
-#content-container{
+.submenu-bar {
+  @include submenu-bar;
+}
+.header {
+  max-height: 350px;
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  .default-header {
+    width: 100%;
+    height: 224px;
+    background-color: $bg-color-primary;
+  }
+}
+#content-container {
+  box-shadow: 0 1px 3px #b2b2b2;
   @include container-size($main-container);
   padding-top: 100px;
   position: relative;
   margin-bottom: 50px;
   line-height: 1;
-  #page{
+  max-width: 1600px;
+  margin: 0 auto;
+  background: white;
+  top: -150px;
+  border-radius: 15px;
+  padding: 50px;
+  .contact-form {
+    padding: 30px;
+  }
+  #page {
     .heading {
       position: relative;
       margin-bottom: 40px;
@@ -26,53 +49,53 @@
       }
     }
 
-    .side-bar{
+    .side-bar {
       width: 25%;
       display: inline-block;
-      text-align: right;
-      .submenu{
-        .submenu-item{
+      text-align: left;
+      .submenu {
+        .submenu-item {
           padding: 15px 5px;
           position: relative;
           font-weight: 600;
           cursor: pointer;
           border-bottom: 1px solid lightgrey;
-          a{
+          a {
             text-decoration: none;
             color: $text-color-default;
           }
-          &:hover{
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+          &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
           }
-          &:last-child{
+          &:last-child {
             border: 0;
           }
         }
       }
     }
-    .content-container{
-      width: 100%;
+    .content-container {
+      width: 66%;
       display: inline-block;
       position: relative;
       vertical-align: top;
       line-height: 1.2;
-      .divider{
-        border-top:1px solid gray;
+      .divider {
+        border-top: 1px solid gray;
       }
-      .submenu-bar{
+      .submenu-bar {
         text-align: center;
         position: relative;
         padding: 10px 0;
-        .submenu-item{
+        .submenu-item {
           width: 25%;
           height: 80px;
-          background-color: lightgrey;
+          background-color: #f7f7f7;
           display: inline-block;
           margin: 20px 5%;
           position: relative;
           cursor: pointer;
           border-radius: 5px;
-          span{
+          span {
             @include center-content(50%, 50%);
           }
         }
@@ -81,21 +104,21 @@
   }
 }
 
-:host /deep/ .content-container{
-  .content{
-    a{
+:host /deep/ .content-container {
+  .content {
+    a {
       text-decoration: none;
       color: $color-link-secondary;
-      &:hover{
+      &:hover {
         color: $color-link-secondary-hover;
       }
     }
-    & >h2{
+    & > h2 {
       margin-top: 0;
       font-size: $font-size-h2;
     }
-    & >p{
-      & >h2{
+    & > p {
+      & > h2 {
         font-weight: 600;
       }
     }
@@ -104,24 +127,43 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+
   #content-container {
-    width: 100%;
-    #page{
-      .heading{
-        margin: 0 20px 10px;
-        .title{
+    width: 97%;
+    padding: 40px 10px;
+    #page {
+      .larger-devices {
+        display: none !important;
+      }
+      .heading {
+        margin: 20px 20px 10px;
+        .title {
           width: 100%;
         }
       }
-      .content-container{
-        .submenu-bar{
-          .submenu-item{
+      .content-container {
+        width: 100%;
+        .submenu-bar {
+          .submenu-item {
             width: 80%;
             margin: 10px 5%;
             height: 70px;
           }
         }
-        .contact-form{
+        .contact-form {
+          padding: 15px;
           width: 90%;
           margin-left: 5%;
         }
@@ -131,24 +173,42 @@
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+
   #content-container {
-    width: 100%;
-    #page{
-      .heading{
-        margin: 0 20px 10px;
-        .title{
+    top: -160px;
+    width: 97%;
+    #page {
+      .larger-devices {
+        display: none !important;
+      }
+      .heading {
+        margin: 20px 20px 10px;
+        .title {
           width: 100%;
         }
       }
-      .content-container{
-        .submenu-bar{
-          .submenu-item{
+      .content-container {
+        width: 100%;
+        .submenu-bar {
+          .submenu-item {
             width: 40%;
             margin: 10px 5%;
             height: 70px;
           }
         }
-        .contact-form{
+        .contact-form {
           width: 90%;
           margin-left: 5%;
         }
@@ -158,24 +218,41 @@
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 90%;
+    margin-left: 5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+
   #content-container {
     width: 90%;
-    #page{
-      .heading{
-        margin: 0 20px 10px;
-        .title{
+    #page {
+      .larger-devices {
+        display: none !important;
+      }
+      .heading {
+        margin: 20px 20px 10px;
+        .title {
           width: 100%;
         }
       }
-      .content-container{
-        .submenu-bar{
-          .submenu-item{
+      .content-container {
+        width: 100%;
+        .submenu-bar {
+          .submenu-item {
             width: 40%;
             margin: 10px 5%;
             height: 70px;
           }
         }
-        .contact-form{
+        .contact-form {
           width: 90%;
           margin-left: 5%;
         }
@@ -185,24 +262,40 @@
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
+  .submenu-bar {
+    font-size: 0.9em;
+    // top: 110px;
+    width: 97%;
+    margin-left: 1.5%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 24px 1px -24px #b2b2b2;
+    .material-icons {
+      font-size: 20px;
+    }
+  }
+
+  .mobile {
+    display: none;
+  }
   #content-container {
     width: 90%;
-    #page{
-      .heading{
+    #page {
+      .heading {
         margin: 0 20px 10px;
-        .title{
+        .title {
           width: 100%;
         }
       }
-      .content-container{
-        .submenu-bar{
-          .submenu-item{
+      .content-container {
+        .submenu-bar {
+          .submenu-item {
             width: 40%;
             margin: 10px 5%;
             height: 70px;
           }
         }
-        .contact-form{
+        .contact-form {
           width: 90%;
           margin-left: 5%;
         }
@@ -212,5 +305,7 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
+  .mobile {
+    display: none;
+  }
 }

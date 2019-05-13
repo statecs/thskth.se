@@ -10,7 +10,7 @@ nav {
     text-decoration: none;
     color: $color-white;
     cursor: pointer;
-    &:hover{
+    &:hover {
       text-decoration: underline;
     }
   }
@@ -20,7 +20,7 @@ nav {
     text-align: left;
     padding: 0 15px;
 
-    & >label {
+    & > label {
       font-weight: $font-weight-title;
     }
     span {
@@ -32,10 +32,12 @@ nav {
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   nav {
+    text-align: left;
     margin-top: 10px;
     .menu-sections {
       margin-bottom: 20px;
-      text-align: center;
+      text-align: left;
+      width: 100%;
     }
   }
 }
@@ -43,10 +45,12 @@ nav {
 @include media-breakpoint-only(sm) {
   nav {
     margin-top: 10px;
+    text-align: left;
     .menu-sections {
       margin-bottom: 20px;
       text-align: left;
       float: left;
+      width: 100%;
     }
   }
 }
@@ -58,16 +62,15 @@ nav {
       margin-bottom: 20px;
       text-align: left;
       float: left;
+      width: 100%;
     }
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   nav {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

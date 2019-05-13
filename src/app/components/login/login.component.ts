@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {HeaderCommunicationService} from '../../services/component-communicators/header-communication.service';
-import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
+import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
   loginTab = LoginTab;
@@ -14,13 +14,13 @@ export class LoginComponent implements OnInit {
   constructor(private headerCommunicationService: HeaderCommunicationService) {
     this.selectedTab = LoginTab.KTHLogin;
     this.loginForm = new FormGroup({
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [Validators.required])
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [Validators.required])
     });
   }
 
   ngOnInit() {
-      this.headerCommunicationService.tranparentHeader(false);
+    this.headerCommunicationService.tranparentHeader(false);
   }
 
   selectTab(tab: LoginTab): void {
@@ -28,12 +28,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-      console.log(this.loginForm.value);
-      console.log(this.loginForm.valid);
+    console.log(this.loginForm.value);
+    console.log(this.loginForm.valid);
   }
 }
 
 enum LoginTab {
   KTHLogin,
-  Password,
+  Password
 }

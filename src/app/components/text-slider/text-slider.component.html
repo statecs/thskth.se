@@ -1,28 +1,75 @@
-<div #slides_container id="text-slider">
+<div
+  #slides_container
+  id="text-slider"
+  (touchstart)="swipe($event, 'start', '')"
+  (touchend)="swipe($event, 'end', '')"
+>
   <div class="slides-container">
     <div class="slides" [style.width]="slides_items?.length * 100 + '%'">
-      <div *ngFor="let item of slides_items" class="slide-wrapper" [style.width]="100 / slides_items?.length + '%'">
-        <div class="slide">
-          <h2 [innerHTML]="item.question"></h2>
-          <p class="large-devices" [innerHTML]="item.answer | cardText:800"></p>
-          <p class="mobile" [innerHTML]="item.answer | cardText:160"></p>
-          <span *ngIf="item.answer.length >= 160" class="mobile readMore" (click)="showInPopup(item)">{{(lang === 'sv' ? 'Läs mer' : 'Read more')}}</span>
-          <span *ngIf="item.answer.length >= 800" class="large-devices readMore" (click)="showInPopup(item)">{{(lang === 'sv' ? 'Läs mer' : 'Read more')}}</span>
+      <div
+        *ngFor="let item of slides_items"
+        class="slide-wrapper"
+        [style.width]="100 / slides_items?.length + '%'"
+      >
+        <div class="slide" *ngIf="item">
+          <a
+            class="category"
+            [innerHTML]="item.category_name"
+            [routerLink]="[
+              lang === 'sv'
+                ? '/sv/help/' + item.category_slug
+                : '/en/help/' + item.category_slug
+            ]"
+          ></a>
+          <h2 class="titleSlider" [innerHTML]="item.question"></h2>
+          <p
+            class="large-devices"
+            [innerHTML]="item.answer | cardText: 300"
+          ></p>
+          <p class="mobile" [innerHTML]="item.answer | cardText: 160"></p>
+          <span
+            *ngIf="item.answer.length >= 160"
+            class="mobile readMore"
+            (click)="showInPopup(item)"
+            >{{ lang === "sv" ? "Läs mer" : "Read more" }}</span
+          >
+          <span
+            *ngIf="item.answer.length >= 800"
+            class="large-devices readMore"
+            (click)="showInPopup(item)"
+            >{{ lang === "sv" ? "Läs mer" : "Read more" }}</span
+          >
         </div>
-        <a class="category" [innerHTML]="item.category_name" [routerLink]="[(lang === 'sv' ? 'sv/support/' + item.category_slug : 'en/support/' + item.category_slug)]"></a>
       </div>
     </div>
   </div>
 
-  <div [ngClass]="{'disabled': slideIndex <= 0}" class="text-slider-navBefore">
-    <i *ngIf="slideIndex > 0" class="material-icons" (click)="navBefore()">navigate_before</i>
+  <div [ngClass]="{ disabled: slideIndex <= 0 }" class="text-slider-navBefore">
+    <i *ngIf="slideIndex > 0" class="material-icons" (click)="navBefore()"
+      >navigate_before</i
+    >
     <i *ngIf="slideIndex <= 0" class="material-icons">navigate_before</i>
   </div>
-  <div [ngClass]="{'disabled': slideIndex >= slides_items?.length - 1}" class="text-slider-navNext">
-    <i *ngIf="slideIndex < slides_items?.length - 1" class="material-icons" (click)="navNext()">navigate_next</i>
-    <i *ngIf="slideIndex >= slides_items?.length - 1" class="material-icons">navigate_next</i>
+  <div
+    [ngClass]="{ disabled: slideIndex >= slides_items?.length - 1 }"
+    class="text-slider-navNext"
+  >
+    <i
+      *ngIf="slideIndex < slides_items?.length - 1"
+      class="material-icons"
+      (click)="navNext()"
+      >navigate_next</i
+    >
+    <i *ngIf="slideIndex >= slides_items?.length - 1" class="material-icons"
+      >navigate_next</i
+    >
   </div>
   <div #slider_progress_bar class="slider-progress-bar">
-    <div *ngFor="let item of slides_items, let i = index" [ngClass]="{'selected': slideIndex === i}" class="bar-item" (click)="selectSlide(i)"></div>
+    <div
+      *ngFor="let item of slides_items; let i = index"
+      [ngClass]="{ selected: slideIndex === i }"
+      class="bar-item"
+      (click)="selectSlide(i)"
+    ></div>
   </div>
 </div>

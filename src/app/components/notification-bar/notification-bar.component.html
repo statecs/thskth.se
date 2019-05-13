@@ -1,7 +1,36 @@
 <div id="bar" #bar>
-  <div *ngIf="notification" id="notification-bar" [ngClass]="{'default': notification.bg_color === 'light-blue', 'warning': notification.bg_color === 'yellow', 'danger': notification.bg_color === 'red'}">
+  <div
+    *ngIf="notification"
+    id="notification-bar"
+    [ngClass]="{
+      default: notification.bg_color === 'light-blue',
+      warning: notification.bg_color === 'yellow',
+      danger: notification.bg_color === 'red'
+    }"
+  >
     <div class="icon"><span>!</span></div>
-    <p [innerHTML]="notification?.message"></p>
-    <span class="close-btn" (click)="closeBar()">X</span>
+    <p
+      *ngIf="notification?.message === ''"
+      [innerHTML]="notification?.title"
+    ></p>
+    <p
+      *ngIf="notification?.message !== ''"
+      [innerHTML]="notification?.message"
+    ></p>
+    <span class="close-btn" (click)="closeBar()"
+      ><div class="svg-close w-18 text-white">
+        <svg
+          data-v-06449926=""
+          version="1.1"
+          viewBox="0 0 25 25"
+          class="rotate-45 svg-icon svg-fill"
+          style="width: 17px; height: 17px;"
+        >
+          <path
+            pid="0"
+            d="M25 11.5H13.5V0h-2v11.5H0v2h11.5V25h2V13.5H25z"
+          ></path>
+        </svg></div
+    ></span>
   </div>
 </div>

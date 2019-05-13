@@ -18,6 +18,18 @@
     & ~ .slide-wrapper {
       left: 101%;
     }
+    .video-template {
+      .video-controller {
+        position: absolute;
+        @include center-content(50%, 50%);
+        i {
+          color: white;
+          font-size: $font-size-extraLarge;
+          cursor: pointer;
+          transition: opacity 0.5s ease;
+        }
+      }
+    }
 
     .slide {
       width: 100%;
@@ -30,18 +42,18 @@
       background-repeat: no-repeat;
       background-position: center;
 
-      h2{
+      h2 {
         font-size: $font-size-h2;
         margin-top: 0;
       }
-      p{
+      p {
         font-size: $font-size-default;
         text-align: justify;
       }
-      .large-devices{
+      .large-devices {
         display: block;
       }
-      .mobile{
+      .mobile {
         display: none;
       }
     }
@@ -59,11 +71,12 @@
     }
   }
 
-  .text-slider-navBefore, .text-slider-navNext {
+  .text-slider-navBefore,
+  .text-slider-navNext {
     display: inline-block;
     @include center-vertically(50%);
 
-    i{
+    i {
       font-size: $font-size-h1 + 0.5em;
       font-weight: $font-weight-title;
       cursor: pointer;
@@ -71,7 +84,7 @@
       color: gray;
       margin: 0 10px;
       border: 1px solid rgba(100, 100, 100, 0.9);
-      &:hover{
+      &:hover {
         color: white;
         background-color: rgba(100, 100, 100, 0.5);
         border: 0;
@@ -87,9 +100,9 @@
     right: 0;
   }
 
-  .disabled{
-    i{
-      &:hover{
+  .disabled {
+    i {
+      &:hover {
         color: gray;
         background-color: rgba(100, 100, 100, 0);
         border: 1px solid rgba(100, 100, 100, 0.9);
@@ -104,12 +117,12 @@
     right: 0;
     .bar-item {
       @include circle(17px);
-      border: 1px solid lightgray;
+      border: 1px solid white;
       display: inline-block;
-      margin:0 10px;
+      margin: 0 10px;
     }
-    .selected{
-      background-color: lightgray;
+    .selected {
+      background-color: white;
     }
   }
 }
@@ -119,23 +132,24 @@
   #header-slider {
     height: 200px;
     .slide-wrapper {
-      .slide{
-        h2{
+      .slide {
+        h2 {
           font-size: $font-size-h3;
         }
       }
-      .category{
+      .category {
         bottom: 50px;
       }
-      .large-devices{
+      .large-devices {
         display: none !important;
       }
-      .mobile{
+      .mobile {
         display: block !important;
       }
     }
-    .text-slider-navBefore, .text-slider-navNext {
-      i{
+    .text-slider-navBefore,
+    .text-slider-navNext {
+      i {
         font-size: $font-size-h2 + 0.5em;
       }
     }
@@ -145,7 +159,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      .bar-item{
+      .bar-item {
         width: 15px;
         height: 15px;
         margin: 0 10px;
@@ -158,23 +172,24 @@
   #header-slider {
     height: 250px;
     .slide-wrapper {
-      .slide{
-        h2{
+      .slide {
+        h2 {
           font-size: $font-size-h3;
         }
       }
-      .category{
+      .category {
         bottom: 50px;
       }
-      .large-devices{
+      .large-devices {
         display: none !important;
       }
-      .mobile{
+      .mobile {
         display: block !important;
       }
     }
-    .text-slider-navBefore, .text-slider-navNext {
-      i{
+    .text-slider-navBefore,
+    .text-slider-navNext {
+      i {
         font-size: $font-size-h2 + 0.5em;
       }
     }
@@ -184,7 +199,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      .bar-item{
+      .bar-item {
         width: 15px;
         height: 15px;
         margin: 0 10px;
@@ -197,23 +212,24 @@
   #header-slider {
     height: 300px;
     .slide-wrapper {
-      .slide{
-        h2{
+      .slide {
+        h2 {
           font-size: $font-size-h3;
         }
       }
-      .category{
+      .category {
         bottom: 50px;
       }
-      .large-devices{
+      .large-devices {
         display: none !important;
       }
-      .mobile{
+      .mobile {
         display: block !important;
       }
     }
-    .text-slider-navBefore, .text-slider-navNext {
-      i{
+    .text-slider-navBefore,
+    .text-slider-navNext {
+      i {
         font-size: $font-size-h2 + 0.5em;
       }
     }
@@ -223,7 +239,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      .bar-item{
+      .bar-item {
         width: 15px;
         height: 15px;
         margin: 0 10px;
@@ -234,10 +250,8 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #header-slider {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

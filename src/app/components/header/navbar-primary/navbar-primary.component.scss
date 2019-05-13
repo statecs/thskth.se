@@ -8,66 +8,87 @@ nav {
   font-size: $font-size-h6 + 0.01em;
 
   .signin-btn {
-    border-radius: 15px;
-    padding: 7px;
-    border: 1px solid;
+    border-radius: 40px;
+    padding: 8px 13px;
+    background-color: white;
     cursor: pointer;
-    >a{
+    > a {
+      text-decoration: none;
+      color: #00406c;
+    }
+  }
+
+  .chapter-btn {
+    width: 50px;
+    margin-right: 55px;
+    cursor: pointer;
+    i {
+      margin-top: 3px;
+    }
+    span {
+      position: absolute;
+      padding: 7px 0px;
+    }
+    > a {
       text-decoration: none;
       color: white;
     }
   }
 
-  .ths-icon, .language {
+  .ths-icon,
+  .language {
     cursor: pointer;
     margin-left: 12px !important;
     vertical-align: middle;
-    img{
+    img {
       vertical-align: middle;
     }
   }
-  .ths-icon{
-    .icon{
+  .ths-icon {
+    .icon {
       display: inline-block;
       width: 25px;
       height: 25px;
       overflow: hidden;
       position: relative;
       vertical-align: middle;
-      img{
+      img {
         /*position: absolute;
         width: 100px;
         margin-left: -13px;*/
         margin-top: -3px;
       }
     }
-    .dropdownList{
+    .dropdownList {
       height: 350px;
-      overflow-y: scroll;
-      .d-header-bg{
+      .chapter-list {
+        overflow-y: scroll;
+        height: 240px;
+      }
+      .d-header-bg {
         border-top-right-radius: 0 !important;
       }
     }
   }
 
-  >div{
-    display:inline-block;
+  > div {
+    display: inline-block;
     margin-left: 15px;
     font-size: $font-size-default;
     color: $color-white;
     position: relative;
     vertical-align: middle;
-    span{
+    span {
       vertical-align: text-top;
     }
-    .label span{
+    .label span {
       color: $color-white;
       cursor: pointer;
-      &:hover{
+      &:hover {
         text-decoration: underline;
       }
     }
-    i{
+    i {
       margin-left: 10px;
     }
     .dropdownList {
@@ -76,27 +97,26 @@ nav {
       margin-top: 25px;
       font-size: $font-size-h5;
       width: 300px;
-      z-index: 1;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
+      z-index: 999;
+      border-radius: 15px;
       text-align: left;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 
-      .d-header-bg{
+      .d-header-bg {
         height: 90px;
         background-color: #00a5ce;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
       }
-      .d-header{
+      .d-header {
         height: 20px;
         background-color: white;
         position: relative;
-        & >div{
+        & > div {
           position: absolute;
           bottom: 5px;
           padding-left: 20px;
-          img{
+          img {
             width: 100px;
             height: 70px;
             vertical-align: middle;
@@ -119,7 +139,7 @@ nav {
         &:hover {
           background-color: #d7ecf1;
         }
-        & >label {
+        & > label {
           display: inline-block;
           padding: 10px 10px;
           font-weight: $font-weight-regular;
@@ -128,23 +148,23 @@ nav {
           color: $text-color-default;
           cursor: pointer;
         }
-        &:last-child{
+        &:last-child {
           border: none;
           margin-bottom: 30px;
         }
-        .logo{
-          background-color: rgba(0,0,0,0.25);
+        .logo {
+          background-color: rgba(0, 0, 0, 0.25);
           display: inline-block;
           vertical-align: middle;
           cursor: pointer;
-          & img{
+          & img {
             width: 30px;
             height: 30px;
             vertical-align: middle;
           }
         }
       }
-      .browse-more{
+      .browse-more {
         background-color: #00a5ce;
         text-align: center;
         padding: 15px 0;
@@ -156,19 +176,16 @@ nav {
   }
 }
 
-::-webkit-scrollbar
-{
-  width: 10px;  /* for vertical scrollbars */
+::-webkit-scrollbar {
+  width: 10px; /* for vertical scrollbars */
   height: 10px; /* for horizontal scrollbars */
 }
 
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
   background: rgba(84, 84, 84, 0.2);
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: #b2b2b2;
   border-radius: 10px;
 }
@@ -176,34 +193,61 @@ nav {
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   nav {
-
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   nav {
-
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
   nav {
-
+    .logo {
+      float: left;
+      cursor: pointer;
+      & img {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+      }
+    }
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   nav {
-    >div{
-      font-size: 0.85em;
-      margin-left: 8px !important;
+    > div {
+      margin: 0;
+      padding: 0px 5px;
     }
-    .ths-icon, .language{
+    .ths-icon,
+    .language {
       margin-left: 5px !important;
+    }
+    .logo {
+      float: left;
+      cursor: pointer;
+      margin-top: 5px;
+      & img {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+      }
     }
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
+  nav {
+    .chapter-btn {
+      i {
+        margin-top: 4px;
+      }
+      span {
+        position: absolute;
+        padding: 7px 0px;
+      }
+    }
+  }
 }

@@ -18,7 +18,7 @@ $width: 100px;
   margin: 0 auto;
   width: $width;
   &:before {
-    content: '';
+    content: "";
     display: block;
     padding-top: 100%;
   }

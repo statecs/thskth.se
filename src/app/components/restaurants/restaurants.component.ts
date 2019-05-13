@@ -16,6 +16,7 @@ import { Subscription } from "rxjs/Subscription";
 import { TitleCommunicationService } from "../../services/component-communicators/title-communication.service";
 import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
 import * as format from "date-fns/format";
+import { CookieService, CookieOptions } from "ngx-cookie";
 
 @Component({
   selector: "app-restaurants",
@@ -32,9 +33,8 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   public restaurants: Restaurant[];
   public restaurant_index: number;
   public showSchedule: boolean;
-  public lunch: DishesTime;
-  public a_la_carte: DishesTime;
   public selected_day: string;
+  public today: any;
   private lang: string;
   public pageNotFound: boolean;
   private loading: boolean;
@@ -44,22 +44,27 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   public paramsSubscription: Subscription;
   public restaurantSubscription: Subscription;
   public menuFullText: string;
+  public date: Date;
 
   constructor(
     private restaurantService: RestaurantService,
     private activatedRoute: ActivatedRoute,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
     private titleCommunicationService: TitleCommunicationService,
-    private headerCommunicationService: HeaderCommunicationService
+    private headerCommunicationService: HeaderCommunicationService,
+    private _cookieService: CookieService
   ) {
     this.loading = true;
     this.slideIndex = 0;
     this.showSchedule = false;
+    this.today = new Date();
     this.selected_day = format(new Date(), "dddd");
     if (this.selected_day === "Sunday" || this.selected_day === "Saturday") {
       this.selected_day = "Monday";
     }
+    this.restaurant_index = 0;
     this.item_onfocus_index = 0;
+    this.date = new Date();
   }
 
   swipe(e: TouchEvent, when: string): void {
@@ -124,6 +129,33 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     slides_wrapper.style.marginLeft = margin_left;
   }
 
+  getWeekNumber(): string {
+    return format(this.date, "W");
+  }
+  getDate(): string {
+    var monday = new Date();
+    monday.setDate(monday.getDate() - monday.getDay() + 1);
+    var tuesday = new Date();
+    tuesday.setDate(tuesday.getDate() - tuesday.getDay() + 2);
+    var wednesday = new Date();
+    wednesday.setDate(wednesday.getDate() - wednesday.getDay() + 3);
+    var thursday = new Date();
+    thursday.setDate(thursday.getDate() - thursday.getDay() + 4);
+    var friday = new Date();
+    friday.setDate(friday.getDate() - friday.getDay() + 5);
+    if (this.selected_day === "Monday") {
+      return format(monday, "D/M");
+    } else if (this.selected_day === "Tuesday") {
+      return format(tuesday, "D/M");
+    } else if (this.selected_day === "Wednesday") {
+      return format(wednesday, "D/M");
+    } else if (this.selected_day === "Thursday") {
+      return format(thursday, "D/M");
+    } else if (this.selected_day === "Friday") {
+      return format(friday, "D/M");
+    }
+  }
+
   changeDay(day) {
     this.selected_day = day;
     this.updateDishes();
@@ -151,26 +183,24 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     } else if (this.selected_day === "Friday") {
       day_index = 4;
     }
-    if (this.restaurant_index) {
-      this.lunch = this.restaurants[this.restaurant_index].menu[
-        day_index
-      ].lunch;
-      this.a_la_carte = this.restaurants[this.restaurant_index].menu[
-        day_index
-      ].a_la_carte;
-      this.menuFullText = this.restaurants[this.restaurant_index].menu[
-        day_index
-      ].full_text;
-    } else {
-      this.lunch = this.restaurants[this.item_onfocus_index].menu[
-        day_index
-      ].lunch;
-      this.a_la_carte = this.restaurants[this.item_onfocus_index].menu[
-        day_index
-      ].a_la_carte;
-      this.menuFullText = this.restaurants[this.item_onfocus_index].menu[
-        day_index
-      ].full_text;
+    if (this.restaurants[this.restaurant_index]) {
+      if (this.restaurant_index) {
+        if (this.restaurants[this.restaurant_index].menu.length > 0) {
+          this.menuFullText = this.restaurants[this.restaurant_index].menu[
+            day_index
+          ].full_text;
+        } else {
+          this.menuFullText = null;
+        }
+      } else {
+        if (this.restaurants[this.item_onfocus_index].menu.length > 0) {
+          this.menuFullText = this.restaurants[this.item_onfocus_index].menu[
+            day_index
+          ].full_text;
+        } else {
+          this.menuFullText = null;
+        }
+      }
     }
   }
 
@@ -180,34 +210,41 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       (params: Params) => {
         this.pageNotFound = false;
         this.loading = true;
-        this.lang = params["lang"];
-        if (typeof this.lang === "undefined") {
-          this.lang = "en";
-        } else if (this.lang !== "en" && this.lang !== "sv") {
-          this.pageNotFound = true;
+
+        if (this._cookieService.get("language") == "sv") {
+          this.lang = "sv";
+        } else {
           this.lang = "en";
         }
+
         this.restaurantSubscription = this.restaurantService
           .getRestaurants(this.lang)
           .subscribe(
             res => {
-              this.loading = false;
-              this.restaurants = res;
-              this.updateDishes();
-              if (this.restaurant_index) {
-                this.titleCommunicationService.setTitle(
-                  this.restaurants[this.restaurant_index].title
-                );
-              } else {
-                if (this.lang === "sv") {
-                  this.titleCommunicationService.setTitle("Restauranger");
+              if (res) {
+                this.loading = false;
+                this.restaurants = res;
+                this.updateDishes();
+                if (this.restaurant_index) {
+                  this.titleCommunicationService.setTitle(
+                    this.restaurants[this.restaurant_index].title
+                  );
                 } else {
-                  this.titleCommunicationService.setTitle("Restaurants");
+                  if (this.lang === "sv") {
+                    this.titleCommunicationService.setTitle(
+                      "Restaurang och Café"
+                    );
+                  } else {
+                    this.titleCommunicationService.setTitle(
+                      "Restaurant and Café"
+                    );
+                  }
                 }
               }
             },
             error => {
               this.loading = false;
+              this.pageNotFound = true;
               this.notificationBarCommunicationService.send_data(error);
             }
           );

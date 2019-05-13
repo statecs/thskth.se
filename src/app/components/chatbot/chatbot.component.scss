@@ -1,6 +1,6 @@
 @import "../../../style/utilities";
 
-:host /deep/ .chat_flow{
+:host /deep/ .chat_flow {
   .response {
     a {
       text-decoration: none;
@@ -12,29 +12,30 @@
   }
 }
 
-#chatbot{
+#chatbot {
   position: relative;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 50px;
-  .chat_flow{
+  padding: 0;
+  max-width: 100%;
+  margin: 0 auto;
+  .chat_flow {
     //min-height: calc(100vh - 80px);
     min-height: 0;
     position: relative;
-    padding: 15px 15px 50px;
-    ol{
+    padding: 15px 0;
+    ol {
       list-style: none;
       padding: 0;
       margin: 0 0 110px 0;
-      li{
+      li {
         display: block;
-        .response{
-          float: left;
+        .response {
           display: inline-block;
           width: 100%;
-          .text{
+          .text {
             display: inline-block;
             max-width: 57%;
             padding: 15px;
+            box-shadow: 0 1px 3px #b2b2b2;
             background: #87a1ba;
             color: white;
             border-radius: 15px;
@@ -43,12 +44,12 @@
             //float: left;
             vertical-align: middle;
           }
-          .info{
+          .info {
             display: inline-block;
             position: relative;
             vertical-align: middle;
             width: 41%;
-            >span{
+            > span {
               @include circle(20px);
               background-color: orange;
               display: inline-block;
@@ -56,7 +57,7 @@
               color: white;
               cursor: pointer;
             }
-            .info-text{
+            .info-text {
               position: absolute;
               display: inline-block;
               background-color: orange;
@@ -66,21 +67,21 @@
               max-width: 100%;
               word-wrap: break-word;
               left: 0;
-              &::after{
-                content: '';
+              &::after {
+                content: "";
                 @include arrow-down-tilted(10px, orange, 10px);
               }
             }
           }
         }
-        .user{
+        .user {
           width: 100%;
           overflow: hidden;
-          .message{
+          .message {
             float: right;
             display: inline-block;
             padding: 10px 15px;
-            background: lightgrey;
+            box-shadow: 0 1px 3px #b2b2b2;
             color: black;
             border-radius: 20px;
             margin: 5px 0;
@@ -89,34 +90,35 @@
       }
     }
 
-    .responses{
+    .responses {
       position: absolute;
       padding: 6px;
       bottom: 0;
       left: 0;
       right: 0;
       margin: 0;
-      max-width: 70%;
-      .res_item{
+      .res_item {
         transition: transform 0.5s cubic-bezier(0.68, 0.01, 0.245, 1.13) 0s;
         transform: translate3d(0px, 0px, 0px);
         display: inline-block;
         padding: 10px 15px;
-        background: lightgrey;
+        box-shadow: 0 1px 3px #b2b2b2;
         color: black;
         border-radius: 20px;
         margin: 5px 5px;
         cursor: pointer;
       }
     }
-    .reset-btn{
+    .reset-btn {
       position: absolute;
-      bottom: 0;
+      margin: 10px;
+      top: 0;
+      margin-top: -85px;
       right: 0;
-      padding: 20px 10px;
+      padding: 10px 15px;
       border: 1px solid white;
       border-radius: 40px;
-      background-color: #f26c6c;
+      background-color: #575757;
       font-weight: 700;
       color: white;
       cursor: pointer;
@@ -125,8 +127,8 @@
 }
 
 :host /deep/ #chatbot {
-  ol{
-    img{
+  ol {
+    img {
       height: 50px;
       vertical-align: middle;
     }
@@ -137,26 +139,23 @@
 @include media-breakpoint-only(xs) {
   #chatbot {
     .chat_flow {
-      min-height: 350px;
+      min-height: 250px;
       font-size: $font-size-h6;
-      .reset-btn{
-        right: 10px;
-      }
-      ol{
-        li{
-          .response{
-            .text{
+      ol {
+        li {
+          .response {
+            .text {
               max-width: 50%;
               padding: 10px;
             }
-            .info{
+            .info {
               width: 45%;
-              .info-text{
+              .info-text {
                 padding: 10px;
               }
             }
           }
-          input{
+          input {
             width: 100%;
           }
         }
@@ -170,24 +169,24 @@
     .chat_flow {
       min-height: 350px;
       font-size: $font-size-h6;
-      .reset-btn{
+      .reset-btn {
         right: 10px;
       }
-      ol{
-        li{
-          .response{
-            .text{
+      ol {
+        li {
+          .response {
+            .text {
               max-width: 50%;
               padding: 10px;
             }
-            .info{
+            .info {
               width: 45%;
-              .info-text{
+              .info-text {
                 padding: 10px;
               }
             }
           }
-          input{
+          input {
             width: 100%;
           }
         }
@@ -201,24 +200,24 @@
     .chat_flow {
       min-height: 300px;
       font-size: $font-size-h6;
-      .reset-btn{
+      .reset-btn {
         right: 10px;
       }
-      ol{
-        li{
-          .response{
-            .text{
+      ol {
+        li {
+          .response {
+            .text {
               max-width: 50%;
               padding: 10px;
             }
-            .info{
+            .info {
               width: 45%;
-              .info-text{
+              .info-text {
                 padding: 10px;
               }
             }
           }
-          input{
+          input {
             width: 100%;
           }
         }
@@ -229,10 +228,8 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #chatbot {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

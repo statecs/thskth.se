@@ -1,37 +1,99 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {HeaderSlide} from '../../interfaces-and-classes/chapters_associations';
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { HeaderSlide } from "../../interfaces-and-classes/chapters_associations";
 
 @Component({
-  selector: 'app-header-slider',
-  templateUrl: './header-slider.component.html',
-  styleUrls: ['./header-slider.component.scss']
+  selector: "app-header-slider",
+  templateUrl: "./header-slider.component.html",
+  styleUrls: ["./header-slider.component.scss"]
 })
 export class HeaderSliderComponent implements OnInit {
   @Input() slides_items: HeaderSlide[];
-
-  @ViewChild('slides_container') slides_container: ElementRef;
-  @ViewChild('slider_progress_bar') slider_progress_bar: ElementRef;
+  @ViewChild("video_player") video_player: ElementRef;
+  @ViewChild("playButton") playButton: ElementRef;
+  @ViewChild("slides_container") slides_container: ElementRef;
+  @ViewChild("slider_progress_bar") slider_progress_bar: ElementRef;
   public slides: any;
   public slideIndex: number;
   public bar_items: any;
+  private swipeCoord: [number, number];
+  private swipeTime: number;
+  public video: any;
 
   constructor() {
     this.slideIndex = 0;
   }
 
+  swipe(e: TouchEvent, when: string, link: string): void {
+    const coord: [number, number] = [
+      e.changedTouches[0].pageX,
+      e.changedTouches[0].pageY
+    ];
+    const time = new Date().getTime();
+
+    if (when === "start") {
+      this.swipeCoord = coord;
+      this.swipeTime = time;
+    } else if (when === "end") {
+      const direction = [
+        coord[0] - this.swipeCoord[0],
+        coord[1] - this.swipeCoord[1]
+      ];
+      const duration = time - this.swipeTime;
+
+      if (
+        duration < 1000 && // Short enough
+        Math.abs(direction[1]) < Math.abs(direction[0]) && // Horizontal enough
+        Math.abs(direction[0]) > 30
+      ) {
+        // Long enough
+        if (direction[0] < 0) {
+          // this.hideAllSlides();
+          this.selectSlideElements();
+          this.slideIndex++;
+          if (this.slideIndex >= this.slides.length) {
+            this.slideIndex = this.slides.length - 1;
+          }
+          this.slides[this.slideIndex - 1].style.left = "-101%";
+          this.showActualSlide();
+        } else {
+          this.selectSlideElements();
+          this.slideIndex--;
+          if (this.slideIndex < 0) {
+            this.slideIndex = 0;
+          }
+          this.slides[this.slideIndex + 1].style.left = "101%";
+          this.showActualSlide();
+        }
+      }
+    }
+  }
+
+  togglePlay(): void {
+    this.video = this.video_player.nativeElement;
+    const el = this.playButton.nativeElement;
+    if (this.video.paused) {
+      this.video.play();
+      el.innerHTML = "pause_circle_outline";
+    } else {
+      el.innerHTML = "play_circle_outline";
+      this.video.pause();
+    }
+  }
   navBefore(): void {
     this.selectSlideElements();
     this.slideIndex--;
     if (this.slideIndex < 0) {
       this.slideIndex = 0;
     }
-    this.slides[this.slideIndex + 1].style.left = '101%';
+    this.slides[this.slideIndex + 1].style.left = "101%";
     this.showActualSlide();
   }
 
   selectSlideElements(): void {
-    if (typeof this.slides === 'undefined') {
-      this.slides = this.slides_container.nativeElement.getElementsByClassName('slide-wrapper');
+    if (typeof this.slides === "undefined") {
+      this.slides = this.slides_container.nativeElement.getElementsByClassName(
+        "slide-wrapper"
+      );
     }
   }
 
@@ -41,15 +103,33 @@ export class HeaderSliderComponent implements OnInit {
     if (this.slideIndex >= this.slides.length) {
       this.slideIndex = this.slides.length - 1;
     }
-    this.slides[this.slideIndex - 1].style.left = '-101%';
+    this.slides[this.slideIndex - 1].style.left = "-101%";
     this.showActualSlide();
   }
 
   showActualSlide(): void {
-    this.slides[this.slideIndex].style.left = '0';
+    this.slides[this.slideIndex].style.left = "0";
+  }
+  clickActualSlide(index): void {
+    this.selectSlideElements();
+    if (index < this.slides.length) {
+      if (index < this.slideIndex) {
+        this.selectSlideElements();
+        this.slideIndex--;
+        if (this.slideIndex < 0) {
+          this.slideIndex = 0;
+        }
+        this.slides[this.slideIndex + 1].style.left = "101%";
+        this.showActualSlide();
+      }
+      this.slideIndex = index;
+      this.showActualSlide();
+    }
   }
 
   ngOnInit() {
-    this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName('bar-item');
+    this.bar_items = this.slider_progress_bar.nativeElement.getElementsByClassName(
+      "bar-item"
+    );
   }
 }

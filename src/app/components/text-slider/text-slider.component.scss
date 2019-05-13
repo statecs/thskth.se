@@ -2,7 +2,6 @@
 
 #text-slider {
   //@include container-size($main-container);
-  text-align: center;
   position: relative;
   margin-top: 10px;
   //overflow: hidden;
@@ -11,7 +10,7 @@
   .slides-container {
     overflow: hidden;
     height: 280px;
-    .slides{
+    .slides {
       height: 100%;
       transition: margin 1s ease;
     }
@@ -29,38 +28,41 @@
     //}
 
     .slide {
-      width: 60%;
+      width: 70%;
       display: inline-block;
       //display: none;
       position: absolute;
-      left: 20%;
+      top: 20%;
+      left: 15%;
       .readMore {
-        padding: 5px 10px;
-        border: 1px solid gray;
+        padding: 10px 15px;
+        box-shadow: 0 1px 3px #b2b2b2;
+        background-color: #ffffff6b;
         border-radius: 20px;
-        margin-top: 10px;
+        margin-top: 20px;
       }
-      h2{
+      h2 {
         font-size: $font-size-h2;
         margin-top: 0;
         text-align: left;
       }
-      p{
+      p {
         font-size: $font-size-default;
         text-align: justify;
+        margin-top: 7px;
       }
-      .large-devices{
+      .large-devices {
         display: inline-block;
       }
-      .mobile{
+      .mobile {
         display: none;
       }
     }
     .category {
-      display: inline-block;
-      position: absolute;
+      text-align: left;
       bottom: 0;
       left: 0;
+      font-size: 0.9em;
       //z-index: 1;
       text-decoration: none;
       color: $color-link-secondary;
@@ -68,15 +70,19 @@
         color: $color-link-secondary-hover;
       }
     }
+    .titleSlider {
+      margin: 15px 0 !important;
+    }
   }
 
-  .text-slider-navBefore, .text-slider-navNext {
+  .text-slider-navBefore,
+  .text-slider-navNext {
     display: inline-block;
     @include center-vertically(50%);
 
-    i{
-      font-size: $font-size-extraLarge;
-      font-weight: $font-weight-title;
+    i {
+      font-size: 3em;
+      font-weight: 400;
       cursor: pointer;
     }
   }
@@ -88,33 +94,34 @@
   .text-slider-navNext {
     right: 0;
   }
-  .disabled{
+  .disabled {
     opacity: 0.15;
-    i{
+    i {
       cursor: default;
     }
   }
   .slider-progress-bar {
     //border: 1px solid;
-    padding:15px 0;
+    padding: 15px 0;
+    text-align: center;
     //top:230px;
     position: relative;
     .bar-item {
       @include circle(17px);
       //border: 1px solid blue;
       display: inline-block;
-      margin:0 20px;
+      margin: 0 20px;
       background-color: lightgray;
       cursor: pointer;
     }
-    .selected{
+    .selected {
       background-color: gray;
     }
   }
 }
 
-:host /deep/ .slide{
-  p{
+:host /deep/ .slide {
+  p {
     margin: 0;
   }
 }
@@ -122,27 +129,38 @@
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
   #text-slider {
+    .text-slider-navBefore,
+    .text-slider-navNext {
+      display: none;
+    }
     .slides-container {
       height: 370px;
     }
     .slide-wrapper {
-      .slide{
-        h2{
+      .slide {
+        top: 5%;
+        width: 90%;
+        left: 3%;
+        p {
+          text-align: left;
+        }
+        h2 {
           font-size: $font-size-h4;
         }
       }
-      .category{
+      .category {
         bottom: 50px;
       }
-      .large-devices{
+      .large-devices {
         display: none !important;
       }
-      .mobile{
+      .mobile {
         display: inline-block !important;
       }
     }
-    .text-slider-navBefore, .text-slider-navNext {
-      i{
+    .text-slider-navBefore,
+    .text-slider-navNext {
+      i {
         font-size: $font-size-h1 + 0.5em;
       }
     }
@@ -152,7 +170,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      .bar-item{
+      .bar-item {
         width: 15px;
         height: 15px;
         margin: 0 10px;
@@ -163,31 +181,39 @@
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
   #text-slider {
+    .text-slider-navBefore,
+    .text-slider-navNext {
+      display: none;
+    }
     .slides-container {
       height: 300px;
     }
     .slide-wrapper {
-      .slide{
-        h2{
+      .slide {
+        top: 5%;
+        width: 90%;
+        left: 3%;
+        h2 {
           font-size: $font-size-h4;
         }
-        p{
+        p {
           font-size: $font-size-h5;
         }
       }
-      .category{
+      .category {
         bottom: 50px;
         font-size: $font-size-h5;
       }
-      .large-devices{
+      .large-devices {
         display: none !important;
       }
-      .mobile{
+      .mobile {
         display: inline-block !important;
       }
     }
-    .text-slider-navBefore, .text-slider-navNext {
-      i{
+    .text-slider-navBefore,
+    .text-slider-navNext {
+      i {
         font-size: 5em;
       }
     }
@@ -197,7 +223,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      .bar-item{
+      .bar-item {
         width: 20px;
         height: 20px;
         margin: 0 15px;
@@ -212,27 +238,28 @@
       height: 300px;
     }
     .slide-wrapper {
-      .slide{
-        h2{
+      .slide {
+        h2 {
           font-size: $font-size-h3;
         }
-        p{
+        p {
           font-size: $font-size-h5;
         }
       }
-      .category{
+      .category {
         bottom: 50px;
         font-size: $font-size-h5;
       }
-      .large-devices{
+      .large-devices {
         display: none !important;
       }
-      .mobile{
+      .mobile {
         display: inline-block !important;
       }
     }
-    .text-slider-navBefore, .text-slider-navNext {
-      i{
+    .text-slider-navBefore,
+    .text-slider-navNext {
+      i {
         font-size: 5em;
       }
     }
@@ -242,7 +269,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      .bar-item{
+      .bar-item {
         width: 20px;
         height: 20px;
         margin: 0 15px;
@@ -253,10 +280,8 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #text-slider {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

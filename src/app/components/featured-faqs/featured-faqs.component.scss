@@ -1,18 +1,19 @@
 @import "../../../style/utilities";
 
-.featured-faqs{
+.featured-faqs {
   width: 100%;
   margin: 20px 0;
   text-align: center;
   overflow: hidden;
-  .larger-devices{
+  .larger-devices {
     display: block;
   }
-  .mobile{
+  .mobile {
     display: none;
   }
-  .item{
-    background-color: lightgray;
+  .item {
+    cursor: pointer;
+    background-color: #f7f7f7;
     text-align: center;
     width: 30%;
     height: 200px;
@@ -21,13 +22,13 @@
     vertical-align: top;
     padding: 10px 20px;
     border-radius: 5px;
-    >div{
+    > div {
       text-align: left;
-      >p{
+      > p {
         text-align: left;
         display: inline;
       }
-      >span{
+      > span {
         color: $color-link-secondary;
         cursor: pointer;
         &:hover {
@@ -38,9 +39,8 @@
   }
 }
 
-::-webkit-scrollbar
-{
-  width: 0;  /* for vertical scrollbars */
+::-webkit-scrollbar {
+  width: 0; /* for vertical scrollbars */
   height: 0; /* for horizontal scrollbars */
 }
 
@@ -48,17 +48,17 @@
 @include media-breakpoint-only(xs) {
   .featured-faqs {
     overflow: hidden;
-    .larger-devices{
+    .larger-devices {
       display: none;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
-    .slides-wrapper{
+    .slides-wrapper {
       transition: margin 0.5s ease;
     }
-    .item{
-      h2{
+    .item {
+      h2 {
         font-size: $font-size-h5;
       }
     }
@@ -69,17 +69,17 @@
 @include media-breakpoint-only(sm) {
   .featured-faqs {
     overflow: hidden;
-    .larger-devices{
+    .larger-devices {
       display: none;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
-    .slides-wrapper{
+    .slides-wrapper {
       transition: margin 0.5s ease;
     }
-    .item{
-      h2{
+    .item {
+      h2 {
         font-size: $font-size-h5;
       }
     }
@@ -89,17 +89,17 @@
 @include media-breakpoint-only(md) {
   .featured-faqs {
     overflow: hidden;
-    .larger-devices{
+    .larger-devices {
       display: none;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
-    .slides-wrapper{
+    .slides-wrapper {
       transition: margin 0.5s ease;
     }
-    .item{
-      h2{
+    .item {
+      h2 {
         font-size: $font-size-h5;
       }
     }
@@ -108,10 +108,8 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   .featured-faqs {
-
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

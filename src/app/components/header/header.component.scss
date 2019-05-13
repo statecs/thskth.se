@@ -1,36 +1,193 @@
 @import "../../../style/utilities";
-.tranparentHeader{
-  @include bg-linear-grad-to-top(rgba(0,0,0,0), rgba(0,0,0,1));
-  .container{
-    border-bottom: 1px solid lightgray;
+.tranparentHeader {
+  @include bg-linear-grad-to-top(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+}
+
+.freeze-submenu-bar.js-open-nav {
+  .container.mobile {
+    .menu-wrapper {
+      .menu-bar {
+        .icon-menu-o.open {
+          .icon-menu-o.open {
+            .cls:nth-child(2) {
+              background-color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.freeze-submenu-bar {
+  z-index: 4;
+  .container.mobile {
+    position: fixed;
+    background-color: white;
+    .logo {
+      a {
+        svg {
+          .cls-1 {
+            fill: #000;
+          }
+        }
+      }
+    }
+    .menu-wrapper {
+      .chapters {
+        color: black;
+      }
+      .menu-bar {
+        .icon-menu-o.open {
+          .icon-menu-o.open {
+            .cls {
+              background-color: #000;
+            }
+          }
+        }
+        .signin-btn-top {
+          border: 0.9px solid black;
+          a {
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+.js-open-nav {
+  .container.mobile {
+    position: fixed !important;
+    overflow-y: scroll;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    .menu-wrapper {
+      background-color: white;
+      .menu-bar {
+        .signin-btn-top {
+          font-size: 0.9em;
+          border-radius: 20px;
+          padding: 8px 15px;
+          border: 0.9px solid black;
+          margin-top: 3px;
+          cursor: pointer;
+          > a {
+            text-decoration: none;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+.signin-btn-top {
+  font-size: 0.9em;
+  border-radius: 20px;
+  padding: 8px 15px;
+  border: 0.9px solid white;
+  margin-top: 3px;
+  cursor: pointer;
+  > a {
+    text-decoration: none;
+    color: white;
   }
 }
 
+.open {
+  -webkit-appearance: none;
+  border-radius: 0;
+  background: transparent;
+  position: absolute;
+  border: 0;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  display: block;
+  cursor: pointer;
+  span {
+    display: block;
+    clear: both;
+    height: 1px;
+    width: 25px;
+    border-radius: 40px;
+    background-color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 13px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    &:nth-child(1) {
+      z-index: 9;
+    }
+    &:nth-child(2) {
+      margin-top: 7px;
+    }
+    &:nth-child(3) {
+      margin-top: 14px;
+    }
+  }
+}
+.js-open-nav {
+  background: white;
+  z-index: 3;
+}
+
+.js-open-nav {
+  .sub-menu {
+    opacity: 1;
+    border-radius: 0;
+  }
+  span.cls:nth-child(2) {
+    overflow: visible;
+    background-color: #000;
+  }
+  span.cls:nth-child(1),
+  span:nth-child(3) {
+    z-index: 100;
+    background-color: #000;
+    transform: rotate(45deg);
+  }
+  span.cls:nth-child(1) {
+    background-color: #000;
+    transform: rotate(45deg) translateY(5px) translateX(5px);
+  }
+  span.cls:nth-child(2) {
+    background-color: #fff;
+  }
+  span.cls:nth-child(3) {
+    transform: rotate(-45deg) translateY(-5px) translateX(5px);
+  }
+}
 
 header {
-  position: fixed;
+  position: absolute;
   width: 100%;
   top: 0;
   text-align: center;
   transition: top 0.5s ease;
   z-index: 1;
-  background-color: $bg-color-primary;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0), black);
   color: white !important;
-  .container{
+  .container {
     border-bottom: 0;
   }
-  .mobile{
+  .mobile {
     display: none;
   }
-  .container{
+  .container {
     @include container-size($main-container);
     position: relative;
     //border-bottom: 1px solid lightgray;
     padding: 15px 0;
     text-align: inherit;
     z-index: 1;
+    max-width: 1550px;
+    margin: 0 auto;
 
-    >div {
+    > div {
       display: inline-block;
       vertical-align: middle;
     }
@@ -48,14 +205,14 @@ header {
     }
 
     .logo {
-      @include square(45px);
+      @include square(35px);
       overflow: hidden;
       position: relative;
       display: inline-block;
 
-      a{
+      a {
         text-decoration: none;
-        img{
+        img {
           /*width: auto;
           height: 200%;*/
           margin-top: -10px;
@@ -63,22 +220,30 @@ header {
       }
     }
 
-    .search-bar-mobile{
+    .search-bar-mobile {
+      border-top: 1px solid #ebebeb;
       display: block;
       background-color: white;
       text-align: left;
-      padding: 10px;
-      .search-bar{
-        >span{
+      padding: 10px 3% 10px 3%;
+      font-size: 0.8em;
+      form {
+        padding: 0 7px;
+        box-shadow: 0 1px 3px #b2b2b2;
+        border-radius: 8px;
+      }
+      .search-bar {
+        > span {
           text-decoration: none;
           color: black;
-          i{
-            font-size: $font-size-h1;
+          i {
             vertical-align: middle;
             color: #acacac;
+            float: right;
+            margin-top: 12px;
           }
         }
-        >input{
+        > input {
           width: 80%;
           height: 50px;
           border: 0;
@@ -90,44 +255,59 @@ header {
   }
 }
 
-
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
+  .js-open-nav .chapters {
+    color: black !important;
+  }
+
   header {
-    position: absolute !important;
     margin-top: 0 !important;
     .container {
       @include container-size(100%);
       overflow: hidden;
-      padding: 5px 0;
-      .menu-wrapper{
+      padding: 0;
+      .menu-wrapper {
         width: 100%;
-        padding: 5px 0;
+        padding: 10px 0 !important;
         .logo {
+          @include square(35px);
           float: left;
           margin-left: 10px;
+          margin-top: 7px;
         }
         .chapters {
           display: inline-block;
           color: white;
           margin-left: 10px;
           float: left;
-          i{
+          margin-top: 3px;
+          i {
             font-size: 2.1em;
             margin-top: 5px;
             transition: transform 0.5s ease;
           }
         }
-        .menu-bar{
+        .menu-bar {
           color: white;
           vertical-align: middle;
           top: 10px;
+          margin-top: 3px;
           position: absolute;
           right: 0;
-          >div{
+          > div {
             display: inline-block;
             margin-right: 10px;
             vertical-align: middle;
+          }
+          .language {
+            padding-top: 7px;
+            padding-right: 50px;
+          }
+          .menu-title {
+            font-size: 0.6em;
+            margin: 4px 13px;
+            position: absolute;
           }
           /*.chapters{
             .icon{
@@ -144,74 +324,104 @@ header {
               }
             }
           }*/
-          .menu{
+          .menu {
             font-size: $font-size-h4;
-            span{
+            span {
               vertical-align: middle;
             }
-            i{
+            i {
               font-size: $font-size-h4;
               vertical-align: middle;
             }
           }
         }
       }
-      .menu-dropdown{
+      .menu-dropdown {
         width: 100%;
         background-color: white;
         overflow: hidden;
         z-index: 1;
-        .menu-items{
+        .menu-items {
           display: block;
           background-color: white;
           padding: 0;
-          .nav-item{
+          .nav-item {
             overflow: hidden;
             line-height: 1.3em;
             border-top: 1px solid #ebebeb;
-            .selected{
-              background-color: #e7e7e7;
+            .selected {
+              border-bottom: 2px solid #ccc;
+              font-weight: bolder;
             }
-            .item-wrapper{
+            label.subitem:after,
+            div.item-wrapper:after {
+              border-radius: 5px;
+              content: "+";
+              color: #505050;
+              float: right;
+              font-size: 2em;
+              font-weight: 200;
+              padding: 0;
+              margin-top: -14px;
+              text-align: center;
+              outline: 0;
+              transition: -webkit-transform 0.3s ease;
+              transition: transform 0.3s ease;
+            }
+            label.selected:after,
+            div.item-wrapper.selected:after {
+              -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
+              -ms-transform: rotate(45deg);
+              -o-transform: rotate(45deg);
+            }
+            .item-wrapper {
               overflow: hidden;
               padding: 20px 5%;
               color: #575757;
-              .label{
+              .label {
                 display: inline-block;
                 float: left;
-                span{
+                span {
                   font-weight: 500;
                   font-size: $font-size-default;
                   color: #505050 !important;
                 }
               }
             }
-            i{
+            .item-wrapper.selected {
+              .label {
+                span {
+                  font-weight: 600;
+                }
+              }
+            }
+
+            i {
               float: right;
               font-size: $font-size-default;
               margin-top: 5px;
               font-weight: 500;
             }
-            .sub-menu{
+            .sub-menu {
               background-color: #fff;
               text-align: left;
               font-size: $font-size-default;
               color: #575757;
-              >div{
+              > div {
                 font-weight: 400;
                 overflow: hidden;
                 line-height: 1.3em;
                 border-top: 1px solid #ebebeb;
               }
-              .sub_item{
+              .sub_item {
                 overflow: hidden;
                 padding: 20px 5% 20px 10%;
                 color: #575757;
                 display: block;
                 background-color: #f7f7f7;
-
               }
-              .inner_sub_item{
+              .inner_sub_item {
                 overflow: hidden;
                 padding: 20px 5% 20px 15%;
                 color: #575757;
@@ -220,7 +430,8 @@ header {
             }
           }
         }
-        .signin-btn, .language{
+        .signin-btn,
+        .language {
           color: gray;
           font-size: $font-size-default;
           text-align: left;
@@ -237,7 +448,7 @@ header {
         .language {
           padding-bottom: 25px;
         }
-        .signin-btn >a{
+        .signin-btn > a {
           text-decoration: none;
           font-size: 1.15em;
           font-weight: 400;
@@ -245,29 +456,28 @@ header {
         }
       }
 
-      .chapters-items{
+      .chapters-items {
         display: block;
         background-color: white;
         padding: 10px 0;
         color: black;
         font-size: $font-size-h4;
         text-align: left;
-        height: 350px;
         overflow-y: scroll;
-        .nav-item{
+        .nav-item {
           padding: 5px 10px;
-          .logo{
-            background-color: rgba(0,0,0,0.25);
+          .logo {
+            background-color: rgba(0, 0, 0, 0.25);
             display: inline-block;
             vertical-align: middle;
-            img{
+            img {
               width: 40px;
               height: 40px;
               vertical-align: middle;
             }
           }
         }
-        label{
+        label {
           display: inline-block;
           width: 82%;
           vertical-align: middle;
@@ -275,68 +485,79 @@ header {
         }
       }
     }
-    .bigger-device{
+    .bigger-device {
       display: none !important;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
   }
 
-  ::-webkit-scrollbar
-  {
-    width: 10px;  /* for vertical scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px; /* for vertical scrollbars */
     height: 10px; /* for horizontal scrollbars */
   }
 
-  ::-webkit-scrollbar-track
-  {
+  ::-webkit-scrollbar-track {
     background: rgba(84, 84, 84, 0.2);
   }
 
-  ::-webkit-scrollbar-thumb
-  {
+  ::-webkit-scrollbar-thumb {
     background: #b2b2b2;
     border-radius: 10px;
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
+  .js-open-nav .chapters {
+    color: black !important;
+  }
+
   header {
-    position: absolute !important;
     margin-top: 0 !important;
     .container {
       @include container-size(100%);
       overflow: hidden;
-      padding: 5px 0;
-      .menu-wrapper{
+      padding: 0px 0;
+      .menu-wrapper {
         width: 100%;
-        padding: 5px 0;
+        padding: 10px 0;
         .logo {
+          @include square(35px);
           float: left;
           margin-left: 10px;
+          margin-top: 5px;
         }
         .chapters {
           display: inline-block;
           color: white;
           margin-left: 10px;
           float: left;
-          i{
+          i {
             font-size: 2.1em;
             margin-top: 5px;
             transition: transform 0.5s ease;
           }
         }
-        .menu-bar{
+        .menu-bar {
           color: white;
           vertical-align: middle;
           top: 10px;
           position: absolute;
           right: 0;
-          >div{
+          > div {
             display: inline-block;
             margin-right: 10px;
             vertical-align: middle;
+          }
+          .language {
+            padding-top: 7px;
+            padding-right: 50px;
+          }
+          .menu-title {
+            font-size: 0.6em;
+            margin: 4px 13px;
+            position: absolute;
           }
           /*.chapters{
             .icon{
@@ -353,73 +574,95 @@ header {
               }
             }
           }*/
-          .menu{
+          .menu {
             font-size: $font-size-h4;
-            span{
+            span {
               vertical-align: middle;
             }
-            i{
+            i {
               font-size: $font-size-h4;
               vertical-align: middle;
             }
           }
         }
       }
-      .menu-dropdown{
+      .menu-dropdown {
         width: 100%;
         background-color: white;
         z-index: 1;
-        .menu-items{
+        .menu-items {
           display: block;
           background-color: white;
           padding: 0;
-          .nav-item{
+          .nav-item {
             overflow: hidden;
             line-height: 1.3em;
             border-top: 1px solid #ebebeb;
-            .selected{
-              background-color: #e7e7e7;
+            .selected {
+              border-bottom: 2px solid #ccc;
+              font-weight: bolder;
             }
-            .item-wrapper{
+            label.subitem:after,
+            div.item-wrapper:after {
+              border-radius: 5px;
+              content: "+";
+              color: #505050;
+              float: right;
+              font-size: 2em;
+              font-weight: 200;
+              padding: 0;
+              margin-top: -14px;
+              text-align: center;
+              outline: 0;
+              transition: -webkit-transform 0.3s ease;
+              transition: transform 0.3s ease;
+            }
+            label.selected:after,
+            div.item-wrapper.selected:after {
+              -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
+              -ms-transform: rotate(45deg);
+              -o-transform: rotate(45deg);
+            }
+            .item-wrapper {
               overflow: hidden;
               padding: 20px 5%;
               color: #575757;
-              .label{
+              .label {
                 display: inline-block;
                 float: left;
-                span{
+                span {
                   font-weight: 500;
                   font-size: $font-size-default;
                   color: #505050 !important;
                 }
               }
             }
-            i{
+            i {
               float: right;
               font-size: $font-size-default;
               margin-top: 5px;
               font-weight: 500;
             }
-            .sub-menu{
+            .sub-menu {
               background-color: #fff;
               text-align: left;
               font-size: $font-size-default;
               color: #575757;
-              >div{
+              > div {
                 font-weight: 400;
                 overflow: hidden;
                 line-height: 1.3em;
                 border-top: 1px solid #ebebeb;
               }
-              .sub_item{
+              .sub_item {
                 overflow: hidden;
                 padding: 20px 5% 20px 10%;
                 color: #575757;
                 display: block;
                 background-color: #f7f7f7;
-
               }
-              .inner_sub_item{
+              .inner_sub_item {
                 overflow: hidden;
                 padding: 20px 5% 20px 15%;
                 color: #575757;
@@ -428,16 +671,16 @@ header {
             }
           }
         }
-        .signin-btn, .language{
+        .signin-btn,
+        .language {
           color: gray;
-          border-top: 1px solid #b0adad;
+          border-top: 1px solid #b0adad6e;
           font-size: 1.15em;
           text-align: left;
           padding: 10px 20px;
           font-weight: 500;
-          background-color: #d3d3d3;
         }
-        .signin-btn >a{
+        .signin-btn > a {
           text-decoration: none;
           font-size: 1.15em;
           font-weight: 500;
@@ -445,7 +688,7 @@ header {
         }
       }
 
-      .chapters-items{
+      .chapters-items {
         display: block;
         background-color: white;
         padding: 10px 0;
@@ -454,20 +697,20 @@ header {
         text-align: left;
         height: 250px;
         overflow-y: scroll;
-        .nav-item{
+        .nav-item {
           padding: 5px 10px;
-          .logo{
-            background-color: rgba(0,0,0,0.25);
+          .logo {
+            background-color: rgba(0, 0, 0, 0.25);
             display: inline-block;
             vertical-align: middle;
-            img{
+            img {
               width: 40px;
               height: 40px;
               vertical-align: middle;
             }
           }
         }
-        label{
+        label {
           display: inline-block;
           width: 82%;
           vertical-align: middle;
@@ -475,66 +718,78 @@ header {
         }
       }
     }
-    .bigger-device{
+    .bigger-device {
       display: none !important;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
   }
 
-  ::-webkit-scrollbar
-  {
-    width: 10px;  /* for vertical scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px; /* for vertical scrollbars */
     height: 10px; /* for horizontal scrollbars */
   }
 
-  ::-webkit-scrollbar-track
-  {
+  ::-webkit-scrollbar-track {
     background: rgba(84, 84, 84, 0.2);
   }
 
-  ::-webkit-scrollbar-thumb
-  {
+  ::-webkit-scrollbar-thumb {
     background: #b2b2b2;
     border-radius: 10px;
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
+  .js-open-nav .chapters {
+    color: black !important;
+  }
   header {
+    margin-top: 0 !important;
     .container {
       @include container-size(100%);
       overflow: hidden;
-      padding: 5px 0;
-      .menu-wrapper{
+      padding: 0px 0;
+      .menu-wrapper {
         width: 100%;
-        padding: 5px 0;
+        padding: 10px 0;
         .logo {
+          @include square(35px);
           float: left;
           margin-left: 10px;
+          margin-top: 5px;
         }
         .chapters {
           display: inline-block;
           color: white;
           margin-left: 10px;
           float: left;
-          i{
+          i {
             font-size: 2.1em;
             margin-top: 5px;
             transition: transform 0.5s ease;
           }
         }
-        .menu-bar{
+        .menu-bar {
           color: white;
           vertical-align: middle;
           top: 10px;
           position: absolute;
           right: 0;
-          >div{
+          > div {
             display: inline-block;
             margin-right: 10px;
             vertical-align: middle;
+          }
+          .language {
+            padding-top: 7px;
+            padding-right: 50px;
+          }
+          .menu-title {
+            font-size: 0.6em;
+            margin: 4px 13px;
+            position: absolute;
           }
           /*.chapters{
             .icon{
@@ -551,73 +806,96 @@ header {
               }
             }
           }*/
-          .menu{
+          .menu {
             font-size: $font-size-h4;
-            span{
+            span {
               vertical-align: middle;
             }
-            i{
+            i {
               font-size: $font-size-h4;
               vertical-align: middle;
             }
           }
         }
       }
-      .menu-dropdown{
+      .menu-dropdown {
         width: 100%;
         background-color: white;
         z-index: 1;
-        .menu-items{
+        .menu-items {
           display: block;
           background-color: white;
           padding: 0;
-          .nav-item{
+          .nav-item {
             overflow: hidden;
             line-height: 1.3em;
             border-top: 1px solid #ebebeb;
-            .selected{
-              background-color: #e7e7e7;
+            .selected {
+              border-bottom: 2px solid #ccc;
+              font-weight: bolder;
             }
-            .item-wrapper{
+            label.subitem:after,
+            div.item-wrapper:after {
+              border-radius: 5px;
+              content: "+";
+              color: #505050;
+              float: right;
+              font-size: 2em;
+              font-weight: 200;
+              padding: 0;
+              margin-top: -14px;
+              text-align: center;
+              outline: 0;
+              transition: -webkit-transform 0.3s ease;
+              transition: transform 0.3s ease;
+            }
+            label.selected:after,
+            div.item-wrapper.selected:after {
+              -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
+              -ms-transform: rotate(45deg);
+              -o-transform: rotate(45deg);
+            }
+            .item-wrapper {
               overflow: hidden;
               padding: 20px 5%;
               color: #575757;
-              .label{
+              .label {
                 display: inline-block;
                 float: left;
-                span{
+                span {
                   font-weight: 500;
                   font-size: $font-size-default;
                   color: #505050 !important;
                 }
               }
             }
-            i{
+            i {
               float: right;
               font-size: $font-size-default;
               margin-top: 5px;
               font-weight: 500;
             }
-            .sub-menu{
+            .sub-menu {
               background-color: #fff;
               text-align: left;
               font-size: $font-size-default;
               color: #575757;
-              >div{
+              > div {
                 font-weight: 400;
                 overflow: hidden;
                 line-height: 1.3em;
                 border-top: 1px solid #ebebeb;
               }
-              .sub_item{
+              .sub_item {
+                height: 70px;
                 overflow: hidden;
-                padding: 20px 5% 20px 10%;
+                padding: 3% 5% 20px 10%;
                 color: #575757;
                 display: block;
                 background-color: #f7f7f7;
-
               }
-              .inner_sub_item{
+              .inner_sub_item {
                 overflow: hidden;
                 padding: 20px 5% 20px 15%;
                 color: #575757;
@@ -626,16 +904,16 @@ header {
             }
           }
         }
-        .signin-btn, .language{
+        .signin-btn,
+        .language {
           color: gray;
           border-top: 1px solid #b0adad;
           font-size: 1.15em;
           text-align: left;
           padding: 10px 20px;
           font-weight: 500;
-          background-color: #d3d3d3;
         }
-        .signin-btn >a{
+        .signin-btn > a {
           text-decoration: none;
           font-size: 1.15em;
           font-weight: 500;
@@ -643,7 +921,7 @@ header {
         }
       }
 
-      .chapters-items{
+      .chapters-items {
         display: block;
         background-color: white;
         padding: 10px 0;
@@ -652,20 +930,22 @@ header {
         text-align: left;
         height: 300px;
         overflow-y: scroll;
-        .nav-item{
+        .nav-item {
           padding: 5px 10px;
-          .logo{
-            background-color: rgba(0,0,0,0.25);
+          .logo {
+            float: left;
+            margin-left: 10px;
+            background-color: rgba(0, 0, 0, 0.25);
             display: inline-block;
             vertical-align: middle;
-            img{
+            img {
               width: 40px;
               height: 40px;
               vertical-align: middle;
             }
           }
         }
-        label{
+        label {
           display: inline-block;
           width: 82%;
           vertical-align: middle;
@@ -673,47 +953,49 @@ header {
         }
       }
     }
-    .bigger-device{
+    .bigger-device {
       display: none !important;
     }
-    .mobile{
+    .mobile {
       display: block;
     }
   }
 
-  ::-webkit-scrollbar
-  {
-    width: 10px;  /* for vertical scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px; /* for vertical scrollbars */
     height: 10px; /* for horizontal scrollbars */
   }
 
-  ::-webkit-scrollbar-track
-  {
+  ::-webkit-scrollbar-track {
     background: rgba(84, 84, 84, 0.2);
   }
 
-  ::-webkit-scrollbar-thumb
-  {
+  ::-webkit-scrollbar-thumb {
     background: #b2b2b2;
     border-radius: 10px;
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
-  header {
-    .container{
-      width: 90%;
-      .search{
-        font-size: $font-size-h6;
-      }
-      .logo{
-        width: 40px;
-        height: 40px;
-      }
-    }
-  }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
+}
 
+@media (min-width: 992px) {
+  header {
+    .container {
+      height: 75px;
+      .search {
+        font-size: $font-size-h6;
+      }
+      .logo {
+        float: left;
+        margin-top: 5px;
+      }
+      .search {
+        margin: 0px 60px;
+      }
+    }
+  }
 }

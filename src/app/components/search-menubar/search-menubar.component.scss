@@ -1,80 +1,84 @@
 @import "../../../style/utilities";
 
-.background_layer{
+.background_layer {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 2;
 }
 
-#search-menubar{
+#search-menubar {
   position: absolute;
-  z-index: 2;
-  width: 100%;
+  z-index: 4;
+  width: 85%;
   min-height: 120px;
-  background-color: rgba(255, 255, 255, 0.9);
   overflow: hidden;
-  margin-bottom: 100px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
 
-  .exit-btn{
+  .exit-btn {
     background-color: black;
     color: white;
     @include circle(30px);
-    position: absolute;
+    position: fixed;
     transform: rotate(-45deg);
     display: inline-block;
     right: 15px;
     top: 15px;
     cursor: pointer;
     z-index: 1;
-    i{
+    i {
       margin: 0;
       @include center-vertically(50%);
       position: relative;
       line-height: 1.3;
       font-size: 15px;
     }
-    i:first-child{
+    i:first-child {
       margin-right: -3px;
       margin-left: 2px;
     }
   }
 
-  form{
-    @include container-size($main-container);
+  form {
     height: 76px;
     position: relative;
-    .search{
+    max-width: 1600px;
+    margin: 0 auto;
+    .search {
       @include center-vertically(50%);
       width: 100%;
-      >i{
+      > i {
+        color: lightgrey;
         position: absolute;
         @include center-vertically(50%);
-        font-size: $font-size-h2;
+        font-size: $font-size-h3;
+        padding: 5px;
       }
-      >input{
+      > input {
+        -webkit-appearance: textfield;
         width: 100%;
         padding: 15px 5px 15px 35px;
         border: 0;
         display: inline-block;
         float: left;
-        background-color: rgba(255, 255, 255, 0.9);
-        box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.37);
-        border-radius: 5px;
+        box-shadow: 0 1px 3px #b2b2b2;
+        border-radius: 8px;
         font-size: $font-size-default;
       }
-      .mostSearchTerms{
+      .mostSearchTerms {
         position: absolute;
         left: 0;
         bottom: -27px;
-        span{
+        span {
           margin-right: 25px;
           cursor: pointer;
           border: 1px solid lightgray;
           border-radius: 10px;
           padding: 2px 5px;
-          &:hover{
+          &:hover {
             text-decoration: underline;
           }
         }
@@ -82,25 +86,27 @@
     }
   }
 
-  .resultsDropdownList{
-    @include container-size($main-container);
+  .resultsDropdownList {
     position: relative;
     margin-top: 40px;
     text-align: left;
     padding: 10px 20px;
     border-top: 1px solid lightgray;
-    .section{
-      >h3{
+    background-color: white;
+    max-width: 1600px;
+    margin: -15px auto;
+    .section {
+      > h3 {
         border-bottom: 1px solid lightgray;
         padding: 10px 0;
         margin-bottom: 10px;
       }
-      .item{
+      .item {
         margin-bottom: 10px;
         overflow: hidden;
         border-bottom: 1px solid lightgray;
         padding-bottom: 10px;
-        .left-content{
+        .left-content {
           width: 15%;
           height: auto;
           display: inline-block;
@@ -108,38 +114,38 @@
           margin-right: 3%;
           float: left;
           font-size: $font-size-h6;
-          >a{
+          > a {
             display: block;
             text-decoration: none;
             color: $color-link;
             margin-bottom: 8px;
             line-height: 1;
-            &:hover{
+            &:hover {
               color: $color-link-hover;
             }
           }
-          .img-wrapper{
+          .img-wrapper {
             width: 80px;
             height: 50px;
             background-color: lightgray;
             text-align: center;
-            img{
+            img {
               width: inherit;
               height: inherit;
               cursor: pointer;
             }
           }
         }
-        .right-content{
+        .right-content {
           display: inline-block;
           vertical-align: top;
           padding: 0 10px;
           width: 79%;
           float: left;
-          h4{
+          h4 {
             color: $color-link-secondary;
             cursor: pointer;
-            &:hover{
+            &:hover {
               color: $color-link-secondary-hover;
             }
           }
@@ -147,12 +153,16 @@
       }
     }
 
-    .seeAll{
+    .seeAll {
       margin: 30px 0;
-      span{
+      i {
+        position: absolute;
+        margin: -2px 5px;
+      }
+      span {
         color: $color-link-secondary;
         cursor: pointer;
-        &:hover{
+        &:hover {
           color: $color-link-secondary-hover;
         }
       }
@@ -162,45 +172,40 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
-  .background_layer{
-
+  .background_layer {
+  }
+  .resultsDropdownList {
+    width: 100%;
   }
 
   #search-menubar {
-
   }
 }
 // Small devices (landscape phones, 576px and up)
 @include media-breakpoint-only(sm) {
-  .background_layer{
-
+  .background_layer {
   }
 
   #search-menubar {
-
   }
 }
 // Medium devices (tablets, 768px and up)
 @include media-breakpoint-only(md) {
-  .background_layer{
-
+  .background_layer {
   }
 
   #search-menubar {
-
   }
 }
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
-  .background_layer{
-
+  .background_layer {
   }
 
   #search-menubar {
-    form{
-      width: 90%;
+    form {
       height: 70px;
-      .search{
+      .search {
         font-size: $font-size-h6;
       }
     }
@@ -208,5 +213,4 @@
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
-
 }

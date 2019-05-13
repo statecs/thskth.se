@@ -6,6 +6,9 @@ import { Event } from "../../../interfaces-and-classes/event";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { PopupWindowCommunicationService } from "../../../services/component-communicators/popup-window-communication.service";
 import { Subscription } from "rxjs/Subscription";
+import { Location } from "@angular/common";
+import { CookieService, CookieOptions } from "ngx-cookie";
+import { NotificationBarCommunicationService } from "../../../services/component-communicators/notification-bar-communication.service";
 
 @Component({
   selector: "app-events-card",
@@ -13,35 +16,51 @@ import { Subscription } from "rxjs/Subscription";
   styleUrls: ["./events-card.component.scss"]
 })
 export class EventsCardComponent implements OnInit, OnDestroy {
-  public events: Event[];
+  public events: any;
   public selected_event_title: string;
   public selected_event_text: string;
   public ths_calendars: { [key: string]: THSCalendar };
   public selected_event_index: number;
   public lang: string;
+  public fetched_events: any;
   public parentParamsSubscription: Subscription;
   public calendarSubscription: Subscription;
   public eventsSubscription: Subscription;
 
   constructor(
+    private location: Location,
     private googleCalendarService: GoogleCalendarService,
     private router: Router,
+    private _cookieService: CookieService,
     private popupWindowCommunicationService: PopupWindowCommunicationService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private notificationBarCommunicationService: NotificationBarCommunicationService
   ) {
     this.ths_calendars = ths_calendars;
-    this.parentParamsSubscription = this.activatedRoute.parent.params.subscribe(
-      (params2: Params) => {
-        this.lang = params2["lang"];
-        if (typeof this.lang === "undefined") {
-          this.lang = "en";
-        }
-      }
-    );
+    if (this._cookieService.get("language") == "sv") {
+      this.lang = "sv";
+    } else {
+      this.lang = "en";
+    }
   }
 
   displayEventInPopup(event: Event) {
     this.popupWindowCommunicationService.showEventInPopup(event);
+    if (this.lang === "sv") {
+      this.location.go("sv/events/" + this.stringify(event.title));
+    } else {
+      this.location.go("en/events/" + this.stringify(event.title));
+    }
+  }
+  stringify(input) {
+    return input
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+      .replace(/\-\-+/g, "-") // Replace multiple - with single -
+      .replace(/^-+/, "") // Trim - from start of text
+      .replace(/-+$/, ""); // Trim - from end of text
   }
 
   goToPage(slug): void {
@@ -76,18 +95,31 @@ export class EventsCardComponent implements OnInit, OnDestroy {
     return a < b ? -1 : a > b ? 1 : 0;
   }
 
-  ngOnInit() {
+  getAllEvents() {
     this.eventsSubscription = this.googleCalendarService
-      .getAllEvents(null, "")
-      .subscribe(res => {
-        const mergedArrays = this.mergeArrays(res);
-        const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
-        if (sortedArrays.length > 4) {
-          this.events = sortedArrays.slice(0, 4);
-        } else {
-          this.events = sortedArrays;
+      .getAllEventsCard(null, "")
+      .subscribe(
+        res => {
+          const mergedArrays = this.mergeArrays(res);
+          const sortedArrays = mergedArrays.sort(this.sortArrayByTime);
+          if (sortedArrays.length > 4) {
+            this.events = sortedArrays.slice(0, 4);
+          } else {
+            this.events = sortedArrays;
+          }
+        },
+        error => {
+          this.notificationBarCommunicationService.send_data(error);
         }
-      });
+      );
+  }
+
+  fetchEvents(): void {
+    this.getAllEvents();
+  }
+
+  ngOnInit() {
+    this.fetchEvents();
   }
 
   ngOnDestroy() {

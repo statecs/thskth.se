@@ -1,21 +1,36 @@
 <div class="featured-faqs">
   <div class="larger-devices">
-    <div *ngFor="let item of most_asked_faqs" class="item" (click)="showInPopup(item)">
-      <h2>{{item.question}}</h2>
+    <div
+      *ngFor="let item of most_asked_faqs"
+      class="item"
+      (click)="showInPopup(item)"
+    >
+      <h2>{{ item.question }}</h2>
       <div>
-        <p [innerHTML]="item.answer | cardText:100"></p>
-        <span *ngIf="item.answer?.length > 100" (click)="showInPopup(item)">{{lang === 'en' ? 'Read more' : 'Läs mer'}}</span>
+        <p [innerHTML]="item.answer | cardText: 100"></p>
+        <span *ngIf="item.answer?.length > 100" (click)="showInPopup(item)">{{
+          lang === "en" ? "Read more" : "Läs mer"
+        }}</span>
       </div>
     </div>
   </div>
-  <div #slides_wrapper class="slides-wrapper mobile" [style.width]="most_asked_faqs?.length * 86.66 + '%'" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
-    <div *ngFor="let item of most_asked_faqs" class="item" (click)="showInPopup(item)">
-      <h2>{{item.question}}</h2>
+  <div
+    #slides_wrapper
+    class="slides-wrapper mobile"
+    [style.width]="most_asked_faqs?.length * 86.66 + '%'"
+    (touchstart)="swipe($event, 'start')"
+    (touchend)="swipe($event, 'end')"
+  >
+    <div
+      *ngFor="let item of most_asked_faqs"
+      class="item"
+      (click)="showInPopup(item)"
+    >
+      <h2>{{ item.question }}</h2>
       <div>
-        <p [innerHTML]="item.answer | cardText:100"></p>
+        <p [innerHTML]="item.answer | cardText: 100"></p>
         <!--<span *ngIf="item.answer?.length > 100">{{lang === 'en' ? 'Read more' : 'Läs mer'}}</span>-->
       </div>
     </div>
   </div>
-  <app-loader *ngIf="most_asked_faqs?.length === 0"></app-loader>
 </div>

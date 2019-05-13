@@ -1,13 +1,19 @@
 <div class="event-wrapper">
-  <h4>{{(lang === 'en' ? 'Upcoming events' : 'Uppkommande evenemang')}}</h4>
-  <div *ngFor="let e of events, let i = index" class="event">
-    <h6>{{getMonth(e.start)}}</h6>
-    <div class="date" (click)="selectEvent(i)">
-      <span>{{getDay(e.start)}}</span>
-    </div>
-    <div class="excerpt">
-      <span (click)="displayEventInPopup(e)">{{e.title | cardText:25}}</span>
+  <h4>{{ lang === "en" ? "Upcoming events" : "Uppkommande evenemang" }}</h4>
+  <div *ngFor="let e of events; let i = index" class="event">
+    <div *ngIf="i < 4">
+      <h6>{{ getMonth(e.start) }}</h6>
+      <div class="date" (click)="selectEvent(i)">
+        <span>{{ getDay(e.start) }}</span>
+      </div>
+      <div class="excerpt">
+        <span (click)="displayEventInPopup(e, card)">{{
+          e.title | cardText: 25
+        }}</span>
+      </div>
     </div>
   </div>
-  <span (click)="goToPage('events')">{{(lang === 'en' ? 'View all events' : 'Visa alla evenemang')}} >></span>
+  <span (click)="goToPage('events')"
+    >{{ lang === "en" ? "View all events" : "Visa alla evenemang" }} ></span
+  >
 </div>

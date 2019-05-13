@@ -1,29 +1,163 @@
-<div *ngIf="!pageNotFound" id="content-container">
+<div class="header" *ngIf="!pageNotFound">
+  <div class="default-header"></div>
+</div>
+<div
+  *ngIf="!pageNotFound"
+  id="content-container"
+  (click)="toggleSearchFocusHide()"
+>
   <div class="search-bar">
-    <h2>{{lang === 'en'? 'Search THS Documents' : 'Sök THS Dokument'}}</h2>
     <form (ngSubmit)="submitSearch()" #searchForm autocomplete="off">
-      <div class="search" [ngClass]="{onFocus: searchOnFocus}">
-        <input class="searchInput" #searchField placeholder="{{lang === 'en'? 'Enter your search term' : 'Ange ditt sökord'}}" [(ngModel)]="searchTerm" name="searchInput" (focus)="toggleSearchFocus()" (blur)="toggleSearchFocus()" type="search" (keyup)="liveSearch($event)">
-        <input class="submit" type="submit" value="{{lang === 'en'? 'Search' : 'Sök'}}">
+      <div class="search" [ngClass]="{ onFocus: searchOnFocus }">
+        <input
+          class="searchInput"
+          #searchField
+          placeholder="{{
+            lang === 'en' ? 'Enter your search term' : 'Ange ditt sökord'
+          }}"
+          [(ngModel)]="searchTerm"
+          name="searchInput"
+          (focus)="liveSearch($event); toggleSearchFocus()"
+          type="search"
+          (keyup)="liveSearch($event)"
+        />
+        <i (click)="submitSearch()" class="material-icons submit">
+          arrow_forward
+        </i>
       </div>
-      <div #resultsDropdownList *ngIf="showResultsDropdown && searchTerm !== ''" class="resultsDropdownList">
+      <div class="filters-container">
+        <div class="filters">
+          <div
+            class="item"
+            [class.selected]="showMeetingDocuments"
+            (click)="displayMeetingDocuments()"
+          >
+            {{ lang === "en" ? "Meeting documents" : "Mötesanteckningar" }}
+          </div>
+
+          <div
+            class="item"
+            [class.selected]="showPolicyDocuments"
+            (click)="displayPolicyDocuments()"
+          >
+            {{ lang === "en" ? "Policy documents" : "Policydokument" }}
+          </div>
+          <a
+            style="text-decoration: none;color:black"
+            href="/{{ lang }}/general/policy-documents-and-meeting-protocols"
+            class="item"
+          >
+            {{ lang === "en" ? "Archive" : "Arkiv" }}
+          </a>
+        </div>
+      </div>
+
+      <div
+        #resultsDropdownList
+        *ngIf="showResultsDropdown && searchTerm !== ''"
+        class="resultsDropdownList"
+      >
         <div class="section">
           <div *ngFor="let d of searchResults" class="item">
-            <div class="left-content">
-              <span *ngFor="let c of d.categories">{{c.name}}</span>
-            </div>
             <div class="right-content">
-              <h4 (click)="showDocumentInPopup(d)">{{d.title}}</h4>
+              <h4 (click)="showDocumentInPopup(d)">{{ d.title }}</h4>
             </div>
           </div>
-          <p *ngIf="documentsLoading">{{lang === 'en'? 'Loading' : 'Laddar'}}...</p>
-          <p *ngIf="!documentsLoading && searchResults.length === 0" class="notResult">{{lang === 'en'? 'No documents found for' : 'Inga dokument hittades för'}} "{{searchTerm}}"!</p>
+          <p *ngIf="documentsLoading">
+            {{ lang === "en" ? "Loading" : "Laddar" }}...
+          </p>
+          <p
+            *ngIf="!documentsLoading && searchResults.length === 0"
+            class="notResult"
+          >
+            {{
+              lang === "en"
+                ? "No documents found for"
+                : "Inga dokument hittades för"
+            }}
+            "{{ searchTerm }}"!
+          </p>
         </div>
       </div>
       <!--<div class="mostSearchTerms" [ngClass]="{'sendToBack': !showMostSearchTerms}">
         <span *ngFor="let term of mostSearchTerms" (click)="selectTerm(term)">{{term}}</span>
       </div>-->
     </form>
+    <div
+      class="filters-container documents-btn"
+      *ngIf="showMeetingDocuments || showPolicyDocuments"
+    >
+      <div class="documents-btns filters" *ngIf="showMeetingDocuments">
+        <div
+          class="item"
+          [class.selected]="showCouncilDocuments"
+          (click)="displayCouncilDocuments()"
+        >
+          {{ lang === "en" ? "Student Union Council" : "Kårfullmäktige" }}
+        </div>
+        <div
+          class="item"
+          [class.selected]="showBoardDocuments"
+          (click)="displayBoardDocuments()"
+        >
+          {{ lang === "en" ? "Student Union Board" : "Kårstyrelse" }}
+        </div>
+      </div>
+      <div class="documents-btns filters" *ngIf="showPolicyDocuments">
+        <div
+          class="item"
+          [class.selected]="showGeneralDocuments"
+          (click)="displayGeneralDocuments()"
+        >
+          {{ lang === "en" ? "General" : "Allmänt" }}
+        </div>
+        <div
+          class="item"
+          [class.selected]="showPoliciesDocuments"
+          (click)="displayPoliciesDocuments()"
+        >
+          {{ lang === "en" ? "Policies" : "Policy dokument" }}
+        </div>
+
+        <div
+          class="item"
+          [class.selected]="showOperationalDocuments"
+          (click)="displayOperationalDocuments()"
+        >
+          {{
+            lang === "en"
+              ? "Operational plan and budget"
+              : "Verksamhetsplan och budget"
+          }}
+        </div>
+
+        <div
+          class="item"
+          [class.selected]="showPMDocuments"
+          (click)="displayPMDocuments()"
+        >
+          {{ lang === "en" ? "PMs" : "PM-dokument" }}
+        </div>
+      </div>
+    </div>
+    <div class="date_input">
+      <span>From: </span>
+      <input
+        type="date"
+        id="startDate"
+        [(ngModel)]="start_date"
+        (change)="filterDate()"
+      />
+    </div>
+    <div class="date_input">
+      <span>To: </span>
+      <input
+        type="date"
+        id="endDate"
+        [(ngModel)]="end_date"
+        (change)="filterDate()"
+      />
+    </div>
   </div>
 
   <!--<div #filters class="filters">
@@ -68,45 +202,62 @@
     <div>
       <div class="section">
         <div class="heading">
-          <h3 *ngIf="showResults" class="numberOfResults">Showing {{documentResults.length !== 0 ? 1 : 0 }}-{{documentResults.length}} of {{documentResults.length}} hits</h3>
-          <!--<span class="sortBy">Sort by <strong>Published</strong> Relevance</span>-->
-          <h3 *ngIf="!showResults">{{lang === 'en'? 'Latest published documents' : 'Senast publicerade dokument'}}</h3>
+          <app-loader *ngIf="documentsLoading"></app-loader>
+          <h4 *ngIf="showResults" class="numberOfResults">
+            Showing {{ documentResults.length !== 0 ? 1 : 0 }}-{{
+              documentResults.length
+            }}
+            of {{ documentResults.length }} hits
+          </h4>
+          <h3 *ngIf="!showResults">
+            {{
+              lang === "en"
+                ? "Latest published documents"
+                : "Senast publicerade dokument"
+            }}
+          </h3>
         </div>
         <div *ngFor="let d of documentResults" class="item">
-          <div class="left-content">
-            <span *ngFor="let c of d.categories">{{c.name}}</span>
-            <div class="dates">
-              <div class="date">{{lang === 'en'? 'Published' : 'Publicerad'}}: <span>{{d.published}}</span></div>
-              <div class="date">{{lang === 'en'? 'Last modified' : 'Senast ändrad'}}: <span>{{d.lastModified}}</span></div>
-            </div>
-          </div>
           <div class="right-content">
-            <h4 (click)="showDocumentInPopup(d)">{{d.title}}</h4>
-            <p [innerHTML]="d.description | cardText:100"></p>
+            <h4 (click)="showDocumentInPopup(d)">{{ d.title }}</h4>
+            <p [innerHTML]="d.description | cardText: 200"></p>
             <div class="files">
               <div *ngFor="let f of d.documents" class="link_container">
-                <h5>{{f.filename}}</h5>
-                <div *ngIf="f.mime_type ==='pdf' && pdfChecked" class="download_link" (click)="downloadFile(f.url)">
-                  <span>PDF </span>
-                  <i class="material-icons">file_download</i>
-                </div>
-                <div *ngIf="f.mime_type ==='docx' && docChecked" class="download_link" (click)="downloadFile(f.url)">
-                  <span>DOC </span>
-                  <i class="material-icons">file_download</i>
-                </div>
-                <div *ngIf="f.mime_type ==='zip' && zipChecked" class="download_link" (click)="downloadFile(f.url)">
-                  <span>Zip </span>
-                  <i class="material-icons">file_download</i>
-                </div>
+                <p (click)="downloadFile(f.url)" class="download_link">
+                  {{ f.filename }} <i class="material-icons">file_download</i>
+                </p>
               </div>
             </div>
           </div>
+          <div class="left-content">
+            <span *ngFor="let c of d.categories">{{ c.name }}</span>
+            <div class="dates">
+              <div class="date">
+                {{ lang === "en" ? "Published" : "Publicerad" }}:
+                <span>{{ d.published }}</span>
+              </div>
+              <div class="date">
+                {{ lang === "en" ? "Last modified" : "Senast ändrad" }}:
+                <span>{{ d.lastModified }}</span>
+              </div>
+            </div>
+          </div>
+
+          <p
+            *ngIf="!documentsLoading && documentResults.length === 0"
+            class="notResult"
+          >
+            {{
+              lang === "en"
+                ? "No documents found for"
+                : "Inga dokument hittades för"
+            }}
+            "{{ searchTerm }}"!
+          </p>
         </div>
-        <app-loader *ngIf="documentsLoading"></app-loader>
-        <p *ngIf="!documentsLoading && documentResults.length === 0" class="notResult">{{lang === 'en'? 'No documents found for' : 'Inga dokument hittades för'}} "{{searchTerm}}"!</p>
       </div>
     </div>
   </div>
 </div>
-
+<app-loader *ngIf="fetching"></app-loader>
 <app-page-not-found *ngIf="pageNotFound"></app-page-not-found>
