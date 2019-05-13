@@ -149,9 +149,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
                               response: {
                                 message: {
                                   en:
-                                    "Perfect, within a few days, SSSB will get information about you and you can collect more queue days! Good luck!",
+                                    "Ok! I hope this was helpful! Good luck with your studies ;)",
                                   sv:
-                                    "Perfekt, Inom några dagar så kommer SSSB få information om dig och du kan samla fler ködagar! Lycka till!"
+                                    "Ok! Jag hoppas att jag lyckades besvara dina funderingar. Stort lycka till med studierna. ;)"
                                 },
                                 info: null,
                                 type: "response"
