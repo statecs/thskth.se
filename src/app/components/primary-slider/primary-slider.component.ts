@@ -8,6 +8,7 @@ import {
 import { HeaderCommunicationService } from "../../services/component-communicators/header-communication.service";
 import { PrimarySlidesService } from "../../services/wordpress/primary-slides.service";
 import { Slide } from "../../interfaces-and-classes/slide";
+import { CookieService, CookieOptions } from "ngx-cookie";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { NotificationBarCommunicationService } from "../../services/component-communicators/notification-bar-communication.service";
 import { Subscription } from "rxjs/Subscription";
@@ -52,6 +53,7 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
     private headerCommunicationService: HeaderCommunicationService,
     private primarySlidesService: PrimarySlidesService,
     private router: Router,
+    private _cookieService: CookieService,
     private activatedRoute: ActivatedRoute,
     private notificationBarCommunicationService: NotificationBarCommunicationService
   ) {
@@ -321,14 +323,20 @@ export class PrimarySliderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fetching = true;
-    this.lang = this.activatedRoute.snapshot.data["lang"];
+    if (this._cookieService.get("language") == "sv") {
+      this.lang = "sv";
+    } else {
+      this.lang = "en";
+    }
+
+    //this.lang = this.activatedRoute.snapshot.data["lang"];
     if (typeof this.lang === "undefined") {
       this.paramsSubscription = this.activatedRoute.params.subscribe(
         (params: Params) => {
-          this.lang = params["lang"];
+          /* this.lang = params["lang"];
           if (typeof this.lang === "undefined") {
             this.lang = "en";
-          }
+          }*/
           if (this.lang === "en") {
             this.read_more_text = "Read More";
           } else {

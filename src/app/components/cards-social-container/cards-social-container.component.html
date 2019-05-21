@@ -319,7 +319,7 @@
     keyboard_arrow_down
   </i>
   <p>
-    More results
+    {{ lang === "en" ? "More results" : "Fler resultat" }}
   </p>
 </div>
 <app-loader *ngIf="viewModel?.fetching"></app-loader>

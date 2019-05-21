@@ -8,6 +8,7 @@ import { RemoveLangParamPipe } from "../../../pipes/remove-lang-param.pipe";
 import { AddLangToSlugPipe } from "../../../pipes/add-lang-to-slug.pipe";
 import { HeaderCommunicationService } from "../../../services/component-communicators/header-communication.service";
 import { FooterNavigationService } from "../../../services/wordpress/footer-navigation.service";
+import { CookieService, CookieOptions } from "ngx-cookie";
 
 @Component({
   selector: "app-navbar-footer",
@@ -24,6 +25,7 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private _cookieService: CookieService,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
     private headerCommunicationService: HeaderCommunicationService,
     private footerNavigationService: FooterNavigationService
@@ -94,7 +96,7 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.paramsSubscription = this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
-        this.lang = val.state.root.firstChild.params["lang"];
+        /*  this.lang = val.state.root.firstChild.params["lang"];
         if (typeof this.lang === "undefined") {
           this.lang = val.state.root.firstChild.data["lang"];
           if (!this.lang) {
@@ -102,7 +104,13 @@ export class NavbarFooterComponent implements OnInit, OnDestroy {
           }
         } else if (this.lang !== "en" && this.lang !== "sv") {
           this.lang = "en";
+        }*/
+        if (this._cookieService.get("language") == "sv") {
+          this.lang = "sv";
+        } else {
+          this.lang = "en";
         }
+
         this.footerNavigationService.getMenu(this.lang).subscribe(
           res => {
             this.footer_menu = res;

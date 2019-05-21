@@ -9,6 +9,7 @@ import { Card } from "../../interfaces-and-classes/card";
 import { SocialMediaPostService } from "../../services/social-media-post/social-media-post.service";
 import { SocialMediaPost } from "../../interfaces-and-classes/social_media_post";
 import * as format from "date-fns/format";
+import { CookieService, CookieOptions } from "ngx-cookie";
 import { Event } from "../../interfaces-and-classes/event";
 import { ths_calendars, THSCalendar } from "../../utils/ths-calendars";
 import { ActivatedRoute, Params } from "@angular/router";
@@ -43,13 +44,19 @@ export class CardsSocialContainerComponent implements OnInit, OnDestroy {
 
   constructor(
     private viewModelService: CardsSocialContainerComponentService,
+    private _cookieService: CookieService,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
     private activatedRoute: ActivatedRoute
   ) {
     this.showEventCalendar = false;
     this.ths_calendars = ths_calendars;
     this.existMorePosts = true;
-    this.lang = this.activatedRoute.snapshot.data["lang"];
+    if (this._cookieService.get("language") == "sv") {
+      this.lang = "sv";
+    } else {
+      this.lang = "en";
+    }
+    //this.lang = this.activatedRoute.snapshot.data["lang"];
     if (typeof this.lang === "undefined") {
       this.paramsSubscription = this.activatedRoute.params.subscribe(
         (params: Params) => {

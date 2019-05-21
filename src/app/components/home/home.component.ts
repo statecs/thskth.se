@@ -63,7 +63,12 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     private platformLocation: PlatformLocation
   ) {
     this.pageNotFound = false;
-    this.lang = activatedRoute.snapshot.data["lang"];
+    if (this._cookieService.get("language") == "sv") {
+      this.lang = "sv";
+    } else {
+      this.lang = "en";
+    }
+    // this.lang = activatedRoute.snapshot.data["lang"];
     this.showGoogleMap = false;
     this.showSocialMediaCards = false;
     this.showFAQSlider = false;

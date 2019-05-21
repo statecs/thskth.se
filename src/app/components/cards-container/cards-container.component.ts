@@ -9,6 +9,7 @@ import { CardsService } from "../../services/wordpress/cards.service";
 import { Card } from "../../interfaces-and-classes/card";
 import { CardCategorizerCardContainerService } from "../../services/component-communicators/card-categorizer-card-container.service";
 import { Subscription } from "rxjs/Subscription";
+import { CookieService, CookieOptions } from "ngx-cookie";
 import { APP_CONFIG } from "../../app.config";
 import { AppConfig } from "../../interfaces-and-classes/appConfig";
 import { PopupWindowCommunicationService } from "../../services/component-communicators/popup-window-communication.service";
@@ -67,6 +68,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     private googleCalendarService: GoogleCalendarService,
     private router: Router,
     private location: Location,
+    private _cookieService: CookieService,
     private activatedRoute: ActivatedRoute,
     private notificationBarCommunicationService: NotificationBarCommunicationService,
     private restaurantService: RestaurantService,
@@ -76,7 +78,12 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     this.selected_event_category = 0;
     this.ths_calendars = _.values(ths_calendars);
     this.cardsLoaded = false;
-    this.lang = activatedRoute.snapshot.data["lang"];
+    if (this._cookieService.get("language") == "sv") {
+      this.lang = "sv";
+    } else {
+      this.lang = "en";
+    }
+    //this.lang = activatedRoute.snapshot.data["lang"];
     this.deviceSize = window.screen.width;
     this.date = new Date();
     this.dateDay = format(new Date(), "d");

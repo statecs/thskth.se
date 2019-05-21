@@ -60,7 +60,12 @@ export class CardCategorizerComponent implements AfterViewInit, OnDestroy {
     this.config = injector.get(APP_CONFIG);
     this.displayedDropdownID = 0;
     this.cards_filter = this._cookieService.getObject("cards_filter");
-    this.lang = route.snapshot.data["lang"];
+    if (this._cookieService.get("language") == "sv") {
+      this.lang = "sv";
+    } else {
+      this.lang = "en";
+    }
+    // this.lang = route.snapshot.data["lang"];
     this.infoBoxClickCount = 0;
     this.prof_selectedIndex = 0;
     this.inter_selectedIndex = 0;
