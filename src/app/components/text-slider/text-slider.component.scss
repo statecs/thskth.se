@@ -40,6 +40,7 @@
         background-color: #ffffff6b;
         border-radius: 20px;
         margin-top: 20px;
+        display: inline-block;
       }
       h2 {
         font-size: $font-size-h2;
@@ -235,7 +236,7 @@
 @include media-breakpoint-only(md) {
   #text-slider {
     .slides-container {
-      height: 300px;
+      height: 350px;
     }
     .slide-wrapper {
       .slide {
@@ -280,8 +281,16 @@
 // Large devices (desktops, 992px and up)
 @include media-breakpoint-only(lg) {
   #text-slider {
+    .slides-container {
+      height: 370px;
+    }
   }
 }
 // Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-only(xl) {
+  #text-slider {
+    .slides-container {
+      height: 370px;
+    }
+  }
 }
