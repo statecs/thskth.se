@@ -5,7 +5,7 @@ export let APP_CONFIG = new InjectionToken<AppConfig>("app.config");
 let BASE_WP = "https://cdn.thskth.se";
 
 export let appConfig: AppConfig = {
-  BASE_URL: "https://thskth.se/",
+  BASE_URL: "https://ths.kth.se/",
   API_URL: BASE_WP + "/api/wp/v2/",
   CARDS_URL: BASE_WP + "/api/wp/v2/cards",
   CARD_CATEGORY_ORG: BASE_WP + "/api/wp/v2/organization_type",
