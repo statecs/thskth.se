@@ -4,14 +4,7 @@
   xmlns="http://www.w3.org/1999/html"
 >
   <h1>Student Union Office (KårX)</h1>
-  <div class="open-hours">monday - thursday 11.00 - 15.30</div>
-  <div class="open-hours">friday 11.00 - 14.30</div>
-  <div class="student">
-    <p><span>Membership questions: </span>karx@ths.kth.se<br /></p>
-  </div>
-  <div class="booking">
-    <p><span>Booking inquiries: </span>lokalbokning@ths.kth.se<br /></p>
-  </div>
+  <div *ngIf="restriction" [innerHTML]="restriction.content"></div>
   <a routerLink="contact">Contact</a>
 </div>
 <div
@@ -20,13 +13,6 @@
   xmlns="http://www.w3.org/1999/html"
 >
   <h1>Kårexpedition (KårX)</h1>
-  <div class="open-hours">måndag - torsdag 11.00 - 15.30</div>
-  <div class="open-hours">fredag 11.00 - 14.30</div>
-  <div class="student">
-    <p><span>Frågor kring medlemskap: </span>karx@ths.kth.se<br /></p>
-  </div>
-  <div class="booking">
-    <p><span>Bokningsförfrågningar: </span>lokalbokning@ths.kth.se<br /></p>
-  </div>
+  <div *ngIf="restriction" [innerHTML]="restriction.content"></div>
   <a routerLink="contact">Kontakt</a>
 </div>

@@ -317,7 +317,7 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
 
   getRestrictions(): void {
     this.restrictionUpdater = this.restrictionService
-      .getRestrictions(this.lang)
+      .getSingleRestriction("restrictions-in-nymble", this.lang)
       .subscribe(
         res => {
           this.restriction = res;
