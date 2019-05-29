@@ -1,5 +1,8 @@
 @import "../../../style/utilities";
 
+:host /deep/ a {
+  color: white;
+}
 .contact-info {
   background-color: $bg-color-primary;
   color: white;
