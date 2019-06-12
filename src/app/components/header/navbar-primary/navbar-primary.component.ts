@@ -216,12 +216,12 @@ export class NavbarPrimaryComponent implements OnInit, OnDestroy {
     if (this.language === "sv") {
       this.language_text = "English";
       this.language_img = "../../../assets/images/British_flag.png";
-      this.signin_text = "Logga in";
+      this.signin_text = "Min sida";
       this.chapter_text = "Sektioner";
     } else if (this.language === "en" || typeof this.language === "undefined") {
       this.language_text = "Svenska";
       this.language_img = "../../../../assets/images/sweden_flag.png";
-      this.signin_text = "Sign in";
+      this.signin_text = "My page";
       this.chapter_text = "Chapters";
     }
   }

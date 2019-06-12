@@ -400,12 +400,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.lang === "sv") {
       this.language_text = "In English";
       this.language_img = "../../../assets/images/British_flag.png";
-      this.signin_text = "Logga in";
+      this.signin_text = "Min sida";
       this.chapter_text = "Sektioner";
     } else if (this.lang === "en" || typeof this.lang === "undefined") {
       this.language_text = "På Svenska";
       this.language_img = "../../../../assets/images/sweden_flag.png";
-      this.signin_text = "Sign in";
+      this.signin_text = "My page";
       this.chapter_text = "Chapters";
     }
   }

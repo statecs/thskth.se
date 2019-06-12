@@ -41,7 +41,6 @@ export class ContactInfoComponent implements OnInit, OnDestroy {
   }
 
   getRestrictions(): void {
-    console.log("get");
     this.restrictionUpdater = this.restrictionService
       .getSingleRestriction("restrictions-karx", this.lang)
       .subscribe(
