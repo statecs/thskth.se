@@ -11,16 +11,16 @@
     class="button"
     *ngIf="lang === 'sv'"
     (click)="goToPage('/sv/general/membership')"
-    >{{ lang === "en" ? "Become a member" : "Bli medlem" }}</span
+    >{{ lang === "en" ? "More info" : "Mer info" }}</span
   >
   <span
     class="button"
     *ngIf="lang === 'en'"
     (click)="goToPage('/en/general/membership')"
-    >{{ lang === "en" ? "Become a member" : "Bli medlem" }}</span
+    >{{ lang === "en" ? "More info" : "Mer info" }}</span
   >
 
   <a class="button" href="http://ths.kth.se/login" target="_blank">{{
-    lang === "en" ? "My page" : "Min sida"
+    lang === "en" ? "Become a member" : "Bli medlem"
   }}</a>
 </div>

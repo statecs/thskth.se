@@ -397,6 +397,11 @@ const appRoutes: Routes = [
         path: ":subpage/:slug/:single_page_slug",
         component: SingleViewComponent,
         data: { title: "Student life" }
+      },
+      {
+        path: ":subpage/:slug/:second_slug/:single_page_slug",
+        component: SingleViewComponent,
+        data: { title: "Student life" }
       }
     ]
   },
